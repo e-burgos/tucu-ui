@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  width: 100%;
+  height: 100%;
+  -webkit-overflow-scrolling: touch;
+}
+
+body {
+  min-height: 100vh;
+  height: 100%;
+  width: 100vw;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+}
+
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+
+input[type='number']::-webkit-outer-spin-button {
+  margin: 0;
+  -webkit-appearance: none;
+}
+
+input[type='number']::-webkit-inner-spin-button {
+  margin: 0;
+  -webkit-appearance: none;
+}
+
+textarea::-webkit-input-placeholder {
+  color: #0000008a;
+}
+
+textarea::-moz-placeholder {
+  opacity: 1;
+  color: #0000008a;
+}
+
+textarea:-ms-input-placeholder {
+  color: #0000008a;
+}
+
+textarea::placeholder {
+  color: #0000008a;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+.blur-up {
+  -webkit-filter: blur(5px);
+  filter: blur(5px);
+  transition: filter 400ms, -webkit-filter 400ms;
+}
+
+.blur-up.lazyloaded {
+  -webkit-filter: blur(0);
+  filter: blur(0);
+}

@@ -1,0 +1,92 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 16px;
+  margin: 0;
+  height: 50px;
+  box-sizing: border-box;
+}
+
+.leftContent {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: fit-content;
+  gap: 5px;
+}
+
+.rightContent {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: fit-content;
+  gap: 20px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  gap: 5px;
+}
+
+.pageInfo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  line-break: anywhere;
+  gap: 5px;
+  margin-right: 10px;
+}
+
+.records {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: fit-content;
+  gap: 5px;
+  min-width: 120px;
+}
+
+.records p {
+  width: 55px;
+  line-break: anywhere;
+}
+
+.records div {
+  display: flex;
+  justify-content: center;
+  width: 50px;
+  height: 40px;
+  padding: 4px;
+  margin-top: 0.5px;
+  border: none !important;
+}
+
+.records fieldset {
+  border: none !important;
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    flex-direction: column-reverse;
+    align-items: center;
+    gap: 0px;
+    height: 100%;
+  }
+  .pageInfo {
+    margin-bottom: 10px;
+  }
+  .rightContent {
+    width: 100%;
+    gap: 0px;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+}

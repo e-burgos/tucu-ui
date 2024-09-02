@@ -1,0 +1,20 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  gap: 2px;
+}
+
+.pinButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  padding: 0;
+  margin: 0;
+  border: none;
+  cursor: pointer;
+  user-select: none;
+  touch-action: none;
+}
