@@ -1,0 +1,64 @@
+{
+  "name": "tucu-ui",
+  "description": "Tucu UI Library",
+  "version": "0.0.15",
+  "main": "./index.js",
+  "module": "./index.mjs",
+  "types": "./index.d.ts",
+  "style": "./index.css",
+  "author": "Esteban Burgos",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/e-burgos/product-line-apps/tree/main/ui/tucu-ui"
+  },
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "style": "./index.css",
+      "import": "./index.mjs",
+      "require": "./index.js"
+    },
+    "./styles": "./index.css"
+  },
+  "files": [
+    "**/*"
+  ],
+  "sideEffects": true,
+  "dependencies": {
+    "@headlessui/react": "2.1.8",
+    "@tailwindcss/postcss": "^4.1.10",
+    "@tailwindcss/vite": "^4.1.10",
+    "classnames": "^2.3.2",
+    "framer-motion": "11.5.5",
+    "lucide-react": "^0.460.0",
+    "overlayscrollbars": "^2.10.0",
+    "overlayscrollbars-react": "0.5.6",
+    "postcss": "^8.5.6",
+    "react-dropzone": "14.2.3",
+    "react-hook-form": "7.53.0",
+    "react-router-dom": "6.26.2",
+    "react-use": "^17.4.0",
+    "recharts": "2.12.7",
+    "simplebar-react": "3.2.6",
+    "swiper": "11.1.14",
+    "tailwindcss": "^4.1.10",
+    "tailwindcss-bg-patterns": "^0.3.0",
+    "zustand": "5.0.1"
+  },
+  "peerDependencies": {
+    "react": ">=17.0.0",
+    "react-dom": ">=17.0.0"
+  },
+  "scripts": {
+    "storybook": "storybook dev --initial-path=/docs/overview-introduction--documentation -p 6006",
+    "build-storybook": "storybook build --output-dir ../../dist/ui/storybook-tucu-ui",
+    "publish-storybook": "npx chromatic --project-token --force-rebuild",
+    "serve-storybook": "serve ../../dist/ui/storybook-tucu-ui -p 8080",
+    "chromatic": "npx chromatic --project-token --force-rebuild",
+    "storybook-doctor": "npx storybook doctor",
+    "publish:lib": "cd ../../dist/ui/tucu-ui && npm publish --access public",
+    "install:lib": "cd ../../ui/tucu-ui && npm install",
+    "publish": "npm publish --access public"
+  }
+}
