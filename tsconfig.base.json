@@ -15,7 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@tucu-ui/tucutable": ["libs/tucutable/src/index.ts"]
+      "@tucu-ui": ["ui/tucu-ui/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

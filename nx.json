@@ -14,6 +14,7 @@
     ],
     "sharedGlobals": []
   },
+  "nxCloudId": "670bcf6875f3520ee8b55405",
   "plugins": [
     {
       "plugin": "@nx/vite/plugin",
@@ -22,7 +23,8 @@
         "testTargetName": "test",
         "serveTargetName": "serve",
         "previewTargetName": "preview",
-        "serveStaticTargetName": "serve-static"
+        "serveStaticTargetName": "serve-static",
+        "typecheckTargetName": "typecheck"
       }
     },
     {
@@ -42,15 +44,15 @@
     "@nx/react": {
       "application": {
         "babel": true,
-        "style": "css",
+        "style": "tailwind",
         "linter": "eslint",
         "bundler": "vite"
       },
       "component": {
-        "style": "css"
+        "style": "tailwind"
       },
       "library": {
-        "style": "css",
+        "style": "tailwind",
         "linter": "eslint",
         "unitTestRunner": "none"
       }

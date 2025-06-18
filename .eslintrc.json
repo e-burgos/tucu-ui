@@ -1,42 +1,132 @@
 {
   "root": true,
-  "ignorePatterns": ["**/*"],
-  "plugins": ["@nx"],
+  "ignorePatterns": [
+    "**/*"
+  ],
+  "plugins": [
+    "@nx"
+  ],
+  "globals": {
+    "Atomics": "readonly",
+    "SharedArrayBuffer": "readonly"
+  },
+  "rules": {
+    "import/order": [
+      "off",
+      {
+        "groups": [
+          "builtin",
+          "external",
+          "internal",
+          "parent",
+          "sibling",
+          "index"
+        ],
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true
+        },
+        "pathGroups": [
+          {
+            "pattern": "react",
+            "group": "external",
+            "position": "before"
+          }
+        ],
+        "pathGroupsExcludedImportTypes": [
+          "react"
+        ]
+      }
+    ],
+    "@typescript-eslint/no-empty-interface": "off",
+    "no-unused-vars": "off",
+    "unused-imports/no-unused-imports": "off",
+    "@typescript-eslint/no-unused-vars": [
+      "warn",
+      {
+        "argsIgnorePattern": "^_"
+      }
+    ],
+    "@typescript-eslint/no-use-before-define": "off",
+    "@typescript-eslint/no-explicit-any": "warn",
+    "import/extensions": "off",
+    "import/no-extraneous-dependencies": "off",
+    "import/prefer-default-export": "off",
+    "no-empty": "off",
+    "no-param-reassign": "off",
+    "no-script-url": "off",
+    "no-use-before-define": "off",
+    "prefer-destructuring": "off",
+    "react-hooks/rules-of-hooks": "error",
+    "react/destructuring-assignment": "off",
+    "react/display-name": "off",
+    "react/jsx-key": "warn",
+    "react/jsx-props-no-spreading": "off",
+    "react/prop-types": "off",
+    "react/react-in-jsx-scope": "off",
+    "react/require-default-props": "off",
+    "react-hooks/exhaustive-deps": "error"
+  },
   "overrides": [
     {
-      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+      "files": [
+        "*.ts",
+        "*.tsx",
+        "*.js",
+        "*.jsx"
+      ],
       "rules": {
-        "@nx/enforce-module-boundaries": [
-          "error",
-          {
-            "enforceBuildableLibDependency": true,
-            "allow": [],
-            "depConstraints": [
-              {
-                "sourceTag": "*",
-                "onlyDependOnLibsWithTags": ["*"]
-              }
-            ]
-          }
-        ]
+        "react/jsx-no-useless-fragment": "off",
+        "no-extra-boolean-cast": "off"
+        // "@nx/enforce-module-boundaries": [
+        //   "error",
+        //   {
+        //     "enforceBuildableLibDependency": false,
+        //     "allow": [],
+        //     "depConstraints": [
+        //       {
+        //         "sourceTag": "*",
+        //         "onlyDependOnLibsWithTags": ["*"]
+        //       }
+        //     ]
+        //   }
+        // ]
       }
     },
     {
-      "files": ["*.ts", "*.tsx"],
-      "extends": ["plugin:@nx/typescript"],
+      "files": [
+        "*.ts",
+        "*.tsx"
+      ],
+      "extends": [
+        "plugin:@nx/typescript"
+      ],
       "rules": {}
     },
     {
-      "files": ["*.js", "*.jsx"],
-      "extends": ["plugin:@nx/javascript"],
+      "files": [
+        "*.js",
+        "*.jsx"
+      ],
+      "extends": [
+        "plugin:@nx/javascript"
+      ],
       "rules": {}
     },
     {
-      "files": ["*.spec.ts", "*.spec.tsx", "*.spec.js", "*.spec.jsx"],
+      "files": [
+        "*.spec.ts",
+        "*.spec.tsx",
+        "*.spec.js",
+        "*.spec.jsx"
+      ],
       "env": {
         "jest": true
       },
       "rules": {}
     }
+  ],
+  "extends": [
+    "plugin:storybook/recommended"
   ]
 }
