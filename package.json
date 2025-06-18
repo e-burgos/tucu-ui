@@ -12,7 +12,9 @@
     "tucu-ui:install": "npx nx run tucu-ui:install:lib",
     "tucu-ui:serve": "npx nx run tucu-ui:serve-storybook"
   },
-  "dependencies": {},
+  "dependencies": {
+    "tailwindcss": "^3.4.14"
+  },
   "devDependencies": {
     "@babel/core": "^7.14.5",
     "@babel/preset-react": "^7.14.5",

@@ -15,7 +15,6 @@ import { useTheme } from '../src/themes/use-theme';
 import { ScrollToTop } from '../src/components';
 import SettingsButton from '../src/themes/components/theme-provider/settings-button';
 import SettingsDrawer from '../src/themes/components/theme-provider/settings-drawer';
-
 import '../src/styles.css';
 
 const ThemeDecorator = (
