@@ -71,7 +71,7 @@ const meta: Meta<typeof Radio> = {
   },
   args: {
     label: 'Radio button label',
-    variant: 'outline',
+    variant: 'active',
     size: 'DEFAULT',
     color: 'DEFAULT',
     labelPlacement: 'end',
@@ -200,37 +200,6 @@ export const RadioGroup = () => {
             Selected option:{' '}
             {options.find((o) => o.id === selectedOption)?.label || 'None'}
           </p>
-        </div>
-      </div>
-    </StoryContainer>
-  );
-};
-
-export const RadioVariants = () => {
-  const [selectedVariant, setSelectedVariant] = React.useState('outline');
-
-  const variants = [
-    { id: 'outline', label: 'Outline Variant' },
-    { id: 'flat', label: 'Flat Variant' },
-    { id: 'active', label: 'Active Variant' },
-  ];
-
-  return (
-    <StoryContainer className="justify-center items-center">
-      <div className="w-full max-w-md p-6 border border-gray-200 dark:border-gray-700 rounded-lg">
-        <h3 className="text-lg font-medium mb-4">Radio Button Variants:</h3>
-        <div className="space-y-2">
-          {variants.map((variant) => (
-            <Radio
-              key={variant.id}
-              name="radio-variant-example"
-              label={variant.label}
-              checked={selectedVariant === variant.id}
-              onChange={() => setSelectedVariant(variant.id)}
-              variant={variant.id as 'outline' | 'flat' | 'active'}
-              color="primary"
-            />
-          ))}
         </div>
       </div>
     </StoryContainer>

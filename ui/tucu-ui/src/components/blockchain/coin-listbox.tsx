@@ -40,7 +40,7 @@ export default function CoinListBox({
           )}
         >
           <div className="flex items-center gap-3 font-medium ltr:mr-2 rtl:ml-2">
-            <span className="sm:[&>*]:h-[30px] sm:[&>*]:w-[30px]">
+            <span className="sm:*:h-[30px] sm:*:w-[30px]">
               {selectedCoin.icon}
             </span>
             {selectedCoin.code}
@@ -53,7 +53,7 @@ export default function CoinListBox({
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <Listbox.Options className="absolute -left-[1px] -right-[1px] z-50 mt-2 origin-top-right rounded-lg bg-white p-3 shadow-large dark:bg-gray-800">
+          <Listbox.Options className="absolute -left-px -right-px z-50 mt-2 origin-top-right rounded-lg bg-white p-3 shadow-large dark:bg-gray-800">
             {coins?.map((coin) => (
               <Listbox.Option key={coin.code} value={coin}>
                 {({ selected }: { selected: boolean }) => (

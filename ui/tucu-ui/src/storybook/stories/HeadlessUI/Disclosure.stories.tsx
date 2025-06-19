@@ -5,7 +5,7 @@ import { StoryContainer } from '../../components/StoryContainer';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 
 const meta: Meta<typeof Disclosure> = {
-  title: 'UI COMPONENTS/HeadlessUI/Disclosure',
+  title: 'EXTERNAL LIBS/HeadlessUI/Disclosure',
   tags: ['autodocs'],
   component: Disclosure,
   parameters: {
@@ -36,7 +36,7 @@ const Template: StoryFn<typeof Disclosure> = (args) => (
       <Disclosure {...args}>
         {({ open }) => (
           <>
-            <Disclosure.Button className="flex w-full justify-between rounded-lg bg-blue-100 px-4 py-2 text-left text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring focus-visible:ring-blue-500 focus-visible:ring-opacity-75">
+            <Disclosure.Button className="flex w-full justify-between rounded-lg bg-blue-100 px-4 py-2 text-left text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-hidden focus-visible:ring-3 focus-visible:ring-blue-500 focus-visible:ring-opacity-75">
               <span>What is Tucu UI?</span>
               {open ? (
                 <ChevronUp className="h-5 w-5 text-blue-500" />
@@ -70,7 +70,7 @@ export const MultipleDisclosures = () => (
       <Disclosure>
         {({ open }) => (
           <>
-            <Disclosure.Button className="flex w-full justify-between rounded-lg bg-blue-100 px-4 py-2 text-left text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring focus-visible:ring-blue-500 focus-visible:ring-opacity-75">
+            <Disclosure.Button className="flex w-full justify-between rounded-lg bg-blue-100 px-4 py-2 text-left text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-hidden focus-visible:ring-3 focus-visible:ring-blue-500 focus-visible:ring-opacity-75">
               <span>What is Tucu UI?</span>
               {open ? (
                 <ChevronUp className="h-5 w-5 text-blue-500" />
@@ -90,7 +90,7 @@ export const MultipleDisclosures = () => (
       <Disclosure>
         {({ open }) => (
           <>
-            <Disclosure.Button className="flex w-full justify-between rounded-lg bg-blue-100 px-4 py-2 text-left text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring focus-visible:ring-blue-500 focus-visible:ring-opacity-75">
+            <Disclosure.Button className="flex w-full justify-between rounded-lg bg-blue-100 px-4 py-2 text-left text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-hidden focus-visible:ring-3 focus-visible:ring-blue-500 focus-visible:ring-opacity-75">
               <span>How do I use Tucu UI?</span>
               {open ? (
                 <ChevronUp className="h-5 w-5 text-blue-500" />
@@ -110,7 +110,7 @@ export const MultipleDisclosures = () => (
       <Disclosure>
         {({ open }) => (
           <>
-            <Disclosure.Button className="flex w-full justify-between rounded-lg bg-blue-100 px-4 py-2 text-left text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring focus-visible:ring-blue-500 focus-visible:ring-opacity-75">
+            <Disclosure.Button className="flex w-full justify-between rounded-lg bg-blue-100 px-4 py-2 text-left text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-hidden focus-visible:ring-3 focus-visible:ring-blue-500 focus-visible:ring-opacity-75">
               <span>Is Tucu UI accessible?</span>
               {open ? (
                 <ChevronUp className="h-5 w-5 text-blue-500" />
@@ -146,7 +146,7 @@ export const CustomStyling = () => (
               } 
               px-4 py-3 text-left font-medium shadow transition-all duration-200
               hover:${open ? 'bg-indigo-700' : 'bg-indigo-200'} 
-              focus:outline-none focus-visible:ring focus-visible:ring-indigo-500 focus-visible:ring-opacity-75
+              focus:outline-hidden focus-visible:ring-3 focus-visible:ring-indigo-500 focus-visible:ring-opacity-75
             `}
             >
               <span>Advanced Settings</span>
@@ -208,7 +208,7 @@ export const NestedDisclosures = () => (
       <Disclosure>
         {({ open: parentOpen }) => (
           <>
-            <Disclosure.Button className="flex w-full justify-between rounded-lg bg-blue-100 px-4 py-2 text-left text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring focus-visible:ring-blue-500 focus-visible:ring-opacity-75">
+            <Disclosure.Button className="flex w-full justify-between rounded-lg bg-blue-100 px-4 py-2 text-left text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-hidden focus-visible:ring-3 focus-visible:ring-blue-500 focus-visible:ring-opacity-75">
               <span>Account Settings</span>
               {parentOpen ? (
                 <ChevronUp className="h-5 w-5 text-blue-500" />
@@ -225,7 +225,7 @@ export const NestedDisclosures = () => (
                 <Disclosure>
                   {({ open: childOpen1 }) => (
                     <>
-                      <Disclosure.Button className="flex w-full justify-between rounded-lg bg-gray-100 px-4 py-2 text-left text-sm font-medium text-gray-900 hover:bg-gray-200 focus:outline-none focus-visible:ring focus-visible:ring-gray-500 focus-visible:ring-opacity-75">
+                      <Disclosure.Button className="flex w-full justify-between rounded-lg bg-gray-100 px-4 py-2 text-left text-sm font-medium text-gray-900 hover:bg-gray-200 focus:outline-hidden focus-visible:ring-3 focus-visible:ring-gray-500 focus-visible:ring-opacity-75">
                         <span>Profile Information</span>
                         {childOpen1 ? (
                           <ChevronUp className="h-5 w-5 text-gray-500" />
@@ -243,7 +243,7 @@ export const NestedDisclosures = () => (
                 <Disclosure>
                   {({ open: childOpen2 }) => (
                     <>
-                      <Disclosure.Button className="flex w-full justify-between rounded-lg bg-gray-100 px-4 py-2 text-left text-sm font-medium text-gray-900 hover:bg-gray-200 focus:outline-none focus-visible:ring focus-visible:ring-gray-500 focus-visible:ring-opacity-75">
+                      <Disclosure.Button className="flex w-full justify-between rounded-lg bg-gray-100 px-4 py-2 text-left text-sm font-medium text-gray-900 hover:bg-gray-200 focus:outline-hidden focus-visible:ring-3 focus-visible:ring-gray-500 focus-visible:ring-opacity-75">
                         <span>Security Settings</span>
                         {childOpen2 ? (
                           <ChevronUp className="h-5 w-5 text-gray-500" />

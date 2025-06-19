@@ -9,7 +9,7 @@ const containerClasses = {
 };
 
 const inputClasses = {
-  base: 'block peer text-center bg-transparent mr-2 focus:placeholder:opacity-0 focus:outline-none transition duration-200 disabled:bg-gray-50 disabled:placeholder:text-gray-400 disabled:cursor-not-allowed disabled:border-gray-200',
+  base: 'block peer text-center bg-transparent mr-2 focus:placeholder:opacity-0 focus:outline-hidden transition duration-200 disabled:bg-gray-50 disabled:placeholder:text-gray-400 disabled:cursor-not-allowed disabled:border-gray-200',
   error:
     'border-red hover:enabled:!border-red focus:enabled:!border-red focus:!ring-red',
   size: {
@@ -20,7 +20,7 @@ const inputClasses = {
   },
   rounded: {
     none: 'rounded-none',
-    sm: 'rounded-sm',
+    sm: 'rounded-xs',
     DEFAULT: 'rounded-md',
     lg: 'rounded-lg',
     full: 'rounded-full',

@@ -22,7 +22,7 @@ export default function ClassicLayout({
   setIsOpen: (isOpen: boolean) => void;
 }>) {
   return (
-    <div className="ltr:xl:pl-24 rtl:xl:pr-24 ltr:2xl:pl-28 rtl:2xl:pr-28 ">
+    <div className="xl:ltr:pl-24 xl:rtl:pr-24 2xl:ltr:pl-28 2xl:rtl:pr-28 ">
       <ClassicHeader
         logo={logo}
         rightButton={rightButton}

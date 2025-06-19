@@ -46,7 +46,7 @@ export function ClassicHeader({
   return (
     <nav
       className={cn(
-        'sticky top-0 z-30 h-16 w-full backdrop-blur transition-all duration-300 ltr:right-0 rtl:left-0 sm:h-20 3xl:h-24',
+        'sticky top-0 z-30 h-16 w-full backdrop-blur-sm transition-all duration-300 ltr:right-0 rtl:left-0 sm:h-20 3xl:h-24',
         ((isMounted && windowScroll.y) as number) > 2
           ? 'bg-white/80 dark:bg-dark/80 shadow-card'
           : '',
@@ -122,7 +122,7 @@ export default function Header({
   return (
     <nav
       className={cn(
-        'sticky top-0 z-30 h-16 w-full backdrop-blur transition-shadow duration-300 ltr:right-0 rtl:left-0 sm:h-20 3xl:h-24',
+        'sticky top-0 z-30 h-16 w-full backdrop-blur-sm transition-shadow duration-300 ltr:right-0 rtl:left-0 sm:h-20 3xl:h-24',
         ((isMounted && windowScroll.y) as number) > 2
           ? 'bg-white/80 shadow-card dark:bg-dark/80'
           : '',

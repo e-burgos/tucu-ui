@@ -5,7 +5,7 @@ import { StoryContainer } from '../../components/StoryContainer';
 import Button from '../../../components/buttons/button';
 
 const meta: Meta<typeof Modal> = {
-  title: 'UI COMPONENTS/HeadlessUI/Modal',
+  title: 'EXTERNAL LIBS/HeadlessUI/Modal',
   tags: ['autodocs'],
   component: Modal,
   parameters: {

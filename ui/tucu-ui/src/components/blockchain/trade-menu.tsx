@@ -52,7 +52,7 @@ function ActiveNavLink({
       href={href}
       to={href}
       className={cn(
-        'relative z-[1] inline-flex items-center px-3 py-1.5',
+        'relative z-1 inline-flex items-center px-3 py-1.5',
         className
       )}
       activeClassName="font-medium text-white"
@@ -60,7 +60,7 @@ function ActiveNavLink({
       <span>{title}</span>
       {isActive && (
         <motion.span
-          className="absolute bottom-0 left-0 right-0 -z-[1] h-full w-full rounded-lg bg-brand shadow-large"
+          className="absolute bottom-0 left-0 right-0 -z-1 h-full w-full rounded-lg bg-brand shadow-large"
           layoutId="activeNavLinkIndicator"
         />
       )}

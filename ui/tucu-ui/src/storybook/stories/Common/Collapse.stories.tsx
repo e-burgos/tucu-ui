@@ -138,7 +138,7 @@ export const FAQ = () => (
       <Collapse label="How do I install Tucu UI?">
         <div className="p-5">
           <p className="mb-2">You can install Tucu UI using npm or yarn:</p>
-          <pre className="bg-gray-100 dark:bg-gray-800 p-2 rounded">
+          <pre className="bg-gray-100 dark:bg-gray-800 p-2 rounded-sm">
             npm install tucu-ui
           </pre>
         </div>

@@ -55,12 +55,12 @@ export function MenuItem({
             onClick={() => setIsOpen(!isOpen)}
             onTouchStart={() => setIsOpen(!isOpen)}
           >
-            <span className="z-[1] flex items-center ltr:mr-3 rtl:ml-3">
+            <span className="z-1 flex items-center ltr:mr-3 rtl:ml-3">
               <span className={cn('ltr:mr-3 rtl:ml-3')}>{icon}</span>
               {name}
             </span>
             <span
-              className={`z-[1] transition-transform duration-200 ${
+              className={`z-1 transition-transform duration-200 ${
                 isOpen ? 'rotate-180' : ''
               }`}
             >
@@ -83,7 +83,7 @@ export function MenuItem({
             style={{
               height: isOpen ? height : 0,
             }}
-            className="ease-[cubic-bezier(0.33, 1, 0.68, 1)] overflow-hidden transition-all duration-[350ms]"
+            className="ease-[cubic-bezier(0.33, 1, 0.68, 1)] overflow-hidden transition-all duration-350"
           >
             <ul ref={ref}>
               {dropdownItems.map((item, index) => (
@@ -102,8 +102,8 @@ export function MenuItem({
                     }}
                     href={item.href}
                     to={item.href}
-                    className="flex items-center rounded-lg p-3 text-sm text-gray-500 transition-all before:h-1 before:w-1 before:rounded-full before:bg-gray-500 hover:text-brand ltr:pl-6 before:ltr:mr-5 rtl:pr-6 before:rtl:ml-5 dark:hover:text-white"
-                    activeClassName="!text-brand dark:!text-white dark:before:!bg-white before:!bg-brand before:!w-2 before:!h-2 before:-ml-0.5 before:ltr:!mr-[18px] before:rtl:!ml-[18px] !font-medium"
+                    className="flex items-center rounded-lg p-3 text-sm text-gray-500 transition-all before:h-1 before:w-1 before:rounded-full before:bg-gray-500 hover:text-brand ltr:pl-6 ltr:before:mr-5 rtl:pr-6 rtl:before:ml-5 dark:hover:text-white"
+                    activeClassName="text-brand! dark:text-white! dark:before:bg-white! before:bg-brand! before:w-2! before:h-2! before:-ml-0.5 ltr:before:mr-[18px]! rtl:before:ml-[18px]! font-medium!"
                   >
                     {item.name}
                   </ActiveLink>
@@ -133,11 +133,11 @@ export function MenuItem({
               'bg-brand': isActive,
             }
           )}
-          activeClassName="!text-white"
+          activeClassName="text-white!"
         >
           <span
             className={cn(
-              'relative z-[1] duration-100 before:absolute before:-right-3 before:top-[50%] before:h-1 before:w-1 before:-translate-y-2/4 before:rounded-full before:bg-none ltr:mr-3 rtl:ml-3',
+              'relative z-1 duration-100 before:absolute before:-right-3 before:top-[50%] before:h-1 before:w-1 before:-translate-y-2/4 before:rounded-full before:bg-none ltr:mr-3 rtl:ml-3',
               {
                 'text-white': isActive,
                 'text-gray-500': !isActive && !name,
@@ -146,7 +146,7 @@ export function MenuItem({
           >
             {icon}
           </span>
-          <span className="relative z-[1] "> {name}</span>
+          <span className="relative z-1 "> {name}</span>
 
           {href === pathname && (
             <motion.span

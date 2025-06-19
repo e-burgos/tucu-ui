@@ -70,7 +70,7 @@ export function ParamTab({
     >
       <TabList
         className={cn(
-          'relative mb-6 bg-body text-sm uppercase before:absolute before:bottom-0 before:left-0 before:w-full before:rounded-sm before:bg-gray-200 dark:bg-dark dark:before:bg-gray-800 sm:gap-8 sm:rounded-none md:before:h-0.5',
+          'relative mb-6 bg-body text-sm uppercase before:absolute before:bottom-0 before:left-0 before:w-full before:rounded-xs before:bg-gray-200 dark:bg-dark dark:before:bg-gray-800 sm:gap-8 sm:rounded-none md:before:h-0.5',
           tabListClassName
         )}
       >
@@ -79,9 +79,7 @@ export function ParamTab({
         ) : (
           <div className="flex gap-6 md:gap-8 xl:gap-10 3xl:gap-12">
             {tabMenu.map((item) => (
-              <TabItem tabItemLayoutId="activeTabIndicator-two" key={item.path}>
-                {item.title}
-              </TabItem>
+              <TabItem key={item.path}>{item.title}</TabItem>
             ))}
           </div>
         )}

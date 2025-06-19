@@ -3,9 +3,14 @@ import type { Meta, StoryFn } from '@storybook/react-vite';
 import { Listbox, Transition } from '../../../components/headlessui';
 import { StoryContainer } from '../../components/StoryContainer';
 import { Check, ChevronDown } from 'lucide-react';
+import {
+  ListboxButton,
+  ListboxOption,
+  ListboxOptions,
+} from '@headlessui/react';
 
 const meta: Meta<typeof Listbox> = {
-  title: 'UI COMPONENTS/HeadlessUI/Listbox',
+  title: 'EXTERNAL LIBS/HeadlessUI/Listbox',
   tags: ['autodocs'],
   component: Listbox,
   parameters: {
@@ -41,24 +46,26 @@ const Template: StoryFn<typeof Listbox> = () => {
       <div className="w-72">
         <Listbox value={selected} onChange={setSelected}>
           <div className="relative mt-1">
-            <Listbox.Button className="relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-indigo-300 sm:text-sm">
-              <span className="block truncate">{selected.name}</span>
+            <ListboxButton className="relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-hidden focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-indigo-300 sm:text-sm">
+              <span className="block text-gray-900 truncate">
+                {selected.name}
+              </span>
               <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                 <ChevronDown
                   className="h-5 w-5 text-gray-400"
                   aria-hidden="true"
                 />
               </span>
-            </Listbox.Button>
+            </ListboxButton>
             <Transition
               as={Fragment}
               leave="transition ease-in duration-100"
               leaveFrom="opacity-100"
               leaveTo="opacity-0"
             >
-              <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+              <ListboxOptions className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-hidden sm:text-sm">
                 {people.map((person) => (
-                  <Listbox.Option
+                  <ListboxOption
                     key={person.id}
                     className={({ active }) =>
                       `relative cursor-default select-none py-2 pl-10 pr-4 ${
@@ -89,9 +96,9 @@ const Template: StoryFn<typeof Listbox> = () => {
                         ) : null}
                       </>
                     )}
-                  </Listbox.Option>
+                  </ListboxOption>
                 ))}
-              </Listbox.Options>
+              </ListboxOptions>
             </Transition>
           </div>
         </Listbox>
@@ -149,14 +156,16 @@ export const WithImages = () => {
       <div className="w-72">
         <Listbox value={selected} onChange={setSelected}>
           <div className="relative mt-1">
-            <Listbox.Button className="relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-indigo-300 sm:text-sm">
+            <ListboxButton className="relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-hidden focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-indigo-300 sm:text-sm">
               <div className="flex items-center">
                 <img
                   src={selected.avatar}
                   alt=""
-                  className="h-6 w-6 flex-shrink-0 rounded-full"
+                  className="h-6 w-6 shrink-0 rounded-full"
                 />
-                <span className="ml-3 block truncate">{selected.name}</span>
+                <span className="ml-3 block text-gray-900 truncate">
+                  {selected.name}
+                </span>
               </div>
               <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                 <ChevronDown
@@ -164,16 +173,16 @@ export const WithImages = () => {
                   aria-hidden="true"
                 />
               </span>
-            </Listbox.Button>
+            </ListboxButton>
             <Transition
               as={Fragment}
               leave="transition ease-in duration-100"
               leaveFrom="opacity-100"
               leaveTo="opacity-0"
             >
-              <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+              <ListboxOptions className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-hidden sm:text-sm">
                 {people.map((person) => (
-                  <Listbox.Option
+                  <ListboxOption
                     key={person.id}
                     className={({ active }) =>
                       `relative cursor-default select-none py-2 pl-10 pr-4 ${
@@ -190,7 +199,7 @@ export const WithImages = () => {
                           <img
                             src={person.avatar}
                             alt=""
-                            className="h-6 w-6 flex-shrink-0 rounded-full"
+                            className="h-6 w-6 shrink-0 rounded-full"
                           />
                           <span
                             className={`ml-3 block truncate ${
@@ -211,9 +220,9 @@ export const WithImages = () => {
                         ) : null}
                       </>
                     )}
-                  </Listbox.Option>
+                  </ListboxOption>
                 ))}
-              </Listbox.Options>
+              </ListboxOptions>
             </Transition>
           </div>
         </Listbox>
@@ -230,8 +239,8 @@ export const MultiSelect = () => {
       <div className="w-72">
         <Listbox value={selectedPeople} onChange={setSelectedPeople} multiple>
           <div className="relative mt-1">
-            <Listbox.Button className="relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-indigo-300 sm:text-sm">
-              <span className="block truncate">
+            <ListboxButton className="relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-hidden focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-indigo-300 sm:text-sm">
+              <span className="block text-gray-900 truncate">
                 {selectedPeople.length === 0
                   ? 'Select people'
                   : `${selectedPeople.length} selected`}
@@ -242,20 +251,20 @@ export const MultiSelect = () => {
                   aria-hidden="true"
                 />
               </span>
-            </Listbox.Button>
+            </ListboxButton>
             <Transition
               as={Fragment}
               leave="transition ease-in duration-100"
               leaveFrom="opacity-100"
               leaveTo="opacity-0"
             >
-              <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+              <ListboxOptions className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-hidden sm:text-sm">
                 {people.map((person) => {
                   const isSelected = selectedPeople.some(
                     (p) => p.id === person.id
                   );
                   return (
-                    <Listbox.Option
+                    <ListboxOption
                       key={person.id}
                       className={({ active }) =>
                         `relative cursor-default select-none py-2 pl-10 pr-4 ${
@@ -269,7 +278,7 @@ export const MultiSelect = () => {
                       {({ active }) => (
                         <>
                           <span
-                            className={`block truncate ${
+                            className={`block text-gray-900 truncate ${
                               isSelected ? 'font-medium' : 'font-normal'
                             }`}
                           >
@@ -286,10 +295,10 @@ export const MultiSelect = () => {
                           ) : null}
                         </>
                       )}
-                    </Listbox.Option>
+                    </ListboxOption>
                   );
                 })}
-              </Listbox.Options>
+              </ListboxOptions>
             </Transition>
           </div>
         </Listbox>
@@ -326,7 +335,7 @@ export const CustomStyling = () => {
       <div className="w-72">
         <Listbox value={selected} onChange={setSelected}>
           <div className="relative mt-1">
-            <Listbox.Button className="relative w-full cursor-default rounded-full bg-gradient-to-r from-blue-500 to-purple-500 py-3 pl-4 pr-10 text-left text-white shadow-lg hover:from-blue-600 hover:to-purple-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2 transition-all duration-200">
+            <ListboxButton className="relative w-full cursor-default rounded-full bg-linear-to-r from-blue-500 to-purple-500 py-3 pl-4 pr-10 text-left text-white shadow-lg hover:from-blue-600 hover:to-purple-600 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2 transition-all duration-200">
               <span className="flex items-center">
                 <span className="mr-2 text-lg">{selected.icon}</span>
                 <span className="block truncate font-medium">
@@ -339,21 +348,21 @@ export const CustomStyling = () => {
                   aria-hidden="true"
                 />
               </span>
-            </Listbox.Button>
+            </ListboxButton>
             <Transition
               as={Fragment}
               leave="transition ease-in duration-100"
               leaveFrom="opacity-100"
               leaveTo="opacity-0"
             >
-              <Listbox.Options className="absolute mt-2 max-h-60 w-full overflow-auto rounded-xl bg-white py-2 text-base shadow-xl ring-1 ring-black/5 focus:outline-none sm:text-sm">
+              <ListboxOptions className="absolute mt-2 max-h-60 w-full overflow-auto rounded-xl bg-white py-2 text-base shadow-xl ring-1 ring-black/5 focus:outline-hidden sm:text-sm">
                 {categories.map((category) => (
-                  <Listbox.Option
+                  <ListboxOption
                     key={category.id}
                     className={({ active }) =>
                       `relative cursor-default select-none py-3 pl-10 pr-4 ${
                         active
-                          ? 'bg-gradient-to-r from-blue-50 to-purple-50 text-purple-900'
+                          ? 'bg-linear-to-r from-blue-50 to-purple-50 text-purple-900'
                           : 'text-gray-900'
                       }`
                     }
@@ -364,7 +373,7 @@ export const CustomStyling = () => {
                         <span className="flex items-center">
                           <span className="mr-2 text-lg">{category.icon}</span>
                           <span
-                            className={`block truncate ${
+                            className={`block text-gray-900 truncate ${
                               selected ? 'font-medium' : 'font-normal'
                             }`}
                           >
@@ -382,9 +391,9 @@ export const CustomStyling = () => {
                         ) : null}
                       </>
                     )}
-                  </Listbox.Option>
+                  </ListboxOption>
                 ))}
-              </Listbox.Options>
+              </ListboxOptions>
             </Transition>
           </div>
         </Listbox>

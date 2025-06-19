@@ -65,7 +65,7 @@ export function InputSelect({
       <Listbox value={selectedOption} onChange={onChange} disabled={disabled}>
         <Listbox.Button
           className={cn(
-            'text-case-inherit letter-space-inherit flex h-10 w-full items-center justify-between rounded-lg px-4 text-sm font-medium outline-none duration-200 sm:h-12 sm:px-5',
+            'text-case-inherit letter-space-inherit flex h-10 w-full items-center justify-between rounded-lg px-4 text-sm font-medium outline-hidden duration-200 sm:h-12 sm:px-5',
             inputSelectVariantClasses[variant],
             disabled && 'cursor-not-allowed opacity-50'
           )}
@@ -79,7 +79,7 @@ export function InputSelect({
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <Listbox.Options className="absolute max-h-44 overflow-auto left-0 z-10 mt-1 grid w-full origin-top-right gap-0.5 rounded-lg border border-gray-200 bg-white p-1 shadow-large outline-none dark:border-gray-700 dark:bg-gray-800 xs:p-2">
+          <Listbox.Options className="absolute max-h-44 overflow-auto left-0 z-10 mt-1 grid w-full origin-top-right gap-0.5 rounded-lg border border-gray-200 bg-white p-1 shadow-large outline-hidden dark:border-gray-700 dark:bg-gray-800 xs:p-2">
             {options.map((option, index) => (
               <Listbox.Option key={`${option.value}-${index}`} value={option}>
                 {({ selected }) => (

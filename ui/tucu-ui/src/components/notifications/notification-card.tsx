@@ -35,7 +35,7 @@ export function NotificationCard({
           priority
         />
       </div>
-      <div className="ltr:ml-3 rtl:mr-3 ltr:sm:ml-4 rtl:sm:mr-4">
+      <div className="ltr:ml-3 rtl:mr-3 sm:ltr:ml-4 sm:rtl:mr-4">
         <div className="text-xs tracking-tighter text-gray-600 dark:text-gray-400 sm:text-sm">
           <span className="font-medium text-gray-900 ltr:mr-2 rtl:ml-2 dark:text-white">
             @{actor.name}

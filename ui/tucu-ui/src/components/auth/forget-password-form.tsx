@@ -36,7 +36,7 @@ export function ForgetPasswordForm({
         <Input
           type="email"
           placeholder="Enter your email"
-          inputClassName="focus:!ring-0 placeholder:text-[#6B7280] !mt-0"
+          inputClassName="focus:ring-0! placeholder:text-[#6B7280] mt-0!"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
@@ -45,7 +45,7 @@ export function ForgetPasswordForm({
         type="submit"
         disabled={!email}
         onClick={() => handleSubmit(email)}
-        className="mt-5 rounded-lg !text-sm uppercase tracking-[0.04em]"
+        className="mt-5 rounded-lg text-sm! uppercase tracking-[0.04em]"
       >
         Send Reset code
       </Button>

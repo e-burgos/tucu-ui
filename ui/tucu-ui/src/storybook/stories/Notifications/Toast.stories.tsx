@@ -147,7 +147,7 @@ const InteractiveToastDemo: React.FC = () => {
     <div>
       <div className="flex flex-col gap-6">
         {/* Login Form */}
-        <div className="bg-white p-4 rounded-lg shadow-sm dark:bg-gray-800">
+        <div className="bg-white p-4 rounded-lg shadow-xs dark:bg-gray-800">
           <h3 className="text-lg font-medium mb-4">Login Form</h3>
           <div className="flex flex-col gap-4 max-w-md">
             <div className="flex flex-col gap-1">
@@ -178,7 +178,7 @@ const InteractiveToastDemo: React.FC = () => {
         </div>
 
         {/* Form with Validation */}
-        <div className="bg-white p-4 rounded-lg shadow-sm dark:bg-gray-800">
+        <div className="bg-white p-4 rounded-lg shadow-xs dark:bg-gray-800">
           <h3 className="text-lg font-medium mb-4">Form with Validation</h3>
           <div className="flex flex-col gap-4 max-w-md">
             <div className="flex flex-col gap-1">
@@ -209,7 +209,7 @@ const InteractiveToastDemo: React.FC = () => {
         </div>
 
         {/* Notification Center */}
-        <div className="bg-white p-4 rounded-lg shadow-sm dark:bg-gray-800">
+        <div className="bg-white p-4 rounded-lg shadow-xs dark:bg-gray-800">
           <h3 className="text-lg font-medium mb-4">Notification Center</h3>
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">

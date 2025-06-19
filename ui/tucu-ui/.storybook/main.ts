@@ -70,11 +70,7 @@ const config: StorybookConfig = {
           'overlayscrollbars-react',
           'simplebar-react',
           'recharts',
-          'react-use/lib/useMeasure',
-          'react-use/lib/useClickAway',
-          'react-use/lib/factory/createBreakpoint',
-          'react-use/lib/useWindowScroll',
-          'react-use/lib/useCopyToClipboard',
+          'react-use',
         ],
       },
       build: {

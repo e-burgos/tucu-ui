@@ -73,7 +73,7 @@ export const WithOverlay = () => (
         <div className="h-full flex items-center justify-center p-4">
           Content with Overlay
         </div>
-        <div className="absolute inset-0 bg-blue-500/20 backdrop-blur-sm flex items-center justify-center">
+        <div className="absolute inset-0 bg-blue-500/20 backdrop-blur-xs flex items-center justify-center">
           <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-lg">
             Overlay Content
           </div>
@@ -119,7 +119,7 @@ export const MultipleUses = () => (
       </Paper>
 
       <Paper className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
-        <div className="absolute -top-3 left-3 bg-blue-100 dark:bg-blue-800 px-2 py-0.5 text-xs rounded">
+        <div className="absolute -top-3 left-3 bg-blue-100 dark:bg-blue-800 px-2 py-0.5 text-xs rounded-sm">
           Info
         </div>
         <p className="text-blue-700 dark:text-blue-300 mt-1">
@@ -128,7 +128,7 @@ export const MultipleUses = () => (
       </Paper>
 
       <Paper className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
-        <div className="h-24 bg-gradient-to-r from-purple-500 to-pink-500"></div>
+        <div className="h-24 bg-linear-to-r from-purple-500 to-pink-500"></div>
         <div className="p-4">
           <h3 className="text-lg font-medium mb-1">With Header</h3>
           <p className="text-gray-600 dark:text-gray-300">

@@ -1,25 +1,38 @@
 import { FC } from 'react';
-import { Tab } from '@headlessui/react';
+import {
+  Tab,
+  TabGroup as HeadlessTabGroup,
+  TabPanels as HeadlessTabPanels,
+  TabPanel as HeadlessTabPanel,
+  TabList as HeadlessTabList,
+  TabGroupProps,
+  TabPanelsProps,
+  TabPanelProps,
+  TabListProps,
+  TabProps,
+} from '@headlessui/react';
 import { motion, LayoutGroup } from 'framer-motion';
 import cn from 'classnames';
 
 export { Tab };
 
-export const TabGroup: FC<React.PropsWithChildren<{ className?: string }>> = (
-  props
-) => {
+export const TabGroup: FC<
+  React.PropsWithChildren<{ className?: string }> & TabGroupProps
+> = (props) => {
   return (
     <div className={cn('', props.className)}>
-      <Tab.Group>{props.children}</Tab.Group>
+      <HeadlessTabGroup>{props.children}</HeadlessTabGroup>
     </div>
   );
 };
 
-export const TabList: FC<React.PropsWithChildren<{ className?: string }>> = (
-  props
-) => {
+export const TabList: FC<
+  React.PropsWithChildren<{ className?: string }> & TabListProps
+> = (props) => {
   return (
-    <Tab.List className={cn('', props.className)}>{props.children}</Tab.List>
+    <HeadlessTabList className={cn('', props.className)}>
+      {props.children}
+    </HeadlessTabList>
   );
 };
 
@@ -27,22 +40,17 @@ export function TabItem({
   children,
   className,
   disabled,
-  tabItemLayoutId,
-}: React.PropsWithChildren<{
-  className?: string;
-  disabled?: boolean;
-  tabItemLayoutId?: string;
-}>) {
+}: React.PropsWithChildren<{ className?: string; disabled?: boolean }> &
+  TabProps) {
   return (
     <Tab
-      id={tabItemLayoutId}
       disabled={disabled}
       className={({ selected }) =>
         cn(
-          'relative text-lg tracking-wider hover:text-gray-900 focus:outline-none',
+          'relative text-lg tracking-wider hover:text-gray-900 focus:outline-hidden',
           'xs:py-2.5 sm:py-3 px-3 sm:h-12 h-8 sm:w-auto w-full',
           {
-            'font-medium rounded  dark:text-white text-current': selected,
+            'font-medium rounded-sm dark:text-white text-current': selected,
             'text-gray-600 dark:text-gray-400': !selected,
           },
           className
@@ -54,7 +62,7 @@ export function TabItem({
           <span className="flex w-full justify-center px-4">{children}</span>
           {selected && (
             <motion.span
-              className="absolute bottom-0 left-0 right-0 z-[1] h-0.5 w-full overflow-hidden rounded-full bg-brand md:z-10"
+              className="absolute bottom-0 left-0 right-0 z-1 h-0.5 w-full overflow-hidden rounded-full bg-brand md:z-10"
               layoutId="tab-indicator"
             />
           )}
@@ -67,22 +75,22 @@ export function TabItem({
 export function TabPanels({
   children,
   className,
-}: React.PropsWithChildren<{ className?: string }>) {
+}: React.PropsWithChildren<{ className?: string }> & TabPanelsProps) {
   return (
-    <Tab.Panels className={className}>
+    <HeadlessTabPanels className={className}>
       <LayoutGroup>
         <>{children}</>
       </LayoutGroup>
-    </Tab.Panels>
+    </HeadlessTabPanels>
   );
 }
 
 export function TabPanel({
   children,
   className,
-}: React.PropsWithChildren<{ className?: string }>) {
+}: React.PropsWithChildren<{ className?: string }> & TabPanelProps) {
   return (
-    <Tab.Panel className={className}>
+    <HeadlessTabPanel className={className}>
       <motion.div
         animate={{ opacity: 1, y: 0 }}
         initial={{ opacity: 0, y: 32 }}
@@ -91,6 +99,6 @@ export function TabPanel({
       >
         {children}
       </motion.div>
-    </Tab.Panel>
+    </HeadlessTabPanel>
   );
 }

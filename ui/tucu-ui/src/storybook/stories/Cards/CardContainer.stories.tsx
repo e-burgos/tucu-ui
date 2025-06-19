@@ -1,6 +1,7 @@
 import type { Meta, StoryFn } from '@storybook/react-vite';
 import { CardContainer } from '../../../components/cards/card-container';
 import { StoryContainer } from '../../components/StoryContainer';
+import React from 'react';
 
 const meta: Meta<typeof CardContainer> = {
   title: 'UI COMPONENTS/Cards/CardContainer',
@@ -59,10 +60,10 @@ export const WithComplexContent = () => (
             and action buttons.
           </p>
           <div className="flex justify-end gap-2">
-            <button className="px-4 py-2 bg-gray-200 dark:bg-gray-700 rounded">
+            <button className="px-4 py-2 bg-gray-200 dark:bg-gray-700 rounded-sm">
               Cancel
             </button>
-            <button className="px-4 py-2 bg-blue-500 text-white rounded">
+            <button className="px-4 py-2 bg-blue-500 text-white rounded-sm">
               Confirm
             </button>
           </div>

@@ -24,13 +24,13 @@ export function SignInForm({
       <Input
         type="email"
         placeholder="Enter your email"
-        inputClassName="focus:!ring-0 placeholder:text-[#6B7280]"
+        inputClassName="focus:ring-0! placeholder:text-[#6B7280]"
       />
       <div className="relative">
         <Input
           type={state ? 'text' : 'password'}
           placeholder="Password"
-          inputClassName="focus:!ring-0 placeholder:text-[#6B7280]"
+          inputClassName="focus:ring-0! placeholder:text-[#6B7280]"
         />
         <span
           className="absolute bottom-3 right-4 cursor-pointer text-[#6B7280] rtl:left-4 rtl:right-auto sm:bottom-3.5"
@@ -45,11 +45,11 @@ export function SignInForm({
       </div>
       <div className="flex items-center justify-between">
         <Checkbox
-          iconClassName="bg-[#4B5563] rounded focus:!ring-0"
+          iconClassName="bg-[#4B5563] rounded-sm focus:ring-0!"
           label="Remember me"
           labelPlacement="end"
           labelClassName="ml-1.5 mt-1 text-[#4B5563] sm:text-sm dark:text-gray-300 tracking-[0.5px]"
-          inputClassName="mt-0.5 focus:!ring-offset-[1px]"
+          inputClassName="mt-0.5 focus:ring-offset-1!"
           size="sm"
         />
         <AnchorLink
@@ -61,7 +61,7 @@ export function SignInForm({
       </div>
       <Button
         type="submit"
-        className="mt-5 rounded-lg !text-sm uppercase tracking-[0.04em]"
+        className="mt-5 rounded-lg text-sm! uppercase tracking-[0.04em]"
       >
         Log In
       </Button>

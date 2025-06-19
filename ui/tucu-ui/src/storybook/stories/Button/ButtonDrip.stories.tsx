@@ -2,6 +2,7 @@ import { useState } from 'react';
 import type { Meta, StoryFn } from '@storybook/react-vite';
 import { ButtonDrip } from '../../../components/buttons';
 import { StoryContainer } from '../../components/StoryContainer';
+import React from 'react';
 
 const meta: Meta<typeof ButtonDrip> = {
   title: 'UI COMPONENTS/Buttons/ButtonDrip',
@@ -109,13 +110,13 @@ export const InteractiveDemo = () => {
     <StoryContainer className="justify-center items-center flex-col">
       <div className="mb-4 flex gap-4">
         <button
-          className="px-3 py-1 bg-blue-500 text-white rounded"
+          className="px-3 py-1 bg-blue-500 text-white rounded-sm"
           onClick={() => setColor('rgba(255, 255, 255, 0.3)')}
         >
           Light Drip
         </button>
         <button
-          className="px-3 py-1 bg-gray-200 text-gray-800 rounded"
+          className="px-3 py-1 bg-gray-200 text-gray-800 rounded-sm"
           onClick={() => setColor('rgba(0, 0, 0, 0.2)')}
         >
           Dark Drip
@@ -123,7 +124,7 @@ export const InteractiveDemo = () => {
       </div>
       <button
         onClick={handleClick}
-        className="relative w-64 h-16 bg-gradient-to-r from-purple-500 to-indigo-600 rounded-lg flex items-center justify-center text-white font-medium overflow-hidden"
+        className="relative w-64 h-16 bg-linear-to-r from-purple-500 to-indigo-600 rounded-lg flex items-center justify-center text-white font-medium overflow-hidden"
       >
         Click Anywhere On Me
         {dripShow && (

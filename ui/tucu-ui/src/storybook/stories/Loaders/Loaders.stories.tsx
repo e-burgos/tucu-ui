@@ -239,19 +239,19 @@ export const ProgressbarRounded: Story = {
         <div className="space-y-6">
           <div className="flex flex-col gap-2">
             <h3 className="text-base font-medium">None</h3>
-            <Progressbar value={75} color="primary" rounded="none" />
+            <Progressbar value={75} color="primary" rounded-sm="none" />
           </div>
           <div className="flex flex-col gap-2">
             <h3 className="text-base font-medium">Small</h3>
-            <Progressbar value={75} color="primary" rounded="sm" />
+            <Progressbar value={75} color="primary" rounded-sm="sm" />
           </div>
           <div className="flex flex-col gap-2">
             <h3 className="text-base font-medium">Medium</h3>
-            <Progressbar value={75} color="primary" rounded="md" />
+            <Progressbar value={75} color="primary" rounded-sm="md" />
           </div>
           <div className="flex flex-col gap-2">
             <h3 className="text-base font-medium">Large</h3>
-            <Progressbar value={75} color="primary" rounded="lg" />
+            <Progressbar value={75} color="primary" rounded-sm="lg" />
           </div>
           <div className="flex flex-col gap-2">
             <h3 className="text-base font-medium">Full (Default)</h3>
@@ -363,7 +363,7 @@ export const LoadingStates: Story = {
         {/* Form submission */}
         <div className="flex flex-col gap-4">
           <h3 className="text-base font-medium">Form Submission</h3>
-          <div className="bg-white p-4 rounded-lg shadow-sm dark:bg-gray-800">
+          <div className="bg-white p-4 rounded-lg shadow-xs dark:bg-gray-800">
             <div className="flex flex-col gap-4 max-w-md">
               <div className="flex flex-col gap-1">
                 <label className="text-sm font-medium">Email</label>
@@ -394,7 +394,7 @@ export const LoadingStates: Story = {
         {/* Card loading state */}
         <div className="flex flex-col gap-4">
           <h3 className="text-base font-medium">Card Loading State</h3>
-          <div className="bg-white p-6 rounded-lg shadow-sm flex flex-col items-center justify-center min-h-[200px] dark:bg-gray-800">
+          <div className="bg-white p-6 rounded-lg shadow-xs flex flex-col items-center justify-center min-h-[200px] dark:bg-gray-800">
             <Loader className="text-blue-600" />
             <p className="mt-4 text-gray-500 dark:text-gray-400">
               Loading content...
@@ -405,7 +405,7 @@ export const LoadingStates: Story = {
         {/* Page loading progress */}
         <div className="flex flex-col gap-4">
           <h3 className="text-base font-medium">Page Loading Progress</h3>
-          <div className="bg-white p-6 rounded-lg shadow-sm dark:bg-gray-800">
+          <div className="bg-white p-6 rounded-lg shadow-xs dark:bg-gray-800">
             <div className="flex flex-col gap-4">
               <Progressbar value={75} color="primary" />
               <p className="text-sm text-center text-gray-500 dark:text-gray-400">

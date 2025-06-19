@@ -49,12 +49,7 @@ export const TabSelect = forwardRef(
               onClick={() => setVisibleMobileMenu(false)}
               className="w-full"
             >
-              <TabItem
-                tabItemLayoutId="activeTabIndicator-one"
-                className="w-full"
-              >
-                {item.title}
-              </TabItem>
+              <TabItem className="w-full">{item.title}</TabItem>
             </div>
           ))}
         </div>

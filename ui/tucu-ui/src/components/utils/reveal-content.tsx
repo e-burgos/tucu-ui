@@ -39,7 +39,7 @@ export function RevealContent({
         <div ref={revealChildEl}>{children}</div>
       </div>
       {!showContent && (
-        <div className="before:content-[' '] relative from-white pt-3 before:absolute before:-top-8 before:block before:h-8 before:w-full before:bg-gradient-to-t dark:from-light-dark">
+        <div className="before:content-[' '] relative from-white pt-3 before:absolute before:-top-8 before:block before:h-8 before:w-full before:bg-linear-to-t dark:from-light-dark">
           <Button
             size="mini"
             shape="rounded"

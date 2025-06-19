@@ -1,6 +1,53 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@config '../../../tailwind.config.js';
+
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+}
+
+@utility text-case-inherit {
+  text-transform: inherit;
+}
+
+@utility letter-space-inherit {
+  letter-spacing: inherit;
+}
+
+@utility word-break-all {
+  word-break: break-all;
+}
+
+@utility animation-delay-200 {
+  animation-delay: 200ms;
+}
+
+@utility animation-delay-500 {
+  animation-delay: 500ms;
+}
+
+@utility animation-delay-700 {
+  animation-delay: 700ms;
+}
+
+@utility text-vertical {
+  writing-mode: tb;
+  text-orientation: upright;
+}
 
 @layer base {
   :root {
@@ -30,37 +77,6 @@
   }
 }
 
-@layer utilities {
-  .text-case-inherit {
-    text-transform: inherit;
-  }
-
-  .letter-space-inherit {
-    letter-spacing: inherit;
-  }
-
-  .word-break-all {
-    word-break: break-all;
-  }
-
-  .animation-delay-200 {
-    animation-delay: 200ms;
-  }
-
-  .animation-delay-500 {
-    animation-delay: 500ms;
-  }
-
-  .animation-delay-700 {
-    animation-delay: 700ms;
-  }
-
-  .text-vertical {
-    writing-mode: tb;
-    text-orientation: upright;
-  }
-}
-
 /* Hide spin button for input type number */
 input.spin-button-hidden::-webkit-outer-spin-button,
 input.spin-button-hidden::-webkit-inner-spin-button {
@@ -80,7 +96,7 @@ Styles for Swiper slider
 }
 
 .swiper-scrollbar {
-  @apply relative bg-gray-200 rounded dark:bg-gray-600;
+  @apply relative bg-gray-200 rounded-sm dark:bg-gray-600;
 }
 
 .swiper-horizontal > .swiper-scrollbar {
@@ -92,15 +108,15 @@ Styles for Swiper slider
 }
 
 .swiper-scrollbar-drag {
-  @apply relative bg-gray-900 rounded dark:bg-light-dark;
+  @apply relative bg-gray-900 rounded-sm dark:bg-light-dark;
 }
 
 .swiper-horizontal .swiper-scrollbar-drag {
-  @apply left-0 top-[-1px] h-[3px] w-full shadow-sm;
+  @apply left-0 -top-px h-[3px] w-full shadow-xs;
 }
 
 .swiper-vertical .swiper-scrollbar-drag {
-  @apply left-[-1px] top-0 h-full w-[3px] shadow-sm;
+  @apply -left-px top-0 h-full w-[3px] shadow-xs;
 }
 
 .swiper-scrollbar-cursor-drag {
@@ -184,25 +200,25 @@ Styles for Swiper slider
 }
 
 .recharts-tooltip-wrapper .recharts-default-tooltip {
-  @apply rounded-sm !border-0 !bg-white !px-4 shadow-card dark:!bg-light-dark;
+  @apply rounded-xs border-0! bg-white! px-4! shadow-card dark:bg-light-dark!;
 }
 
 .recharts-tooltip-wrapper .recharts-default-tooltip .recharts-tooltip-item {
-  @apply text-xs uppercase dark:!text-gray-400 lg:text-sm;
+  @apply text-xs uppercase dark:text-gray-400! lg:text-sm;
 }
 
 .tippy-box {
-  @apply rounded-sm !border-0 !bg-white !text-brand shadow-card dark:!bg-gray-600 dark:!text-white;
+  @apply rounded-xs border-0! bg-white! text-brand! shadow-card dark:bg-gray-600! dark:text-white!;
 }
 
 .tippy-arrow {
-  @apply !text-white dark:!text-gray-600;
+  @apply text-white! dark:text-gray-600!;
 }
 
 @media (max-width: 767px) {
   .pricing-table-head th:is(:first-child, :nth-child(2), :nth-child(3)),
   .pricing-table-body td:is(:first-child, :nth-child(2), :nth-child(3)) {
-    @apply !sticky z-10 ltr:left-0 ltr:pl-[10px] ltr:pr-0 rtl:right-0 rtl:pl-0 rtl:pr-[10px];
+    @apply sticky! z-10 ltr:left-0 ltr:pl-[10px] ltr:pr-0 rtl:right-0 rtl:pl-0 rtl:pr-[10px];
   }
 
   .pricing-table-head th:first-child,
@@ -237,7 +253,7 @@ Styles for Swiper slider
 
   .pricing-table-head th:nth-child(3),
   .pricing-table-body td:nth-child(3) {
-    @apply !w-[120px] px-0 py-5 ltr:left-[50px] ltr:shadow-[8px_9px_16px_rgba(17,24,39,0.05)] rtl:right-[50px] rtl:shadow-[-8px_9px_16px_rgba(17,24,39,0.05)];
+    @apply w-[120px]! px-0 py-5 ltr:left-[50px] ltr:shadow-[8px_9px_16px_rgba(17,24,39,0.05)] rtl:right-[50px] rtl:shadow-[-8px_9px_16px_rgba(17,24,39,0.05)];
   }
 
   .pricing-table-head th:nth-child(4),
@@ -281,7 +297,7 @@ input.reset-password-pin-code[type='number'] {
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  @apply rounded;
+  @apply rounded-sm;
   background-color: rgba(0, 0, 0, 0.2);
 }
 
@@ -293,7 +309,7 @@ input.reset-password-pin-code[type='number'] {
 
 /* simple bar scroll bar style  */
 .simplebar-scrollbar::before {
-  @apply !bg-gray-500;
+  @apply bg-gray-500!;
 }
 
 .coin-list-scrollbar {

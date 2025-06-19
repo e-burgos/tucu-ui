@@ -34,7 +34,7 @@ export const InputSwitch: React.FC<InputSwitchProps> = ({
         checked={checked}
         onChange={(e) => onChange(e.target.checked)}
         className={cn(
-          'appearance-none transition-colors cursor-pointer w-14 h-7 rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-black focus:ring-brand/50',
+          'appearance-none transition-colors cursor-pointer w-14 h-7 rounded-full focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-offset-black focus:ring-brand/50',
           checked ? 'bg-brand' : 'bg-gray-500'
         )}
       />

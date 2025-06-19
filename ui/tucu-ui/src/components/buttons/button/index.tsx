@@ -127,7 +127,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     return (
       <div className={cn('relative', fullWidth && 'w-full')}>
         {tooltip && hover && (
-          <span className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 w-max px-2 py-1 text-xs dark:bg-light-dark bg-white rounded">
+          <span className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 w-max px-2 py-1 text-xs dark:bg-light-dark bg-white rounded-sm">
             {tooltip}
           </span>
         )}
@@ -137,15 +137,15 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           ref={buttonRef}
           onClick={clickHandler}
           className={cn(
-            'group inline-flex shrink-0 items-center justify-center overflow-hidden text-center text-xs font-medium tracking-wider outline-none transition-all sm:text-sm',
+            'group inline-flex shrink-0 items-center justify-center overflow-hidden text-center text-xs font-medium tracking-wider outline-hidden transition-all sm:text-sm',
             !disabled
               ? buttonColorClassNames
               : 'cursor-not-allowed dark:bg-gray-700 dark:text-gray-500 bg-gray-300 text-gray-600',
             disabled || isLoading || variant === 'transparent'
               ? 'bg-gray-100/25'
-              : 'hover:-translate-y-0.5 hover:shadow-large focus:-translate-y-0.5 focus:shadow-large focus:outline-none',
+              : 'hover:-translate-y-0.5 hover:shadow-large focus:-translate-y-0.5 focus:shadow-large focus:outline-hidden',
             isLoading &&
-              'pointer-events-auto cursor-default focus:outline-none',
+              'pointer-events-auto cursor-default focus:outline-hidden',
             fullWidth && 'w-full',
             color === 'white' || color === 'gray'
               ? 'text-gray-900 dark:text-white'

@@ -11,7 +11,7 @@ const classes = {
   },
   rounded: {
     none: 'rounded-none',
-    sm: 'rounded-sm',
+    sm: 'rounded-xs',
     md: 'rounded-md',
     lg: 'rounded-lg',
     DEFAULT: 'rounded-full',

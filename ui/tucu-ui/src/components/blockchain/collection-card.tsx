@@ -33,7 +33,7 @@ export function CollectionCard({ item, className = '' }: CollectionCardProps) {
         className
       )}
     >
-      <div className="relative flex aspect-[8/11] w-full justify-center overflow-hidden rounded-lg">
+      <div className="relative flex aspect-8/11 w-full justify-center overflow-hidden rounded-lg">
         <Image
           src={cover_image}
           placeholder="blur"
@@ -42,7 +42,7 @@ export function CollectionCard({ item, className = '' }: CollectionCardProps) {
           alt={name}
         />
       </div>
-      <div className="absolute left-0 top-0 z-[5] flex h-full w-full flex-col justify-between bg-gradient-to-t from-black p-5 md:p-6">
+      <div className="absolute left-0 top-0 z-5 flex h-full w-full flex-col justify-between bg-linear-to-t from-black p-5 md:p-6">
         <AnchorLink
           to={'/' + slug}
           className="absolute left-0 top-0 z-10 h-full w-full"
@@ -50,7 +50,7 @@ export function CollectionCard({ item, className = '' }: CollectionCardProps) {
         <div className="flex justify-between gap-3">
           <div
             className="inline-flex h-8 shrink-0 items-center rounded-2xl bg-white/20 px-4 text-xs font-medium uppercase -tracking-wide text-white
-          backdrop-blur-[40px]"
+          backdrop-blur-2xl"
           >
             {name}
           </div>
@@ -72,7 +72,7 @@ export function CollectionCard({ item, className = '' }: CollectionCardProps) {
           </div>
           <AnchorLink
             to={'/' + user?.slug}
-            className="relative z-10 mt-3.5 inline-flex items-center rounded-3xl bg-white/20 p-2 backdrop-blur-[40px]"
+            className="relative z-10 mt-3.5 inline-flex items-center rounded-3xl bg-white/20 p-2 backdrop-blur-2xl"
           >
             <Avatar
               image={user?.avatar as string}

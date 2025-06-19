@@ -4,7 +4,7 @@ import { Switch } from '../../../components/headlessui';
 import { StoryContainer } from '../../components/StoryContainer';
 
 const meta: Meta<typeof Switch> = {
-  title: 'UI COMPONENTS/HeadlessUI/Switch',
+  title: 'EXTERNAL LIBS/HeadlessUI/Switch',
   tags: ['autodocs'],
   component: Switch,
   parameters: {
@@ -43,7 +43,7 @@ const BasicTemplate: StoryFn<typeof Switch> = () => {
         onChange={setEnabled}
         className={`${
           enabled ? 'bg-blue-600' : 'bg-gray-200'
-        } relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2`}
+        } relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-hidden focus:ring-2 focus:ring-blue-500 focus:ring-offset-2`}
       >
         <span className="sr-only">Enable notifications</span>
         <span
@@ -69,7 +69,7 @@ export const WithLabel = () => {
           onChange={setEnabled}
           className={`${
             enabled ? 'bg-blue-600' : 'bg-gray-200'
-          } relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2`}
+          } relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-hidden focus:ring-2 focus:ring-blue-500 focus:ring-offset-2`}
         >
           <span className="sr-only">Enable notifications</span>
           <span
@@ -96,7 +96,7 @@ export const CustomColors = () => {
         onChange={setEnabled}
         className={`${
           enabled ? 'bg-green-500' : 'bg-red-500'
-        } relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-2`}
+        } relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-hidden focus:ring-2 focus:ring-green-400 focus:ring-offset-2`}
       >
         <span className="sr-only">Toggle status</span>
         <span
@@ -119,7 +119,7 @@ export const LargeSwitch = () => {
         onChange={setEnabled}
         className={`${
           enabled ? 'bg-indigo-600' : 'bg-gray-200'
-        } relative inline-flex h-8 w-16 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2`}
+        } relative inline-flex h-8 w-16 items-center rounded-full transition-colors focus:outline-hidden focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2`}
       >
         <span className="sr-only">Enable feature</span>
         <span
@@ -142,7 +142,7 @@ export const WithIcons = () => {
         onChange={setEnabled}
         className={`${
           enabled ? 'bg-purple-600' : 'bg-gray-300'
-        } relative inline-flex h-7 w-14 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2`}
+        } relative inline-flex h-7 w-14 items-center rounded-full transition-colors focus:outline-hidden focus:ring-2 focus:ring-purple-500 focus:ring-offset-2`}
       >
         <span className="sr-only">Toggle mode</span>
         <span
@@ -196,7 +196,7 @@ export const SwitchGroup = () => {
 
   return (
     <StoryContainer className="justify-center items-center">
-      <div className="w-full max-w-md bg-white p-6 rounded-lg shadow-sm">
+      <div className="w-full max-w-md bg-white p-6 rounded-lg shadow-xs">
         <h3 className="text-lg font-medium text-gray-900 mb-4">
           Notification Settings
         </h3>
@@ -215,7 +215,7 @@ export const SwitchGroup = () => {
               onChange={() => toggleSetting('emailNotifications')}
               className={`${
                 settings.emailNotifications ? 'bg-blue-600' : 'bg-gray-200'
-              } relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2`}
+              } relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-hidden focus:ring-2 focus:ring-blue-500 focus:ring-offset-2`}
             >
               <span className="sr-only">Email notifications</span>
               <span
@@ -242,7 +242,7 @@ export const SwitchGroup = () => {
               onChange={() => toggleSetting('pushNotifications')}
               className={`${
                 settings.pushNotifications ? 'bg-blue-600' : 'bg-gray-200'
-              } relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2`}
+              } relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-hidden focus:ring-2 focus:ring-blue-500 focus:ring-offset-2`}
             >
               <span className="sr-only">Push notifications</span>
               <span
@@ -267,7 +267,7 @@ export const SwitchGroup = () => {
               onChange={() => toggleSetting('marketingEmails')}
               className={`${
                 settings.marketingEmails ? 'bg-blue-600' : 'bg-gray-200'
-              } relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2`}
+              } relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-hidden focus:ring-2 focus:ring-blue-500 focus:ring-offset-2`}
             >
               <span className="sr-only">Marketing emails</span>
               <span

@@ -50,11 +50,11 @@ export const Modal: React.FC<ModalProps> = ({
     <Dialog
       open={isOpen}
       as="div"
-      className="relative z-10 focus:outline-none"
+      className="relative z-10 focus:outline-hidden"
       onClose={closeableClose}
     >
       <div
-        className={`fixed inset-0 z-10 w-screen bg-gray-700/90 backdrop-blur overflow-x-hidden overflow-y-hidden`}
+        className={`fixed inset-0 z-10 w-screen bg-gray-700/90 backdrop-blur-sm overflow-x-hidden overflow-y-hidden`}
       >
         <TransitionChild
           as={Fragment}
@@ -66,7 +66,7 @@ export const Modal: React.FC<ModalProps> = ({
           leaveTo="opacity-0 scale-105"
         >
           <div className="flex min-h-full items-center justify-center p-4">
-            <DialogPanel className="flex h-full w-full items-center justify-center overflow-y duration-300 ease-out data-[closed]:transform-[scale(95%)] data-[closed]:opacity-0">
+            <DialogPanel className="flex h-full w-full items-center justify-center overflow-y duration-300 ease-out data-closed:transform-[scale(95%)] data-closed:opacity-0">
               <CardContainer
                 className={cn(
                   'w-full sm:max-w-[800px] rounded-xl shadow-card',

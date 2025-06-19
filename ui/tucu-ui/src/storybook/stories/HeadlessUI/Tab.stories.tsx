@@ -10,7 +10,7 @@ import {
 import { StoryContainer } from '../../components/StoryContainer';
 
 const meta: Meta<typeof TabGroup> = {
-  title: 'UI COMPONENTS/HeadlessUI/Tab',
+  title: 'EXTERNAL LIBS/HeadlessUI/Tab',
   tags: ['autodocs'],
   component: TabGroup,
   parameters: {
@@ -21,16 +21,7 @@ const meta: Meta<typeof TabGroup> = {
       },
     },
   },
-  argTypes: {
-    selectedIndex: {
-      control: { type: 'number', min: 0, max: 2 },
-      description: 'The index of the selected tab',
-    },
-    onChange: {
-      action: 'changed',
-      description: 'Function called when the selected tab changes',
-    },
-  },
+  argTypes: {},
 };
 
 export default meta;
@@ -40,13 +31,13 @@ const BasicTabTemplate: StoryFn<typeof TabGroup> = (args) => (
     <div className="w-full max-w-md mx-auto">
       <TabGroup {...args}>
         <TabList className="flex space-x-1 rounded-xl bg-blue-900/20 p-1">
-          <TabItem className="w-full rounded-lg py-2.5 text-sm font-medium leading-5 text-blue-700 ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2">
+          <TabItem className="w-full rounded-lg py-2.5 text-sm font-medium leading-5 text-blue-700 ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-hidden focus:ring-2">
             Tab 1
           </TabItem>
-          <TabItem className="w-full rounded-lg py-2.5 text-sm font-medium leading-5 text-blue-700 ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2">
+          <TabItem className="w-full rounded-lg py-2.5 text-sm font-medium leading-5 text-blue-700 ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-hidden focus:ring-2">
             Tab 2
           </TabItem>
-          <TabItem className="w-full rounded-lg py-2.5 text-sm font-medium leading-5 text-blue-700 ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2">
+          <TabItem className="w-full rounded-lg py-2.5 text-sm font-medium leading-5 text-blue-700 ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-hidden focus:ring-2">
             Tab 3
           </TabItem>
         </TabList>
@@ -90,37 +81,37 @@ export const VerticalTabs = () => (
       <TabGroup vertical>
         <div className="flex space-x-6">
           <TabList className="flex flex-col space-y-1 bg-gray-100 p-2 rounded-lg w-48">
-            <TabItem className="px-4 py-2 text-left rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+            <TabItem className="px-4 py-2 text-left rounded-md focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
               Account Settings
             </TabItem>
-            <TabItem className="px-4 py-2 text-left rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+            <TabItem className="px-4 py-2 text-left rounded-md focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
               Notifications
             </TabItem>
-            <TabItem className="px-4 py-2 text-left rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+            <TabItem className="px-4 py-2 text-left rounded-md focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
               Security
             </TabItem>
           </TabList>
           <TabPanels className="flex-1">
-            <TabPanel className="rounded-lg bg-white p-6 shadow">
+            <TabPanel className="rounded-lg bg-white p-6 shadow-sm">
               <h3 className="text-lg font-medium">Account Settings</h3>
               <div className="mt-4 space-y-4">
                 <div>
                   <label className="block text-sm font-medium">Name</label>
                   <input
                     type="text"
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-xs"
                   />
                 </div>
                 <div>
                   <label className="block text-sm font-medium">Email</label>
                   <input
                     type="email"
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-xs"
                   />
                 </div>
               </div>
             </TabPanel>
-            <TabPanel className="rounded-lg bg-white p-6 shadow">
+            <TabPanel className="rounded-lg bg-white p-6 shadow-sm">
               <h3 className="text-lg font-medium">Notifications</h3>
               <div className="mt-4 space-y-3">
                 <label className="flex items-center">
@@ -139,7 +130,7 @@ export const VerticalTabs = () => (
                 </label>
               </div>
             </TabPanel>
-            <TabPanel className="rounded-lg bg-white p-6 shadow">
+            <TabPanel className="rounded-lg bg-white p-6 shadow-sm">
               <h3 className="text-lg font-medium">Security</h3>
               <div className="mt-4">
                 <p className="text-sm text-gray-500 mb-4">
@@ -166,7 +157,7 @@ export const CustomStyling = () => (
           {['Recent', 'Popular', 'Trending'].map((category) => (
             <TabItem
               key={category}
-              className="w-full py-2.5 text-sm font-medium leading-5 text-gray-700 hover:text-gray-900 focus:outline-none"
+              className="w-full py-2.5 text-sm font-medium leading-5 text-gray-700 hover:text-gray-900 focus:outline-hidden"
             >
               {category}
             </TabItem>
@@ -221,7 +212,7 @@ export const TabsWithIcons = () => (
     <div className="w-full max-w-md mx-auto">
       <TabGroup>
         <TabList className="flex space-x-1 rounded-xl bg-gray-100 p-1">
-          <TabItem className="w-full rounded-lg py-2.5 text-sm font-medium leading-5 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+          <TabItem className="w-full rounded-lg py-2.5 text-sm font-medium leading-5 focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
             <div className="flex items-center justify-center">
               <svg
                 className="w-5 h-5 mr-2"
@@ -240,7 +231,7 @@ export const TabsWithIcons = () => (
               Home
             </div>
           </TabItem>
-          <TabItem className="w-full rounded-lg py-2.5 text-sm font-medium leading-5 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+          <TabItem className="w-full rounded-lg py-2.5 text-sm font-medium leading-5 focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
             <div className="flex items-center justify-center">
               <svg
                 className="w-5 h-5 mr-2"
@@ -259,7 +250,7 @@ export const TabsWithIcons = () => (
               About
             </div>
           </TabItem>
-          <TabItem className="w-full rounded-lg py-2.5 text-sm font-medium leading-5 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+          <TabItem className="w-full rounded-lg py-2.5 text-sm font-medium leading-5 focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
             <div className="flex items-center justify-center">
               <svg
                 className="w-5 h-5 mr-2"
@@ -280,19 +271,19 @@ export const TabsWithIcons = () => (
           </TabItem>
         </TabList>
         <TabPanels className="mt-2">
-          <TabPanel className="rounded-xl bg-white p-3 shadow">
+          <TabPanel className="rounded-xl bg-white p-3 shadow-sm">
             <h3 className="text-lg font-medium">Home</h3>
             <p className="mt-2 text-sm text-gray-500">
               Welcome to the home page of our website.
             </p>
           </TabPanel>
-          <TabPanel className="rounded-xl bg-white p-3 shadow">
+          <TabPanel className="rounded-xl bg-white p-3 shadow-sm">
             <h3 className="text-lg font-medium">About</h3>
             <p className="mt-2 text-sm text-gray-500">
               Learn more about our company and our mission.
             </p>
           </TabPanel>
-          <TabPanel className="rounded-xl bg-white p-3 shadow">
+          <TabPanel className="rounded-xl bg-white p-3 shadow-sm">
             <h3 className="text-lg font-medium">Contact</h3>
             <p className="mt-2 text-sm text-gray-500">
               Get in touch with our team for any questions or inquiries.

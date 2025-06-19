@@ -72,7 +72,7 @@ export const Variants: Story = {
             <div className="rounded-lg bg-green-50 border border-green-200 py-4 px-6 dark:bg-green-900/20 dark:border-green-800">
               <Alert>
                 <div className="flex items-center">
-                  <div className="flex-shrink-0">
+                  <div className="shrink-0">
                     <svg
                       className="h-4 w-4 text-green-500"
                       viewBox="0 0 20 20"
@@ -101,7 +101,7 @@ export const Variants: Story = {
             <div className="rounded-lg bg-red-50 border border-red-200 py-4 px-6 dark:bg-red-900/20 dark:border-red-800">
               <Alert>
                 <div className="flex items-center">
-                  <div className="flex-shrink-0">
+                  <div className="shrink-0">
                     <svg
                       className="h-4 w-4 text-red-500"
                       viewBox="0 0 20 20"
@@ -130,7 +130,7 @@ export const Variants: Story = {
             <div className="rounded-lg bg-yellow-50 border border-yellow-200 py-4 px-6 dark:bg-yellow-900/20 dark:border-yellow-800">
               <Alert>
                 <div className="flex items-center">
-                  <div className="flex-shrink-0">
+                  <div className="shrink-0">
                     <svg
                       className="h-4 w-4 text-yellow-500"
                       viewBox="0 0 20 20"
@@ -159,7 +159,7 @@ export const Variants: Story = {
             <div className="rounded-lg bg-blue-50 border border-blue-200 py-4 px-6 dark:bg-blue-900/20 dark:border-blue-800">
               <Alert>
                 <div className="flex items-center">
-                  <div className="flex-shrink-0">
+                  <div className="shrink-0">
                     <svg
                       className="h-4 w-4 text-blue-500"
                       viewBox="0 0 20 20"
@@ -197,12 +197,12 @@ const FormContextExample: React.FC = () => {
       <div className="flex flex-col gap-8 p-6">
         <h2 className="text-xl font-semibold mb-4">Alert in Form Context</h2>
 
-        <div className="bg-white p-6 rounded-lg shadow-sm dark:bg-gray-800">
+        <div className="bg-white p-6 rounded-lg shadow-xs dark:bg-gray-800">
           <div className="flex flex-col gap-6">
             {showAlert && (
               <Alert>
                 <div className="flex items-center">
-                  <div className="flex-shrink-0">
+                  <div className="shrink-0">
                     <svg
                       className="h-4 w-4 text-yellow-500"
                       viewBox="0 0 20 20"

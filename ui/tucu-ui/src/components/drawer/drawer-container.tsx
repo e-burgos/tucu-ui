@@ -42,7 +42,7 @@ export function DrawerContainer({
             onClick={() => setIsOpen(false)}
             className={cn(
               'fixed inset-0',
-              backdrop ? 'bg-gray-700 bg-opacity-60 backdrop-blur' : ''
+              backdrop ? 'bg-gray-700 bg-opacity-60 backdrop-blur-sm' : ''
             )}
           />
         </TransitionChild>

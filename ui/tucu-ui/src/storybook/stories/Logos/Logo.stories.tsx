@@ -82,7 +82,7 @@ export const ColorPresets: Story = {
           {Object.entries(PRESET_LABEL_COLORS).map(([key, value]) => (
             <div
               key={key}
-              className="flex flex-col items-center gap-3 p-4 bg-white dark:bg-gray-800 rounded-lg shadow-sm"
+              className="flex flex-col items-center gap-3 p-4 bg-white dark:bg-gray-800 rounded-lg shadow-xs"
             >
               <h3 className="text-base font-medium capitalize">{key}</h3>
               <div className="flex items-center justify-center h-16">
@@ -123,28 +123,28 @@ export const DifferentSizes: Story = {
       <div className="flex flex-col gap-8 p-6">
         <h2 className="text-xl font-semibold mb-4">Different Sizes</h2>
         <div className="space-y-8">
-          <div className="p-4 bg-white dark:bg-gray-800 rounded-lg shadow-sm">
+          <div className="p-4 bg-white dark:bg-gray-800 rounded-lg shadow-xs">
             <h3 className="text-base font-medium mb-4">Small</h3>
             <div className="flex justify-center">
               <Logo {...args} />
             </div>
           </div>
 
-          <div className="p-4 bg-white dark:bg-gray-800 rounded-lg shadow-sm">
+          <div className="p-4 bg-white dark:bg-gray-800 rounded-lg shadow-xs">
             <h3 className="text-base font-medium mb-4">Medium (Default)</h3>
             <div className="flex justify-center">
               <Logo {...args} size="medium" />
             </div>
           </div>
 
-          <div className="p-4 bg-white dark:bg-gray-800 rounded-lg shadow-sm">
+          <div className="p-4 bg-white dark:bg-gray-800 rounded-lg shadow-xs">
             <h3 className="text-base font-medium mb-4">Large</h3>
             <div className="flex justify-center">
               <Logo {...args} size="large" />
             </div>
           </div>
 
-          <div className="p-4 bg-white dark:bg-gray-800 rounded-lg shadow-sm">
+          <div className="p-4 bg-white dark:bg-gray-800 rounded-lg shadow-xs">
             <h3 className="text-base font-medium mb-4">XLarge</h3>
             <div className="flex justify-center">
               <Logo {...args} size="xlarge" />
@@ -164,7 +164,7 @@ export const UsageExamples: Story = {
 
         <div className="flex flex-col gap-4">
           <h3 className="text-base font-medium">In a Header</h3>
-          <div className="bg-white dark:bg-gray-800 p-4 flex items-center justify-between rounded-lg shadow-sm">
+          <div className="bg-white dark:bg-gray-800 p-4 flex items-center justify-between rounded-lg shadow-xs">
             <Logo {...args} isoType={true} />
             <div className="flex items-center gap-4">
               <div className="w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-700"></div>
@@ -176,7 +176,7 @@ export const UsageExamples: Story = {
 
         <div className="flex flex-col gap-4">
           <h3 className="text-base font-medium">In a Sidebar</h3>
-          <div className="bg-white dark:bg-gray-800 p-4 w-64 h-80 rounded-lg shadow-sm">
+          <div className="bg-white dark:bg-gray-800 p-4 w-64 h-80 rounded-lg shadow-xs">
             <div className="flex items-center justify-center mb-8">
               <Logo {...args} />
             </div>
@@ -191,7 +191,7 @@ export const UsageExamples: Story = {
 
         <div className="flex flex-col gap-4">
           <h3 className="text-base font-medium">In a Footer</h3>
-          <div className="bg-gray-100 dark:bg-gray-800 p-6 rounded-lg shadow-sm">
+          <div className="bg-gray-100 dark:bg-gray-800 p-6 rounded-lg shadow-xs">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
               <Logo {...args} />
               <div className="text-sm text-gray-500 dark:text-gray-400">
@@ -216,21 +216,21 @@ export const AdvancedCustomization: Story = {
         <h2 className="text-xl font-semibold mb-4">Advanced Customization</h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="p-4 bg-white dark:bg-gray-800 rounded-lg shadow-sm">
+          <div className="p-4 bg-white dark:bg-gray-800 rounded-lg shadow-xs">
             <h3 className="text-base font-medium mb-4">Custom Background</h3>
-            <div className="flex justify-center p-4 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg">
+            <div className="flex justify-center p-4 bg-linear-to-r from-blue-500 to-purple-500 rounded-lg">
               <Logo {...args} />
             </div>
           </div>
 
-          <div className="p-4 bg-white dark:bg-gray-800 rounded-lg shadow-sm">
+          <div className="p-4 bg-white dark:bg-gray-800 rounded-lg shadow-xs">
             <h3 className="text-base font-medium mb-4">With Shadow</h3>
             <div className="flex justify-center">
               <Logo {...args} className="drop-shadow-lg" />
             </div>
           </div>
 
-          <div className="p-4 bg-white dark:bg-gray-800 rounded-lg shadow-sm">
+          <div className="p-4 bg-white dark:bg-gray-800 rounded-lg shadow-xs">
             <h3 className="text-base font-medium mb-4">With Animation</h3>
             <div className="flex justify-center">
               <Logo
@@ -240,7 +240,7 @@ export const AdvancedCustomization: Story = {
             </div>
           </div>
 
-          <div className="p-4 bg-white dark:bg-gray-800 rounded-lg shadow-sm">
+          <div className="p-4 bg-white dark:bg-gray-800 rounded-lg shadow-xs">
             <h3 className="text-base font-medium mb-4">With Spacing</h3>
             <div className="flex justify-center">
               <Logo {...args} className="tracking-wider" />

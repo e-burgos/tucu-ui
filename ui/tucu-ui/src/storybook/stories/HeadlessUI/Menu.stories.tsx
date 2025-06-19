@@ -5,7 +5,7 @@ import { StoryContainer } from '../../components/StoryContainer';
 import { ChevronDown } from 'lucide-react';
 
 const meta: Meta<typeof Menu> = {
-  title: 'UI COMPONENTS/HeadlessUI/Menu',
+  title: 'EXTERNAL LIBS/HeadlessUI/Menu',
   tags: ['autodocs'],
   component: Menu,
   parameters: {
@@ -24,7 +24,7 @@ const Template: StoryFn<typeof Menu> = () => (
   <StoryContainer className="justify-center items-center">
     <Menu as="div" className="relative inline-block text-left">
       <div>
-        <Menu.Button className="inline-flex w-full justify-center rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+        <Menu.Button className="inline-flex w-full justify-center rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
           Options
           <ChevronDown
             className="ml-2 -mr-1 h-5 w-5 text-white"
@@ -41,7 +41,7 @@ const Template: StoryFn<typeof Menu> = () => (
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+        <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-hidden">
           <div className="px-1 py-1">
             <Menu.Item>
               {({ active }) => (
@@ -115,7 +115,7 @@ export const WithIcons = () => (
   <StoryContainer className="justify-center items-center">
     <Menu as="div" className="relative inline-block text-left">
       <div>
-        <Menu.Button className="inline-flex w-full justify-center rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+        <Menu.Button className="inline-flex w-full justify-center rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
           Account
           <ChevronDown
             className="ml-2 -mr-1 h-5 w-5 text-white"
@@ -132,7 +132,7 @@ export const WithIcons = () => (
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+        <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-hidden">
           <div className="px-1 py-1">
             <Menu.Item>
               {({ active }) => (
@@ -259,7 +259,7 @@ export const CustomStyling = () => (
   <StoryContainer className="justify-center items-center">
     <Menu as="div" className="relative inline-block text-left">
       <div>
-        <Menu.Button className="inline-flex w-full justify-center rounded-full bg-gradient-to-r from-pink-500 to-purple-600 px-5 py-2.5 text-sm font-medium text-white shadow-lg hover:from-pink-600 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2">
+        <Menu.Button className="inline-flex w-full justify-center rounded-full bg-linear-to-r from-pink-500 to-purple-600 px-5 py-2.5 text-sm font-medium text-white shadow-lg hover:from-pink-600 hover:to-purple-700 focus:outline-hidden focus:ring-2 focus:ring-purple-500 focus:ring-offset-2">
           <span>Customize</span>
           <ChevronDown
             className="ml-2 -mr-1 h-5 w-5 text-white"
@@ -277,7 +277,7 @@ export const CustomStyling = () => (
         leaveTo="transform opacity-0 scale-95"
       >
         <Menu.Items className="absolute right-0 mt-3 w-60 origin-top-right overflow-hidden rounded-xl bg-white p-1 shadow-2xl ring-1 ring-black/5">
-          <div className="py-1 bg-gradient-to-r from-pink-100 to-purple-100 px-3 mb-1 rounded-lg">
+          <div className="py-1 bg-linear-to-r from-pink-100 to-purple-100 px-3 mb-1 rounded-lg">
             <p className="text-sm font-medium text-purple-800">Theme options</p>
           </div>
           <div className="px-1 py-1">
@@ -286,7 +286,7 @@ export const CustomStyling = () => (
                 <button
                   className={`${
                     active
-                      ? 'bg-gradient-to-r from-pink-100 to-purple-100 text-purple-800'
+                      ? 'bg-linear-to-r from-pink-100 to-purple-100 text-purple-800'
                       : 'text-gray-800'
                   } group flex w-full items-center rounded-lg px-3 py-2 text-sm font-medium transition-all duration-150`}
                 >
@@ -299,7 +299,7 @@ export const CustomStyling = () => (
                 <button
                   className={`${
                     active
-                      ? 'bg-gradient-to-r from-pink-100 to-purple-100 text-purple-800'
+                      ? 'bg-linear-to-r from-pink-100 to-purple-100 text-purple-800'
                       : 'text-gray-800'
                   } group flex w-full items-center rounded-lg px-3 py-2 text-sm font-medium transition-all duration-150`}
                 >
@@ -312,7 +312,7 @@ export const CustomStyling = () => (
                 <button
                   className={`${
                     active
-                      ? 'bg-gradient-to-r from-pink-100 to-purple-100 text-purple-800'
+                      ? 'bg-linear-to-r from-pink-100 to-purple-100 text-purple-800'
                       : 'text-gray-800'
                   } group flex w-full items-center rounded-lg px-3 py-2 text-sm font-medium transition-all duration-150`}
                 >
@@ -331,7 +331,7 @@ export const NestedDropdown = () => (
   <StoryContainer className="justify-center items-center">
     <Menu as="div" className="relative inline-block text-left">
       <div>
-        <Menu.Button className="inline-flex w-full justify-center rounded-md bg-gray-800 px-4 py-2 text-sm font-medium text-white hover:bg-gray-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+        <Menu.Button className="inline-flex w-full justify-center rounded-md bg-gray-800 px-4 py-2 text-sm font-medium text-white hover:bg-gray-700 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
           File
           <ChevronDown
             className="ml-2 -mr-1 h-5 w-5 text-gray-300"
@@ -348,7 +348,7 @@ export const NestedDropdown = () => (
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="absolute left-0 mt-2 w-56 origin-top-left rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+        <Menu.Items className="absolute left-0 mt-2 w-56 origin-top-left rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-hidden">
           <div className="px-1 py-1">
             <Menu.Item>
               {({ active }) => (
@@ -404,7 +404,7 @@ export const NestedDropdown = () => (
                   leaveFrom="transform opacity-100 scale-100"
                   leaveTo="transform opacity-0 scale-95"
                 >
-                  <Menu.Items className="absolute left-full top-0 ml-1 w-56 origin-top-left rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                  <Menu.Items className="absolute left-full top-0 ml-1 w-56 origin-top-left rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-hidden">
                     <div className="px-1 py-1">
                       <Menu.Item>
                         {({ active }) => (

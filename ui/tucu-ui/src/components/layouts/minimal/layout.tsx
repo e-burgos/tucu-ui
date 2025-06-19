@@ -25,7 +25,7 @@ function HeaderRightArea({
   const breakpoint = useBreakpoint();
   return (
     <div className="order-last flex shrink-0 items-center">
-      <div className="ltr:mr-3.5 rtl:ml-3.5 ltr:sm:mr-5 rtl:sm:ml-5 xl:hidden">
+      <div className="ltr:mr-3.5 rtl:ml-3.5 sm:ltr:mr-5 sm:rtl:ml-5 xl:hidden">
         {onClickSearch && (
           <SearchIcon
             className="h-auto w-3.5 sm:w-auto"
@@ -64,7 +64,7 @@ function HeaderRightArea({
           isOpen={isOpen}
           onClick={() => setIsOpen(!isOpen)}
           color="white"
-          className="shadow-main ltr:ml-3.5 rtl:mr-3.5 dark:border dark:border-solid dark:border-gray-700 dark:bg-light-dark dark:text-white ltr:sm:ml-5 rtl:sm:mr-5"
+          className="shadow-main ltr:ml-3.5 rtl:mr-3.5 dark:border dark:border-solid dark:border-gray-700 dark:bg-light-dark dark:text-white sm:ltr:ml-5 sm:rtl:mr-5"
         />
         <Drawer
           type="sidebar-menu"
@@ -101,7 +101,7 @@ export function Header({
   return (
     <nav
       className={cn(
-        'sticky top-0 z-30 flex w-full backdrop-blur items-center justify-between px-4 transition-all duration-300 ltr:right-0 rtl:left-0 sm:px-6 lg:px-8 3xl:px-10',
+        'sticky top-0 z-30 flex w-full backdrop-blur-sm items-center justify-between px-4 transition-all duration-300 ltr:right-0 rtl:left-0 sm:px-6 lg:px-8 3xl:px-10',
         isMounted && windowScroll.y > 17
           ? 'h-16 bg-white/80 shadow-card sm:h-20 dark:bg-dark/80'
           : 'h-16 sm:h-24'
@@ -173,7 +173,7 @@ export default function MinimalLayout({
         setIsOpen={setIsOpen}
       />
       <div className="bg-light-100 dark:bg-dark-100 mt-8 flex min-h-full flex-col gap-6 px-4 sm:px-6 lg:px-8 3xl:px-10">
-        <main className="mx-auto mb-12 flex w-full max-w-[2160px] flex-grow flex-col @container">
+        <main className="mx-auto mb-12 flex w-full max-w-[2160px] grow flex-col @container">
           {children}
         </main>
       </div>

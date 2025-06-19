@@ -15,8 +15,8 @@ const inputClasses = {
   },
   rounded: {
     none: 'rounded-none',
-    sm: 'rounded-sm',
-    DEFAULT: 'rounded',
+    sm: 'rounded-xs',
+    DEFAULT: 'rounded-sm',
     lg: 'rounded-md',
     circle: 'rounded-full',
   },

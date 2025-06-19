@@ -2,8 +2,7 @@ import {
   HomeIcon,
   CalendarIcon,
 } from '../../../../ui/tucu-ui/src/components/icons';
-import { ThemeProvider } from '../../../../ui/tucu-ui/src/themes/components/theme-provider';
-import { LAYOUT_OPTIONS } from '../../../../ui/tucu-ui/src/themes/config';
+import { ThemeProvider, LAYOUT_OPTIONS } from 'tucu-ui';
 import App1 from './App1';
 import App2 from './App2';
 

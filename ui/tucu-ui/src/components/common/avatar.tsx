@@ -25,7 +25,7 @@ const sizes: Record<SizeNames, string[]> = {
 };
 
 const shapes: Record<ShapeNames, string[]> = {
-  rounded: ['h-16 w-16 rounded-lg bg-white/20 backdrop-blur-[40px]'],
+  rounded: ['h-16 w-16 rounded-lg bg-white/20 backdrop-blur-2xl'],
   circle: ['rounded-full'],
 };
 

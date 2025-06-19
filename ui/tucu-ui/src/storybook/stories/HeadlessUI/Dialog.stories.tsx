@@ -10,7 +10,7 @@ import Button from '../../../components/buttons/button';
 import { DialogPanel, DialogTitle } from '@headlessui/react';
 
 const meta: Meta<typeof Dialog> = {
-  title: 'UI COMPONENTS/HeadlessUI/Dialog',
+  title: 'EXTERNAL LIBS/HeadlessUI/Dialog',
   tags: ['autodocs'],
   component: Dialog,
   parameters: {
@@ -58,7 +58,7 @@ const DialogTemplate: StoryFn<typeof Dialog> = (args) => {
         onClose={closeDialog}
       >
         <div
-          className="fixed inset-0 bg-black/30 backdrop-blur-sm"
+          className="fixed inset-0 bg-black/30 backdrop-blur-xs"
           aria-hidden="true"
         />
 
@@ -111,7 +111,7 @@ export const WithTransition = () => {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="fixed inset-0 bg-black/30 backdrop-blur-sm" />
+            <div className="fixed inset-0 bg-black/30 backdrop-blur-xs" />
           </TransitionChild>
 
           <div className="fixed inset-0 overflow-y-auto">
@@ -189,7 +189,7 @@ export const CustomDesign = () => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <DialogPanel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-gradient-to-br from-blue-500 to-purple-600 p-6 text-left align-middle shadow-xl transition-all">
+                <DialogPanel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-linear-to-br from-blue-500 to-purple-600 p-6 text-left align-middle shadow-xl transition-all">
                   <DialogTitle as="h3" className="text-xl font-bold text-white">
                     Congratulations! 🎉
                   </DialogTitle>
@@ -261,7 +261,7 @@ export const ConfirmationDialog = () => {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="fixed inset-0 bg-black/30 backdrop-blur-sm" />
+            <div className="fixed inset-0 bg-black/30 backdrop-blur-xs" />
           </TransitionChild>
 
           <div className="fixed inset-0 overflow-y-auto">

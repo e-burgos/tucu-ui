@@ -10,7 +10,7 @@ const Logo: React.FC<React.SVGAttributes<object>> = (props) => {
   const isDarkMode = mode === 'dark';
 
   return (
-    <div className="flex cursor-pointer outline-none" {...props}>
+    <div className="flex cursor-pointer outline-hidden" {...props}>
       <span className="relative flex overflow-hidden">
         {isMounted && isDarkMode && (
           <Image src={darkLogo} alt="logo" priority />

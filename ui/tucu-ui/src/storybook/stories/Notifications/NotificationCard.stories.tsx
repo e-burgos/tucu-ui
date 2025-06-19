@@ -213,7 +213,7 @@ export const NotificationCenter: Story = {
         <h2 className="text-xl font-semibold mb-4">
           Notification Center Example
         </h2>
-        <div className="max-w-md bg-white dark:bg-gray-800 rounded-lg shadow-sm overflow-hidden">
+        <div className="max-w-md bg-white dark:bg-gray-800 rounded-lg shadow-xs overflow-hidden">
           <div className="p-4 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between">
             <h3 className="text-lg font-medium">Notifications</h3>
             <button className="text-sm text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300">

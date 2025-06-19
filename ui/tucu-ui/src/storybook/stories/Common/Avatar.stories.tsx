@@ -1,3 +1,4 @@
+import React from 'react';
 import type { Meta, StoryFn } from '@storybook/react-vite';
 import { Avatar } from '../../../components/common';
 import { StoryContainer } from '../../components/StoryContainer';
@@ -5,7 +6,7 @@ import { StoryContainer } from '../../components/StoryContainer';
 import AvatarImage1 from '../../../assets/images/avatar/1.png';
 import AvatarImage2 from '../../../assets/images/avatar/2.png';
 import AvatarImage3 from '../../../assets/images/avatar/3.png';
-import AvatarImage4 from '../../../assets/images/avatar/10.jpg';
+import AvatarImage4 from '../../../assets/images/avatar/4.png';
 
 const meta: Meta<typeof Avatar> = {
   title: 'UI COMPONENTS/Common/Avatar',
@@ -15,7 +16,7 @@ const meta: Meta<typeof Avatar> = {
     docs: {
       description: {
         component:
-          "The Avatar component displays a user's profile picture. It supports different sizes and shapes, with options for circle or rounded square formats.",
+          "The Avatar component displays a user's profile picture. It supports different sizes and shapes, with options for circle or rounded-sm square formats.",
       },
     },
   },

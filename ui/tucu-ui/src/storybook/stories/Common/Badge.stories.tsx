@@ -1,6 +1,7 @@
 import type { Meta, StoryFn } from '@storybook/react-vite';
 import { Badge } from '../../../components/common';
 import { StoryContainer } from '../../components/StoryContainer';
+import React from 'react';
 
 const meta: Meta<typeof Badge> = {
   title: 'UI COMPONENTS/Common/Badge',
