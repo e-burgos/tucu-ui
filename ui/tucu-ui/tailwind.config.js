@@ -10,6 +10,25 @@ module.exports = {
     ),
     ...createGlobPatternsForDependencies(__dirname),
   ],
+  safelist: [
+    // Classes of height with arbitrary values
+    { pattern: /^h-\[.*\]$/ },
+    // Classes of width with arbitrary values
+    { pattern: /^w-\[.*\]$/ },
+    // Classes of margin with arbitrary values
+    { pattern: /^m[trblxy]?-\[.*\]$/ },
+    // Classes of padding with arbitrary values
+    { pattern: /^p[trblxy]?-\[.*\]$/ },
+    // Classes of background colors
+    { pattern: /^bg-.*$/ },
+    // Classes of text colors
+    { pattern: /^text-.*$/ },
+    // Responsive variants
+    {
+      pattern: /^(sm|md|lg|xl|2xl|3xl|4xl):.*$/,
+      variants: ['sm', 'md', 'lg', 'xl', '2xl', '3xl', '4xl'],
+    },
+  ],
   darkMode: 'class',
   theme: {
     screens: {
@@ -152,10 +171,4 @@ module.exports = {
       },
     },
   },
-  plugins: [
-    require('@tailwindcss/typography'),
-    require('@tailwindcss/forms'),
-    require('@tailwindcss/container-queries'),
-    require('tailwindcss-bg-patterns'),
-  ],
 };

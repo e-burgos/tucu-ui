@@ -1,21 +1,23 @@
 import { useEffect, useState } from 'react';
-import { LAYOUT_OPTIONS } from '../../themes/config';
 import { useTheme } from '../../themes/use-theme';
 import MinimalLayout from './minimal/layout';
 import ClassicLayout from './classic/layout';
 import AuthLayout from './authentication/layout';
-import { IMenuItem } from '../drawer';
 import Toast from '../notifications/toast';
 import { LogoPropTypes } from '../logos/logo';
+import { LAYOUT_OPTIONS, LayoutOptionType } from '../../themes/config';
+import { IMenuItem } from '../common/menu-item';
 
-interface LayoutTypeProps {
+export interface LayoutTypeProps {
   logo?: LogoPropTypes;
-  layout: LAYOUT_OPTIONS;
-  children: React.ReactNode;
+  layout?: LayoutOptionType;
   menuItems: IMenuItem[];
   rightButton?: React.ReactNode;
-  onClickNotification?: () => void;
-  onClickSearch?: () => void;
+  className?: string;
+}
+
+interface RootLayoutProps extends LayoutTypeProps {
+  children: React.ReactNode;
 }
 
 const LayoutType = ({
@@ -24,14 +26,13 @@ const LayoutType = ({
   children,
   menuItems,
   rightButton,
-  onClickNotification,
-  onClickSearch,
-}: LayoutTypeProps) => {
+  className,
+}: RootLayoutProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  if (layout === LAYOUT_OPTIONS.AUTH) {
+  if (layout === LAYOUT_OPTIONS.NONE) {
     return (
-      <AuthLayout>
+      <AuthLayout className={className}>
         {children}
         <Toast />
       </AuthLayout>
@@ -41,12 +42,11 @@ const LayoutType = ({
     return (
       <MinimalLayout
         logo={logo}
-        onClickNotification={onClickNotification}
-        onClickSearch={onClickSearch}
         rightButton={rightButton}
         menuItems={menuItems}
         isOpen={isOpen}
         setIsOpen={setIsOpen}
+        className={className}
       >
         {children}
         <Toast />
@@ -56,11 +56,12 @@ const LayoutType = ({
   if (layout === LAYOUT_OPTIONS.CLASSIC) {
     return (
       <ClassicLayout
-        menuItems={menuItems}
+        logo={logo}
         rightButton={rightButton}
-        onClickNotification={onClickNotification}
-        onClickSearch={onClickSearch}
+        menuItems={menuItems}
+        isOpen={isOpen}
         setIsOpen={setIsOpen}
+        className={className}
       >
         {children}
         <Toast />
@@ -69,16 +70,12 @@ const LayoutType = ({
   }
 
   return (
-    <AuthLayout>
+    <AuthLayout className={className}>
       {children}
       <Toast />
     </AuthLayout>
   );
 };
-
-interface RootLayoutProps extends LayoutTypeProps {
-  children: React.ReactNode;
-}
 
 export function RootLayout(props: RootLayoutProps) {
   const { mode } = useTheme();

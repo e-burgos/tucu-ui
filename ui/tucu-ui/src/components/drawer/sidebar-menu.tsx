@@ -4,7 +4,7 @@ import { MenuItem } from '../common/menu-item';
 import Button from '../buttons';
 import Scrollbar from '../common/scrollbar';
 import { X } from 'lucide-react';
-import { IMenuItem } from './drawer';
+import { IMenuItem } from '../common/menu-item';
 
 export function SidebarMenu({
   className,
@@ -23,17 +23,23 @@ export function SidebarMenu({
   onClose: () => void;
   logo?: LogoPropTypes;
 }) {
-  const retroMenu =
+  const sidebarMenu =
     menuItems &&
     menuItems?.map((item) => ({
       name: item.name,
       icon: item.icon,
       href: item.href,
+      hide: item.hide,
+      isActive: item.isActive,
+      onClick: item.onClick,
       ...(item.dropdownItems && {
         dropdownItems: item?.dropdownItems?.map((dropdownItem) => ({
           name: dropdownItem.name,
           ...(dropdownItem?.icon && { icon: dropdownItem.icon }),
           href: dropdownItem.href,
+          hide: dropdownItem.hide,
+          isActive: dropdownItem.isActive,
+          onClick: dropdownItem.onClick,
         })),
       }),
     }));
@@ -46,7 +52,14 @@ export function SidebarMenu({
       )}
     >
       <div className="relative flex h-24 items-center justify-between overflow-hidden px-6 py-4 2xl:px-8">
-        {logo && <Logo name={logo.name} secondName={logo.secondName} />}
+        {logo && (
+          <Logo
+            name={logo.name}
+            secondName={logo.secondName}
+            preset={logo.preset}
+            isoType={logo.isoType}
+          />
+        )}
         {title && (
           <h2 className="text-lg font-medium uppercase tracking-wider text-gray-900 dark:text-white">
             {title}
@@ -65,14 +78,16 @@ export function SidebarMenu({
       <Scrollbar style={{ height: 'calc(100% - 96px)' }}>
         <div className="px-4 2xl:px-6 pb-20">
           {children}
-          {retroMenu &&
-            retroMenu.map((item, index) => (
+          {sidebarMenu &&
+            sidebarMenu.map((item, index) => (
               <MenuItem
                 onClick={onClose}
                 key={`menu-item-${index}`}
                 name={item.name}
                 href={item.href}
                 icon={item.icon}
+                hide={item.hide}
+                isActive={item.isActive}
                 dropdownItems={item.dropdownItems}
               />
             ))}

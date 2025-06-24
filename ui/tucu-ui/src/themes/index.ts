@@ -4,7 +4,6 @@ export * from './components/theme-provider/index';
 export * from './components/theme-provider/settings-button';
 export * from './components/theme-provider/settings-drawer';
 export * from './config';
-export * from './tailwindThemeConfig';
 export * from './use-direction';
 export * from './use-theme-color';
 export * from './use-theme';

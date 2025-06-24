@@ -1,10 +1,9 @@
-import { Suspense, useEffect } from 'react';
+import { Suspense, useCallback, useEffect } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import SettingsButton from './settings-button';
 import SettingsDrawer from './settings-drawer';
 import { useTheme } from '../../use-theme';
-import { IMenuItem } from '../../../components/drawer';
-import AppRoutes from './app-routes';
+import AppRoutes, { AppRoutesMenuItem } from './app-routes';
 
 import {
   ColorPreset,
@@ -16,57 +15,67 @@ import {
   LAYOUT_OPTIONS,
   PresetColorType,
 } from '../../config';
-import RootLayout from '../../../components/layouts/root-layout';
-import { LogoPropTypes } from '../../../components/logos/logo';
+import ScrollToTop from '../../../components/utils/scroll-to-top';
+import RootLayout, {
+  LayoutTypeProps,
+} from '../../../components/layouts/root-layout';
 
 // base css file
 import '../../../styles.css';
 
-export interface ThemeProviderProps {
-  menuItems: IMenuItem[];
-  layout?: LAYOUT_OPTIONS;
-  isNotificationButton?: boolean;
-  rightButton?: React.ReactNode;
-  logo?: LogoPropTypes;
+export interface ThemeProviderProps extends Omit<LayoutTypeProps, 'menuItems'> {
+  menuItems: AppRoutesMenuItem[];
   brandColor?: PresetColorType;
   showSettings?: boolean;
-  showSearch?: boolean;
   settingActions?: ISettingAction;
   customRoutes?: React.ReactNode;
-  onClickNotification?: () => void;
-  onClickSearch?: () => void;
+  withRouterProvider?: boolean;
 }
 
 export function ThemeProvider({
-  menuItems: appMenuItems,
-  layout,
-  rightButton,
   logo,
+  rightButton,
   brandColor,
   showSettings,
-  showSearch,
-  settingActions = defaultSettingActions,
   customRoutes,
-  onClickNotification,
-  onClickSearch,
+  className,
+  menuItems: appMenuItems,
+  layout: appLayout,
+  settingActions = defaultSettingActions,
+  withRouterProvider = true,
 }: ThemeProviderProps) {
   const {
     mode,
+    layout,
     setLogo,
     setPreset,
     setShowSettings,
-    setShowSearch,
     setSettingActions,
   } = useTheme();
+
   const htmlTag = document.documentElement;
   const menuItems = [...appMenuItems];
   const menuList = menuItems.filter((item) => !item.hide);
 
-  const selectedColor = ColorPreset.find(
-    (item: IThemeItem) => item.label === brandColor
-  );
+  const isPresetDisabled =
+    Boolean(brandColor) || Boolean(settingActions?.disabledPreset);
+  const isLayoutDisabled =
+    Boolean(appLayout) || Boolean(settingActions?.disabledLayout);
+  const isDirectionDisabled = Boolean(settingActions?.disabledDirection);
+  const isModeDisabled = Boolean(settingActions?.disabledMode);
 
-  const checkSettingActions = settingActions || layout || brandColor;
+  const handleSelectedColor = useCallback((): IThemeItem => {
+    if (brandColor) {
+      const selectedColor = ColorPreset?.find(
+        (item: IThemeItem) => item.label === brandColor
+      );
+      if (selectedColor) {
+        return selectedColor;
+      } else return defaultColorPreset;
+    } else return defaultColorPreset;
+  }, [brandColor]);
+
+  const selectedColor = handleSelectedColor();
 
   useEffect(() => {
     if (logo) {
@@ -80,35 +89,21 @@ export function ThemeProvider({
     if (showSettings) {
       setShowSettings(showSettings);
     } else setShowSettings(false);
+  }, [logo, showSettings, setLogo, setPreset, setShowSettings, selectedColor]);
 
-    if (showSearch) {
-      setShowSearch(showSearch);
-    } else setShowSearch(false);
-
-    if (checkSettingActions) {
-      setSettingActions({
-        ...defaultSettingActions,
-        disabledLayout: layout || settingActions?.disabledLayout ? true : false,
-        disabledPreset:
-          brandColor || settingActions?.disabledPreset ? true : false,
-        disabledDirection: settingActions?.disabledDirection ? true : false,
-        disabledMode: settingActions?.disabledMode ? true : false,
-      });
-    } else setSettingActions(defaultSettingActions);
+  useEffect(() => {
+    setSettingActions({
+      disabledLayout: isLayoutDisabled,
+      disabledPreset: isPresetDisabled,
+      disabledDirection: isDirectionDisabled,
+      disabledMode: isModeDisabled,
+    });
   }, [
-    logo,
-    showSettings,
-    showSearch,
-    settingActions,
-    selectedColor,
-    setLogo,
-    setPreset,
-    setShowSettings,
-    setShowSearch,
+    isLayoutDisabled,
+    isPresetDisabled,
+    isDirectionDisabled,
+    isModeDisabled,
     setSettingActions,
-    layout,
-    brandColor,
-    checkSettingActions,
   ]);
 
   useEffect(() => {
@@ -123,22 +118,31 @@ export function ThemeProvider({
     }
   }, [htmlTag, mode]);
 
-  return (
-    <BrowserRouter>
-      <SettingsButton />
-      <SettingsDrawer />
-      <Suspense fallback={null}></Suspense>
-      <RootLayout
-        layout={layout || LAYOUT_OPTIONS.MINIMAL}
-        menuItems={menuList}
-        rightButton={rightButton}
-        logo={logo}
-        onClickNotification={onClickNotification}
-        onClickSearch={onClickSearch}
+  const children = (
+    <Suspense fallback={null}>
+      <div
+        className={`fixed inset-0 h-screen w-screen overflow-auto ${className}`}
       >
-        {customRoutes ? customRoutes : <AppRoutes menuItems={menuItems} />}
-      </RootLayout>
-    </BrowserRouter>
+        <RootLayout
+          layout={(appLayout as LAYOUT_OPTIONS) || layout || 'minimal'}
+          menuItems={menuList}
+          rightButton={rightButton}
+          logo={logo}
+          className={className}
+        >
+          {customRoutes ? customRoutes : <AppRoutes menuItems={menuItems} />}
+        </RootLayout>
+        <ScrollToTop />
+        <SettingsButton />
+        <SettingsDrawer />
+      </div>
+    </Suspense>
+  );
+
+  return withRouterProvider ? (
+    <BrowserRouter>{children}</BrowserRouter>
+  ) : (
+    children
   );
 }
 

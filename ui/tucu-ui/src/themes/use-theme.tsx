@@ -23,7 +23,6 @@ export interface ITheme {
   logo: LogoType;
   isSettingsOpen: boolean;
   showSettings: boolean;
-  showSearch: boolean;
   settingActions: ISettingAction;
   setPreset: (preset: IThemeItem) => void;
   setDirection: (direction: DIRECTION) => void;
@@ -32,7 +31,6 @@ export interface ITheme {
   setLogo: (logo: LogoType) => void;
   setIsSettingsOpen: (isSettingsOpen: boolean) => void;
   setShowSettings: (showSettings: boolean) => void;
-  setShowSearch: (showSearch: boolean) => void;
   setSettingActions: (settingActions: ISettingAction) => void;
 }
 
@@ -45,7 +43,6 @@ export const useTheme = create<ITheme>((set) => {
     mode: settings?.mode || defaultMode,
     logo: settings?.logo || defaultLogo,
     showSettings: settings?.showSettings || false,
-    showSearch: settings?.showSearch || false,
     settingActions: settings?.settingActions || defaultSettingActions,
     isSettingsOpen: false,
     setPreset: (preset: IThemeItem) =>
@@ -72,11 +69,6 @@ export const useTheme = create<ITheme>((set) => {
       set((state) => {
         storage.set('settings', { ...state, logo });
         return { logo };
-      }),
-    setShowSearch: (showSearch: boolean) =>
-      set((state) => {
-        storage.set('settings', { ...state, showSearch });
-        return { showSearch };
       }),
     setShowSettings: (showSettings: boolean) =>
       set((state) => {

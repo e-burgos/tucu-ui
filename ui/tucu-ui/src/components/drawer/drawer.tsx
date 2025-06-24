@@ -1,25 +1,14 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import React, { useState } from 'react';
-import Button, { ButtonProps } from '../buttons';
+import React from 'react';
 import { DrawerContainer } from './drawer-container';
 import { Sidebar } from './sidebar';
 import { SidebarMenu } from './sidebar-menu';
 import { LogoPropTypes } from '../logos/logo';
-
-export interface IMenuItem {
-  name: string;
-  icon?: JSX.Element;
-  href: string;
-  component?: JSX.Element;
-  hide?: boolean;
-  dropdownItems?: IMenuItem[];
-}
+import { IMenuItem } from '../common/menu-item';
 
 export interface DrawerProps {
-  onClose?: () => void;
   children?: React.ReactNode;
   type: 'sidebar' | 'sidebar-menu';
-  buttonProps?: ButtonProps;
   className?: string;
   menuItems?: IMenuItem[];
   position?: 'left' | 'right';
@@ -27,13 +16,15 @@ export interface DrawerProps {
   actionContent?: React.ReactNode;
   backdrop?: boolean;
   logo?: LogoPropTypes;
+  isOpen: boolean;
+  setIsOpen: (isOpen: boolean) => void;
+  onClose?: () => void;
 }
 
 export function Drawer({
   onClose,
   children,
   type,
-  buttonProps,
   className,
   menuItems,
   position = 'left',
@@ -41,9 +32,9 @@ export function Drawer({
   actionContent,
   backdrop = true,
   logo,
+  isOpen,
+  setIsOpen,
 }: DrawerProps) {
-  const [isOpen, setIsOpen] = useState(false);
-
   const closeDrawer = () => {
     setIsOpen(false);
     onClose?.();
@@ -59,6 +50,7 @@ export function Drawer({
             className={className}
             title={title}
             logo={logo}
+            actionContent={actionContent}
           />
         );
       case 'sidebar-menu':
@@ -69,8 +61,8 @@ export function Drawer({
             className={className}
             menuItems={menuItems || []}
             title={title}
-            actionContent={actionContent}
             logo={logo}
+            actionContent={actionContent}
           />
         );
       default:
@@ -79,33 +71,23 @@ export function Drawer({
             onClose={closeDrawer}
             children={children}
             className={className}
+            title={title}
             logo={logo}
+            actionContent={actionContent}
           />
         );
     }
   };
 
   return (
-    <>
-      <Button
-        {...buttonProps}
-        onClick={() => {
-          setIsOpen(!isOpen);
-          // @ts-ignore
-          buttonProps?.onClick?.();
-        }}
-      >
-        {buttonProps?.title || 'Open'}
-      </Button>
-      <DrawerContainer
-        isOpen={isOpen}
-        setIsOpen={setIsOpen}
-        position={position}
-        backdrop={backdrop}
-      >
-        {renderDrawer()}
-      </DrawerContainer>
-    </>
+    <DrawerContainer
+      isOpen={isOpen}
+      setIsOpen={setIsOpen}
+      position={position}
+      backdrop={backdrop}
+    >
+      {renderDrawer()}
+    </DrawerContainer>
   );
 }
 

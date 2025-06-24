@@ -30,7 +30,7 @@ export function Logo({
 
   const color = preset
     ? PRESET_COLORS[preset?.toLocaleUpperCase() as keyof typeof PRESET_COLORS]
-    : PRESET_COLORS.GREEN;
+    : 'text-brand';
 
   const textSize =
     size === 'small'
@@ -58,7 +58,7 @@ export function Logo({
               {secondName && (
                 <span
                   style={{ color: color }}
-                  className={cn('font-semibold', textSize)}
+                  className={cn('font-semibold', textSize, !preset && color)}
                 >
                   {handleName(secondName)}
                 </span>
@@ -67,16 +67,13 @@ export function Logo({
           )}
           {!isDarkMode && (
             <div className="flex items-end text-base font-medium text-gray-900 dark:text-white sm:text-xl lg:flex-wrap 2xl:flex-nowrap">
-              <span
-                style={{ color: color }}
-                className={cn('font-semibold', textSize)}
-              >
+              <span className={cn('font-semibold', textSize)}>
                 {handleName(name) || 'Site Name'}
               </span>
               {secondName && (
                 <span
                   style={{ color: color }}
-                  className={cn('font-semibold', textSize)}
+                  className={cn('font-semibold', textSize, !preset && color)}
                 >
                   {handleName(secondName)}
                 </span>

@@ -1,7 +1,7 @@
 {
   "name": "tucu-ui",
   "description": "Tucu UI Library",
-  "version": "0.0.17",
+  "version": "0.0.20",
   "main": "./index.js",
   "module": "./index.mjs",
   "types": "./index.d.ts",
@@ -38,9 +38,8 @@
   },
   "dependencies": {
     "@headlessui/react": "2.1.8",
-    "@tailwindcss/container-queries": "^0.1.1",
-    "@tailwindcss/forms": "^0.5.9",
-    "@tailwindcss/typography": "^0.5.15",
+    "@tailwindcss/forms": "^0.5.10",
+    "@tailwindcss/typography": "^0.5.16",
     "classnames": "^2.3.2",
     "framer-motion": "11.5.5",
     "lucide-react": "^0.460.0",
@@ -53,13 +52,12 @@
     "recharts": "2.12.7",
     "simplebar-react": "3.2.6",
     "swiper": "11.1.14",
-    "tailwindcss-bg-patterns": "^0.3.0",
-    "zustand": "5.0.1"
+    "zustand": "5.0.1",
+    "tailwindcss": "^4.1.10"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.10",
-    "postcss": "^8.5.6",
-    "tailwindcss": "^4.1.10"
+    "postcss": "^8.5.6"
   },
   "peerDependencies": {
     "react": ">=17.0.0",

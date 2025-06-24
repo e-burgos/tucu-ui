@@ -30,9 +30,7 @@ export function Sidebar({
       )}
     >
       <div className="relative flex h-24 items-center justify-between overflow-hidden px-6 py-4 2xl:px-8">
-        {!title && (
-          <Logo name={logo?.name || ''} secondName={logo?.secondName || ''} />
-        )}
+        {!title && <Logo {...(logo as LogoPropTypes)} />}
         {title && (
           <h2 className="text-lg font-medium uppercase tracking-wider text-gray-900 dark:text-white">
             {title}

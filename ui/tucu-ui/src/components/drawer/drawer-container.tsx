@@ -23,7 +23,7 @@ export function DrawerContainer({
   backdrop = true,
 }: DrawerContainerProps) {
   return (
-    <Transition appear show={isOpen} as={Fragment}>
+    <Transition appear show={isOpen || false} as={Fragment}>
       <Dialog
         as="div"
         className={cn('fixed inset-0 z-50 overflow-hidden')}
@@ -42,7 +42,7 @@ export function DrawerContainer({
             onClick={() => setIsOpen(false)}
             className={cn(
               'fixed inset-0',
-              backdrop ? 'bg-gray-700 bg-opacity-60 backdrop-blur-sm' : ''
+              backdrop ? 'bg-gray-700/10 backdrop-blur-xs' : ''
             )}
           />
         </TransitionChild>
@@ -57,7 +57,7 @@ export function DrawerContainer({
             leaveFrom="translate-x-0"
             leaveTo="-translate-x-full"
           >
-            <div className="fixed inset-y-0 ltr:left-0 rtl:right-0 flex w-full max-w-full xs:w-auto shadow-[0_0_80px_rgba(17,24,39,0.2)]">
+            <div className="fixed inset-y-0 ltr:left-0 rtl:right-0 flex w-full max-w-full xs:w-auto">
               {children}
             </div>
           </TransitionChild>
@@ -72,7 +72,7 @@ export function DrawerContainer({
             leaveFrom="translate-x-0"
             leaveTo="ltr:translate-x-full rtl:-translate-x-full"
           >
-            <div className="fixed inset-y-0 ltr:right-0 rtl:left-0 flex w-full max-w-full xs:w-auto shadow-[0_0_80px_rgba(17,24,39,0.2)]">
+            <div className="fixed inset-y-0 ltr:right-0 rtl:left-0 flex w-full max-w-full xs:w-auto">
               {children}
             </div>
           </TransitionChild>

@@ -1,18 +1,40 @@
 import { FC } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import NotFoundPage from '../pages/not-found';
-import { IMenuItem } from '../../../components/drawer';
+import { IMenuItem } from '../../../components/common/menu-item';
 
 export type AppRouteType = { key: string; path: string; element: JSX.Element };
 
+export interface AppRoutesMenuItem extends Omit<IMenuItem, 'dropdownItems'> {
+  component: JSX.Element;
+  dropdownItems?: AppRoutesMenuItem[];
+}
+
 interface AppRoutesProps {
-  menuItems: IMenuItem[];
+  menuItems: AppRoutesMenuItem[];
 }
 
 export const AppRoutes: FC<AppRoutesProps> = ({ menuItems }) => {
   const handleRoutes = () => {
+    if (menuItems.length === 0) {
+      return [
+        {
+          key: 'home-page',
+          path: '/',
+          element: (
+            <>
+              <h1>No routes</h1>
+              <p>
+                Please add routes to the menuItems prop to start using the theme
+                provider.
+              </p>
+            </>
+          ),
+        },
+      ];
+    }
     const filterRoutes: AppRouteType[] = [];
-    menuItems.forEach((route, index) => {
+    menuItems?.forEach((route, index) => {
       if (route.component)
         filterRoutes.push({
           key: `route-${index}`,

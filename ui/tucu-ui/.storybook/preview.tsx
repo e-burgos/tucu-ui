@@ -12,27 +12,18 @@ import { ReactRenderer, Preview } from '@storybook/react-vite';
 import { PartialStoryFn } from 'storybook/internal/types';
 import { BrowserRouter } from 'react-router-dom';
 import { useTheme } from '../src/themes/use-theme';
-import { ScrollToTop } from '../src/components';
-import SettingsButton from '../src/themes/components/theme-provider/settings-button';
-import SettingsDrawer from '../src/themes/components/theme-provider/settings-drawer';
 import '../src/styles.css';
 
 const ThemeDecorator = (
   Story: PartialStoryFn<ReactRenderer, object>,
   context
 ) => {
-  const { setMode, setPreset, setShowSettings, setSettingActions } = useTheme();
+  const { setMode, setShowSettings } = useTheme();
   const { theme } = context.globals;
   const htmlTag = document.documentElement;
 
   useEffect(() => {
     setShowSettings(true);
-    setSettingActions({
-      disabledMode: true,
-      disabledLayout: true,
-      disabledDirection: true,
-      disabledPreset: false,
-    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -48,13 +39,10 @@ const ThemeDecorator = (
         htmlTag.classList.add('light');
       }
     }
-  }, [htmlTag, theme, setMode, setPreset]);
+  }, [htmlTag, theme, setMode]);
 
   return (
     <BrowserRouter>
-      <ScrollToTop />
-      <SettingsButton />
-      <SettingsDrawer />
       <Story />
     </BrowserRouter>
   );

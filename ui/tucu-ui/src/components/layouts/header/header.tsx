@@ -3,19 +3,11 @@ import cn from 'classnames';
 import { Logo, LogoPropTypes } from '../../logos/logo';
 import Hamburger from '../../buttons/hamburger';
 import { useBreakpoint, useIsMounted, useWindowScroll } from '../../../hooks';
-import { SearchIcon } from 'lucide-react';
-import { FlashIcon } from '../../icons/flash';
+import { PRESET_LABEL_COLORS, useTheme } from '../../../themes';
 
-function HeaderRightArea({
-  notificationButton,
-  rightButton,
-}: {
-  notificationButton?: React.ReactNode;
-  rightButton?: React.ReactNode;
-}) {
+function HeaderRightArea({ rightButton }: { rightButton?: React.ReactNode }) {
   return (
     <div className="relative order-last flex shrink-0 items-center gap-4 sm:gap-6 lg:gap-8">
-      {notificationButton && notificationButton}
       {rightButton && rightButton}
     </div>
   );
@@ -25,16 +17,12 @@ export function ClassicHeader({
   className,
   logo,
   rightButton,
-  onClickNotification,
-  onClickSearch,
   isOpen,
   setIsOpen,
 }: {
   className?: string;
   logo?: LogoPropTypes;
   rightButton?: React.ReactNode;
-  onClickNotification?: () => void;
-  onClickSearch?: () => void;
   isOpen?: boolean;
   setIsOpen?: (isOpen: boolean) => void;
 }) {
@@ -42,11 +30,12 @@ export function ClassicHeader({
   const breakPoint = useBreakpoint();
   const isMounted = useIsMounted();
   const windowScroll = useWindowScroll();
+  const { preset } = useTheme();
 
   return (
     <nav
       className={cn(
-        'sticky top-0 z-30 h-16 w-full backdrop-blur-sm transition-all duration-300 ltr:right-0 rtl:left-0 sm:h-20 3xl:h-24',
+        'sticky top-0 z-30 backdrop-blur-lg shadow-md h-16 w-full transition-all duration-300 ltr:right-0 rtl:left-0 sm:h-20 3xl:h-24',
         ((isMounted && windowScroll.y) as number) > 2
           ? 'bg-white/80 dark:bg-dark/80 shadow-card'
           : '',
@@ -62,21 +51,12 @@ export function ClassicHeader({
             <Logo
               name={logo?.name || ''}
               secondName={logo?.secondName || ''}
-              isoType={breakPoint === 'lg'}
+              preset={preset?.label as PRESET_LABEL_COLORS}
+              isoType={breakPoint === 'sm' || breakPoint === 'xs'}
             />
           </div>
-
-          {onClickSearch && <SearchIcon onClick={onClickSearch} />}
         </div>
         <HeaderRightArea
-          notificationButton={
-            onClickNotification && (
-              <FlashIcon
-                className="h-auto w-3 sm:w-auto"
-                onClick={onClickNotification}
-              />
-            )
-          }
           rightButton={
             <div className="flex flex-row items-center justify-center ">
               {rightButton}
@@ -144,7 +124,6 @@ export default function Header({
           {searchButton && searchButton}
         </div>
         <HeaderRightArea
-          notificationButton={notificationButton}
           rightButton={
             <div className="flex flex-row items-center justify-center ">
               {rightButton}

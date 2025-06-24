@@ -18,25 +18,21 @@ export type DIRECTION = 'ltr' | 'rtl';
 export type LogoType = LogoPropTypes;
 
 export enum LAYOUT_OPTIONS {
-  AUTH = 'auth',
-  MODERN = 'modern',
+  NONE = 'none',
   MINIMAL = 'minimal',
-  RETRO = 'retro',
   CLASSIC = 'classic',
 }
 
+export type LayoutOptionType = 'none' | 'minimal' | 'classic';
+
 export const LayoutOptions: IThemeItem[] = [
-  {
-    label: 'Modern',
-    value: LAYOUT_OPTIONS.MODERN,
-  },
   {
     label: 'Minimal',
     value: LAYOUT_OPTIONS.MINIMAL,
   },
   {
-    label: 'Retro',
-    value: LAYOUT_OPTIONS.RETRO,
+    label: 'None',
+    value: LAYOUT_OPTIONS.NONE,
   },
   {
     label: 'Classic',
@@ -111,8 +107,8 @@ export const Direction: IThemeItem[] = [
 export const defaultLogo: LogoType = {
   isoType: false,
   path: '/',
-  name: 'Site',
-  secondName: 'Name',
+  name: 'Tucu',
+  secondName: 'UI',
 };
 
 export const defaultSettingActions: ISettingAction = {
@@ -122,7 +118,7 @@ export const defaultSettingActions: ISettingAction = {
   disabledPreset: false,
 };
 
-export const defaultLayout = LAYOUT_OPTIONS.MINIMAL;
+export const defaultLayout = LAYOUT_OPTIONS.NONE;
 
 export const defaultColorPreset = ColorPreset[0];
 

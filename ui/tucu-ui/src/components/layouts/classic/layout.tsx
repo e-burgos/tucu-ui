@@ -1,47 +1,60 @@
 import cn from 'classnames';
 import { ClassicHeader } from '../header/header';
-import { Drawer, IMenuItem } from '../../../components/drawer';
+import { Drawer } from '../../../components/drawer';
 import { LogoPropTypes } from '../../logos';
+import ExpandableSidebar from '../menus/expandable-sidebar';
+import { IMenuItem } from '../../common/menu-item';
 
-export default function ClassicLayout({
-  logo,
-  children,
-  contentClassName,
-  menuItems,
-  rightButton,
-  onClickNotification,
-  onClickSearch,
-  setIsOpen,
-}: React.PropsWithChildren<{
-  logo?: LogoPropTypes;
-  contentClassName?: string;
+interface ClassicLayoutProps {
+  children: React.ReactNode;
   menuItems: IMenuItem[];
   rightButton?: React.ReactNode;
-  onClickNotification?: () => void;
-  onClickSearch?: () => void;
+  logo?: LogoPropTypes;
+  className?: string;
+  isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
-}>) {
+}
+
+export function ClassicLayout({
+  logo,
+  children,
+  menuItems,
+  rightButton,
+  isOpen,
+  className,
+  setIsOpen,
+}: ClassicLayoutProps) {
   return (
-    <div className="xl:ltr:pl-24 xl:rtl:pr-24 2xl:ltr:pl-28 2xl:rtl:pr-28 ">
+    <div
+      className={cn(
+        'xl:ltr:pl-24 xl:rtl:pr-24 2xl:ltr:pl-28 2xl:rtl:pr-28',
+        className
+      )}
+    >
       <ClassicHeader
         logo={logo}
         rightButton={rightButton}
-        onClickNotification={onClickNotification}
-        onClickSearch={onClickSearch}
+        isOpen={isOpen}
         setIsOpen={setIsOpen}
+      />
+      <ExpandableSidebar
+        logo={logo}
+        className="hidden xl:block"
+        menuItems={menuItems}
       />
       <Drawer
         type="sidebar-menu"
         position="left"
         backdrop={true}
         menuItems={menuItems}
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
         onClose={() => setIsOpen && setIsOpen(false)}
         logo={logo}
       />
       <main
         className={cn(
-          'min-h-full px-4 pb-16 pt-4 sm:px-6 sm:pb-20 lg:px-8 xl:pb-24 xl:pt-5 3xl:px-10',
-          contentClassName
+          'min-h-full px-4 pb-16 pt-4 sm:px-6 sm:pb-20 lg:px-8 xl:pb-24 xl:pt-5 3xl:px-10'
         )}
       >
         {children}
@@ -49,3 +62,5 @@ export default function ClassicLayout({
     </div>
   );
 }
+
+export default ClassicLayout;

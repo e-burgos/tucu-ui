@@ -75,7 +75,7 @@ export function TradeMenu({ children }: { children: React.ReactNode }) {
     routePaths.home +
     useLocation()
       .pathname?.split('/')
-      .slice(layout === LAYOUT_OPTIONS.MODERN ? 1 : 2)
+      .slice(layout === LAYOUT_OPTIONS.NONE ? 1 : 2)
       .join('/');
   const isMounted = useIsMounted();
   const breakpoint = useBreakpoint();
