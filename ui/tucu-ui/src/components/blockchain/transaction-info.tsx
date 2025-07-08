@@ -14,7 +14,7 @@ export function TransactionInfo({
   return (
     <div
       className={cn(
-        'flex items-center justify-between dark:text-gray-300 border border-gray-100 dark:border-gray-700 dark:bg-light-dark bg-white rounded-lg py-3 px-4',
+        'flex items-center justify-between w-full max-w-md dark:text-gray-300 border border-gray-100 dark:border-gray-700 dark:bg-light-dark bg-white rounded-lg py-3 px-4',
         className
       )}
     >

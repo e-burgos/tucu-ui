@@ -26,5 +26,11 @@
     "**/*.stories.jsx",
     "**/*.stories.js"
   ],
-  "include": ["src/**/*.js", "src/**/*.jsx", "src/**/*.ts", "src/**/*.tsx"]
+  "include": [
+    "src/**/*.js",
+    "src/**/*.jsx",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "vite-env.d.ts"
+  ]
 }

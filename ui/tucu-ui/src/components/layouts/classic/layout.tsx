@@ -1,6 +1,6 @@
 import cn from 'classnames';
 import { ClassicHeader } from '../header/header';
-import { Drawer } from '../../../components/drawer';
+import { Drawer } from '../../dialog';
 import { LogoPropTypes } from '../../logos';
 import ExpandableSidebar from '../menus/expandable-sidebar';
 import { IMenuItem } from '../../common/menu-item';

@@ -1,5 +1,6 @@
+import React from 'react';
 import type { Meta, StoryFn } from '@storybook/react-vite';
-import { LivePriceFeed } from '../../../components/blockchain';
+import { LivePriceFeed, Price } from '../../../components/blockchain';
 import { StoryContainer } from '../../components/StoryContainer';
 import { Bitcoin } from '../../../components/icons/bitcoin';
 import { Ethereum } from '../../../components/icons/ethereum';
@@ -10,7 +11,7 @@ const generatePriceData = (
   startValue: number,
   isPositive: boolean
 ) => {
-  const result = [];
+  const result: Price[] = [];
   let value = startValue;
 
   for (let i = 0; i < count; i++) {
@@ -18,7 +19,7 @@ const generatePriceData = (
     const change =
       Math.random() * 5 * (isPositive ? 1 : -1) + (isPositive ? 2 : -2);
     value = Math.max(1, value + change); // Ensure value doesn't go below 1
-    result.push({ name: i, value });
+    result.push({ name: i, value: Number(value.toFixed(2)) });
   }
 
   return result;
@@ -28,7 +29,7 @@ const bitcoinPrices = generatePriceData(20, 100, true);
 const ethereumPrices = generatePriceData(20, 80, false);
 
 const meta: Meta<typeof LivePriceFeed> = {
-  title: 'UI COMPONENTS/Blockchain/LivePriceFeed',
+  title: 'BLOCKCHAIN COMPONENTS/LivePriceFeed',
   tags: ['autodocs'],
   component: LivePriceFeed,
   parameters: {

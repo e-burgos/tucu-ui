@@ -36,15 +36,15 @@ function handleImageSize(variant: string) {
 
 export function CoinInfoCard({
   item,
-  className = 'p-3 tracking-wider rounded-lg sm:p-4',
+  className,
   variant = 'small',
-  imageClassName = 'bg-primary',
+  imageClassName = 'bg-brand rounded p-1',
 }: CardProps) {
   const { name, logo, balance, coinType } = item ?? {};
   return (
     <div
       className={cn(
-        'flex items-center justify-between bg-white text-sm font-medium shadow-card dark:bg-light-dark',
+        'flex items-center justify-between bg-white text-sm font-medium shadow-card dark:bg-light-dark p-3 tracking-wider rounded-lg sm:p-4',
         className
       )}
     >

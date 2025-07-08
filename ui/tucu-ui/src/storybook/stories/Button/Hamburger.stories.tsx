@@ -64,7 +64,7 @@ const meta: Meta<typeof Hamburger> = {
 export default meta;
 
 const Template: StoryFn<typeof Hamburger> = (args) => (
-  <StoryContainer className="justify-center items-center">
+  <StoryContainer>
     <Hamburger {...args} />
   </StoryContainer>
 );

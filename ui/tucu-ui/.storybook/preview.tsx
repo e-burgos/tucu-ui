@@ -8,24 +8,19 @@ import {
   Meta,
   Primary,
 } from '@storybook/addon-docs/blocks';
-import { ReactRenderer, Preview } from '@storybook/react-vite';
+import { ReactRenderer, Preview, StoryContext } from '@storybook/react-vite';
 import { PartialStoryFn } from 'storybook/internal/types';
-import { BrowserRouter } from 'react-router-dom';
 import { useTheme } from '../src/themes/use-theme';
 import '../src/styles.css';
+import ThemeProvider from '../src/themes/components/theme-provider';
 
 const ThemeDecorator = (
   Story: PartialStoryFn<ReactRenderer, object>,
-  context
+  context: StoryContext
 ) => {
-  const { setMode, setShowSettings } = useTheme();
+  const { setMode } = useTheme();
   const { theme } = context.globals;
   const htmlTag = document.documentElement;
-
-  useEffect(() => {
-    setShowSettings(true);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   useEffect(() => {
     if (htmlTag) {
@@ -41,10 +36,26 @@ const ThemeDecorator = (
     }
   }, [htmlTag, theme, setMode]);
 
+  if (context.id.includes('theme-provider')) {
+    return <Story />;
+  }
+
   return (
-    <BrowserRouter>
-      <Story />
-    </BrowserRouter>
+    <ThemeProvider
+      layout="none"
+      showSettings
+      settingActions={{
+        disabledDirection: true,
+      }}
+      className="flex min-h-[500px] h-screen w-screen items-center justify-center overflow-auto"
+      menuItems={[
+        {
+          name: 'Story',
+          href: '/',
+          component: <Story />,
+        },
+      ]}
+    />
   );
 };
 
@@ -76,6 +87,7 @@ const parameters = {
         <Description />
         <Controls />
         <Meta />
+
         <Primary />
       </>
     ),

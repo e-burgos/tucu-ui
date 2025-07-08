@@ -2,7 +2,7 @@ import Logo, { LogoPropTypes } from '../../logos/logo';
 import cn from 'classnames';
 import Hamburger from '../../buttons/hamburger';
 import { useBreakpoint, useIsMounted, useWindowScroll } from '../../../hooks';
-import { Drawer } from '../../drawer';
+import { Drawer } from '../../dialog';
 import { IMenuItem } from '../../common/menu-item';
 import MinimalNavMenu from '../menus/minimal-nav-menu';
 import { PRESET_LABEL_COLORS, useTheme } from '../../../themes';

@@ -6,11 +6,13 @@ import { Close } from '../icons/close';
 export function FileInput({
   className,
   label,
+  placeholderText,
   multiple,
   accept,
 }: {
   className?: string;
-  label?: React.ReactNode;
+  label?: string;
+  placeholderText?: string;
   multiple?: boolean;
   accept?: 'img' | 'pdf' | 'csv' | 'imgAndPdf' | 'all';
 }) {
@@ -43,6 +45,7 @@ export function FileInput({
         accept={accept || 'all'}
         multiple={multiple}
         onChange={handleMultiImageUpload}
+        placeholderText={placeholderText}
       />
 
       {multiImages.length > 0 && (

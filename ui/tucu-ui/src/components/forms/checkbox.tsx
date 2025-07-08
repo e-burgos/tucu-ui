@@ -22,15 +22,21 @@ const inputClasses = {
   },
   variant: {
     outline: {
-      base: 'bg-transparent border border-gray-300 checked:!bg-gray-1000 focus:ring-gray-900/30 checked:!border-gray-1000',
+      base: 'bg-transparent border-2 dark:checked:!bg-gray-900 checked:!bg-gray-300',
       color: {
-        DEFAULT: 'hover:enabled:border-gray-1000',
-        primary: 'hover:enabled:border-primary',
-        secondary: 'hover:enabled:border-secondary',
-        danger: 'hover:enabled:border-red',
-        info: 'hover:enabled:border-blue',
-        success: 'hover:enabled:border-green',
-        warning: 'hover:enabled:border-orange',
+        DEFAULT:
+          'border-brand checked:!border-brand hover:enabled:border-brand focus:ring-brand/30',
+        primary:
+          'border-brand checked:!border-brand hover:enabled:border-brand focus:ring-brand/30',
+        secondary:
+          'border-gray-900 checked:!border-gray-900 hover:enabled:border-gray-900 focus:ring-gray-900/30',
+        danger:
+          'border-red-500 checked:!border-red-500 hover:enabled:border-red-500 focus:ring-red-500/30',
+        info: 'border-blue-500 checked:!border-blue-500 hover:enabled:border-blue-500 focus:ring-blue-500/30',
+        success:
+          'border-green-500 checked:!border-green-500 hover:enabled:border-green-500 focus:ring-green-500/30',
+        warning:
+          'border-orange-500 checked:!border-orange-500 hover:enabled:border-orange-500 focus:ring-orange-500/30',
       },
     },
     flat: {
@@ -39,33 +45,34 @@ const inputClasses = {
         DEFAULT:
           'bg-gray-200/70 hover:enabled:bg-gray-200/90 focus:ring-gray-900/30 checked:!bg-gray-1000',
         primary:
-          'bg-primary-lighter/70 hover:enabled:bg-primary-lighter/90 focus:ring-primary/30 checked:!bg-primary-dark',
+          'bg-primary-lighter/70 hover:enabled:bg-primary-lighter/90 focus:ring-brand/30 checked:!bg-brand',
         secondary:
-          'bg-secondary-lighter/70 hover:enabled:bg-secondary-lighter/90 focus:ring-secondary/30 checked:!bg-secondary-dark',
+          'bg-secondary-lighter/70 hover:enabled:bg-secondary-lighter/90 focus:ring-secondary/30 checked:!bg-gray-900',
         danger:
-          'bg-red-lighter/70 hover:enabled:bg-red-lighter/90 focus:ring-red/30 checked:!bg-red-dark',
-        info: 'bg-blue-lighter/70 hover:enabled:bg-blue-lighter/90 focus:ring-blue/30 checked:!bg-blue-dark',
+          'bg-red-lighter/70 hover:enabled:bg-red-lighter/90 focus:ring-red/30 checked:!bg-red-500',
+        info: 'bg-blue-lighter/70 hover:enabled:bg-blue-lighter/90 focus:ring-blue/30 checked:!bg-blue-500',
         success:
-          'bg-green-lighter/70 hover:enabled:bg-green-lighter/90 focus:ring-green/30 checked:!bg-green-dark',
+          'bg-green-lighter/70 hover:enabled:bg-green-lighter/90 focus:ring-green/30 checked:!bg-green-500',
         warning:
-          'bg-orange-lighter/80 hover:enabled:bg-orange-lighter/90 focus:ring-orange/30 checked:!bg-orange-dark',
+          'bg-orange-lighter/80 hover:enabled:bg-orange-lighter/90 focus:ring-orange/30 checked:!bg-orange-500',
       },
     },
     active: {
-      base: 'border !bg-gray-0',
+      base: 'border',
       color: {
         DEFAULT:
-          'border-gray-900 checked:enabled:border-gray-1000 focus:ring-gray-900/30',
+          'border-gray-900 bg-brand checked:enabled:border-gray-1000 focus:ring-gray-900/30',
         primary:
-          'border-primary checked:enabled:border-primary focus:ring-primary/30',
+          'border-brand bg-brand checked:enabled:border-brand focus:ring-brand/30',
         secondary:
-          'border-secondary checked:enabled:border-secondary focus:ring-secondary/30',
-        danger: 'border-red checked:enabled:border-red focus:ring-red/30',
-        info: 'border-blue checked:enabled:border-blue focus:ring-blue/30',
+          'border-gray-900 bg-gray-500 checked:enabled:border-gray-900 focus:ring-gray-900/30',
+        danger:
+          'border-red-500 bg-red-500 checked:enabled:border-red-500 focus:ring-red-500/30',
+        info: 'border-blue-500 bg-blue-500 checked:enabled:border-blue-500 focus:ring-blue-500/30',
         success:
-          'border-green checked:enabled:border-green focus:ring-green/30',
+          'border-green-500 bg-green-500 checked:enabled:border-green-500 focus:ring-green-500/30',
         warning:
-          'border-orange checked:enabled:border-orange-dark/70 focus:ring-orange/30',
+          'border-orange-500 bg-orange-500 checked:enabled:border-orange-500 focus:ring-orange-500/30',
       },
     },
   },
@@ -74,13 +81,13 @@ const inputClasses = {
 const iconClasses = {
   base: 'peer-checked:opacity-100 absolute opacity-0 text-white top-0 left-0',
   color: {
-    DEFAULT: 'text-gray-1000',
-    primary: 'text-primary-dark',
-    secondary: 'text-secondary-dark',
-    danger: 'text-red-dark',
-    info: 'text-blue-dark',
-    success: 'text-green-dark',
-    warning: 'text-orange-dark',
+    DEFAULT: 'text-brand',
+    primary: 'text-brand',
+    secondary: 'text-gray-900',
+    danger: 'text-red-500',
+    info: 'text-blue-500',
+    success: 'text-green-500',
+    warning: 'text-orange-500',
   },
 };
 
@@ -226,12 +233,12 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
       </label>
 
       {!error && helperText && (
-        <FieldHelperText size={size} className={helperClassName}>
+        <FieldHelperText size={'DEFAULT'} className={helperClassName}>
           {helperText}
         </FieldHelperText>
       )}
       {error && (
-        <FieldError size={size} error={error} className={errorClassName} />
+        <FieldError className={errorClassName} size={'DEFAULT'} error={error} />
       )}
     </div>
   )

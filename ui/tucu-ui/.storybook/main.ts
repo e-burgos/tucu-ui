@@ -1,5 +1,6 @@
 import type { StorybookConfig } from '@storybook/react-vite';
 import remarkGfm from 'remark-gfm';
+import * as path from 'path';
 
 const config: StorybookConfig = {
   stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
@@ -52,6 +53,11 @@ const config: StorybookConfig = {
       esbuildOptions: {
         define: {
           global: 'globalThis',
+        },
+      },
+      resolve: {
+        alias: {
+          '@/lucide-react': path.resolve(__dirname, '../src/lucide-react'),
         },
       },
       optimizeDeps: {

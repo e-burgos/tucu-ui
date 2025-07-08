@@ -2,7 +2,7 @@ import { Fragment } from 'react';
 import cn from 'classnames';
 import { Listbox } from '@headlessui/react';
 import { ChevronDown } from '../icons/chevron-down';
-import { Transition } from '../headlessui/transition';
+import { Transition } from '@headlessui/react';
 
 export type CoinTypes = {
   icon: JSX.Element;

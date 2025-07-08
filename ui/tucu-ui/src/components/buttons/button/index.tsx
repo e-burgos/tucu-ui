@@ -29,7 +29,7 @@ const variants: Record<VariantNames, string[]> = {
 const colors: Record<ColorNames, string[]> = {
   primary: ['text-brand', 'bg-brand', 'border-brand'],
   white: ['text-gray-900', 'bg-white', 'border-white'],
-  gray: ['text-gray-900', 'bg-gray-100', 'border-gray-100'],
+  gray: ['text-gray-900', 'bg-gray-500', 'border-gray-100'],
   success: ['text-green-500', 'bg-green-500', 'border-green-500'],
   info: ['text-blue-500', 'bg-blue-500', 'border-blue-500'],
   warning: ['text-yellow-500', 'bg-yellow-500', 'border-yellow-500'],
@@ -66,7 +66,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       isLoading,
       disabled,
       fullWidth,
-      shape = 'pill',
+      shape = 'rounded',
       variant = 'solid',
       color = 'primary',
       size = 'medium',

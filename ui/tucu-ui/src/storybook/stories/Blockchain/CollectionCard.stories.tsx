@@ -1,29 +1,17 @@
+import React from 'react';
 import type { Meta, StoryFn } from '@storybook/react-vite';
 import { CollectionCard } from '../../../components/blockchain';
 import { StoryContainer } from '../../components/StoryContainer';
-
-import Collection1 from '../../../assets/images/collection/collection-1.jpg';
-import Collection2 from '../../../assets/images/collection/collection-2.jpg';
-import Collection3 from '../../../assets/images/collection/collection-3.jpg';
-import Collection4 from '../../../assets/images/collection/collection-4.jpg';
-import Collection5 from '../../../assets/images/collection/collection-5.jpg';
-
-import Avatar1 from '../../../assets/images/avatar/1.png';
-import Avatar2 from '../../../assets/images/avatar/2.png';
-import Avatar3 from '../../../assets/images/avatar/3.png';
-import Avatar4 from '../../../assets/images/avatar/10.jpg';
-import Avatar5 from '../../../assets/images/avatar/11.jpg';
 
 const sampleCollection = {
   id: '1',
   name: 'Abstract Art',
   slug: 'abstract-art',
   title: 'Abstract Shapes Collection',
-  cover_image: Collection1,
-  image: Collection1,
+  cover_image: '/src/assets/images/collection/collection-1.jpg',
   number_of_artwork: 8,
   user: {
-    avatar: Avatar1,
+    avatar: '/src/assets/images/avatar/1.png',
     name: 'John Doe',
     slug: 'john-doe',
   },
@@ -34,11 +22,10 @@ const secondCollection = {
   name: 'Digital Landscapes',
   slug: 'digital-landscapes',
   title: 'Virtual Reality Views',
-  cover_image: Collection2,
-  image: Collection2,
+  cover_image: '/src/assets/images/collection/collection-2.jpg',
   number_of_artwork: 12,
   user: {
-    avatar: Avatar2,
+    avatar: '/src/assets/images/avatar/2.png',
     name: 'Jane Smith',
     slug: 'jane-smith',
   },
@@ -49,18 +36,17 @@ const thirdCollection = {
   name: 'Crypto Artifacts',
   slug: 'crypto-artifacts',
   title: 'Historical Blockchain Items',
-  cover_image: Collection3,
-  image: Collection3,
+  cover_image: '/src/assets/images/collection/collection-3.jpg',
   number_of_artwork: 5,
   user: {
-    avatar: Avatar3,
+    avatar: '/src/assets/images/avatar/3.png',
     name: 'Alex Johnson',
     slug: 'alex-johnson',
   },
 };
 
 const meta: Meta<typeof CollectionCard> = {
-  title: 'UI COMPONENTS/Blockchain/CollectionCard',
+  title: 'BLOCKCHAIN COMPONENTS/CollectionCard',
   tags: ['autodocs'],
   component: CollectionCard,
   parameters: {
@@ -89,10 +75,8 @@ const meta: Meta<typeof CollectionCard> = {
 export default meta;
 
 const Template: StoryFn<typeof CollectionCard> = (args) => (
-  <StoryContainer className="justify-center items-center">
-    <div className="w-full max-w-sm h-full">
-      <CollectionCard {...args} className="h-full" />
-    </div>
+  <StoryContainer>
+    <CollectionCard {...args} />
   </StoryContainer>
 );
 
@@ -114,11 +98,11 @@ CustomStyle.args = {
   className: 'shadow-xl rounded-xl border-2 border-indigo-500',
   item: {
     ...sampleCollection,
-    cover_image: Collection4,
-    image: Collection4,
+    cover_image: '/src/assets/images/collection/collection-4.jpg',
+    image: '/src/assets/images/collection/collection-4.jpg',
     user: {
       ...sampleCollection.user,
-      avatar: Avatar4,
+      avatar: '/src/assets/images/avatar/10.jpg',
     },
   },
 };
@@ -130,11 +114,11 @@ LargeArtworkCollection.args = {
     name: 'Premium Art',
     slug: 'premium-art',
     title: 'Exclusive Premium Collection',
-    cover_image: Collection5,
-    image: Collection5,
+    cover_image: '/src/assets/images/collection/collection-5.jpg',
+    image: '/src/assets/images/collection/collection-5.jpg',
     number_of_artwork: 24,
     user: {
-      avatar: Avatar5,
+      avatar: '/src/assets/images/avatar/11.jpg',
       name: 'Michael Chen',
       slug: 'michael-chen',
     },

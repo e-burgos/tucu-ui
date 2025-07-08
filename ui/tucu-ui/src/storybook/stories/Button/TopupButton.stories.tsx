@@ -1,6 +1,9 @@
+import React from 'react';
 import type { Meta, StoryFn } from '@storybook/react-vite';
 import { TopupButton } from '../../../components/buttons';
 import { StoryContainer } from '../../components/StoryContainer';
+import { ProfileIcon } from '../../../components/icons/profile';
+import { Plus } from '../../../components';
 
 const meta: Meta<typeof TopupButton> = {
   title: 'UI COMPONENTS/Buttons/TopupButton',
@@ -20,13 +23,17 @@ const meta: Meta<typeof TopupButton> = {
       description: 'Additional CSS classes to apply to the button',
     },
   },
-  args: {},
+  args: {
+    label: 'Go to Profile',
+    icon: <ProfileIcon />,
+    href: '/',
+  },
 };
 
 export default meta;
 
 const Template: StoryFn<typeof TopupButton> = (args) => (
-  <StoryContainer className="justify-center items-center">
+  <StoryContainer>
     <div className="w-full max-w-md">
       <TopupButton {...args} />
     </div>
@@ -36,14 +43,8 @@ const Template: StoryFn<typeof TopupButton> = (args) => (
 export const Default = Template.bind({});
 Default.args = {};
 
-export const CustomStyle = Template.bind({});
-CustomStyle.args = {
-  className:
-    'border-blue-500 bg-blue-50 dark:bg-blue-900/20 dark:border-blue-700',
-};
-
 export const InCard = () => (
-  <StoryContainer className="justify-center items-center">
+  <StoryContainer>
     <div className="w-full max-w-md rounded-xl bg-white dark:bg-light-dark p-5 shadow-card">
       <h3 className="mb-4 text-lg font-medium">Wallet Balance</h3>
       <div className="mb-4 flex items-center justify-between">
@@ -52,15 +53,15 @@ export const InCard = () => (
         </span>
         <span className="font-medium">$1,250.00</span>
       </div>
-      <TopupButton />
+      <TopupButton label="Top Up Balance" icon={<Plus />} href="/" />
     </div>
   </StoryContainer>
 );
 
 export const ConstrainedWidth = () => (
-  <StoryContainer className="justify-center items-center">
-    <div className="w-full max-w-[200px]">
-      <TopupButton />
+  <StoryContainer>
+    <div className="w-full max-w-fit">
+      <TopupButton label="Top Up Balance" icon={<Plus />} href="/" />
     </div>
   </StoryContainer>
 );

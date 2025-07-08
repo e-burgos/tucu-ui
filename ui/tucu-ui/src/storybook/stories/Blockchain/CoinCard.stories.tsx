@@ -1,12 +1,10 @@
+import React from 'react';
 import type { Meta, StoryFn } from '@storybook/react-vite';
 import { CoinCard } from '../../../components/blockchain';
 import { StoryContainer } from '../../components/StoryContainer';
 
-// Example image import
-import BitcoinImage from '../../../assets/images/coin/bitcoin.svg';
-
 const meta: Meta<typeof CoinCard> = {
-  title: 'UI COMPONENTS/Blockchain/CoinCard',
+  title: 'BLOCKCHAIN COMPONENTS/CoinCard',
   tags: ['autodocs'],
   component: CoinCard,
   parameters: {
@@ -59,7 +57,7 @@ const meta: Meta<typeof CoinCard> = {
     id: 'bitcoin',
     name: 'Bitcoin',
     symbol: 'BTC',
-    logo: BitcoinImage,
+    logo: '/src/assets/images/coin/binance.svg',
     balance: '0.2231345',
     usdBalance: '10,123.45',
     change: '2.5%',
@@ -71,7 +69,7 @@ const meta: Meta<typeof CoinCard> = {
 export default meta;
 
 const Template: StoryFn<typeof CoinCard> = (args) => (
-  <StoryContainer className="justify-center items-center">
+  <StoryContainer>
     <div className="w-full max-w-sm">
       <CoinCard {...args} />
     </div>

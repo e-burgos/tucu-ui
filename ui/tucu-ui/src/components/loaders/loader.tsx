@@ -11,6 +11,7 @@ export interface LoaderTypes
   variant?: LoaderVariantTypes;
   showOnlyThreeDots?: boolean;
   className?: string;
+  color?: keyof typeof colors;
 }
 
 const variants = {
@@ -18,10 +19,20 @@ const variants = {
   scaleUp: 'animate-scale-up',
   moveUp: 'animate-move-up',
 };
+
 const sizes = {
   small: 'w-1.5 h-1.5',
   medium: 'w-2.5 h-2.5',
   large: 'w-3 h-3',
+};
+
+const colors = {
+  primary: 'bg-brand',
+  gray: 'bg-gray-500',
+  success: 'bg-green-500',
+  danger: 'bg-red-500',
+  info: 'bg-blue-500',
+  warning: 'bg-orange-500',
 };
 
 function handleLoaderPosition(size: LoaderSizeTypes) {
@@ -39,6 +50,7 @@ function handleVariantClasses(
 
 export function Loader({
   tag = 'div',
+  color = 'primary',
   size = 'medium',
   variant = 'moveUp',
   showOnlyThreeDots,
@@ -55,31 +67,35 @@ export function Loader({
     >
       <span
         className={cn(
-          'bg-current rounded-full',
+          'rounded-full',
           handleVariantClasses(variant, size),
-          sizes[size]
+          sizes[size],
+          colors[color]
         )}
       />
       <span
         className={cn(
-          'animation-delay-200 bg-current rounded-full',
+          'animation-delay-200 rounded-full',
           handleVariantClasses(variant, size),
-          sizes[size]
+          sizes[size],
+          colors[color]
         )}
       />
       <span
         className={cn(
-          'animation-delay-500 bg-current rounded-full',
+          'animation-delay-500 rounded-full',
           handleVariantClasses(variant, size),
-          sizes[size]
+          sizes[size],
+          colors[color]
         )}
       />
       {variant === 'moveUp' && !showOnlyThreeDots ? (
         <span
           className={cn(
-            'animation-delay-700 bg-current rounded-full',
+            'animation-delay-700 rounded-full',
             handleVariantClasses(variant, size),
-            sizes[size]
+            sizes[size],
+            colors[color]
           )}
         />
       ) : null}

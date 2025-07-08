@@ -36,10 +36,10 @@ export interface UploadProps
   wrapperClassName?: string;
   /** Pass className to style the container */
   className?: string;
-  /** Pass iconClassName to style the upload icon */
-  iconClassName?: string;
   /** Pass label className to style label */
   labelClassName?: string;
+  /** Pass dropzoneRootClassName to style the container */
+  dropzoneRootClassName?: string;
 }
 
 /** Upload component allows user to upload files either from file explorer or by dragging and dropping.
@@ -55,9 +55,8 @@ export function Upload(
     dropzoneRootProps,
     dropzoneInputProps,
     placeholderText,
-    className,
+    dropzoneRootClassName,
     wrapperClassName,
-    iconClassName = '@3xl:w-44 @3xl:h-44 w-28 shrink-0 @2xl:w-36',
     labelClassName,
     ...props
   }: React.PropsWithChildren<UploadProps>,
@@ -72,7 +71,10 @@ export function Upload(
       )}
     >
       <div
-        className="border border-dashed relative border-gray-200 dark:border-gray-700 h-48 flex items-center justify-center rounded-lg"
+        className={cn(
+          'hover:bg-gray-50 dark:hover:bg-gray-900/50 border border-dashed dark:hover:border-brand hover:border-brand transition-all duration-300 relative border-gray-200 dark:border-gray-700 h-48 flex items-center justify-center rounded-lg',
+          dropzoneRootClassName
+        )}
         {...dropzoneRootProps}
       >
         <input
@@ -80,18 +82,20 @@ export function Upload(
           title=""
           type="file"
           accept={acceptedFileType[accept]}
-          className="absolute top-0 z-10 h-full w-full opacity-0 disabled:cursor-not-allowed"
+          className="absolute top-0 z-10 h-full w-full opacity-0 disabled:cursor-not-allowed cursor-pointer"
           {...props}
           {...dropzoneInputProps}
         />
-        {placeholderText || (
-          <div className="text-center">
-            <p className="mb-6 text-sm tracking-tighter text-gray-600 dark:text-gray-400">
-              {placeholderText || 'PNG, GIF, WEBP, MP4 or MP3. Max 100mb.'}
-            </p>
-            <Button>CHOOSE FILE</Button>
-          </div>
-        )}
+
+        <div className="text-center">
+          <p className="mb-6 text-sm tracking-tighter text-gray-600 dark:text-gray-400">
+            {placeholderText || 'PNG, GIF, WEBP, MP4 or MP3. Max 100mb.'}
+          </p>
+
+          <Button className={cn('hover:bg-primary-500', labelClassName)}>
+            {label || 'CHOOSE FILE'}
+          </Button>
+        </div>
       </div>
       {children}
     </div>

@@ -57,7 +57,11 @@ export function MinimalNavMenu({ menuItems }: { menuItems: IMenuItem[] }) {
           <Fragment key={`layout-${item.name}-${index}`}>
             {item.dropdownItems && !item.hide ? (
               <li className="group/parent relative">
-                <div className="flex w-full items-center text-sm font-medium uppercase text-gray-600 transition hover:text-gray-900 dark:text-gray-300 dark:hover:text-white">
+                <ActiveLink
+                  to={item.href}
+                  href={item.href}
+                  className="flex w-full items-center text-sm font-medium uppercase text-gray-600 transition hover:text-gray-900 dark:text-gray-300 dark:hover:text-white hover:cursor-pointer"
+                >
                   {item.icon && (
                     <span
                       className={cn(
@@ -81,7 +85,7 @@ export function MinimalNavMenu({ menuItems }: { menuItems: IMenuItem[] }) {
                       )}
                     />
                   </span>
-                </div>
+                </ActiveLink>
                 <ul className="invisible absolute right-0 top-[130%] mt-2 w-64 rounded-lg bg-white p-3 opacity-0 shadow-large transition-all group-hover/parent:visible group-hover/parent:top-full group-hover/parent:opacity-100 ltr:right-0 rtl:left-0 dark:bg-gray-800">
                   {item.dropdownItems.map((dropDownItem, index) => (
                     <li
@@ -163,7 +167,14 @@ export function MinimalNavMenu({ menuItems }: { menuItems: IMenuItem[] }) {
                   className="mx-2 text-[13px] font-medium uppercase  transition first:ml-0 last:mr-0 hover:text-brand dark:text-gray-300 dark:hover:text-brand 2xl:mx-3 2xl:text-sm 3xl:mx-4"
                   activeClassName={cn('!text-brand dark:!text-brand')}
                 >
-                  <span className="text-[14px]">{item.name}</span>
+                  <span className="z-1 flex items-center ltr:mr-3 rtl:ml-3">
+                    {item.icon && (
+                      <span className="w-4 h-4 flex items-center justify-center mr-1.5">
+                        {item.icon}
+                      </span>
+                    )}
+                    <span className="text-[14px]">{item.name}</span>
+                  </span>
                 </ActiveLink>
               </li>
             )}

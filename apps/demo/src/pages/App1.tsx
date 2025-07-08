@@ -3,7 +3,7 @@ import { Button, CardContainer, CardTitle, useToastStore } from 'tucu-ui';
 function App1() {
   const { addToast } = useToastStore();
   return (
-    <CardContainer className="h-screen">
+    <CardContainer className="h-[300px]">
       <CardTitle
         title="App 1"
         className="flex flex-col justify-center items-center"

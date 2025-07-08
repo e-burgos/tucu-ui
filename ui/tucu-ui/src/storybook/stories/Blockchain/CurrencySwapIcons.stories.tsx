@@ -1,3 +1,4 @@
+import React from 'react';
 import type { Meta, StoryFn } from '@storybook/react-vite';
 import {
   CurrencySwapIcons,
@@ -6,7 +7,7 @@ import {
 import { StoryContainer } from '../../components/StoryContainer';
 
 const meta: Meta<typeof CurrencySwapIcons> = {
-  title: 'UI COMPONENTS/Blockchain/CurrencySwapIcons',
+  title: 'BLOCKCHAIN COMPONENTS/CurrencySwapIcons',
   tags: ['autodocs'],
   component: CurrencySwapIcons,
   parameters: {
@@ -38,7 +39,7 @@ const meta: Meta<typeof CurrencySwapIcons> = {
 export default meta;
 
 const Template: StoryFn<typeof CurrencySwapIcons> = (args) => (
-  <StoryContainer className="justify-center items-center">
+  <StoryContainer>
     <CurrencySwapIcons {...args} />
   </StoryContainer>
 );

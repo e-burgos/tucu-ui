@@ -82,7 +82,6 @@ export default function Header({
   isOpen,
   setIsOpen,
   className,
-  notificationButton,
   rightButton,
 }: {
   logo?: { name: string; secondName: string };
@@ -90,7 +89,6 @@ export default function Header({
   isOpen?: boolean;
   setIsOpen?: (isOpen: boolean) => void;
   className?: string;
-  notificationButton?: React.ReactNode;
   rightButton?: React.ReactNode;
 }) {
   const navigate = useNavigate();

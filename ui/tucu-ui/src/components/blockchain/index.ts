@@ -6,5 +6,4 @@ export * from './currency-swap-icons';
 export * from './coin-info-card';
 export * from './live-price-feed';
 export * from './nft-grid';
-export * from './trade-menu';
 export * from './transaction-info';

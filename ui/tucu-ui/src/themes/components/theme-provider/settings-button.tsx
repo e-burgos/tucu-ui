@@ -1,12 +1,13 @@
 import { useDirection } from '../../use-direction';
 import { useThemeColor } from '../../use-theme-color';
 import { useTheme } from '../../use-theme';
+import { defaultColorPreset } from '../../config';
 
 export function SettingsButton() {
   const { setIsSettingsOpen } = useTheme();
   const { preset, direction, showSettings } = useTheme();
   useDirection(direction ? direction : 'ltr');
-  useThemeColor(preset ? preset.value : '#14161a');
+  useThemeColor(preset ? preset.value : defaultColorPreset.value || '#009e60');
 
   if (!showSettings) return null;
 

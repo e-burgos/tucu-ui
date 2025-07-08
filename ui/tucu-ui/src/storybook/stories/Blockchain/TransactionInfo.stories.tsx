@@ -1,9 +1,11 @@
+import React from 'react';
 import type { Meta, StoryFn } from '@storybook/react-vite';
 import { TransactionInfo } from '../../../components/blockchain';
 import { StoryContainer } from '../../components/StoryContainer';
+import CardContainer from '../../../components/cards/card-container';
 
 const meta: Meta<typeof TransactionInfo> = {
-  title: 'UI COMPONENTS/Blockchain/TransactionInfo',
+  title: 'BLOCKCHAIN COMPONENTS/TransactionInfo',
   tags: ['autodocs'],
   component: TransactionInfo,
   parameters: {
@@ -37,10 +39,8 @@ const meta: Meta<typeof TransactionInfo> = {
 export default meta;
 
 const Template: StoryFn<typeof TransactionInfo> = (args) => (
-  <StoryContainer className="justify-center items-center">
-    <div className="w-full max-w-md">
-      <TransactionInfo {...args} />
-    </div>
+  <StoryContainer>
+    <TransactionInfo {...args} />
   </StoryContainer>
 );
 
@@ -54,16 +54,12 @@ WithoutValue.args = {
 };
 
 export const MultipleInfo: StoryFn<typeof TransactionInfo> = () => (
-  <StoryContainer className="justify-center items-center">
-    <div className="w-full max-w-md bg-white dark:bg-light-dark p-4 rounded-lg">
-      <TransactionInfo label="Network" value="Ethereum" className="mb-2" />
-      <TransactionInfo label="Gas Price" value="21 Gwei" className="mb-2" />
-      <TransactionInfo
-        label="Transaction Fee"
-        value="0.005 ETH"
-        className="mb-2"
-      />
+  <StoryContainer>
+    <CardContainer className="w-full max-w-md max-h-fit flex flex-col gap-2">
+      <TransactionInfo label="Network" value="Ethereum" />
+      <TransactionInfo label="Gas Price" value="21 Gwei" />
+      <TransactionInfo label="Transaction Fee" value="0.005 ETH" />
       <TransactionInfo label="Total Amount" value="1.205 ETH" />
-    </div>
+    </CardContainer>
   </StoryContainer>
 );

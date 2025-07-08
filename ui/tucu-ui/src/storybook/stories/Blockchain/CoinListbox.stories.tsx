@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import type { Meta, StoryFn } from '@storybook/react-vite';
 import CoinListBox, {
   CoinTypes,
@@ -30,7 +30,7 @@ const coinOptions: CoinTypes[] = [
 ];
 
 const meta: Meta<typeof CoinListBox> = {
-  title: 'UI COMPONENTS/Blockchain/CoinListbox',
+  title: 'BLOCKCHAIN COMPONENTS/CoinListbox',
   tags: ['autodocs'],
   component: CoinListBox,
   parameters: {
@@ -70,7 +70,7 @@ const Template: StoryFn<typeof CoinListBox> = (args) => {
   const [selectedCoin, setSelectedCoin] = useState<CoinTypes>(coinOptions[0]);
 
   return (
-    <StoryContainer className="justify-center items-center">
+    <StoryContainer>
       <div className="w-full max-w-[292px]">
         <CoinListBox
           {...args}

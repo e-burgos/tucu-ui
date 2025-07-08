@@ -9,7 +9,6 @@ type ItemType = {
   slug: string;
   title: string;
   cover_image: string;
-  image?: string;
   number_of_artwork: number;
   user: {
     avatar?: string;
@@ -24,7 +23,7 @@ export interface CollectionCardProps {
 }
 
 export function CollectionCard({ item, className = '' }: CollectionCardProps) {
-  const { name, slug, title, cover_image, image, number_of_artwork, user } =
+  const { name, slug, title, cover_image, number_of_artwork, user } =
     item ?? {};
   return (
     <div
@@ -54,14 +53,6 @@ export function CollectionCard({ item, className = '' }: CollectionCardProps) {
           >
             {name}
           </div>
-          {image && (
-            <Avatar
-              image={image}
-              alt={name}
-              shape="rounded"
-              className="w-12 h-12"
-            />
-          )}
         </div>
         <div className="block">
           <h2 className="mb-1.5 truncate text-lg font-medium -tracking-wider text-white">
@@ -78,8 +69,6 @@ export function CollectionCard({ item, className = '' }: CollectionCardProps) {
               image={user?.avatar as string}
               alt={user?.name}
               size="xs"
-              width={24}
-              height={24}
               className="rounded-full"
             />
 

@@ -1,5 +1,7 @@
 import React from 'react';
 import cn from 'classnames';
+import { FieldError } from './field-error-text';
+import { FieldHelperText } from './field-helper-text';
 
 export interface InputSwitchProps {
   label?: string;
@@ -8,6 +10,8 @@ export interface InputSwitchProps {
   checked: boolean;
   onChange: (checked: boolean) => void;
   className?: string;
+  errorMessage?: string;
+  helperText?: string;
 }
 
 export const InputSwitch: React.FC<InputSwitchProps> = ({
@@ -17,6 +21,8 @@ export const InputSwitch: React.FC<InputSwitchProps> = ({
   checked,
   onChange,
   className,
+  errorMessage,
+  helperText,
 }) => {
   return (
     <label
@@ -50,6 +56,10 @@ export const InputSwitch: React.FC<InputSwitchProps> = ({
           checked ? 'translate-x-7' : 'translate-x-0'
         )}
       />
+      {errorMessage && <FieldError error={errorMessage} size="DEFAULT" />}
+      {helperText && (
+        <FieldHelperText size="DEFAULT">{helperText}</FieldHelperText>
+      )}
     </label>
   );
 };

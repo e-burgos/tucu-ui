@@ -44,7 +44,7 @@ interface ButtonLoaderArgs {
 }
 
 const Template: StoryFn<typeof ButtonLoader> = (args: ButtonLoaderArgs) => (
-  <StoryContainer className="justify-center items-center">
+  <StoryContainer>
     <div className="relative w-48 h-12 bg-blue-500 rounded-lg flex items-center justify-center text-white font-medium">
       <span className="invisible">Button Text</span>
       <ButtonLoader {...args} />
@@ -91,7 +91,7 @@ BlinkVariant.args = {
 };
 
 export const WithinButton = () => (
-  <StoryContainer className="justify-center items-center">
+  <StoryContainer>
     <div className="flex flex-wrap gap-4 justify-center">
       <div className="relative px-6 py-2 bg-blue-500 rounded-lg flex items-center justify-center text-white font-medium">
         <span className="invisible">Submit</span>

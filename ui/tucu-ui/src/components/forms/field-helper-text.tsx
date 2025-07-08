@@ -2,11 +2,12 @@ import React from 'react';
 import cn from 'classnames';
 
 const helperTextClasses = {
+  base: 'text-gray-900 dark:text-gray-200 mt-2',
   size: {
-    sm: 'text-[11px] mt-0.5',
-    DEFAULT: 'text-[13px] mt-0.5',
-    lg: 'text-[13px] mt-1',
-    xl: 'text-sm mt-1',
+    sm: 'text-[10px]',
+    DEFAULT: 'text-xs',
+    lg: 'text-sm',
+    xl: 'text-base',
   },
 };
 
@@ -27,7 +28,11 @@ export function FieldHelperText({
   return (
     <Component
       role="alert"
-      className={cn(size && helperTextClasses.size[size], className)}
+      className={cn(
+        helperTextClasses.base,
+        size && helperTextClasses.size[size],
+        className
+      )}
     >
       {children}
     </Component>

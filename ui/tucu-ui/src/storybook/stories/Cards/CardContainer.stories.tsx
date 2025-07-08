@@ -33,7 +33,7 @@ const meta: Meta<typeof CardContainer> = {
 export default meta;
 
 const Template: StoryFn<typeof CardContainer> = (args) => (
-  <StoryContainer className="justify-center items-center">
+  <StoryContainer>
     <div className="w-full max-w-md">
       <CardContainer {...args} />
     </div>
@@ -50,7 +50,7 @@ WithCustomClass.args = {
 };
 
 export const WithComplexContent = () => (
-  <StoryContainer className="justify-center items-center">
+  <StoryContainer>
     <div className="w-full max-w-md">
       <CardContainer>
         <div className="w-full">
@@ -63,7 +63,7 @@ export const WithComplexContent = () => (
             <button className="px-4 py-2 bg-gray-200 dark:bg-gray-700 rounded-sm">
               Cancel
             </button>
-            <button className="px-4 py-2 bg-blue-500 text-white rounded-sm">
+            <button className="px-4 py-2 bg-brand text-white rounded-sm">
               Confirm
             </button>
           </div>
@@ -74,24 +74,24 @@ export const WithComplexContent = () => (
 );
 
 export const GridOfCards = () => (
-  <StoryContainer className="justify-center items-center">
+  <StoryContainer>
     <div className="w-full max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-4">
-      <CardContainer className="bg-blue-50 dark:bg-blue-900/20 gap-4">
+      <CardContainer className="flex flex-col !bg-brand/20 gap-4">
         <h3 className="font-bold">Statistics</h3>
         <p className="mt-2">User activity metrics</p>
       </CardContainer>
 
-      <CardContainer className="bg-green-50 dark:bg-green-900/20 gap-4">
+      <CardContainer className="flex flex-col !bg-green-50 dark:!bg-green-900/20 gap-4">
         <h3 className="font-bold">Performance</h3>
         <p className="mt-2">System performance metrics</p>
       </CardContainer>
 
-      <CardContainer className="bg-purple-50 dark:bg-purple-900/20 gap-4">
+      <CardContainer className="flex flex-col bg-purple-50 dark:bg-purple-900/20 gap-4">
         <h3 className="font-bold">Engagement</h3>
         <p className="mt-2">User engagement data</p>
       </CardContainer>
 
-      <CardContainer className="bg-amber-50 dark:bg-amber-900/20 gap-4">
+      <CardContainer className="flex flex-col !bg-amber-50 dark:!bg-amber-900/20 gap-4">
         <h3 className="font-bold">Revenue</h3>
         <p className="mt-2">Financial information</p>
       </CardContainer>
@@ -100,16 +100,16 @@ export const GridOfCards = () => (
 );
 
 export const NestedCards = () => (
-  <StoryContainer className="justify-center items-center">
+  <StoryContainer>
     <div className="w-full max-w-2xl">
-      <CardContainer>
+      <CardContainer className=" !bg-brand/50 gap-4">
         <h2 className="text-xl font-bold mb-4">Parent Card</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <CardContainer className=" bg-white gap-4">
+          <CardContainer className="flex flex-col bg-white gap-4">
             <h3 className="font-medium">Nested Card 1</h3>
             <p className="mt-2 text-sm">This is a nested card example</p>
           </CardContainer>
-          <CardContainer className="bg-gray-50  gap-4">
+          <CardContainer className="flex flex-col bg-gray-50  gap-4">
             <h3 className="font-medium">Nested Card 2</h3>
             <p className="mt-2 text-sm">
               Cards can be nested within other cards

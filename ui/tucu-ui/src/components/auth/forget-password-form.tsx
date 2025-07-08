@@ -1,38 +1,45 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import Input from '../forms/input';
 import Button from '../buttons/button';
+import { Form } from '../forms/form-system';
+import { FormField } from '../forms/form-system/form-field';
+import { FieldValues } from 'react-hook-form';
+import { Path } from 'react-hook-form/dist/types';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'storybook/internal/preview-api';
-
-export interface ForgetPasswordFormPropTypes {
+export interface ForgetPasswordFormPropTypes<FormValues extends FieldValues> {
   onSubmit: (email: string) => void;
   resetPinPath: string;
+  email: Path<FormValues>;
+  setEmail: (email: string) => void;
 }
 
-export function ForgetPasswordForm({
+export function ForgetPasswordForm<FormValues extends FieldValues>({
   resetPinPath,
   onSubmit,
-}: ForgetPasswordFormPropTypes) {
+  email,
+  setEmail,
+}: ForgetPasswordFormPropTypes<FormValues>) {
   const navigate = useNavigate();
 
-  const [email, setEmail] = useState('');
-
-  function handleSubmit(e: any) {
-    e.preventDefault();
-    onSubmit(email);
+  function handleSubmit(values: FormValues) {
+    onSubmit(values[email]);
     navigate(resetPinPath);
   }
 
   return (
-    <form
-      noValidate
-      onSubmit={(value) => handleSubmit(value)}
-      className="grid grid-cols-1 gap-4"
-    >
-      <div>
-        <p className="mb-2.5 text-left text-sm font-medium text-[#6B7280] rtl:text-right dark:text-gray-300">
-          Email Address
-        </p>
+    <Form noValidate onSubmit={handleSubmit} className="grid grid-cols-1 gap-4">
+      <FormField
+        name={email}
+        label="Email Address"
+        className="focus:ring-0! placeholder:text-[#6B7280] mt-0!"
+        rules={{
+          required: 'Email is required',
+          pattern: {
+            value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+            message: 'Invalid email address',
+          },
+        }}
+      >
         <Input
           type="email"
           placeholder="Enter your email"
@@ -40,16 +47,16 @@ export function ForgetPasswordForm({
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
-      </div>
+      </FormField>
       <Button
         type="submit"
         disabled={!email}
-        onClick={() => handleSubmit(email)}
+        onClick={() => handleSubmit({ [email]: email } as FormValues)}
         className="mt-5 rounded-lg text-sm! uppercase tracking-[0.04em]"
       >
         Send Reset code
       </Button>
-    </form>
+    </Form>
   );
 }
 

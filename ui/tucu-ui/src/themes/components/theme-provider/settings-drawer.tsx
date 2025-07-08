@@ -18,7 +18,7 @@ import {
   Sun,
   Moon,
 } from '../../../components/icons';
-import { Drawer } from '../../../components/drawer';
+import { Drawer } from '../../../components/dialog';
 
 // Component: SwitcherButton
 interface SwitcherButtonProps {

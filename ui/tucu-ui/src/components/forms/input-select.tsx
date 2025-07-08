@@ -1,8 +1,15 @@
-import { Fragment } from 'react';
-import { Listbox } from '@headlessui/react';
+import { Fragment, useEffect, useState } from 'react';
+import {
+  Listbox,
+  ListboxButton,
+  ListboxOption,
+  ListboxOptions,
+} from '@headlessui/react';
 import cn from 'classnames';
-import { Transition } from '../headlessui/transition';
+import { Transition } from '@headlessui/react';
 import { ChevronDown } from '../icons/chevron-down';
+import { FieldError } from './field-error-text';
+import { FieldHelperText } from './field-helper-text';
 
 export type InputSelectOption = {
   name: string;
@@ -12,7 +19,9 @@ export type InputSelectOption = {
 export interface InputSelectTypes {
   options: InputSelectOption[];
   selectedOption?: InputSelectOption;
-  onChange?: React.Dispatch<React.SetStateAction<InputSelectOption>>;
+  onChange?:
+    | React.Dispatch<React.SetStateAction<InputSelectOption>>
+    | ((value: InputSelectOption) => void);
   children?: React.ReactNode;
   onSelect?: (value: string) => void;
   variant?: 'ghost' | 'solid' | 'transparent';
@@ -21,6 +30,10 @@ export interface InputSelectTypes {
   label?: string;
   useUppercaseLabel?: boolean;
   required?: boolean;
+  value?: string;
+  name?: string;
+  errorMessage?: string;
+  helperText?: string;
 }
 
 const inputSelectVariantClasses = {
@@ -36,14 +49,52 @@ export function InputSelect({
   onChange,
   onSelect,
   variant = 'ghost',
-  selectedOption,
+  selectedOption: propSelectedOption,
   className,
   children,
   disabled,
   label,
   useUppercaseLabel,
   required,
+  value,
+  name,
+  errorMessage,
+  helperText,
 }: InputSelectTypes) {
+  // State to handle the selected option
+  const [internalSelectedOption, setInternalSelectedOption] = useState<
+    InputSelectOption | undefined
+  >(propSelectedOption);
+
+  // Effect to handle the case when a string value is passed (from react-hook-form)
+  useEffect(() => {
+    if (value !== undefined) {
+      const option = options.find((opt) => opt.value === value);
+      if (option) {
+        setInternalSelectedOption(option);
+      }
+    }
+  }, [value, options]);
+
+  // Use either the prop selectedOption or the internal state
+  const selectedOption = propSelectedOption || internalSelectedOption;
+
+  // Handle change for both react-hook-form and regular use
+  const handleChange = (option: InputSelectOption) => {
+    setInternalSelectedOption(option);
+
+    if (onChange) {
+      // Handle both types of onChange functions
+      if (typeof onChange === 'function') {
+        onChange(option);
+      }
+    }
+
+    if (onSelect) {
+      onSelect(option.value);
+    }
+  };
+
   return (
     <div className={cn('relative text-xs sm:text-sm', className)}>
       {label && (
@@ -62,26 +113,33 @@ export function InputSelect({
           )}
         </span>
       )}
-      <Listbox value={selectedOption} onChange={onChange} disabled={disabled}>
-        <Listbox.Button
+      <Listbox
+        name={name}
+        value={selectedOption}
+        onChange={handleChange}
+        disabled={disabled}
+      >
+        <ListboxButton
           className={cn(
             'text-case-inherit letter-space-inherit flex h-10 w-full items-center justify-between rounded-lg px-4 text-sm font-medium outline-hidden duration-200 sm:h-12 sm:px-5',
             inputSelectVariantClasses[variant],
             disabled && 'cursor-not-allowed opacity-50'
           )}
         >
-          <div className="flex items-center">{selectedOption?.name}</div>
+          <div className="flex items-center">
+            {selectedOption?.name || 'Select an option'}
+          </div>
           <ChevronDown />
-        </Listbox.Button>
+        </ListboxButton>
         <Transition
           as={Fragment}
           leave="transition ease-in duration-100"
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <Listbox.Options className="absolute max-h-44 overflow-auto left-0 z-10 mt-1 grid w-full origin-top-right gap-0.5 rounded-lg border border-gray-200 bg-white p-1 shadow-large outline-hidden dark:border-gray-700 dark:bg-gray-800 xs:p-2">
+          <ListboxOptions className="absolute max-h-44 overflow-auto left-0 z-10 mt-1 grid w-full origin-top-right gap-0.5 rounded-lg border border-gray-200 bg-white p-1 shadow-large outline-hidden dark:border-gray-700 dark:bg-gray-800 xs:p-2">
             {options.map((option, index) => (
-              <Listbox.Option key={`${option.value}-${index}`} value={option}>
+              <ListboxOption key={`${option.value}-${index}`} value={option}>
                 {({ selected }) => (
                   <div
                     onClick={() => onSelect && onSelect(option.value)}
@@ -94,13 +152,17 @@ export function InputSelect({
                     {option.name}
                   </div>
                 )}
-              </Listbox.Option>
+              </ListboxOption>
             ))}
             {/* any custom / external link or element */}
             {children && children}
-          </Listbox.Options>
+          </ListboxOptions>
         </Transition>
       </Listbox>
+      {errorMessage && <FieldError error={errorMessage} size="DEFAULT" />}
+      {!errorMessage && helperText && (
+        <FieldHelperText size="DEFAULT">{helperText}</FieldHelperText>
+      )}
     </div>
   );
 }

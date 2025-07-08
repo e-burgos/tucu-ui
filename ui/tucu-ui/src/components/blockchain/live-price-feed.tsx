@@ -6,7 +6,7 @@ import { useBreakpoint } from '../../hooks';
 import { useIsMounted } from '../../hooks/use-is-mounted';
 import cn from 'classnames';
 
-type Price = {
+export type Price = {
   name: number;
   value: number;
 };
@@ -39,14 +39,14 @@ export function LivePriceFeed({
   return (
     <div
       className={cn(
-        'flex items-center gap-4 rounded-lg bg-white p-5 dark:bg-light-dark lg:flex-row',
+        'flex items-center gap-4 w-full rounded-lg bg-white p-5 dark:bg-light-dark lg:flex-row',
         {
           'light:border light:border-slate-200': !isBorder,
           'shadow-card': !isBorder,
         }
       )}
     >
-      <div className="w-full flex-col">
+      <div className="w-1/3 min-w-fit flex-col">
         <div className="mb-3 flex items-center">
           {icon}
           <h4 className="text-sm font-medium text-gray-900 ltr:ml-3 rtl:mr-3 dark:text-white">
@@ -85,7 +85,7 @@ export function LivePriceFeed({
       </div>
 
       <div
-        className="h-20 w-full"
+        className="h-20 w-2/3"
         data-hello={isChangePositive ? '#22c55e' : '#D6455D'}
       >
         <ResponsiveContainer width="100%" height="100%">

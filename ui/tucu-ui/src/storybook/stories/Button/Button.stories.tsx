@@ -81,7 +81,7 @@ const meta: Meta<typeof Button> = {
 export default meta;
 
 const Template: StoryFn<typeof Button> = (args) => (
-  <StoryContainer className="justify-center items-center">
+  <StoryContainer>
     <Button {...args} />
   </StoryContainer>
 );

@@ -1,81 +1,704 @@
-# Product Line
+# Tucu UI
 
-<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
+A modern React component library built with Tailwind CSS, designed for creating robust web applications with **automatic layout generation**, comprehensive form systems, and specialized components for both traditional and DApp development.
 
-✨ Your new, shiny [Nx workspace](https://nx.dev) is almost ready ✨.
+## 🚀 Key Features
 
-[Learn more about this workspace setup and its capabilities](https://nx.dev/getting-started/tutorials/react-monorepo-tutorial?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
+- **🎨 Automatic Layout Generation** - Complete application layouts with minimal configuration via ThemeProvider
+- **📝 Powerful Form System** - Centralized validation powered by React Hook Form
+- **🎯 DApp-Ready Components** - Specialized components for decentralized applications
+- **🌐 Integrated Routing** - Built-in routing system for SPAs
+- **🎨 Complete Iconography** - Internal icons + full Lucide Icons integration
+- **🌍 RTL Support** - Complete support for right-to-left languages
+- **📱 Responsive Design** - Mobile-first approach across all components
 
-## Finish your remote caching setup
+## 🔧 Core Dependencies
 
-[Click here to finish setting up your workspace!](https://cloud.nx.app/connect/MeAYFWLT7q)
+Tucu UI is built on top of these powerful libraries:
 
-## Run tasks
+- **[React Hook Form](https://react-hook-form.com/)** - For performant form handling and validation
+- **[Zustand](https://zustand-demo.pmnd.rs/)** - For lightweight state management
+- **[Tailwind CSS](https://tailwindcss.com/)** - For utility-first styling
 
-To run the dev server for your app, use:
+## 📦 Installation
 
-```sh
-npx nx serve app-name
+```bash
+npm install tucu-ui
 ```
 
-To create a production bundle:
+## 🎯 Quick Start
 
-```sh
-npx nx build app-name
+### Basic Component Usage
+
+```tsx
+import { Button, Card, Input } from 'tucu-ui';
+import 'tucu-ui/styles';
+
+function App() {
+  return (
+    <Card>
+      <h2>Welcome to Tucu UI</h2>
+      <Input placeholder="Enter your name" />
+      <Button>Get Started</Button>
+    </Card>
+  );
+}
 ```
 
-To see all available targets to run for a project, run:
+### Tailwind CSS Configuration
 
-```sh
-npx nx show project app-name
+```js
+// tailwind.config.js
+module.exports = {
+  content: ['./src/**/*.{js,ts,jsx,tsx}', './node_modules/tucu-ui/**/*.{js,ts,jsx,tsx}'],
+  // ... rest of your configuration
+};
 ```
 
-These targets are either [inferred automatically](https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.
+## 🎨 Automatic Layout Generation
 
-[More about running tasks in the docs &raquo;](https://nx.dev/features/run-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+The **ThemeProvider** is Tucu UI's most powerful feature - it generates complete application layouts automatically with minimal configuration.
 
-## Add new projects
+### Complete App with ThemeProvider
 
-While you could add new projects to your workspace manually, you might want to leverage [Nx plugins](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) and their [code generation](https://nx.dev/features/generate-code?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) feature.
+```tsx
+import { ThemeProvider } from 'tucu-ui';
 
-Use the plugin's generator to create new projects.
+const menuItems = [
+  {
+    name: 'Dashboard',
+    href: '/',
+    icon: <DashboardIcon />,
+    component: <DashboardPage />,
+  },
+  {
+    name: 'Analytics',
+    href: '/analytics',
+    icon: <AnalyticsIcon />,
+    component: <AnalyticsPage />,
+    dropdownItems: [
+      {
+        name: 'Reports',
+        href: '/analytics/reports',
+        component: <ReportsPage />,
+      },
+    ],
+  },
+];
 
-To generate a new application, use:
-
-```sh
-npx nx g @nx/react:app demo
+function App() {
+  return (
+    <ThemeProvider
+      logo={{ name: 'My', secondName: 'App' }}
+      layout="minimal" // 'none' | 'minimal' | 'classic'
+      menuItems={menuItems}
+      brandColor="Blue" // 'Green' | 'Black' | 'Blue' | 'Red' | 'Purple' | 'Orange'
+      showSettings={true}
+      rightButton={<UserMenu />}
+    />
+  );
+}
 ```
 
-To generate a new library, use:
+**That's it!** Your complete application with routing, navigation, and theming is ready.
 
-```sh
-npx nx g @nx/react:lib mylib
+### Available Layouts
+
+#### 1. **Minimal Layout**
+
+- Clean header with horizontal navigation
+- Responsive sidebar for mobile
+- Perfect for modern dashboards
+
+#### 2. **Classic Layout**
+
+- Fixed sidebar with vertical navigation
+- Header with logo and actions
+- Ideal for admin applications
+
+#### 3. **None Layout**
+
+- No predefined layout
+- Maximum flexibility for custom designs
+
+### Theme System Features
+
+#### Color Presets
+
+```tsx
+const availablePresets = [
+  'Green', // #009e60 - Default
+  'Black', // #323743
+  'Blue', // #2a52be
+  'Red', // #e34234
+  'Purple', // #9370DB
+  'Orange', // #ffa500
+];
 ```
 
-You can use `npx nx list` to get a list of installed plugins. Then, run `npx nx list <plugin-name>` to learn about more specific capabilities of a particular plugin. Alternatively, [install Nx Console](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) to browse plugins and generators in your IDE.
+#### useTheme Hook
 
-[Learn more about Nx plugins &raquo;](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) | [Browse the plugin registry &raquo;](https://nx.dev/plugin-registry?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+```tsx
+import { useTheme } from 'tucu-ui';
 
-[Learn more about Nx on CI](https://nx.dev/ci/intro/ci-with-nx#ready-get-started-with-your-provider?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+function ThemeControls() {
+  const {
+    mode, // 'light' | 'dark'
+    layout, // 'none' | 'minimal' | 'classic'
+    direction, // 'ltr' | 'rtl'
+    preset, // Current color preset
+    setMode,
+    setLayout,
+    setPreset,
+  } = useTheme();
 
-## Install Nx Console
+  return (
+    <div>
+      <button onClick={() => setMode(mode === 'light' ? 'dark' : 'light')}>Toggle {mode === 'light' ? 'Dark' : 'Light'} Mode</button>
+      <button onClick={() => setLayout('classic')}>Switch to Classic Layout</button>
+    </div>
+  );
+}
+```
 
-Nx Console is an editor extension that enriches your developer experience. It lets you run tasks, generate code, and improves code autocompletion in your IDE. It is available for VSCode and IntelliJ.
+#### Integrated Routing System
 
-[Install Nx Console &raquo;](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+The ThemeProvider automatically handles routing based on your `menuItems`:
 
-## Useful links
+```tsx
+const menuItems = [
+  {
+    name: 'Products',
+    href: '/products',
+    component: <ProductList />,
+    dropdownItems: [
+      {
+        name: 'Create Product',
+        href: '/products/create',
+        component: <CreateProduct />,
+      },
+    ],
+  },
+];
 
-Learn more:
+// Routes are automatically generated:
+// / -> Home
+// /products -> ProductList component
+// /products/create -> CreateProduct component
+```
 
-- [Learn more about this workspace setup](https://nx.dev/getting-started/tutorials/react-monorepo-tutorial?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Learn about Nx on CI](https://nx.dev/ci/intro/ci-with-nx?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Releasing Packages with Nx release](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [What are Nx plugins?](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+## 📝 Advanced Form System
 
-And join the Nx community:
+Tucu UI provides a comprehensive form system with centralized validation powered by React Hook Form.
 
-- [Discord](https://go.nx.dev/community)
-- [Follow us on X](https://twitter.com/nxdevtools) or [LinkedIn](https://www.linkedin.com/company/nrwl)
-- [Our Youtube channel](https://www.youtube.com/@nxdevtools)
-- [Our blog](https://nx.dev/blog?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+### Available Form Components
+
+```tsx
+import { Form, FormField, Input, Textarea, Checkbox, Radio, RadioGroup, InputSelect, InputSwitch, PinCode, FileInput, ToggleBar } from 'tucu-ui';
+```
+
+### Centralized Validation
+
+```tsx
+import { Form, FormField, Input, Button } from 'tucu-ui';
+
+// Define validation schema
+const validationSchema = {
+  email: {
+    required: 'Email is required',
+    pattern: {
+      value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+      message: 'Invalid email address',
+    },
+  },
+  password: {
+    required: 'Password is required',
+    minLength: {
+      value: 8,
+      message: 'Password must be at least 8 characters',
+    },
+  },
+};
+
+function LoginForm() {
+  const handleSubmit = (values) => {
+    console.log('Form values:', values);
+  };
+
+  return (
+    <Form
+      onSubmit={handleSubmit}
+      validationSchema={validationSchema}
+      useFormProps={{
+        defaultValues: { email: '', password: '' },
+        mode: 'onChange',
+      }}
+    >
+      <FormField name="email" label="Email">
+        <Input type="email" placeholder="Enter your email" />
+      </FormField>
+
+      <FormField name="password" label="Password">
+        <Input type="password" placeholder="Enter your password" />
+      </FormField>
+
+      <Button type="submit">Sign In</Button>
+    </Form>
+  );
+}
+```
+
+### Specialized Input Components
+
+#### Input Select with Options
+
+```tsx
+<FormField name="country" label="Country">
+  <InputSelect
+    options={[
+      { name: 'United States', value: 'us' },
+      { name: 'Canada', value: 'ca' },
+      { name: 'Mexico', value: 'mx' },
+    ]}
+  />
+</FormField>
+```
+
+#### Pin Code Input
+
+```tsx
+<FormField name="verificationCode" label="Verification Code">
+  <PinCode length={6} type="number" placeholder="-" />
+</FormField>
+```
+
+#### File Upload
+
+```tsx
+<FormField name="documents" label="Upload Documents">
+  <FileInput multiple accept="imgAndPdf" placeholderText="Drop files here or click to upload" />
+</FormField>
+```
+
+#### Radio Group
+
+```tsx
+<FormField name="subscription" label="Choose Plan">
+  <RadioGroup
+    options={[
+      { value: 'basic', label: 'Basic - $9/month' },
+      { value: 'pro', label: 'Pro - $29/month' },
+      { value: 'enterprise', label: 'Enterprise - $99/month' },
+    ]}
+    direction="vertical"
+  />
+</FormField>
+```
+
+### useFormContext Hook
+
+Access form methods from any child component:
+
+```tsx
+import { useFormContext } from 'react-hook-form';
+
+function FormActions() {
+  const {
+    formState: { isValid, isDirty, errors },
+    reset,
+    trigger,
+    setValue,
+    getValues,
+    watch,
+  } = useFormContext();
+
+  const emailValue = watch('email');
+
+  return (
+    <div>
+      <p>Current email: {emailValue}</p>
+      <Button disabled={!isValid}>Submit</Button>
+      <Button type="button" onClick={() => reset()}>
+        Reset
+      </Button>
+    </div>
+  );
+}
+```
+
+## 🎯 DApp & Blockchain Components
+
+Tucu UI includes specialized components for decentralized applications and blockchain interfaces.
+
+### Cryptocurrency Components
+
+```tsx
+import {
+  CoinCard,
+  CoinInfoCard,
+  CoinListBox,
+  LivePriceFeed,
+  TransactionInfo,
+  CurrencySwapIcons
+} from 'tucu-ui';
+
+// Portfolio coin card
+<CoinCard
+  name="Bitcoin"
+  symbol="BTC"
+  logo="/bitcoin-logo.svg"
+  balance="0.5"
+  usdBalance="25,000"
+  change="+5.2%"
+  isChangePositive={true}
+  color="#F7931A"
+/>
+
+// Live price chart
+<LivePriceFeed
+  name="Ethereum"
+  symbol="ETH"
+  icon={<EthereumIcon />}
+  balance="10.5"
+  usdBalance="18,750"
+  change="+2.8%"
+  isChangePositive={true}
+  prices={priceHistory}
+/>
+
+// Transaction details
+<TransactionInfo
+  label="Gas Fee"
+  value="0.002 ETH"
+/>
+```
+
+### NFT Components
+
+```tsx
+import { NFTGrid, CollectionCard } from 'tucu-ui';
+
+<NFTGrid author="CryptoArtist" authorImage="/artist-avatar.jpg" image="/nft-image.jpg" name="Digital Masterpiece #123" collection="Abstract Collection" price="2.5 ETH" />;
+```
+
+## 🎨 Complete Icon System
+
+### Lucide Icons Integration
+
+Direct access to all [Lucide React](https://lucide.dev/) icons:
+
+```tsx
+// Direct import
+import { AlertCircle, Bell, Calendar } from 'tucu-ui/lucide-react';
+
+// Or using namespace
+import { LucideIcons } from 'tucu-ui';
+
+function MyComponent() {
+  return (
+    <div>
+      <AlertCircle size={24} color="red" />
+      <LucideIcons.Bell size={24} />
+      <LucideIcons.Calendar size={24} />
+    </div>
+  );
+}
+```
+
+### Internal Icon Library
+
+Extensive collection of internal icons organized by categories:
+
+```tsx
+import {
+  // Blockchain/Crypto
+  Bitcoin,
+  Ethereum,
+  Tether,
+  Cardano,
+  Bnb,
+  Usdc,
+
+  // Layout
+  ClassicLayoutIcon,
+  MinimalLayoutIcon,
+  ModernLayoutIcon,
+
+  // Navigation
+  ArrowUp,
+  ArrowRight,
+  ChevronDown,
+  ChevronForward,
+
+  // Social Brands
+  Facebook,
+  Twitter,
+  Instagram,
+  Github,
+  Telegram,
+
+  // Interface
+  SearchIcon,
+  HomeIcon,
+  ProfileIcon,
+  Close,
+  Plus,
+
+  // DApp Specific
+  SwapIcon,
+  ExchangeIcon,
+  TradingBotIcon,
+  FarmIcon,
+  PoolIcon,
+} from 'tucu-ui';
+```
+
+## 🔧 Layout & Navigation Components
+
+### Modal System
+
+```tsx
+import { Modal } from 'tucu-ui';
+
+<Modal
+  isOpen={isModalOpen}
+  setIsOpen={setIsModalOpen}
+  text={{
+    title: 'Confirm Transaction',
+    content: 'Are you sure you want to proceed with this transaction?',
+    button: 'Confirm',
+    backButton: 'Cancel',
+  }}
+  onSubmit={handleConfirm}
+  onClose={handleClose}
+/>;
+```
+
+### Drawer/Sidebar
+
+```tsx
+import { Drawer } from 'tucu-ui';
+
+<Drawer type="sidebar-menu" isOpen={isDrawerOpen} setIsOpen={setIsDrawerOpen} menuItems={navigationItems} logo={{ name: 'My', secondName: 'App' }} position="left" />;
+```
+
+### Card Components
+
+```tsx
+import { CardContainer, CardTitle, PanelActionCard } from 'tucu-ui';
+
+<PanelActionCard
+  title="User Settings"
+  actions={[
+    { label: 'Save', onClick: handleSave },
+    { label: 'Cancel', variant: 'ghost', onClick: handleCancel },
+  ]}
+>
+  <UserSettingsForm />
+</PanelActionCard>;
+```
+
+## 🎣 Utility Hooks
+
+```tsx
+import { useBreakpoint, useClickAway, useCopyToClipboard, useElementSize, useIsMobile, useIsMount, useLockBodyScroll, useWindowScroll } from 'tucu-ui';
+
+// Responsive breakpoint detection
+function ResponsiveComponent() {
+  const breakpoint = useBreakpoint();
+  const isMobile = useIsMobile();
+
+  return (
+    <div>
+      Current breakpoint: {breakpoint}
+      {isMobile && <MobileOnlyComponent />}
+    </div>
+  );
+}
+
+// Copy to clipboard functionality
+function ShareButton({ url }) {
+  const [copiedText, copy] = useCopyToClipboard();
+
+  return <button onClick={() => copy(url)}>{copiedText ? 'Copied!' : 'Share'}</button>;
+}
+```
+
+## 🚀 Ready-to-Use Authentication
+
+```tsx
+import {
+  SignInForm,
+  SignUpForm,
+  ForgetPasswordForm,
+  ResetPinForm
+} from 'tucu-ui';
+
+// Complete sign-in form with validation
+<SignInForm forgetPasswordPath="/forgot-password" />
+
+// Sign-up form with terms acceptance
+<SignUpForm />
+
+// Password reset flow
+<ForgetPasswordForm
+  onSubmit={handlePasswordReset}
+  resetPinPath="/reset-pin"
+/>
+```
+
+## 📚 Complete Examples
+
+### Modern Dashboard Application
+
+```tsx
+import { ThemeProvider } from 'tucu-ui';
+import { HomeIcon, AnalyticsIcon, UsersIcon, SettingsIcon } from 'tucu-ui';
+
+const dashboardMenuItems = [
+  {
+    name: 'Overview',
+    href: '/',
+    icon: <HomeIcon />,
+    component: <OverviewPage />,
+  },
+  {
+    name: 'Analytics',
+    href: '/analytics',
+    icon: <AnalyticsIcon />,
+    component: <AnalyticsPage />,
+    dropdownItems: [
+      {
+        name: 'Reports',
+        href: '/analytics/reports',
+        component: <ReportsPage />,
+      },
+      {
+        name: 'Insights',
+        href: '/analytics/insights',
+        component: <InsightsPage />,
+      },
+    ],
+  },
+  {
+    name: 'Users',
+    href: '/users',
+    icon: <UsersIcon />,
+    component: <UsersPage />,
+  },
+  {
+    name: 'Settings',
+    href: '/settings',
+    icon: <SettingsIcon />,
+    component: <SettingsPage />,
+  },
+];
+
+function Dashboard() {
+  return <ThemeProvider layout="classic" menuItems={dashboardMenuItems} logo={{ name: 'Admin', secondName: 'Panel' }} brandColor="Blue" showSettings={true} rightButton={<UserProfileMenu />} />;
+}
+```
+
+### DeFi Portfolio Application
+
+```tsx
+import { ThemeProvider, CoinCard, LivePriceFeed, TransactionInfo } from 'tucu-ui';
+
+const portfolioMenuItems = [
+  {
+    name: 'Portfolio',
+    href: '/',
+    icon: <WalletIcon />,
+    component: <PortfolioOverview />,
+  },
+  {
+    name: 'Trading',
+    href: '/trading',
+    icon: <ExchangeIcon />,
+    component: <TradingPage />,
+  },
+  {
+    name: 'History',
+    href: '/history',
+    icon: <HistoryIcon />,
+    component: <TransactionHistory />,
+  },
+];
+
+function DeFiApp() {
+  return (
+    <ThemeProvider layout="minimal" menuItems={portfolioMenuItems} logo={{ name: 'DeFi', secondName: 'Portfolio' }} brandColor="Green" rightButton={<WalletConnector />}>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <CoinCard name="Bitcoin" symbol="BTC" balance="0.5" usdBalance="25,000" change="+5.2%" isChangePositive={true} />
+        <LivePriceFeed name="Ethereum" symbol="ETH" balance="10.5" usdBalance="18,750" change="+2.8%" isChangePositive={true} prices={ethPriceHistory} />
+        <TransactionInfo label="Total Portfolio Value" value="$43,750" />
+      </div>
+    </ThemeProvider>
+  );
+}
+```
+
+## 🎨 Customization
+
+### CSS Custom Properties
+
+```css
+:root {
+  --brand: #your-brand-color;
+  --brand-secondary: #your-secondary-color;
+  /* Tucu UI will respect these variables */
+}
+```
+
+### Extending Tailwind
+
+```js
+// tailwind.config.js
+module.exports = {
+  extend: {
+    colors: {
+      brand: {
+        DEFAULT: '#your-color',
+        50: '#your-color-50',
+        // ... more shades
+      },
+    },
+  },
+};
+```
+
+## 🔧 Development
+
+```bash
+# Clone the repository
+git clone <repository-url>
+
+# Install dependencies
+npm install
+
+# Run Storybook
+npm run storybook
+
+# Run tests
+npm run test
+
+# Build library
+npm run build
+```
+
+## 📄 License
+
+MIT
+
+## 🤝 Contributing
+
+Contributions are welcome! Please open an issue first to discuss what you would like to change.
+
+## 🌐 Documentation
+
+- **English**: [README.md](./README.md)
+- **Español**: [README-es.md](./README-es.md)
+
+---
+
+**Tucu UI** - Modern React components for next-generation web applications.

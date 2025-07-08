@@ -6,6 +6,7 @@ import Logo from '../../../components/icons/menu-icon';
 import UploadIcon from '../../../components/icons/upload';
 import HorizontalThreeDots from '../../../components/icons/horizontal-three-dots';
 import VerticalThreeDots from '../../../components/icons/vertical-three-dots';
+import { VerifiedIcon } from '../../../components/icons';
 
 // Type for icon component
 type IconComponentProps = React.SVGAttributes<SVGElement>;
@@ -25,7 +26,7 @@ const IconGrid = ({
       {Object.entries(icons).map(([name, Icon]) => (
         <div
           key={name}
-          className="flex flex-col items-center justify-center p-4 border border-gray-200 rounded-lg hover:border-blue-500 transition-colors"
+          className="flex flex-col w-full items-center justify-center p-4 border border-gray-200 rounded-lg hover:bg-brand/10 hover:border-brand transition-colors"
         >
           <div className="h-12 w-12 flex items-center justify-center text-gray-700">
             <Icon className="h-8 w-8 dark:text-gray-300" />
@@ -41,7 +42,7 @@ const IconGrid = ({
 
 // Meta for the story
 const meta: Meta = {
-  title: 'UI COMPONENTS/Icons',
+  title: 'UI COMPONENTS/Icons/Icons',
   parameters: {
     docs: {
       description: {
@@ -138,10 +139,9 @@ const themeIcons = {
 // Main story component
 export const AllIcons: Story = {
   render: () => (
-    <StoryContainer className="max-h-[50%] overflow-y-auto">
+    <StoryContainer className="flex justify-start">
       <div className="p-4 max-w-6xl mx-auto ">
         <h1 className="text-2xl font-bold mb-6">Icon Library</h1>
-
         <IconGrid icons={navigationIcons} category="Navigation Icons" />
         <IconGrid icons={brandIcons} category="Brand Icons" />
         <IconGrid icons={cryptocurrencyIcons} category="Cryptocurrency Icons" />
@@ -156,7 +156,7 @@ export const AllIcons: Story = {
 // Individual icon categories
 export const Navigation: Story = {
   render: () => (
-    <StoryContainer>
+    <StoryContainer className="flex justify-start">
       <div className="p-4 max-w-6xl mx-auto">
         <IconGrid icons={navigationIcons} category="Navigation Icons" />
       </div>
@@ -166,7 +166,7 @@ export const Navigation: Story = {
 
 export const Brands: Story = {
   render: () => (
-    <StoryContainer>
+    <StoryContainer className="flex justify-start">
       <div className="p-4 max-w-6xl mx-auto">
         <IconGrid icons={brandIcons} category="Brand Icons" />
       </div>
@@ -176,7 +176,7 @@ export const Brands: Story = {
 
 export const Cryptocurrency: Story = {
   render: () => (
-    <StoryContainer>
+    <StoryContainer className="flex justify-start">
       <div className="p-4 max-w-6xl mx-auto">
         <IconGrid icons={cryptocurrencyIcons} category="Cryptocurrency Icons" />
       </div>
@@ -186,7 +186,7 @@ export const Cryptocurrency: Story = {
 
 export const Interface: Story = {
   render: () => (
-    <StoryContainer>
+    <StoryContainer className="flex justify-start">
       <div className="p-4 max-w-6xl mx-auto">
         <IconGrid icons={interfaceIcons} category="Interface Icons" />
       </div>
@@ -196,7 +196,7 @@ export const Interface: Story = {
 
 export const Layout: Story = {
   render: () => (
-    <StoryContainer>
+    <StoryContainer className="flex justify-start">
       <div className="p-4 max-w-6xl mx-auto">
         <IconGrid icons={layoutIcons} category="Layout Icons" />
       </div>
@@ -206,9 +206,114 @@ export const Layout: Story = {
 
 export const Theme: Story = {
   render: () => (
-    <StoryContainer>
+    <StoryContainer className="flex justify-start">
       <div className="p-4 max-w-6xl mx-auto">
         <IconGrid icons={themeIcons} category="Theme Icons" />
+      </div>
+    </StoryContainer>
+  ),
+};
+
+export const UsageIcons: Story = {
+  render: () => (
+    <StoryContainer className="flex justify-start items-center">
+      <div className="p-4 max-w-4xl mx-auto">
+        <h1 className="text-2xl font-bold mb-6">How to Import and Use</h1>
+
+        <div className="mb-8">
+          <div className="space-y-4">
+            <div className="p-4 border rounded-lg">
+              <h3 className="font-medium mb-2">Import from namespace</h3>
+              <pre className="bg-gray-100 dark:bg-gray-800 p-4 rounded overflow-x-auto">
+                <code>{`import { VerifiedIcon } from '@tucu-ui';
+
+// Usage
+<VerifiedIcon className="h-5 w-5 text-red-500" />`}</code>
+              </pre>
+            </div>
+          </div>
+        </div>
+
+        <div className="mb-8">
+          <h2 className="text-xl font-semibold mb-4">Common Props</h2>
+          <table className="w-full border-collapse">
+            <thead>
+              <tr className="bg-gray-100 dark:bg-gray-800">
+                <th className="p-2 text-left">Prop</th>
+                <th className="p-2 text-left">Type</th>
+                <th className="p-2 text-left">Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr className="border-b">
+                <td className="p-2">
+                  <code>size</code>
+                </td>
+                <td className="p-2">
+                  <code>number</code>
+                </td>
+                <td className="p-2">
+                  Size of the icon (both width and height)
+                </td>
+              </tr>
+              <tr className="border-b">
+                <td className="p-2">
+                  <code>color</code>
+                </td>
+                <td className="p-2">
+                  <code>string</code>
+                </td>
+                <td className="p-2">Color of the icon</td>
+              </tr>
+              <tr className="border-b">
+                <td className="p-2">
+                  <code>strokeWidth</code>
+                </td>
+                <td className="p-2">
+                  <code>number</code>
+                </td>
+                <td className="p-2">Width of the stroke (default: 2)</td>
+              </tr>
+              <tr className="border-b">
+                <td className="p-2">
+                  <code>className</code>
+                </td>
+                <td className="p-2">
+                  <code>string</code>
+                </td>
+                <td className="p-2">CSS classes to apply</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div className="mb-8">
+          <h2 className="text-xl font-semibold mb-4">Example with Props</h2>
+          <div className="p-4 border rounded-lg">
+            <div className="flex flex-wrap items-center gap-8">
+              <div className="flex flex-col items-center">
+                <VerifiedIcon className="h-8 w-8 text-red-500" />
+                <span className="mt-2 text-sm">size & color</span>
+              </div>
+
+              <div className="flex flex-col items-center">
+                <VerifiedIcon
+                  className="h-8 w-8 text-blue-500"
+                  strokeWidth={1}
+                />
+                <span className="mt-2 text-sm">className & strokeWidth</span>
+              </div>
+
+              <div className="flex flex-col items-center">
+                <VerifiedIcon
+                  className="h-8 w-8 text-green-500"
+                  strokeWidth={3}
+                />
+                <span className="mt-2 text-sm">Bold stroke</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </StoryContainer>
   ),

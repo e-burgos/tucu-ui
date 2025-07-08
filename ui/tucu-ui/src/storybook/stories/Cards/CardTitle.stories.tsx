@@ -1,3 +1,4 @@
+import React from 'react';
 import type { Meta, StoryFn } from '@storybook/react-vite';
 import { CardTitle, CardContainer } from '../../../components/cards';
 import { StoryContainer } from '../../components/StoryContainer';
@@ -42,10 +43,10 @@ const meta: Meta<typeof CardTitle> = {
 export default meta;
 
 const Template: StoryFn<typeof CardTitle> = (args) => (
-  <StoryContainer className="justify-center items-center">
-    <div className="w-full max-w-md">
+  <StoryContainer>
+    <CardContainer className="w-full max-w-md max-h-fit">
       <CardTitle {...args} />
-    </div>
+    </CardContainer>
   </StoryContainer>
 );
 
@@ -73,8 +74,8 @@ WithCustomClass.args = {
 };
 
 export const WithComplexContent = () => (
-  <StoryContainer className="justify-center items-center">
-    <div className="w-full max-w-md">
+  <StoryContainer>
+    <CardContainer className="w-full max-w-md">
       <CardTitle title="User Statistics">
         <div className="space-y-4">
           <div className="flex justify-between items-center">
@@ -97,13 +98,13 @@ export const WithComplexContent = () => (
           </div>
         </div>
       </CardTitle>
-    </div>
+    </CardContainer>
   </StoryContainer>
 );
 
 export const CustomTitleStyles = () => (
-  <StoryContainer className="justify-center items-center">
-    <div className="w-full max-w-md space-y-6">
+  <StoryContainer>
+    <CardContainer className="w-full max-w-md space-y-6">
       <CardTitle
         title="Primary"
         className="border-blue-500 dark:border-blue-700"
@@ -128,6 +129,6 @@ export const CustomTitleStyles = () => (
       <CardTitle title="Danger" className="border-red-500 dark:border-red-700">
         <p className="py-2">Card with a danger color border</p>
       </CardTitle>
-    </div>
+    </CardContainer>
   </StoryContainer>
 );

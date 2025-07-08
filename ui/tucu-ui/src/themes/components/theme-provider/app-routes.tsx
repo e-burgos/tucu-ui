@@ -64,10 +64,9 @@ export const AppRoutes: FC<AppRoutesProps> = ({ menuItems }) => {
       ))}
       <Route
         key={'home-page'}
-        path={'/'}
-        element={<Navigate replace to={routes[0].path} />}
+        path={window.location.pathname || '/'}
+        element={routes[0] ? <Navigate replace to={routes[0].path} /> : null}
       />
-
       <Route key={'not-found-page'} path={'*'} element={<NotFoundPage />} />
     </Routes>
   );

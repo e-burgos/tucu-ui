@@ -61,7 +61,7 @@ const Template: StoryFn<typeof ButtonDrip> = (args) => {
   };
 
   return (
-    <StoryContainer className="justify-center items-center">
+    <StoryContainer>
       <div className="relative w-48 h-12 bg-blue-500 rounded-lg flex items-center justify-center text-white font-medium">
         Click Effect Demo
         {showDrip && <ButtonDrip {...args} onCompleted={handleCompleted} />}

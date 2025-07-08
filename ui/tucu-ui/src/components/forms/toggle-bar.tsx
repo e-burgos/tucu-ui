@@ -1,5 +1,5 @@
 import cn from 'classnames';
-import { Switch } from '../headlessui/switch';
+import { Switch } from '@headlessui/react';
 
 export interface ToggleBarProps {
   title: string;

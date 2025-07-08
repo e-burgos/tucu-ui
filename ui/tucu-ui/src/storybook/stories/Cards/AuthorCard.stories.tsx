@@ -44,7 +44,7 @@ const meta: Meta<typeof AuthorCard> = {
 export default meta;
 
 const Template: StoryFn<typeof AuthorCard> = (args) => (
-  <StoryContainer className="justify-center items-center">
+  <StoryContainer>
     <div className="w-full max-w-md">
       <AuthorCard {...args} />
     </div>

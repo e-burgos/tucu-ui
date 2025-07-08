@@ -1,5 +1,7 @@
 import { forwardRef } from 'react';
 import cn from 'classnames';
+import { FieldError } from './field-error-text';
+import { FieldHelperText } from './field-helper-text';
 
 export type TextareaProps = React.DetailedHTMLProps<
   React.TextareaHTMLAttributes<HTMLTextAreaElement>,
@@ -9,14 +11,33 @@ export type TextareaProps = React.DetailedHTMLProps<
   error?: string;
   className?: string;
   inputClassName?: string;
+  useUppercaseLabel?: boolean;
+  helperText?: string;
 };
 
 export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
-  ({ required, label, error, className, inputClassName, ...props }, ref) => (
+  (
+    {
+      required,
+      label,
+      error,
+      className,
+      inputClassName,
+      useUppercaseLabel,
+      helperText,
+      ...props
+    },
+    ref
+  ) => (
     <div className={cn('text-xs sm:text-sm', className)}>
       <label>
         {label && (
-          <span className="mb-2 block font-medium tracking-widest dark:text-gray-100 sm:mb-3">
+          <span
+            className={cn(
+              'block font-medium tracking-widest dark:text-gray-100',
+              useUppercaseLabel ? 'mb-2 uppercase sm:mb-3' : 'mb-1.5 ml-1.5'
+            )}
+          >
             {label}
             {required && (
               <sup className="inline-block text-[13px] text-red-500 ltr:ml-1 rtl:mr-1">
@@ -34,10 +55,9 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
           )}
         />
       </label>
-      {error && (
-        <span role="alert" className="mt-2 block text-red-500 sm:mt-2.5">
-          {error}
-        </span>
+      {error && <FieldError error={error} size="DEFAULT" />}
+      {!error && helperText && (
+        <FieldHelperText size="DEFAULT">{helperText}</FieldHelperText>
       )}
     </div>
   )
