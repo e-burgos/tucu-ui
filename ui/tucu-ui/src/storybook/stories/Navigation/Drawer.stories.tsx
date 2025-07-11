@@ -7,7 +7,7 @@ import Button from '../../../components/buttons';
 import { menuItems } from '../../hooks/useDummy';
 
 const meta: Meta<typeof Drawer> = {
-  title: 'UI COMPONENTS/Navigation/Drawer',
+  title: '3. UI COMPONENTS/Navigation/Drawer',
   tags: ['autodocs'],
   component: Drawer,
   parameters: {

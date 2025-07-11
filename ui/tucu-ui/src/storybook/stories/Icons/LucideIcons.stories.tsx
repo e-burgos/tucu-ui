@@ -6,7 +6,7 @@ import { Button, Input } from '../../../components';
 
 // Meta for the story
 const meta: Meta = {
-  title: 'UI COMPONENTS/Icons/Lucide Icons',
+  title: '3. UI COMPONENTS/Icons/Lucide Icons',
   parameters: {
     docs: {
       description: {

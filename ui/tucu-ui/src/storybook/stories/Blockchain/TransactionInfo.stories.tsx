@@ -5,7 +5,7 @@ import { StoryContainer } from '../../components/StoryContainer';
 import CardContainer from '../../../components/cards/card-container';
 
 const meta: Meta<typeof TransactionInfo> = {
-  title: 'BLOCKCHAIN COMPONENTS/TransactionInfo',
+  title: '4. BLOCKCHAIN COMPONENTS/TransactionInfo',
   tags: ['autodocs'],
   component: TransactionInfo,
   parameters: {

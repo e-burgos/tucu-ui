@@ -4,31 +4,41 @@ import { CollectionSelectList } from '../../../components/blockchain';
 import { StoryContainer } from '../../components/StoryContainer';
 import { fn } from 'storybook/test';
 
+// @ts-expect-error - Image is not a valid module
+import collection1Img from '../../../assets/images/collection/collection-1.jpg';
+// @ts-expect-error - Image is not a valid module
+import collection2Img from '../../../assets/images/collection/collection-2.jpg';
+// @ts-expect-error - Image is not a valid module
+import collection3Img from '../../../assets/images/collection/collection-3.jpg';
+
+// @ts-expect-error - Image is not a valid module
+import collection4Img from '../../../assets/images/collection/collection-4.jpg';
+
 const sampleCollections = [
   {
-    icon: '/src/assets/images/collection/collection-1.jpg',
+    icon: collection1Img,
     name: 'Abstract Shapes',
     value: 'abstract-shapes',
   },
   {
-    icon: '/src/assets/images/collection/collection-2.jpg',
+    icon: collection2Img,
     name: 'Digital Landscapes',
     value: 'digital-landscapes',
   },
   {
-    icon: '/src/assets/images/collection/collection-3.jpg',
+    icon: collection3Img,
     name: 'Crypto Punks',
     value: 'crypto-punks',
   },
   {
-    icon: '/src/assets/images/collection/collection-4.jpg',
+    icon: collection4Img,
     name: 'Pixel Art',
     value: 'pixel-art',
   },
 ];
 
 const meta: Meta<typeof CollectionSelectList> = {
-  title: 'BLOCKCHAIN COMPONENTS/CollectionSelectList',
+  title: '4. BLOCKCHAIN COMPONENTS/CollectionSelectList',
   tags: ['autodocs'],
   component: CollectionSelectList,
   parameters: {

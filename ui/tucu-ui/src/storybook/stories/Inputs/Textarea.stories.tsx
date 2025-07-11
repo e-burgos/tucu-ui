@@ -4,7 +4,7 @@ import { Textarea } from '../../../components/forms';
 import { StoryContainer } from '../../components/StoryContainer';
 
 const meta: Meta<typeof Textarea> = {
-  title: 'UI COMPONENTS/Inputs/Textarea',
+  title: '3. UI COMPONENTS/Inputs/Textarea',
   tags: ['autodocs'],
   component: Textarea,
   parameters: {

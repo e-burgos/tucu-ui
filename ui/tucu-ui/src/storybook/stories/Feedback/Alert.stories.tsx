@@ -5,7 +5,7 @@ import { Alert } from '../../../components/notifications';
 
 // Meta for Alert component
 const meta: Meta<typeof Alert> = {
-  title: 'UI COMPONENTS/Feedback/Alert',
+  title: '3. UI COMPONENTS/Feedback/Alert',
   component: Alert,
   tags: ['autodocs'],
   parameters: {

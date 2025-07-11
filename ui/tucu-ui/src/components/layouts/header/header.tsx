@@ -62,8 +62,8 @@ export function ClassicHeader({
               {rightButton}
               <div className="mx-2 block sm:mx-4 xl:hidden">
                 <Hamburger
-                  isOpen={false}
-                  onClick={() => setIsOpen && setIsOpen(!isOpen)}
+                  isOpen={isOpen}
+                  onClick={() => setIsOpen && setIsOpen(true)}
                   color="white"
                   className="shadow-main dark:border dark:border-solid dark:border-gray-700 dark:bg-light-dark dark:text-white"
                 />
@@ -128,7 +128,7 @@ export default function Header({
               <div className="mx-2 block sm:mx-4 xl:hidden">
                 <Hamburger
                   isOpen={isOpen}
-                  onClick={() => setIsOpen && setIsOpen(!isOpen)}
+                  onClick={() => setIsOpen && setIsOpen(true)}
                   color="white"
                   className="shadow-main dark:border dark:border-solid dark:border-gray-700 dark:bg-light-dark dark:text-white"
                 />

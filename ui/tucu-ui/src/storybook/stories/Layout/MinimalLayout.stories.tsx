@@ -35,7 +35,7 @@ const menuItems: IMenuItem[] = [
 ];
 
 const meta: Meta<typeof MinimalLayout> = {
-  title: 'UI COMPONENTS/Layout/MinimalLayout',
+  title: '3. UI COMPONENTS/Layout/MinimalLayout',
   tags: ['autodocs'],
   component: MinimalLayout,
   parameters: {

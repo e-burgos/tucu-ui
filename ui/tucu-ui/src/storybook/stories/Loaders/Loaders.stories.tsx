@@ -5,7 +5,7 @@ import { Loader } from '../../../components/loaders';
 
 // Meta for Loader
 const meta: Meta<typeof Loader> = {
-  title: 'UI COMPONENTS/Loaders/Loader',
+  title: '3. UI COMPONENTS/Loaders/Loader',
   component: Loader,
   tags: ['autodocs'],
   parameters: {

@@ -1,6 +1,7 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import cn from 'classnames';
 import FieldError from './field-error-text';
+import FieldHelperText from './field-helper-text';
 // import FieldError from '../field-error-text';
 
 const containerClasses = {
@@ -48,7 +49,7 @@ const inputClasses = {
       base: 'border focus:ring-2 border-0 placeholder:opacity-90',
       color: {
         DEFAULT:
-          'bg-gray-200/70 not-read-only:hover:enabled:bg-gray-200/90 focus:ring-gray-900/30 text-gray-1000 placeholder:text-gray-600',
+          'bg-brand/10 not-read-only:hover:enabled:bg-brand/20 focus:ring-brand/30 text-brand placeholder:text-brand/60',
         primary:
           'bg-primary-lighter/70 not-read-only:hover:enabled:bg-primary-lighter/90 focus:ring-primary/30 text-primary-dark',
         secondary:
@@ -66,7 +67,7 @@ const inputClasses = {
       base: 'bg-transparent focus:ring-[0.6px] border border-gray-300 placeholder:text-gray-500',
       color: {
         DEFAULT:
-          'not-read-only:hover:enabled:border-gray-1000 not-read-only:focus:enabled:border-gray-1000 focus:ring-gray-1000',
+          'not-read-only:hover:enabled:border-brand not-read-only:focus:enabled:border-brand focus:ring-brand',
         primary:
           'not-read-only:hover:enabled:border-primary not-read-only:focus:enabled:border-primary focus:ring-primary',
         secondary:
@@ -86,10 +87,12 @@ const inputClasses = {
 export interface PinCodeProps
   extends Omit<
     React.InputHTMLAttributes<HTMLInputElement>,
-    'size' | 'type' | 'value'
+    'size' | 'type' | 'onChange'
   > {
-  /** Pass setState to get back the pin code value */
-  setValue: React.Dispatch<React.SetStateAction<string | number | undefined>>;
+  /** Current value of the pin code */
+  value?: string;
+  /** Callback function called when pin code changes */
+  onChange?: (value: string) => void;
   /** This Pin Code component only support these two types */
   type?: 'text' | 'number';
   /** Mask and unmask to hide and show pin code */
@@ -114,6 +117,10 @@ export interface PinCodeProps
   inputClassName?: string;
   /** This prop allows you to customize the error message style */
   errorClassName?: string;
+  /** This prop allows you to add a helper text to the pin code component */
+  helperText?: string;
+  /** This prop allows you to add a helper text to the pin code component */
+  helperTextClassName?: string;
 }
 
 /**
@@ -123,20 +130,22 @@ export interface PinCodeProps
  */
 export function PinCode({
   type = 'text',
-  defaultValue,
+  value = '',
+  onChange,
   mask = false,
   length = 4,
-  setValue,
   center = true,
   size = 'DEFAULT',
   rounded = 'DEFAULT',
   variant = 'outline',
   color = 'DEFAULT',
-  placeholder = '○',
+  placeholder = '-',
   error,
   className,
   inputClassName,
   errorClassName,
+  helperText,
+  helperTextClassName,
   ...props
 }: PinCodeProps) {
   const inputRefs = useRef<HTMLInputElement[]>([]);
@@ -147,8 +156,23 @@ export function PinCode({
     };
   }
 
-  function setPinValue() {
-    setValue(inputRefs.current.map((node) => node.value).join(''));
+  // Sync external value with internal inputs
+  useEffect(() => {
+    const valueArray = value.split('');
+    inputRefs.current.forEach((input, index) => {
+      if (input) {
+        input.value = valueArray[index] || '';
+      }
+    });
+  }, [value]);
+
+  function updateValue() {
+    const newValue = inputRefs.current
+      .map((node) => node?.value || '')
+      .join('');
+    if (onChange) {
+      onChange(newValue);
+    }
   }
 
   function handleChange(
@@ -158,7 +182,7 @@ export function PinCode({
     const inputValues = event.target.value.split('');
     inputRefs.current[index].value = inputValues[inputValues.length - 1];
     if (index < length - 1) inputRefs.current[index + 1].focus();
-    setPinValue();
+    updateValue();
   }
 
   function handleKeyDown(event: React.KeyboardEvent, index: number) {
@@ -180,7 +204,7 @@ export function PinCode({
         inputRefs.current[index - 1].value = '';
         inputRefs.current[index - 1].focus();
       }
-      setPinValue();
+      updateValue();
     }
   }
 
@@ -198,7 +222,7 @@ export function PinCode({
       }
     }
     event.preventDefault();
-    setPinValue();
+    updateValue();
   }
 
   return (
@@ -216,9 +240,7 @@ export function PinCode({
             ref={addInputRefs(index)}
             type={type}
             inputMode={type === 'text' ? type : 'numeric'}
-            defaultValue={
-              defaultValue ? defaultValue.toString().split('')[index] : ''
-            }
+            defaultValue={value.split('')[index] || ''}
             autoCapitalize="off"
             autoCorrect="off"
             autoComplete="off"
@@ -241,12 +263,13 @@ export function PinCode({
         ))}
       </div>
 
+      {!error && helperText && (
+        <FieldHelperText size="DEFAULT" className={helperTextClassName}>
+          {helperText}
+        </FieldHelperText>
+      )}
       {error && (
-        <FieldError
-          size={size}
-          error={error}
-          className={cn(center && 'flex justify-center', errorClassName)}
-        />
+        <FieldError className={errorClassName} error={error} size="DEFAULT" />
       )}
     </div>
   );

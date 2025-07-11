@@ -4,14 +4,14 @@ import { StoryContainer } from '../../components/StoryContainer';
 import { PanelCard } from '../../../components/cards';
 
 const meta: Meta<typeof PanelCard> = {
-  title: 'UI COMPONENTS/Cards/Panel Card',
+  title: '3. UI COMPONENTS/Cards/Panel Card',
   tags: ['autodocs'],
   component: PanelCard,
   parameters: {
     docs: {
       description: {
         component:
-          'PanelCard is a card component that displays a title and a content. It is a wrapper for the SimpleBar component.',
+          'PanelCard is a card component that displays a title and a content. It is a wrapper for the Scrollbar component.',
       },
     },
   },

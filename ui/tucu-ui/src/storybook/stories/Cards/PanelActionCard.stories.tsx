@@ -4,14 +4,14 @@ import { StoryContainer } from '../../components/StoryContainer';
 import { PanelActionCard } from '../../../components/cards';
 
 const meta: Meta<typeof PanelActionCard> = {
-  title: 'UI COMPONENTS/Cards/Panel Action Card',
+  title: '3. UI COMPONENTS/Cards/Panel Action Card',
   tags: ['autodocs'],
   component: PanelActionCard,
   parameters: {
     docs: {
       description: {
         component:
-          'PanelActionCard is a card component that displays a title and a list of actions. It is a wrapper for the SimpleBar component.',
+          'PanelActionCard is a card component that displays a title and a list of actions. It is a wrapper for the Scrollbar component.',
       },
     },
   },
@@ -66,7 +66,7 @@ export const Default: StoryFn<typeof PanelActionCard> = (args) => (
           >
             <h4 className="font-medium mb-1">Item {i + 1}</h4>
             <p className="text-gray-600 dark:text-gray-400">
-              This is a scrollable item within a card. SimpleBar provides a
+              This is a scrollable item within a card. Scrollbar provides a
               consistent scrollbar experience across different browsers and
               platforms.
             </p>

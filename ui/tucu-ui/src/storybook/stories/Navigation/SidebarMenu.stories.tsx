@@ -7,7 +7,7 @@ import { Button } from '../../../components';
 import { menuItems, menuItemsWithDropdown } from '../../hooks/useDummy';
 
 const meta: Meta<typeof SidebarMenu> = {
-  title: 'UI COMPONENTS/Navigation/SidebarMenu',
+  title: '3. UI COMPONENTS/Navigation/SidebarMenu',
   tags: ['autodocs'],
   component: SidebarMenu,
   parameters: {

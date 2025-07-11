@@ -5,7 +5,7 @@ import { Logo } from '../../../components/logos';
 import { PRESET_LABEL_COLORS } from '../../../themes/config';
 
 const meta: Meta<typeof Logo> = {
-  title: 'UI COMPONENTS/Data Display/Logo',
+  title: '3. UI COMPONENTS/Data Display/Logo',
   component: Logo,
   tags: ['autodocs'],
   parameters: {

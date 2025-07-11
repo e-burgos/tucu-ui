@@ -30,7 +30,7 @@ const coinOptions: CoinTypes[] = [
 ];
 
 const meta: Meta<typeof CoinListBox> = {
-  title: 'BLOCKCHAIN COMPONENTS/CoinListbox',
+  title: '4. BLOCKCHAIN COMPONENTS/CoinListbox',
   tags: ['autodocs'],
   component: CoinListBox,
   parameters: {

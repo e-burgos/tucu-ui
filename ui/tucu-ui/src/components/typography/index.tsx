@@ -18,7 +18,7 @@ const classes = {
   del: '',
   mark: '',
   abbr: 'cursor-help',
-  pre: 'border-2 border-gray-300 py-3 px-4 rounded-xl bg-gray-100',
+  pre: 'border-2 border-gray-300 py-3 px-4 rounded-xl dark:border-gray-700 dark:bg-gray-800 bg-gray-100',
   code: 'border border-gray-300 py-2 px-3 rounded-md shadow-sm',
   kbd: 'bg-gray-100 border border-gray-300 text-gray-900 rounded-lg leading-none inline-flex items-center justify-center text-sm py-1.5 px-2',
   blockquote: 'border-l-4 border-gray-300 text-quote py-3 px-4',

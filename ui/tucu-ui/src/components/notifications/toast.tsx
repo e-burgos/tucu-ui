@@ -6,16 +6,20 @@ export const Toast: React.FC = () => {
   const { toasts, dismissToast } = useToastStore();
   const [visibleToasts, setVisibleToasts] = useState<IToast[]>([]);
 
-  const handleVariant = (variant: IToast['variant']) =>
-    variant === 'destructive'
-      ? 'border-red-500 bg-red-500 text-white'
-      : variant === 'success'
-      ? 'border-green-500 bg-green-500 text-white'
-      : variant === 'warning'
-      ? 'border-yellow-500 bg-yellow-500 text-white'
-      : variant === 'info'
-      ? 'border-blue-500 bg-blue-500 text-white'
-      : 'border-gray-300 bg-white p-4 shadow-card dark:bg-light-dark';
+  const handleVariant = (variant: IToast['variant']) => {
+    switch (variant) {
+      case 'destructive':
+        return 'border-red-500 bg-red-500 text-white';
+      case 'success':
+        return 'border-green-500 bg-green-500 text-white';
+      case 'warning':
+        return 'border-yellow-500 bg-yellow-500 text-white';
+      case 'info':
+        return 'border-blue-500 bg-blue-500 text-white';
+      default:
+        return 'border-gray-300 bg-white p-4 shadow-card dark:bg-light-dark';
+    }
+  };
 
   const handleDismiss = useCallback(
     (toast: IToast) => {
@@ -29,6 +33,20 @@ export const Toast: React.FC = () => {
       }, 500);
     },
     [dismissToast]
+  );
+
+  const handleKeyDown = useCallback(
+    (event: React.KeyboardEvent, toast: IToast) => {
+      if (
+        event.key === 'Escape' ||
+        event.key === ' ' ||
+        event.key === 'Enter'
+      ) {
+        event.preventDefault();
+        handleDismiss(toast);
+      }
+    },
+    [handleDismiss]
   );
 
   useEffect(() => {
@@ -45,10 +63,17 @@ export const Toast: React.FC = () => {
   }, [toasts, handleDismiss]);
 
   return (
-    <ul className="fixed bottom-4 right-4  flex flex-col gap-2 w-auto z-20">
+    <div
+      role="region"
+      aria-label="Notifications"
+      className="fixed bottom-4 right-4 flex flex-col gap-2 w-auto z-20"
+    >
       {visibleToasts.map((toast, index) => (
-        <li
+        <div
           key={index}
+          role="alert"
+          aria-live="assertive"
+          aria-atomic="true"
           className={`relative flex items-center justify-between space-x-2 border-gray-300 p-4 pr-6 rounded-md shadow-lg transform transition-all duration-500 ease-in-out 
             ${toast.dismissing ? 'translate-x-full -mr-6' : 'translate-x-0'} 
             ${handleVariant(toast.variant)}`}
@@ -62,15 +87,20 @@ export const Toast: React.FC = () => {
             </span>
           </div>
           <button
-            className=" absolute right-3 top-3"
+            type="button"
+            className="absolute right-3 top-3 p-1 rounded focus:outline-hidden focus:ring-2 focus:ring-current focus:ring-offset-1"
             onClick={() => handleDismiss(toast)}
+            onKeyDown={(e) => handleKeyDown(e, toast)}
+            aria-label={`Dismiss ${toast.title} notification`}
           >
-            <Close />
+            <Close aria-hidden="true" />
           </button>
-        </li>
+        </div>
       ))}
-    </ul>
+    </div>
   );
 };
+
+Toast.displayName = 'Toast';
 
 export default Toast;

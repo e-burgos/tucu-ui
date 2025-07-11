@@ -4,7 +4,7 @@ import { AuthLayout } from '../../../components/layouts/authentication/layout';
 import { StoryContainer } from '../../components/StoryContainer';
 
 const meta: Meta<typeof AuthLayout> = {
-  title: 'UI COMPONENTS/Layout/AuthLayout',
+  title: '3. UI COMPONENTS/Layout/AuthLayout',
   tags: ['autodocs'],
   component: AuthLayout,
   parameters: {

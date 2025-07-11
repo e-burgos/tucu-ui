@@ -6,7 +6,7 @@ import Button from '../../../components/buttons';
 import { Check, AlertTriangle, Info } from 'lucide-react';
 
 const meta: Meta<typeof Modal> = {
-  title: 'UI COMPONENTS/Feedback/Modal',
+  title: '3. UI COMPONENTS/Feedback/Modal',
   tags: ['autodocs'],
   component: Modal,
   parameters: {

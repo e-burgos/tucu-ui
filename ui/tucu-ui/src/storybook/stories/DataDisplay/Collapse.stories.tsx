@@ -4,7 +4,7 @@ import { Collapse } from '../../../components/common';
 import { StoryContainer } from '../../components/StoryContainer';
 
 const meta: Meta<typeof Collapse> = {
-  title: 'UI COMPONENTS/Data Display/Collapse',
+  title: '3. UI COMPONENTS/Data Display/Collapse',
   tags: ['autodocs'],
   component: Collapse,
   parameters: {

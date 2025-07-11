@@ -3,10 +3,15 @@ import type { Meta, StoryFn } from '@storybook/react-vite';
 import { CoinInfoCard } from '../../../components/blockchain';
 import { StoryContainer } from '../../components/StoryContainer';
 
+// @ts-expect-error - Image is not a valid module
+import bitcoinImg from '../../../assets/images/coin/bitcoin.svg';
+// @ts-expect-error - Image is not a valid module
+import cardanoImg from '../../../assets/images/coin/cardano.svg';
+
 const sampleItem = {
   id: '1',
   name: 'Bitcoin',
-  logo: '/src/assets/images/coin/bitcoin.svg',
+  logo: bitcoinImg,
   balance: '0.23456 BTC',
   coinType: 'Cryptocurrency',
 };
@@ -14,12 +19,12 @@ const sampleItem = {
 const sampleItem2 = {
   id: '2',
   name: 'Cardano',
-  logo: '/src/assets/images/coin/cardano.svg',
+  logo: cardanoImg,
   balance: '2.3456 ADA',
 };
 
 const meta: Meta<typeof CoinInfoCard> = {
-  title: 'BLOCKCHAIN COMPONENTS/CoinInfoCard',
+  title: '4. BLOCKCHAIN COMPONENTS/CoinInfoCard',
   tags: ['autodocs'],
   component: CoinInfoCard,
   parameters: {

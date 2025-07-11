@@ -5,7 +5,7 @@ import { StoryContainer } from '../../components/StoryContainer';
 import { Bell, Moon, Wifi, Volume2, Lock, Bluetooth } from 'lucide-react';
 
 const meta: Meta<typeof ToggleBar> = {
-  title: 'UI COMPONENTS/Inputs/ToggleBar',
+  title: '3. UI COMPONENTS/Inputs/ToggleBar',
   tags: ['autodocs'],
   component: ToggleBar,
   parameters: {

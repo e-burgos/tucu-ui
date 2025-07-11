@@ -42,7 +42,7 @@ const IconGrid = ({
 
 // Meta for the story
 const meta: Meta = {
-  title: 'UI COMPONENTS/Icons/Icons',
+  title: '3. UI COMPONENTS/Icons/Icons',
   parameters: {
     docs: {
       description: {

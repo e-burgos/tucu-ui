@@ -5,7 +5,7 @@ import { Loader, Progressbar, Spinner } from '../../../components/loaders';
 
 // Meta for Loader
 const meta: Meta<typeof Spinner> = {
-  title: 'UI COMPONENTS/Loaders/Spinner',
+  title: '3. UI COMPONENTS/Loaders/Spinner',
   component: Spinner,
   tags: ['autodocs'],
   parameters: {

@@ -17,6 +17,7 @@ export interface FieldErrorProps
   error: string | null | undefined;
   size?: keyof typeof fieldErrorClasses.size;
   className?: string;
+  id?: string;
 }
 
 export function FieldError({
@@ -24,16 +25,21 @@ export function FieldError({
   error,
   size,
   className,
+  id,
+  ...props
 }: FieldErrorProps) {
   const Component = tag;
   return (
     <Component
+      id={id}
       role="alert"
+      aria-live="polite"
       className={cn(
         fieldErrorClasses.base,
         size && fieldErrorClasses.size[size],
         className
       )}
+      {...props}
     >
       {error}
     </Component>

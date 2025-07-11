@@ -5,7 +5,7 @@ import { Mail, User, Calendar, Search } from 'lucide-react';
 import React from 'react';
 
 const meta: Meta<typeof Input> = {
-  title: 'UI COMPONENTS/Inputs/Input',
+  title: '3. UI COMPONENTS/Inputs/Input',
   tags: ['autodocs'],
   component: Input,
   parameters: {

@@ -48,5 +48,8 @@ Thumbs.db
 
 
 storybook-static
+build-storybook.log
 vite.config.*.timestamp*
 vitest.config.*.timestamp*
+
+CLAUDE.md

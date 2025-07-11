@@ -6,7 +6,7 @@ import { useToastStore, IToast } from '../../../hooks/use-toast-store';
 
 // Meta for Toast component
 const meta: Meta<typeof Toast> = {
-  title: 'UI COMPONENTS/Feedback/Toast',
+  title: '3. UI COMPONENTS/Feedback/Toast',
   component: Toast,
   tags: ['autodocs'],
   parameters: {

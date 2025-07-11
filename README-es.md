@@ -1,24 +1,58 @@
 # Tucu UI
 
-Una moderna librería de componentes React construida con Tailwind CSS, diseñada para crear aplicaciones web robustas con **generación automática de layouts**, sistemas de formularios completos y componentes especializados tanto para desarrollo tradicional como para DApps.
+Una moderna y completa librería de componentes React construida con TypeScript, Tailwind CSS, y diseñada para crear aplicaciones web listas para producción con **generación automática de layouts**, **sistemas de formularios potentes**, y **componentes especializados para blockchain**.
+
+## 🌟 Storybook y Documentación
+
+- **📚 [Documentación en Vivo](https://main--683712ba90eaad206f988c65.chromatic.com/?path=/docs/1-documentation-1-introduction--documentation)** - Documentación completa de componentes
+- **🎨 [Storybook Interactivo](https://main--683712ba90eaad206f988c65.chromatic.com/)** - Explora componentes en acción
+- **🔧 [Ejemplos de Componentes](https://main--683712ba90eaad206f988c65.chromatic.com/?path=/story/ui-components-buttons-button--default)** - Ve todas las variaciones y casos de uso
 
 ## 🚀 Características Principales
 
-- **🎨 Generación Automática de Layouts** - Layouts completos de aplicación con configuración mínima vía ThemeProvider
-- **📝 Sistema de Formularios Potente** - Validación centralizada con React Hook Form
-- **🎯 Componentes Listos para DApps** - Componentes especializados para aplicaciones descentralizadas
-- **🌐 Ruteo Integrado** - Sistema de ruteo incorporado para SPAs
-- **🎨 Iconografía Completa** - Iconos internos + integración completa con Lucide Icons
-- **🌍 Soporte RTL** - Soporte completo para idiomas de derecha a izquierda
-- **📱 Diseño Responsive** - Enfoque mobile-first en todos los componentes
+### **🎨 Generación Automática de Layouts**
 
-## 🔧 Dependencias Core
+Layouts completos de aplicación con configuración mínima vía ThemeProvider - sin necesidad de codificar layouts manualmente.
 
-Tucu UI está construido sobre estas potentes librerías:
+### **📝 Sistema de Formularios Avanzado**
 
-- **[React Hook Form](https://react-hook-form.com/)** - Para manejo de formularios eficiente y validación
-- **[Zustand](https://zustand-demo.pmnd.rs/)** - Para gestión de estado ligera
-- **[Tailwind CSS](https://tailwindcss.com/)** - Para estilos utility-first
+Validación centralizada alimentada por React Hook Form con manejo de errores integrado y accesibilidad.
+
+### **🪙 Componentes Listos para Blockchain**
+
+Componentes especializados para aplicaciones DeFi, mercados NFT, y billeteras crypto.
+
+### **🎭 Sistema de Temas Completo**
+
+6 presets de color, modo oscuro/claro, soporte RTL, y preferencias de usuario persistentes.
+
+### **🎯 5000+ Iconos Integrados**
+
+Integración completa de Lucide React + 90+ iconos diseñados personalizadamente para iconografía integral.
+
+### **♿ Accesibilidad Primero**
+
+Componentes compatibles con WCAG 2.1 AA con atributos ARIA apropiados y navegación por teclado.
+
+### **📱 Responsive Mobile-First**
+
+Diseño responsive en todos los componentes con soporte para pantallas ultra-anchas (hasta 4K).
+
+### **🌐 Ruteo Integrado**
+
+Integración incorporada de React Router para desarrollo SPA sin problemas.
+
+## 🔧 Stack Tecnológico Principal
+
+Construido sobre librerías líderes en la industria para máxima confiabilidad:
+
+- **[React 18+](https://react.dev/)** - React moderno con hooks y características concurrentes
+- **[TypeScript](https://www.typescriptlang.org/)** - Seguridad de tipos completa y excelente DX
+- **[Tailwind CSS](https://tailwindcss.com/)** - Estilos utility-first con tokens de diseño personalizados
+- **[React Hook Form](https://react-hook-form.com/)** - Manejo de formularios eficiente y validación
+- **[Zustand](https://zustand-demo.pmnd.rs/)** - Gestión de estado ligera para temas
+- **[Lucide React](https://lucide.dev/)** - Librería de iconos hermosa y consistente
+- **[Framer Motion](https://www.framer.com/motion/)** - Animaciones y transiciones suaves
 
 ## 📦 Instalación
 
@@ -26,55 +60,60 @@ Tucu UI está construido sobre estas potentes librerías:
 npm install tucu-ui
 ```
 
+### Configuración de Tailwind CSS
+
+Agrega Tucu UI a tu configuración de Tailwind para habilitar todas las características de estilo:
+
+```js
+// tailwind.config.js
+module.exports = {
+  content: [
+    './src/**/*.{js,ts,jsx,tsx}',
+    './node_modules/tucu-ui/**/*.{js,ts,jsx,tsx}', // Agrega esta línea
+  ],
+  // ... resto de tu configuración
+};
+```
+
 ## 🎯 Inicio Rápido
 
-### Uso Básico de Componentes
+### 1. **Uso Básico de Componentes**
 
 ```tsx
-import { Button, Card, Input } from 'tucu-ui';
-import 'tucu-ui/styles';
+import { Button, Card, Input, Alert } from 'tucu-ui';
 
 function App() {
   return (
-    <Card>
-      <h2>Bienvenido a Tucu UI</h2>
-      <Input placeholder="Ingresa tu nombre" />
-      <Button>Comenzar</Button>
+    <Card className="p-6">
+      <h2 className="text-2xl font-bold mb-4">Bienvenido a Tucu UI</h2>
+      <Input placeholder="Ingresa tu nombre" className="mb-4" />
+      <Button size="large" className="w-full">
+        Comenzar
+      </Button>
+      <Alert variant="success" className="mt-4">
+        ¡Estás listo para construir UIs increíbles!
+      </Alert>
     </Card>
   );
 }
 ```
 
-### Configuración de Tailwind CSS
-
-```js
-// tailwind.config.js
-module.exports = {
-  content: ['./src/**/*.{js,ts,jsx,tsx}', './node_modules/tucu-ui/**/*.{js,ts,jsx,tsx}'],
-  // ... resto de tu configuración
-};
-```
-
-## 🎨 Generación Automática de Layouts
-
-El **ThemeProvider** es la característica más poderosa de Tucu UI - genera layouts completos de aplicación automáticamente con configuración mínima.
-
-### App Completa con ThemeProvider
+### 2. **App Completa con Layout Auto-Generado**
 
 ```tsx
-import { ThemeProvider } from 'tucu-ui';
+import { ThemeProvider, LucideIcons } from 'tucu-ui';
 
 const menuItems = [
   {
     name: 'Dashboard',
     href: '/',
-    icon: <DashboardIcon />,
+    icon: <LucideIcons.Home />,
     component: <DashboardPage />,
   },
   {
     name: 'Análisis',
     href: '/analytics',
-    icon: <AnalyticsIcon />,
+    icon: <LucideIcons.BarChart3 />,
     component: <AnalyticsPage />,
     dropdownItems: [
       {
@@ -82,61 +121,71 @@ const menuItems = [
         href: '/analytics/reports',
         component: <ReportsPage />,
       },
+      {
+        name: 'Insights',
+        href: '/analytics/insights',
+        component: <InsightsPage />,
+      },
     ],
+  },
+  {
+    name: 'Configuración',
+    href: '/settings',
+    icon: <LucideIcons.Settings />,
+    component: <SettingsPage />,
   },
 ];
 
 function App() {
   return (
     <ThemeProvider
-      logo={{ name: 'Mi', secondName: 'App' }}
-      layout="minimal" // 'none' | 'minimal' | 'classic'
+      // Configuración de Layout
+      layout="minimal" // 'classic' | 'minimal' | 'none'
       menuItems={menuItems}
+      logo={{ name: 'Mi', secondName: 'App' }}
+      // Configuración de Tema
       brandColor="Blue" // 'Green' | 'Black' | 'Blue' | 'Red' | 'Purple' | 'Orange'
       showSettings={true}
-      rightButton={<MenuUsuario />}
+      // Características Adicionales
+      rightButton={<UserMenu />}
     />
   );
 }
 ```
 
-**¡Eso es todo!** Tu aplicación completa con ruteo, navegación y temas está lista.
+**¡Eso es todo!** Tu aplicación completa con ruteo, navegación, temas y diseño responsive está lista.
 
-### Layouts Disponibles
+## 🎨 Sistema de Layouts
 
-#### 1. **Layout Minimal**
+### **Tres Tipos de Layout**
 
-- Header limpio con navegación horizontal
-- Sidebar responsive para móvil
-- Perfecto para dashboards modernos
+#### **1. Layout Classic** - Dashboard Tradicional
 
-#### 2. **Layout Classic**
-
-- Sidebar fijo con navegación vertical
+- Sidebar fijo con navegación expandible
 - Header con logo y acciones
-- Ideal para aplicaciones administrativas
+- Perfecto para paneles admin y aplicaciones complejas
 
-#### 3. **Layout None**
+#### **2. Layout Minimal** - Moderno y Limpio
 
-- Sin layout predefinido
-- Máxima flexibilidad para diseños personalizados
+- Barra de navegación horizontal
+- Efectos de blur en el fondo
+- Ideal para aplicaciones centradas en contenido
 
-### Características del Sistema de Temas
+#### **3. Layout None** - Máxima Flexibilidad
 
-#### Presets de Colores
+- Sin estructura de layout predefinida
+- Perfecto para páginas de auth y diseños personalizados
 
-```tsx
-const presetsDisponibles = [
-  'Green', // #009e60 - Por defecto
-  'Black', // #323743
-  'Blue', // #2a52be
-  'Red', // #e34234
-  'Purple', // #9370DB
-  'Orange', // #ffa500
-];
-```
+### **Características Automáticas**
 
-#### Hook useTheme
+- ✅ **Diseño Responsive** - Drawer móvil, adaptaciones para tablet
+- ✅ **Modo Oscuro/Claro** - Cambio automático de tema
+- ✅ **Soporte RTL** - Soporte completo para idiomas de derecha a izquierda
+- ✅ **Colores de Marca** - 6 presets de color predefinidos
+- ✅ **Panel de Configuración** - Personalización de usuario incorporada
+- ✅ **Integración de Ruteo** - Generación automática de rutas
+
+### **Gestión de Temas**
 
 ```tsx
 import { useTheme } from 'tucu-ui';
@@ -144,7 +193,7 @@ import { useTheme } from 'tucu-ui';
 function ControlesTema() {
   const {
     mode, // 'light' | 'dark'
-    layout, // 'none' | 'minimal' | 'classic'
+    layout, // 'classic' | 'minimal' | 'none'
     direction, // 'ltr' | 'rtl'
     preset, // Preset de color actual
     setMode,
@@ -155,134 +204,119 @@ function ControlesTema() {
   return (
     <div>
       <button onClick={() => setMode(mode === 'light' ? 'dark' : 'light')}>Cambiar a Modo {mode === 'light' ? 'Oscuro' : 'Claro'}</button>
+
       <button onClick={() => setLayout('classic')}>Cambiar a Layout Clásico</button>
+
+      <button onClick={() => setPreset({ label: 'Purple', value: '#9370DB' })}>Tema Morado</button>
     </div>
   );
 }
 ```
 
-#### Sistema de Ruteo Integrado
-
-El ThemeProvider maneja automáticamente el ruteo basado en tus `menuItems`:
-
-```tsx
-const menuItems = [
-  {
-    name: 'Productos',
-    href: '/productos',
-    component: <ListaProductos />,
-    dropdownItems: [
-      {
-        name: 'Crear Producto',
-        href: '/productos/crear',
-        component: <CrearProducto />,
-      },
-    ],
-  },
-];
-
-// Las rutas se generan automáticamente:
-// / -> Inicio
-// /productos -> Componente ListaProductos
-// /productos/crear -> Componente CrearProducto
-```
-
 ## 📝 Sistema de Formularios Avanzado
 
-Tucu UI proporciona un sistema de formularios completo con validación centralizada alimentado por React Hook Form.
-
-### Componentes de Formularios Disponibles
+### **Componentes de Formularios Integrales**
 
 ```tsx
-import { Form, FormField, Input, Textarea, Checkbox, Radio, RadioGroup, InputSelect, InputSwitch, PinCode, FileInput, ToggleBar } from 'tucu-ui';
+import { Form, FormField, Input, Textarea, Checkbox, RadioGroup, InputSelect, PinCode, FileInput, Button } from 'tucu-ui';
 ```
 
-### Validación Centralizada
+### **Validación Centralizada**
 
 ```tsx
-import { Form, FormField, Input, Button } from 'tucu-ui';
+interface DatosFormularioUsuario {
+  email: string;
+  password: string;
+  pais: string;
+  newsletter: boolean;
+}
 
-// Definir esquema de validación
-const esquemaValidacion = {
-  email: {
-    required: 'Email es requerido',
-    pattern: {
-      value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-      message: 'Dirección de email inválida',
-    },
-  },
-  password: {
-    required: 'Contraseña es requerida',
-    minLength: {
-      value: 8,
-      message: 'La contraseña debe tener al menos 8 caracteres',
-    },
-  },
-};
-
-function FormularioLogin() {
-  const manejarEnvio = (valores) => {
-    console.log('Valores del formulario:', valores);
+function FormularioRegistroUsuario() {
+  const manejarEnvio = (data: DatosFormularioUsuario) => {
+    console.log('Formulario enviado:', data);
   };
 
   return (
-    <Form
+    <Form<DatosFormularioUsuario>
       onSubmit={manejarEnvio}
-      validationSchema={esquemaValidacion}
       useFormProps={{
-        defaultValues: { email: '', password: '' },
+        defaultValues: {
+          email: '',
+          password: '',
+          pais: '',
+          newsletter: false,
+        },
         mode: 'onChange',
       }}
     >
-      <FormField name="email" label="Email">
+      <FormField<DatosFormularioUsuario>
+        name="email"
+        label="Dirección de Email"
+        rules={{
+          required: 'Email es requerido',
+          pattern: {
+            value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+            message: 'Dirección de email inválida',
+          },
+        }}
+      >
         <Input type="email" placeholder="Ingresa tu email" />
       </FormField>
 
-      <FormField name="password" label="Contraseña">
+      <FormField<DatosFormularioUsuario>
+        name="password"
+        label="Contraseña"
+        rules={{
+          required: 'Contraseña es requerida',
+          minLength: {
+            value: 8,
+            message: 'La contraseña debe tener al menos 8 caracteres',
+          },
+        }}
+      >
         <Input type="password" placeholder="Ingresa tu contraseña" />
       </FormField>
 
-      <Button type="submit">Iniciar Sesión</Button>
+      <FormField<DatosFormularioUsuario> name="pais" label="País">
+        <InputSelect
+          options={[
+            { name: 'México', value: 'mx' },
+            { name: 'Colombia', value: 'co' },
+            { name: 'Argentina', value: 'ar' },
+          ]}
+        />
+      </FormField>
+
+      <FormField<DatosFormularioUsuario> name="newsletter" label="Suscripción al Newsletter">
+        <Checkbox>Suscribirse a nuestro newsletter</Checkbox>
+      </FormField>
+
+      <Button type="submit" size="large" className="w-full">
+        Crear Cuenta
+      </Button>
     </Form>
   );
 }
 ```
 
-### Componentes de Input Especializados
-
-#### Input Select con Opciones
+### **Componentes de Formularios Especializados**
 
 ```tsx
-<FormField name="pais" label="País">
-  <InputSelect
-    options={[
-      { name: 'México', value: 'mx' },
-      { name: 'Colombia', value: 'co' },
-      { name: 'Argentina', value: 'ar' },
-    ]}
-  />
-</FormField>
-```
-
-#### Input de Código PIN
-
-```tsx
+// Input de Código PIN
 <FormField name="codigoVerificacion" label="Código de Verificación">
   <PinCode length={6} type="number" placeholder="-" />
 </FormField>
-```
 
-#### Subida de Archivos
-
-```tsx
+// Subida de Archivos con Drag & Drop
 <FormField name="documentos" label="Subir Documentos">
-  <FileInput multiple accept="imgAndPdf" placeholderText="Arrastra archivos aquí o haz clic para subir" />
+  <FileInput
+    multiple
+    accept="imgAndPdf"
+    placeholderText="Arrastra archivos aquí o haz clic para subir"
+  />
 </FormField>
-```
 
-#### Grupo de Radio
-
-```tsx
+// Grupos de Botones Radio
 <FormField name="suscripcion" label="Elige Plan">
   <RadioGroup
     options={[
@@ -295,198 +329,146 @@ function FormularioLogin() {
 </FormField>
 ```
 
-### Hook useFormContext
+## 🪙 Componentes Blockchain y DeFi
 
-Accede a métodos del formulario desde cualquier componente hijo:
+### **Componentes de Criptomonedas**
 
 ```tsx
-import { useFormContext } from 'react-hook-form';
+import { CoinCard, CoinInfoCard, LivePriceFeed, TransactionInfo, CurrencySwapIcons } from 'tucu-ui';
 
-function AccionesFormulario() {
-  const {
-    formState: { isValid, isDirty, errors },
-    reset,
-    trigger,
-    setValue,
-    getValues,
-    watch,
-  } = useFormContext();
-
-  const valorEmail = watch('email');
-
+function PortfolioCrypto() {
   return (
-    <div>
-      <p>Email actual: {valorEmail}</p>
-      <Button disabled={!isValid}>Enviar</Button>
-      <Button type="button" onClick={() => reset()}>
-        Reiniciar
-      </Button>
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {/* Tarjetas de Balance del Portfolio */}
+      <CoinCard name="Bitcoin" symbol="BTC" logo="/icons/bitcoin.svg" balance="1.25" usdBalance="45,000" change="+5.2%" isChangePositive={true} color="#FDEDD4" />
+
+      {/* Feed de Precio en Vivo con Gráfico */}
+      <LivePriceFeed name="Ethereum" symbol="ETH" icon={<EthereumIcon />} balance="10.5" usdBalance="33,600" change="+2.8%" isChangePositive={true} prices={historialPrecios} />
+
+      {/* Detalles de Transacción */}
+      <div className="space-y-3">
+        <TransactionInfo label="Comisión de Gas" value="0.002 ETH" />
+        <TransactionInfo label="Red" value="Ethereum Mainnet" />
+        <TransactionInfo label="Estado" value="Confirmado" />
+      </div>
     </div>
   );
 }
 ```
 
-## 🎯 Componentes para DApps y Blockchain
-
-Tucu UI incluye componentes especializados para aplicaciones descentralizadas e interfaces blockchain.
-
-### Componentes de Criptomonedas
-
-```tsx
-import {
-  CoinCard,
-  CoinInfoCard,
-  CoinListBox,
-  LivePriceFeed,
-  TransactionInfo,
-  CurrencySwapIcons
-} from 'tucu-ui';
-
-// Tarjeta de moneda para portfolio
-<CoinCard
-  name="Bitcoin"
-  symbol="BTC"
-  logo="/bitcoin-logo.svg"
-  balance="0.5"
-  usdBalance="25,000"
-  change="+5.2%"
-  isChangePositive={true}
-  color="#F7931A"
-/>
-
-// Gráfico de precio en vivo
-<LivePriceFeed
-  name="Ethereum"
-  symbol="ETH"
-  icon={<EthereumIcon />}
-  balance="10.5"
-  usdBalance="18,750"
-  change="+2.8%"
-  isChangePositive={true}
-  prices={historialPrecios}
-/>
-
-// Detalles de transacción
-<TransactionInfo
-  label="Comisión de Gas"
-  value="0.002 ETH"
-/>
-```
-
-### Componentes NFT
+### **Componentes NFT**
 
 ```tsx
 import { NFTGrid, CollectionCard } from 'tucu-ui';
 
-<NFTGrid author="ArtistaDigital" authorImage="/avatar-artista.jpg" image="/imagen-nft.jpg" name="Obra Maestra Digital #123" collection="Colección Abstracta" price="2.5 ETH" />;
-```
-
-## 🎨 Sistema de Iconos Completo
-
-### Integración con Iconos Lucide
-
-Acceso directo a todos los iconos de [Lucide React](https://lucide.dev/):
-
-```tsx
-// Importación directa
-import { AlertCircle, Bell, Calendar } from 'tucu-ui/lucide-react';
-
-// O usando namespace
-import { LucideIcons } from 'tucu-ui';
-
-function MiComponente() {
+function GaleriaNFT() {
   return (
-    <div>
-      <AlertCircle size={24} color="red" />
-      <LucideIcons.Bell size={24} />
-      <LucideIcons.Calendar size={24} />
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <NFTGrid author="ArtistaDigital" authorImage="/avatars/artista.jpg" image="/nfts/obra-123.jpg" name="Obra Maestra Digital #123" collection="Colección Abstracta" price="2.5 ETH" />
+
+      <CollectionCard
+        item={{
+          name: 'BAYC',
+          title: 'Bored Ape Yacht Club',
+          cover_image: '/collections/bayc.jpg',
+          number_of_artwork: 10000,
+          user: { name: 'Yuga Labs', avatar: '/avatars/yuga.jpg' },
+        }}
+      />
     </div>
   );
 }
 ```
 
-### Librería de Iconos Internos
+## 🎯 Sistema de Iconos Completo
 
-Extensa colección de iconos internos organizados por categorías:
+### **5000+ Iconos Lucide**
+
+```tsx
+import { LucideIcons } from 'tucu-ui';
+
+function MuestraIconos() {
+  return (
+    <div className="flex gap-4">
+      {/* Iconos de Navegación */}
+      <LucideIcons.Home className="w-6 h-6" />
+      <LucideIcons.Settings className="w-6 h-6" />
+      <LucideIcons.User className="w-6 h-6" />
+
+      {/* Iconos de Acción */}
+      <LucideIcons.Plus className="w-6 h-6 text-green-500" />
+      <LucideIcons.Trash2 className="w-6 h-6 text-red-500" />
+      <LucideIcons.Edit className="w-6 h-6 text-blue-500" />
+
+      {/* Iconos de Comunicación */}
+      <LucideIcons.Mail className="w-6 h-6" />
+      <LucideIcons.Phone className="w-6 h-6" />
+      <LucideIcons.MessageCircle className="w-6 h-6" />
+    </div>
+  );
+}
+```
+
+### **90+ Iconos Personalizados**
 
 ```tsx
 import {
   // Blockchain/Crypto
   Bitcoin,
   Ethereum,
-  Tether,
   Cardano,
-  Bnb,
-  Usdc,
 
-  // Layout
+  // Controles de Layout
   ClassicLayoutIcon,
   MinimalLayoutIcon,
-  ModernLayoutIcon,
 
   // Navegación
-  ArrowUp,
-  ArrowRight,
-  ChevronDown,
-  ChevronForward,
+  HomeIcon,
+  SearchIcon,
 
   // Redes Sociales
   Facebook,
   Twitter,
   Instagram,
   Github,
-  Telegram,
 
-  // Interfaz
-  SearchIcon,
-  HomeIcon,
-  ProfileIcon,
-  Close,
-  Plus,
-
-  // Específicos para DApps
+  // Específicos para DeFi
   SwapIcon,
   ExchangeIcon,
   TradingBotIcon,
-  FarmIcon,
-  PoolIcon,
 } from 'tucu-ui';
 ```
 
-## 🔧 Componentes de Layout y Navegación
+## 🔧 Librería de Componentes UI
 
-### Sistema de Modales
+### **Layout y Navegación**
 
 ```tsx
-import { Modal } from 'tucu-ui';
+import { Modal, Drawer, CardContainer, PanelActionCard } from 'tucu-ui';
 
+// Modal con Accesibilidad
 <Modal
-  isOpen={modalAbierto}
-  setIsOpen={setModalAbierto}
+  isOpen={estaAbierto}
+  setIsOpen={setEstaAbierto}
   text={{
-    title: 'Confirmar Transacción',
-    content: '¿Estás seguro de que quieres proceder con esta transacción?',
+    title: 'Confirmar Acción',
+    content: '¿Estás seguro de que quieres proceder?',
     button: 'Confirmar',
     backButton: 'Cancelar',
   }}
-  onSubmit={manejarConfirmacion}
-  onClose={manejarCierre}
-/>;
-```
+  onSubmit={manejarConfirmar}
+/>
 
-### Drawer/Sidebar
+// Drawer Responsive
+<Drawer
+  type="sidebar-menu"
+  isOpen={drawerAbierto}
+  setIsOpen={setDrawerAbierto}
+  menuItems={menuItems}
+  position="left"
+/>
 
-```tsx
-import { Drawer } from 'tucu-ui';
-
-<Drawer type="sidebar-menu" isOpen={drawerAbierto} setIsOpen={setDrawerAbierto} menuItems={elementosNavegacion} logo={{ name: 'Mi', secondName: 'App' }} position="left" />;
-```
-
-### Componentes de Tarjetas
-
-```tsx
-import { CardContainer, CardTitle, PanelActionCard } from 'tucu-ui';
-
+// Tarjetas de Acción
 <PanelActionCard
   title="Configuración de Usuario"
   actions={[
@@ -495,102 +477,121 @@ import { CardContainer, CardTitle, PanelActionCard } from 'tucu-ui';
   ]}
 >
   <FormularioConfiguracion />
-</PanelActionCard>;
+</PanelActionCard>
+```
+
+### **Componentes de Retroalimentación**
+
+```tsx
+import { Alert, Toast, useToast } from 'tucu-ui';
+
+// Mensajes de Alerta
+<Alert variant="success" dismissible>
+  ¡Tus cambios han sido guardados exitosamente!
+</Alert>
+
+<Alert variant="warning">
+  Tu sesión expirará en 5 minutos.
+</Alert>
+
+// Notificaciones Toast
+function EjemploToast() {
+  const { toast } = useToast();
+
+  const mostrarToast = () => {
+    toast({
+      title: '¡Éxito!',
+      message: 'Tu perfil ha sido actualizado',
+      variant: 'success',
+    });
+  };
+
+  return <Button onClick={mostrarToast}>Mostrar Toast</Button>;
+}
 ```
 
 ## 🎣 Hooks de Utilidad
 
 ```tsx
-import { useBreakpoint, useClickAway, useCopyToClipboard, useElementSize, useIsMobile, useIsMount, useLockBodyScroll, useWindowScroll } from 'tucu-ui';
+import { useBreakpoint, useIsMobile, useCopyToClipboard, useClickAway, useElementSize, useLockBodyScroll } from 'tucu-ui';
 
-// Detección de breakpoint responsive
-function ComponenteResponsive() {
+function EjemploUtilidades() {
   const breakpoint = useBreakpoint();
   const esMobile = useIsMobile();
+  const [textoCopiado, copiar] = useCopyToClipboard();
 
   return (
     <div>
-      Breakpoint actual: {breakpoint}
+      <p>Breakpoint actual: {breakpoint}</p>
       {esMobile && <ComponenteSoloMobile />}
+
+      <button onClick={() => copiar('¡Hola Mundo!')}>{textoCopiado ? '¡Copiado!' : 'Copiar Texto'}</button>
     </div>
   );
-}
-
-// Funcionalidad copiar al portapapeles
-function BotonCompartir({ url }) {
-  const [textoCopiado, copiar] = useCopyToClipboard();
-
-  return <button onClick={() => copiar(url)}>{textoCopiado ? '¡Copiado!' : 'Compartir'}</button>;
 }
 ```
 
 ## 🚀 Autenticación Lista para Usar
 
 ```tsx
-import {
-  SignInForm,
-  SignUpForm,
-  ForgetPasswordForm,
-  ResetPinForm
-} from 'tucu-ui';
+import { SignInForm, SignUpForm, ForgetPasswordForm, ResetPinForm } from 'tucu-ui';
 
-// Formulario completo de inicio de sesión con validación
-<SignInForm forgetPasswordPath="/olvide-contraseña" />
+// Flujo completo de autenticación
+function PaginasAuth() {
+  return (
+    <ThemeProvider layout="none" menuItems={[]}>
+      <div className="min-h-screen flex items-center justify-center">
+        {/* Inicio de sesión con validación */}
+        <SignInForm forgetPasswordPath="/olvide-contraseña" />
 
-// Formulario de registro con aceptación de términos
-<SignUpForm />
+        {/* Registro con términos */}
+        <SignUpForm />
 
-// Flujo de restablecimiento de contraseña
-<ForgetPasswordForm
-  onSubmit={manejarRestablecerContraseña}
-  resetPinPath="/restablecer-pin"
-/>
+        {/* Restablecimiento de contraseña */}
+        <ForgetPasswordForm onSubmit={manejarRestablecerContraseña} resetPinPath="/restablecer-pin" />
+      </div>
+    </ThemeProvider>
+  );
+}
 ```
 
 ## 📚 Ejemplos Completos
 
-### Aplicación de Dashboard Moderna
+### **Dashboard Moderno**
 
 ```tsx
-import { ThemeProvider } from 'tucu-ui';
-import { HomeIcon, AnalyticsIcon, UsersIcon, SettingsIcon } from 'tucu-ui';
+import { ThemeProvider, LucideIcons, useTheme } from 'tucu-ui';
 
 const elementosMenuDashboard = [
   {
     name: 'Resumen',
     href: '/',
-    icon: <HomeIcon />,
+    icon: <LucideIcons.LayoutDashboard />,
     component: <PaginaResumen />,
   },
   {
     name: 'Análisis',
-    href: '/analisis',
-    icon: <AnalyticsIcon />,
+    href: '/analytics',
+    icon: <LucideIcons.BarChart3 />,
     component: <PaginaAnalisis />,
     dropdownItems: [
       {
         name: 'Reportes',
-        href: '/analisis/reportes',
+        href: '/analytics/reports',
         component: <PaginaReportes />,
       },
       {
-        name: 'Insights',
-        href: '/analisis/insights',
-        component: <PaginaInsights />,
+        name: 'Tiempo Real',
+        href: '/analytics/realtime',
+        component: <PaginaTiempoReal />,
       },
     ],
   },
   {
     name: 'Usuarios',
     href: '/usuarios',
-    icon: <UsersIcon />,
+    icon: <LucideIcons.Users />,
     component: <PaginaUsuarios />,
-  },
-  {
-    name: 'Configuración',
-    href: '/configuracion',
-    icon: <SettingsIcon />,
-    component: <PaginaConfiguracion />,
   },
 ];
 
@@ -599,75 +600,116 @@ function Dashboard() {
 }
 ```
 
-### Aplicación de Portfolio DeFi
+### **Aplicación DeFi**
 
 ```tsx
-import { ThemeProvider, CoinCard, LivePriceFeed, TransactionInfo } from 'tucu-ui';
+import { ThemeProvider, CoinCard, LivePriceFeed, LucideIcons } from 'tucu-ui';
 
-const elementosMenuPortfolio = [
+const elementosMenuDefi = [
   {
     name: 'Portfolio',
     href: '/',
-    icon: <WalletIcon />,
-    component: <ResumenPortfolio />,
+    icon: <LucideIcons.Wallet />,
+    component: <PaginaPortfolio />,
   },
   {
-    name: 'Trading',
-    href: '/trading',
-    icon: <ExchangeIcon />,
-    component: <PaginaTrading />,
+    name: 'Swap',
+    href: '/swap',
+    icon: <LucideIcons.ArrowLeftRight />,
+    component: <PaginaSwap />,
   },
   {
-    name: 'Historial',
-    href: '/historial',
-    icon: <HistoryIcon />,
-    component: <HistorialTransacciones />,
+    name: 'Staking',
+    href: '/staking',
+    icon: <LucideIcons.Coins />,
+    component: <PaginaStaking />,
   },
 ];
 
 function AppDeFi() {
-  return (
-    <ThemeProvider layout="minimal" menuItems={elementosMenuPortfolio} logo={{ name: 'DeFi', secondName: 'Portfolio' }} brandColor="Green" rightButton={<ConectorWallet />}>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <CoinCard name="Bitcoin" symbol="BTC" balance="0.5" usdBalance="25,000" change="+5.2%" isChangePositive={true} />
-        <LivePriceFeed name="Ethereum" symbol="ETH" balance="10.5" usdBalance="18,750" change="+2.8%" isChangePositive={true} prices={historialPrecioEth} />
-        <TransactionInfo label="Valor Total del Portfolio" value="$43,750" />
-      </div>
-    </ThemeProvider>
-  );
+  return <ThemeProvider layout="minimal" menuItems={elementosMenuDefi} logo={{ name: 'DeFi', secondName: 'Portfolio' }} brandColor="Green" rightButton={<ConectorWallet />} />;
 }
 ```
 
-## 🎨 Personalización
+### **Plataforma E-commerce**
 
-### Propiedades CSS Personalizadas
+```tsx
+import { ThemeProvider, LucideIcons, Form, FormField, Input } from 'tucu-ui';
+
+const elementosMenuEcommerce = [
+  {
+    name: 'Productos',
+    href: '/productos',
+    icon: <LucideIcons.Package />,
+    component: <PaginaProductos />,
+  },
+  {
+    name: 'Órdenes',
+    href: '/ordenes',
+    icon: <LucideIcons.ShoppingCart />,
+    component: <PaginaOrdenes />,
+  },
+  {
+    name: 'Clientes',
+    href: '/clientes',
+    icon: <LucideIcons.Users />,
+    component: <PaginaClientes />,
+  },
+];
+
+function AdminEcommerce() {
+  return <ThemeProvider layout="classic" menuItems={elementosMenuEcommerce} logo={{ name: 'Tienda', secondName: 'Admin' }} brandColor="Purple" showSettings={true} />;
+}
+```
+
+## 🎨 Personalización y Temas
+
+### **Propiedades CSS Personalizadas**
 
 ```css
 :root {
-  --brand: #tu-color-marca;
-  --brand-secondary: #tu-color-secundario;
-  /* Tucu UI respetará estas variables */
+  --color-brand: 42 82 190; /* Valores RGB para soporte alpha */
+  /* Tucu UI usará automáticamente tus colores de marca */
 }
 ```
 
-### Extendiendo Tailwind
+### **Extendiendo la Configuración de Tailwind**
 
 ```js
 // tailwind.config.js
 module.exports = {
-  extend: {
-    colors: {
-      brand: {
-        DEFAULT: '#tu-color',
-        50: '#tu-color-50',
-        // ... más tonos
+  content: ['./src/**/*.{js,ts,jsx,tsx}', './node_modules/tucu-ui/**/*.{js,ts,jsx,tsx}'],
+  theme: {
+    extend: {
+      colors: {
+        brand: {
+          DEFAULT: 'rgb(var(--color-brand) / <alpha-value>)',
+          50: '#eff6ff',
+          // ... más tonos
+        },
+      },
+      spacing: {
+        13: '3.375rem', // Espaciado personalizado usado por Tucu UI
       },
     },
   },
 };
 ```
 
-## 🔧 Desarrollo
+## ♿ Características de Accesibilidad
+
+Tucu UI está construido pensando en la accesibilidad:
+
+- ✅ **Cumplimiento WCAG 2.1 AA** - Cumple estándares de accesibilidad
+- ✅ **Navegación por Teclado** - Soporte completo de teclado en todos los componentes
+- ✅ **Soporte para Lectores de Pantalla** - Atributos ARIA apropiados y HTML semántico
+- ✅ **Gestión de Foco** - Indicadores de foco visibles y orden lógico de tabulación
+- ✅ **Contraste de Color** - Ratios de contraste suficientes en todos los temas
+- ✅ **Preferencias de Movimiento** - Respeta las preferencias de movimiento del usuario
+
+## 🔧 Desarrollo y Contribuciones
+
+### **Configuración de Desarrollo**
 
 ```bash
 # Clonar el repositorio
@@ -676,29 +718,56 @@ git clone <repository-url>
 # Instalar dependencias
 npm install
 
-# Ejecutar Storybook
-npm run storybook
+# Ejecutar Storybook para desarrollo
+npm run tucu-ui
 
-# Ejecutar tests
-npm run test
+# Construir la librería
+npm run tucu-ui:build
 
-# Construir librería
-npm run build
+# Ejecutar pruebas
+npm test
+```
+
+### **Estructura del Monorepo Nx**
+
+```
+tucu-ui/
+├── apps/
+│   └── demo/                 # Aplicación demo
+├── ui/
+│   └── tucu-ui/             # Librería principal
+│       ├── src/
+│       │   ├── components/   # Todos los componentes UI
+│       │   ├── hooks/       # Hooks de utilidad
+│       │   ├── themes/      # Sistema de temas
+│       │   └── storybook/   # Documentación
+│       └── package.json
+└── nx.json                  # Configuración Nx
 ```
 
 ## 📄 Licencia
 
-MIT
+Licencia MIT - ¡siéntete libre de usar en tus proyectos!
 
 ## 🤝 Contribuciones
 
-¡Las contribuciones son bienvenidas! Por favor, abre un issue primero para discutir lo que te gustaría cambiar.
+¡Las contribuciones son bienvenidas! Por favor:
 
-## 🌐 Documentación
+1. **Haz fork del repositorio**
+2. **Crea una rama de característica**
+3. **Agrega pruebas para nuevas características**
+4. **Actualiza la documentación**
+5. **Envía un pull request**
 
-- **English**: [README.md](./README.md)
-- **Español**: [README-es.md](./README-es.md)
+## 🌐 Comunidad y Soporte
+
+- **📚 [Documentación](https://main--683712ba90eaad206f988c65.chromatic.com/?path=/docs/1-documentation-1-introduction--documentation)** - Guías completas y ejemplos
+- **🎨 [Storybook](https://main--683712ba90eaad206f988c65.chromatic.com/)** - Explorador interactivo de componentes
+- **🐛 [Issues](https://github.com/e-burgos/tucu-ui/issues)** - Reportar bugs y solicitar características
+- **💬 [Discusiones](https://github.com/e-burgos/tucu-ui/discussions)** - Soporte de la comunidad e ideas
 
 ---
 
-**Tucu UI** - Componentes React modernos para aplicaciones web de próxima generación.
+**Tucu UI** - Construye aplicaciones React hermosas, accesibles y listas para producción con confianza.
+
+_Perfecto para dashboards, plataformas e-commerce, aplicaciones DeFi, y cualquier aplicación web moderna que demande calidad y consistencia._

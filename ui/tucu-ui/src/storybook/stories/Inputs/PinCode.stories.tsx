@@ -4,7 +4,7 @@ import { PinCode } from '../../../components/forms';
 import { StoryContainer } from '../../components/StoryContainer';
 
 const meta: Meta<typeof PinCode> = {
-  title: 'UI COMPONENTS/Inputs/PinCode',
+  title: '3. UI COMPONENTS/Inputs/PinCode',
   tags: ['autodocs'],
   component: PinCode,
   parameters: {
@@ -86,12 +86,12 @@ const meta: Meta<typeof PinCode> = {
 export default meta;
 
 const Template: StoryFn<typeof PinCode> = (args) => {
-  const [value, setValue] = React.useState<string | number | undefined>();
+  const [value, setValue] = React.useState<string>('');
 
   return (
     <StoryContainer>
       <div className="w-full max-w-md">
-        <PinCode {...args} setValue={setValue} />
+        <PinCode {...args} value={value} onChange={setValue} />
         {value && (
           <div className="mt-4 text-center">
             Value: <span className="font-mono">{value}</span>
@@ -166,7 +166,7 @@ WithError.args = {
 };
 
 export const VerificationExample = () => {
-  const [pin, setPin] = React.useState<string | number | undefined>();
+  const [pin, setPin] = React.useState<string>('');
   const [isVerifying, setIsVerifying] = React.useState(false);
   const [isVerified, setIsVerified] = React.useState(false);
   const [error, setError] = React.useState<string | undefined>();
@@ -189,7 +189,7 @@ export const VerificationExample = () => {
   };
 
   const handleReset = () => {
-    setPin(undefined);
+    setPin('');
     setIsVerified(false);
     setError(undefined);
   };
@@ -225,15 +225,16 @@ export const VerificationExample = () => {
               variant="active"
               color="primary"
               size="lg"
-              setValue={setPin}
+              value={pin}
+              onChange={setPin}
               error={error}
             />
 
             <button
               onClick={handleVerify}
-              disabled={!pin || pin.toString().length !== 4 || isVerifying}
+              disabled={!pin || pin.length !== 4 || isVerifying}
               className={`w-full py-2 px-4 rounded-md transition-colors ${
-                pin && pin.toString().length === 4 && !isVerifying
+                pin && pin.length === 4 && !isVerifying
                   ? 'bg-blue-500 text-white hover:bg-blue-600'
                   : 'bg-gray-300 text-gray-500 cursor-not-allowed'
               }`}
@@ -248,7 +249,7 @@ export const VerificationExample = () => {
 };
 
 export const PasswordExample = () => {
-  const [pin, setPin] = React.useState<string | number | undefined>();
+  const [pin, setPin] = React.useState<string>('');
 
   return (
     <StoryContainer>
@@ -266,7 +267,8 @@ export const PasswordExample = () => {
           color="secondary"
           size="DEFAULT"
           rounded="full"
-          setValue={setPin}
+          value={pin}
+          onChange={setPin}
         />
 
         <div className="flex space-x-4">
@@ -274,9 +276,9 @@ export const PasswordExample = () => {
             Cancel
           </button>
           <button
-            disabled={!pin || pin.toString().length !== 6}
+            disabled={!pin || pin.length !== 6}
             className={`flex-1 py-2 px-4 rounded-md transition-colors ${
-              pin && pin.toString().length === 6
+              pin && pin.length === 6
                 ? 'bg-blue-500 text-white hover:bg-blue-600'
                 : 'bg-gray-300 text-gray-500 cursor-not-allowed'
             }`}

@@ -1,7 +1,7 @@
 import { Meta } from '@storybook/addon-docs/blocks';
 import Banner from '../../../assets/images/logos/tucu-ui-logo.png';
 
-<Meta title="OVERVIEW/Introduction" />
+<Meta title="1. DOCUMENTATION/1. Introduction" />
 
 <div className="header">
   <img src={Banner} alt="Tucu UI" />
@@ -9,77 +9,77 @@ import Banner from '../../../assets/images/logos/tucu-ui-logo.png';
 
 # Welcome to Tucu UI
 
-Tucu UI is a modern, extensible component library built with React and TypeScript, designed to provide developers with a comprehensive set of UI components for building beautiful, consistent, and responsive web applications. As a frontend developer, I've created this library to simplify the development process and provide a cohesive design system that can be easily integrated into various projects.
+Tucu UI is a modern, comprehensive React component library built with TypeScript and Tailwind CSS. Designed for developers who need production-ready components that are both beautiful and functional, Tucu UI provides everything you need to build consistent, responsive, and accessible web applications.
 
 ## What is Tucu UI?
 
-Tucu UI is a carefully crafted collection of reusable components built on React, TypeScript, and Tailwind CSS. It's designed with flexibility and customization in mind, offering a wide range of UI elements from basic buttons and forms to complex components like data visualization tools and interactive elements.
+Tucu UI is a carefully crafted collection of reusable React components that follows modern design principles and development best practices. Built with a focus on developer experience, the library offers a complete design system with over 80+ components ranging from basic UI elements to complex interactive components.
 
-## Technology Stack
+## Why Choose Tucu UI?
 
-- **React**: Built with modern React practices including functional components and hooks
-- **TypeScript**: Fully typed for improved developer experience and code quality
-- **Tailwind CSS**: Utility-first CSS framework for rapid UI development
-- **Framer Motion**: Powerful animation library for smooth transitions
-- **Storybook**: Component documentation and development environment
-- **Nx**: Build system enabling efficient mono-repo management
+- **🎨 Complete Design System**: Consistent visual language across all components
+- **⚡ Production Ready**: Battle-tested components used in real-world applications
+- **🛠️ Developer Friendly**: Fully typed with TypeScript for excellent IDE support
+- **📱 Responsive First**: Mobile-first approach with seamless responsive behavior
+- **🌙 Dark Mode Native**: Built-in dark/light theme support
+- **♿ Accessible**: WCAG compliant components with proper ARIA attributes
+- **🎭 Customizable**: Extensive theming and styling options
+- **📚 Well Documented**: Comprehensive documentation with live examples
 
-## Key Features
+## Technology Foundation
 
-- **Modern Design System**: Clean, consistent, and aesthetically pleasing components
-- **Responsive Components**: All components adapt seamlessly to different screen sizes
-- **Dark/Light Mode Support**: Built-in theming system with light and dark modes
-- **Accessibility**: Components designed with accessibility in mind
-- **Customizable**: Easily extend and customize components to match your design needs
-- **Well Documented**: Comprehensive documentation with live examples
+- **React 18+** with modern hooks and patterns
+- **TypeScript** for type safety and better developer experience
+- **Tailwind CSS** for utility-first styling and rapid development
+- **Framer Motion** for smooth animations and transitions
+- **Nx Monorepo** for efficient development and build processes
 
-## Component Categories
+## Quick Start
 
-Tucu UI offers a wide range of components categorized for easy navigation:
-
-- **Layout Components**: Containers, grids, and structural elements
-- **Navigation Components**: Menus, tabs, and navigation aids
-- **Form Components**: Inputs, selectors, and data entry components
-- **Feedback Components**: Alerts, modals, and user feedback elements
-- **Data Display**: Tables, cards, and data visualization tools
-- **UI Elements**: Buttons, icons, badges, and basic UI building blocks
-- **Specialized Components**: Blockchain-specific components for web3 applications
-
-## Getting Started
-
-To get started with Tucu UI in your project, install the package via npm:
+Get up and running with Tucu UI in minutes:
 
 ```bash
 npm install tucu-ui
 ```
 
-Import the components you need:
-
 ```jsx
 import { Button, Card, Avatar } from 'tucu-ui';
 
-function MyComponent() {
+function App() {
   return (
-    <Card>
-      <Avatar src="/path/to/image.jpg" alt="User" />
-      <Button variant="primary">Click Me</Button>
+    <Card className="p-6">
+      <Avatar src="/avatar.jpg" alt="User" size="lg" />
+      <Button variant="primary" size="lg">
+        Get Started
+      </Button>
     </Card>
   );
 }
 ```
 
-## Design Philosophy
+## Component Overview
 
-Tucu UI was built with the following principles:
+Tucu UI provides components organized into logical categories:
 
-1. **Simplicity**: Components should be easy to use and understand
-2. **Flexibility**: Extensible design that adapts to different needs
-3. **Performance**: Optimized components that don't compromise performance
-4. **Developer Experience**: Intuitive API design and comprehensive documentation
+- **🧱 Layout**: Containers, grids, and structural components
+- **🧭 Navigation**: Menus, tabs, breadcrumbs, and navigation elements
+- **📝 Forms**: Inputs, selectors, validation, and form utilities
+- **💬 Feedback**: Alerts, modals, notifications, and loading states
+- **📊 Data Display**: Tables, cards, lists, and data visualization
+- **🎯 Interactive**: Buttons, dropdowns, tooltips, and controls
+- **🔗 Blockchain**: Web3-specific components for DeFi and crypto applications
 
-## Contributing
+## What's Next?
 
-Tucu UI is an open project, and contributions are welcome. Whether you're fixing bugs, improving documentation, or proposing new features, your input helps make this library better for everyone.
+Explore the documentation to learn more about:
+
+- **Component API**: Detailed props and usage examples
+- **Theming System**: How to customize colors, spacing, and typography
+- **Form System**: Advanced form handling with validation
+- **Accessibility**: Built-in accessibility features and best practices
+- **Migration Guide**: How to upgrade from previous versions
+
+Ready to build something amazing? Start exploring the components in the sidebar!
 
 <style>
   {`

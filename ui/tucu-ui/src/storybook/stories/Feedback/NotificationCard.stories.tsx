@@ -5,7 +5,7 @@ import { NotificationCard } from '../../../components/notifications';
 
 // Meta for NotificationCard component
 const meta: Meta<typeof NotificationCard> = {
-  title: 'UI COMPONENTS/Feedback/NotificationCard',
+  title: '3. UI COMPONENTS/Feedback/NotificationCard',
   component: NotificationCard,
   tags: ['autodocs'],
   parameters: {

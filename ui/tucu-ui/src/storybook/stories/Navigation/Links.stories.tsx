@@ -7,7 +7,7 @@ import { AnchorLink, ActiveLink } from '../../../components/links';
 const RouterDecorator = (Story: React.ComponentType) => <Story />;
 
 const meta: Meta<typeof AnchorLink> = {
-  title: 'UI COMPONENTS/Navigation/Links',
+  title: '3. UI COMPONENTS/Navigation/Links',
   component: AnchorLink,
   tags: ['autodocs'],
   decorators: [RouterDecorator],

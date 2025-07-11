@@ -11,7 +11,7 @@ import {
 import { Home, Settings, Users } from 'lucide-react';
 
 const meta: Meta<typeof TabGroup> = {
-  title: 'UI COMPONENTS/Navigation/Tabs',
+  title: '3. UI COMPONENTS/Navigation/Tabs',
   component: TabGroup,
   tags: ['autodocs'],
   parameters: {

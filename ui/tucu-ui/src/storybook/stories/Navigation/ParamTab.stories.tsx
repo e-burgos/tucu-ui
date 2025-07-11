@@ -7,7 +7,7 @@ import { Button } from '../../../components/buttons/button';
 import Badge from '../../../components/common/badge';
 
 const meta: Meta<typeof ParamTab> = {
-  title: 'UI COMPONENTS/Navigation/ParamTab',
+  title: '3. UI COMPONENTS/Navigation/ParamTab',
   component: ParamTab,
   tags: ['autodocs'],
   parameters: {

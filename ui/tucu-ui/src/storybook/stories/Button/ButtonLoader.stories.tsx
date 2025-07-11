@@ -7,7 +7,7 @@ import {
 } from '../../../components/loaders/loader';
 
 const meta: Meta<typeof ButtonLoader> = {
-  title: 'UI COMPONENTS/Buttons/ButtonLoader',
+  title: '3. UI COMPONENTS/Buttons/ButtonLoader',
   tags: ['autodocs'],
   component: ButtonLoader,
   parameters: {

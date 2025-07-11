@@ -73,8 +73,6 @@ const config: StorybookConfig = {
           'framer-motion',
           'zustand',
           '@headlessui/react',
-          'overlayscrollbars-react',
-          'simplebar-react',
           'recharts',
           'react-use',
         ],

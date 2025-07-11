@@ -3,8 +3,11 @@ import type { Meta, StoryFn } from '@storybook/react-vite';
 import { CoinCard } from '../../../components/blockchain';
 import { StoryContainer } from '../../components/StoryContainer';
 
+// @ts-expect-error - Image is not a valid module
+import binanceImg from '../../../assets/images/coin/binance.svg';
+
 const meta: Meta<typeof CoinCard> = {
-  title: 'BLOCKCHAIN COMPONENTS/CoinCard',
+  title: '4. BLOCKCHAIN COMPONENTS/CoinCard',
   tags: ['autodocs'],
   component: CoinCard,
   parameters: {
@@ -57,7 +60,7 @@ const meta: Meta<typeof CoinCard> = {
     id: 'bitcoin',
     name: 'Bitcoin',
     symbol: 'BTC',
-    logo: '/src/assets/images/coin/binance.svg',
+    logo: binanceImg,
     balance: '0.2231345',
     usdBalance: '10,123.45',
     change: '2.5%',

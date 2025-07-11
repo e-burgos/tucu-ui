@@ -4,7 +4,6 @@ import Logo, { LogoPropTypes } from '../logos/logo';
 import Button from '../buttons';
 import { X } from 'lucide-react';
 import Scrollbar from '../common/scrollbar';
-
 export interface SidebarProps {
   className?: string;
   children: React.ReactNode;

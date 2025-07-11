@@ -4,7 +4,7 @@ import { Radio } from '../../../components/forms';
 import { StoryContainer } from '../../components/StoryContainer';
 
 const meta: Meta<typeof Radio> = {
-  title: 'UI COMPONENTS/Inputs/Radio',
+  title: '3. UI COMPONENTS/Inputs/Radio',
   tags: ['autodocs'],
   component: Radio,
   parameters: {

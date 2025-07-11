@@ -1,7 +1,12 @@
-import React, { Fragment } from 'react';
-import Button from '../buttons';
-import { Dialog, DialogPanel, TransitionChild } from '@headlessui/react';
-import CardContainer from '../cards/card-container';
+import React, { Fragment, useEffect, useRef, useCallback } from 'react';
+import { Button } from '../buttons';
+import {
+  Dialog,
+  DialogPanel,
+  DialogTitle,
+  TransitionChild,
+} from '@headlessui/react';
+import { CardContainer } from '../cards';
 import cn from 'classnames';
 import { X } from 'lucide-react';
 
@@ -37,24 +42,75 @@ export const Modal: React.FC<ModalProps> = ({
   onBack,
   onClose,
 }) => {
-  function close() {
-    setIsOpen(false);
-  }
+  const titleRef = useRef<HTMLHeadingElement>(null);
+  const previousFocusRef = useRef<HTMLElement | null>(null);
 
-  function closeableClose() {
-    onClose && onClose();
-    closeable && setIsOpen(false);
-  }
+  // Store the previously focused element when modal opens
+  useEffect(() => {
+    if (isOpen) {
+      previousFocusRef.current = document.activeElement as HTMLElement;
+    }
+  }, [isOpen]);
+
+  // Return focus to previously focused element when modal closes
+  useEffect(() => {
+    if (!isOpen && previousFocusRef.current) {
+      previousFocusRef.current.focus();
+    }
+  }, [isOpen]);
+
+  const close = useCallback(() => {
+    setIsOpen(false);
+  }, [setIsOpen]);
+
+  const closeableClose = useCallback(() => {
+    if (onClose) {
+      onClose();
+    }
+    if (closeable) {
+      setIsOpen(false);
+    }
+  }, [onClose, closeable, setIsOpen]);
+
+  const handleDialogClose = useCallback(() => {
+    if (closeable) {
+      closeableClose();
+    }
+  }, [closeable, closeableClose]);
+
+  // Handle escape key
+  useEffect(() => {
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && isOpen && closeable) {
+        closeableClose();
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener('keydown', handleEscape);
+      return () => document.removeEventListener('keydown', handleEscape);
+    }
+    return () => {
+      document.removeEventListener('keydown', handleEscape);
+    };
+  }, [isOpen, closeable, closeableClose]);
+
+  const titleId = 'modal-title';
+  const descriptionId = 'modal-description';
 
   return (
     <Dialog
       open={isOpen}
       as="div"
-      className="relative z-10 focus:outline-hidden"
-      onClose={closeableClose}
+      className="relative z-10 focus:outline-none"
+      onClose={handleDialogClose}
+      aria-labelledby={text?.title ? titleId : undefined}
+      aria-describedby={text?.content ? descriptionId : undefined}
+      initialFocus={titleRef}
     >
       <div
-        className={`fixed inset-0 z-10 w-screen bg-gray-700/90 backdrop-blur-sm overflow-x-hidden overflow-y-hidden`}
+        className="fixed inset-0 z-10 w-screen bg-gray-700/90 backdrop-blur-sm overflow-hidden"
+        aria-hidden="true"
       >
         <TransitionChild
           as={Fragment}
@@ -66,19 +122,26 @@ export const Modal: React.FC<ModalProps> = ({
           leaveTo="opacity-0 scale-105"
         >
           <div className="flex min-h-full items-center justify-center p-4">
-            <DialogPanel className="flex h-full w-full items-center justify-center overflow-y duration-300 ease-out data-closed:transform-[scale(95%)] data-closed:opacity-0">
+            <DialogPanel
+              className="flex h-full w-full items-center justify-center overflow-y duration-300 ease-out data-closed:transform-[scale(95%)] data-closed:opacity-0"
+              role="dialog"
+              aria-modal="true"
+            >
               <CardContainer
                 className={cn(
                   'w-full sm:max-w-[800px] rounded-xl shadow-card',
                   className
                 )}
               >
-                <Dialog.Title
+                <DialogTitle
                   as="h3"
+                  ref={titleRef}
+                  id={titleId}
                   className={cn(
                     'flex w-full justify-between items-center font-bold uppercase tracking-wider text-lg h-14 dark:text-white text-current',
                     !text?.title ? 'text-transparent dark:text-transparent' : ''
                   )}
+                  tabIndex={-1}
                 >
                   {text?.title || '.'}
                   <Button
@@ -86,13 +149,17 @@ export const Modal: React.FC<ModalProps> = ({
                     size="mini"
                     shape="circle"
                     onClick={closeableClose}
+                    aria-label={closeable ? 'Close modal' : 'Close'}
                   >
-                    <X className="h-4 w-4 cursor-pointer" />
+                    <X className="h-4 w-4 cursor-pointer" aria-hidden="true" />
                   </Button>
-                </Dialog.Title>
+                </DialogTitle>
 
                 {text?.content && (
-                  <p className="mt-4 text-sm/6 dark:text-white text-current">
+                  <p
+                    id={descriptionId}
+                    className="mt-4 text-sm/6 dark:text-white text-current"
+                  >
                     {text.content}
                   </p>
                 )}
@@ -134,5 +201,7 @@ export const Modal: React.FC<ModalProps> = ({
     </Dialog>
   );
 };
+
+Modal.displayName = 'Modal';
 
 export default Modal;

@@ -4,7 +4,7 @@ import { StoryContainer } from '../../components/StoryContainer';
 import React from 'react';
 
 const meta: Meta<typeof CardContainer> = {
-  title: 'UI COMPONENTS/Cards/CardContainer',
+  title: '3. UI COMPONENTS/Cards/CardContainer',
   tags: ['autodocs'],
   component: CardContainer,
   parameters: {

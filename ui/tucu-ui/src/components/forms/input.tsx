@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { forwardRef } from 'react';
+import { forwardRef, useId } from 'react';
 import cn from 'classnames';
 import { FieldError } from './field-error-text';
 import { FieldHelperText } from './field-helper-text';
@@ -34,15 +34,29 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       suffixClassName,
       useUppercaseLabel = false,
       icon,
+      id,
       ...props
     },
     ref
   ) => {
+    // Generate unique IDs for accessibility
+    const inputId = useId();
+    const finalId = id || inputId;
+    const errorId = `${finalId}-error`;
+    const helperId = `${finalId}-helper`;
+
+    // Build aria-describedby string
+    const describedBy =
+      [error ? errorId : null, helperText ? helperId : null]
+        .filter(Boolean)
+        .join(' ') || undefined;
+
     return (
       <div className={cn('text-xs sm:text-sm', className)}>
         <div className={cn('relative', labelClassName)}>
           {label && (
-            <span
+            <label
+              htmlFor={finalId}
               className={cn(
                 'block font-medium tracking-widest dark:text-gray-100',
                 useUppercaseLabel ? 'mb-2 uppercase sm:mb-3' : 'mb-1.5 ml-1.5'
@@ -54,12 +68,16 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
                   *
                 </sup>
               )}
-            </span>
+            </label>
           )}
           <div className="relative">
             <input
               type={type}
               ref={ref}
+              id={finalId}
+              aria-describedby={describedBy}
+              aria-invalid={error ? 'true' : 'false'}
+              aria-required={props.required ? 'true' : undefined}
               {...props}
               className={cn(
                 'mt-1 block h-10 w-full rounded-md border border-gray-200 bg-white px-4 py-2 text-sm placeholder-gray-400 transition-shadow duration-200 dark:invalid:border-red-500 dark:invalid:text-red-600 invalid:border-red-500 invalid:text-red-600 focus:border-gray-900 focus:outline-hidden focus:ring-1 focus:ring-gray-900 focus:invalid:border-red-500 focus:invalid:ring-red-500 disabled:border-gray-200 disabled:bg-gray-50 disabled:text-gray-500 dark:border-gray-700 dark:bg-light-dark dark:text-gray-100 dark:focus:border-gray-600 dark:focus:ring-gray-600 sm:h-12 sm:rounded-lg',
@@ -78,19 +96,24 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
                   'w-10 h-10 flex items-center justify-center absolute top-1/2 -translate-y-1/2  whitespace-nowrap leading-normal text-gray-400 dark:text-white',
                   suffixClassName
                 )}
+                aria-hidden="true"
               >
                 {suffix || icon}
               </span>
             )}
           </div>
         </div>
-        {error && <FieldError error={error} size="DEFAULT" />}
-        {helperText && (
-          <FieldHelperText size="DEFAULT">{helperText}</FieldHelperText>
+        {error && <FieldError id={errorId} error={error} size="DEFAULT" />}
+        {!error && helperText && (
+          <FieldHelperText id={helperId} size="DEFAULT">
+            {helperText}
+          </FieldHelperText>
         )}
       </div>
     );
   }
 );
+
+Input.displayName = 'Input';
 
 export default Input;

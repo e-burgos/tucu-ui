@@ -1,11 +1,18 @@
-import { useState, useRef, forwardRef, useImperativeHandle } from 'react';
+import React, {
+  forwardRef,
+  useImperativeHandle,
+  useRef,
+  useState,
+  useId,
+  TouchEventHandler,
+} from 'react';
 import cn from 'classnames';
+import ButtonDrip from './button-drip';
 import ButtonLoader from './button-loader';
 import { LoaderSizeTypes, LoaderVariantTypes } from '../../loaders/loader';
-import ButtonDrip from './button-drip';
 
 type ShapeNames = 'rounded' | 'pill' | 'circle';
-type VariantNames = 'ghost' | 'solid' | 'transparent';
+type VariantNames = 'solid' | 'ghost' | 'transparent';
 type ColorNames =
   | 'primary'
   | 'white'
@@ -56,6 +63,8 @@ export interface ButtonProps
   loaderVariant?: LoaderVariantTypes;
   tooltip?: string;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  'aria-label'?: string;
+  'aria-describedby'?: string;
 }
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
@@ -74,6 +83,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       loaderVariant = 'scaleUp',
       tooltip,
       onClick,
+      'aria-label': ariaLabel,
+      'aria-describedby': ariaDescribedBy,
       ...buttonProps
     },
     ref: React.Ref<HTMLButtonElement | null>
@@ -85,12 +96,16 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     const colorClassNames = colors[color];
     const sizeClassNames = sizes[size];
     const buttonRef = useRef<HTMLButtonElement>(null);
+    const tooltipId = useId();
+
     useImperativeHandle(ref, () => buttonRef.current);
+
     function dripCompletedHandle() {
       setDripShow(false);
       setDripX(0);
       setDripY(0);
     }
+
     const clickHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
       if (!isLoading && buttonRef.current) {
         const rect = buttonRef.current.getBoundingClientRect();
@@ -124,18 +139,33 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         break;
     }
 
+    // Build aria-describedby string
+    const describedBy =
+      [ariaDescribedBy, tooltip ? tooltipId : null].filter(Boolean).join(' ') ||
+      undefined;
+
     return (
       <div className={cn('relative', fullWidth && 'w-full')}>
         {tooltip && hover && (
-          <span className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 w-max px-2 py-1 text-xs dark:bg-light-dark bg-white rounded-sm">
+          <div
+            id={tooltipId}
+            role="tooltip"
+            className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 w-max px-2 py-1 text-xs dark:bg-light-dark bg-white rounded-sm shadow-lg border border-gray-200 dark:border-gray-700 z-10"
+          >
             {tooltip}
-          </span>
+          </div>
         )}
         <button
+          onTouchStart={
+            clickHandler as unknown as TouchEventHandler<HTMLButtonElement>
+          }
           onMouseEnter={() => setHover(true)}
           onMouseLeave={() => setHover(false)}
           ref={buttonRef}
           onClick={clickHandler}
+          aria-label={ariaLabel}
+          aria-describedby={describedBy}
+          aria-busy={isLoading ? 'true' : 'false'}
           className={cn(
             'group inline-flex shrink-0 items-center justify-center overflow-hidden text-center text-xs font-medium tracking-wider outline-hidden transition-all sm:text-sm',
             !disabled
@@ -164,7 +194,10 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           </span>
 
           {isLoading && (
-            <ButtonLoader size={loaderSize} variant={loaderVariant} />
+            <>
+              <ButtonLoader size={loaderSize} variant={loaderVariant} />
+              <span className="sr-only">Loading...</span>
+            </>
           )}
 
           {dripShow && (
@@ -187,4 +220,5 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 );
 
 Button.displayName = 'Button';
+
 export default Button;

@@ -6,7 +6,7 @@ import { ProfileIcon } from '../../../components/icons/profile';
 import { Plus } from '../../../components';
 
 const meta: Meta<typeof TopupButton> = {
-  title: 'UI COMPONENTS/Buttons/TopupButton',
+  title: '3. UI COMPONENTS/Buttons/TopupButton',
   tags: ['autodocs'],
   component: TopupButton,
   parameters: {

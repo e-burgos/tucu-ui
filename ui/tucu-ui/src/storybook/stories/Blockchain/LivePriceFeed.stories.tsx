@@ -29,7 +29,7 @@ const bitcoinPrices = generatePriceData(20, 100, true);
 const ethereumPrices = generatePriceData(20, 80, false);
 
 const meta: Meta<typeof LivePriceFeed> = {
-  title: 'BLOCKCHAIN COMPONENTS/LivePriceFeed',
+  title: '4. BLOCKCHAIN COMPONENTS/LivePriceFeed',
   tags: ['autodocs'],
   component: LivePriceFeed,
   parameters: {

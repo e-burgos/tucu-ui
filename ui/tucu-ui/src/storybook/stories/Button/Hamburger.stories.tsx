@@ -3,7 +3,7 @@ import { Hamburger } from '../../../components/buttons';
 import { StoryContainer } from '../../components/StoryContainer';
 
 const meta: Meta<typeof Hamburger> = {
-  title: 'UI COMPONENTS/Buttons/Hamburger',
+  title: '3. UI COMPONENTS/Buttons/Hamburger',
   tags: ['autodocs'],
   component: Hamburger,
   parameters: {

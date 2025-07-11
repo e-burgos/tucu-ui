@@ -4,7 +4,7 @@ import { Avatar } from '../../../components/common';
 import { StoryContainer } from '../../components/StoryContainer';
 
 const meta: Meta<typeof Avatar> = {
-  title: 'UI COMPONENTS/Data Display/Avatar',
+  title: '3. UI COMPONENTS/Data Display/Avatar',
   tags: ['autodocs'],
   component: Avatar,
   parameters: {

@@ -16,6 +16,7 @@ export interface FieldHelperTextProps
   tag?: 'div' | 'span';
   size?: keyof typeof helperTextClasses.size;
   className?: string;
+  id?: string;
 }
 
 export function FieldHelperText({
@@ -23,16 +24,19 @@ export function FieldHelperText({
   tag = 'div',
   children,
   className,
+  id,
+  ...props
 }: React.PropsWithChildren<FieldHelperTextProps>) {
   const Component = tag;
   return (
     <Component
-      role="alert"
+      id={id}
       className={cn(
         helperTextClasses.base,
         size && helperTextClasses.size[size],
         className
       )}
+      {...props}
     >
       {children}
     </Component>

@@ -7,7 +7,7 @@ import Button from '../../../components/buttons';
 import { AnchorLink } from '../../../components';
 
 const meta: Meta<typeof InputSelect> = {
-  title: 'UI COMPONENTS/Inputs/InputSelect',
+  title: '3. UI COMPONENTS/Inputs/InputSelect',
   tags: ['autodocs'],
   component: InputSelect,
   parameters: {

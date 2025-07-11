@@ -5,7 +5,7 @@ import { StoryContainer } from '../../components/StoryContainer';
 import Button from '../../../components/buttons';
 
 const meta: Meta<typeof FileInput> = {
-  title: 'UI COMPONENTS/Inputs/FileInput',
+  title: '3. UI COMPONENTS/Inputs/FileInput',
   tags: ['autodocs'],
   component: FileInput,
   parameters: {

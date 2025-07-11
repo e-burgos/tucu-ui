@@ -9,7 +9,7 @@ import Avatar3 from '../../../assets/images/avatar/3.png';
 import Avatar4 from '../../../assets/images/avatar/10.jpg';
 
 const meta: Meta<typeof AuthorCard> = {
-  title: 'UI COMPONENTS/Cards/AuthorCard',
+  title: '3. UI COMPONENTS/Cards/AuthorCard',
   tags: ['autodocs'],
   component: AuthorCard,
   parameters: {

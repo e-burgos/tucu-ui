@@ -4,7 +4,8 @@ import { motion } from 'framer-motion';
 import { useMeasure } from '../../hooks/use-measure';
 import ActiveLink from '../links/active-link';
 import { ChevronDown } from '../icons/chevron-down';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useIsMobile } from '../../hooks';
 
 export type DropdownItemProps = {
   name: string;
@@ -39,6 +40,8 @@ export function MenuItem({
 }: MenuItemProps) {
   const location = useLocation();
   const pathname = location.pathname;
+  const navigate = useNavigate();
+  const { isMobile } = useIsMobile();
 
   const [isOpen, setIsOpen] = useState(false);
   const [ref, { height }] = useMeasure<HTMLUListElement>();
@@ -52,6 +55,12 @@ export function MenuItem({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isChildrenActive]);
 
+  const handleTouchStart = (href: string, onClick?: () => void) => {
+    navigate(href);
+    setIsOpen(false);
+    onClick && onClick();
+  };
+
   return (
     <div className="mb-2 min-h-[48px] list-none last:mb-0">
       {dropdownItems?.length && !hide ? (
@@ -62,6 +71,7 @@ export function MenuItem({
           onMouseLeave={() => {
             setIsOpen(isChildrenActive ? true : false);
           }}
+          onTouchStart={() => setIsOpen(!isOpen)}
         >
           <ActiveLink
             activeClassName="text-white!"
@@ -113,12 +123,33 @@ export function MenuItem({
             className="ease-[cubic-bezier(0.33, 1, 0.68, 1)] overflow-hidden transition-all duration-350"
           >
             <ul ref={ref}>
+              {isMobile && (
+                <li
+                  className={cn('first:pt-2', hide && 'hidden')}
+                  onTouchStart={() => handleTouchStart(href, onClick)}
+                >
+                  <ActiveLink
+                    href={href}
+                    to={href}
+                    className="flex items-center rounded-lg p-3 text-sm text-gray-500 transition-all before:h-1 before:w-1 before:rounded-full before:bg-gray-500 hover:text-brand ltr:pl-6 ltr:before:mr-5 rtl:pr-6 rtl:before:ml-5 dark:hover:text-white"
+                    activeClassName="text-brand! dark:text-white! dark:before:bg-white! before:bg-brand! before:w-2! before:h-2! before:-ml-0.5 ltr:before:mr-[18px]! rtl:before:ml-[18px]! font-medium!"
+                    onClick={() => {
+                      onClick && onClick();
+                    }}
+                  >
+                    {name}
+                  </ActiveLink>
+                </li>
+              )}
               {dropdownItems.map((item, index) => {
                 if (item.hide) return null;
                 return (
                   <li
-                    className={cn('first:pt-2', item.hide && 'hidden')}
                     key={index}
+                    className={cn('first:pt-2', item.hide && 'hidden')}
+                    onTouchStart={() =>
+                      handleTouchStart(item.href, item?.onClick)
+                    }
                   >
                     <ActiveLink
                       href={item.href}
@@ -139,6 +170,10 @@ export function MenuItem({
         </div>
       ) : (
         <ActiveLink
+          onTouchStart={() => {
+            navigate(href);
+            onClick && onClick();
+          }}
           onClick={() => {
             onClick && onClick();
           }}

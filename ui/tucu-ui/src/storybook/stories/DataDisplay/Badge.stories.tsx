@@ -4,7 +4,7 @@ import { StoryContainer } from '../../components/StoryContainer';
 import React from 'react';
 
 const meta: Meta<typeof Badge> = {
-  title: 'UI COMPONENTS/Data Display/Badge',
+  title: '3. UI COMPONENTS/Data Display/Badge',
   tags: ['autodocs'],
   component: Badge,
   parameters: {

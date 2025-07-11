@@ -5,7 +5,7 @@ import { StoryContainer } from '../../components/StoryContainer';
 import React from 'react';
 
 const meta: Meta<typeof ButtonDrip> = {
-  title: 'UI COMPONENTS/Buttons/ButtonDrip',
+  title: '3. UI COMPONENTS/Buttons/ButtonDrip',
   tags: ['autodocs'],
   component: ButtonDrip,
   parameters: {

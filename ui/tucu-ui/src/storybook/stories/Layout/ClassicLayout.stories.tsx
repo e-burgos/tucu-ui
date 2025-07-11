@@ -35,7 +35,7 @@ const menuItems: IMenuItem[] = [
 ];
 
 const meta: Meta<typeof ClassicLayout> = {
-  title: 'UI COMPONENTS/Layout/ClassicLayout',
+  title: '3. UI COMPONENTS/Layout/ClassicLayout',
   tags: ['autodocs'],
   component: ClassicLayout,
   parameters: {

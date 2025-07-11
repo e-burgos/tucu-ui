@@ -1,0 +1,689 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="1. DOCUMENTATION/2. Layout System" />
+
+# Layout System
+
+Tucu UI provides a comprehensive layout system that offers multiple layout presets, responsive design patterns, and a powerful theme management system. The layout system is designed to be flexible, accessible, and easy to customize.
+
+## ⚠️ Important: ThemeProvider Required
+
+**Before using any layout components or theme hooks, you MUST wrap your application with `ThemeProvider`.** All layout components (`RootLayout`) and theme hooks (`useTheme`, `useDirection`, `useThemeColor`) depend on the theme context provided by `ThemeProvider`.
+
+```tsx
+import { ThemeProvider } from 'tucu-ui';
+
+// ✅ CORRECT - App wrapped with ThemeProvider
+function App() {
+  return (
+    <ThemeProvider menuItems={menuItems}>
+      <YourAppContent />
+    </ThemeProvider>
+  );
+}
+
+// ❌ INCORRECT - Will cause hooks to fail
+function App() {
+  const { mode } = useTheme(); // This will throw an error!
+  return <YourAppContent />;
+}
+```
+
+## Layout Architecture
+
+The layout system is built around three main concepts:
+
+1. **Layout Types**: Different structural patterns for your application
+2. **Theme Management**: Centralized state for appearance and behavior
+3. **Responsive Components**: Adaptive layouts that work across all devices
+
+## Layout Types
+
+### **1. Classic Layout**
+
+A traditional application layout with a fixed sidebar and header. Perfect for dashboard-style applications.
+
+**Features:**
+
+- Expandable sidebar navigation
+- Fixed header with logo and actions
+- Responsive drawer menu for mobile
+- RTL/LTR support
+
+```tsx
+import { ThemeProvider } from 'tucu-ui';
+
+function App() {
+  const menuItems = [
+    {
+      name: 'Dashboard',
+      icon: <HomeIcon />,
+      href: '/dashboard',
+    },
+    {
+      name: 'Users',
+      icon: <UsersIcon />,
+      href: '/users',
+      dropdownItems: [
+        { name: 'All Users', href: '/users' },
+        { name: 'Add User', href: '/users/add' },
+      ],
+    },
+  ];
+
+  return (
+    <ThemeProvider
+      layout="classic"
+      menuItems={menuItems}
+      logo={{ name: 'MyApp', secondName: 'Pro' }}
+      rightButton={<UserMenu />}
+    >
+      <YourContent />
+    </ThemeProvider>
+  );
+}
+```
+
+### **2. Minimal Layout**
+
+A clean, minimal layout with a top navigation bar. Ideal for content-focused applications.
+
+**Features:**
+
+- Sticky top navigation
+- Horizontal menu items
+- Backdrop blur effects
+- Mobile hamburger menu
+
+```tsx
+import { ThemeProvider } from 'tucu-ui';
+
+function App() {
+  const menuItems = [
+    { name: 'Home', href: '/', icon: <HomeIcon /> },
+    { name: 'About', href: '/about' },
+    { name: 'Contact', href: '/contact' },
+  ];
+
+  return (
+    <ThemeProvider
+      layout="minimal"
+      menuItems={menuItems}
+      logo={{ name: 'Brand', secondName: 'Name' }}
+      rightButton={<ThemeToggle />}
+    >
+      <YourContent />
+    </ThemeProvider>
+  );
+}
+```
+
+### **3. Authentication Layout (None)**
+
+A simple, full-height layout for authentication pages without navigation elements.
+
+**Features:**
+
+- Full viewport height
+- Centered content alignment
+- No navigation elements
+- Perfect for login/signup pages
+
+```tsx
+import { ThemeProvider } from 'tucu-ui';
+
+function AuthPage() {
+  return (
+    <ThemeProvider layout="none" menuItems={[]}>
+      <div className="flex items-center justify-center min-h-screen">
+        <LoginForm />
+      </div>
+    </ThemeProvider>
+  );
+}
+```
+
+## Theme Management with useTheme
+
+The `useTheme` hook provides complete control over the application's appearance and layout behavior.
+
+> **⚠️ Important:** The `useTheme` hook only works inside components that are wrapped by `ThemeProvider`. Make sure your component is a child of `ThemeProvider` in the component tree.
+
+### **Hook Interface**
+
+```tsx
+interface ITheme {
+  // Current theme state
+  preset: IThemeItem; // Color preset
+  direction: 'ltr' | 'rtl'; // Text direction
+  layout: 'classic' | 'minimal' | 'none'; // Layout type
+  mode: 'light' | 'dark'; // Color mode
+  logo: LogoType; // Logo configuration
+
+  // Settings UI state
+  isSettingsOpen: boolean; // Settings drawer state
+  showSettings: boolean; // Show settings button
+  settingActions: ISettingAction; // Disabled settings
+
+  // State setters
+  setPreset: (preset: IThemeItem) => void;
+  setDirection: (direction: 'ltr' | 'rtl') => void;
+  setLayout: (layout: LayoutOptionType) => void;
+  setMode: (mode: 'light' | 'dark') => void;
+  setLogo: (logo: LogoType) => void;
+  setIsSettingsOpen: (open: boolean) => void;
+  setShowSettings: (show: boolean) => void;
+  setSettingActions: (actions: ISettingAction) => void;
+}
+```
+
+### **Basic Usage**
+
+```tsx
+import { useTheme, ThemeProvider } from 'tucu-ui';
+
+// This component MUST be inside ThemeProvider
+function ThemeControls() {
+  const {
+    mode,
+    setMode,
+    layout,
+    setLayout,
+    direction,
+    setDirection,
+    preset,
+    setPreset,
+  } = useTheme(); // ✅ Works because it's inside ThemeProvider
+
+  return (
+    <div className="flex gap-4">
+      {/* Mode Toggle */}
+      <button onClick={() => setMode(mode === 'light' ? 'dark' : 'light')}>
+        {mode === 'light' ? '🌙' : '☀️'} Toggle Theme
+      </button>
+
+      {/* Layout Switcher */}
+      <select
+        value={layout}
+        onChange={(e) => setLayout(e.target.value as LayoutOptionType)}
+      >
+        <option value="classic">Classic</option>
+        <option value="minimal">Minimal</option>
+        <option value="none">None</option>
+      </select>
+
+      {/* Direction Toggle */}
+      <button onClick={() => setDirection(direction === 'ltr' ? 'rtl' : 'ltr')}>
+        Direction: {direction.toUpperCase()}
+      </button>
+    </div>
+  );
+}
+
+// Usage: Wrap with ThemeProvider
+function App() {
+  return (
+    <ThemeProvider menuItems={[]}>
+      <ThemeControls /> {/* ✅ Now useTheme will work */}
+    </ThemeProvider>
+  );
+}
+```
+
+### **Advanced Theme Configuration**
+
+```tsx
+import { useTheme, ColorPreset, ThemeProvider } from 'tucu-ui';
+
+function AdvancedThemeConfig() {
+  const { preset, setPreset, setSettingActions } = useTheme();
+
+  // Disable certain theme controls
+  useEffect(() => {
+    setSettingActions({
+      disabledMode: false, // Allow mode switching
+      disabledLayout: true, // Lock layout type
+      disabledDirection: false, // Allow RTL/LTR
+      disabledPreset: false, // Allow color presets
+    });
+  }, [setSettingActions]);
+
+  // Change color preset programmatically
+  const changeToBlueTheme = () => {
+    const bluePreset = ColorPreset.find((p) => p.label === 'Blue');
+    if (bluePreset) {
+      setPreset(bluePreset);
+    }
+  };
+
+  return (
+    <div>
+      <h3>Current Theme: {preset.label}</h3>
+      <button onClick={changeToBlueTheme}>Switch to Blue Theme</button>
+    </div>
+  );
+}
+
+// Remember to wrap with ThemeProvider
+function App() {
+  return (
+    <ThemeProvider menuItems={[]}>
+      <AdvancedThemeConfig />
+    </ThemeProvider>
+  );
+}
+```
+
+## Direction Support (RTL/LTR)
+
+Tucu UI provides comprehensive RTL (Right-to-Left) support for international applications.
+
+> **⚠️ Important:** The `useDirection` hook requires `ThemeProvider` context to function properly.
+
+### **Setting Direction**
+
+```tsx
+import { useTheme, useDirection, ThemeProvider } from 'tucu-ui';
+
+function DirectionExample() {
+  const { direction, setDirection } = useTheme(); // Requires ThemeProvider
+
+  // useDirection hook automatically applies direction to document
+  useDirection(direction);
+
+  return (
+    <div>
+      <p>Current direction: {direction}</p>
+      <button onClick={() => setDirection('rtl')}>العربية (Arabic)</button>
+      <button onClick={() => setDirection('ltr')}>English</button>
+    </div>
+  );
+}
+
+// Must be wrapped with ThemeProvider
+function App() {
+  return (
+    <ThemeProvider menuItems={[]}>
+      <DirectionExample />
+    </ThemeProvider>
+  );
+}
+```
+
+### **RTL-Aware Styling**
+
+Components automatically adapt to direction changes using Tailwind's RTL utilities:
+
+```tsx
+// These classes automatically flip for RTL
+<div className="ltr:ml-4 rtl:mr-4">  {/* Margin adapts to direction */}
+<div className="ltr:text-left rtl:text-right">  {/* Text alignment */}
+<div className="ltr:border-l rtl:border-r">  {/* Border sides */}
+```
+
+## Color Presets
+
+The theme system includes predefined color presets that can be applied instantly.
+
+### **Available Presets**
+
+```tsx
+const availablePresets = [
+  { label: 'Green', value: '#009e60' }, // Default
+  { label: 'Black', value: '#323743' },
+  { label: 'Blue', value: '#2a52be' },
+  { label: 'Red', value: '#e34234' },
+  { label: 'Purple', value: '#9370DB' },
+  { label: 'Orange', value: '#ffa500' },
+];
+```
+
+### **Custom Brand Colors**
+
+```tsx
+import { ThemeProvider, useThemeColor } from 'tucu-ui';
+
+function CustomBrandComponent() {
+  // Set custom brand color - requires ThemeProvider context
+  useThemeColor('#ff6b35'); // Custom orange
+
+  return <YourContent />;
+}
+
+function AppWithCustomBrand() {
+  return (
+    <ThemeProvider
+      brandColor="Orange" // Or use preset
+      showSettings={true}
+      menuItems={menuItems}
+    >
+      <CustomBrandComponent /> {/* useThemeColor works here */}
+    </ThemeProvider>
+  );
+}
+```
+
+## ThemeProvider Configuration
+
+The `ThemeProvider` is the root component that wraps your application and provides theme context.
+
+### **Complete Configuration**
+
+```tsx
+import { ThemeProvider } from 'tucu-ui';
+
+function Root() {
+  const menuItems = [
+    { name: 'Home', href: '/', icon: <HomeIcon /> },
+    { name: 'About', href: '/about' },
+  ];
+
+  return (
+    <ThemeProvider
+      // Layout configuration
+      layout="classic" // Force specific layout
+      menuItems={menuItems}
+      logo={{ name: 'App', secondName: 'Name' }}
+      rightButton={<UserActions />}
+      // Theme configuration
+      brandColor="Blue" // Set brand color
+      showSettings={true} // Show settings button
+      // Disable specific controls
+      settingActions={{
+        disabledMode: false, // Allow mode switching
+        disabledLayout: true, // Lock layout
+        disabledDirection: false, // Allow RTL/LTR
+        disabledPreset: false, // Allow color presets
+      }}
+      // Router configuration
+      withRouterProvider={true} // Include React Router
+      customRoutes={<CustomRoutes />} // Custom route configuration
+      // Styling
+      className="custom-app-styles"
+    >
+      <YourApp />
+    </ThemeProvider>
+  );
+}
+```
+
+## Responsive Behavior
+
+### **Breakpoint System**
+
+```tsx
+const breakpoints = {
+  xs: '500px', // Extra small devices
+  sm: '640px', // Small devices
+  md: '768px', // Medium devices
+  lg: '1024px', // Large devices
+  xl: '1280px', // Extra large devices
+  '2xl': '1440px', // 2X large devices
+  '3xl': '1780px', // 3X large devices
+  '4xl': '2160px', // 4K devices
+};
+```
+
+### **Responsive Layout Behavior**
+
+- **Classic Layout:**
+
+  - Desktop: Expandable sidebar + header
+  - Mobile: Drawer menu + header
+  - Tablet: Collapsible sidebar
+
+- **Minimal Layout:**
+  - Desktop: Horizontal navigation
+  - Mobile: Hamburger menu + drawer
+  - Tablet: Adaptive navigation
+
+### **Mobile-First Approach**
+
+```tsx
+import { useBreakpoint, useIsMobile, ThemeProvider } from 'tucu-ui';
+
+function ResponsiveComponent() {
+  const breakpoint = useBreakpoint(); // Works without ThemeProvider
+  const { isMobile } = useIsMobile(); // Works without ThemeProvider
+
+  return (
+    <div>
+      {isMobile ? <MobileLayout /> : <DesktopLayout />}
+      <p>Current breakpoint: {breakpoint}</p>
+    </div>
+  );
+}
+
+// Note: useBreakpoint and useIsMobile don't require ThemeProvider,
+// but if you're using other theme hooks, wrap with ThemeProvider
+function App() {
+  return (
+    <ThemeProvider menuItems={[]}>
+      <ResponsiveComponent />
+    </ThemeProvider>
+  );
+}
+```
+
+## Menu System
+
+### **Menu Item Structure**
+
+```tsx
+interface IMenuItem {
+  name: string; // Display name
+  icon?: React.ReactNode; // Optional icon
+  href: string; // Navigation URL
+  dropdownItems?: DropdownItemProps[]; // Nested menu items
+  isActive?: boolean; // Active state
+  hide?: boolean; // Visibility control
+  onClick?: () => void; // Click handler
+}
+```
+
+### **Complex Menu Example**
+
+```tsx
+const complexMenuItems: IMenuItem[] = [
+  {
+    name: 'Dashboard',
+    icon: <DashboardIcon />,
+    href: '/dashboard',
+  },
+  {
+    name: 'E-commerce',
+    icon: <ShoppingIcon />,
+    href: '/ecommerce',
+    dropdownItems: [
+      {
+        name: 'Products',
+        href: '/ecommerce/products',
+        icon: <ProductIcon />,
+      },
+      {
+        name: 'Orders',
+        href: '/ecommerce/orders',
+        dropdownItems: [
+          { name: 'Pending', href: '/ecommerce/orders/pending' },
+          { name: 'Completed', href: '/ecommerce/orders/completed' },
+        ],
+      },
+    ],
+  },
+  {
+    name: 'Settings',
+    icon: <SettingsIcon />,
+    href: '/settings',
+    hide: !userHasPermission('settings'), // Conditional visibility
+  },
+];
+```
+
+## Best Practices
+
+### **1. Layout Selection**
+
+- **Classic**: Use for complex applications with many navigation items
+- **Minimal**: Use for content-focused sites and simple applications
+- **None**: Use for authentication flows and standalone pages
+
+### **2. Theme Management**
+
+- Store theme preferences in localStorage (handled automatically)
+- Use `useTheme` hook for programmatic theme changes
+- Disable unnecessary theme controls with `settingActions`
+
+### **3. Responsive Design**
+
+- Always test layouts on mobile devices
+- Use provided breakpoint hooks for responsive behavior
+- Consider touch interactions for mobile navigation
+
+### **4. Accessibility**
+
+- Provide meaningful menu item names
+- Use semantic HTML structure
+- Test keyboard navigation
+- Ensure proper color contrast in all themes
+
+### **5. Performance**
+
+- Lazy load complex menu structures
+- Use React.memo for menu components
+- Minimize re-renders with proper dependency arrays
+
+## Common Errors and Solutions
+
+### **Error: "Cannot read properties of undefined (reading 'mode')"**
+
+This error occurs when you try to use `useTheme` outside of `ThemeProvider`:
+
+```tsx
+// ❌ WRONG - Will throw error
+function App() {
+  const { mode } = useTheme(); // Error: No ThemeProvider context!
+  return <div>Theme: {mode}</div>;
+}
+
+// ✅ CORRECT - Wrap with ThemeProvider
+function ThemeComponent() {
+  const { mode } = useTheme(); // ✅ Works correctly
+  return <div>Theme: {mode}</div>;
+}
+
+function App() {
+  return (
+    <ThemeProvider menuItems={[]}>
+      <ThemeComponent />
+    </ThemeProvider>
+  );
+}
+```
+
+### **Error: "useTheme must be used within ThemeProvider"**
+
+This error happens when the theme hook is called outside the provider context:
+
+```tsx
+// ❌ WRONG - Hook called at wrong level
+function App() {
+  const { setMode } = useTheme(); // Error!
+
+  return (
+    <ThemeProvider menuItems={[]}>
+      <Content />
+    </ThemeProvider>
+  );
+}
+
+// ✅ CORRECT - Hook called inside provider
+function App() {
+  return (
+    <ThemeProvider menuItems={[]}>
+      <ThemeControls /> {/* useTheme works here */}
+    </ThemeProvider>
+  );
+}
+
+function ThemeControls() {
+  const { setMode } = useTheme(); // ✅ Works correctly
+  return <button onClick={() => setMode('dark')}>Dark Mode</button>;
+}
+```
+
+### **Error: Layout not rendering correctly**
+
+Make sure you're using `ThemeProvider` instead of trying to use `RootLayout` directly:
+
+```tsx
+// ❌ WRONG - RootLayout used directly
+import { RootLayout } from 'tucu-ui';
+
+function App() {
+  return (
+    <RootLayout layout="classic" menuItems={menuItems}>
+      <Content />
+    </RootLayout>
+  );
+}
+
+// ✅ CORRECT - Use ThemeProvider
+import { ThemeProvider } from 'tucu-ui';
+
+function App() {
+  return (
+    <ThemeProvider layout="classic" menuItems={menuItems}>
+      <Content />
+    </ThemeProvider>
+  );
+}
+```
+
+## Migration Guide
+
+### **From Custom Layouts**
+
+```tsx
+// Before: Custom layout implementation
+function OldLayout({ children }) {
+  return (
+    <div className="app-layout">
+      <CustomHeader />
+      <CustomSidebar />
+      <main>{children}</main>
+    </div>
+  );
+}
+
+// After: Using Tucu UI layout system
+function NewLayout({ children }) {
+  return (
+    <ThemeProvider layout="classic" menuItems={menuItems} logo={logo}>
+      {children}
+    </ThemeProvider>
+  );
+}
+```
+
+### **Theme Integration**
+
+```tsx
+// Before: Manual theme management
+const [darkMode, setDarkMode] = useState(false);
+
+// After: Using useTheme hook (requires ThemeProvider)
+function ThemeComponent() {
+  const { mode, setMode } = useTheme(); // ✅ Works inside ThemeProvider
+  return <div>Current mode: {mode}</div>;
+}
+
+function App() {
+  return (
+    <ThemeProvider menuItems={[]}>
+      <ThemeComponent />
+    </ThemeProvider>
+  );
+}
+```
+
+The Tucu UI layout system provides a robust foundation for building modern, responsive applications with consistent theming and excellent user experience across all devices and use cases.

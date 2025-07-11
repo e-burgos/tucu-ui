@@ -5,6 +5,7 @@ import { Sidebar } from './sidebar';
 import { SidebarMenu } from './sidebar-menu';
 import { LogoPropTypes } from '../logos/logo';
 import { IMenuItem } from '../common/menu-item';
+import { useIsMobile } from '../../hooks';
 
 export interface DrawerProps {
   children?: React.ReactNode;

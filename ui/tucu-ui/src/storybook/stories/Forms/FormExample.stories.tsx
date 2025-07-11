@@ -4,7 +4,7 @@ import { FormExample } from '../../../components/forms/form-system/example/form-
 import { StoryContainer } from '../../components/StoryContainer';
 
 const meta: Meta<typeof FormExample> = {
-  title: 'UI COMPONENTS/Forms/FormExample',
+  title: '3. UI COMPONENTS/Forms/FormExample',
   tags: ['autodocs'],
   component: FormExample,
   parameters: {

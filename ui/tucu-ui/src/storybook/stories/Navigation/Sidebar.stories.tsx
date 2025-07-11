@@ -5,7 +5,7 @@ import { StoryContainer } from '../../components/StoryContainer';
 import { LogOut, UserPlus } from 'lucide-react';
 
 const meta: Meta<typeof Sidebar> = {
-  title: 'UI COMPONENTS/Navigation/Sidebar',
+  title: '3. UI COMPONENTS/Navigation/Sidebar',
   tags: ['autodocs'],
   component: Sidebar,
   parameters: {

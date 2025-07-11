@@ -4,7 +4,7 @@ import { CardTitle, CardContainer } from '../../../components/cards';
 import { StoryContainer } from '../../components/StoryContainer';
 
 const meta: Meta<typeof CardTitle> = {
-  title: 'UI COMPONENTS/Cards/CardTitle',
+  title: '3. UI COMPONENTS/Cards/CardTitle',
   tags: ['autodocs'],
   component: CardTitle,
   parameters: {

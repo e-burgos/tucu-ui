@@ -3,8 +3,24 @@ import type { Meta, StoryFn } from '@storybook/react-vite';
 import { NFTGrid } from '../../../components/blockchain';
 import { StoryContainer } from '../../components/StoryContainer';
 
+// @ts-expect-error - Image is not a valid module
+import avatar1Img from '../../../assets/images/avatar/1.png';
+// @ts-expect-error - Image is not a valid module
+import avatar2Img from '../../../assets/images/avatar/2.png';
+// @ts-expect-error - Image is not a valid module
+import avatar3Img from '../../../assets/images/avatar/3.png';
+
+// @ts-expect-error - Image is not a valid module
+import collection1Img from '../../../assets/images/collection/collection-1.jpg';
+// @ts-expect-error - Image is not a valid module
+import collection2Img from '../../../assets/images/collection/collection-2.jpg';
+// @ts-expect-error - Image is not a valid module
+import collection3Img from '../../../assets/images/collection/collection-3.jpg';
+// @ts-expect-error - Image is not a valid module
+import collection4Img from '../../../assets/images/collection/collection-4.jpg';
+
 const meta: Meta<typeof NFTGrid> = {
-  title: 'BLOCKCHAIN COMPONENTS/NFTGrid',
+  title: '4. BLOCKCHAIN COMPONENTS/NFTGrid',
   tags: ['autodocs'],
   component: NFTGrid,
   parameters: {
@@ -45,8 +61,8 @@ const meta: Meta<typeof NFTGrid> = {
   },
   args: {
     author: 'CryptoArtist',
-    authorImage: '/src/assets/images/avatar/1.png',
-    image: '/src/assets/images/collection/collection-1.jpg',
+    authorImage: avatar1Img,
+    image: collection1Img,
     name: 'Abstract Digital Art #123',
     collection: 'Abstract Wonders',
     price: '0.45 ETH',
@@ -69,28 +85,28 @@ Default.args = {};
 
 export const HighPrice = Template.bind({});
 HighPrice.args = {
-  image: '/src/assets/images/collection/collection-2.jpg',
+  image: collection2Img,
   price: '12.5 ETH',
   name: 'Rare Collectible #7',
-  authorImage: '/src/assets/images/avatar/2.png',
+  authorImage: avatar2Img,
 };
 
 export const LimitedEdition = Template.bind({});
 LimitedEdition.args = {
-  image: '/src/assets/images/collection/collection-3.jpg',
+  image: collection3Img,
   name: 'Limited Edition #42',
   collection: 'Exclusive Series',
   price: '3.75 ETH',
   author: 'DigitalMaster',
-  authorImage: '/src/assets/images/avatar/3.png',
+  authorImage: avatar3Img,
 };
 
 export const SpecialEdition = Template.bind({});
 SpecialEdition.args = {
-  image: '/src/assets/images/collection/collection-4.jpg',
+  image: collection4Img,
   name: 'Special Edition: Golden Hour',
   collection: 'Premium Collection',
   price: '8.2 ETH',
   author: 'NFTCreator',
-  authorImage: '/src/assets/images/avatar/2.png',
+  authorImage: avatar2Img,
 };

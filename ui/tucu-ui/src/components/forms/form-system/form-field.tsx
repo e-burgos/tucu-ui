@@ -13,6 +13,7 @@ import { FieldHelperText } from '../field-helper-text';
 import { InputSelect } from '../input-select';
 import { Checkbox } from '../checkbox';
 import { Radio } from '../radio';
+import { PinCode } from '../pin-code';
 
 export interface FormFieldProps<TFormValues extends FieldValues> {
   name: Path<TFormValues>;
@@ -75,6 +76,8 @@ export const FormField = <TFormValues extends FieldValues = FieldValues>({
           const isCheckbox = children.type === Checkbox;
           // Check if the child is a Radio component
           const isRadio = children.type === Radio;
+          // Check if the child is a PinCode component
+          const isPinCode = children.type === PinCode;
           // Clone the child element with the field props
           const childProps = {
             ...field,
@@ -104,6 +107,11 @@ export const FormField = <TFormValues extends FieldValues = FieldValues>({
               onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
                 field.onChange(e.target.checked);
               },
+            }),
+            // For PinCode, ensure we're passing the value and onChange correctly
+            ...(isPinCode && {
+              value: field.value || '',
+              onChange: (value: string) => field.onChange(value),
             }),
           };
 

@@ -6,6 +6,12 @@
 
 @config '../../../tailwind.config.js';
 
+/* Import custom Tailwind color variables */
+@import './tailwind-colors.css';
+
+/* Import custom Tailwind utilities */
+@import './tailwind-utilities.css';
+
 /*
   The default border color has changed to `currentcolor` in Tailwind CSS v4,
   so we've added these compatibility styles to make sure everything still
@@ -51,6 +57,31 @@
 @utility text-vertical {
   writing-mode: tb;
   text-orientation: upright;
+}
+
+/* Typography Heading Classes */
+@utility text-h1 {
+  @apply text-4xl font-bold leading-tight tracking-tight;
+}
+
+@utility text-h2 {
+  @apply text-3xl font-bold leading-tight tracking-tight;
+}
+
+@utility text-h3 {
+  @apply text-2xl font-semibold leading-snug tracking-normal;
+}
+
+@utility text-h4 {
+  @apply text-xl font-semibold leading-snug tracking-normal;
+}
+
+@utility text-h5 {
+  @apply text-lg font-medium leading-normal tracking-normal;
+}
+
+@utility text-h6 {
+  @apply text-base font-medium leading-normal tracking-wide uppercase;
 }
 
 @layer base {
@@ -311,7 +342,18 @@ input.reset-password-pin-code[type='number'] {
   scrollbar-color: rgba(0, 0, 0, 0.2) rgba(0, 0, 0, 0);
 }
 
-/* simple bar scroll bar style  */
+/* Hide scrollbars for custom scrollbar component */
+.scrollbar-hide {
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  -webkit-appearance: none;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
 .simplebar-scrollbar::before {
   @apply bg-gray-500!;
 }

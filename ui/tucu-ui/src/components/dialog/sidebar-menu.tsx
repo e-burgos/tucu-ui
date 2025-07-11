@@ -1,10 +1,12 @@
+import React from 'react';
 import cn from 'classnames';
 import Logo, { LogoPropTypes } from '../logos/logo';
 import { MenuItem } from '../common/menu-item';
 import Button from '../buttons';
-import Scrollbar from '../common/scrollbar';
 import { X } from 'lucide-react';
 import { IMenuItem } from '../common/menu-item';
+import Scrollbar from '../common/scrollbar';
+import { useIsMobile } from '../../hooks';
 
 export function SidebarMenu({
   className,
@@ -23,6 +25,7 @@ export function SidebarMenu({
   onClose: () => void;
   logo?: LogoPropTypes;
 }) {
+  const { isMobile } = useIsMobile();
   const sidebarMenu =
     menuItems &&
     menuItems?.map((item) => ({
@@ -70,7 +73,9 @@ export function SidebarMenu({
           shape="circle"
           variant="ghost"
           size="mini"
-          onClick={onClose}
+          onClick={isMobile ? undefined : onClose}
+          onTouchStart={onClose}
+          onTouchEnd={onClose}
         >
           <X className="h-4 w-4" />
         </Button>

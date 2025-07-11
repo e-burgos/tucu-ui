@@ -32,7 +32,7 @@ const cardanoPrices = generatePriceData(20, 60, true);
 const dogecoinPrices = generatePriceData(20, 40, false);
 
 const meta: Meta<typeof PriceFeedSlider> = {
-  title: 'BLOCKCHAIN COMPONENTS/PriceFeedSlider',
+  title: '4. BLOCKCHAIN COMPONENTS/PriceFeedSlider',
   tags: ['autodocs'],
   component: PriceFeedSlider,
   parameters: {

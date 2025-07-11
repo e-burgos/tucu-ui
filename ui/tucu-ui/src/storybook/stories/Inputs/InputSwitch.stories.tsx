@@ -4,7 +4,7 @@ import { InputSwitch } from '../../../components/forms';
 import { StoryContainer } from '../../components/StoryContainer';
 
 const meta: Meta<typeof InputSwitch> = {
-  title: 'UI COMPONENTS/Inputs/InputSwitch',
+  title: '3. UI COMPONENTS/Inputs/InputSwitch',
   tags: ['autodocs'],
   component: InputSwitch,
   parameters: {

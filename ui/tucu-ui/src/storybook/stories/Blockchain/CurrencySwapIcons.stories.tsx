@@ -7,7 +7,7 @@ import {
 import { StoryContainer } from '../../components/StoryContainer';
 
 const meta: Meta<typeof CurrencySwapIcons> = {
-  title: 'BLOCKCHAIN COMPONENTS/CurrencySwapIcons',
+  title: '4. BLOCKCHAIN COMPONENTS/CurrencySwapIcons',
   tags: ['autodocs'],
   component: CurrencySwapIcons,
   parameters: {

@@ -4,7 +4,7 @@ import { StoryContainer } from '../../components/StoryContainer';
 import React from 'react';
 
 const meta: Meta<typeof Button> = {
-  title: 'UI COMPONENTS/Buttons/Button',
+  title: '3. UI COMPONENTS/Buttons/Button',
   tags: ['autodocs'],
   component: Button,
   parameters: {
