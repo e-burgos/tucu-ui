@@ -1,13 +1,7 @@
-import { Fragment } from 'react';
-import {
-  DialogPanel,
-  Radio,
-  RadioGroup,
-  TransitionChild,
-} from '@headlessui/react';
+import React from 'react';
+import { Radio, RadioGroup } from '@headlessui/react';
 import { useTheme } from '../../use-theme';
 import cn from 'classnames';
-import { Dialog, Transition } from '@headlessui/react';
 import { ColorPreset, LAYOUT_OPTIONS, LayoutOptions } from '../../config';
 import {
   ClassicLayoutIcon,

@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { useMeasure } from '../../hooks/use-measure';
 import ActiveLink from '../links/active-link';
 import { ChevronDown } from '../icons/chevron-down';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router';
 import { useIsMobile } from '../../hooks';
 
 export type DropdownItemProps = {

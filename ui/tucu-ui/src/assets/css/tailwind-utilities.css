@@ -9268,4 +9268,131 @@
   .forced-color-adjust-none {
     forced-color-adjust: none;
   }
+
+  /* ==========================================================================
+     CUSTOM GRADIENT UTILITIES
+     ========================================================================== */
+
+  /* Radial gradient utilities */
+  .bg-gradient-radial {
+    background-image: radial-gradient(circle, var(--tw-gradient-stops));
+  }
+  .bg-gradient-radial-at-t {
+    background-image: radial-gradient(circle at top, var(--tw-gradient-stops));
+  }
+  .bg-gradient-radial-at-tr {
+    background-image: radial-gradient(
+      circle at top right,
+      var(--tw-gradient-stops)
+    );
+  }
+  .bg-gradient-radial-at-r {
+    background-image: radial-gradient(
+      circle at right,
+      var(--tw-gradient-stops)
+    );
+  }
+  .bg-gradient-radial-at-br {
+    background-image: radial-gradient(
+      circle at bottom right,
+      var(--tw-gradient-stops)
+    );
+  }
+  .bg-gradient-radial-at-b {
+    background-image: radial-gradient(
+      circle at bottom,
+      var(--tw-gradient-stops)
+    );
+  }
+  .bg-gradient-radial-at-bl {
+    background-image: radial-gradient(
+      circle at bottom left,
+      var(--tw-gradient-stops)
+    );
+  }
+  .bg-gradient-radial-at-l {
+    background-image: radial-gradient(circle at left, var(--tw-gradient-stops));
+  }
+  .bg-gradient-radial-at-tl {
+    background-image: radial-gradient(
+      circle at top left,
+      var(--tw-gradient-stops)
+    );
+  }
+  .bg-gradient-radial-at-center {
+    background-image: radial-gradient(
+      circle at center,
+      var(--tw-gradient-stops)
+    );
+  }
+
+  /* Conic gradient utilities */
+  .bg-gradient-conic {
+    background-image: conic-gradient(var(--tw-gradient-stops));
+  }
+  .bg-gradient-conic-at-t {
+    background-image: conic-gradient(at top, var(--tw-gradient-stops));
+  }
+  .bg-gradient-conic-at-tr {
+    background-image: conic-gradient(at top right, var(--tw-gradient-stops));
+  }
+  .bg-gradient-conic-at-r {
+    background-image: conic-gradient(at right, var(--tw-gradient-stops));
+  }
+  .bg-gradient-conic-at-br {
+    background-image: conic-gradient(at bottom right, var(--tw-gradient-stops));
+  }
+  .bg-gradient-conic-at-b {
+    background-image: conic-gradient(at bottom, var(--tw-gradient-stops));
+  }
+  .bg-gradient-conic-at-bl {
+    background-image: conic-gradient(at bottom left, var(--tw-gradient-stops));
+  }
+  .bg-gradient-conic-at-l {
+    background-image: conic-gradient(at left, var(--tw-gradient-stops));
+  }
+  .bg-gradient-conic-at-tl {
+    background-image: conic-gradient(at top left, var(--tw-gradient-stops));
+  }
+  .bg-gradient-conic-at-center {
+    background-image: conic-gradient(at center, var(--tw-gradient-stops));
+  }
+
+  /* Additional animation utilities */
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+  .animate-glow {
+    animation: glow 4s ease-in-out infinite alternate;
+  }
+  .animate-pulse-slow {
+    animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+  .animate-spin-slow {
+    animation: spin 8s linear infinite;
+  }
+  .animate-spin-reverse {
+    animation: spin 3s linear infinite reverse;
+  }
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+  }
+
+  @keyframes glow {
+    from {
+      opacity: 0.5;
+      transform: scale(1);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1.05);
+    }
+  }
 }

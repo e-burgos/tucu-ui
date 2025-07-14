@@ -5,7 +5,7 @@ import { ChevronDown } from '../../icons/chevron-down';
 import { ChevronRight } from '../../icons/chevron-right';
 import cn from 'classnames';
 import { IMenuItem } from '../../common/menu-item';
-import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router';
 
 const handleMenuItems = (layoutMenuItems: IMenuItem[], pathname: string) => {
   const isActive = (href: string) => {

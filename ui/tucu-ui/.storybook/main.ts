@@ -64,7 +64,7 @@ const config: StorybookConfig = {
         include: [
           'lodash',
           'tailwindcss',
-          'react-router-dom',
+          'react-router',
           'lucide-react',
           'react-hook-form',
           'react-dropzone',

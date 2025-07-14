@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { useMeasure } from '../../../hooks';
 import ActiveLink from '../../links/active-link';
 import { ChevronDown } from '../../icons/chevron-down';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router';
 import { IMenuItem } from '../../common/menu-item';
 
 export function CollapsibleMenu({

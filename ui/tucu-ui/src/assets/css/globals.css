@@ -1,10 +1,8 @@
 @import 'tailwindcss';
 
-@plugin "@tailwindcss/typography";
-
-@plugin "@tailwindcss/forms";
-
 @config '../../../tailwind.config.js';
+
+@plugin "@tailwindcss/typography";
 
 /* Import custom Tailwind color variables */
 @import './tailwind-colors.css';

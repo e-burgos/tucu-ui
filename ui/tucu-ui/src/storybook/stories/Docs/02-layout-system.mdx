@@ -10,24 +10,41 @@ Tucu UI provides a comprehensive layout system that offers multiple layout prese
 
 **Before using any layout components or theme hooks, you MUST wrap your application with `ThemeProvider`.** All layout components (`RootLayout`) and theme hooks (`useTheme`, `useDirection`, `useThemeColor`) depend on the theme context provided by `ThemeProvider`.
 
-```tsx
+````tsx
 import { ThemeProvider } from 'tucu-ui';
 
-// ✅ CORRECT - App wrapped with ThemeProvider
+// ✅ CORRECT - ThemeProvider with menuItems (handles routing internally)
+function App() {
+  return <ThemeProvider menuItems={menuItems} />;
+}
+
+// ✅ CORRECT - ThemeProvider with custom routes
 function App() {
   return (
-    <ThemeProvider menuItems={menuItems}>
-      <YourAppContent />
-    </ThemeProvider>
+    <ThemeProvider menuItems={menuItems} customRoutes={<CustomRoutes />} />
   );
 }
+
+> **Note:**
+> The component you pass to `customRoutes` must return a `<Routes>...</Routes>` element from React Router.
+> The recommended type is:
+> ```typescript
+> const CustomRoutes: React.FC = () => (
+>   <Routes>
+>     <Route index element={<StepOne />} />
+>     <Route path="step-2" element={<StepTwo />} />
+>     <Route path="step-3" element={<StepThree />} />
+>   </Routes>
+> );
+> ```
+> This ensures full integration with the Tucu UI layout and routing system.
 
 // ❌ INCORRECT - Will cause hooks to fail
 function App() {
   const { mode } = useTheme(); // This will throw an error!
   return <YourAppContent />;
 }
-```
+````
 
 ## Layout Architecture
 
@@ -77,9 +94,7 @@ function App() {
       menuItems={menuItems}
       logo={{ name: 'MyApp', secondName: 'Pro' }}
       rightButton={<UserMenu />}
-    >
-      <YourContent />
-    </ThemeProvider>
+    />
   );
 }
 ```
@@ -111,9 +126,7 @@ function App() {
       menuItems={menuItems}
       logo={{ name: 'Brand', secondName: 'Name' }}
       rightButton={<ThemeToggle />}
-    >
-      <YourContent />
-    </ThemeProvider>
+    />
   );
 }
 ```
@@ -131,14 +144,23 @@ A simple, full-height layout for authentication pages without navigation element
 
 ```tsx
 import { ThemeProvider } from 'tucu-ui';
+import { Routes, Route } from 'react-router-dom';
+
+function CustomRoutes() {
+  return (
+    <Routes>
+      <Route index element={<LoginForm />} />
+    </Routes>
+  );
+}
 
 function AuthPage() {
   return (
-    <ThemeProvider layout="none" menuItems={[]}>
-      <div className="flex items-center justify-center min-h-screen">
-        <LoginForm />
-      </div>
-    </ThemeProvider>
+    <ThemeProvider
+      layout="none"
+      menuItems={[]}
+      customRoutes={<CustomRoutes />}
+    />
   );
 }
 ```
@@ -182,7 +204,7 @@ interface ITheme {
 ```tsx
 import { useTheme, ThemeProvider } from 'tucu-ui';
 
-// This component MUST be inside ThemeProvider
+// This component MUST be inside ThemeProvider context
 function ThemeControls() {
   const {
     mode,
@@ -193,7 +215,7 @@ function ThemeControls() {
     setDirection,
     preset,
     setPreset,
-  } = useTheme(); // ✅ Works because it's inside ThemeProvider
+  } = useTheme(); // ✅ Works because it's inside ThemeProvider context
 
   return (
     <div className="flex gap-4">
@@ -220,13 +242,17 @@ function ThemeControls() {
   );
 }
 
-// Usage: Wrap with ThemeProvider
+// Usage: ThemeProvider handles routing internally
 function App() {
-  return (
-    <ThemeProvider menuItems={[]}>
-      <ThemeControls /> {/* ✅ Now useTheme will work */}
-    </ThemeProvider>
-  );
+  const menuItems = [
+    {
+      name: 'Theme Controls',
+      href: '/theme-controls',
+      component: <ThemeControls />, // ✅ Now useTheme will work
+    },
+  ];
+
+  return <ThemeProvider menuItems={menuItems} />;
 }
 ```
 
@@ -266,11 +292,15 @@ function AdvancedThemeConfig() {
 
 // Remember to wrap with ThemeProvider
 function App() {
-  return (
-    <ThemeProvider menuItems={[]}>
-      <AdvancedThemeConfig />
-    </ThemeProvider>
-  );
+  const menuItems = [
+    {
+      name: 'Advanced Theme',
+      href: '/advanced-theme',
+      component: <AdvancedThemeConfig />,
+    },
+  ];
+
+  return <ThemeProvider menuItems={menuItems} />;
 }
 ```
 
@@ -286,7 +316,7 @@ Tucu UI provides comprehensive RTL (Right-to-Left) support for international app
 import { useTheme, useDirection, ThemeProvider } from 'tucu-ui';
 
 function DirectionExample() {
-  const { direction, setDirection } = useTheme(); // Requires ThemeProvider
+  const { direction, setDirection } = useTheme(); // Requires ThemeProvider context
 
   // useDirection hook automatically applies direction to document
   useDirection(direction);
@@ -300,13 +330,17 @@ function DirectionExample() {
   );
 }
 
-// Must be wrapped with ThemeProvider
+// Must use ThemeProvider with menuItems routing
 function App() {
-  return (
-    <ThemeProvider menuItems={[]}>
-      <DirectionExample />
-    </ThemeProvider>
-  );
+  const menuItems = [
+    {
+      name: 'Direction Example',
+      href: '/direction',
+      component: <DirectionExample />,
+    },
+  ];
+
+  return <ThemeProvider menuItems={menuItems} />;
 }
 ```
 
@@ -347,18 +381,24 @@ function CustomBrandComponent() {
   // Set custom brand color - requires ThemeProvider context
   useThemeColor('#ff6b35'); // Custom orange
 
-  return <YourContent />;
+  return <div>Your custom branded content</div>;
 }
 
 function AppWithCustomBrand() {
+  const menuItems = [
+    {
+      name: 'Custom Brand',
+      href: '/custom-brand',
+      component: <CustomBrandComponent />, // useThemeColor works here
+    },
+  ];
+
   return (
     <ThemeProvider
       brandColor="Orange" // Or use preset
       showSettings={true}
       menuItems={menuItems}
-    >
-      <CustomBrandComponent /> {/* useThemeColor works here */}
-    </ThemeProvider>
+    />
   );
 }
 ```
@@ -400,12 +440,48 @@ function Root() {
       customRoutes={<CustomRoutes />} // Custom route configuration
       // Styling
       className="custom-app-styles"
-    >
-      <YourApp />
-    </ThemeProvider>
+    />
   );
 }
 ```
+
+## Custom Routing with customRoutes
+
+The `ThemeProvider` supports a `customRoutes` prop for advanced routing scenarios. This prop allows you to define your own React Router route tree, giving you full control over the navigation structure inside the layout system.
+
+**Type:**
+
+```typescript
+customRoutes?: React.ReactElement<typeof Routes>;
+```
+
+**Usage Example:**
+
+```tsx
+import { ThemeProvider } from 'tucu-ui';
+import { Routes, Route } from 'react-router-dom';
+import StepOne from './StepOne';
+import StepTwo from './StepTwo';
+import StepThree from './StepThree';
+
+function App() {
+  return (
+    <ThemeProvider
+      layout="classic"
+      menuItems={menuItems}
+      customRoutes={
+        <Routes>
+          <Route index element={<StepOne />} />
+          <Route path="step-2" element={<StepTwo />} />
+          <Route path="step-3" element={<StepThree />} />
+        </Routes>
+      }
+    />
+  );
+}
+```
+
+> **Note:** Only pass a `<Routes>...</Routes>` element to `customRoutes`. This ensures correct integration with React Router and the Tucu UI layout system. Passing other JSX types may result in runtime errors or unexpected behavior.
 
 ## Responsive Behavior
 
@@ -455,13 +531,17 @@ function ResponsiveComponent() {
 }
 
 // Note: useBreakpoint and useIsMobile don't require ThemeProvider,
-// but if you're using other theme hooks, wrap with ThemeProvider
+// but if you're using other theme hooks, use ThemeProvider with menuItems
 function App() {
-  return (
-    <ThemeProvider menuItems={[]}>
-      <ResponsiveComponent />
-    </ThemeProvider>
-  );
+  const menuItems = [
+    {
+      name: 'Responsive',
+      href: '/responsive',
+      component: <ResponsiveComponent />,
+    },
+  ];
+
+  return <ThemeProvider menuItems={menuItems} />;
 }
 ```
 
@@ -565,18 +645,22 @@ function App() {
   return <div>Theme: {mode}</div>;
 }
 
-// ✅ CORRECT - Wrap with ThemeProvider
+// ✅ CORRECT - Use ThemeProvider with menuItems
 function ThemeComponent() {
   const { mode } = useTheme(); // ✅ Works correctly
   return <div>Theme: {mode}</div>;
 }
 
 function App() {
-  return (
-    <ThemeProvider menuItems={[]}>
-      <ThemeComponent />
-    </ThemeProvider>
-  );
+  const menuItems = [
+    {
+      name: 'Theme',
+      href: '/theme',
+      component: <ThemeComponent />,
+    },
+  ];
+
+  return <ThemeProvider menuItems={menuItems} />;
 }
 ```
 
@@ -589,20 +673,20 @@ This error happens when the theme hook is called outside the provider context:
 function App() {
   const { setMode } = useTheme(); // Error!
 
-  return (
-    <ThemeProvider menuItems={[]}>
-      <Content />
-    </ThemeProvider>
-  );
+  return <ThemeProvider menuItems={[]} />;
 }
 
 // ✅ CORRECT - Hook called inside provider
 function App() {
-  return (
-    <ThemeProvider menuItems={[]}>
-      <ThemeControls /> {/* useTheme works here */}
-    </ThemeProvider>
-  );
+  const menuItems = [
+    {
+      name: 'Theme Controls',
+      href: '/theme-controls',
+      component: <ThemeControls />, // useTheme works here
+    },
+  ];
+
+  return <ThemeProvider menuItems={menuItems} />;
 }
 
 function ThemeControls() {
@@ -632,9 +716,11 @@ import { ThemeProvider } from 'tucu-ui';
 
 function App() {
   return (
-    <ThemeProvider layout="classic" menuItems={menuItems}>
-      <Content />
-    </ThemeProvider>
+    <ThemeProvider
+      layout="classic"
+      menuItems={menuItems}
+      customRoutes={<Content />}
+    />
   );
 }
 ```
@@ -658,9 +744,12 @@ function OldLayout({ children }) {
 // After: Using Tucu UI layout system
 function NewLayout({ children }) {
   return (
-    <ThemeProvider layout="classic" menuItems={menuItems} logo={logo}>
-      {children}
-    </ThemeProvider>
+    <ThemeProvider
+      layout="classic"
+      menuItems={menuItems}
+      logo={logo}
+      customRoutes={children}
+    />
   );
 }
 ```
@@ -678,11 +767,15 @@ function ThemeComponent() {
 }
 
 function App() {
-  return (
-    <ThemeProvider menuItems={[]}>
-      <ThemeComponent />
-    </ThemeProvider>
-  );
+  const menuItems = [
+    {
+      name: 'Theme',
+      href: '/theme',
+      component: <ThemeComponent />,
+    },
+  ];
+
+  return <ThemeProvider menuItems={menuItems} />;
 }
 ```
 

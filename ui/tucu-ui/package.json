@@ -1,7 +1,7 @@
 {
   "name": "tucu-ui",
   "description": "Tucu UI Library",
-  "version": "0.0.26",
+  "version": "0.0.28",
   "main": "./index.js",
   "module": "./index.mjs",
   "types": "./index.d.ts",
@@ -46,14 +46,13 @@
   },
   "dependencies": {
     "@headlessui/react": "2.2.4",
-    "@tailwindcss/forms": "^0.5.10",
-    "@tailwindcss/typography": "^0.5.16",
+    "@tailwindcss/typography": "0.0.0-insiders.0339c42",
     "classnames": "^2.5.1",
     "framer-motion": "12.23.3",
     "lucide-react": "^0.460.0",
     "react-dropzone": "14.3.8",
-    "react-hook-form": "7.53.0",
-    "react-router-dom": "6.26.2",
+    "react-hook-form": "7.60.0",
+    "react-router-dom": "7.6.3",
     "react-use": "^17.6.0",
     "recharts": "3.0.0",
     "swiper": "11.2.8",
@@ -67,6 +66,7 @@
   "peerDependencies": {
     "react": ">=18.0.0",
     "react-dom": ">=18.0.0",
+    "react-router-dom": ">=7.0.0",
     "tailwindcss": ">=4.0.0"
   }
 }

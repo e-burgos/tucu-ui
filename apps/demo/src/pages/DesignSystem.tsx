@@ -116,39 +116,32 @@ export function DesignSystem() {
     <div className="space-y-8 sm:space-y-12 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
       {/* Header */}
       <section className="relative overflow-hidden">
-        <div className="relative bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 rounded-2xl p-6 sm:p-8 md:p-12 lg:p-16">
-          {/* Background Pattern */}
-          <div className="absolute inset-0 opacity-5">
-            <div
-              className="absolute inset-0"
-              style={{
-                backgroundImage:
-                  'radial-gradient(circle at 1px 1px, rgba(255,255,255,0.15) 1px, transparent 0)',
-                backgroundSize: '20px 20px',
-              }}
-            ></div>
-          </div>
+        <div className="relative bg-gradient-to-br from-purple-500 via-violet-500 to-indigo-500 dark:from-purple-900 dark:via-violet-900 dark:to-indigo-900 rounded-3xl p-6 sm:p-8 md:p-12 lg:p-16 overflow-hidden">
+          {/* Simplified background elements */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-white/5 dark:from-black/20"></div>
+          <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-radial from-white/10 to-transparent rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 left-0 w-80 h-80 bg-gradient-radial from-indigo-300/20 to-transparent rounded-full blur-2xl"></div>
 
           <div className="relative text-center">
             <div className="flex justify-center mb-6">
               <div className="relative">
-                <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 bg-white dark:bg-gray-800 rounded-full flex items-center justify-center shadow-large border border-gray-100 dark:border-gray-700">
-                  <LucideIcons.Palette className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 text-primary" />
+                <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 bg-gradient-to-br from-purple-500 via-violet-500 to-indigo-500 rounded-full flex items-center justify-center shadow-lg border border-white/20">
+                  <LucideIcons.Palette className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 text-white filter drop-shadow-lg" />
                 </div>
-                <div className="absolute -top-2 -right-2 w-6 h-6 bg-purple-500 rounded-full border-2 border-white dark:border-gray-800"></div>
+                <div className="absolute -top-2 -right-2 w-6 h-6 bg-gradient-to-br from-pink-500 to-rose-500 rounded-full border-2 border-white shadow-md"></div>
               </div>
             </div>
 
             <Typography
               tag="h1"
-              className="mb-6 text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 dark:text-white"
+              className="mb-6 text-3xl sm:text-4xl md:text-5xl font-bold text-white"
             >
               Design System
             </Typography>
 
             <Typography
               tag="p"
-              className="text-base sm:text-lg md:text-xl text-gray-600 dark:text-gray-300 max-w-4xl mx-auto leading-relaxed"
+              className="text-base sm:text-lg md:text-xl text-white/90 max-w-4xl mx-auto leading-relaxed"
             >
               A comprehensive design system that ensures consistency,
               accessibility, and scalability across all components and
@@ -159,17 +152,14 @@ export function DesignSystem() {
       </section>
 
       {/* Design Principles */}
-      <section className="space-y-6 sm:space-y-8">
-        <div className="text-center">
-          <Typography
-            tag="h2"
-            className="mb-4 text-2xl sm:text-3xl md:text-4xl font-bold"
-          >
+      <section className="space-y-8">
+        <div className="text-center space-y-4">
+          <Typography tag="h2" className="text-3xl md:text-4xl font-bold">
             Design Principles
           </Typography>
           <Typography
             tag="p"
-            className="text-base sm:text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto"
+            className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
           >
             Core principles that guide our design decisions and ensure
             consistency
@@ -182,24 +172,36 @@ export function DesignSystem() {
               title: 'Consistency',
               description:
                 'Unified visual language and interaction patterns across all components.',
-              icon: <LucideIcons.CheckCircle className="h-6 w-6" />,
+              icon: (
+                <LucideIcons.CheckCircle className="h-6 w-6 text-white filter drop-shadow-sm" />
+              ),
+              color: 'from-emerald-500 via-green-500 to-teal-500',
             },
             {
               title: 'Simplicity',
               description:
                 'Clean, intuitive interfaces that reduce cognitive load.',
-              icon: <LucideIcons.Minimize2 className="h-6 w-6" />,
+              icon: (
+                <LucideIcons.Minimize2 className="h-6 w-6 text-white filter drop-shadow-sm" />
+              ),
+              color: 'from-blue-500 via-cyan-500 to-sky-500',
             },
             {
               title: 'Flexibility',
               description:
                 'Adaptable components that work across different contexts.',
-              icon: <LucideIcons.Layers className="h-6 w-6" />,
+              icon: (
+                <LucideIcons.Layers className="h-6 w-6 text-white filter drop-shadow-sm" />
+              ),
+              color: 'from-purple-500 via-violet-500 to-indigo-500',
             },
             {
               title: 'Accessibility',
               description: 'Inclusive design that works for everyone.',
-              icon: <LucideIcons.Eye className="h-6 w-6" />,
+              icon: (
+                <LucideIcons.Eye className="h-6 w-6 text-white filter drop-shadow-sm" />
+              ),
+              color: 'from-orange-500 via-amber-500 to-yellow-500',
             },
           ].map((principle) => (
             <CardContainer
@@ -208,7 +210,9 @@ export function DesignSystem() {
             >
               <div className="w-full space-y-4 p-4 sm:p-6">
                 <div className="flex items-center gap-4">
-                  <div className="p-3 rounded-xl bg-gradient-to-r from-purple-500 to-blue-500 bg-opacity-10 group-hover:bg-opacity-20 transition-all duration-300">
+                  <div
+                    className={`p-3 rounded-xl bg-gradient-to-br ${principle.color} group-hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-xl`}
+                  >
                     {principle.icon}
                   </div>
                   <Typography
@@ -231,10 +235,10 @@ export function DesignSystem() {
       </section>
 
       {/* Typography Scale */}
-      <section className="space-y-6 sm:space-y-8">
+      <section className="space-y-8">
         <CardContainer className="overflow-hidden">
           <CardTitle title="Typography Scale" className="mt-2 mb-2">
-            <div className="w-full space-y-6 sm:space-y-8 p-4 sm:p-6">
+            <div className="w-full space-y-8 p-4 sm:p-6">
               <div className="space-y-4">
                 {typographyExamples.map((typo, index) => (
                   <div key={index} className="flex items-center gap-4">
@@ -253,18 +257,18 @@ export function DesignSystem() {
       </section>
 
       {/* Spacing System */}
-      <section className="space-y-6 sm:space-y-8">
+      <section className="space-y-8">
         <CardContainer className="overflow-hidden">
           <CardTitle title="Spacing System" className="mt-2 mb-2">
-            <div className="w-full space-y-6 sm:space-y-8 p-4 sm:p-6">
+            <div className="w-full space-y-8 p-4 sm:p-6">
               <div className="flex flex-wrap gap-4 sm:gap-6 overflow-x-auto">
                 {spacingValues.map((value) => (
                   <div key={value} className="text-center space-y-2">
                     <div
                       className="bg-primary/20 border-2 border-primary/40 mx-auto"
                       style={{
-                        width: `${value * 4}px`,
-                        height: `${value * 4}px`,
+                        width: `${value * 2}px`,
+                        height: `${value * 2}px`,
                       }}
                     />
                     <div className="text-sm">
@@ -280,7 +284,7 @@ export function DesignSystem() {
       </section>
 
       {/* Border Radius */}
-      <section className="space-y-6 sm:space-y-8">
+      <section className="space-y-8">
         <CardContainer className="overflow-hidden">
           <CardTitle title="Border Radius" className="mt-2 mb-2">
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 sm:gap-6">
@@ -302,24 +306,21 @@ export function DesignSystem() {
       </section>
 
       {/* Color System */}
-      <section className="space-y-6 sm:space-y-8">
-        <div className="text-center">
-          <Typography
-            tag="h2"
-            className="mb-4 text-2xl sm:text-3xl md:text-4xl font-bold"
-          >
+      <section className="space-y-8">
+        <div className="text-center space-y-4">
+          <Typography tag="h2" className="text-3xl md:text-4xl font-bold">
             Color System
           </Typography>
           <Typography
             tag="p"
-            className="text-base sm:text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto"
+            className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
           >
             Carefully crafted color palettes that work across all themes and
             contexts
           </Typography>
         </div>
 
-        <div className="space-y-6 sm:space-y-8">
+        <div className="space-y-8">
           {/* Brand Colors */}
           <CardContainer className="overflow-hidden">
             <CardTitle title="Brand Colors" className="mt-2 mb-2">
@@ -373,30 +374,29 @@ export function DesignSystem() {
       </section>
 
       {/* Component Anatomy */}
-      <section className="space-y-6 sm:space-y-8">
-        <div className="text-center">
-          <Typography
-            tag="h2"
-            className="mb-4 text-2xl sm:text-3xl md:text-4xl font-bold"
-          >
+      <section className="space-y-8">
+        <div className="text-center space-y-4">
+          <Typography tag="h2" className="text-3xl md:text-4xl font-bold">
             Component Anatomy
           </Typography>
           <Typography
             tag="p"
-            className="text-base sm:text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto"
+            className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
           >
             Understanding component states, variants, and sizes for consistent
             implementation
           </Typography>
         </div>
 
-        <div className="space-y-6 sm:space-y-8">
+        <div className="space-y-8">
           {/* States */}
           <CardContainer className="overflow-hidden">
             <CardTitle title="Component States" className="mt-2 mb-2">
-              <div className="w-full space-y-6 p-4 sm:p-6">
+              <div className="w-full space-y-8 p-4 sm:p-6">
                 <div className="flex items-center gap-3">
-                  <LucideIcons.Layers className="w-6 h-6 text-green-500" />
+                  <div className="p-2 rounded-lg bg-gradient-to-br from-green-500 via-emerald-500 to-teal-500 shadow-md">
+                    <LucideIcons.Layers className="w-6 h-6 text-white filter drop-shadow-sm" />
+                  </div>
                   <Typography tag="h3" className="text-xl font-semibold">
                     Component States
                   </Typography>
@@ -418,9 +418,11 @@ export function DesignSystem() {
           {/* Variants */}
           <CardContainer className="overflow-hidden">
             <CardTitle title="Component Variants" className="mt-2 mb-2">
-              <div className="w-full space-y-6 p-4 sm:p-6">
+              <div className="w-full space-y-8 p-4 sm:p-6">
                 <div className="flex items-center gap-3">
-                  <LucideIcons.Zap className="w-6 h-6 text-purple-500" />
+                  <div className="p-2 rounded-lg bg-gradient-to-br from-purple-500 via-violet-500 to-indigo-500 shadow-md">
+                    <LucideIcons.Zap className="w-6 h-6 text-white filter drop-shadow-sm" />
+                  </div>
                   <Typography tag="h3" className="text-xl font-semibold">
                     Component Variants
                   </Typography>
@@ -442,9 +444,11 @@ export function DesignSystem() {
           {/* Sizes */}
           <CardContainer className="overflow-hidden">
             <CardTitle title="Component Sizes" className="mt-2 mb-2">
-              <div className="w-full space-y-6 p-4 sm:p-6">
+              <div className="w-full space-y-8 p-4 sm:p-6">
                 <div className="flex items-center gap-3">
-                  <LucideIcons.Maximize className="w-6 h-6 text-blue-500" />
+                  <div className="p-2 rounded-lg bg-gradient-to-br from-blue-500 via-cyan-500 to-sky-500 shadow-md">
+                    <LucideIcons.Maximize className="w-6 h-6 text-white filter drop-shadow-sm" />
+                  </div>
                   <Typography tag="h3" className="text-xl font-semibold">
                     Component Sizes
                   </Typography>
@@ -466,30 +470,29 @@ export function DesignSystem() {
       </section>
 
       {/* Layout Principles */}
-      <section className="space-y-6 sm:space-y-8">
-        <div className="text-center">
-          <Typography
-            tag="h2"
-            className="mb-4 text-2xl sm:text-3xl md:text-4xl font-bold"
-          >
+      <section className="space-y-8">
+        <div className="text-center space-y-4">
+          <Typography tag="h2" className="text-3xl md:text-4xl font-bold">
             Layout Principles
           </Typography>
           <Typography
             tag="p"
-            className="text-base sm:text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto"
+            className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
           >
             Responsive design patterns and layout guidelines for consistent
             experiences
           </Typography>
         </div>
 
-        <div className="space-y-6 sm:space-y-8">
+        <div className="space-y-8">
           {/* Breakpoints */}
           <CardContainer className="overflow-hidden">
             <CardTitle title="Responsive Breakpoints" className="mt-2 mb-2">
-              <div className="w-full space-y-6 p-4 sm:p-6">
+              <div className="w-full space-y-8 p-4 sm:p-6">
                 <div className="flex items-center gap-3">
-                  <LucideIcons.Layout className="w-6 h-6 text-indigo-500" />
+                  <div className="p-2 rounded-lg bg-gradient-to-br from-indigo-500 via-purple-500 to-violet-500 shadow-md">
+                    <LucideIcons.Layout className="w-6 h-6 text-white filter drop-shadow-sm" />
+                  </div>
                   <Typography tag="h3" className="text-xl font-semibold">
                     Responsive Breakpoints
                   </Typography>
@@ -523,9 +526,11 @@ export function DesignSystem() {
           {/* Z-Index Scale */}
           <CardContainer className="overflow-hidden">
             <CardTitle title="Z-Index Scale" className="mt-2 mb-2">
-              <div className="w-full space-y-6 p-4 sm:p-6">
+              <div className="w-full space-y-8 p-4 sm:p-6">
                 <div className="flex items-center gap-3">
-                  <LucideIcons.Layers3 className="w-6 h-6 text-cyan-500" />
+                  <div className="p-2 rounded-lg bg-gradient-to-br from-cyan-500 via-teal-500 to-blue-500 shadow-md">
+                    <LucideIcons.Layers3 className="w-6 h-6 text-white filter drop-shadow-sm" />
+                  </div>
                   <Typography tag="h3" className="text-xl font-semibold">
                     Z-Index Scale
                   </Typography>
@@ -560,17 +565,14 @@ export function DesignSystem() {
       </section>
 
       {/* Implementation Guidelines */}
-      <section className="space-y-6 sm:space-y-8">
-        <div className="text-center">
-          <Typography
-            tag="h2"
-            className="mb-4 text-2xl sm:text-3xl md:text-4xl font-bold"
-          >
+      <section className="space-y-8">
+        <div className="text-center space-y-4">
+          <Typography tag="h2" className="text-3xl md:text-4xl font-bold">
             Implementation Guidelines
           </Typography>
           <Typography
             tag="p"
-            className="text-base sm:text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto"
+            className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
           >
             Best practices and common pitfalls when implementing the design
             system
@@ -581,8 +583,10 @@ export function DesignSystem() {
           <CardContainer className="group hover:shadow-large transition-all duration-300 hover:-translate-y-1">
             <CardTitle title="Best Practices" className="mt-2 mb-2">
               <div className="w-full space-y-4 p-4 sm:p-6">
-                <div className="flex items-center gap-2">
-                  <LucideIcons.CheckCircle className="h-5 w-5 text-green-500" />
+                <div className="flex items-center gap-3">
+                  <div className="p-1.5 rounded-lg bg-gradient-to-br from-green-500 via-emerald-500 to-teal-500 shadow-sm">
+                    <LucideIcons.CheckCircle className="h-5 w-5 text-white filter drop-shadow-sm" />
+                  </div>
                   <Typography tag="h4" className="font-semibold text-green-700">
                     Best Practices
                   </Typography>
@@ -602,8 +606,10 @@ export function DesignSystem() {
           <CardContainer className="group hover:shadow-large transition-all duration-300 hover:-translate-y-1">
             <CardTitle title="Common Pitfalls" className="mt-2 mb-2">
               <div className="w-full space-y-4 p-4 sm:p-6">
-                <div className="flex items-center gap-2">
-                  <LucideIcons.XCircle className="h-5 w-5 text-red-500" />
+                <div className="flex items-center gap-3">
+                  <div className="p-1.5 rounded-lg bg-gradient-to-br from-red-500 via-rose-500 to-pink-500 shadow-sm">
+                    <LucideIcons.XCircle className="h-5 w-5 text-white filter drop-shadow-sm" />
+                  </div>
                   <Typography tag="h4" className="font-semibold text-red-700">
                     Common Pitfalls
                   </Typography>

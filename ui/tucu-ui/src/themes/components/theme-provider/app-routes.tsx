@@ -1,11 +1,11 @@
 import { FC } from 'react';
-import { Navigate, Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router';
 import NotFoundPage from '../pages/not-found';
 import { IMenuItem } from '../../../components/common/menu-item';
 
-export type AppRouteType = { key: string; path: string; element: JSX.Element };
+type AppRouteType = { key: string; path: string; element: JSX.Element };
 
-export interface AppRoutesMenuItem extends Omit<IMenuItem, 'dropdownItems'> {
+interface AppRoutesMenuItem extends Omit<IMenuItem, 'dropdownItems'> {
   component: JSX.Element;
   dropdownItems?: AppRoutesMenuItem[];
 }
@@ -73,3 +73,5 @@ export const AppRoutes: FC<AppRoutesProps> = ({ menuItems }) => {
 };
 
 export default AppRoutes;
+
+export type { AppRoutesMenuItem, AppRoutesProps, AppRouteType };

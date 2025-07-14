@@ -175,8 +175,9 @@ export const CodeAndKeyboard: Story = {
     <StoryContainer>
       <div className="space-y-4 max-w-2xl">
         <Typography tag="p">
-          Use the <Typography tag="code">console.log()</Typography> function to
-          debug your code.
+          <Typography tag="code">
+            Use the console.log() function to debug your code.
+          </Typography>
         </Typography>
 
         <Typography tag="p">
@@ -192,6 +193,50 @@ export const CodeAndKeyboard: Story = {
 }
 
 console.log(greet('World'));`}
+        </Typography>
+      </div>
+    </StoryContainer>
+  ),
+};
+export const Code: Story = {
+  render: () => (
+    <StoryContainer>
+      <div className="space-y-4 max-w-2xl">
+        <Typography tag="p">This is a code block example</Typography>
+
+        <Typography tag="code">
+          {`
+typography: theme => ({
+  default: {
+    css: {
+      pre: {
+        color: theme("colors.grey.1000"),
+        backgroundColor: theme("colors.grey.100")
+      },
+      "pre code::before": {
+        "padding-left": "unset"
+      },
+      "pre code::after": {
+        "padding-right": "unset"
+      },
+      code: {
+        backgroundColor: theme("colors.grey.100"),
+        color: "#DD1144",
+        fontWeight: "400",
+        "border-radius": "0.25rem"
+      },
+      "code::before": {
+        content: '""',
+        "padding-left": "0.25rem"
+      },
+      "code::after": {
+        content: '""',
+        "padding-right": "0.25rem"
+      }
+    }
+  }
+})
+         `}
         </Typography>
       </div>
     </StoryContainer>
@@ -267,10 +312,7 @@ export const CustomStyling: Story = {
           This paragraph has custom styling with background color and border.
         </Typography>
 
-        <Typography
-          tag="code"
-          className="bg-gray-900 text-green-400 px-4 py-2 rounded-lg block font-mono"
-        >
+        <Typography tag="code" className=" text-green-400">
           npm install tucu-ui
         </Typography>
       </div>

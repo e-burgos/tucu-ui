@@ -1,5 +1,5 @@
 import { Suspense, useCallback, useEffect } from 'react';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Routes } from 'react-router';
 import SettingsButton from './settings-button';
 import SettingsDrawer from './settings-drawer';
 import { useTheme } from '../../use-theme';
@@ -23,12 +23,12 @@ import RootLayout, {
 // base css file
 import '../../../styles.css';
 
-export interface ThemeProviderProps extends Omit<LayoutTypeProps, 'menuItems'> {
+interface ThemeProviderProps extends Omit<LayoutTypeProps, 'menuItems'> {
   menuItems: AppRoutesMenuItem[];
   brandColor?: PresetColorType;
   showSettings?: boolean;
   settingActions?: ISettingAction;
-  customRoutes?: React.ReactNode;
+  customRoutes?: React.ReactElement<typeof Routes>;
   withRouterProvider?: boolean;
 }
 
@@ -147,3 +147,5 @@ export function ThemeProvider({
 }
 
 export default ThemeProvider;
+
+export type { ThemeProviderProps };
