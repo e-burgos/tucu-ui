@@ -27,7 +27,7 @@ const inputClasses = {
       },
     },
     flat: {
-      base: 'border-0 border-2',
+      base: 'border-2',
       color: {
         DEFAULT:
           'bg-brand/10 hover:enabled:bg-brand/20 focus:ring-brand/30 checked:!bg-brand/70',

@@ -1,7 +1,5 @@
 import React from 'react';
 import { defaultValues, formValidations, type FormValues } from './validations';
-import { ErrorContainerExample } from './error-container-example';
-import { FormMethodsExample } from './form-methods-example';
 import { countryOptions, genderOptions } from './constants';
 
 import {
@@ -17,26 +15,7 @@ import {
   useToastStore,
 } from 'tucu-ui';
 
-const Disclaimer = () => {
-  return (
-    <div className="p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800 rounded-lg mb-6">
-      <h3 className="text-lg font-medium text-blue-800 dark:text-blue-300 mb-2">
-        Form with Centralized Validation
-      </h3>
-      <p className="text-sm text-blue-700 dark:text-blue-400">
-        This example demonstrates a form with validation rules defined centrally
-        in a separate file. The validation rules are passed to the Form
-        component via the validationSchema prop, eliminating the need to define
-        rules on each FormField component.
-      </p>
-    </div>
-  );
-};
-
-export const FormExample: React.FC<{
-  hideErrorContainer?: boolean;
-  hideFormMethods?: boolean;
-}> = ({ hideErrorContainer = false, hideFormMethods = false }) => {
+export const SimpleFormExample: React.FC = () => {
   const { addToast } = useToastStore();
   const handleSubmit = (values: FormValues) => {
     addToast({
@@ -49,8 +28,6 @@ export const FormExample: React.FC<{
 
   return (
     <div className="w-full max-w-6xl mx-auto">
-      <Disclaimer />
-
       <div className="p-6 bg-white dark:bg-light-dark rounded-lg shadow">
         <h2 className="text-2xl font-bold mb-6 text-center">Form Example</h2>
         <Form<FormValues>
@@ -60,10 +37,10 @@ export const FormExample: React.FC<{
             defaultValues: defaultValues,
             mode: 'onChange',
           }}
-          className={'grid grid-cols-1 md:grid-cols-2 gap-4'}
+          className={'grid grid-cols-1 gap-4'}
         >
           <div className="w-full space-y-4 border border-gray-200 dark:border-gray-700 rounded-lg p-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 gap-4">
               <FormField<FormValues> name="name" label="Name">
                 <Input placeholder="Ingresa tu nombre" />
               </FormField>
@@ -121,14 +98,10 @@ export const FormExample: React.FC<{
               <Button type="submit">Submit</Button>
             </div>
           </div>
-          <div className=" w-full space-y-8 flex-col justify-start items-start">
-            {!hideErrorContainer && <ErrorContainerExample />}
-            {!hideFormMethods && <FormMethodsExample />}
-          </div>
         </Form>
       </div>
     </div>
   );
 };
 
-export default FormExample;
+export default SimpleFormExample;

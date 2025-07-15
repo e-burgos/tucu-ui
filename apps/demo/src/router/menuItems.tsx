@@ -9,7 +9,8 @@ import { Accessibility } from '../pages/Accessibility';
 import { LayoutSystem } from '../pages/LayoutSystem';
 import { IconsSystem } from '../pages/IconsSystem';
 import { HooksUtilities } from '../pages/HooksUtilities';
-import FormExample from '../pages/form-system/example/form-example';
+import FormExamplePage from '../pages/form-system/form-example-page';
+import CodeExamplePage from '../pages/form-system/code-example-page';
 
 export const useMenuItems = () => {
   const menuItems: AppRoutesMenuItem[] = useMemo(
@@ -42,7 +43,13 @@ export const useMenuItems = () => {
             name: 'Form Example',
             href: '/form-system/example',
             icon: <LucideIcons.FormInput />,
-            component: <FormExample />,
+            component: <FormExamplePage />,
+          },
+          {
+            name: 'Code Example',
+            href: '/form-system/code-example',
+            icon: <LucideIcons.Code />,
+            component: <CodeExamplePage />,
           },
         ],
       },
@@ -80,69 +87,5 @@ export const useMenuItems = () => {
     []
   );
 
-  const staticMenuItems: AppRoutesMenuItem[] = [
-    {
-      name: 'Introduction',
-      href: '/',
-      icon: <LucideIcons.Home />,
-      component: <Introduction />,
-    },
-    {
-      name: 'Design',
-      href: '/design-system',
-      icon: <LucideIcons.Palette />,
-      component: <DesignSystem />,
-    },
-    {
-      name: 'Theming',
-      href: '/theming-guide',
-      icon: <LucideIcons.Paintbrush />,
-      component: <ThemingGuide />,
-    },
-    {
-      name: 'Form',
-      href: '/form-system',
-      icon: <LucideIcons.FileText />,
-      component: <FormSystem />,
-      dropdownItems: [
-        {
-          name: 'Form Example',
-          href: '/form-system/example',
-          icon: <LucideIcons.FileText />,
-          component: <FormExample />,
-        },
-      ],
-    },
-    {
-      name: 'Blockchain',
-      href: '/blockchain',
-      icon: <LucideIcons.Coins />,
-      component: <Blockchain />,
-    },
-    {
-      name: 'Accessibility',
-      href: '/accessibility',
-      icon: <LucideIcons.Eye />,
-      component: <Accessibility />,
-    },
-    {
-      name: 'Layout',
-      href: '/layout-system',
-      icon: <LucideIcons.Layout />,
-      component: <LayoutSystem />,
-    },
-    {
-      name: 'Icons',
-      href: '/icons-system',
-      icon: <LucideIcons.Sparkles />,
-      component: <IconsSystem />,
-    },
-    {
-      name: 'Hooks',
-      href: '/hooks-utilities',
-      icon: <LucideIcons.Settings />,
-      component: <HooksUtilities />,
-    },
-  ];
-  return { menuItems, staticMenuItems };
+  return { menuItems };
 };

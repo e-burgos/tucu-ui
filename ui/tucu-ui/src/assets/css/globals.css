@@ -5,10 +5,6 @@
 @plugin "@tailwindcss/typography";
 
 /* Import custom Tailwind color variables */
-@import './tailwind-colors.css';
-
-/* Import custom Tailwind utilities */
-@import './tailwind-utilities.css';
 
 /*
   The default border color has changed to `currentcolor` in Tailwind CSS v4,
@@ -25,6 +21,33 @@
   ::backdrop,
   ::file-selector-button {
     border-color: var(--color-gray-200, currentcolor);
+  }
+
+  /* Custom theme colors */
+  :root {
+    --color-brand: 17 24 39;
+  }
+
+  html {
+    @apply bg-body font-body;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  html.dark {
+    @apply bg-dark text-white;
+  }
+
+  html,
+  body {
+    @apply antialiased;
+  }
+
+  .dynamic-html h6 {
+    @apply font-medium uppercase;
+  }
+
+  .dynamic-html p {
+    @apply mb-3;
   }
 }
 
@@ -80,34 +103,6 @@
 
 @utility text-h6 {
   @apply text-base font-medium leading-normal tracking-wide uppercase;
-}
-
-@layer base {
-  :root {
-    --color-brand: 17 24 39;
-  }
-
-  html {
-    @apply bg-body font-body;
-    -webkit-tap-highlight-color: transparent;
-  }
-
-  html.dark {
-    @apply bg-dark text-white;
-  }
-
-  html,
-  body {
-    @apply antialiased;
-  }
-
-  .dynamic-html h6 {
-    @apply font-medium uppercase;
-  }
-
-  .dynamic-html p {
-    @apply mb-3;
-  }
 }
 
 /* Hide spin button for input type number */
@@ -196,16 +191,16 @@ Styles for Swiper slider
   background: rgb(var(--color-brand));
 }
 
-/* .pricing-table-head th:nth-child(3),
+.pricing-table-head th:nth-child(3),
 .pricing-table-body td:nth-child(3) {
   max-width: 30px;
   padding: 0;
-} */
+}
 
-/* .pricing-table-head th:nth-child(4),
+.pricing-table-head th:nth-child(4),
 .pricing-table-body td:nth-child(4) {
   padding-left: 5px;
-} */
+}
 
 .swiper-pagination-bullet {
   --swiper-pagination-bullet-width: 8px;

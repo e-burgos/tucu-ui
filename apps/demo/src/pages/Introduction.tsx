@@ -7,13 +7,12 @@ import {
   LucideIcons,
   AnchorLink,
   useTheme,
-  Scrollbar,
   CardTitle,
+  CodeBlock,
 } from 'tucu-ui';
 
 import avatarImage from '../assets/images/author-dark.jpeg';
 import { DOCUMENTATION_URL } from '../utils/constants';
-
 import Banner from '../assets/images/logos/tucu-ui-logo-white.svg';
 import BannerDark from '../assets/images/logos/tucu-ui-logo-black.svg';
 
@@ -360,21 +359,9 @@ export function Introduction() {
                   >
                     2. Basic Usage
                   </Typography>
-                  <div className="p-3 sm:p-4 bg-gray-100 dark:bg-gray-800 rounded-xl border dark:border-gray-700 hover:border-gray-600 transition-colors overflow-x-auto">
-                    <Scrollbar
-                      autoHide="leave"
-                      direction="vertical"
-                      style={{
-                        height: '300px',
-                        whiteSpace: 'pre-wrap',
-                        wordBreak: 'normal',
-                        overflowWrap: 'normal',
-                        wordWrap: 'normal',
-                        lineBreak: 'normal',
-                        fontFamily: 'monospace',
-                      }}
-                    >
-                      {`import { Button, CardContainer, Avatar, ThemeProvider } from 'tucu-ui';
+                  <CodeBlock
+                    language="tsx"
+                    code={`import { Button, CardContainer, Avatar, ThemeProvider } from 'tucu-ui';
 import 'tucu-ui/styles';
 
 function App() {
@@ -413,8 +400,7 @@ function App() {
     </ThemeProvider>
   );
 }`}
-                    </Scrollbar>
-                  </div>
+                  />
                 </div>
 
                 {/* Live Demo */}

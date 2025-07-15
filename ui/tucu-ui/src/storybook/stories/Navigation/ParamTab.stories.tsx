@@ -6,22 +6,6 @@ import { Home, Users, Bell, CreditCard } from 'lucide-react';
 import { Button } from '../../../components/buttons/button';
 import Badge from '../../../components/common/badge';
 
-const meta: Meta<typeof ParamTab> = {
-  title: '3. UI COMPONENTS/Navigation/ParamTab',
-  component: ParamTab,
-  tags: ['autodocs'],
-  parameters: {
-    docs: {
-      description: {
-        component:
-          'ParamTab component for creating URL parameter-based tabs that sync with the browser URL.',
-      },
-    },
-  },
-};
-
-export default meta;
-
 const tabMenu = [
   {
     title: 'Overview',
@@ -40,6 +24,43 @@ const tabMenu = [
     path: '/notifications',
   },
 ];
+
+const meta: Meta<typeof ParamTab> = {
+  title: '3. UI COMPONENTS/Navigation/Tabs/ParamTab',
+  component: ParamTab,
+  tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'ParamTab component for creating URL parameter-based tabs that sync with the browser URL.',
+      },
+    },
+  },
+  argTypes: {
+    tabMenu: {
+      control: {
+        type: 'object',
+      },
+    },
+    tabListClassName: {
+      control: {
+        type: 'object',
+      },
+    },
+    children: {
+      control: {
+        type: 'object',
+      },
+    },
+  },
+  args: {
+    tabMenu,
+    tabListClassName: 'bg-gray-100 dark:bg-gray-800 rounded-lg p-2 before:h-0',
+  },
+};
+
+export default meta;
 
 const tabMenuWithIcons = [
   {

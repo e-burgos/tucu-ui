@@ -1,5 +1,5 @@
 import React from 'react';
-import { useFormContext } from 'react-hook-form';
+import { useFormContext } from '../hook-form';
 import { FormValues } from './validations';
 
 export const ErrorContainerExample: React.FC = () => {

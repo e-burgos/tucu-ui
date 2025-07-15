@@ -4,9 +4,9 @@ import {
   Typography,
   LucideIcons,
   Badge,
-  Scrollbar,
   Button,
   AnchorLink,
+  CodeBlock,
 } from 'tucu-ui';
 
 export function FormSystem() {
@@ -14,7 +14,7 @@ export function FormSystem() {
     <div className="space-y-8 sm:space-y-12 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
       {/* Hero Section */}
       <section className="relative overflow-hidden">
-        <div className="relative bg-gradient-to-br from-blue-500 via-cyan-500 to-teal-500 dark:from-blue-900 dark:via-cyan-900 dark:to-teal-900 rounded-2xl p-6 sm:p-8 md:p-12 lg:p-16">
+        <div className="relative bg-gradient-to-br from-purple-500 via-violet-500 to-indigo-500 dark:from-purple-900 dark:via-violet-900 dark:to-indigo-900 rounded-2xl p-6 sm:p-8 md:p-12 lg:p-16">
           {/* Animated Background Elements */}
           <div className="absolute inset-0 overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 via-cyan-600/30 to-teal-600/20 dark:from-blue-400/10 dark:via-cyan-400/15 dark:to-teal-400/10"></div>
@@ -25,8 +25,11 @@ export function FormSystem() {
 
           <div className="relative text-center">
             <div className="flex justify-center mb-6">
-              <div className="p-4 bg-white/10 backdrop-blur-sm rounded-2xl">
-                <LucideIcons.FileText className="w-16 h-16 text-white filter drop-shadow-lg" />
+              <div className="relative">
+                <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 bg-gradient-to-br from-purple-500 via-violet-500 to-indigo-500 rounded-full flex items-center justify-center shadow-lg border border-white/20">
+                  <LucideIcons.FileText className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 text-white filter drop-shadow-lg" />
+                </div>
+                <div className="absolute -top-2 -right-2 w-6 h-6 bg-purple-500 rounded-full border-2 border-white shadow-md"></div>
               </div>
             </div>
 
@@ -159,17 +162,10 @@ export function FormSystem() {
                   Simple Contact Form
                 </Typography>
               </div>
-              <div className="p-4 bg-gray-100 dark:bg-gray-800 rounded-xl border dark:border-gray-700">
-                <Scrollbar
-                  autoHide="leave"
-                  direction="vertical"
-                  style={{
-                    height: '300px',
-                    whiteSpace: 'pre-wrap',
-                    fontFamily: 'monospace',
-                  }}
-                >
-                  {`import { Form, FormField, Input, Button } from 'tucu-ui';
+              <div className="">
+                <CodeBlock
+                  language="tsx"
+                  code={`import { Form, FormField, Input, Button } from 'tucu-ui';
 
 interface ContactFormData {
   name: string;
@@ -215,7 +211,7 @@ function ContactForm() {
     </Form>
   );
 }`}
-                </Scrollbar>
+                />
               </div>
             </div>
           </CardTitle>
@@ -418,17 +414,10 @@ function ContactForm() {
                       Custom Validation
                     </Typography>
                   </div>
-                  <div className="p-4 bg-gray-100 dark:bg-gray-800 rounded-xl">
-                    <Scrollbar
-                      autoHide="leave"
-                      direction="vertical"
-                      style={{
-                        height: '150px',
-                        whiteSpace: 'pre-wrap',
-                        fontFamily: 'monospace',
-                      }}
-                    >
-                      {`rules={{
+                  <div className="">
+                    <CodeBlock
+                      language="tsx"
+                      code={`rules={{
   validate: {
     strength: (value) => {
       const hasUpper = /[A-Z]/.test(value);
@@ -442,7 +431,7 @@ function ContactForm() {
     }
   }
 }}`}
-                    </Scrollbar>
+                    />
                   </div>
                 </div>
               </div>

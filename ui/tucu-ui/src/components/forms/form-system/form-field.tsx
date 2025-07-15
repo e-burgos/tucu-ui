@@ -4,11 +4,12 @@ import {
   useFormContext,
   FieldValues,
   Path,
-  FieldError as FormFieldError,
   RegisterOptions,
   FieldErrors,
-} from 'react-hook-form';
-import { FieldError } from '../field-error-text';
+  FormFieldError,
+} from './hook-form';
+
+import { FieldError as FieldErrorText } from '../field-error-text';
 import { FieldHelperText } from '../field-helper-text';
 import { InputSelect } from '../input-select';
 import { Checkbox } from '../checkbox';
@@ -120,7 +121,7 @@ export const FormField = <TFormValues extends FieldValues = FieldValues>({
       />
 
       {!hideError && errorMessage && (
-        <FieldError error={errorMessage as string} size="DEFAULT" />
+        <FieldErrorText error={errorMessage as string} size="DEFAULT" />
       )}
 
       {!errorMessage && showHelper && helperText && (

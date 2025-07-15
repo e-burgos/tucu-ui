@@ -1,4 +1,4 @@
-import { FieldValues, UseFormReturn } from 'react-hook-form';
+import { FieldValues, UseFormReturn } from '../hook-form';
 import { FieldPathInternal, ArrayKey } from './extend-react-hook-form.type';
 
 export type DependencyAction<TFieldValues extends FieldValues> = (

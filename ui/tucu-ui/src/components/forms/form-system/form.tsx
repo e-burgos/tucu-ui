@@ -5,7 +5,7 @@ import type {
   UseFormProps,
   FieldValues,
   UseFormReturn,
-} from 'react-hook-form';
+} from './hook-form';
 import { useForm, FormProvider } from 'react-hook-form';
 import { FormValidations } from './types/validations.type';
 import cn from 'classnames';

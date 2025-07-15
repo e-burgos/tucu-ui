@@ -7,3 +7,4 @@ export * from './form';
 export * from './types/dependencies.type';
 export * from './types/extend-react-hook-form.type';
 export * from './types/validations.type';
+export * from './hook-form';

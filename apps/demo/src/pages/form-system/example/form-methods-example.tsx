@@ -1,7 +1,7 @@
 import React from 'react';
-import { useFormContext } from 'react-hook-form';
-import { Button } from 'tucu-ui';
+import { useFormContext } from 'tucu-ui';
 import { defaultValues, type FormValues } from './validations';
+import { Button, useToastStore } from 'tucu-ui';
 
 export const FormMethodsExample: React.FC = () => {
   // All form methods are accessed through useFormContext
@@ -13,7 +13,7 @@ export const FormMethodsExample: React.FC = () => {
     getValues,
     watch,
   } = useFormContext<FormValues>();
-
+  const { addToast } = useToastStore();
   // We observe the value of the 'name' field in real time
   const nameValue = watch('name');
   const emailValue = watch('email');
@@ -51,8 +51,12 @@ export const FormMethodsExample: React.FC = () => {
   const handleGetValues = () => {
     // Gets the current values of the form
     const values = getValues();
-    console.log('Current form values:', values);
-    alert(JSON.stringify(values, null, 2));
+    addToast({
+      id: Date.now().toString(),
+      title: 'Current form values',
+      message: JSON.stringify(values, null, 2),
+      variant: 'info',
+    });
   };
 
   return (

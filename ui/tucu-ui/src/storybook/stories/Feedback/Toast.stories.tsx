@@ -17,6 +17,17 @@ const meta: Meta<typeof Toast> = {
       },
     },
   },
+  argTypes: {
+    variant: {
+      control: {
+        type: 'select',
+        options: ['default', 'success', 'destructive', 'warning', 'info'],
+      },
+    },
+  },
+  args: {
+    variant: 'default',
+  },
 };
 
 export default meta;

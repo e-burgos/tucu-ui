@@ -3,7 +3,7 @@ import { useMenuItems } from './router/menuItems';
 import { DOCUMENTATION_URL } from './utils/constants';
 
 function App() {
-  const { staticMenuItems } = useMenuItems();
+  const { menuItems } = useMenuItems();
 
   return (
     <ThemeProvider
@@ -29,7 +29,7 @@ function App() {
         name: 'Tucu',
         secondName: 'UI',
       }}
-      menuItems={staticMenuItems}
+      menuItems={menuItems}
     />
   );
 }

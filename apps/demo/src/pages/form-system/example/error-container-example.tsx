@@ -1,22 +1,20 @@
 import React from 'react';
-import { useFormContext } from 'react-hook-form';
+import { Typography, useFormContext } from 'tucu-ui';
 import { type FormValues } from './validations';
 
 export const ErrorContainerExample: React.FC = () => {
-  const ctx = useFormContext<FormValues>();
-  console.log('useFormContext in ErrorContainerExample:', ctx);
-  const { formState } = ctx;
+  const { formState } = useFormContext<FormValues>();
   const { errors } = formState;
 
   return (
-    <div className="mt-6 border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+    <div className=" border border-gray-200 dark:border-gray-700 rounded-lg p-4">
       <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2">
         Error List
       </h3>
       {errors && Object?.keys(errors).length > 0 ? (
-        <pre className="bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-auto text-sm">
+        <Typography tag="code" className="text-sm">
           {JSON.stringify(errors, null, 2)}
-        </pre>
+        </Typography>
       ) : (
         <p className="text-gray-500 dark:text-gray-400">
           No errors in the form

@@ -5,8 +5,8 @@ import {
   LucideIcons,
   Button,
   Badge,
-  Scrollbar,
   useTheme,
+  CodeBlock,
 } from 'tucu-ui';
 
 export function ThemingGuide() {
@@ -241,17 +241,9 @@ export function ThemingGuide() {
                     ThemeProvider Setup
                   </Typography>
                 </div>
-                <div className="p-4 bg-gray-100 dark:bg-gray-800 rounded-xl border dark:border-gray-700">
-                  <Scrollbar
-                    autoHide="leave"
-                    direction="vertical"
-                    style={{
-                      height: '200px',
-                      whiteSpace: 'pre-wrap',
-                      fontFamily: 'monospace',
-                    }}
-                  >
-                    {`import { ThemeProvider } from 'tucu-ui';
+                <CodeBlock
+                  language="tsx"
+                  code={`import { ThemeProvider } from 'tucu-ui';
 
 function App() {
   const menuItems = [
@@ -276,8 +268,7 @@ function App() {
     />
   );
 }`}
-                  </Scrollbar>
-                </div>
+                />
               </div>
 
               <div className="space-y-4">
@@ -289,17 +280,9 @@ function App() {
                     useTheme Hook
                   </Typography>
                 </div>
-                <div className="p-4 bg-gray-100 dark:bg-gray-800 rounded-xl border dark:border-gray-700">
-                  <Scrollbar
-                    autoHide="leave"
-                    direction="vertical"
-                    style={{
-                      height: '180px',
-                      whiteSpace: 'pre-wrap',
-                      fontFamily: 'monospace',
-                    }}
-                  >
-                    {`import { useTheme } from 'tucu-ui';
+                <CodeBlock
+                  language="tsx"
+                  code={`import { useTheme } from 'tucu-ui';
 
 function ThemeControls() {
   const {
@@ -321,8 +304,7 @@ function ThemeControls() {
     </div>
   );
 }`}
-                  </Scrollbar>
-                </div>
+                />
               </div>
             </div>
           </CardTitle>

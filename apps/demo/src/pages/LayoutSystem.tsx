@@ -5,6 +5,7 @@ import {
   LucideIcons,
   Badge,
   Alert,
+  CodeBlock,
 } from 'tucu-ui';
 
 export function LayoutSystem() {
@@ -456,12 +457,10 @@ export function LayoutSystem() {
                   <Typography tag="h4" className="font-semibold">
                     1. ThemeProvider Setup
                   </Typography>
-                  <div className="p-4 bg-gray-100 dark:bg-gray-800 rounded-xl border dark:border-gray-700 overflow-x-auto">
-                    <Typography
-                      tag="code"
-                      className="text-sm whitespace-pre-wrap"
-                    >
-                      {`import { ThemeProvider } from 'tucu-ui';
+                  <CodeBlock
+                    language="tsx"
+                    code={`
+import { ThemeProvider } from 'tucu-ui';
 
 function App() {
   return <ThemeProvider menuItems={menuItems} />;
@@ -476,20 +475,17 @@ function App() {
     />
   );
 }`}
-                    </Typography>
-                  </div>
+                  />
                 </div>
 
                 <div className="space-y-3">
                   <Typography tag="h4" className="font-semibold">
                     2. Using Theme Hooks
                   </Typography>
-                  <div className="p-4 bg-gray-100 dark:bg-gray-800 rounded-xl border dark:border-gray-700 overflow-x-auto">
-                    <Typography
-                      tag="code"
-                      className="text-sm whitespace-pre-wrap"
-                    >
-                      {`import { useTheme } from 'tucu-ui';
+
+                  <CodeBlock
+                    language="tsx"
+                    code={`import { useTheme } from 'tucu-ui';
 
 function ThemeControls() {
   const { mode, setMode, layout, setLayout } = useTheme();
@@ -522,8 +518,7 @@ function App() {
 
   return <ThemeProvider menuItems={menuItems} />;
 }`}
-                    </Typography>
-                  </div>
+                  />
                 </div>
               </div>
             </div>

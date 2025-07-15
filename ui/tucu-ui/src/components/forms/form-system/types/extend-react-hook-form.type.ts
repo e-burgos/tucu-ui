@@ -52,3 +52,12 @@ export type InternalValidate<TFieldValue, TFormValues> = (
     name: string | null;
   }
 ) => ValidateResult | Promise<ValidateResult>;
+
+export type {
+  IsTuple,
+  TupleKeys,
+  BrowserNativeObject,
+  IsEqual,
+  Primitive,
+  ValidateResult,
+};
