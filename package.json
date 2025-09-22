@@ -4,15 +4,15 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "tucu-ui": "npx nx run tucu-ui:storybook",
-    "tucu-ui:build:storybook": "npx nx run tucu-ui:build-storybook",
-    "tucu-ui:publish:storybook": "npx nx run tucu-ui:publish-storybook",
-    "tucu-ui:build": "npx nx run tucu-ui:build",
-    "tucu-ui:publish": "npx nx run tucu-ui:publish:lib",
-    "tucu-ui:install": "npx nx run tucu-ui:install:lib",
-    "tucu-ui:serve": "npx nx run tucu-ui:serve-storybook",
-    "demo": "npx nx run demo:serve",
-    "demo:install": "npx nx run demo:app:install"
+    "tucu-ui": "pnpm nx run tucu-ui:storybook",
+    "tucu-ui:build:storybook": "pnpm nx run tucu-ui:build-storybook",
+    "tucu-ui:publish:storybook": "pnpm nx run tucu-ui:publish-storybook",
+    "tucu-ui:build": "pnpm nx run tucu-ui:build",
+    "tucu-ui:publish": "pnpm nx run tucu-ui:publish:lib",
+    "tucu-ui:install": "pnpm nx run tucu-ui:install:lib",
+    "tucu-ui:serve": "pnpm nx run tucu-ui:serve-storybook",
+    "demo": "pnpm nx run demo:serve",
+    "demo:install": "pnpm nx run demo:app:install"
   },
   "dependencies": {},
   "devDependencies": {
@@ -79,8 +79,9 @@
   },
   "engines": {
     "node": ">=22.0.0",
-    "npm": ">=10.0.0"
+    "pnpm": ">=9.0.0"
   },
+  "packageManager": "pnpm@9.15.1",
   "overrides": {
     "storybook": "$storybook"
   }

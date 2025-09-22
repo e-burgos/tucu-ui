@@ -39,6 +39,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@/lucide-react': path.resolve(__dirname, 'src/lucide-react'),
+      '@/react-router-dom': path.resolve(__dirname, 'src/react-router-dom'),
     },
   },
   build: {
@@ -55,13 +56,20 @@ export default defineConfig({
       formats: ['es', 'cjs'],
     },
     rollupOptions: {
-      external: ['react', 'react-dom', 'react/jsx-runtime', 'lucide-react'],
+      external: [
+        'react',
+        'react-dom',
+        'react/jsx-runtime',
+        'lucide-react',
+        'react-router-dom',
+      ],
       output: {
         globals: {
           react: 'React',
           'react-dom': 'ReactDOM',
           'react/jsx-runtime': 'jsxRuntime',
           'lucide-react': 'LucideReact',
+          'react-router-dom': 'ReactRouter',
         },
       },
     },

@@ -1,4 +1,4 @@
-import { Link, LinkProps } from 'react-router';
+import { Link, LinkProps } from 'react-router-dom';
 
 export const AnchorLink: React.FC<
   LinkProps & Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'href'>

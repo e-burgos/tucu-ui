@@ -58,6 +58,7 @@ const config: StorybookConfig = {
       resolve: {
         alias: {
           '@/lucide-react': path.resolve(__dirname, '../src/lucide-react'),
+          '@/react-router': path.resolve(__dirname, '../src/react-router'),
         },
       },
       optimizeDeps: {
@@ -65,7 +66,7 @@ const config: StorybookConfig = {
           'lodash',
           'tailwindcss',
           'react-router',
-          'lucide-react',
+          'lucide-react-dom',
           'react-hook-form',
           'react-dropzone',
           'swiper/modules',

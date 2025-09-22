@@ -1,4 +1,4 @@
-import { LinkProps, useLocation } from 'react-router';
+import { LinkProps, useLocation } from 'react-router-dom';
 import cn from 'classnames';
 import AnchorLink from './anchor-link';
 

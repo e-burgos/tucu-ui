@@ -9,6 +9,7 @@ import {
   useTheme,
   CardTitle,
   CodeBlock,
+  ReactRouter,
 } from 'tucu-ui';
 
 import avatarImage from '../assets/images/author-dark.jpeg';
@@ -17,6 +18,7 @@ import Banner from '../assets/images/logos/tucu-ui-logo-white.svg';
 import BannerDark from '../assets/images/logos/tucu-ui-logo-black.svg';
 
 export function Introduction() {
+  const Link = ReactRouter.Link;
   const { mode } = useTheme();
   return (
     <div className="space-y-8 sm:space-y-12 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
@@ -114,17 +116,17 @@ export function Introduction() {
                 size="large"
                 className=" text-white border border-white/30 hover:border-white/50 backdrop-blur-sm shadow-2xl hover:shadow-white/25 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1"
               >
-                <AnchorLink to={DOCUMENTATION_URL} target="_blank">
+                <Link to={DOCUMENTATION_URL} target="_blank">
                   <div className="flex justify-center items-center">
                     <LucideIcons.Rocket className="w-5 h-5 mr-2 animate-pulse" />
                     Get Started
                   </div>
-                </AnchorLink>
+                </Link>
               </Button>
               <Button
                 variant="ghost"
                 size="large"
-                className="bg-gradient-to-r from-white/10 to-white/5 hover:from-white/20 hover:to-white/10 text-white border border-white/20 hover:border-white/40 backdrop-blur-sm shadow-xl hover:shadow-white/20 transition-all duration-300 transform hover:scale-105"
+                className="bg-gradient-to-r from-white/10 to-white/5 hover:from-white/20 hover:to-white/10 border border-white/20 hover:border-white/40 backdrop-blur-sm shadow-xl hover:shadow-white/20 transition-all duration-300 transform hover:scale-105"
               >
                 <div className="flex justify-center items-center">
                   <AnchorLink
@@ -132,7 +134,7 @@ export function Introduction() {
                     target="_blank"
                   >
                     <div className="flex justify-center items-center">
-                      <LucideIcons.Github className="w-5 h-5 mr-2" />
+                      <LucideIcons.Github className="w-5 h-5 mr-2 text-brand" />
                       View on GitHub
                     </div>
                   </AnchorLink>
@@ -341,14 +343,7 @@ export function Introduction() {
                   >
                     1. Installation
                   </Typography>
-                  <div className="p-3 sm:p-4 bg-gray-100 dark:bg-gray-800 rounded-xl border dark:border-gray-700 hover:border-gray-600 transition-colors overflow-x-auto">
-                    <Typography
-                      className="border-0 text-sm sm:text-base"
-                      tag="code"
-                    >
-                      npm install tucu-ui
-                    </Typography>
-                  </div>
+                  <CodeBlock language="bash" code={`npm install tucu-ui`} />
                 </div>
 
                 {/* Usage Example */}

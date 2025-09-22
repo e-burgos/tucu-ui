@@ -1,0 +1,654 @@
+{
+  "graph": {
+    "nodes": {
+      "tucu-ui": {
+        "name": "tucu-ui",
+        "type": "lib",
+        "data": {
+          "root": "ui/tucu-ui",
+          "projectType": "library",
+          "metadata": {
+            "targetGroups": {
+              "NPM Scripts": [
+                "storybook",
+                "build-storybook",
+                "publish-storybook",
+                "serve-storybook",
+                "chromatic",
+                "storybook-doctor",
+                "publish:lib",
+                "install:lib",
+                "publish"
+              ]
+            },
+            "description": "Tucu UI Library",
+            "js": {
+              "packageName": "tucu-ui",
+              "packageExports": {
+                ".": {
+                  "types": "./index.d.ts",
+                  "style": "./index.css",
+                  "import": "./index.mjs",
+                  "require": "./index.js"
+                },
+                "./styles": "./index.css"
+              },
+              "packageMain": "./index.js",
+              "isInPackageManagerWorkspaces": true
+            }
+          },
+          "targets": {
+            "build": {
+              "options": {
+                "cwd": "ui/tucu-ui",
+                "command": "vite build"
+              },
+              "cache": true,
+              "dependsOn": [
+                "^build"
+              ],
+              "inputs": [
+                "production",
+                "^production",
+                {
+                  "externalDependencies": [
+                    "vite"
+                  ]
+                }
+              ],
+              "outputs": [
+                "{workspaceRoot}/dist/ui/tucu-ui"
+              ],
+              "metadata": {
+                "technologies": [
+                  "vite"
+                ],
+                "description": "Run Vite build",
+                "help": {
+                  "command": "pnpm exec vite build --help",
+                  "example": {
+                    "options": {
+                      "sourcemap": true,
+                      "manifest": "manifest.json"
+                    }
+                  }
+                }
+              },
+              "executor": "nx:run-commands",
+              "configurations": {},
+              "parallelism": true
+            },
+            "serve": {
+              "continuous": true,
+              "options": {
+                "cwd": "ui/tucu-ui",
+                "command": "vite"
+              },
+              "metadata": {
+                "technologies": [
+                  "vite"
+                ],
+                "description": "Starts Vite dev server",
+                "help": {
+                  "command": "pnpm exec vite --help",
+                  "example": {
+                    "options": {
+                      "port": 3000
+                    }
+                  }
+                },
+                "deprecated": "Use devTargetName instead. This option will be removed in Nx 22."
+              },
+              "executor": "nx:run-commands",
+              "configurations": {},
+              "parallelism": true
+            },
+            "dev": {
+              "continuous": true,
+              "options": {
+                "cwd": "ui/tucu-ui",
+                "command": "vite"
+              },
+              "metadata": {
+                "technologies": [
+                  "vite"
+                ],
+                "description": "Starts Vite dev server",
+                "help": {
+                  "command": "pnpm exec vite --help",
+                  "example": {
+                    "options": {
+                      "port": 3000
+                    }
+                  }
+                }
+              },
+              "executor": "nx:run-commands",
+              "configurations": {},
+              "parallelism": true
+            },
+            "preview": {
+              "continuous": true,
+              "dependsOn": [
+                "build"
+              ],
+              "options": {
+                "cwd": "ui/tucu-ui",
+                "command": "vite preview"
+              },
+              "metadata": {
+                "technologies": [
+                  "vite"
+                ],
+                "description": "Locally preview Vite production build",
+                "help": {
+                  "command": "pnpm exec vite preview --help",
+                  "example": {
+                    "options": {
+                      "port": 3000
+                    }
+                  }
+                }
+              },
+              "executor": "nx:run-commands",
+              "configurations": {},
+              "parallelism": true
+            },
+            "serve-static": {
+              "continuous": true,
+              "executor": "@nx/web:file-server",
+              "options": {
+                "buildTarget": "build",
+                "spa": true
+              },
+              "configurations": {},
+              "parallelism": true
+            },
+            "typecheck": {
+              "cache": true,
+              "inputs": [
+                "production",
+                "^production",
+                {
+                  "externalDependencies": [
+                    "typescript"
+                  ]
+                }
+              ],
+              "options": {
+                "cwd": "ui/tucu-ui",
+                "command": "tsc --noEmit -p tsconfig.lib.json"
+              },
+              "metadata": {
+                "description": "Runs type-checking for the project.",
+                "technologies": [
+                  "typescript"
+                ],
+                "help": {
+                  "command": "pnpm exec tsc -p tsconfig.lib.json --help",
+                  "example": {
+                    "options": {
+                      "noEmit": true
+                    }
+                  }
+                }
+              },
+              "executor": "nx:run-commands",
+              "configurations": {},
+              "parallelism": true
+            },
+            "build-deps": {
+              "dependsOn": [
+                "^build"
+              ],
+              "configurations": {},
+              "options": {},
+              "parallelism": true,
+              "executor": "nx:noop"
+            },
+            "watch-deps": {
+              "continuous": true,
+              "dependsOn": [
+                "build-deps"
+              ],
+              "executor": "nx:run-commands",
+              "options": {
+                "command": "pnpm exec nx watch --projects tucu-ui --includeDependentProjects -- pnpm exec nx build-deps tucu-ui"
+              },
+              "configurations": {},
+              "parallelism": true
+            },
+            "lint": {
+              "cache": true,
+              "options": {
+                "cwd": "ui/tucu-ui",
+                "command": "eslint ."
+              },
+              "inputs": [
+                "default",
+                "^default",
+                "{workspaceRoot}/.eslintrc.json",
+                "{projectRoot}/.eslintrc.json",
+                "{workspaceRoot}/tools/eslint-rules/**/*",
+                {
+                  "externalDependencies": [
+                    "eslint"
+                  ]
+                }
+              ],
+              "outputs": [
+                "{options.outputFile}"
+              ],
+              "metadata": {
+                "technologies": [
+                  "eslint"
+                ],
+                "description": "Runs ESLint on project",
+                "help": {
+                  "command": "npx eslint --help",
+                  "example": {
+                    "options": {
+                      "max-warnings": 0
+                    }
+                  }
+                }
+              },
+              "executor": "nx:run-commands",
+              "configurations": {},
+              "parallelism": true
+            },
+            "storybook": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "storybook"
+              },
+              "metadata": {
+                "scriptContent": "storybook dev --initial-path=/docs/1-documentation-1-introduction--documentation -p 6006",
+                "runCommand": "pnpm run storybook"
+              },
+              "configurations": {},
+              "parallelism": true
+            },
+            "build-storybook": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "build-storybook"
+              },
+              "metadata": {
+                "scriptContent": "storybook build --output-dir ../../dist/ui/storybook-tucu-ui",
+                "runCommand": "pnpm run build-storybook"
+              },
+              "configurations": {},
+              "parallelism": true
+            },
+            "publish-storybook": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "publish-storybook"
+              },
+              "metadata": {
+                "scriptContent": "pnpm dlx chromatic --project-token --force-rebuild",
+                "runCommand": "pnpm run publish-storybook"
+              },
+              "configurations": {},
+              "parallelism": true
+            },
+            "serve-storybook": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "serve-storybook"
+              },
+              "metadata": {
+                "scriptContent": "serve ../../dist/ui/storybook-tucu-ui -p 8080",
+                "runCommand": "pnpm run serve-storybook"
+              },
+              "configurations": {},
+              "parallelism": true
+            },
+            "chromatic": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "chromatic"
+              },
+              "metadata": {
+                "scriptContent": "pnpm dlx chromatic --project-token --force-rebuild",
+                "runCommand": "pnpm run chromatic"
+              },
+              "configurations": {},
+              "parallelism": true
+            },
+            "storybook-doctor": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "storybook-doctor"
+              },
+              "metadata": {
+                "scriptContent": "pnpm dlx storybook doctor",
+                "runCommand": "pnpm run storybook-doctor"
+              },
+              "configurations": {},
+              "parallelism": true
+            },
+            "publish:lib": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "publish:lib"
+              },
+              "metadata": {
+                "scriptContent": "cd ../../dist/ui/tucu-ui && pnpm publish --access public",
+                "runCommand": "pnpm run publish:lib"
+              },
+              "configurations": {},
+              "parallelism": true
+            },
+            "install:lib": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "install:lib"
+              },
+              "metadata": {
+                "scriptContent": "cd ../../ui/tucu-ui && pnpm install",
+                "runCommand": "pnpm run install:lib"
+              },
+              "configurations": {},
+              "parallelism": true
+            },
+            "publish": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "publish"
+              },
+              "metadata": {
+                "scriptContent": "pnpm publish --access public",
+                "runCommand": "pnpm run publish"
+              },
+              "configurations": {},
+              "parallelism": true
+            },
+            "nx-release-publish": {
+              "executor": "@nx/js:release-publish",
+              "dependsOn": [
+                "^nx-release-publish"
+              ],
+              "options": {},
+              "configurations": {},
+              "parallelism": true
+            },
+            "install": {
+              "executor": "nx:run-commands",
+              "options": {
+                "commands": [
+                  "npm install --prefix ui/tucu-ui"
+                ]
+              },
+              "configurations": {},
+              "parallelism": true
+            }
+          },
+          "name": "tucu-ui",
+          "tags": [
+            "npm:public",
+            "npm:tucu-ui",
+            "npm:tucu",
+            "npm:ui",
+            "npm:components",
+            "npm:library"
+          ],
+          "$schema": "../../node_modules/nx/schemas/project-schema.json",
+          "sourceRoot": "ui/tucu-ui/src",
+          "implicitDependencies": []
+        }
+      },
+      "demo": {
+        "name": "demo",
+        "type": "lib",
+        "data": {
+          "root": "apps/demo",
+          "projectType": "library",
+          "metadata": {
+            "targetGroups": {
+              "NPM Scripts": [
+                "dev",
+                "build",
+                "lint",
+                "preview",
+                "app:install"
+              ]
+            },
+            "js": {
+              "packageName": "demo",
+              "isInPackageManagerWorkspaces": true
+            }
+          },
+          "targets": {
+            "build": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "build"
+              },
+              "metadata": {
+                "technologies": [
+                  "vite"
+                ],
+                "description": "Run Vite build",
+                "help": {
+                  "command": "pnpm exec vite build --help",
+                  "example": {
+                    "options": {
+                      "sourcemap": true,
+                      "manifest": "manifest.json"
+                    }
+                  }
+                },
+                "scriptContent": "tsc -b && vite build",
+                "runCommand": "pnpm run build"
+              },
+              "configurations": {},
+              "parallelism": true
+            },
+            "serve": {
+              "continuous": true,
+              "options": {
+                "cwd": "apps/demo",
+                "command": "vite"
+              },
+              "metadata": {
+                "technologies": [
+                  "vite"
+                ],
+                "description": "Starts Vite dev server",
+                "help": {
+                  "command": "pnpm exec vite --help",
+                  "example": {
+                    "options": {
+                      "port": 3000
+                    }
+                  }
+                },
+                "deprecated": "Use devTargetName instead. This option will be removed in Nx 22."
+              },
+              "executor": "nx:run-commands",
+              "configurations": {},
+              "parallelism": true
+            },
+            "dev": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "dev"
+              },
+              "metadata": {
+                "technologies": [
+                  "vite"
+                ],
+                "description": "Starts Vite dev server",
+                "help": {
+                  "command": "pnpm exec vite --help",
+                  "example": {
+                    "options": {
+                      "port": 3000
+                    }
+                  }
+                },
+                "scriptContent": "vite",
+                "runCommand": "pnpm run dev"
+              },
+              "configurations": {},
+              "parallelism": true
+            },
+            "preview": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "preview"
+              },
+              "metadata": {
+                "technologies": [
+                  "vite"
+                ],
+                "description": "Locally preview Vite production build",
+                "help": {
+                  "command": "pnpm exec vite preview --help",
+                  "example": {
+                    "options": {
+                      "port": 3000
+                    }
+                  }
+                },
+                "scriptContent": "vite preview",
+                "runCommand": "pnpm run preview"
+              },
+              "configurations": {},
+              "parallelism": true
+            },
+            "serve-static": {
+              "continuous": true,
+              "executor": "@nx/web:file-server",
+              "options": {
+                "buildTarget": "build",
+                "spa": true
+              },
+              "configurations": {},
+              "parallelism": true
+            },
+            "typecheck": {
+              "cache": true,
+              "inputs": [
+                "production",
+                "^production",
+                {
+                  "externalDependencies": [
+                    "typescript"
+                  ]
+                }
+              ],
+              "options": {
+                "cwd": "apps/demo",
+                "command": "tsc --noEmit -p tsconfig.app.json"
+              },
+              "metadata": {
+                "description": "Runs type-checking for the project.",
+                "technologies": [
+                  "typescript"
+                ],
+                "help": {
+                  "command": "pnpm exec tsc -p tsconfig.app.json --help",
+                  "example": {
+                    "options": {
+                      "noEmit": true
+                    }
+                  }
+                }
+              },
+              "executor": "nx:run-commands",
+              "configurations": {},
+              "parallelism": true
+            },
+            "build-deps": {
+              "dependsOn": [
+                "^build"
+              ],
+              "configurations": {},
+              "options": {},
+              "parallelism": true,
+              "executor": "nx:noop"
+            },
+            "watch-deps": {
+              "continuous": true,
+              "dependsOn": [
+                "build-deps"
+              ],
+              "executor": "nx:run-commands",
+              "options": {
+                "command": "pnpm exec nx watch --projects demo --includeDependentProjects -- pnpm exec nx build-deps demo"
+              },
+              "configurations": {},
+              "parallelism": true
+            },
+            "lint": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "lint"
+              },
+              "metadata": {
+                "technologies": [
+                  "eslint"
+                ],
+                "description": "Runs ESLint on project",
+                "help": {
+                  "command": "pnpm exec eslint --help",
+                  "example": {
+                    "options": {
+                      "max-warnings": 0
+                    }
+                  }
+                },
+                "scriptContent": "eslint .",
+                "runCommand": "pnpm run lint"
+              },
+              "configurations": {},
+              "parallelism": true
+            },
+            "app:install": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "app:install"
+              },
+              "metadata": {
+                "scriptContent": "cd ../../apps/demo && pnpm install",
+                "runCommand": "pnpm run app:install"
+              },
+              "configurations": {},
+              "parallelism": true
+            },
+            "install": {
+              "executor": "nx:run-commands",
+              "options": {
+                "commands": [
+                  "npm install --prefix apps/demo"
+                ]
+              },
+              "configurations": {},
+              "parallelism": true
+            }
+          },
+          "name": "demo",
+          "tags": [
+            "npm:private"
+          ],
+          "$schema": "../../node_modules/nx/schemas/project-schema.json",
+          "sourceRoot": "apps/demo/src",
+          "implicitDependencies": []
+        }
+      }
+    },
+    "dependencies": {
+      "tucu-ui": [],
+      "demo": [
+        {
+          "source": "demo",
+          "target": "tucu-ui",
+          "type": "static"
+        }
+      ]
+    }
+  }
+}

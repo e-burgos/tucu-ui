@@ -1,5 +1,5 @@
 import { Suspense, useCallback, useEffect } from 'react';
-import { BrowserRouter, Routes } from 'react-router';
+import { BrowserRouter, Routes } from 'react-router-dom';
 import SettingsButton from './settings-button';
 import SettingsDrawer from './settings-drawer';
 import { useTheme } from '../../use-theme';

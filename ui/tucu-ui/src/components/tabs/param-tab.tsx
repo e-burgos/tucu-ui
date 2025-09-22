@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
-import { useNavigate, useLocation } from 'react-router';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { TabGroup, TabList, TabItem, TabPanels, TabPanel } from './tab';
 import { useBreakpoint } from '../../hooks';
 import { useIsMounted } from '../../hooks/use-is-mounted';

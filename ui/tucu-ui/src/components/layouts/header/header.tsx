@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import cn from 'classnames';
 import { Logo, LogoPropTypes } from '../../logos/logo';
 import Hamburger from '../../buttons/hamburger';

@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Navigate, Route, Routes } from 'react-router';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import NotFoundPage from '../pages/not-found';
 import { IMenuItem } from '../../../components/common/menu-item';
 

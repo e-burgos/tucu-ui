@@ -1,7 +1,7 @@
 {
   "name": "tucu-ui",
   "description": "Tucu UI Library",
-  "version": "0.0.30",
+  "version": "0.0.33",
   "main": "./index.js",
   "module": "./index.mjs",
   "types": "./index.d.ts",
@@ -36,13 +36,12 @@
   "scripts": {
     "storybook": "storybook dev --initial-path=/docs/1-documentation-1-introduction--documentation -p 6006",
     "build-storybook": "storybook build --output-dir ../../dist/ui/storybook-tucu-ui",
-    "publish-storybook": "npx chromatic --project-token --force-rebuild",
+    "publish-storybook": "pnpm dlx chromatic --project-token --force-rebuild",
     "serve-storybook": "serve ../../dist/ui/storybook-tucu-ui -p 8080",
-    "chromatic": "npx chromatic --project-token --force-rebuild",
-    "storybook-doctor": "npx storybook doctor",
-    "publish:lib": "cd ../../dist/ui/tucu-ui && npm publish --access public",
-    "install:lib": "cd ../../ui/tucu-ui && npm install",
-    "publish": "npm publish --access public"
+    "chromatic": "pnpm dlx chromatic --project-token --force-rebuild",
+    "storybook-doctor": "pnpm dlx storybook doctor",
+    "publish:lib": "cd ../../dist/ui/tucu-ui && pnpm npm publish --access public --no-git-checks",
+    "install:lib": "cd ../../ui/tucu-ui && pnpm install"
   },
   "dependencies": {
     "@headlessui/react": "2.2.4",
@@ -52,7 +51,8 @@
     "lucide-react": "^0.460.0",
     "react-dropzone": "14.3.8",
     "react-hook-form": "7.60.0",
-    "react-router-dom": "7.6.3",
+    "react-router-dom": "7.9.1",
+    "react-router": "7.9.1",
     "react-use": "^17.6.0",
     "recharts": "3.0.0",
     "swiper": "11.2.8",
@@ -66,7 +66,6 @@
   "peerDependencies": {
     "react": ">=18.0.0",
     "react-dom": ">=18.0.0",
-    "react-router-dom": ">=7.0.0",
     "tailwindcss": ">=4.0.0"
   }
 }

@@ -8,12 +8,12 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "app:install": "cd ../../apps/demo && npm install"
+    "app:install": "cd ../../apps/demo && pnpm install"
   },
   "dependencies": {
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "tucu-ui": "0.0.30"
+    "tucu-ui": "0.0.33"
   },
   "devDependencies": {
     "@eslint/js": "^9.25.0",
