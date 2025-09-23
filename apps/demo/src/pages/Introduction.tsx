@@ -8,8 +8,8 @@ import {
   AnchorLink,
   useTheme,
   CardTitle,
-  CodeBlock,
   ReactRouter,
+  CodeBlock,
 } from 'tucu-ui';
 
 import avatarImage from '../assets/images/author-dark.jpeg';
@@ -20,78 +20,41 @@ import BannerDark from '../assets/images/logos/tucu-ui-logo-black.svg';
 export function Introduction() {
   const Link = ReactRouter.Link;
   const { mode } = useTheme();
+
   return (
     <div className="space-y-8 sm:space-y-12 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
       {/* Hero Section */}
       <section className="relative overflow-hidden">
         <div className="relative bg-gradient-to-br from-violet-500 via-purple-500 to-blue-500 dark:from-violet-900 dark:via-purple-900 dark:to-blue-900 rounded-2xl p-6 sm:p-8 md:p-12 lg:p-16">
           {/* Animated Background Elements */}
-          <div className="absolute inset-0 overflow-hidden">
-            {/* Primary gradient overlay */}
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 via-purple-600/30 to-pink-600/20 dark:from-blue-400/10 dark:via-purple-400/15 dark:to-pink-400/10"></div>
-
-            {/* Floating geometric shapes */}
-            <div className="absolute top-10 left-10 w-20 h-20 bg-gradient-to-br from-yellow-400/30 to-orange-500/30 rounded-full blur-xl animate-pulse"></div>
-            <div className="absolute top-20 right-20 w-32 h-32 bg-gradient-to-br from-cyan-400/25 to-blue-500/25 rounded-full blur-2xl animate-bounce"></div>
-            <div className="absolute bottom-20 left-20 w-24 h-24 bg-gradient-to-br from-emerald-400/30 to-teal-500/30 rounded-full blur-xl animate-pulse"></div>
-            <div className="absolute bottom-10 right-10 w-16 h-16 bg-gradient-to-br from-rose-400/35 to-pink-500/35 rounded-full blur-lg animate-bounce"></div>
-
-            {/* Animated mesh gradient */}
-            <div className="absolute inset-0 opacity-30">
-              <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-transparent via-white/10 to-transparent dark:via-white/5 animate-pulse"></div>
-              <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-gradient-to-bl from-blue-300/20 to-transparent dark:from-blue-400/10 animate-spin"></div>
-              <div
-                className="absolute bottom-0 left-0 w-1/2 h-1/2 bg-gradient-to-tr from-purple-300/20 to-transparent dark:from-purple-400/10 animate-spin"
-                style={{
-                  animationDirection: 'reverse',
-                  animationDuration: '8s',
-                }}
-              ></div>
-            </div>
-
+          <div
+            id="animated-background-elements"
+            className="absolute inset-0 overflow-hidden"
+          >
             {/* Grid pattern */}
             <div className="absolute inset-0 opacity-20">
               <div
                 className="absolute inset-0 bg-white/10 dark:bg-white/5"
                 style={{
                   backgroundImage:
-                    'linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)',
+                    mode === 'dark'
+                      ? 'linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)'
+                      : 'linear-gradient(rgba(0,0,0,0.2) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.2) 1px, transparent 1px)',
                   backgroundSize: '32px 32px',
                 }}
               ></div>
             </div>
 
-            {/* Radial glow effects */}
-            <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-radial from-blue-400/20 via-purple-400/10 to-transparent dark:from-blue-300/10 dark:via-purple-300/5 rounded-full blur-3xl animate-pulse-slow"></div>
-            <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-radial from-pink-400/20 via-violet-400/10 to-transparent dark:from-pink-300/10 dark:via-violet-300/5 rounded-full blur-3xl animate-glow"></div>
-
-            {/* Additional floating elements */}
-            <div className="absolute top-1/2 left-1/3 w-6 h-6 bg-white/30 rounded-full animate-float"></div>
-            <div
-              className="absolute top-1/3 right-1/3 w-4 h-4 bg-yellow-300/40 rounded-full animate-bounce"
-              style={{ animationDelay: '1s' }}
-            ></div>
-            <div
-              className="absolute bottom-1/3 left-1/2 w-5 h-5 bg-cyan-300/35 rounded-full animate-float"
-              style={{ animationDelay: '2s' }}
-            ></div>
-
-            {/* Sparkle effects */}
-            <div className="absolute top-12 right-12 w-2 h-2 bg-white/60 rounded-full animate-ping"></div>
-            <div
-              className="absolute top-1/3 left-12 w-3 h-3 bg-yellow-300/50 rounded-full animate-ping"
-              style={{ animationDelay: '0.5s' }}
-            ></div>
-            <div
-              className="absolute bottom-12 right-1/3 w-2 h-2 bg-pink-300/50 rounded-full animate-ping"
-              style={{ animationDelay: '1.5s' }}
-            ></div>
+            {/* FULL CONTAINER MOVEMENT ANIMATIONS - Elements that move across the entire container */}
+            <div className="absolute w-12 h-12 bg-red-500 opacity-50 rounded-full animate-full-move-1 z-10"></div>
+            <div className="absolute w-12 h-12 bg-blue-500 opacity-50 rounded-full animate-full-move-2 z-10"></div>
+            <div className="absolute w-12 h-12 bg-green-500 opacity-50 rounded-full animate-full-move-3 z-10"></div>
+            <div className="absolute w-12 h-12 bg-purple-500 opacity-50 rounded-full animate-full-move-4 z-10"></div>
+            <div className="absolute w-12 h-12 bg-yellow-500 opacity-50 rounded-full animate-full-move-5 z-10"></div>
+            <div className="absolute w-12 h-12 bg-pink-500 opacity-50 rounded-full animate-full-move-6 z-10"></div>
           </div>
 
-          {/* Content overlay with enhanced glassmorphism */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-white/10 dark:from-black/30 dark:via-transparent dark:to-black/10 backdrop-blur-[0.5px]"></div>
-
-          <div className="relative text-center">
+          <div className="relative text-center z-50">
             <div className="relative mx-auto mb-6 w-fit">
               <div className="absolute inset-0 rounded-2xl blur-xl"></div>
               <img
@@ -343,7 +306,11 @@ export function Introduction() {
                   >
                     1. Installation
                   </Typography>
-                  <CodeBlock language="bash" code={`npm install tucu-ui`} />
+                  <CodeBlock
+                    noExpand={true}
+                    language="bash"
+                    code={`npm install tucu-ui`}
+                  />
                 </div>
 
                 {/* Usage Example */}

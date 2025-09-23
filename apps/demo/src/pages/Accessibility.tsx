@@ -38,7 +38,7 @@ export function Accessibility() {
       icon: (
         <LucideIcons.Hand className="w-8 h-8 text-white filter drop-shadow-sm" />
       ),
-      color: 'from-red-500 via-orange-500 to-amber-500',
+      color: 'from-orange-500 via-amber-500 to-yellow-500',
       features: [
         'Keyboard navigation',
         'Focus management',
@@ -52,7 +52,7 @@ export function Accessibility() {
       icon: (
         <LucideIcons.Brain className="w-8 h-8 text-white filter drop-shadow-sm" />
       ),
-      color: 'from-amber-500 via-orange-500 to-red-500',
+      color: 'from-orange-500 via-amber-500 to-yellow-500',
       features: [
         'Readable text',
         'Predictable functionality',
@@ -67,7 +67,7 @@ export function Accessibility() {
       icon: (
         <LucideIcons.Wrench className="w-8 h-8 text-white filter drop-shadow-sm" />
       ),
-      color: 'from-yellow-500 via-amber-500 to-orange-500',
+      color: 'from-orange-500 via-amber-500 to-yellow-500',
       features: [
         'Valid HTML',
         'Compatible markup',
@@ -84,7 +84,7 @@ export function Accessibility() {
       icon: (
         <LucideIcons.Target className="w-6 h-6 text-white filter drop-shadow-sm" />
       ),
-      color: 'from-orange-500 via-amber-500 to-yellow-500',
+      color: 'from-red-500 via-orange-500 to-red-500',
       features: [
         'Visible focus indicators',
         'Focus trapping in modals',
@@ -99,7 +99,7 @@ export function Accessibility() {
       icon: (
         <LucideIcons.Keyboard className="w-6 h-6 text-white filter drop-shadow-sm" />
       ),
-      color: 'from-red-500 via-orange-500 to-amber-500',
+      color: 'from-red-500 via-orange-500 to-red-500',
       features: [
         'Tab navigation',
         'Enter/Space activation',
@@ -113,7 +113,7 @@ export function Accessibility() {
       icon: (
         <LucideIcons.Volume2 className="w-6 h-6 text-white filter drop-shadow-sm" />
       ),
-      color: 'from-amber-500 via-orange-500 to-red-500',
+      color: 'from-red-500 via-orange-500 to-red-500',
       features: [
         'Semantic HTML structure',
         'ARIA labels and descriptions',
@@ -127,7 +127,7 @@ export function Accessibility() {
       icon: (
         <LucideIcons.Palette className="w-6 h-6 text-white filter drop-shadow-sm" />
       ),
-      color: 'from-yellow-500 via-amber-500 to-orange-500',
+      color: 'from-red-500 via-orange-500 to-red-500',
       features: [
         'High contrast support',
         'Error state indicators',
@@ -259,7 +259,7 @@ test('Input has no accessibility violations', async () => {
 
             <Typography
               tag="h1"
-              className="mb-6 text-3xl sm:text-4xl md:text-5xl font-bold text-white"
+              className="mb-6 text-3xl sm:text-4xl md:text-5xl font-bold"
             >
               Accessibility
             </Typography>
@@ -278,17 +278,22 @@ test('Input has no accessibility violations', async () => {
 
       {/* Implementation Status */}
       <section className="space-y-8">
-        <Alert variant="warning">
-          <LucideIcons.AlertTriangle className="h-4 w-4" />
-          <div>
-            <div className="font-semibold">
-              Accessibility Implementation Status
+        <Alert
+          variant="warning"
+          aria-label="Accessibility Implementation Status"
+        >
+          <div className="flex flex-col gap-2">
+            <div className="flex items-center gap-2">
+              <LucideIcons.AlertTriangle className="h-6 w-6" />
+              <Typography tag="span" className="font-semibold">
+                Accessibility Implementation Status
+              </Typography>
             </div>
-            <div>
+            <Typography tag="p" className="text-sm">
               This library is actively working towards full accessibility
               compliance. We're transparent about our current state and
               committed to continuous improvement.
-            </div>
+            </Typography>
           </div>
         </Alert>
       </section>
@@ -609,16 +614,25 @@ test('Input has no accessibility violations', async () => {
                   </Typography>
                   <div className="p-4 border rounded-lg">
                     <Alert variant="warning">
-                      <LucideIcons.AlertTriangle className="h-4 w-4" />
-                      <div>Your session will expire in 5 minutes.</div>
+                      <div className="flex flex-col gap-2">
+                        <LucideIcons.AlertTriangle className="h-4 w-4" />
+                        <Typography tag="span" className="font-semibold">
+                          Your session will expire in 5 minutes.
+                        </Typography>
+                      </div>
+                      <Typography
+                        tag="p"
+                        className="text-sm text-gray-600 dark:text-gray-400 mb-3"
+                      >
+                        Features: Live regions, proper roles, keyboard dismissal
+                      </Typography>
                     </Alert>
-                    <Typography
-                      tag="p"
-                      className="text-sm text-gray-600 dark:text-gray-400 mb-3"
-                    >
-                      Features: Live regions, proper roles, keyboard dismissal
-                    </Typography>
-                    <CodeBlock code={alertExampleCode} language="tsx" />
+
+                    <CodeBlock
+                      noExpand={true}
+                      code={alertExampleCode}
+                      language="tsx"
+                    />
                   </div>
                 </div>
               </div>

@@ -5,4 +5,5 @@
 @import './fonts.css';
 @import './tailwind-colors.css';
 @import './tailwind-utilities.css';
+@import './prism-theme.css';
 @import './globals.css';

@@ -1,7 +1,7 @@
 {
   "name": "tucu-ui",
   "description": "Tucu UI Library",
-  "version": "0.0.33",
+  "version": "0.0.34",
   "main": "./index.js",
   "module": "./index.mjs",
   "types": "./index.d.ts",
@@ -61,7 +61,9 @@
   "devDependencies": {
     "tailwindcss": "^4.1.10",
     "@tailwindcss/postcss": "^4.1.10",
-    "postcss": "^8.5.6"
+    "postcss": "^8.5.6",
+    "prismjs": "^1.30.0",
+    "@types/prismjs": "^1.26.5"
   },
   "peerDependencies": {
     "react": ">=18.0.0",

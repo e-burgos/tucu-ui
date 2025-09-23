@@ -23,5 +23,9 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["src"]
+  "include": [
+    "src",
+    "../../ui/tucu-ui/src/**/*.ts",
+    "../../ui/tucu-ui/src/**/*.tsx"
+  ]
 }
