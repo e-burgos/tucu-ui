@@ -21,9 +21,5 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": [
-    "vite.config.ts",
-    "../../ui/tucu-ui/src/**/*.ts",
-    "../../ui/tucu-ui/src/**/*.tsx"
-  ]
+  "include": ["vite.config.ts"]
 }
