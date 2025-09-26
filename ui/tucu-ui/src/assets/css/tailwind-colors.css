@@ -38,8 +38,8 @@
 @layer base {
   :root {
     /* Base colors */
-    --color-black: oklch(0 0 0);
-    --color-white: oklch(1 0 0);
+    --color-black: #000000;
+    --color-white: #ffffff;
 
     /* Slate colors */
     --color-slate-50: oklch(0.984 0.003 247.858);
@@ -375,6 +375,9 @@
   }
 
   /* Gray background colors */
+  .bg-gray {
+    background-color: var(--color-gray-500);
+  }
   .bg-gray-50 {
     background-color: var(--color-gray-50);
   }
@@ -410,6 +413,9 @@
   }
 
   /* Zinc background colors */
+  .bg-zinc {
+    background-color: var(--color-zinc-500);
+  }
   .bg-zinc-50 {
     background-color: var(--color-zinc-50);
   }
@@ -445,6 +451,9 @@
   }
 
   /* Neutral background colors */
+  .bg-neutral {
+    background-color: var(--color-neutral-500);
+  }
   .bg-neutral-50 {
     background-color: var(--color-neutral-50);
   }
@@ -480,6 +489,9 @@
   }
 
   /* Stone background colors */
+  .bg-stone {
+    background-color: var(--color-stone-500);
+  }
   .bg-stone-50 {
     background-color: var(--color-stone-50);
   }
@@ -515,6 +527,9 @@
   }
 
   /* Red background colors */
+  .bg-red {
+    background-color: var(--color-red-500);
+  }
   .bg-red-50 {
     background-color: var(--color-red-50);
   }
@@ -550,6 +565,9 @@
   }
 
   /* Orange background colors */
+  .bg-orange {
+    background-color: var(--color-orange-500);
+  }
   .bg-orange-50 {
     background-color: var(--color-orange-50);
   }
@@ -585,6 +603,9 @@
   }
 
   /* Amber background colors */
+  .bg-amber {
+    background-color: var(--color-amber-500);
+  }
   .bg-amber-50 {
     background-color: var(--color-amber-50);
   }
@@ -620,6 +641,9 @@
   }
 
   /* Yellow background colors */
+  .bg-yellow {
+    background-color: var(--color-yellow-500);
+  }
   .bg-yellow-50 {
     background-color: var(--color-yellow-50);
   }
@@ -655,6 +679,9 @@
   }
 
   /* Lime background colors */
+  .bg-lime {
+    background-color: var(--color-lime-500);
+  }
   .bg-lime-50 {
     background-color: var(--color-lime-50);
   }
@@ -690,6 +717,9 @@
   }
 
   /* Green background colors */
+  .bg-green {
+    background-color: var(--color-green-500);
+  }
   .bg-green-50 {
     background-color: var(--color-green-50);
   }
@@ -725,6 +755,9 @@
   }
 
   /* Emerald background colors */
+  .bg-emerald {
+    background-color: var(--color-emerald-500);
+  }
   .bg-emerald-50 {
     background-color: var(--color-emerald-50);
   }
@@ -1040,6 +1073,9 @@
   }
 
   /* Pink background colors */
+  .bg-pink {
+    background-color: var(--color-pink-500);
+  }
   .bg-pink-50 {
     background-color: var(--color-pink-50);
   }
@@ -1075,6 +1111,9 @@
   }
 
   /* Rose background colors */
+  .bg-rose {
+    background-color: var(--color-rose-500);
+  }
   .bg-rose-50 {
     background-color: var(--color-rose-50);
   }
@@ -1121,6 +1160,9 @@
   }
 
   /* Slate text colors */
+  .text-slate {
+    color: var(--color-slate-500);
+  }
   .text-slate-50 {
     color: var(--color-slate-50);
   }
@@ -1156,6 +1198,9 @@
   }
 
   /* Gray text colors */
+  .text-gray {
+    color: var(--color-gray-500);
+  }
   .text-gray-50 {
     color: var(--color-gray-50);
   }
@@ -1191,6 +1236,9 @@
   }
 
   /* Zinc text colors */
+  .text-zinc {
+    color: var(--color-zinc-500);
+  }
   .text-zinc-50 {
     color: var(--color-zinc-50);
   }
@@ -1226,6 +1274,9 @@
   }
 
   /* Neutral text colors */
+  .text-neutral {
+    color: var(--color-neutral-500);
+  }
   .text-neutral-50 {
     color: var(--color-neutral-50);
   }
@@ -1261,6 +1312,9 @@
   }
 
   /* Stone text colors */
+  .text-stone {
+    color: var(--color-stone-500);
+  }
   .text-stone-50 {
     color: var(--color-stone-50);
   }
@@ -1296,6 +1350,9 @@
   }
 
   /* Red text colors */
+  .text-red {
+    color: var(--color-red-500);
+  }
   .text-red-50 {
     color: var(--color-red-50);
   }
@@ -1331,6 +1388,9 @@
   }
 
   /* Orange text colors */
+  .text-orange {
+    color: var(--color-orange-500);
+  }
   .text-orange-50 {
     color: var(--color-orange-50);
   }
@@ -1664,6 +1724,9 @@
   .text-blue-500 {
     color: var(--color-blue-500);
   }
+  .text-blue {
+    color: var(--color-blue-500);
+  }
   .text-blue-600 {
     color: var(--color-blue-600);
   }
@@ -1681,6 +1744,9 @@
   }
 
   /* Indigo text colors */
+  .text-indigo {
+    color: var(--color-indigo-500);
+  }
   .text-indigo-50 {
     color: var(--color-indigo-50);
   }
@@ -1716,6 +1782,9 @@
   }
 
   /* Violet text colors */
+  .text-violet {
+    color: var(--color-violet-500);
+  }
   .text-violet-50 {
     color: var(--color-violet-50);
   }
@@ -1751,6 +1820,9 @@
   }
 
   /* Purple text colors */
+  .text-purple {
+    color: var(--color-purple-500);
+  }
   .text-purple-50 {
     color: var(--color-purple-50);
   }
@@ -1804,6 +1876,9 @@
   .text-fuchsia-500 {
     color: var(--color-fuchsia-500);
   }
+  .text-fuchsia {
+    color: var(--color-fuchsia-500);
+  }
   .text-fuchsia-600 {
     color: var(--color-fuchsia-600);
   }
@@ -1839,6 +1914,9 @@
   .text-pink-500 {
     color: var(--color-pink-500);
   }
+  .text-pink {
+    color: var(--color-pink-500);
+  }
   .text-pink-600 {
     color: var(--color-pink-600);
   }
@@ -1856,6 +1934,9 @@
   }
 
   /* Rose text colors */
+  .text-rose {
+    color: var(--color-rose-500);
+  }
   .text-rose-50 {
     color: var(--color-rose-50);
   }
@@ -1902,6 +1983,9 @@
   }
 
   /* Slate border colors */
+  .border-slate {
+    border-color: var(--color-slate-500);
+  }
   .border-slate-50 {
     border-color: var(--color-slate-50);
   }
@@ -1937,6 +2021,9 @@
   }
 
   /* Gray border colors */
+  .border-gray {
+    border-color: var(--color-gray-500);
+  }
   .border-gray-50 {
     border-color: var(--color-gray-50);
   }
@@ -1972,6 +2059,9 @@
   }
 
   /* Red border colors */
+  .border-red {
+    border-color: var(--color-red-500);
+  }
   .border-red-50 {
     border-color: var(--color-red-50);
   }
@@ -2007,6 +2097,9 @@
   }
 
   /* Orange border colors */
+  .border-orange {
+    border-color: var(--color-orange-500);
+  }
   .border-orange-50 {
     border-color: var(--color-orange-50);
   }
@@ -2042,6 +2135,9 @@
   }
 
   /* Blue border colors */
+  .border-blue {
+    border-color: var(--color-blue-500);
+  }
   .border-blue-50 {
     border-color: var(--color-blue-50);
   }
@@ -2077,6 +2173,9 @@
   }
 
   /* Green border colors */
+  .border-green {
+    border-color: var(--color-green-500);
+  }
   .border-green-50 {
     border-color: var(--color-green-50);
   }
@@ -2112,6 +2211,9 @@
   }
 
   /* Purple border colors */
+  .border-purple {
+    border-color: var(--color-purple-500);
+  }
   .border-purple-50 {
     border-color: var(--color-purple-50);
   }
@@ -2147,6 +2249,9 @@
   }
 
   /* Pink border colors */
+  .border-pink {
+    border-color: var(--color-pink-500);
+  }
   .border-pink-50 {
     border-color: var(--color-pink-50);
   }

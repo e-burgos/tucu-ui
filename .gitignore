@@ -46,6 +46,7 @@ Thumbs.db
 .github/instructions/nx.instructions.md
 .cursorrules
 
+.env
 
 storybook-static
 build-storybook.log
@@ -53,3 +54,4 @@ vite.config.*.timestamp*
 vitest.config.*.timestamp*
 
 CLAUDE.md
+

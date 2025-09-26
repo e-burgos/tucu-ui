@@ -6,7 +6,6 @@ import {
   Badge,
   Typography,
   LucideIcons,
-  Alert,
   useBreakpoint,
   useIsMobile,
   useCopyToClipboard,
@@ -19,7 +18,10 @@ import {
   useLockBodyScroll,
   useScrollableSlider,
   useEventListener,
+  CodeBlock,
+  useIsMounted,
 } from 'tucu-ui';
+import HeroPage from '../components/HeroPage';
 
 export function HooksUtilities() {
   const [copyText, setCopyText] = useState('Hello, World!');
@@ -27,12 +29,14 @@ export function HooksUtilities() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [keyPressed, setKeyPressed] = useState('');
+  const [mountedState, setMountedState] = useState('Checking...');
 
   const breakpoint = useBreakpoint();
   const { isMobile } = useIsMobile();
   const { addToast } = useToastStore();
   const { isGridCompact, setIsGridCompact } = useGridSwitcher();
   const { x: scrollX, y: scrollY } = useWindowScroll();
+  const isMounted = useIsMounted();
 
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [elementSizeRef, { width: elementWidth, height: elementHeight }] =
@@ -56,6 +60,15 @@ export function HooksUtilities() {
   useEventListener('keydown', (event) => {
     setKeyPressed(event.key);
     setTimeout(() => setKeyPressed(''), 1000);
+  });
+
+  // Update mounted state for demonstration
+  useState(() => {
+    if (isMounted) {
+      setMountedState('Component is mounted');
+    } else {
+      setMountedState('Component is not mounted');
+    }
   });
 
   const handleCopy = () => {
@@ -93,9 +106,12 @@ export function HooksUtilities() {
 
   const hookCategories = [
     {
-      icon: <LucideIcons.Monitor className="w-8 h-8 text-teal-500" />,
+      icon: (
+        <LucideIcons.Monitor className="w-8 h-8 text-white filter drop-shadow-sm" />
+      ),
       title: 'Responsive & Layout',
-      description: 'Screen size detection and element measurement',
+      description: 'Screen size detection and element measurement hooks',
+      color: 'from-blue-500 via-cyan-500 to-teal-500',
       hooks: [
         'useBreakpoint',
         'useIsMobile',
@@ -105,15 +121,21 @@ export function HooksUtilities() {
       ],
     },
     {
-      icon: <LucideIcons.MousePointer className="w-8 h-8 text-teal-500" />,
+      icon: (
+        <LucideIcons.MousePointer className="w-8 h-8 text-white filter drop-shadow-sm" />
+      ),
       title: 'User Interaction',
       description: 'Click detection and clipboard operations',
+      color: 'from-purple-500 via-violet-500 to-indigo-500',
       hooks: ['useClickAway', 'useCopyToClipboard', 'useEventListener'],
     },
     {
-      icon: <LucideIcons.Layout className="w-8 h-8 text-teal-500" />,
+      icon: (
+        <LucideIcons.Layout className="w-8 h-8 text-white filter drop-shadow-sm" />
+      ),
       title: 'UI State Management',
       description: 'Global state and UI behavior management',
+      color: 'from-green-500 via-emerald-500 to-teal-500',
       hooks: [
         'useGridSwitcher',
         'useLockBodyScroll',
@@ -122,9 +144,12 @@ export function HooksUtilities() {
       ],
     },
     {
-      icon: <LucideIcons.Wrench className="w-8 h-8 text-teal-500" />,
+      icon: (
+        <LucideIcons.Wrench className="w-8 h-8 text-white filter drop-shadow-sm" />
+      ),
       title: 'Utilities',
       description: 'Lifecycle and utility functions',
+      color: 'from-orange-500 via-amber-500 to-yellow-500',
       hooks: ['useIsMounted'],
     },
   ];
@@ -135,42 +160,140 @@ export function HooksUtilities() {
     content: `Content for item ${i + 1}`,
   }));
 
+  const hookFeatures = [
+    {
+      title: 'Performance Optimized',
+      description: 'Built with React best practices and minimal re-renders',
+      icon: (
+        <LucideIcons.Zap className="w-6 h-6 text-white filter drop-shadow-sm" />
+      ),
+      color: 'from-yellow-500 via-amber-500 to-orange-500',
+    },
+    {
+      title: 'TypeScript First',
+      description:
+        'Full TypeScript support with comprehensive type definitions',
+      icon: (
+        <LucideIcons.Code className="w-6 h-6 text-white filter drop-shadow-sm" />
+      ),
+      color: 'from-blue-500 via-cyan-500 to-sky-500',
+    },
+    {
+      title: 'Tree Shaking',
+      description: 'Optimized bundle size with automatic tree shaking',
+      icon: (
+        <LucideIcons.Package className="w-6 h-6 text-white filter drop-shadow-sm" />
+      ),
+      color: 'from-green-500 via-emerald-500 to-teal-500',
+    },
+    {
+      title: 'Accessibility Ready',
+      description: 'Built with accessibility best practices in mind',
+      icon: (
+        <LucideIcons.Eye className="w-6 h-6 text-white filter drop-shadow-sm" />
+      ),
+      color: 'from-purple-500 via-violet-500 to-indigo-500',
+    },
+  ];
+
+  const bestPractices = [
+    {
+      category: 'Performance',
+      items: [
+        'Use useCallback and useMemo with hooks that trigger frequent updates',
+        'Prefer useElementSize over useMeasure for simple dimension tracking',
+        'Debounce rapid state changes with toast notifications',
+        'Leverage tree-shaking by importing only needed hooks',
+      ],
+    },
+    {
+      category: 'TypeScript',
+      items: [
+        'Leverage generic types in useElementSize<HTMLCanvasElement>()',
+        'Use proper event types with useEventListener',
+        'Define custom interfaces for toast variants',
+        'Take advantage of full IntelliSense support',
+      ],
+    },
+    {
+      category: 'Accessibility',
+      items: [
+        'Combine useLockBodyScroll with focus management for modals',
+        'Use useEventListener for keyboard navigation',
+        'Implement proper ARIA attributes with responsive hooks',
+        'Test with screen readers and keyboard navigation',
+      ],
+    },
+    {
+      category: 'Error Handling',
+      items: [
+        'Use useIsMounted to prevent memory leaks in async operations',
+        'Handle edge cases in measurement hooks',
+        'Provide fallbacks for unsupported features',
+        'Always validate external data sources',
+      ],
+    },
+  ];
+
   return (
     <div className="space-y-8 sm:space-y-12 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
       {/* Hero Section */}
-      <section className="relative overflow-hidden">
-        <div className="relative bg-gradient-to-br from-sky-500 via-cyan-500 to-teal-600 dark:from-sky-900 dark:via-cyan-900 dark:to-gray-800 rounded-3xl p-6 sm:p-8 md:p-12 lg:p-16 overflow-hidden">
-          {/* Background elements */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-white/5 dark:from-black/20"></div>
-          <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-radial from-white/10 to-transparent rounded-full blur-3xl"></div>
-          <div className="absolute bottom-0 left-0 w-80 h-80 bg-gradient-radial from-cyan-300/20 to-transparent rounded-full blur-2xl"></div>
-
-          <div className="relative text-center">
-            <div className="flex justify-center mb-6">
-              <div className="relative">
-                <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 bg-gradient-to-br from-teal-500 via-cyan-500 to-teal-600 rounded-full flex items-center justify-center shadow-lg border border-white/20">
-                  <LucideIcons.Settings className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 text-white filter drop-shadow-lg" />
-                </div>
-                <div className="absolute -top-2 -right-2 w-6 h-6 bg-gradient-to-br from-cyan-500 to-blue-500 rounded-full border-2 border-white shadow-md"></div>
-              </div>
-            </div>
-
-            <Typography
-              tag="h1"
-              className="mb-6 text-3xl sm:text-4xl md:text-5xl font-bold text-white"
-            >
-              Hooks & Utilities
-            </Typography>
-
-            <Typography
-              tag="p"
-              className="text-base sm:text-lg md:text-xl text-white/90 max-w-4xl mx-auto leading-relaxed"
-            >
-              A comprehensive collection of React hooks and utility functions to
-              enhance your development experience with responsive design, user
-              interactions, and state management.
-            </Typography>
+      <HeroPage
+        title="Hooks & Utilities"
+        description="A comprehensive collection of React hooks and utility functions to enhance your development experience with responsive design, user interactions, and state management."
+        githubButton
+        getStartedButton
+        docsButton="hooks-utilities"
+        icon={
+          <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 bg-brand/70 rounded-full flex items-center justify-center shadow-lg border border-brand/50">
+            <LucideIcons.Settings className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 text-white filter drop-shadow-lg" />
           </div>
+        }
+      />
+
+      {/* Hook Features */}
+      <section className="space-y-8">
+        <div className="text-center space-y-4">
+          <Typography tag="h2" className="text-3xl md:text-4xl font-bold">
+            Why Choose Our Hooks?
+          </Typography>
+          <Typography
+            tag="p"
+            className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
+          >
+            Built with modern React patterns and optimized for performance
+          </Typography>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+          {hookFeatures.map((feature, index) => (
+            <CardContainer
+              key={index}
+              className="group hover:shadow-large transition-all duration-300 hover:-translate-y-1"
+            >
+              <div className="w-full space-y-4 p-4 sm:p-6">
+                <div className="flex items-center gap-4">
+                  <div
+                    className={`p-3 rounded-xl bg-gradient-to-br ${feature.color} group-hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-xl`}
+                  >
+                    {feature.icon}
+                  </div>
+                  <Typography
+                    tag="h3"
+                    className="font-semibold text-lg group-hover:text-primary transition-colors duration-300"
+                  >
+                    {feature.title}
+                  </Typography>
+                </div>
+                <Typography
+                  tag="p"
+                  className="text-gray-600 dark:text-gray-400 leading-relaxed"
+                >
+                  {feature.description}
+                </Typography>
+              </div>
+            </CardContainer>
+          ))}
         </div>
       </section>
 
@@ -196,7 +319,9 @@ export function HooksUtilities() {
             >
               <div className="w-full space-y-4 p-4 sm:p-6">
                 <div className="flex items-center gap-4">
-                  <div className="p-3 rounded-xl bg-gradient-to-br from-teal-500 via-cyan-500 to-teal-600 group-hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-xl">
+                  <div
+                    className={`p-3 rounded-xl bg-gradient-to-br ${category.color} group-hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-xl`}
+                  >
                     {category.icon}
                   </div>
                   <Typography
@@ -214,10 +339,7 @@ export function HooksUtilities() {
                 </Typography>
                 <div className="flex flex-wrap gap-2">
                   {category.hooks.map((hook, i) => (
-                    <Badge
-                      key={i}
-                      className="bg-teal-100 text-teal-800 dark:bg-teal-800 dark:text-teal-100"
-                    >
+                    <Badge key={i} className="text-dark dark:text-white">
                       {hook}
                     </Badge>
                   ))}
@@ -247,7 +369,7 @@ export function HooksUtilities() {
           <CardContainer className="group hover:shadow-large transition-all duration-300 hover:-translate-y-1">
             <div className="w-full space-y-6 p-4 sm:p-6">
               <div className="flex items-center gap-3">
-                <div className="p-2 rounded-lg bg-gradient-to-br from-teal-500 via-cyan-500 to-teal-600 shadow-md">
+                <div className="p-2 rounded-lg bg-gradient-to-br from-blue-500 via-cyan-500 to-teal-500 shadow-md">
                   <LucideIcons.Monitor className="w-6 h-6 text-white filter drop-shadow-sm" />
                 </div>
                 <Typography tag="h3" className="text-xl font-semibold">
@@ -268,7 +390,7 @@ export function HooksUtilities() {
                       <span className="text-sm text-gray-600 dark:text-gray-400">
                         Current:
                       </span>
-                      <Badge className="bg-teal-100 text-teal-800 dark:bg-teal-800 dark:text-teal-100">
+                      <Badge className="text-dark dark:text-white">
                         {breakpoint}
                       </Badge>
                     </div>
@@ -290,8 +412,8 @@ export function HooksUtilities() {
                       <Badge
                         className={`${
                           isMobile
-                            ? 'bg-orange-100 text-orange-800 dark:bg-orange-800 dark:text-orange-100'
-                            : 'bg-green-100 text-green-800 dark:bg-green-800 dark:text-green-100'
+                            ? 'text-dark dark:text-white'
+                            : 'text-dark dark:text-white'
                         }`}
                       >
                         {isMobile ? 'Yes' : 'No'}
@@ -305,12 +427,14 @@ export function HooksUtilities() {
               </div>
 
               <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-xl border dark:border-gray-700 overflow-x-auto">
-                <Typography tag="code" className="text-sm whitespace-pre-wrap">
-                  {`const breakpoint = useBreakpoint();
+                <CodeBlock
+                  language="typescript"
+                  noExpand={true}
+                  code={`
+const breakpoint = useBreakpoint();
 const { isMobile } = useIsMobile();
-
 // Current: ${breakpoint}, Mobile: ${isMobile}`}
-                </Typography>
+                />
               </div>
             </div>
           </CardContainer>
@@ -319,7 +443,7 @@ const { isMobile } = useIsMobile();
           <CardContainer className="group hover:shadow-large transition-all duration-300 hover:-translate-y-1">
             <div className="w-full space-y-6 p-4 sm:p-6">
               <div className="flex items-center gap-3">
-                <div className="p-2 rounded-lg bg-gradient-to-br from-teal-500 via-cyan-500 to-teal-600 shadow-md">
+                <div className="p-2 rounded-lg bg-gradient-to-br from-green-500 via-emerald-500 to-teal-500 shadow-md">
                   <LucideIcons.Ruler className="w-6 h-6 text-white filter drop-shadow-sm" />
                 </div>
                 <Typography tag="h3" className="text-xl font-semibold">
@@ -337,7 +461,7 @@ const { isMobile } = useIsMobile();
                   </Typography>
                   <div
                     ref={elementSizeRef}
-                    className="bg-teal-100 dark:bg-teal-800 p-4 rounded-lg border-2 border-dashed border-teal-300 dark:border-teal-600 resize overflow-auto min-h-[100px]"
+                    className="bg-blue-100 dark:bg-blue-800 p-4 rounded-lg border-2 border-dashed border-blue-300 dark:border-blue-600 resize overflow-auto min-h-[100px]"
                   >
                     <Typography tag="p" className="text-sm">
                       Resize this element (drag corner)
@@ -380,7 +504,7 @@ const { isMobile } = useIsMobile();
           <CardContainer className="group hover:shadow-large transition-all duration-300 hover:-translate-y-1">
             <div className="w-full space-y-6 p-4 sm:p-6">
               <div className="flex items-center gap-3">
-                <div className="p-2 rounded-lg bg-gradient-to-br from-teal-500 via-cyan-500 to-teal-600 shadow-md">
+                <div className="p-2 rounded-lg bg-gradient-to-br from-purple-500 via-violet-500 to-indigo-500 shadow-md">
                   <LucideIcons.MousePointer className="w-6 h-6 text-white filter drop-shadow-sm" />
                 </div>
                 <Typography tag="h3" className="text-xl font-semibold">
@@ -450,7 +574,7 @@ const { isMobile } = useIsMobile();
           <CardContainer className="group hover:shadow-large transition-all duration-300 hover:-translate-y-1">
             <div className="w-full space-y-6 p-4 sm:p-6">
               <div className="flex items-center gap-3">
-                <div className="p-2 rounded-lg bg-gradient-to-br from-teal-500 via-cyan-500 to-teal-600 shadow-md">
+                <div className="p-2 rounded-lg bg-gradient-to-br from-green-500 via-emerald-500 to-teal-500 shadow-md">
                   <LucideIcons.Settings className="w-6 h-6 text-white filter drop-shadow-sm" />
                 </div>
                 <Typography tag="h3" className="text-xl font-semibold">
@@ -471,7 +595,7 @@ const { isMobile } = useIsMobile();
                       <span className="text-sm text-gray-600 dark:text-gray-400">
                         Current layout:
                       </span>
-                      <Badge className="bg-teal-100 text-teal-800 dark:bg-teal-800 dark:text-teal-100">
+                      <Badge className="text-dark dark:text-white">
                         {isGridCompact ? 'Compact' : 'Normal'}
                       </Badge>
                     </div>
@@ -513,7 +637,7 @@ const { isMobile } = useIsMobile();
           <CardContainer className="group hover:shadow-large transition-all duration-300 hover:-translate-y-1">
             <div className="w-full space-y-6 p-4 sm:p-6">
               <div className="flex items-center gap-3">
-                <div className="p-2 rounded-lg bg-gradient-to-br from-teal-500 via-cyan-500 to-teal-600 shadow-md">
+                <div className="p-2 rounded-lg bg-gradient-to-br from-orange-500 via-amber-500 to-yellow-500 shadow-md">
                   <LucideIcons.Zap className="w-6 h-6 text-white filter drop-shadow-sm" />
                 </div>
                 <Typography tag="h3" className="text-xl font-semibold">
@@ -583,7 +707,7 @@ const { isMobile } = useIsMobile();
                         <span className="text-sm text-gray-600 dark:text-gray-400">
                           Last key:
                         </span>
-                        <Badge className="bg-teal-100 text-teal-800 dark:bg-teal-800 dark:text-teal-100">
+                        <Badge className="text-dark dark:text-white">
                           {keyPressed || 'None'}
                         </Badge>
                       </div>
@@ -603,7 +727,7 @@ const { isMobile } = useIsMobile();
                           <span className="text-xs text-gray-600 dark:text-gray-400">
                             X:
                           </span>
-                          <Badge className="bg-teal-100 text-teal-800 dark:bg-teal-800 dark:text-teal-100">
+                          <Badge className="text-dark dark:text-white">
                             {Math.round(scrollX)}px
                           </Badge>
                         </div>
@@ -611,7 +735,7 @@ const { isMobile } = useIsMobile();
                           <span className="text-xs text-gray-600 dark:text-gray-400">
                             Y:
                           </span>
-                          <Badge className="bg-teal-100 text-teal-800 dark:bg-teal-800 dark:text-teal-100">
+                          <Badge className="text-dark dark:text-white">
                             {Math.round(scrollY)}px
                           </Badge>
                         </div>
@@ -640,6 +764,25 @@ const { isMobile } = useIsMobile();
                     </Typography>
                   </div>
                 </div>
+
+                <div>
+                  <Typography tag="h5" className="font-medium mb-3">
+                    useIsMounted
+                  </Typography>
+                  <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border">
+                    <Typography tag="p" className="text-sm mb-2">
+                      Component mount status:
+                    </Typography>
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm text-gray-600 dark:text-gray-400">
+                        Status:
+                      </span>
+                      <Badge className="text-dark dark:text-white">
+                        {mountedState}
+                      </Badge>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </CardContainer>
@@ -666,7 +809,7 @@ const { isMobile } = useIsMobile();
             <CardTitle title="Responsive & Layout Hooks" className="mt-2 mb-2">
               <div className="w-full space-y-8 p-4 sm:p-6">
                 <div className="flex items-center gap-3">
-                  <div className="p-2 rounded-lg bg-gradient-to-br from-teal-500 via-cyan-500 to-teal-600 shadow-md">
+                  <div className="p-2 rounded-lg bg-gradient-to-br from-blue-500 via-cyan-500 to-teal-500 shadow-md">
                     <LucideIcons.Monitor className="w-6 h-6 text-white filter drop-shadow-sm" />
                   </div>
                   <Typography tag="h3" className="text-xl font-semibold">
@@ -687,17 +830,16 @@ const { isMobile } = useIsMobile();
                       ultra-wide displays.
                     </Typography>
                     <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-xl border dark:border-gray-700 overflow-x-auto">
-                      <Typography
-                        tag="code"
-                        className="text-sm whitespace-pre-wrap"
-                      >
-                        {`const breakpoint = useBreakpoint();
+                      <CodeBlock
+                        language="typescript"
+                        noExpand={true}
+                        code={`const breakpoint = useBreakpoint();
 // Returns: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl'
 
 // Breakpoint sizes:
 // xs: 480px, sm: 640px, md: 768px, lg: 1024px
 // xl: 1280px, 2xl: 1440px, 3xl: 1780px, 4xl: 2160px`}
-                      </Typography>
+                      />
                     </div>
                   </div>
 
@@ -713,11 +855,10 @@ const { isMobile } = useIsMobile();
                       md).
                     </Typography>
                     <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-xl border dark:border-gray-700 overflow-x-auto">
-                      <Typography
-                        tag="code"
-                        className="text-sm whitespace-pre-wrap"
-                      >
-                        {`const { isMobile } = useIsMobile();
+                      <CodeBlock
+                        language="typescript"
+                        noExpand={true}
+                        code={`const { isMobile } = useIsMobile();
 // Returns: { isMobile: boolean }
 
 // Usage
@@ -726,7 +867,7 @@ return (
     {isMobile ? <MobileLayout /> : <DesktopLayout />}
   </div>
 );`}
-                      </Typography>
+                      />
                     </div>
                   </div>
 
@@ -742,18 +883,18 @@ return (
                       resize detection.
                     </Typography>
                     <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-xl border dark:border-gray-700 overflow-x-auto">
-                      <Typography
-                        tag="code"
-                        className="text-sm whitespace-pre-wrap"
-                      >
-                        {`const [ref, { width, height }] = useElementSize();
+                      <CodeBlock
+                        language="typescript"
+                        noExpand={true}
+                        code={`
+const [ref, { width, height }] = useElementSize();
 
 return (
   <div ref={ref} className="resizable">
     Size: {width} × {height}px
   </div>
 );`}
-                      </Typography>
+                      />
                     </div>
                   </div>
 
@@ -768,11 +909,10 @@ return (
                       Advanced element measurement with ResizeObserver support.
                     </Typography>
                     <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-xl border dark:border-gray-700 overflow-x-auto">
-                      <Typography
-                        tag="code"
-                        className="text-sm whitespace-pre-wrap"
-                      >
-                        {`const [ref, bounds] = useMeasure();
+                      <CodeBlock
+                        language="typescript"
+                        noExpand={true}
+                        code={`const [ref, bounds] = useMeasure();
 // bounds: { x, y, width, height, top, right, bottom, left }
 
 return (
@@ -781,7 +921,7 @@ return (
     Size: {bounds.width} × {bounds.height}
   </div>
 );`}
-                      </Typography>
+                      />
                     </div>
                   </div>
                 </div>
@@ -794,7 +934,7 @@ return (
             <CardTitle title="User Interaction Hooks" className="mt-2 mb-2">
               <div className="w-full space-y-8 p-4 sm:p-6">
                 <div className="flex items-center gap-3">
-                  <div className="p-2 rounded-lg bg-gradient-to-br from-teal-500 via-cyan-500 to-teal-600 shadow-md">
+                  <div className="p-2 rounded-lg bg-gradient-to-br from-purple-500 via-violet-500 to-indigo-500 shadow-md">
                     <LucideIcons.MousePointer className="w-6 h-6 text-white filter drop-shadow-sm" />
                   </div>
                   <Typography tag="h3" className="text-xl font-semibold">
@@ -814,11 +954,10 @@ return (
                       Detects clicks outside of a specified element.
                     </Typography>
                     <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-xl border dark:border-gray-700 overflow-x-auto">
-                      <Typography
-                        tag="code"
-                        className="text-sm whitespace-pre-wrap"
-                      >
-                        {`const ref = useRef(null);
+                      <CodeBlock
+                        language="typescript"
+                        noExpand={true}
+                        code={`const ref = useRef(null);
 useClickAway(ref, () => {
   setIsOpen(false);
 });
@@ -831,7 +970,7 @@ return (
     {isOpen && <Menu />}
   </div>
 );`}
-                      </Typography>
+                      />
                     </div>
                   </div>
 
@@ -846,11 +985,10 @@ return (
                       Provides clipboard functionality with state tracking.
                     </Typography>
                     <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-xl border dark:border-gray-700 overflow-x-auto">
-                      <Typography
-                        tag="code"
-                        className="text-sm whitespace-pre-wrap"
-                      >
-                        {`const [copiedText, copyToClipboard] = useCopyToClipboard();
+                      <CodeBlock
+                        language="typescript"
+                        noExpand={true}
+                        code={`const [copiedText, copyToClipboard] = useCopyToClipboard();
 
 const handleCopy = () => {
   copyToClipboard('Text to copy');
@@ -861,7 +999,7 @@ return (
     {copiedText ? 'Copied!' : 'Copy'}
   </button>
 );`}
-                      </Typography>
+                      />
                     </div>
                   </div>
                 </div>
@@ -874,7 +1012,7 @@ return (
             <CardTitle title="UI State Management Hooks" className="mt-2 mb-2">
               <div className="w-full space-y-8 p-4 sm:p-6">
                 <div className="flex items-center gap-3">
-                  <div className="p-2 rounded-lg bg-gradient-to-br from-teal-500 via-cyan-500 to-teal-600 shadow-md">
+                  <div className="p-2 rounded-lg bg-gradient-to-br from-green-500 via-emerald-500 to-teal-500 shadow-md">
                     <LucideIcons.Database className="w-6 h-6 text-white filter drop-shadow-sm" />
                   </div>
                   <Typography tag="h3" className="text-xl font-semibold">
@@ -894,11 +1032,10 @@ return (
                       Zustand-based global toast notification system.
                     </Typography>
                     <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-xl border dark:border-gray-700 overflow-x-auto">
-                      <Typography
-                        tag="code"
-                        className="text-sm whitespace-pre-wrap"
-                      >
-                        {`const { addToast, dismissToast, toasts } = useToastStore();
+                      <CodeBlock
+                        language="typescript"
+                        noExpand={true}
+                        code={`const { addToast, dismissToast, toasts } = useToastStore();
 
 const showToast = () => {
   addToast({
@@ -911,7 +1048,7 @@ const showToast = () => {
 };
 
 // Toast variants: 'default' | 'destructive' | 'success' | 'warning' | 'info'`}
-                      </Typography>
+                      />
                     </div>
                   </div>
 
@@ -926,11 +1063,10 @@ const showToast = () => {
                       Global state management for grid layout switching.
                     </Typography>
                     <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-xl border dark:border-gray-700 overflow-x-auto">
-                      <Typography
-                        tag="code"
-                        className="text-sm whitespace-pre-wrap"
-                      >
-                        {`const { isGridCompact, setIsGridCompact } = useGridSwitcher();
+                      <CodeBlock
+                        language="typescript"
+                        noExpand={true}
+                        code={`const { isGridCompact, setIsGridCompact } = useGridSwitcher();
 
 const toggleLayout = () => {
   setIsGridCompact(!isGridCompact);
@@ -941,7 +1077,7 @@ return (
     {/* Grid items */}
   </div>
 );`}
-                      </Typography>
+                      />
                     </div>
                   </div>
                 </div>
@@ -965,56 +1101,38 @@ return (
           </Typography>
         </div>
 
-        <Alert>
-          <div className="space-y-4">
-            <div className="flex items-center gap-2">
-              <LucideIcons.Lightbulb className="w-5 h-5 text-teal-500" />
-              <Typography tag="h6" className="font-semibold">
-                Best Practices for Using Hooks
-              </Typography>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <ul className="space-y-2 text-sm">
-                <li className="flex items-start gap-2">
-                  <LucideIcons.Check className="w-4 h-4 text-teal-500 mt-0.5 flex-shrink-0" />
-                  <span>
-                    Always use hooks at the top level of your components
-                  </span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <LucideIcons.Check className="w-4 h-4 text-teal-500 mt-0.5 flex-shrink-0" />
-                  <span>
-                    Use useIsMounted() to prevent hydration issues in SSR
-                  </span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <LucideIcons.Check className="w-4 h-4 text-teal-500 mt-0.5 flex-shrink-0" />
-                  <span>
-                    Combine responsive hooks for better mobile experiences
-                  </span>
-                </li>
-              </ul>
-              <ul className="space-y-2 text-sm">
-                <li className="flex items-start gap-2">
-                  <LucideIcons.Check className="w-4 h-4 text-teal-500 mt-0.5 flex-shrink-0" />
-                  <span>
-                    Use useClickAway for dropdown and modal interactions
-                  </span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <LucideIcons.Check className="w-4 h-4 text-teal-500 mt-0.5 flex-shrink-0" />
-                  <span>
-                    Leverage useEventListener for complex event handling
-                  </span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <LucideIcons.Check className="w-4 h-4 text-teal-500 mt-0.5 flex-shrink-0" />
-                  <span>Optimize performance with useCallback and useMemo</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </Alert>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+          {bestPractices.map((practice, index) => (
+            <CardContainer
+              key={index}
+              className="group hover:shadow-large transition-all duration-300 hover:-translate-y-1"
+            >
+              <div className="w-full space-y-4 p-4 sm:p-6">
+                <div className="flex items-center gap-3">
+                  <div className="p-2 rounded-lg bg-gradient-to-br from-green-500 via-emerald-500 to-teal-500 shadow-md">
+                    <LucideIcons.CheckCircle className="w-5 h-5 text-white filter drop-shadow-sm" />
+                  </div>
+                  <Typography tag="h3" className="font-semibold text-lg">
+                    {practice.category}
+                  </Typography>
+                </div>
+                <ul className="space-y-2">
+                  {practice.items.map((item, itemIndex) => (
+                    <li key={itemIndex} className="flex items-start gap-2">
+                      <LucideIcons.ArrowRight className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+                      <Typography
+                        tag="span"
+                        className="text-sm text-gray-600 dark:text-gray-400"
+                      >
+                        {item}
+                      </Typography>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </CardContainer>
+          ))}
+        </div>
       </section>
 
       {/* Modal Demo */}

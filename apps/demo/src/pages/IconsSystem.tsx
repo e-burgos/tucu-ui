@@ -8,6 +8,7 @@ import {
   Alert,
   CodeBlock,
 } from 'tucu-ui';
+import HeroPage from '../components/HeroPage';
 
 export function IconsSystem() {
   const [copiedIcon, setCopiedIcon] = useState<string | null>(null);
@@ -298,41 +299,18 @@ function IconButton({ iconName, label, onClick }: IconButtonProps) {
   return (
     <div className="space-y-8 sm:space-y-12 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
       {/* Hero Section */}
-      <section className="relative overflow-hidden">
-        <div className="relative bg-gradient-to-br from-red-500 via-rose-500 to-pink-500 dark:from-red-900 dark:via-rose-900 dark:to-pink-900 rounded-3xl p-6 sm:p-8 md:p-12 lg:p-16 overflow-hidden">
-          {/* Background elements */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-white/5 dark:from-black/20"></div>
-          <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-radial from-white/10 to-transparent rounded-full blur-3xl"></div>
-          <div className="absolute bottom-0 left-0 w-80 h-80 bg-gradient-radial from-rose-300/20 to-transparent rounded-full blur-2xl"></div>
-
-          <div className="relative text-center">
-            <div className="flex justify-center mb-6">
-              <div className="relative">
-                <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 bg-gradient-to-br from-red-500 via-rose-500 to-pink-500 rounded-full flex items-center justify-center shadow-lg border border-white/20">
-                  <LucideIcons.Sparkles className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 text-white filter drop-shadow-lg" />
-                </div>
-                <div className="absolute -top-2 -right-2 w-6 h-6 bg-gradient-to-br from-yellow-500 to-orange-500 rounded-full border-2 border-white shadow-md"></div>
-              </div>
-            </div>
-
-            <Typography
-              tag="h1"
-              className="mb-6 text-3xl sm:text-4xl md:text-5xl font-bold text-white"
-            >
-              Icons System
-            </Typography>
-
-            <Typography
-              tag="p"
-              className="text-base sm:text-lg md:text-xl text-white/90 max-w-4xl mx-auto leading-relaxed"
-            >
-              Comprehensive icon system combining custom-designed icons with
-              full Lucide React integration. Access to 5000+ high-quality icons
-              through a unified, performant API.
-            </Typography>
+      <HeroPage
+        title="Icons System"
+        description="Comprehensive icon system combining custom-designed icons with full Lucide React integration. Access to 5000+ high-quality icons through a unified, performant API."
+        githubButton
+        getStartedButton
+        docsButton="icons-system"
+        icon={
+          <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 bg-brand/70 rounded-full flex items-center justify-center shadow-lg border border-brand/50">
+            <LucideIcons.Sparkles className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 text-white filter drop-shadow-lg" />
           </div>
-        </div>
-      </section>
+        }
+      />
 
       {/* Icon Architecture */}
       <section className="space-y-8">

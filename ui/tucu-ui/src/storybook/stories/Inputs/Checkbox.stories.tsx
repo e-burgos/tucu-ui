@@ -81,21 +81,24 @@ const meta: Meta<typeof Checkbox> = {
     color: 'DEFAULT',
     rounded: 'DEFAULT',
     labelPlacement: 'end',
+    checked: false,
+    disabled: false,
+    error: undefined,
+    helperText: undefined,
+    className: undefined,
   },
 };
 
 export default meta;
 
 const Template: StoryFn<typeof Checkbox> = (args) => {
-  const [checked, setChecked] = React.useState(args.checked || false);
-
   return (
     <StoryContainer>
       <div className="w-full max-w-md">
         <Checkbox
           {...args}
-          checked={checked}
-          onChange={(e) => setChecked(e.target.checked)}
+          checked={args.checked}
+          onChange={(e) => (args.checked = e.target.checked)}
         />
       </div>
     </StoryContainer>

@@ -145,7 +145,12 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       undefined;
 
     return (
-      <div className={cn('relative', fullWidth && 'w-full')}>
+      <div
+        className={cn(
+          'relative backdrop-blur-sm shadow-xl transition-all duration-300 transform',
+          fullWidth && 'w-full'
+        )}
+      >
         {tooltip && hover && (
           <div
             id={tooltipId}

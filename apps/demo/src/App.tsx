@@ -1,4 +1,4 @@
-import { ThemeProvider, Button } from 'tucu-ui';
+import { Button, ThemeProvider } from 'tucu-ui';
 import { useMenuItems } from './router/menuItems';
 import { DOCUMENTATION_URL } from './utils/constants';
 
@@ -29,7 +29,7 @@ function App() {
         name: 'Tucu',
         secondName: 'UI',
       }}
-      layout="minimal"
+      //layout="minimal"
       menuItems={menuItems}
     />
   );

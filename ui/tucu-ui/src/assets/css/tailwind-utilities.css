@@ -5031,13 +5031,13 @@
     --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
   }
   .from-black {
-    --tw-gradient-from: #000;
+    --tw-gradient-from: var(--color-black);
     --tw-gradient-to: rgb(0 0 0 / 0);
     --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
   }
   .from-white {
-    --tw-gradient-from: #fff;
-    --tw-gradient-to: rgb(255 255 255 / 0);
+    --tw-gradient-from: var(--color-white);
+    --tw-gradient-to: rgb(1 0 0 / 0);
     --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
   }
 
@@ -5057,11 +5057,13 @@
   }
   .via-black {
     --tw-gradient-to: rgb(0 0 0 / 0);
-    --tw-gradient-stops: var(--tw-gradient-from), #000, var(--tw-gradient-to);
+    --tw-gradient-stops: var(--tw-gradient-from), var(--color-black),
+      var(--tw-gradient-to);
   }
   .via-white {
     --tw-gradient-to: rgb(255 255 255 / 0);
-    --tw-gradient-stops: var(--tw-gradient-from), #fff, var(--tw-gradient-to);
+    --tw-gradient-stops: var(--tw-gradient-from), var(--color-white),
+      var(--tw-gradient-to);
   }
 
   .to-inherit {
@@ -5074,10 +5076,10 @@
     --tw-gradient-to: transparent;
   }
   .to-black {
-    --tw-gradient-to: #000;
+    --tw-gradient-to: var(--color-black);
   }
   .to-white {
-    --tw-gradient-to: #fff;
+    --tw-gradient-to: var(--color-white);
   }
 
   /* ==========================================================================

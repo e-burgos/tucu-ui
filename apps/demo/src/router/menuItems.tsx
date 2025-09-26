@@ -9,6 +9,7 @@ import { Accessibility } from '../pages/Accessibility';
 import { LayoutSystem } from '../pages/LayoutSystem';
 import { IconsSystem } from '../pages/IconsSystem';
 import { HooksUtilities } from '../pages/HooksUtilities';
+import { Colors } from '../pages/Colors';
 import FormExamplePage from '../pages/form-system/form-example-page';
 import CodeExamplePage from '../pages/form-system/code-example-page';
 
@@ -26,6 +27,14 @@ export const useMenuItems = () => {
         href: '/design-system',
         icon: <LucideIcons.Palette />,
         component: <DesignSystem />,
+        dropdownItems: [
+          {
+            name: 'Colors',
+            href: '/colors',
+            icon: <LucideIcons.Palette />,
+            component: <Colors />,
+          },
+        ],
       },
       {
         name: 'Theming',

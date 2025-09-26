@@ -8,7 +8,6 @@ import {
   AnchorLink,
   useTheme,
   CardTitle,
-  ReactRouter,
   CodeBlock,
 } from 'tucu-ui';
 
@@ -16,97 +15,27 @@ import avatarImage from '../assets/images/author-dark.jpeg';
 import { DOCUMENTATION_URL } from '../utils/constants';
 import Banner from '../assets/images/logos/tucu-ui-logo-white.svg';
 import BannerDark from '../assets/images/logos/tucu-ui-logo-black.svg';
+import HeroPage from '../components/HeroPage';
 
 export function Introduction() {
-  const Link = ReactRouter.Link;
   const { mode } = useTheme();
 
   return (
     <div className="space-y-8 sm:space-y-12 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
       {/* Hero Section */}
-      <section className="relative overflow-hidden">
-        <div className="relative bg-gradient-to-br from-violet-500 via-purple-500 to-blue-500 dark:from-violet-900 dark:via-purple-900 dark:to-blue-900 rounded-2xl p-6 sm:p-8 md:p-12 lg:p-16">
-          {/* Animated Background Elements */}
-          <div
-            id="animated-background-elements"
-            className="absolute inset-0 overflow-hidden"
-          >
-            {/* Grid pattern */}
-            <div className="absolute inset-0 opacity-20">
-              <div
-                className="absolute inset-0 bg-white/10 dark:bg-white/5"
-                style={{
-                  backgroundImage:
-                    mode === 'dark'
-                      ? 'linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)'
-                      : 'linear-gradient(rgba(0,0,0,0.2) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.2) 1px, transparent 1px)',
-                  backgroundSize: '32px 32px',
-                }}
-              ></div>
-            </div>
-
-            {/* FULL CONTAINER MOVEMENT ANIMATIONS - Elements that move across the entire container */}
-            <div className="absolute w-12 h-12 bg-red-500 opacity-50 rounded-full animate-full-move-1 z-10"></div>
-            <div className="absolute w-12 h-12 bg-blue-500 opacity-50 rounded-full animate-full-move-2 z-10"></div>
-            <div className="absolute w-12 h-12 bg-green-500 opacity-50 rounded-full animate-full-move-3 z-10"></div>
-            <div className="absolute w-12 h-12 bg-purple-500 opacity-50 rounded-full animate-full-move-4 z-10"></div>
-            <div className="absolute w-12 h-12 bg-yellow-500 opacity-50 rounded-full animate-full-move-5 z-10"></div>
-            <div className="absolute w-12 h-12 bg-pink-500 opacity-50 rounded-full animate-full-move-6 z-10"></div>
-          </div>
-
-          <div className="relative text-center z-50">
-            <div className="relative mx-auto mb-6 w-fit">
-              <div className="absolute inset-0 rounded-2xl blur-xl"></div>
-              <img
-                src={mode !== 'dark' ? BannerDark : Banner}
-                alt="Tucu UI"
-                className="relative h-16 sm:h-20 md:h-24 filter drop-shadow-2xl hover:scale-110 transition-transform duration-300"
-              />
-            </div>
-
-            <Typography
-              tag="p"
-              className="text-base sm:text-lg md:text-xl lg:text-2xl text-white/90 dark:text-white/80 max-w-4xl mx-auto leading-relaxed font-medium"
-            >
-              A modern, comprehensive React component library built with
-              TypeScript and Tailwind CSS. Designed for developers who need
-              production-ready components that are both beautiful and
-              functional.
-            </Typography>
-
-            <div className="flex flex-wrap sm:flex-row gap-4 justify-center mt-8 max-w-md mx-auto sm:max-w-none">
-              <Button
-                size="large"
-                className=" text-white border border-white/30 hover:border-white/50 backdrop-blur-sm shadow-2xl hover:shadow-white/25 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1"
-              >
-                <Link to={DOCUMENTATION_URL} target="_blank">
-                  <div className="flex justify-center items-center">
-                    <LucideIcons.Rocket className="w-5 h-5 mr-2 animate-pulse" />
-                    Get Started
-                  </div>
-                </Link>
-              </Button>
-              <Button
-                variant="ghost"
-                size="large"
-                className="bg-gradient-to-r from-white/10 to-white/5 hover:from-white/20 hover:to-white/10 border border-white/20 hover:border-white/40 backdrop-blur-sm shadow-xl hover:shadow-white/20 transition-all duration-300 transform hover:scale-105"
-              >
-                <div className="flex justify-center items-center">
-                  <AnchorLink
-                    to={'https://github.com/e-burgos/tucu-ui'}
-                    target="_blank"
-                  >
-                    <div className="flex justify-center items-center">
-                      <LucideIcons.Github className="w-5 h-5 mr-2 text-brand" />
-                      View on GitHub
-                    </div>
-                  </AnchorLink>
-                </div>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
+      <HeroPage
+        description="A modern, comprehensive React component library built with TypeScript and Tailwind CSS. Designed for developers who need production-ready components that are both beautiful and functional."
+        githubButton
+        getStartedButton
+        backgroundAnimation
+        icon={
+          <img
+            src={mode !== 'dark' ? BannerDark : Banner}
+            alt="Tucu UI"
+            className="relative h-16 sm:h-20 md:h-24 filter drop-shadow-2xl hover:scale-110 transition-transform duration-300"
+          />
+        }
+      />
 
       {/* Key Features Grid */}
       <section className="space-y-8">

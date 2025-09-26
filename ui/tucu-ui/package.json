@@ -1,7 +1,7 @@
 {
   "name": "tucu-ui",
   "description": "Tucu UI Library",
-  "version": "0.0.34",
+  "version": "1.0.0",
   "main": "./index.js",
   "module": "./index.mjs",
   "types": "./index.d.ts",

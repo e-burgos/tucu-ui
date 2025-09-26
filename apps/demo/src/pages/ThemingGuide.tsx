@@ -8,6 +8,7 @@ import {
   useTheme,
   CodeBlock,
 } from 'tucu-ui';
+import HeroPage from '../components/HeroPage';
 
 export function ThemingGuide() {
   const { mode, preset, setMode } = useTheme();
@@ -15,53 +16,18 @@ export function ThemingGuide() {
   return (
     <div className="space-y-8 sm:space-y-12 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
       {/* Hero Section */}
-      <section className="relative overflow-hidden">
-        <div className="relative bg-gradient-to-br from-purple-500 via-violet-500 to-indigo-500 dark:from-purple-900 dark:via-violet-900 dark:to-indigo-900 rounded-2xl p-6 sm:p-8 md:p-12 lg:p-16">
-          {/* Animated Background Elements */}
-          <div className="absolute inset-0 overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-br from-purple-600/20 via-violet-600/30 to-indigo-600/20 dark:from-purple-400/10 dark:via-violet-400/15 dark:to-indigo-400/10"></div>
-            <div className="absolute top-10 left-10 w-20 h-20 bg-gradient-to-br from-pink-400/30 to-purple-500/30 rounded-full blur-xl animate-pulse"></div>
-            <div className="absolute top-20 right-20 w-32 h-32 bg-gradient-to-br from-indigo-400/25 to-violet-500/25 rounded-full blur-2xl animate-bounce"></div>
-            <div className="absolute bottom-20 left-20 w-24 h-24 bg-gradient-to-br from-violet-400/30 to-purple-500/30 rounded-full blur-xl animate-pulse"></div>
+      <HeroPage
+        title="Theming Guide"
+        description="Master the powerful theming system built with Zustand, CSS custom properties, and Tailwind CSS. Create beautiful, consistent themes that adapt to your brand."
+        githubButton
+        getStartedButton
+        docsButton="theming-guide"
+        icon={
+          <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 bg-brand/70 rounded-full flex items-center justify-center shadow-lg border border-brand/50">
+            <LucideIcons.Paintbrush className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 text-white filter drop-shadow-lg" />
           </div>
-
-          <div className="relative text-center">
-            <div className="flex justify-center mb-6">
-              <div className="p-4 bg-white/10 backdrop-blur-sm rounded-2xl">
-                <LucideIcons.Paintbrush className="w-16 h-16 text-white filter drop-shadow-lg" />
-              </div>
-            </div>
-
-            <Typography
-              tag="h1"
-              className="mb-4 text-4xl sm:text-5xl md:text-6xl font-bold text-white"
-            >
-              Theming Guide
-            </Typography>
-
-            <Typography
-              tag="p"
-              className="text-base sm:text-lg md:text-xl lg:text-2xl text-white/90 dark:text-white/80 max-w-4xl mx-auto leading-relaxed font-medium"
-            >
-              Master the powerful theming system built with Zustand, CSS custom
-              properties, and Tailwind CSS. Create beautiful, consistent themes
-              that adapt to your brand.
-            </Typography>
-
-            <div className="flex flex-wrap justify-center gap-4 mt-8">
-              <Badge className="bg-white/20 text-white border-white/30">
-                Zustand State Management
-              </Badge>
-              <Badge className="bg-white/20 text-white border-white/30">
-                CSS Custom Properties
-              </Badge>
-              <Badge className="bg-white/20 text-white border-white/30">
-                Dark Mode Native
-              </Badge>
-            </div>
-          </div>
-        </div>
-      </section>
+        }
+      />
 
       {/* Theme Architecture */}
       <section className="space-y-8">

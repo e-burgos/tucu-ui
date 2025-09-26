@@ -7,6 +7,7 @@ import {
   Alert,
   CardTitle,
 } from 'tucu-ui';
+import HeroPage from '../components/HeroPage';
 
 export function DesignSystem() {
   const spacingValues = [
@@ -115,41 +116,18 @@ export function DesignSystem() {
   return (
     <div className="space-y-8 sm:space-y-12 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
       {/* Header */}
-      <section className="relative overflow-hidden">
-        <div className="relative bg-gradient-to-br from-purple-500 via-violet-500 to-indigo-500 dark:from-purple-900 dark:via-violet-900 dark:to-indigo-900 rounded-3xl p-6 sm:p-8 md:p-12 lg:p-16 overflow-hidden">
-          {/* Simplified background elements */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-white/5 dark:from-black/20"></div>
-          <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-radial from-white/10 to-transparent rounded-full blur-3xl"></div>
-          <div className="absolute bottom-0 left-0 w-80 h-80 bg-gradient-radial from-indigo-300/20 to-transparent rounded-full blur-2xl"></div>
-
-          <div className="relative text-center">
-            <div className="flex justify-center mb-6">
-              <div className="relative">
-                <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 bg-gradient-to-br from-purple-500 via-violet-500 to-indigo-500 rounded-full flex items-center justify-center shadow-lg border border-white/20">
-                  <LucideIcons.Palette className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 text-white filter drop-shadow-lg" />
-                </div>
-                <div className="absolute -top-2 -right-2 w-6 h-6 bg-gradient-to-br from-pink-500 to-rose-500 rounded-full border-2 border-white shadow-md"></div>
-              </div>
-            </div>
-
-            <Typography
-              tag="h1"
-              className="mb-6 text-3xl sm:text-4xl md:text-5xl font-bold text-white"
-            >
-              Design System
-            </Typography>
-
-            <Typography
-              tag="p"
-              className="text-base sm:text-lg md:text-xl text-white/90 max-w-4xl mx-auto leading-relaxed"
-            >
-              A comprehensive design system that ensures consistency,
-              accessibility, and scalability across all components and
-              applications.
-            </Typography>
+      <HeroPage
+        title="Design System"
+        description="A comprehensive design system that ensures consistency, accessibility, and scalability across all components and applications."
+        githubButton
+        getStartedButton
+        docsButton="design-system"
+        icon={
+          <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 bg-brand/70 rounded-full flex items-center justify-center shadow-lg border border-brand/50">
+            <LucideIcons.Palette className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 text-white filter drop-shadow-lg" />
           </div>
-        </div>
-      </section>
+        }
+      />
 
       {/* Design Principles */}
       <section className="space-y-8">

@@ -11,9 +11,9 @@ import {
 import { ReactRenderer, Preview, StoryContext } from '@storybook/react-vite';
 import { PartialStoryFn } from 'storybook/internal/types';
 import { useTheme } from '../src/themes/use-theme';
-import '../src/styles.css';
 import ThemeProvider from '../src/themes/components/theme-provider';
 import { IndexEntry } from 'storybook/internal/types';
+import '../src/styles.css';
 
 const storySort = (a: IndexEntry, b: IndexEntry) =>
   a.id === b.id ? 0 : a.id.localeCompare(b.id, undefined, { numeric: true });
