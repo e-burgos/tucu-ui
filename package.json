@@ -13,7 +13,10 @@
     "tucu-ui:serve": "pnpm nx run tucu-ui:serve-storybook",
     "demo": "pnpm nx run demo:serve",
     "demo:install": "pnpm nx run demo:app:install",
-    "demo:build": "pnpm nx run demo:build"
+    "demo:build": "pnpm nx run demo:build",
+    "test-lib": "pnpm nx run test-lib:serve",
+    "test-lib:install": "pnpm nx run test-lib:app:install",
+    "test-lib:build": "pnpm nx run test-lib:build"
   },
   "devDependencies": {
     "@babel/core": "^7.14.5",

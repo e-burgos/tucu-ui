@@ -1,0 +1,16 @@
+{
+  "name": "test-lib",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/test-lib/src",
+  "projectType": "library",
+  "tags": [],
+  "// targets": "to see all targets run: nx show project test-lib --web",
+  "targets": {
+    "install": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": ["npm install --prefix apps/test-lib"]
+      }
+    }
+  }
+}

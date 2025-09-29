@@ -6,18 +6,18 @@ import path from 'path';
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
+  server: {
+    port: 3000,
+  },
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
       '@tucu-ui': path.resolve(__dirname, '../../ui/tucu-ui/src/index.ts'),
     },
   },
-  //     (!) Some chunks are larger than 500 kB after minification. Consider:
-  // - Using dynamic import() to code-split the application
-  // - Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
-  // - Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
   build: {
     sourcemap: true,
+    outDir: `../../dist/apps/test-lib`,
     reportCompressedSize: true,
     chunkSizeWarningLimit: 10000,
     commonjsOptions: {
