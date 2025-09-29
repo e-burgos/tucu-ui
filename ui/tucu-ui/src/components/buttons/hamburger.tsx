@@ -5,7 +5,13 @@ export interface HamburgerProps extends ButtonProps {
 
 export function Hamburger({ isOpen, ...props }: HamburgerProps) {
   return (
-    <Button aria-label="Hamburger" shape="circle" {...props}>
+    <Button
+      aria-label="Menu"
+      aria-describedby="Menu"
+      title="Menu"
+      shape="circle"
+      {...props}
+    >
       <svg
         className="sm:w-auo h-auto w-6"
         width="30"

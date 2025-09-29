@@ -7,7 +7,7 @@ export function SettingsButton() {
   const { setIsSettingsOpen } = useTheme();
   const { preset, direction, showSettings } = useTheme();
   useDirection(direction ? direction : 'ltr');
-  useThemeColor(preset ? preset.value : defaultColorPreset.value || '#009e60');
+  useThemeColor(preset ? preset.value : defaultColorPreset.value);
 
   if (!showSettings) return null;
 
@@ -16,6 +16,8 @@ export function SettingsButton() {
       <button
         className="flex h-12 w-12 items-center justify-center bg-white/80 text-gray-600 shadow-large backdrop-blur-sm ltr:rounded-l-lg rtl:rounded-r-lg dark:bg-brand/80 dark:text-gray-200/70"
         onClick={() => setIsSettingsOpen(true)}
+        aria-label="Settings"
+        aria-describedby="Settings"
         title="Settings"
       >
         <svg

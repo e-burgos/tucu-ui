@@ -429,7 +429,7 @@ export function HooksUtilities() {
 
               <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-xl border dark:border-gray-700 overflow-x-auto">
                 <CodeBlock
-                  language="typescript"
+                  language="tsx"
                   noExpand={true}
                   code={`
 const breakpoint = useBreakpoint();
@@ -832,7 +832,7 @@ const { isMobile } = useIsMobile();
                     </Typography>
                     <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-xl border dark:border-gray-700 overflow-x-auto">
                       <CodeBlock
-                        language="typescript"
+                        language="tsx"
                         noExpand={true}
                         code={`const breakpoint = useBreakpoint();
 // Returns: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl'
@@ -857,7 +857,7 @@ const { isMobile } = useIsMobile();
                     </Typography>
                     <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-xl border dark:border-gray-700 overflow-x-auto">
                       <CodeBlock
-                        language="typescript"
+                        language="tsx"
                         noExpand={true}
                         code={`const { isMobile } = useIsMobile();
 // Returns: { isMobile: boolean }
@@ -885,7 +885,7 @@ return (
                     </Typography>
                     <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-xl border dark:border-gray-700 overflow-x-auto">
                       <CodeBlock
-                        language="typescript"
+                        language="tsx"
                         noExpand={true}
                         code={`
 const [ref, { width, height }] = useElementSize();
@@ -911,7 +911,7 @@ return (
                     </Typography>
                     <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-xl border dark:border-gray-700 overflow-x-auto">
                       <CodeBlock
-                        language="typescript"
+                        language="tsx"
                         noExpand={true}
                         code={`const [ref, bounds] = useMeasure();
 // bounds: { x, y, width, height, top, right, bottom, left }
@@ -956,7 +956,7 @@ return (
                     </Typography>
                     <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-xl border dark:border-gray-700 overflow-x-auto">
                       <CodeBlock
-                        language="typescript"
+                        language="tsx"
                         noExpand={true}
                         code={`const ref = useRef(null);
 useClickAway(ref, () => {
@@ -987,7 +987,7 @@ return (
                     </Typography>
                     <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-xl border dark:border-gray-700 overflow-x-auto">
                       <CodeBlock
-                        language="typescript"
+                        language="tsx"
                         noExpand={true}
                         code={`const [copiedText, copyToClipboard] = useCopyToClipboard();
 
@@ -1034,7 +1034,7 @@ return (
                     </Typography>
                     <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-xl border dark:border-gray-700 overflow-x-auto">
                       <CodeBlock
-                        language="typescript"
+                        language="tsx"
                         noExpand={true}
                         code={`const { addToast, dismissToast, toasts } = useToastStore();
 
@@ -1065,7 +1065,7 @@ const showToast = () => {
                     </Typography>
                     <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-xl border dark:border-gray-700 overflow-x-auto">
                       <CodeBlock
-                        language="typescript"
+                        language="tsx"
                         noExpand={true}
                         code={`const { isGridCompact, setIsGridCompact } = useGridSwitcher();
 

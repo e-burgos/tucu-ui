@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 import {
   defaultColorPreset,
   defaultDirection,
@@ -13,7 +14,6 @@ import {
   ISettingAction,
   defaultSettingActions,
 } from './config';
-import { storage } from '../libs/local-storage';
 
 export interface ITheme {
   preset: IThemeItem;
@@ -34,53 +34,39 @@ export interface ITheme {
   setSettingActions: (settingActions: ISettingAction) => void;
 }
 
-export const useTheme = create<ITheme>((set) => {
-  const settings: ITheme = storage.get('settings') || null;
-  return {
-    preset: settings?.preset || defaultColorPreset,
-    direction: settings?.direction || defaultDirection,
-    layout: settings?.layout || defaultLayout,
-    mode: settings?.mode || defaultMode,
-    logo: settings?.logo || defaultLogo,
-    showSettings: settings?.showSettings || false,
-    settingActions: settings?.settingActions || defaultSettingActions,
-    isSettingsOpen: false,
-    setPreset: (preset: IThemeItem) =>
-      set((state) => {
-        storage.set('settings', { ...state, preset });
-        return { preset };
+export const useTheme = create<ITheme>()(
+  persist(
+    (set) => ({
+      preset: defaultColorPreset,
+      direction: defaultDirection,
+      layout: defaultLayout,
+      mode: defaultMode,
+      logo: defaultLogo,
+      settingActions: defaultSettingActions,
+      showSettings: false,
+      isSettingsOpen: false,
+      setPreset: (preset: IThemeItem) => set({ preset }),
+      setDirection: (direction: DIRECTION) => set({ direction }),
+      setLayout: (layout: LAYOUT_OPTIONS) => set({ layout }),
+      setMode: (mode: MODE) => set({ mode }),
+      setLogo: (logo: LogoType) => set({ logo }),
+      setShowSettings: (showSettings: boolean) => set({ showSettings }),
+      setSettingActions: (settingActions: ISettingAction) =>
+        set({ settingActions }),
+      setIsSettingsOpen: (isSettingsOpen: boolean) => set({ isSettingsOpen }),
+    }),
+    {
+      name: 'theme-storage', // unique name for localStorage key
+      partialize: (state) => ({
+        // Only persist these properties, exclude isSettingsOpen as it's temporary UI state
+        preset: state.preset,
+        direction: state.direction,
+        layout: state.layout,
+        mode: state.mode,
+        logo: state.logo,
+        showSettings: state.showSettings,
+        settingActions: state.settingActions,
       }),
-    setDirection: (direction: DIRECTION) =>
-      set((state) => {
-        storage.set('settings', { ...state, direction });
-        return { direction };
-      }),
-    setLayout: (layout: LAYOUT_OPTIONS) =>
-      set((state) => {
-        storage.set('settings', { ...state, layout });
-        return { layout };
-      }),
-    setMode: (mode: MODE) =>
-      set((state) => {
-        storage.set('settings', { ...state, mode });
-        return { mode };
-      }),
-    setLogo: (logo: LogoType) =>
-      set((state) => {
-        storage.set('settings', { ...state, logo });
-        return { logo };
-      }),
-    setShowSettings: (showSettings: boolean) =>
-      set((state) => {
-        storage.set('settings', { ...state, showSettings });
-        return { showSettings };
-      }),
-    setSettingActions: (settingActions: ISettingAction) =>
-      set((state) => {
-        storage.set('settings', { ...state, settingActions });
-        return { settingActions };
-      }),
-    setIsSettingsOpen: (isSettingsOpen: boolean) =>
-      set((state) => ({ ...state, isSettingsOpen })),
-  };
-});
+    }
+  )
+);

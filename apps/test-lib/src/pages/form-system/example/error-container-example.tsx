@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography, useFormContext } from '@tucu-ui';
+import { CodeBlock, useFormContext } from '@tucu-ui';
 import { type FormValues } from './validations';
 
 export const ErrorContainerExample: React.FC = () => {
@@ -12,9 +12,7 @@ export const ErrorContainerExample: React.FC = () => {
         Error List
       </h3>
       {errors && Object?.keys(errors).length > 0 ? (
-        <Typography tag="code" className="text-sm">
-          {JSON.stringify(errors, null, 2)}
-        </Typography>
+        <CodeBlock code={JSON.stringify(errors, null, 2)} language="json" />
       ) : (
         <p className="text-gray-500 dark:text-gray-400">
           No errors in the form

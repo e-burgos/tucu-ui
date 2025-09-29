@@ -78,8 +78,10 @@ export function MenuItem({
             className={cn(
               'relative flex h-12 cursor-pointer items-center justify-between whitespace-nowrap rounded-lg px-4 text-sm transition-all',
               hide && 'hidden',
-              isParentActive || isChildrenActive
-                ? 'text-white'
+              isParentActive ||
+                isChildrenActive ||
+                href?.toString()?.toLowerCase() === pathname?.toLowerCase()
+                ? 'text-white bg-brand'
                 : 'text-gray-500 hover:text-brand dark:hover:text-white'
             )}
             href={href}

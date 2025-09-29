@@ -32,6 +32,10 @@ export function Scrollbar({
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
   const [scrollStart, setScrollStart] = useState({ x: 0, y: 0 });
 
+  // Touch event states
+  const [isTouchDragging, setIsTouchDragging] = useState(false);
+  const [lastTouch, setLastTouch] = useState({ x: 0, y: 0 });
+
   const scrollTimeout = useRef<NodeJS.Timeout>();
 
   const updateScrollbars = useCallback(() => {
@@ -92,13 +96,14 @@ export function Scrollbar({
       clearTimeout(scrollTimeout.current);
       scrollTimeout.current = setTimeout(() => {
         setIsScrolling(false);
-        if (!isDragging) {
+        if (!isDragging && !isTouchDragging) {
           setShowScrollbar(false);
         }
       }, 1000);
     }
-  }, [autoHide, isDragging, updateScrollbars]);
+  }, [autoHide, isDragging, isTouchDragging, updateScrollbars]);
 
+  // Mouse event handlers
   const handleMouseDown = useCallback((e: React.MouseEvent) => {
     e.preventDefault();
     setIsDragging(true);
@@ -144,6 +149,75 @@ export function Scrollbar({
     }
   }, [autoHide]);
 
+  // Touch event handlers
+  const handleTouchStart = useCallback(
+    (e: React.TouchEvent) => {
+      if (e.touches.length === 1) {
+        const touch = e.touches[0];
+        setIsTouchDragging(true);
+        setLastTouch({ x: touch.clientX, y: touch.clientY });
+
+        // Show scrollbar on touch
+        if (autoHide === 'scroll') {
+          setShowScrollbar(true);
+        }
+      }
+    },
+    [autoHide]
+  );
+
+  const handleTouchMove = useCallback(
+    (e: TouchEvent) => {
+      if (!isTouchDragging || !containerRef.current || !contentRef.current)
+        return;
+
+      e.preventDefault(); // Prevent default scrolling behavior
+
+      if (e.touches.length === 1) {
+        const touch = e.touches[0];
+        const deltaX = touch.clientX - lastTouch.x;
+        const deltaY = touch.clientY - lastTouch.y;
+
+        const container = containerRef.current;
+        const content = contentRef.current;
+
+        if (direction === 'vertical' || direction === 'both') {
+          const scrollHeight = content.scrollHeight;
+          const clientHeight = container.clientHeight;
+          const maxScroll = scrollHeight - clientHeight;
+          if (maxScroll > 0) {
+            container.scrollTop = Math.max(
+              0,
+              Math.min(maxScroll, container.scrollTop - deltaY)
+            );
+          }
+        }
+
+        if (direction === 'horizontal' || direction === 'both') {
+          const scrollWidth = content.scrollWidth;
+          const clientWidth = container.clientWidth;
+          const maxScroll = scrollWidth - clientWidth;
+          if (maxScroll > 0) {
+            container.scrollLeft = Math.max(
+              0,
+              Math.min(maxScroll, container.scrollLeft - deltaX)
+            );
+          }
+        }
+
+        setLastTouch({ x: touch.clientX, y: touch.clientY });
+      }
+    },
+    [isTouchDragging, lastTouch, direction]
+  );
+
+  const handleTouchEnd = useCallback(() => {
+    setIsTouchDragging(false);
+    if (autoHide === 'scroll') {
+      setTimeout(() => setShowScrollbar(false), 1000);
+    }
+  }, [autoHide]);
+
   const handleMouseEnter = useCallback(() => {
     if (autoHide === 'move' || autoHide === 'leave') {
       setShowScrollbar(true);
@@ -151,10 +225,10 @@ export function Scrollbar({
   }, [autoHide]);
 
   const handleMouseLeave = useCallback(() => {
-    if (autoHide === 'leave' && !isDragging) {
+    if (autoHide === 'leave' && !isDragging && !isTouchDragging) {
       setShowScrollbar(false);
     }
-  }, [autoHide, isDragging]);
+  }, [autoHide, isDragging, isTouchDragging]);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -166,6 +240,8 @@ export function Scrollbar({
     container.addEventListener('scroll', handleScroll);
     document.addEventListener('mousemove', handleMouseMove);
     document.addEventListener('mouseup', handleMouseUp);
+    document.addEventListener('touchmove', handleTouchMove, { passive: false });
+    document.addEventListener('touchend', handleTouchEnd);
 
     updateScrollbars();
 
@@ -174,9 +250,18 @@ export function Scrollbar({
       container.removeEventListener('scroll', handleScroll);
       document.removeEventListener('mousemove', handleMouseMove);
       document.removeEventListener('mouseup', handleMouseUp);
+      document.removeEventListener('touchmove', handleTouchMove);
+      document.removeEventListener('touchend', handleTouchEnd);
       clearTimeout(scrollTimeout.current);
     };
-  }, [handleScroll, handleMouseMove, handleMouseUp, updateScrollbars]);
+  }, [
+    handleScroll,
+    handleMouseMove,
+    handleMouseUp,
+    handleTouchMove,
+    handleTouchEnd,
+    updateScrollbars,
+  ]);
 
   const scrollbarVisible = showScrollbar || autoHide === 'never';
 
@@ -191,8 +276,18 @@ export function Scrollbar({
         ref={containerRef}
         className={cn(
           'h-full w-full overflow-auto scrollbar-hide',
-          'transition-all duration-200'
+          'transition-all duration-200',
+          // Mobile-specific classes
+          'mobile-scrollbar',
+          'touch-pan-xy'
         )}
+        onTouchStart={handleTouchStart}
+        style={{
+          // Enable momentum scrolling on iOS
+          WebkitOverflowScrolling: 'touch',
+          // Prevent default touch behaviors that might interfere
+          touchAction: 'pan-y pan-x',
+        }}
       >
         <div
           ref={contentRef}
@@ -222,11 +317,15 @@ export function Scrollbar({
             className={cn(
               'absolute right-0 top-0 w-full rounded-sm cursor-pointer transition-all duration-200',
               'bg-brand/50 hover:bg-brand dark:hover:bg-brand',
-              isDragging ? 'bg-brand/50' : '',
-              isScrolling ? 'bg-brand/50' : ''
+              isDragging || isTouchDragging ? 'bg-brand/50' : '',
+              isScrolling ? 'bg-brand/50' : '',
+              // Mobile-specific classes
+              'mobile-touch-target',
+              'mobile-active'
             )}
             style={scrollbarStyle?.thumb}
-            onMouseDown={(e) => handleMouseDown(e)}
+            onMouseDown={handleMouseDown}
+            onTouchStart={handleTouchStart}
           />
         </div>
       )}
@@ -251,11 +350,15 @@ export function Scrollbar({
             className={cn(
               'absolute bottom-0 left-0 h-full rounded-sm cursor-pointer transition-all duration-200',
               'bg-brand/50 hover:bg-brand dark:hover:bg-brand',
-              isDragging ? 'bg-brand/50' : '',
-              isScrolling ? 'bg-brand/50' : ''
+              isDragging || isTouchDragging ? 'bg-brand/50' : '',
+              isScrolling ? 'bg-brand/50' : '',
+              // Mobile-specific classes
+              'mobile-touch-target',
+              'mobile-active'
             )}
             style={scrollbarStyle?.thumb}
-            onMouseDown={(e) => handleMouseDown(e)}
+            onMouseDown={handleMouseDown}
+            onTouchStart={handleTouchStart}
           />
         </div>
       )}

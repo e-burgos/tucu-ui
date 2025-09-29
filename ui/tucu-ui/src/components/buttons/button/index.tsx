@@ -4,7 +4,6 @@ import React, {
   useRef,
   useState,
   useId,
-  TouchEventHandler,
 } from 'react';
 import cn from 'classnames';
 import ButtonDrip from './button-drip';
@@ -147,7 +146,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     return (
       <div
         className={cn(
-          'relative backdrop-blur-sm shadow-xl transition-all duration-300 transform',
+          'relative backdrop-blur-xl transition-all duration-300 transform',
           fullWidth && 'w-full'
         )}
       >
@@ -161,9 +160,6 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           </div>
         )}
         <button
-          onTouchStart={
-            clickHandler as unknown as TouchEventHandler<HTMLButtonElement>
-          }
           onMouseEnter={() => setHover(true)}
           onMouseLeave={() => setHover(false)}
           ref={buttonRef}

@@ -30,6 +30,7 @@ function App() {
         secondName: 'UI',
       }}
       //layout="minimal"
+      //brandColor="Beige"
       menuItems={menuItems}
     />
   );

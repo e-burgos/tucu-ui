@@ -49,9 +49,9 @@ export function Logo({
   return (
     isMounted && (
       <AnchorLink to={path || '/'}>
-        <span className={cn('relative flex', className)}>
+        <span className={cn('relative flex w-full', className)}>
           {isDarkMode && (
-            <div className="flex items-end text-base font-medium text-gray-900 dark:text-white sm:text-xl lg:flex-wrap 2xl:flex-nowrap">
+            <div className="flex items-end text-base font-medium text-gray-900 dark:text-white sm:text-xl flex-nowrap">
               <span className={cn('font-semibold', textSize)}>
                 {handleName(name) || 'Site Name'}
               </span>

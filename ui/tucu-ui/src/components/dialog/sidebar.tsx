@@ -4,6 +4,7 @@ import Logo, { LogoPropTypes } from '../logos/logo';
 import Button from '../buttons';
 import { X } from 'lucide-react';
 import Scrollbar from '../common/scrollbar';
+import useIsMobile from '../../hooks/use-is-mobile';
 export interface SidebarProps {
   className?: string;
   children: React.ReactNode;
@@ -21,10 +22,11 @@ export function Sidebar({
   logo,
   onClose,
 }: SidebarProps) {
+  const { isMobile } = useIsMobile();
   return (
     <aside
       className={cn(
-        'top-0 z-40 h-full w-full max-w-full border-dashed border-gray-200 bg-body dark:border-gray-700 dark:bg-dark xs:w-80 2xl:w-96',
+        'top-0 z-40 h-full w-full max-w-full border-dashed border-gray-200 bg-body dark:border-gray-700 dark:bg-dark xs:w-80 lg:w-96 xl:w-96 2xl:w-96',
         className
       )}
     >
@@ -40,7 +42,9 @@ export function Sidebar({
           shape="circle"
           variant="ghost"
           size="mini"
-          onClick={onClose}
+          onClick={isMobile ? undefined : onClose}
+          onTouchStart={onClose}
+          onTouchEnd={onClose}
         >
           <X className="h-4 w-4" />
         </Button>

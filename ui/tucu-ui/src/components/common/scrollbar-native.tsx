@@ -7,8 +7,8 @@ export interface ScrollbarNativeProps {
   autoHide?: 'never' | 'scroll' | 'leave' | 'move';
   children: React.ReactNode;
   // Legacy prop compatibility
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   options?: Record<string, any>;
-  defer?: boolean;
 }
 
 /**
@@ -21,7 +21,6 @@ export function ScrollbarNative({
   className,
   autoHide = 'scroll',
   children,
-  defer, // Ignored for compatibility
   ...props
 }: ScrollbarNativeProps) {
   // Extract autoHide from legacy options if provided
@@ -33,6 +32,14 @@ export function ScrollbarNative({
       className={className}
       autoHide={finalAutoHide}
       direction="vertical"
+      scrollbarStyle={{
+        track: {
+          backgroundColor: 'transparent',
+        },
+        thumb: {
+          backgroundColor: 'transparent',
+        },
+      }}
       {...props}
     >
       {children}

@@ -27,7 +27,13 @@ function SwitcherButton({
   children,
 }: React.PropsWithChildren<SwitcherButtonProps>) {
   return (
-    <div onClick={onClick} className="group cursor-pointer">
+    <button
+      onClick={onClick}
+      onTouchStart={onClick}
+      aria-label={title}
+      aria-describedby={title}
+      className="group cursor-pointer outline-hidden focus:outline-hidden focus:outline-none w-full"
+    >
       <span
         className={cn(
           'flex h-[70px] items-center justify-center rounded-lg text-center text-sm font-medium uppercase tracking-wide transition-all',
@@ -48,7 +54,7 @@ function SwitcherButton({
       >
         {title}
       </span>
-    </div>
+    </button>
   );
 }
 
@@ -212,7 +218,6 @@ export function SettingsDrawer() {
       isOpen={isSettingsOpen}
       setIsOpen={setIsSettingsOpen}
       title="Settings"
-      className="max-sm:w-full !w-[380px]"
     >
       <div>
         {!settingActions?.disabledMode && <ThemeSwitcher />}

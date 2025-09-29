@@ -47,6 +47,7 @@ export function ThemeProvider({
   const {
     mode,
     layout,
+    preset,
     setLogo,
     setPreset,
     setShowSettings,
@@ -69,11 +70,10 @@ export function ThemeProvider({
       const selectedColor = ColorPreset?.find(
         (item: IThemeItem) => item.label === brandColor
       );
-      if (selectedColor) {
-        return selectedColor;
-      } else return defaultColorPreset;
-    } else return defaultColorPreset;
-  }, [brandColor]);
+      if (selectedColor) return selectedColor;
+    }
+    return preset;
+  }, [brandColor, preset]);
 
   const selectedColor = handleSelectedColor();
 

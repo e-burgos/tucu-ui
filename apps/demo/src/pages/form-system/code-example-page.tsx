@@ -109,7 +109,7 @@ export default function CodeExamplePage() {
                   <Typography tag="h4" className="font-semibold text-lg mt-6">
                     Code Example
                   </Typography>
-                  <CodeBlock code={formExampleCode} language="typescript" />
+                  <CodeBlock code={formExampleCode} language="tsx" />
 
                   <Typography tag="h4" className="font-semibold text-lg mt-6">
                     Live Demo
@@ -193,7 +193,7 @@ export default function CodeExamplePage() {
                   <Typography tag="h4" className="font-semibold text-lg mt-6">
                     Code Example
                   </Typography>
-                  <CodeBlock code={errorContainerCode} language="typescript" />
+                  <CodeBlock code={errorContainerCode} language="tsx" />
 
                   <Typography tag="h4" className="font-semibold text-lg mt-6">
                     Live Demo
@@ -278,7 +278,7 @@ export default function CodeExamplePage() {
                   <Typography tag="h4" className="font-semibold text-lg mt-6">
                     Code Example
                   </Typography>
-                  <CodeBlock code={formMethodsCode} language="typescript" />
+                  <CodeBlock code={formMethodsCode} language="tsx" />
 
                   <Typography tag="h4" className="font-semibold text-lg mt-6">
                     Live Demo
@@ -360,7 +360,7 @@ export default function CodeExamplePage() {
                   <Typography tag="h4" className="font-semibold text-lg mt-6">
                     Code Example
                   </Typography>
-                  <CodeBlock code={constantsCode} language="typescript" />
+                  <CodeBlock code={constantsCode} language="tsx" />
                 </div>
               </div>
             </CardTitle>
@@ -437,7 +437,7 @@ export default function CodeExamplePage() {
                   <Typography tag="h4" className="font-semibold text-lg mt-6">
                     Code Example
                   </Typography>
-                  <CodeBlock code={validationsCode} language="typescript" />
+                  <CodeBlock code={validationsCode} language="tsx" />
                 </div>
               </div>
             </CardTitle>

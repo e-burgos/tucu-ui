@@ -1,6 +1,7 @@
 import React from 'react';
 import { useFormContext } from '../hook-form';
 import { FormValues } from './validations';
+import { CodeBlock } from '../../../utils';
 
 export const ErrorContainerExample: React.FC = () => {
   const { formState } = useFormContext<FormValues>();
@@ -12,9 +13,7 @@ export const ErrorContainerExample: React.FC = () => {
         Error List
       </h3>
       {Object.keys(errors).length > 0 ? (
-        <pre className="bg-gray-100 dark:bg-gray-800 p-4 rounded-md overflow-auto text-sm">
-          {JSON.stringify(errors, null, 2)}
-        </pre>
+        <CodeBlock code={JSON.stringify(errors, null, 2)} language="json" />
       ) : (
         <p className="text-gray-500 dark:text-gray-400">
           No errors in the form
