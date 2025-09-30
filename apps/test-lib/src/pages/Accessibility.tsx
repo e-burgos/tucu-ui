@@ -578,7 +578,11 @@ test('Input has no accessibility violations', async () => {
                       Features: Focus trapping, keyboard navigation, proper ARIA
                       roles
                     </Typography>
-                    <CodeBlock code={modalExampleCode} language="tsx" />
+                    <CodeBlock
+                      noExpand
+                      code={modalExampleCode}
+                      language="tsx"
+                    />
                   </div>
                 </div>
 
@@ -664,7 +668,7 @@ test('Input has no accessibility violations', async () => {
                   <Typography tag="h4" className="font-semibold">
                     Automated Testing Example
                   </Typography>
-                  <CodeBlock code={testingExampleCode} language="javascript" />
+                  <CodeBlock code={testingExampleCode} language="js" />
                 </div>
               </div>
             </div>

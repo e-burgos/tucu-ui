@@ -34,7 +34,7 @@ export function MenuItem({
   icon,
   href,
   dropdownItems,
-  isActive,
+  isActive: isActiveProps,
   hide,
   onClick,
 }: MenuItemProps) {
@@ -46,9 +46,12 @@ export function MenuItem({
   const [isOpen, setIsOpen] = useState(false);
   const [ref, { height }] = useMeasure<HTMLUListElement>();
 
-  const isParentActive = href === pathname;
+  const isParentActive =
+    href?.toString()?.toLowerCase() === pathname?.toLowerCase();
   const isChildrenActive =
     dropdownItems && dropdownItems.some((item) => pathname.includes(item.href));
+
+  const isActive = isParentActive || isChildrenActive || isActiveProps;
 
   useEffect(() => {
     if (isChildrenActive) setIsOpen(true);
@@ -63,7 +66,52 @@ export function MenuItem({
 
   return (
     <div className="mb-2 min-h-[48px] list-none last:mb-0">
-      {dropdownItems?.length && !hide ? (
+      {/* Items without dropdown */}
+      {!(dropdownItems?.length && !hide) && (
+        <ActiveLink
+          onTouchStart={() => {
+            navigate(href);
+            onClick && onClick();
+          }}
+          onClick={() => {
+            onClick && onClick();
+          }}
+          href={href}
+          to={href}
+          className={cn(
+            'relative flex h-12 items-center whitespace-nowrap rounded-lg px-4 text-sm text-gray-500 transition-all hover:text-brand dark:hover:text-white',
+            {
+              'bg-brand': isActive,
+            }
+          )}
+          activeClassName="text-white!"
+        >
+          <span
+            className={cn(
+              'relative z-1 w-6 h-6 ml-[-4px] duration-100 before:absolute before:-right-3 before:top-[50%] before:h-1 before:w-1 before:-translate-y-2/4 before:rounded-full before:bg-none ltr:mr-3 rtl:ml-3',
+              {
+                'text-white': isActive,
+                'text-gray-500': !isActive && !name,
+              }
+            )}
+          >
+            {icon}
+          </span>
+          <span className="relative z-1">{name}</span>
+          {href === pathname && (
+            <motion.span
+              className={cn(
+                'absolute bottom-0 left-0 right-0 h-full w-full rounded-lg bg-brand opacity-0 shadow-large transition-opacity'
+              )}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
+            />
+          )}
+        </ActiveLink>
+      )}
+      {/* Items with dropdown */}
+      {dropdownItems?.length && !hide && (
         <div
           onMouseEnter={() => {
             setIsOpen(true);
@@ -74,15 +122,12 @@ export function MenuItem({
           onTouchStart={() => setIsOpen(!isOpen)}
         >
           <ActiveLink
-            activeClassName="text-white!"
+            activeClassName="bg-brand text-white"
             className={cn(
               'relative flex h-12 cursor-pointer items-center justify-between whitespace-nowrap rounded-lg px-4 text-sm transition-all',
+              'text-gray-500 hover:text-brand dark:hover:text-white',
               hide && 'hidden',
-              isParentActive ||
-                isChildrenActive ||
-                href?.toString()?.toLowerCase() === pathname?.toLowerCase()
-                ? 'text-white bg-brand'
-                : 'text-gray-500 hover:text-brand dark:hover:text-white'
+              isActive && '!text-white !bg-brand'
             )}
             href={href}
             to={href}
@@ -170,48 +215,6 @@ export function MenuItem({
             </ul>
           </div>
         </div>
-      ) : (
-        <ActiveLink
-          onTouchStart={() => {
-            navigate(href);
-            onClick && onClick();
-          }}
-          onClick={() => {
-            onClick && onClick();
-          }}
-          href={href}
-          to={href}
-          className={cn(
-            'relative flex h-12 items-center whitespace-nowrap rounded-lg px-4 text-sm text-gray-500 transition-all hover:text-brand dark:hover:text-white',
-            {
-              'bg-brand': isActive,
-            }
-          )}
-          activeClassName="text-white!"
-        >
-          <span
-            className={cn(
-              'relative z-1 w-6 h-6 ml-[-4px] duration-100 before:absolute before:-right-3 before:top-[50%] before:h-1 before:w-1 before:-translate-y-2/4 before:rounded-full before:bg-none ltr:mr-3 rtl:ml-3',
-              {
-                'text-white': isActive,
-                'text-gray-500': !isActive && !name,
-              }
-            )}
-          >
-            {icon}
-          </span>
-          <span className="relative z-1">{name}</span>
-          {href === pathname && (
-            <motion.span
-              className={cn(
-                'absolute bottom-0 left-0 right-0 h-full w-full rounded-lg bg-brand opacity-0 shadow-large transition-opacity'
-              )}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5 }}
-            />
-          )}
-        </ActiveLink>
       )}
     </div>
   );

@@ -98,7 +98,7 @@ export const CodeBlock = ({
           <div
             className={cn(
               'p-2 text-xs font-mono bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 hover:pointer dark:hover:bg-gray-600 rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-brand focus:ring-offset-2 dark:focus:ring-offset-gray-800',
-              isMobile && 'w-11 max-w-11 h-8'
+              isMobile && 'w-max max-w-11 h-8'
             )}
           >
             {language}

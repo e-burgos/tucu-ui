@@ -29,7 +29,6 @@ function App() {
         name: 'Tucu',
         secondName: 'UI',
       }}
-      //layout="minimal"
       menuItems={menuItems}
     />
   );

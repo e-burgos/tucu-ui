@@ -20,127 +20,12 @@ function CheckmarkIcon({ className }: { className?: string }) {
   );
 }
 
-const inputClasses = {
-  base: 'peer cursor-pointer transition duration-200 ease-in-out checked:ring-0 focus:ring-0 focus:outline-hidden',
-  size: {
-    sm: 'h-4 w-4',
-    DEFAULT: 'h-5 w-5',
-    lg: 'h-6 w-6',
-    xl: 'h-7 w-7',
-  },
-  rounded: {
-    none: 'rounded-none',
-    sm: 'rounded-sm',
-    DEFAULT: 'rounded',
-    lg: 'rounded-md',
-    xl: 'rounded-lg',
-  },
-  variant: {
-    outline: {
-      base: 'border-2 border-gray-300 bg-transparent checked:!border-gray-900 hover:enabled:border-gray-900 focus:enabled:border-gray-900 checked:enabled:bg-gray-900 disabled:!bg-gray-100 disabled:!border-gray-300 dark:border-gray-600 dark:checked:!border-gray-400 dark:hover:enabled:border-gray-400 dark:focus:enabled:border-gray-400 dark:checked:enabled:bg-gray-400 dark:disabled:!bg-gray-700 dark:disabled:!border-gray-600',
-      color: {
-        DEFAULT:
-          'hover:enabled:border-brand focus:enabled:border-brand checked:enabled:!border-brand checked:enabled:!bg-brand focus:ring-brand/30',
-        primary:
-          'hover:enabled:border-brand focus:enabled:border-brand checked:enabled:!border-brand checked:enabled:!bg-brand focus:ring-brand/30',
-        secondary:
-          'hover:enabled:border-gray-900 focus:enabled:border-gray-900 checked:enabled:!border-gray-900 checked:enabled:!bg-gray-900 focus:ring-gray-900/30',
-        danger:
-          'hover:enabled:border-red-500 focus:enabled:border-red-500 checked:enabled:!border-red-500 checked:enabled:!bg-red-500 focus:ring-red-500/30',
-        info: 'hover:enabled:border-blue-500 focus:enabled:border-blue-500 checked:enabled:!border-blue-500 checked:enabled:!bg-blue-500 focus:ring-blue-500/30',
-        success:
-          'hover:enabled:border-green-500 focus:enabled:border-green-500 checked:enabled:!border-green-500 checked:enabled:!bg-green-500 focus:ring-green-500/30',
-        warning:
-          'hover:enabled:border-orange-500 focus:enabled:border-orange-500 checked:enabled:!border-orange-500 checked:enabled:!bg-orange-500 focus:ring-orange-500/30',
-      },
-    },
-    flat: {
-      base: 'border-0 ring-0 checked:ring-0 focus:ring-0',
-      color: {
-        DEFAULT:
-          'bg-brand/70 hover:enabled:bg-brand/90 focus:ring-brand/30 checked:!bg-brand',
-        primary:
-          'bg-brand/70 hover:enabled:bg-brand/90 focus:ring-brand/30 checked:!bg-brand',
-        secondary:
-          'bg-secondary-lighter/70 hover:enabled:bg-secondary-lighter/90 focus:ring-secondary/30 checked:!bg-gray-900',
-        danger:
-          'bg-red-lighter/70 hover:enabled:bg-red-lighter/90 focus:ring-red/30 checked:!bg-red-500',
-        info: 'bg-blue-lighter/70 hover:enabled:bg-blue-lighter/90 focus:ring-blue/30 checked:!bg-blue-500',
-        success:
-          'bg-green-lighter/70 hover:enabled:bg-green-lighter/90 focus:ring-green/30 checked:!bg-green-500',
-        warning:
-          'bg-orange-lighter/80 hover:enabled:bg-orange-lighter/90 focus:ring-orange/30 checked:!bg-orange-500',
-      },
-    },
-    active: {
-      base: 'border',
-      color: {
-        DEFAULT:
-          'border-brand bg-brand checked:enabled:border-brand focus:ring-brand/30',
-        primary:
-          'border-brand bg-brand checked:enabled:border-brand focus:ring-brand/30',
-        secondary:
-          'border-gray-900 bg-gray-500 checked:enabled:border-gray-900 focus:ring-gray-900/30',
-        danger:
-          'border-red-500 bg-red-500 checked:enabled:border-red-500 focus:ring-red-500/30',
-        info: 'border-blue-500 bg-blue-500 checked:enabled:border-blue-500 focus:ring-blue-500/30',
-        success:
-          'border-green-500 bg-green-500 checked:enabled:border-green-500 focus:ring-green-500/30',
-        warning:
-          'border-orange-500 bg-orange-500 checked:enabled:border-orange-500 focus:ring-orange-500/30',
-      },
-    },
-  },
-};
-
-const iconClasses = {
-  base: 'peer-checked:opacity-100 absolute opacity-0 text-white top-0 left-0',
-  color: {
-    DEFAULT: 'text-brand',
-    primary: 'text-brand',
-    secondary: 'text-gray-900',
-    danger: 'text-red-500',
-    info: 'text-blue-500',
-    success: 'text-green-500',
-    warning: 'text-orange-500',
-  },
-};
-
-const labelClasses = {
-  size: {
-    text: {
-      sm: 'text-xs',
-      DEFAULT: 'text-sm',
-      lg: 'text-base',
-      xl: 'text-lg',
-    },
-    margin: {
-      start: {
-        sm: 'mr-1 rtl:ml-1',
-        DEFAULT: 'mr-1.5 rtl:ml-1.5',
-        lg: 'mr-2 rtl:ml-2',
-        xl: 'mr-2 rtl:ml-2',
-      },
-      end: {
-        sm: 'ml-1 rtl:mr-1',
-        DEFAULT: 'ml-1.5 rtl:mr-1.5',
-        lg: 'ml-2 rtl:mr-2',
-        xl: 'ml-2 rtl:mr-2',
-      },
-    },
-  },
-};
-
 export interface CheckboxProps
   extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> {
-  /** The variants of the component are: */
-  variant?: keyof typeof inputClasses.variant;
-  /** The size of the component. `"sm"` is equivalent to the dense input styling. */
-  size?: keyof typeof inputClasses.size;
+  /** The size of the component */
+  size?: 'sm' | 'md' | 'lg';
   /** Change input color */
-  color?: keyof (typeof inputClasses.variant)['outline']['color'];
-  /** The rounded variants are: */
-  rounded?: keyof typeof inputClasses.rounded;
+  color?: 'primary' | 'secondary' | 'danger' | 'info' | 'success' | 'warning';
   /** Available directions of the label are: */
   labelPlacement?: 'start' | 'end';
   /** Whether the input is disabled */
@@ -170,18 +55,14 @@ export interface CheckboxProps
 }
 
 /**
- * A basic widget for getting the user input of checkbox. Here is the API documentation of the Checkbox component.
- * And the rest of the props of Checkbox are the same as the original html input field.
- * You can use props like `value`, `disabled`, `onChange`, `onFocus`, `onBlur` etc.
+ * A simplified checkbox component that uses a single color-based styling approach.
+ * The checkbox changes appearance based on its state (unchecked, checked, hover, focus, disabled).
  */
-
 export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
   (
     {
-      variant = 'outline',
-      size = 'DEFAULT',
-      rounded = 'DEFAULT',
-      color = 'DEFAULT',
+      size = 'md',
+      color = 'primary',
       labelPlacement = 'end',
       label,
       disabled,
@@ -212,6 +93,84 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
         .filter(Boolean)
         .join(' ') || undefined;
 
+    // Size classes
+    const sizeClasses = {
+      sm: 'h-4 w-4',
+      md: 'h-5 w-5',
+      lg: 'h-6 w-6',
+    };
+
+    // Color classes that change based on state
+    const getColorClasses = (color: string) => {
+      const colorMap = {
+        primary: {
+          base: 'border border-brand rounded bg-transparent',
+          checked: 'checked:border-brand checked:bg-brand',
+          hover: 'hover:enabled:border-brand',
+          focus: 'focus:enabled:border-brand focus:ring-brand/30',
+          disabled: 'disabled:bg-gray-100 disabled:border-gray-300',
+          icon: 'bg-brand',
+        },
+        secondary: {
+          base: 'border border-gray-500 bg-transparent',
+          checked: 'checked:border-gray-900 checked:bg-gray-900',
+          hover: 'hover:enabled:border-gray-900',
+          focus: 'focus:enabled:border-gray-900 focus:ring-gray-900/30',
+          disabled: 'disabled:bg-gray-100 disabled:border-gray-300',
+          icon: 'bg-gray-500',
+        },
+        danger: {
+          base: 'border border-red-500 bg-transparent',
+          checked: 'checked:border-red-500 checked:bg-red-500',
+          hover: 'hover:enabled:border-red-500',
+          focus: 'focus:enabled:border-red-500 focus:ring-red-500/30',
+          disabled: 'disabled:bg-gray-100 disabled:border-gray-300',
+          icon: 'bg-red-500',
+        },
+        info: {
+          base: 'border border-blue-500 bg-transparent',
+          checked: 'checked:border-blue-500 checked:bg-blue-500',
+          hover: 'hover:enabled:border-blue-500',
+          focus: 'focus:enabled:border-blue-500 focus:ring-blue-500/30',
+          disabled: 'disabled:bg-gray-100 disabled:border-gray-300',
+          icon: 'bg-blue-500',
+        },
+        success: {
+          base: 'border border-green-500 bg-transparent',
+          checked: 'checked:border-green-500 checked:bg-green-500',
+          hover: 'hover:enabled:border-green-500',
+          focus: 'focus:enabled:border-green-500 focus:ring-green-500/30',
+          disabled: 'disabled:bg-gray-100 disabled:border-gray-300',
+          icon: 'bg-green-500',
+        },
+        warning: {
+          base: 'border border-orange-500 bg-transparent',
+          checked: 'checked:border-orange-500 checked:bg-orange-500',
+          hover: 'hover:enabled:border-orange-500',
+          focus: 'focus:enabled:border-orange-500 focus:ring-orange-500/30',
+          disabled: 'disabled:bg-gray-100 disabled:border-gray-300',
+          icon: 'bg-orange-500',
+        },
+      };
+      return colorMap[color as keyof typeof colorMap] || colorMap.primary;
+    };
+
+    const colorClasses = getColorClasses(color);
+
+    // Label size classes
+    const labelSizeClasses = {
+      sm: 'text-xs',
+      md: 'text-sm',
+      lg: 'text-base',
+    };
+
+    const labelMarginClasses = {
+      sm: labelPlacement === 'start' ? 'mr-1 rtl:ml-1' : 'ml-1 rtl:mr-1',
+      md:
+        labelPlacement === 'start' ? 'mr-1.5 rtl:ml-1.5' : 'ml-1.5 rtl:mr-1.5',
+      lg: labelPlacement === 'start' ? 'mr-2 rtl:ml-2' : 'ml-2 rtl:mr-2',
+    };
+
     return (
       <div className={cn('flex flex-col', className, activeClassName)}>
         <label
@@ -222,7 +181,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
             containerClassName
           )}
         >
-          <div className="relative leading-none">
+          <div className={cn('relative leading-none')}>
             <input
               type="checkbox"
               ref={ref}
@@ -231,21 +190,24 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
               aria-describedby={describedBy}
               aria-invalid={error ? 'true' : 'false'}
               className={cn(
-                inputClasses.base,
-                inputClasses.size[size],
-                inputClasses.rounded[rounded],
-                inputClasses.variant[variant].base,
-                inputClasses.variant[variant].color[color],
+                '!rounded !bg-transparent peer cursor-pointer transition duration-200 ease-in-out',
+                'focus:outline-none focus:ring-0',
+                'checked:ring-0',
+                sizeClasses[size],
+                colorClasses.base,
+                colorClasses.checked,
+                colorClasses.hover,
+                colorClasses.focus,
+                colorClasses.disabled,
                 inputClassName
               )}
               {...checkboxProps}
             />
             <CheckmarkIcon
               className={cn(
-                iconClasses.base,
-                inputClasses.size[size],
-                size === 'sm' && 'top-0.5',
-                variant === 'active' && iconClasses.color[color],
+                `peer-checked:opacity-100 rounded absolute opacity-0 text-white top-0 left-0`,
+                sizeClasses[size],
+                disabled ? 'bg-gray-300' : colorClasses.icon,
                 iconClassName
               )}
             />
@@ -254,8 +216,8 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
           {label && (
             <span
               className={cn(
-                labelClasses.size.text[size],
-                labelClasses.size.margin[labelPlacement][size],
+                labelSizeClasses[size],
+                labelMarginClasses[size],
                 labelPlacement === 'start' && 'order-first',
                 labelClassName
               )}

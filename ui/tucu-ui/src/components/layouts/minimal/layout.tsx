@@ -136,7 +136,11 @@ export function MinimalLayout({
         isOpen={isOpen}
         setIsOpen={setIsOpen}
       />
-      <main className="bg-light-100 dark:bg-dark-100 flex p-4 sm:p-6 lg:p-8 3xl:p-10">
+      <main
+        className={cn(
+          'min-h-full px-4 pb-16 pt-4 sm:px-6 sm:pb-20 lg:px-8 xl:pb-24 xl:pt-5 3xl:px-10'
+        )}
+      >
         {children}
       </main>
     </div>

@@ -663,7 +663,7 @@ test('Input has no accessibility violations', async () => {
                   <Typography tag="h4" className="font-semibold">
                     Automated Testing Example
                   </Typography>
-                  <CodeBlock code={testingExampleCode} language="javascript" />
+                  <CodeBlock code={testingExampleCode} language="js" />
                 </div>
               </div>
             </div>

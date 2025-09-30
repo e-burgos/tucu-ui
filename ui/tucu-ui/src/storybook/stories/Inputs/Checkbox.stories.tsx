@@ -41,33 +41,15 @@ const meta: Meta<typeof Checkbox> = {
       options: ['start', 'end'],
       description: 'Position of the label relative to the checkbox',
     },
-    variant: {
-      control: 'select',
-      options: ['outline', 'flat', 'active'],
-      description: 'Visual style variant of the checkbox',
-    },
     size: {
       control: 'select',
-      options: ['sm', 'DEFAULT', 'lg', 'xl'],
+      options: ['sm', 'md', 'lg'],
       description: 'Size of the checkbox',
     },
     color: {
       control: 'select',
-      options: [
-        'DEFAULT',
-        'primary',
-        'secondary',
-        'danger',
-        'info',
-        'success',
-        'warning',
-      ],
+      options: ['primary', 'secondary', 'danger', 'info', 'success', 'warning'],
       description: 'Color theme of the checkbox',
-    },
-    rounded: {
-      control: 'select',
-      options: ['none', 'sm', 'DEFAULT', 'lg', 'circle'],
-      description: 'Border radius of the checkbox',
     },
     className: {
       control: 'text',
@@ -76,10 +58,8 @@ const meta: Meta<typeof Checkbox> = {
   },
   args: {
     label: 'Checkbox label',
-    variant: 'outline',
-    size: 'DEFAULT',
-    color: 'DEFAULT',
-    rounded: 'DEFAULT',
+    size: 'md',
+    color: 'primary',
     labelPlacement: 'end',
     checked: false,
     disabled: false,
@@ -139,16 +119,6 @@ LabelStart.args = {
   labelPlacement: 'start',
 };
 
-export const FlatVariant = Template.bind({});
-FlatVariant.args = {
-  variant: 'flat',
-};
-
-export const ActiveVariant = Template.bind({});
-ActiveVariant.args = {
-  variant: 'active',
-};
-
 export const SmallSize = Template.bind({});
 SmallSize.args = {
   size: 'sm',
@@ -157,11 +127,6 @@ SmallSize.args = {
 export const LargeSize = Template.bind({});
 LargeSize.args = {
   size: 'lg',
-};
-
-export const ExtraLargeSize = Template.bind({});
-ExtraLargeSize.args = {
-  size: 'xl',
 };
 
 export const PrimaryColor = Template.bind({});
@@ -174,16 +139,6 @@ export const DangerColor = Template.bind({});
 DangerColor.args = {
   color: 'danger',
   checked: true,
-};
-
-export const CircleRounded = Template.bind({});
-CircleRounded.args = {
-  rounded: 'circle',
-};
-
-export const NoRounded = Template.bind({});
-NoRounded.args = {
-  rounded: 'none',
 };
 
 export const CheckboxGroup = () => {

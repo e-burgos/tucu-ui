@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { LucideIcons, type AppRoutesMenuItem } from 'tucu-ui';
-import { Introduction } from '../pages/Introduction';
+import { Introduction } from '../pages/introduction';
 import { DesignSystem } from '../pages/DesignSystem';
 import { ThemingGuide } from '../pages/ThemingGuide';
 import { FormSystem } from '../pages/form-system';

@@ -12,7 +12,7 @@ const containerClasses = {
 const inputClasses = {
   base: 'block peer text-center bg-transparent mr-2 focus:placeholder:opacity-0 focus:outline-hidden transition duration-200 disabled:bg-gray-50 disabled:placeholder:text-gray-400 disabled:cursor-not-allowed disabled:border-gray-200',
   error:
-    'border-red hover:enabled:!border-red focus:enabled:!border-red focus:!ring-red',
+    'border-red hover:enabled:!border-red-500 focus:enabled:!border-red-500 focus:!ring-red-500',
   size: {
     sm: 'px-1 py-1 text-sm h-8 w-8',
     DEFAULT: 'px-2 py-2 text-sm h-10 w-10',
@@ -51,16 +51,16 @@ const inputClasses = {
         DEFAULT:
           'bg-brand/10 not-read-only:hover:enabled:bg-brand/20 focus:ring-brand/30 text-brand placeholder:text-brand/60',
         primary:
-          'bg-primary-lighter/70 not-read-only:hover:enabled:bg-primary-lighter/90 focus:ring-primary/30 text-primary-dark',
+          'bg-brand/70 not-read-only:hover:enabled:bg-brand/90 focus:ring-brand/30 text-brand',
         secondary:
-          'bg-secondary-lighter/70 not-read-only:hover:enabled:bg-secondary-lighter/90 focus:ring-secondary/30 text-secondary-dark',
+          'bg-gray-500/70 not-read-only:hover:enabled:bg-gray-500/90 focus:ring-gray-500/30 text-gray-500',
         danger:
-          'bg-red-lighter/70 not-read-only:hover:enabled:bg-red-lighter/90 focus:ring-red/30 text-red-dark',
-        info: 'bg-blue-lighter/70 not-read-only:hover:enabled:bg-blue-lighter/90 focus:ring-blue/30 text-blue-dark',
+          'bg-red-500/70 not-read-only:hover:enabled:bg-red-500/90 focus:ring-red-500/30 text-red-500',
+        info: 'bg-blue-500/70 not-read-only:hover:enabled:bg-blue-500/90 focus:ring-blue-500/30 text-blue-500',
         success:
-          'bg-green-lighter/70 not-read-only:hover:enabled:bg-green-lighter/90 focus:ring-green/30 text-green-dark',
+          'bg-green-500/70 not-read-only:hover:enabled:bg-green-500/90 focus:ring-green-500/30 text-green-500',
         warning:
-          'bg-orange-lighter/90 not-read-only:hover:enabled:bg-orange-lighter focus:ring-orange/30 text-orange-dark',
+          'bg-orange-500/90 not-read-only:hover:enabled:bg-orange-500 focus:ring-orange-500/30 text-orange-500',
       },
     },
     outline: {
@@ -69,16 +69,16 @@ const inputClasses = {
         DEFAULT:
           'not-read-only:hover:enabled:border-brand not-read-only:focus:enabled:border-brand focus:ring-brand',
         primary:
-          'not-read-only:hover:enabled:border-primary not-read-only:focus:enabled:border-primary focus:ring-primary',
+          'not-read-only:hover:enabled:border-brand not-read-only:focus:enabled:border-brand focus:ring-brand',
         secondary:
-          'not-read-only:hover:enabled:border-secondary not-read-only:focus:enabled:border-secondary focus:ring-secondary',
+          'not-read-only:hover:enabled:border-gray-500 not-read-only:focus:enabled:border-gray-500 focus:ring-gray-500',
         danger:
-          'not-read-only:hover:enabled:border-red not-read-only:focus:enabled:border-red focus:ring-red',
+          'not-read-only:hover:enabled:border-red-500 not-read-only:focus:enabled:border-red-500 focus:ring-red-500',
         info: 'not-read-only:hover:enabled:border-blue not-read-only:focus:enabled:border-blue focus:ring-blue',
         success:
-          'not-read-only:hover:enabled:border-green not-read-only:focus:enabled:border-green focus:ring-green',
+          'not-read-only:hover:enabled:border-green-500 not-read-only:focus:enabled:border-green-500 focus:ring-green-500',
         warning:
-          'not-read-only:hover:enabled:border-orange not-read-only:focus:enabled:border-orange focus:ring-orange',
+          'not-read-only:hover:enabled:border-orange-500 not-read-only:focus:enabled:border-orange-500 focus:ring-orange-500',
       },
     },
   },

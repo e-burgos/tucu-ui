@@ -17,13 +17,15 @@ const inputClasses = {
       base: 'border-2 bg-gray-200/70 hover:enabled:bg-gray-200/90 ',
       color: {
         DEFAULT: 'border-brand focus:ring-brand/30 checked:!bg-brand',
-        primary: 'border-primary focus:ring-primary/30 checked:!bg-primary',
+        primary: 'border-brand focus:ring-brand/30 checked:!bg-brand',
         secondary:
-          'border-secondary focus:ring-secondary/30 checked:!bg-secondary',
-        danger: 'border-red focus:ring-red/30 checked:!bg-red',
-        info: 'border-blue focus:ring-blue/30 checked:!bg-blue',
-        success: 'border-green focus:ring-green/30 checked:!bg-green',
-        warning: 'border-orange focus:ring-orange/30 checked:!bg-orange',
+          'border-gray-500 focus:ring-gray-500/30 checked:!bg-gray-500',
+        danger: 'border-red-500 focus:ring-red-500/30 checked:!bg-red-500',
+        info: 'border-blue-500 focus:ring-blue-500/30 checked:!bg-blue-500',
+        success:
+          'border-green-500 focus:ring-green-500/30 checked:!bg-green-500',
+        warning:
+          'border-orange-500 focus:ring-orange-500/30 checked:!bg-orange-500',
       },
     },
     flat: {
@@ -32,29 +34,31 @@ const inputClasses = {
         DEFAULT:
           'bg-brand/10 hover:enabled:bg-brand/20 focus:ring-brand/30 checked:!bg-brand/70',
         primary:
-          'bg-primary-lighter/70 hover:enabled:bg-primary-lighter/90 focus:ring-primary/30 checked:!bg-primary',
+          'bg-brand/70 hover:enabled:bg-brand/90 focus:ring-brand/30 checked:!bg-brand',
         secondary:
-          'bg-secondary-lighter/70 hover:enabled:bg-secondary-lighter/90 focus:ring-secondary/30 checked:!bg-secondary',
+          'bg-gray-500/70 hover:enabled:bg-gray-500/90 focus:ring-gray-500/30 checked:!bg-gray-500',
         danger:
-          'bg-red-lighter/70 hover:enabled:bg-red-lighter/90 focus:ring-red/30 checked:!bg-red',
-        info: 'bg-blue-lighter/70 hover:enabled:bg-blue-lighter/90 focus:ring-blue/30 checked:!bg-blue',
+          'bg-red-500/70 hover:enabled:bg-red-500/90 focus:ring-red-500/30 checked:!bg-red-500',
+        info: 'bg-blue-500/70 hover:enabled:bg-blue-500/90 focus:ring-blue-500/30 checked:!bg-blue-500',
         success:
-          'bg-green-lighter/70 hover:enabled:bg-green-lighter/90 focus:ring-green/30 checked:!bg-green',
+          'bg-green-500/70 hover:enabled:bg-green-500/90 focus:ring-green-500/30 checked:!bg-green-500',
         warning:
-          'bg-orange-lighter/80 hover:enabled:bg-orange-lighter/90 focus:ring-orange/30 checked:!bg-orange',
+          'bg-orange-500/80 hover:enabled:bg-orange-500/90 focus:ring-orange-500/30 checked:!bg-orange-500',
       },
     },
     active: {
       base: 'border',
       color: {
         DEFAULT: 'border-brand focus:ring-brand/30 checked:!bg-brand',
-        primary: 'border-primary focus:ring-primary/30 checked:!bg-primary',
+        primary: 'border-brand focus:ring-brand/30 checked:!bg-brand',
         secondary:
-          'border-secondary focus:ring-secondary/30 checked:!bg-secondary',
-        danger: 'border-red focus:ring-red/30 checked:!bg-red',
-        info: 'border-blue focus:ring-blue/30 checked:!bg-blue',
-        success: 'border-green focus:ring-green/30 checked:!bg-green',
-        warning: 'border-orange focus:ring-orange/30 checked:!bg-orange',
+          'border-gray-500 focus:ring-gray-500/30 checked:!bg-gray-500',
+        danger: 'border-red-500 focus:ring-red-500/30 checked:!bg-red-500',
+        info: 'border-blue-500 focus:ring-blue-500/30 checked:!bg-blue-500',
+        success:
+          'border-green-500 focus:ring-green-500/30 checked:!bg-green-500',
+        warning:
+          'border-orange-500 focus:ring-orange-500/30 checked:!bg-orange-500',
       },
     },
   },
@@ -160,6 +164,7 @@ export const Radio = forwardRef<HTMLInputElement, RadioProps>(
           ref={ref}
           disabled={disabled}
           className={cn(
+            '!bg-transparent',
             inputClasses.base,
             inputClasses.size[size],
             inputClasses.variant[variant].base,

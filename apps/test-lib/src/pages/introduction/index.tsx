@@ -1,7 +1,6 @@
 import {
   CardContainer,
   Button,
-  Avatar,
   Badge,
   Typography,
   LucideIcons,
@@ -9,13 +8,24 @@ import {
   useTheme,
   CardTitle,
   CodeBlock,
+  Alert,
 } from '@tucu-ui';
 
-import avatarImage from '../assets/images/author-dark.jpeg';
-import { DOCUMENTATION_URL } from '../utils/constants';
-import Banner from '../assets/images/logos/tucu-ui-logo-white.svg';
-import BannerDark from '../assets/images/logos/tucu-ui-logo-black.svg';
-import HeroPage from '../components/HeroPage';
+import { DOCUMENTATION_URL } from '../../utils/constants';
+import Banner from '../../assets/images/logos/tucu-ui-logo-white.svg';
+import BannerDark from '../../assets/images/logos/tucu-ui-logo-black.svg';
+import HeroPage from '../../components/HeroPage';
+import { Home } from './BasicUsageExample';
+import BasicUsageCode from './BasicUsageExample?raw';
+import BasicUsageWithCustomRouterCode from './BasicUsageWithCustomRouterExample?raw';
+
+const installation = `
+npm install tucu-ui
+
+// or with pnpm
+
+pnpm install tucu-ui
+`;
 
 export function Introduction() {
   const { mode } = useTheme();
@@ -238,7 +248,7 @@ export function Introduction() {
                   <CodeBlock
                     noExpand={true}
                     language="bash"
-                    code={`npm install tucu-ui`}
+                    code={installation}
                   />
                 </div>
 
@@ -250,50 +260,41 @@ export function Introduction() {
                   >
                     2. Basic Usage
                   </Typography>
+                  <Alert variant="info" dismissible={false}>
+                    <Typography
+                      tag="p"
+                      className="text-sm text-gray-600 dark:text-gray-400"
+                    >
+                      This example shows how to use the Basic Usage. This
+                      implementation is ideal for apps that need a layout and
+                      navigation all in one place.
+                    </Typography>
+                  </Alert>
+                  <CodeBlock language="tsx" code={BasicUsageCode} />
+                </div>
+                {/* Usage Example */}
+                <div className="space-y-3">
+                  <Typography
+                    tag="h4"
+                    className="font-semibold text-gray-900 dark:text-white"
+                  >
+                    3. Basic Usage with Custom Router
+                  </Typography>
+                  <Alert variant="info" dismissible={false}>
+                    <Typography
+                      tag="p"
+                      className="text-sm text-gray-600 dark:text-gray-400"
+                    >
+                      This example shows how to use the Basic Usage with Custom
+                      Router. This implementation is ideal for apps that need
+                      custom routes and layouts.
+                    </Typography>
+                  </Alert>
                   <CodeBlock
                     language="tsx"
-                    code={`import { Button, CardContainer, Avatar, ThemeProvider } from 'tucu-ui';
-import 'tucu-ui/styles';
-
-function App() {
-  return (
-    <ThemeProvider>
-      <CardContainer className="p-6">
-        <div className="p-6 bg-gray-50 dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700">
-          <div className="flex flex-col sm:flex-row items-center gap-4">
-            <Avatar image={avatarImage} alt="Demo User" size="md" />
-            <div className="flex-1 text-center sm:text-left">
-              <Typography tag="h5" className="font-semibold mb-2">
-                Welcome to Tucu UI
-              </Typography>
-              <div className="flex flex-wrap gap-2 justify-center sm:justify-start">
-                <Badge status="active">Production Ready</Badge>
-                <Badge variant="outline" color="info">
-                  TypeScript
-                </Badge>
-                <Badge variant="outline" color="success">
-                  React Hook Form
-                </Badge>
-                <Badge variant="outline" color="warning">
-                  Tailwind CSS
-                </Badge>
-              </div>
-            </div>
-            <Button size="small" shape="circle" fullWidth>
-              <div className="flex justify-center items-center">
-                <LucideIcons.Zap className="w-4 h-4 mr-2" />
-                Get Started
-              </div>
-            </Button>
-          </div>
-        </div>
-      </CardContainer>
-    </ThemeProvider>
-  );
-}`}
+                    code={BasicUsageWithCustomRouterCode}
                   />
                 </div>
-
                 {/* Live Demo */}
                 <div className="space-y-3">
                   <Typography
@@ -303,32 +304,7 @@ function App() {
                     3. Live Demo
                   </Typography>
                   <div className="p-4 sm:p-6 bg-gray-50 dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700">
-                    <div className="flex flex-col justify-center items-center gap-4">
-                      <Avatar image={avatarImage} alt="Demo User" size="lg" />
-                      <div className="flex flex-col justify-center items-center text-center sm:text-left">
-                        <Typography tag="h5" className="font-semibold mb-2">
-                          Welcome to Tucu UI
-                        </Typography>
-                        <div className="flex flex-wrap gap-2 justify-center sm:justify-start">
-                          <Badge status="active">Production Ready</Badge>
-                          <Badge variant="outline" color="info">
-                            TypeScript
-                          </Badge>
-                          <Badge variant="outline" color="success">
-                            React Hook Form
-                          </Badge>
-                          <Badge variant="outline" color="warning">
-                            Tailwind CSS
-                          </Badge>
-                        </div>
-                      </div>
-                      <Button size="small" shape="circle" fullWidth>
-                        <div className="flex justify-center items-center">
-                          <LucideIcons.Zap className="w-4 h-4 mr-2" />
-                          Get Started
-                        </div>
-                      </Button>
-                    </div>
+                    <Home />
                   </div>
                 </div>
               </div>
