@@ -36,7 +36,7 @@
   "scripts": {
     "storybook": "storybook dev --initial-path=/docs/1-documentation-1-introduction--documentation -p 6006",
     "build-storybook": "storybook build --output-dir ../../dist/ui/storybook-tucu-ui",
-    "publish-storybook": "pnpm dlx chromatic --project-token --force-rebuild",
+    "publish-storybook": "pnpm dlx chromatic --project-token --force-rebuild --exit-zero-on-changes --auto-accept-changes",
     "serve-storybook": "serve ../../dist/ui/storybook-tucu-ui -p 8080",
     "chromatic": "pnpm dlx chromatic --project-token --force-rebuild",
     "storybook-doctor": "pnpm dlx storybook doctor",
