@@ -6,12 +6,14 @@ import { Plus } from '../icons/plus';
 export interface CollapseProps {
   label: string;
   initialOpen?: boolean;
+  className?: string;
 }
 
 export function Collapse({
   label,
   children,
   initialOpen = false,
+  className,
 }: React.PropsWithChildren<CollapseProps>) {
   const [isOpen, setIsOpen] = useState(false);
   const [ref, { height }] = useMeasure<HTMLDivElement>();
@@ -22,7 +24,7 @@ export function Collapse({
 
   return (
     <div
-      className={`ease-[cubic-bezier(0.33, 1, 0.68, 1)] relative mb-5 overflow-hidden rounded-lg bg-white shadow-card transition-all duration-350 last:mb-0 hover:shadow-transaction dark:bg-light-dark ${
+      className={`ease-[cubic-bezier(0.33, 1, 0.68, 1)] relative mb-5 overflow-hidden rounded-lg bg-white shadow-card transition-all duration-350 last:mb-0 hover:shadow-transaction dark:bg-light-dark ${className} ${
         isOpen ? 'shadow-transaction' : 'shadow-card'
       }`}
       style={{ height: isOpen ? 54 + height : 54 }}

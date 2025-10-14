@@ -34,6 +34,7 @@ export interface InputSelectTypes {
   name?: string;
   errorMessage?: string;
   helperText?: string;
+  placeholder?: string;
 }
 
 const inputSelectVariantClasses = {
@@ -60,6 +61,7 @@ export function InputSelect({
   name,
   errorMessage,
   helperText,
+  placeholder,
 }: InputSelectTypes) {
   // State to handle the selected option
   const [internalSelectedOption, setInternalSelectedOption] = useState<
@@ -127,7 +129,7 @@ export function InputSelect({
           )}
         >
           <div className="flex items-center">
-            {selectedOption?.name || 'Select an option'}
+            {selectedOption?.name || placeholder || 'Select an option'}
           </div>
           <ChevronDown />
         </ListboxButton>
