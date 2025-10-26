@@ -15,7 +15,7 @@ import { DOCUMENTATION_URL } from '../../utils/constants';
 import Banner from '../../assets/images/logos/tucu-ui-logo-white.svg';
 import BannerDark from '../../assets/images/logos/tucu-ui-logo-black.svg';
 import HeroPage from '../../components/HeroPage';
-import { Home } from './BasicUsageExample';
+import BasicUsageExample from './BasicUsageExample?raw';
 import BasicUsageCode from './BasicUsageExample?raw';
 import BasicUsageWithCustomRouterCode from './BasicUsageWithCustomRouterExample?raw';
 
@@ -46,6 +46,9 @@ export function Introduction() {
           />
         }
       />
+
+      {/* Test classes */}
+      <div className="h-[50px] min-w-[200px] w-[50px] bg-red-500">Test</div>
 
       {/* Key Features Grid */}
       <section className="space-y-8">
@@ -304,7 +307,7 @@ export function Introduction() {
                     3. Live Demo
                   </Typography>
                   <div className="p-4 sm:p-6 bg-gray-50 dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700">
-                    <Home />
+                    <CodeBlock language="tsx" code={BasicUsageExample} />
                   </div>
                 </div>
               </div>

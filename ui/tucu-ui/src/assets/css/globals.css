@@ -14,6 +14,31 @@
   If we ever want to remove these styles, we need to add an explicit border
   color utility to any element that depends on these defaults.
 */
+
+@source inline("w-[{1..2000..1}px]");
+
+@source inline("max-w-[{1..2000..1}px]");
+
+@source inline("min-w-[{1..2000..1}px]");
+
+@source inline("h-[{1..2000..1}px]");
+
+@source inline("max-h-[{1..2000..1}px]");
+
+@source inline("min-h-[{1..2000..1}px]");
+
+@source inline("p-[{1..1000..1}px]");
+
+@source inline("px-[{1..1000..1}px]");
+
+@source inline("py-[{1..1000..1}px]");
+
+@source inline("m-[{1..1000..1}px]");
+
+@source inline("my-[{1..1000..1}px]");
+
+@source inline("mx-[{1..1000..1}px]");
+
 @layer base {
   *,
   ::after,

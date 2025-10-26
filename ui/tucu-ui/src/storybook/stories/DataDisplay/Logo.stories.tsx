@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { StoryContainer } from '../../components/StoryContainer';
 import { Logo } from '../../../components/logos';
 import { PRESET_LABEL_COLORS } from '../../../themes/config';
+import { ProfileIcon } from '../../../components/icons';
 
 const meta: Meta<typeof Logo> = {
   title: '3. UI COMPONENTS/Data Display/Logo',
@@ -46,6 +47,10 @@ const meta: Meta<typeof Logo> = {
       control: 'boolean',
       description: 'If true, the logo will be displayed in ISO type',
     },
+    logo: {
+      control: 'object',
+      description: 'Logo to be displayed',
+    },
   },
   args: {
     name: 'Tucu',
@@ -54,6 +59,7 @@ const meta: Meta<typeof Logo> = {
     preset: PRESET_LABEL_COLORS.GREEN,
     size: 'medium',
     isoType: false,
+    logo: <ProfileIcon className="w-4 h-4" />,
   },
 };
 

@@ -9,10 +9,12 @@ import {
   ColorPreset,
   defaultColorPreset,
   defaultLogo,
+  defaultMode,
   defaultSettingActions,
   ISettingAction,
   IThemeItem,
   LAYOUT_OPTIONS,
+  MODE,
   PresetColorType,
 } from '../../config';
 import ScrollToTop from '../../../components/utils/scroll-to-top';
@@ -27,6 +29,7 @@ interface ThemeProviderProps extends Omit<LayoutTypeProps, 'menuItems'> {
   menuItems: AppRoutesMenuItem[];
   brandColor?: PresetColorType;
   showSettings?: boolean;
+  mode?: MODE;
   settingActions?: ISettingAction;
   customRoutes?: React.ReactElement<typeof Routes>;
   withRouterProvider?: boolean;
@@ -37,6 +40,7 @@ export function ThemeProvider({
   rightButton,
   brandColor,
   showSettings,
+  mode: appMode,
   customRoutes,
   className,
   menuItems: appMenuItems,
@@ -48,6 +52,7 @@ export function ThemeProvider({
     mode,
     layout,
     preset,
+    setMode,
     setLogo,
     setPreset,
     setShowSettings,
@@ -82,6 +87,10 @@ export function ThemeProvider({
       setLogo(logo);
     } else setLogo(defaultLogo);
 
+    if (appMode) {
+      setMode(appMode);
+    } else setMode(defaultMode);
+
     if (selectedColor) {
       setPreset(selectedColor);
     } else setPreset(defaultColorPreset);
@@ -89,7 +98,16 @@ export function ThemeProvider({
     if (showSettings) {
       setShowSettings(showSettings);
     } else setShowSettings(false);
-  }, [logo, showSettings, setLogo, setPreset, setShowSettings, selectedColor]);
+  }, [
+    logo,
+    appMode,
+    showSettings,
+    setLogo,
+    setMode,
+    setPreset,
+    setShowSettings,
+    selectedColor,
+  ]);
 
   useEffect(() => {
     setSettingActions({

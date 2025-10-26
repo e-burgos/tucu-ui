@@ -12,6 +12,7 @@ export interface LogoPropTypes {
   preset?: PRESET_LABEL_COLORS;
   className?: string;
   size?: 'small' | 'medium' | 'large' | 'xlarge';
+  logo?: React.ReactNode | null;
   isoType?: boolean;
 }
 
@@ -22,6 +23,7 @@ export function Logo({
   preset,
   className,
   size = 'medium',
+  logo = null,
   isoType = false,
 }: LogoPropTypes) {
   const { mode } = useTheme();
@@ -51,22 +53,26 @@ export function Logo({
       <AnchorLink to={path || '/'}>
         <span className={cn('relative flex w-full', className)}>
           {isDarkMode && (
-            <div className="flex items-end text-base font-medium text-gray-900 dark:text-white sm:text-xl flex-nowrap">
-              <span className={cn('font-semibold', textSize)}>
-                {handleName(name) || 'Site Name'}
-              </span>
-              {secondName && (
-                <span
-                  style={{ color: color }}
-                  className={cn('font-semibold', textSize, !preset && color)}
-                >
-                  {handleName(secondName)}
+            <div className="flex items-center gap-1">
+              {logo && logo}
+              <div className="flex items-end text-base font-medium text-gray-900 dark:text-white sm:text-xl flex-nowrap">
+                <span className={cn('font-semibold', textSize)}>
+                  {handleName(name) || 'Site Name'}
                 </span>
-              )}
+                {secondName && (
+                  <span
+                    style={{ color: color }}
+                    className={cn('font-semibold', textSize, !preset && color)}
+                  >
+                    {handleName(secondName)}
+                  </span>
+                )}
+              </div>
             </div>
           )}
           {!isDarkMode && (
             <div className="flex items-end text-base font-medium text-gray-900 dark:text-white sm:text-xl lg:flex-wrap 2xl:flex-nowrap">
+              {logo && logo}
               <span className={cn('font-semibold', textSize)}>
                 {handleName(name) || 'Site Name'}
               </span>
