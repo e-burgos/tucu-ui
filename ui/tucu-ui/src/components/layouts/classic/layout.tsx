@@ -12,6 +12,9 @@ interface ClassicLayoutProps {
   logo?: LogoPropTypes;
   className?: string;
   isOpen: boolean;
+  headerClassName?: string;
+  contentClassName?: string;
+  fullWidth?: boolean;
   setIsOpen: (isOpen: boolean) => void;
 }
 
@@ -22,6 +25,9 @@ export function ClassicLayout({
   rightButton,
   isOpen,
   className,
+  headerClassName,
+  contentClassName,
+  fullWidth = false,
   setIsOpen,
 }: ClassicLayoutProps) {
   return (
@@ -36,6 +42,7 @@ export function ClassicLayout({
         rightButton={rightButton}
         isOpen={isOpen}
         setIsOpen={setIsOpen}
+        className={headerClassName}
       />
       <ExpandableSidebar
         logo={logo}
@@ -54,7 +61,10 @@ export function ClassicLayout({
       />
       <main
         className={cn(
-          'min-h-full px-4 pb-16 pt-4 sm:px-6 sm:pb-20 lg:px-8 xl:pb-24 xl:pt-5 3xl:px-10'
+          fullWidth
+            ? 'min-h-full w-full sm:px-0 lg:px-0 xl:px-0 2xl:px-0 3xl:px-0 4xl:px-0'
+            : 'min-h-full px-4 pb-16 pt-4 sm:px-6 sm:pb-20 lg:px-8 xl:pb-24 xl:pt-5 3xl:px-10',
+          contentClassName
         )}
       >
         {children}

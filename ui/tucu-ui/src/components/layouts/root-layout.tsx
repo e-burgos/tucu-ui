@@ -14,6 +14,9 @@ export interface LayoutTypeProps {
   menuItems: IMenuItem[];
   rightButton?: React.ReactNode;
   className?: string;
+  headerClassName?: string;
+  contentClassName?: string;
+  fullWidth?: boolean;
 }
 
 interface RootLayoutProps extends LayoutTypeProps {
@@ -27,12 +30,15 @@ const LayoutType = ({
   menuItems,
   rightButton,
   className,
+  headerClassName,
+  contentClassName,
+  fullWidth = false,
 }: RootLayoutProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   if (layout === LAYOUT_OPTIONS.NONE) {
     return (
-      <AuthLayout className={className}>
+      <AuthLayout className={className || contentClassName}>
         {children}
         <Toast />
       </AuthLayout>
@@ -47,6 +53,9 @@ const LayoutType = ({
         isOpen={isOpen}
         setIsOpen={setIsOpen}
         className={className}
+        headerClassName={headerClassName}
+        contentClassName={contentClassName}
+        fullWidth={fullWidth}
       >
         {children}
         <Toast />
@@ -62,6 +71,9 @@ const LayoutType = ({
         isOpen={isOpen}
         setIsOpen={setIsOpen}
         className={className}
+        headerClassName={headerClassName}
+        contentClassName={contentClassName}
+        fullWidth={fullWidth}
       >
         {children}
         <Toast />
@@ -70,7 +82,7 @@ const LayoutType = ({
   }
 
   return (
-    <AuthLayout className={className}>
+    <AuthLayout className={className || contentClassName}>
       {children}
       <Toast />
     </AuthLayout>

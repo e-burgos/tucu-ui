@@ -15,6 +15,7 @@
   color utility to any element that depends on these defaults.
 */
 
+/* Tailwind CSS v4 classes */
 @source inline("w-[{1..2000..1}px]");
 
 @source inline("max-w-[{1..2000..1}px]");
@@ -39,6 +40,215 @@
 
 @source inline("mx-[{1..1000..1}px]");
 
+/* color classes */
+/*brand, red, orange, amber, yellow, lime, green, emerald, teal, cyan, sky, blue, indigo, violet, purple, 
+fuchsia, rose, pink, slate, gray, zinc, neutral, stone, white, black */
+
+@source inline("bg-accent");
+@source inline("text-accent");
+@source inline("border-accent");
+@source inline("fill-accent");
+@source inline("stroke-accent");
+@source inline("ring-accent");
+@source inline("ring-offset-accent");
+@source inline("bg-muted");
+@source inline("text-muted");
+@source inline("border-muted");
+@source inline("fill-muted");
+@source inline("stroke-muted");
+@source inline("ring-muted");
+@source inline("ring-offset-muted");
+@source inline("bg-black");
+@source inline("text-black");
+@source inline("border-black");
+@source inline("fill-black");
+@source inline("stroke-black");
+@source inline("ring-black");
+@source inline("ring-offset-black");
+@source inline("bg-white");
+@source inline("text-white");
+@source inline("border-white");
+@source inline("fill-white");
+@source inline("stroke-white");
+@source inline("ring-white");
+@source inline("ring-offset-white");
+
+/* brand */
+@source inline("bg-brand");
+@source inline("bg-brand/{10..100..10}");
+@source inline("from-brand");
+@source inline("via-brand");
+@source inline("to-brand");
+
+/* red */
+/* @source inline("{hover:,focus:,active:,disabled:}bg-red-{50,{100..900..100},950}"); */
+@source inline("bg-red-{50,{100..900..100},950}");
+@source inline("bg-red-{50,{100..900..100},950}/{10..100..10}");
+@source inline("from-red-{50,{100..900..100},950}");
+@source inline("via-red-{50,{100..900..100},950}");
+@source inline("to-red-{50,{100..900..100},950}");
+
+/* orange */
+@source inline("bg-orange-{50,{100..900..100},950}");
+@source inline("bg-orange-{50,{100..900..100},950}/{10..100..10}");
+@source inline("from-orange-{50,{100..900..100},950}");
+@source inline("via-orange-{50,{100..900..100},950}");
+@source inline("to-orange-{50,{100..900..100},950}");
+
+/* amber */
+@source inline("bg-amber-{50,{100..900..100},950}");
+@source inline("bg-amber-{50,{100..900..100},950}/{10..100..10}");
+@source inline("from-amber-{50,{100..900..100},950}");
+@source inline("via-amber-{50,{100..900..100},950}");
+@source inline("to-amber-{50,{100..900..100},950}");
+
+/* yellow */
+@source inline("bg-yellow-{50,{100..900..100},950}");
+@source inline("bg-yellow-{50,{100..900..100},950}/{10..100..10}");
+@source inline("from-yellow-{50,{100..900..100},950}");
+@source inline("via-yellow-{50,{100..900..100},950}");
+@source inline("to-yellow-{50,{100..900..100},950}");
+
+/* lime */
+@source inline("bg-lime-{50,{100..900..100},950}");
+@source inline("bg-lime-{50,{100..900..100},950}/{10..100..10}");
+@source inline("from-lime-{50,{100..900..100},950}");
+@source inline("via-lime-{50,{100..900..100},950}");
+@source inline("to-lime-{50,{100..900..100},950}");
+
+/* green */
+@source inline("bg-green-{50,{100..900..100},950}");
+@source inline("bg-green-{50,{100..900..100},950}/{10..100..10}");
+@source inline("from-green-{50,{100..900..100},950}");
+@source inline("via-green-{50,{100..900..100},950}");
+@source inline("to-green-{50,{100..900..100},950}");
+
+/* emerald */
+@source inline("bg-emerald-{50,{100..900..100},950}");
+@source inline("bg-emerald-{50,{100..900..100},950}/{10..100..10}");
+@source inline("from-emerald-{50,{100..900..100},950}");
+@source inline("via-emerald-{50,{100..900..100},950}");
+@source inline("to-emerald-{50,{100..900..100},950}");
+
+/* teal */
+@source inline("bg-teal-{50,{100..900..100},950}");
+@source inline("bg-teal-{50,{100..900..100},950}/{10..100..10}");
+@source inline("from-teal-{50,{100..900..100},950}");
+@source inline("via-teal-{50,{100..900..100},950}");
+@source inline("to-teal-{50,{100..900..100},950}");
+
+/* cyan */
+@source inline("bg-cyan-{50,{100..900..100},950}");
+@source inline("bg-cyan-{50,{100..900..100},950}/{10..100..10}");
+@source inline("from-cyan-{50,{100..900..100},950}");
+@source inline("via-cyan-{50,{100..900..100},950}");
+@source inline("to-cyan-{50,{100..900..100},950}");
+
+/* sky */
+@source inline("bg-sky-{50,{100..900..100},950}");
+@source inline("bg-sky-{50,{100..900..100},950}/{10..100..10}");
+@source inline("from-sky-{50,{100..900..100},950}");
+@source inline("via-sky-{50,{100..900..100},950}");
+@source inline("to-sky-{50,{100..900..100},950}");
+
+/* blue */
+@source inline("bg-blue-{50,{100..900..100},950}");
+@source inline("bg-blue-{50,{100..900..100},950}/{10..100..10}");
+@source inline("from-blue-{50,{100..900..100},950}");
+@source inline("via-blue-{50,{100..900..100},950}");
+@source inline("to-blue-{50,{100..900..100},950}");
+
+/* indigo */
+@source inline("bg-indigo-{50,{100..900..100},950}");
+@source inline("bg-indigo-{50,{100..900..100},950}/{10..100..10}");
+@source inline("from-indigo-{50,{100..900..100},950}");
+@source inline("via-indigo-{50,{100..900..100},950}");
+@source inline("to-indigo-{50,{100..900..100},950}");
+
+/* violet */
+@source inline("bg-violet-{50,{100..900..100},950}");
+@source inline("bg-violet-{50,{100..900..100},950}/{10..100..10}");
+@source inline("from-violet-{50,{100..900..100},950}");
+@source inline("via-violet-{50,{100..900..100},950}");
+@source inline("to-violet-{50,{100..900..100},950}");
+
+/* purple */
+@source inline("bg-purple-{50,{100..900..100},950}");
+@source inline("bg-purple-{50,{100..900..100},950}/{10..100..10}");
+@source inline("from-purple-{50,{100..900..100},950}");
+@source inline("via-purple-{50,{100..900..100},950}");
+@source inline("to-purple-{50,{100..900..100},950}");
+
+/* fuchsia */
+@source inline("bg-fuchsia-{50,{100..900..100},950}");
+@source inline("bg-fuchsia-{50,{100..900..100},950}/{10..100..10}");
+@source inline("from-fuchsia-{50,{100..900..100},950}");
+@source inline("via-fuchsia-{50,{100..900..100},950}");
+@source inline("to-fuchsia-{50,{100..900..100},950}");
+
+/* rose */
+@source inline("bg-rose-{50,{100..900..100},950}");
+@source inline("bg-rose-{50,{100..900..100},950}/{10..100..10}");
+@source inline("from-rose-{50,{100..900..100},950}");
+@source inline("via-rose-{50,{100..900..100},950}");
+@source inline("to-rose-{50,{100..900..100},950}");
+
+/* pink */
+@source inline("bg-pink-{50,{100..900..100},950}");
+@source inline("bg-pink-{50,{100..900..100},950}/{10..100..10}");
+@source inline("from-pink-{50,{100..900..100},950}");
+@source inline("via-pink-{50,{100..900..100},950}");
+@source inline("to-pink-{50,{100..900..100},950}");
+
+/* slate */
+@source inline("bg-slate-{50,{100..900..100},950}");
+@source inline("bg-slate-{50,{100..900..100},950}/{10..100..10}");
+@source inline("from-slate-{50,{100..900..100},950}");
+@source inline("via-slate-{50,{100..900..100},950}");
+@source inline("to-slate-{50,{100..900..100},950}");
+
+/* gray */
+@source inline("bg-gray-{50,{100..900..100},950}");
+@source inline("bg-gray-{50,{100..900..100},950}/{10..100..10}");
+@source inline("from-gray-{50,{100..900..100},950}");
+@source inline("via-gray-{50,{100..900..100},950}");
+@source inline("to-gray-{50,{100..900..100},950}");
+
+/* zinc */
+@source inline("bg-zinc-{50,{100..900..100},950}");
+@source inline("bg-zinc-{50,{100..900..100},950}/{10..100..10}");
+@source inline("from-zinc-{50,{100..900..100},950}");
+@source inline("via-zinc-{50,{100..900..100},950}");
+@source inline("to-zinc-{50,{100..900..100},950}");
+
+/* neutral */
+@source inline("bg-neutral-{50,{100..900..100},950}");
+@source inline("bg-neutral-{50,{100..900..100},950}/{10..100..10}");
+@source inline("from-neutral-{50,{100..900..100},950}");
+@source inline("via-neutral-{50,{100..900..100},950}");
+@source inline("to-neutral-{50,{100..900..100},950}");
+
+/* stone */
+@source inline("bg-stone-{50,{100..900..100},950}");
+@source inline("bg-stone-{50,{100..900..100},950}/{10..100..10}");
+@source inline("from-stone-{50,{100..900..100},950}");
+@source inline("via-stone-{50,{100..900..100},950}");
+@source inline("to-stone-{50,{100..900..100},950}");
+
+/* white */
+@source inline("bg-white-{50,{100..900..100},950}");
+@source inline("bg-white-{50,{100..900..100},950}/{10..100..10}");
+@source inline("from-white-{50,{100..900..100},950}");
+@source inline("via-white-{50,{100..900..100},950}");
+@source inline("to-white-{50,{100..900..100},950}");
+
+/* black */
+@source inline("bg-black-{50,{100..900..100},950}");
+@source inline("bg-black-{50,{100..900..100},950}/{10..100..10}");
+@source inline("from-black-{50,{100..900..100},950}");
+@source inline("via-black-{50,{100..900..100},950}");
+@source inline("to-black-{50,{100..900..100},950}");
+
 @layer base {
   *,
   ::after,
@@ -55,7 +265,11 @@
     /* Custom colors */
     --color-body: #fcfcfc;
     --color-dark: #0d1321;
+    --color-light: #fcfcfc;
+    --color-black: #000000;
+    --color-white: #ffffff;
     --color-light-dark: #171e2e;
+    --color-dark-light: #f8fafc;
     --color-sidebar-body: #f8fafc;
   }
 
@@ -210,12 +424,12 @@ Styles for Swiper slider
 }
 
 ::-webkit-scrollbar-track {
-  background: rgb(214, 214, 214);
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgb(var(--color-brand));
-  border-radius: 0px;
+  background: color-mix(in oklab, rgb(var(--color-brand)) 80%, transparent);
+  border-radius: 2px;
 }
 
 ::-webkit-scrollbar-thumb:hover {

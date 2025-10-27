@@ -33,6 +33,9 @@ interface ThemeProviderProps extends Omit<LayoutTypeProps, 'menuItems'> {
   settingActions?: ISettingAction;
   customRoutes?: React.ReactElement<typeof Routes>;
   withRouterProvider?: boolean;
+  headerClassName?: string;
+  contentClassName?: string;
+  fullWidth?: boolean;
 }
 
 export function ThemeProvider({
@@ -40,9 +43,12 @@ export function ThemeProvider({
   rightButton,
   brandColor,
   showSettings,
-  mode: appMode,
   customRoutes,
   className,
+  headerClassName,
+  contentClassName,
+  fullWidth,
+  mode: appMode,
   menuItems: appMenuItems,
   layout: appLayout,
   settingActions = defaultSettingActions,
@@ -147,6 +153,9 @@ export function ThemeProvider({
           rightButton={rightButton}
           logo={logo}
           className={className}
+          headerClassName={headerClassName}
+          contentClassName={contentClassName}
+          fullWidth={fullWidth}
         >
           {customRoutes ? customRoutes : <AppRoutes menuItems={menuItems} />}
         </RootLayout>

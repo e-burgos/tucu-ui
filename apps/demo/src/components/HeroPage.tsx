@@ -85,8 +85,8 @@ const HeroPage: React.FC<HeroPageProps> = ({
               style={{
                 backgroundImage:
                   mode === 'dark'
-                    ? 'linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)'
-                    : 'linear-gradient(rgba(0,0,0,0.2) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.2) 1px, transparent 1px)',
+                    ? 'linear-gradient(var(--color-gray-800) 1px, transparent 1px), linear-gradient(90deg, var(--color-gray-800) 1px, transparent 1px)'
+                    : 'linear-gradient(var(--color-gray-100) 1px, transparent 1px), linear-gradient(90deg, var(--color-gray-200) 1px, transparent 1px)',
                 backgroundSize: '32px 32px',
               }}
             ></div>

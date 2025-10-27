@@ -183,6 +183,12 @@ export function Colors() {
     { name: 'Royal', classes: 'from-purple-400 via-violet-500 to-indigo-600' },
     { name: 'Fire', classes: 'from-red-400 via-orange-500 to-yellow-600' },
     { name: 'Mint', classes: 'from-cyan-400 via-teal-500 to-emerald-600' },
+    { name: 'Brand', classes: 'from-brand via-brand/20 to-brand/10' },
+    { name: 'Steel', classes: 'from-gray-500 via-gray-600 to-gray-900' },
+    {
+      name: 'Emerald',
+      classes: 'from-emerald-500 via-emerald-600 to-emerald-900',
+    },
   ];
 
   // Opacity variations
@@ -357,7 +363,10 @@ export function Colors() {
                   >
                     {gradient.name}
                   </Typography>
-                  <Badge variant="outline" className="text-xs font-mono">
+                  <Badge
+                    variant="outline"
+                    className="text-xs overflow-hidden text-ellipsis whitespace-wrap font-mono max-w-full h-10 px-2 py-2"
+                  >
                     {gradient.classes}
                   </Badge>
                 </div>
@@ -387,30 +396,63 @@ export function Colors() {
         <CardContainer className="overflow-hidden">
           <CardTitle title="Opacity Scale" className="mb-4">
             <div className="space-y-4">
-              {['blue', 'red', 'green', 'purple', 'orange'].map(
-                (color, colorIndex) => (
-                  <div key={colorIndex} className="space-y-2">
-                    <Typography
-                      tag="h4"
-                      className="font-semibold text-sm capitalize"
+              <div className="space-y-2">
+                <Typography
+                  tag="h4"
+                  className="font-semibold text-sm capitalize"
+                >
+                  Brand opacity scale
+                </Typography>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2">
+                  {opacityLevels.map((opacity, opacityIndex) => (
+                    <div
+                      key={opacityIndex}
+                      className={`h-12 rounded-md bg-brand/${opacity} border border-gray-200 dark:border-gray-700 flex items-center justify-center group hover:scale-105 transition-transform duration-200`}
                     >
-                      {color} opacity scale
-                    </Typography>
-                    <div className="grid grid-cols-5 sm:grid-cols-10 gap-2">
-                      {opacityLevels.map((opacity, opacityIndex) => (
-                        <div
-                          key={opacityIndex}
-                          className={`h-12 rounded-md bg-${color}-500/${opacity} border border-gray-200 dark:border-gray-700 flex items-center justify-center group hover:scale-105 transition-transform duration-200`}
-                        >
-                          <span className="text-xs font-mono text-gray-600 dark:text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity">
-                            {opacity}%
-                          </span>
-                        </div>
-                      ))}
+                      <span className="text-xs font-mono text-gray-600 dark:text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity">
+                        {opacity}%
+                      </span>
                     </div>
+                  ))}
+                </div>
+              </div>
+              {[
+                'blue',
+                'red',
+                'green',
+                'purple',
+                'orange',
+                'indigo',
+                'violet',
+                'fuchsia',
+                'pink',
+                'rose',
+                'gray',
+                'zinc',
+                'neutral',
+                'stone',
+              ].map((color, colorIndex) => (
+                <div key={colorIndex} className="space-y-2">
+                  <Typography
+                    tag="h4"
+                    className="font-semibold text-sm capitalize"
+                  >
+                    {color} opacity scale
+                  </Typography>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2">
+                    {opacityLevels.map((opacity, opacityIndex) => (
+                      <div
+                        key={opacityIndex}
+                        className={`h-12 rounded-md bg-${color}-500/${opacity} border border-gray-200 dark:border-gray-700 flex items-center justify-center group hover:scale-105 transition-transform duration-200`}
+                      >
+                        <span className="text-xs font-mono text-gray-600 dark:text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity">
+                          {opacity}%
+                        </span>
+                      </div>
+                    ))}
                   </div>
-                )
-              )}
+                </div>
+              ))}
             </div>
           </CardTitle>
         </CardContainer>
@@ -490,7 +532,7 @@ export function Colors() {
           <CardContainer>
             <CardTitle title="Alert States" className="mb-4">
               <div className="space-y-3">
-                <div className="p-4 rounded-lg bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800">
+                <div className="p-4 rounded-lg bg-emerald-500 border border-emerald-200 dark:border-emerald-800">
                   <div className="flex items-center gap-2">
                     <LucideIcons.CheckCircle className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
                     <Typography

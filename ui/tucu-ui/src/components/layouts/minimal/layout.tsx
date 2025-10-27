@@ -49,12 +49,14 @@ function HeaderRightArea({
 }
 
 export function Header({
+  className,
   menuItems,
   rightButton,
   logo,
   isOpen,
   setIsOpen,
 }: {
+  className?: string;
   menuItems: IMenuItem[];
   rightButton?: React.ReactNode;
   logo?: LogoPropTypes;
@@ -71,7 +73,8 @@ export function Header({
         'sticky top-0 z-30 flex w-full backdrop-blur-lg shadow-md items-center justify-between px-4 transition-all duration-300 ltr:right-0 rtl:left-0 sm:px-6 lg:px-8 3xl:px-10',
         isMounted && windowScroll.y > 17
           ? 'min-h-24 bg-white/80 shadow-card sm:h-24 dark:bg-dark/80'
-          : 'min-h-18 sm:h-24'
+          : 'min-h-18 sm:h-24',
+        className
       )}
     >
       <div className="mx-auto flex w-full max-w-[2160px] items-center justify-between">
@@ -115,6 +118,9 @@ interface MinimalLayoutProps {
   logo?: LogoPropTypes;
   className?: string;
   isOpen: boolean;
+  fullWidth?: boolean;
+  headerClassName?: string;
+  contentClassName?: string;
   setIsOpen: (isOpen: boolean) => void;
 }
 
@@ -125,6 +131,9 @@ export function MinimalLayout({
   logo,
   className,
   isOpen,
+  fullWidth = false,
+  headerClassName,
+  contentClassName,
   setIsOpen,
 }: MinimalLayoutProps) {
   return (
@@ -135,10 +144,14 @@ export function MinimalLayout({
         logo={logo}
         isOpen={isOpen}
         setIsOpen={setIsOpen}
+        className={headerClassName}
       />
       <main
         className={cn(
-          'min-h-full px-4 pb-16 pt-4 sm:px-6 sm:pb-20 lg:px-8 xl:pb-24 xl:pt-5 3xl:px-10'
+          fullWidth
+            ? 'min-h-full w-full sm:px-0 lg:px-0 xl:px-0 2xl:px-0 3xl:px-0 4xl:px-0'
+            : 'min-h-full px-4 pb-16 pt-4 sm:px-6 sm:pb-20 lg:px-8 xl:pb-24 xl:pt-5 3xl:px-10',
+          contentClassName
         )}
       >
         {children}

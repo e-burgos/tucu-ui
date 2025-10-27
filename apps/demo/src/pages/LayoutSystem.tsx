@@ -6,6 +6,8 @@ import {
   Badge,
   Alert,
   CodeBlock,
+  PRESET_COLORS,
+  PRESET_LABEL_COLORS,
 } from 'tucu-ui';
 import HeroPage from '../components/HeroPage';
 
@@ -106,14 +108,12 @@ export function LayoutSystem() {
     { name: '4xl', value: '2160px', description: '4K devices' },
   ];
 
-  const colorPresets = [
-    { label: 'Green', value: '#009e60', color: 'bg-green-500' },
-    { label: 'Black', value: '#323743', color: 'bg-gray-800' },
-    { label: 'Blue', value: '#2a52be', color: 'bg-blue-500' },
-    { label: 'Red', value: '#e34234', color: 'bg-red-500' },
-    { label: 'Purple', value: '#9370DB', color: 'bg-purple-500' },
-    { label: 'Orange', value: '#ffa500', color: 'bg-orange-500' },
-  ];
+  const colorPresets = Object.values(PRESET_COLORS).map((color) => ({
+    label: Object.keys(PRESET_LABEL_COLORS).find(
+      (key) => PRESET_COLORS[key as keyof typeof PRESET_COLORS] === color
+    ) as PRESET_LABEL_COLORS,
+    value: color,
+  }));
 
   const bestPractices = [
     {
@@ -300,12 +300,13 @@ export function LayoutSystem() {
                   Available Color Presets
                 </Typography>
               </div>
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4 sm:gap-6">
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 sm:gap-6">
                 {colorPresets.map((preset, index) => (
                   <div key={index} className="text-center space-y-3">
                     <div className="relative group">
                       <div
-                        className={`w-16 h-16 rounded-xl ${preset.color} mx-auto shadow-lg group-hover:scale-110 transition-transform duration-200`}
+                        className={`w-16 h-16 rounded-xl mx-auto shadow-lg group-hover:scale-110 transition-transform duration-200`}
+                        style={{ backgroundColor: preset.value }}
                       />
                       <div className="absolute inset-0 rounded-xl bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
                     </div>
