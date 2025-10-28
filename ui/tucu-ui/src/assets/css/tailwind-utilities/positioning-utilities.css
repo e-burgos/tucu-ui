@@ -1,0 +1,276 @@
+/**
+ * Positioning Utilities
+ * Position, Top/Right/Bottom/Left, Visibility, Z-Index
+ */
+
+@layer utilities {
+  /* Position */
+  .static {
+    position: static;
+  }
+  .fixed {
+    position: fixed;
+  }
+  .absolute {
+    position: absolute;
+  }
+  .relative {
+    position: relative;
+  }
+  .sticky {
+    position: sticky;
+  }
+
+  /* Top, Right, Bottom, Left */
+  .inset-0 {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+  .inset-x-0 {
+    left: 0;
+    right: 0;
+  }
+  .inset-y-0 {
+    top: 0;
+    bottom: 0;
+  }
+  .top-0 {
+    top: 0;
+  }
+  .right-0 {
+    right: 0;
+  }
+  .bottom-0 {
+    bottom: 0;
+  }
+  .left-0 {
+    left: 0;
+  }
+  .inset-auto {
+    top: auto;
+    right: auto;
+    bottom: auto;
+    left: auto;
+  }
+  .top-auto {
+    top: auto;
+  }
+  .right-auto {
+    right: auto;
+  }
+  .bottom-auto {
+    bottom: auto;
+  }
+  .left-auto {
+    left: auto;
+  }
+
+  /* Positioning with spacing scale */
+  .inset-px {
+    top: 1px;
+    right: 1px;
+    bottom: 1px;
+    left: 1px;
+  }
+  .inset-0\.5 {
+    top: 0.125rem;
+    right: 0.125rem;
+    bottom: 0.125rem;
+    left: 0.125rem;
+  }
+  .inset-1 {
+    top: 0.25rem;
+    right: 0.25rem;
+    bottom: 0.25rem;
+    left: 0.25rem;
+  }
+  .inset-2 {
+    top: 0.5rem;
+    right: 0.5rem;
+    bottom: 0.5rem;
+    left: 0.5rem;
+  }
+  .inset-3 {
+    top: 0.75rem;
+    right: 0.75rem;
+    bottom: 0.75rem;
+    left: 0.75rem;
+  }
+  .inset-4 {
+    top: 1rem;
+    right: 1rem;
+    bottom: 1rem;
+    left: 1rem;
+  }
+  .inset-5 {
+    top: 1.25rem;
+    right: 1.25rem;
+    bottom: 1.25rem;
+    left: 1.25rem;
+  }
+  .inset-6 {
+    top: 1.5rem;
+    right: 1.5rem;
+    bottom: 1.5rem;
+    left: 1.5rem;
+  }
+  .inset-8 {
+    top: 2rem;
+    right: 2rem;
+    bottom: 2rem;
+    left: 2rem;
+  }
+  .inset-10 {
+    top: 2.5rem;
+    right: 2.5rem;
+    bottom: 2.5rem;
+    left: 2.5rem;
+  }
+  .inset-12 {
+    top: 3rem;
+    right: 3rem;
+    bottom: 3rem;
+    left: 3rem;
+  }
+  .inset-16 {
+    top: 4rem;
+    right: 4rem;
+    bottom: 4rem;
+    left: 4rem;
+  }
+  .inset-20 {
+    top: 5rem;
+    right: 5rem;
+    bottom: 5rem;
+    left: 5rem;
+  }
+  .inset-24 {
+    top: 6rem;
+    right: 6rem;
+    bottom: 6rem;
+    left: 6rem;
+  }
+  .inset-32 {
+    top: 8rem;
+    right: 8rem;
+    bottom: 8rem;
+    left: 8rem;
+  }
+  .inset-40 {
+    top: 10rem;
+    right: 10rem;
+    bottom: 10rem;
+    left: 10rem;
+  }
+  .inset-48 {
+    top: 12rem;
+    right: 12rem;
+    bottom: 12rem;
+    left: 12rem;
+  }
+  .inset-56 {
+    top: 14rem;
+    right: 14rem;
+    bottom: 14rem;
+    left: 14rem;
+  }
+  .inset-64 {
+    top: 16rem;
+    right: 16rem;
+    bottom: 16rem;
+    left: 16rem;
+  }
+  .inset-72 {
+    top: 18rem;
+    right: 18rem;
+    bottom: 18rem;
+    left: 18rem;
+  }
+  .inset-80 {
+    top: 20rem;
+    right: 20rem;
+    bottom: 20rem;
+    left: 20rem;
+  }
+  .inset-96 {
+    top: 24rem;
+    right: 24rem;
+    bottom: 24rem;
+    left: 24rem;
+  }
+  .inset-1\/2 {
+    top: 50%;
+    right: 50%;
+    bottom: 50%;
+    left: 50%;
+  }
+  .inset-1\/3 {
+    top: 33.333333%;
+    right: 33.333333%;
+    bottom: 33.333333%;
+    left: 33.333333%;
+  }
+  .inset-2\/3 {
+    top: 66.666667%;
+    right: 66.666667%;
+    bottom: 66.666667%;
+    left: 66.666667%;
+  }
+  .inset-1\/4 {
+    top: 25%;
+    right: 25%;
+    bottom: 25%;
+    left: 25%;
+  }
+  .inset-2\/4 {
+    top: 50%;
+    right: 50%;
+    bottom: 50%;
+    left: 50%;
+  }
+  .inset-3\/4 {
+    top: 75%;
+    right: 75%;
+    bottom: 75%;
+    left: 75%;
+  }
+  .inset-full {
+    top: 100%;
+    right: 100%;
+    bottom: 100%;
+    left: 100%;
+  }
+
+  /* Visibility */
+  .visible {
+    visibility: visible;
+  }
+  .invisible {
+    visibility: hidden;
+  }
+
+  /* Z-Index */
+  .z-0 {
+    z-index: 0;
+  }
+  .z-10 {
+    z-index: 10;
+  }
+  .z-20 {
+    z-index: 20;
+  }
+  .z-30 {
+    z-index: 30;
+  }
+  .z-40 {
+    z-index: 40;
+  }
+  .z-50 {
+    z-index: 50;
+  }
+  .z-auto {
+    z-index: auto;
+  }
+}

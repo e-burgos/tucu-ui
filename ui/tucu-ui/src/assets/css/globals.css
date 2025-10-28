@@ -1,5 +1,7 @@
 @import 'tailwindcss';
 
+@import './tailwind-utilities/layout-utilities.css';
+
 @config '../../../tailwind.config.js';
 
 @plugin "@tailwindcss/typography";
@@ -81,7 +83,9 @@ fuchsia, rose, pink, slate, gray, zinc, neutral, stone, white, black */
 @source inline("to-brand");
 
 /* red */
-/* @source inline("{hover:,focus:,active:,disabled:}bg-red-{50,{100..900..100},950}"); */
+@source inline("text-red-{50,{100..900..100},950}");
+@source inline("border-red-{50,{100..900..100},950}");
+@source inline("{hover:,focus:,active:,disabled:}bg-red-{50,{100..900..100},950}");
 @source inline("bg-red-{50,{100..900..100},950}");
 @source inline("bg-red-{50,{100..900..100},950}/{10..100..10}");
 @source inline("from-red-{50,{100..900..100},950}");
@@ -89,6 +93,9 @@ fuchsia, rose, pink, slate, gray, zinc, neutral, stone, white, black */
 @source inline("to-red-{50,{100..900..100},950}");
 
 /* orange */
+@source inline("text-orange-{50,{100..900..100},950}");
+@source inline("border-orange-{50,{100..900..100},950}");
+@source inline("{hover:,focus:,active:,disabled:}bg-orange-{50,{100..900..100},950}");
 @source inline("bg-orange-{50,{100..900..100},950}");
 @source inline("bg-orange-{50,{100..900..100},950}/{10..100..10}");
 @source inline("from-orange-{50,{100..900..100},950}");
@@ -96,6 +103,9 @@ fuchsia, rose, pink, slate, gray, zinc, neutral, stone, white, black */
 @source inline("to-orange-{50,{100..900..100},950}");
 
 /* amber */
+@source inline("text-amber-{50,{100..900..100},950}");
+@source inline("border-amber-{50,{100..900..100},950}");
+@source inline("{hover:,focus:,active:,disabled:}bg-amber-{50,{100..900..100},950}");
 @source inline("bg-amber-{50,{100..900..100},950}");
 @source inline("bg-amber-{50,{100..900..100},950}/{10..100..10}");
 @source inline("from-amber-{50,{100..900..100},950}");
@@ -103,6 +113,9 @@ fuchsia, rose, pink, slate, gray, zinc, neutral, stone, white, black */
 @source inline("to-amber-{50,{100..900..100},950}");
 
 /* yellow */
+@source inline("text-yellow-{50,{100..900..100},950}");
+@source inline("border-yellow-{50,{100..900..100},950}");
+@source inline("{hover:,focus:,active:,disabled:}bg-yellow-{50,{100..900..100},950}");
 @source inline("bg-yellow-{50,{100..900..100},950}");
 @source inline("bg-yellow-{50,{100..900..100},950}/{10..100..10}");
 @source inline("from-yellow-{50,{100..900..100},950}");
@@ -110,6 +123,9 @@ fuchsia, rose, pink, slate, gray, zinc, neutral, stone, white, black */
 @source inline("to-yellow-{50,{100..900..100},950}");
 
 /* lime */
+@source inline("text-lime-{50,{100..900..100},950}");
+@source inline("border-lime-{50,{100..900..100},950}");
+@source inline("{hover:,focus:,active:,disabled:}bg-lime-{50,{100..900..100},950}");
 @source inline("bg-lime-{50,{100..900..100},950}");
 @source inline("bg-lime-{50,{100..900..100},950}/{10..100..10}");
 @source inline("from-lime-{50,{100..900..100},950}");
@@ -117,6 +133,9 @@ fuchsia, rose, pink, slate, gray, zinc, neutral, stone, white, black */
 @source inline("to-lime-{50,{100..900..100},950}");
 
 /* green */
+@source inline("text-green-{50,{100..900..100},950}");
+@source inline("border-green-{50,{100..900..100},950}");
+@source inline("{hover:,focus:,active:,disabled:}bg-green-{50,{100..900..100},950}");
 @source inline("bg-green-{50,{100..900..100},950}");
 @source inline("bg-green-{50,{100..900..100},950}/{10..100..10}");
 @source inline("from-green-{50,{100..900..100},950}");
@@ -124,6 +143,9 @@ fuchsia, rose, pink, slate, gray, zinc, neutral, stone, white, black */
 @source inline("to-green-{50,{100..900..100},950}");
 
 /* emerald */
+@source inline("text-emerald-{50,{100..900..100},950}");
+@source inline("border-emerald-{50,{100..900..100},950}");
+@source inline("{hover:,focus:,active:,disabled:}bg-emerald-{50,{100..900..100},950}");
 @source inline("bg-emerald-{50,{100..900..100},950}");
 @source inline("bg-emerald-{50,{100..900..100},950}/{10..100..10}");
 @source inline("from-emerald-{50,{100..900..100},950}");
@@ -131,6 +153,9 @@ fuchsia, rose, pink, slate, gray, zinc, neutral, stone, white, black */
 @source inline("to-emerald-{50,{100..900..100},950}");
 
 /* teal */
+@source inline("text-teal-{50,{100..900..100},950}");
+@source inline("border-teal-{50,{100..900..100},950}");
+@source inline("{hover:,focus:,active:,disabled:}bg-teal-{50,{100..900..100},950}");
 @source inline("bg-teal-{50,{100..900..100},950}");
 @source inline("bg-teal-{50,{100..900..100},950}/{10..100..10}");
 @source inline("from-teal-{50,{100..900..100},950}");
@@ -138,6 +163,9 @@ fuchsia, rose, pink, slate, gray, zinc, neutral, stone, white, black */
 @source inline("to-teal-{50,{100..900..100},950}");
 
 /* cyan */
+@source inline("text-cyan-{50,{100..900..100},950}");
+@source inline("border-cyan-{50,{100..900..100},950}");
+@source inline("{hover:,focus:,active:,disabled:}bg-cyan-{50,{100..900..100},950}");
 @source inline("bg-cyan-{50,{100..900..100},950}");
 @source inline("bg-cyan-{50,{100..900..100},950}/{10..100..10}");
 @source inline("from-cyan-{50,{100..900..100},950}");
@@ -145,6 +173,9 @@ fuchsia, rose, pink, slate, gray, zinc, neutral, stone, white, black */
 @source inline("to-cyan-{50,{100..900..100},950}");
 
 /* sky */
+@source inline("text-sky-{50,{100..900..100},950}");
+@source inline("border-sky-{50,{100..900..100},950}");
+@source inline("{hover:,focus:,active:,disabled:}bg-sky-{50,{100..900..100},950}");
 @source inline("bg-sky-{50,{100..900..100},950}");
 @source inline("bg-sky-{50,{100..900..100},950}/{10..100..10}");
 @source inline("from-sky-{50,{100..900..100},950}");
@@ -152,6 +183,9 @@ fuchsia, rose, pink, slate, gray, zinc, neutral, stone, white, black */
 @source inline("to-sky-{50,{100..900..100},950}");
 
 /* blue */
+@source inline("text-blue-{50,{100..900..100},950}");
+@source inline("border-blue-{50,{100..900..100},950}");
+@source inline("{hover:,focus:,active:,disabled:}bg-blue-{50,{100..900..100},950}");
 @source inline("bg-blue-{50,{100..900..100},950}");
 @source inline("bg-blue-{50,{100..900..100},950}/{10..100..10}");
 @source inline("from-blue-{50,{100..900..100},950}");
@@ -159,6 +193,9 @@ fuchsia, rose, pink, slate, gray, zinc, neutral, stone, white, black */
 @source inline("to-blue-{50,{100..900..100},950}");
 
 /* indigo */
+@source inline("text-indigo-{50,{100..900..100},950}");
+@source inline("border-indigo-{50,{100..900..100},950}");
+@source inline("{hover:,focus:,active:,disabled:}bg-indigo-{50,{100..900..100},950}");
 @source inline("bg-indigo-{50,{100..900..100},950}");
 @source inline("bg-indigo-{50,{100..900..100},950}/{10..100..10}");
 @source inline("from-indigo-{50,{100..900..100},950}");
@@ -166,6 +203,9 @@ fuchsia, rose, pink, slate, gray, zinc, neutral, stone, white, black */
 @source inline("to-indigo-{50,{100..900..100},950}");
 
 /* violet */
+@source inline("text-violet-{50,{100..900..100},950}");
+@source inline("border-violet-{50,{100..900..100},950}");
+@source inline("{hover:,focus:,active:,disabled:}bg-violet-{50,{100..900..100},950}");
 @source inline("bg-violet-{50,{100..900..100},950}");
 @source inline("bg-violet-{50,{100..900..100},950}/{10..100..10}");
 @source inline("from-violet-{50,{100..900..100},950}");
@@ -173,6 +213,9 @@ fuchsia, rose, pink, slate, gray, zinc, neutral, stone, white, black */
 @source inline("to-violet-{50,{100..900..100},950}");
 
 /* purple */
+@source inline("text-purple-{50,{100..900..100},950}");
+@source inline("border-purple-{50,{100..900..100},950}");
+@source inline("{hover:,focus:,active:,disabled:}bg-purple-{50,{100..900..100},950}");
 @source inline("bg-purple-{50,{100..900..100},950}");
 @source inline("bg-purple-{50,{100..900..100},950}/{10..100..10}");
 @source inline("from-purple-{50,{100..900..100},950}");
@@ -180,6 +223,9 @@ fuchsia, rose, pink, slate, gray, zinc, neutral, stone, white, black */
 @source inline("to-purple-{50,{100..900..100},950}");
 
 /* fuchsia */
+@source inline("text-fuchsia-{50,{100..900..100},950}");
+@source inline("border-fuchsia-{50,{100..900..100},950}");
+@source inline("{hover:,focus:,active:,disabled:}bg-fuchsia-{50,{100..900..100},950}");
 @source inline("bg-fuchsia-{50,{100..900..100},950}");
 @source inline("bg-fuchsia-{50,{100..900..100},950}/{10..100..10}");
 @source inline("from-fuchsia-{50,{100..900..100},950}");
@@ -187,6 +233,9 @@ fuchsia, rose, pink, slate, gray, zinc, neutral, stone, white, black */
 @source inline("to-fuchsia-{50,{100..900..100},950}");
 
 /* rose */
+@source inline("text-rose-{50,{100..900..100},950}");
+@source inline("border-rose-{50,{100..900..100},950}");
+@source inline("{hover:,focus:,active:,disabled:}bg-rose-{50,{100..900..100},950}");
 @source inline("bg-rose-{50,{100..900..100},950}");
 @source inline("bg-rose-{50,{100..900..100},950}/{10..100..10}");
 @source inline("from-rose-{50,{100..900..100},950}");
@@ -194,6 +243,9 @@ fuchsia, rose, pink, slate, gray, zinc, neutral, stone, white, black */
 @source inline("to-rose-{50,{100..900..100},950}");
 
 /* pink */
+@source inline("text-pink-{50,{100..900..100},950}");
+@source inline("border-pink-{50,{100..900..100},950}");
+@source inline("{hover:,focus:,active:,disabled:}bg-pink-{50,{100..900..100},950}");
 @source inline("bg-pink-{50,{100..900..100},950}");
 @source inline("bg-pink-{50,{100..900..100},950}/{10..100..10}");
 @source inline("from-pink-{50,{100..900..100},950}");
@@ -201,6 +253,9 @@ fuchsia, rose, pink, slate, gray, zinc, neutral, stone, white, black */
 @source inline("to-pink-{50,{100..900..100},950}");
 
 /* slate */
+@source inline("text-slate-{50,{100..900..100},950}");
+@source inline("border-slate-{50,{100..900..100},950}");
+@source inline("{hover:,focus:,active:,disabled:}bg-slate-{50,{100..900..100},950}");
 @source inline("bg-slate-{50,{100..900..100},950}");
 @source inline("bg-slate-{50,{100..900..100},950}/{10..100..10}");
 @source inline("from-slate-{50,{100..900..100},950}");
@@ -208,6 +263,9 @@ fuchsia, rose, pink, slate, gray, zinc, neutral, stone, white, black */
 @source inline("to-slate-{50,{100..900..100},950}");
 
 /* gray */
+@source inline("text-gray-{50,{100..900..100},950}");
+@source inline("border-gray-{50,{100..900..100},950}");
+@source inline("{hover:,focus:,active:,disabled:}bg-gray-{50,{100..900..100},950}");
 @source inline("bg-gray-{50,{100..900..100},950}");
 @source inline("bg-gray-{50,{100..900..100},950}/{10..100..10}");
 @source inline("from-gray-{50,{100..900..100},950}");
@@ -215,6 +273,9 @@ fuchsia, rose, pink, slate, gray, zinc, neutral, stone, white, black */
 @source inline("to-gray-{50,{100..900..100},950}");
 
 /* zinc */
+@source inline("text-zinc-{50,{100..900..100},950}");
+@source inline("border-zinc-{50,{100..900..100},950}");
+@source inline("{hover:,focus:,active:,disabled:}bg-zinc-{50,{100..900..100},950}");
 @source inline("bg-zinc-{50,{100..900..100},950}");
 @source inline("bg-zinc-{50,{100..900..100},950}/{10..100..10}");
 @source inline("from-zinc-{50,{100..900..100},950}");
@@ -222,6 +283,9 @@ fuchsia, rose, pink, slate, gray, zinc, neutral, stone, white, black */
 @source inline("to-zinc-{50,{100..900..100},950}");
 
 /* neutral */
+@source inline("text-neutral-{50,{100..900..100},950}");
+@source inline("border-neutral-{50,{100..900..100},950}");
+@source inline("{hover:,focus:,active:,disabled:}bg-neutral-{50,{100..900..100},950}");
 @source inline("bg-neutral-{50,{100..900..100},950}");
 @source inline("bg-neutral-{50,{100..900..100},950}/{10..100..10}");
 @source inline("from-neutral-{50,{100..900..100},950}");
@@ -229,6 +293,9 @@ fuchsia, rose, pink, slate, gray, zinc, neutral, stone, white, black */
 @source inline("to-neutral-{50,{100..900..100},950}");
 
 /* stone */
+@source inline("text-stone-{50,{100..900..100},950}");
+@source inline("border-stone-{50,{100..900..100},950}");
+@source inline("{hover:,focus:,active:,disabled:}bg-stone-{50,{100..900..100},950}");
 @source inline("bg-stone-{50,{100..900..100},950}");
 @source inline("bg-stone-{50,{100..900..100},950}/{10..100..10}");
 @source inline("from-stone-{50,{100..900..100},950}");
@@ -236,6 +303,9 @@ fuchsia, rose, pink, slate, gray, zinc, neutral, stone, white, black */
 @source inline("to-stone-{50,{100..900..100},950}");
 
 /* white */
+@source inline("text-white");
+@source inline("border-white");
+@source inline("{hover:,focus:,active:,disabled:}bg-white-{50,{100..900..100},950}");
 @source inline("bg-white-{50,{100..900..100},950}");
 @source inline("bg-white-{50,{100..900..100},950}/{10..100..10}");
 @source inline("from-white-{50,{100..900..100},950}");
@@ -243,6 +313,9 @@ fuchsia, rose, pink, slate, gray, zinc, neutral, stone, white, black */
 @source inline("to-white-{50,{100..900..100},950}");
 
 /* black */
+@source inline("text-black");
+@source inline("border-black");
+@source inline("{hover:,focus:,active:,disabled:}bg-black-{50,{100..900..100},950}");
 @source inline("bg-black-{50,{100..900..100},950}");
 @source inline("bg-black-{50,{100..900..100},950}/{10..100..10}");
 @source inline("from-black-{50,{100..900..100},950}");

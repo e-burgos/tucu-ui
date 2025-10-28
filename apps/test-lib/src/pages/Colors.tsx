@@ -397,7 +397,7 @@ export function Colors() {
                     >
                       {color} opacity scale
                     </Typography>
-                    <div className="grid grid-cols-5 sm:grid-cols-10 gap-2">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2">
                       {opacityLevels.map((opacity, opacityIndex) => (
                         <div
                           key={opacityIndex}

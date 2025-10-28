@@ -79,7 +79,7 @@ const HeroPage: React.FC<HeroPageProps> = ({
           className="absolute inset-0 overflow-hidden"
         >
           {/* Grid pattern */}
-          <div className="absolute inset-0 opacity-20">
+          <div className="absolute inset-0">
             <div
               className="absolute inset-0"
               style={{
