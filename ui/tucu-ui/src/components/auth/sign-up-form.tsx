@@ -202,7 +202,7 @@ export function SignUpForm({
                   </>
                 }
                 labelPlacement="end"
-                labelClassName="ml-1.5 text-[#4B5563] text-xs! dark:text-gray-300 tracking-[0.5px] leading-7!"
+                labelClassName="ml-1.5 text-[#4B5563] text-sm! dark:text-gray-300 tracking-[0.5px] leading-7!"
                 containerClassName="items-start!"
                 inputClassName="mt-1 focus:ring-offset-1!"
                 size="sm"

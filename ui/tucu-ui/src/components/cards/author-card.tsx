@@ -30,7 +30,7 @@ export function AuthorCard({ image, name, authorRole }: AuthorCardProps) {
           {name}
         </h3>
         {authorRole && (
-          <span className="mt-1 block text-xs text-gray-600 dark:text-gray-400">
+          <span className="mt-1 block text-sm text-gray-600 dark:text-gray-400">
             {authorRole}
           </span>
         )}

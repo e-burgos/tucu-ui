@@ -90,7 +90,7 @@ WithAdditionalContent.args = {
   children: (
     <div className="mb-6 p-3 bg-gray-100 dark:bg-gray-800 rounded-lg">
       <p className="text-sm">Welcome back, User!</p>
-      <p className="text-xs text-gray-600 dark:text-gray-400">
+      <p className="text-sm text-gray-600 dark:text-gray-400">
         Last login: Today at 10:30 AM
       </p>
     </div>

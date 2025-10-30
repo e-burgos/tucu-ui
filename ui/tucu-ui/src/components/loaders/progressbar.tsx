@@ -100,7 +100,7 @@ export const Progressbar = ({
       style={{ width: `${value}%` }}
     >
       {label && size === 'xl' && (
-        <Text className={cn('text-xs font-bold', labelClassName)}>{label}</Text>
+        <Text className={cn('text-sm font-bold', labelClassName)}>{label}</Text>
       )}
     </div>
   </div>

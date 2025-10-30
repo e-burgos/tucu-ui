@@ -29,7 +29,7 @@ export function TopupButton({
           {icon}
         </span>
       )}
-      <span className="mr-3.5 grow text-justify text-xs lg:text-sm">
+      <span className="mr-3.5 grow text-justify text-sm lg:text-sm">
         {label}
       </span>
       {href && (

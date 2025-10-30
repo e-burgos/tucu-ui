@@ -5,7 +5,7 @@ const helperTextClasses = {
   base: 'text-gray-900 dark:text-gray-200 mt-2',
   size: {
     sm: 'text-[10px]',
-    DEFAULT: 'text-xs',
+    DEFAULT: 'text-sm',
     lg: 'text-sm',
     xl: 'text-base',
   },

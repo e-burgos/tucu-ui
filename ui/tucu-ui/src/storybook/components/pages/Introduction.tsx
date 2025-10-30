@@ -509,7 +509,7 @@ function App() {
                     <Typography tag="h4" className="font-semibold">
                       {category.title}
                     </Typography>
-                    <Badge variant="outline" className="text-xs">
+                    <Badge variant="outline" className="text-sm">
                       {category.count}
                     </Badge>
                   </div>

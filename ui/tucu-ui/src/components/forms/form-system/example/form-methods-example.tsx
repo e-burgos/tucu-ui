@@ -90,7 +90,7 @@ export const FormMethodsExample: React.FC = () => {
       {/* Form state */}
       <div className="mb-4 grid grid-cols-2 gap-2">
         <div className="p-2 border border-gray-200 dark:border-gray-700 rounded-md">
-          <p className="text-xs font-medium mb-1">isDirty:</p>
+          <p className="text-sm font-medium mb-1">isDirty:</p>
           <span
             className={`text-sm ${
               isDirty ? 'text-green-500' : 'text-gray-500'
@@ -100,7 +100,7 @@ export const FormMethodsExample: React.FC = () => {
           </span>
         </div>
         <div className="p-2 border border-gray-200 dark:border-gray-700 rounded-md">
-          <p className="text-xs font-medium mb-1">isValid:</p>
+          <p className="text-sm font-medium mb-1">isValid:</p>
           <span
             className={`text-sm ${isValid ? 'text-green-500' : 'text-red-500'}`}
           >
@@ -108,7 +108,7 @@ export const FormMethodsExample: React.FC = () => {
           </span>
         </div>
         <div className="p-2 border border-gray-200 dark:border-gray-700 rounded-md">
-          <p className="text-xs font-medium mb-1">isSubmitting:</p>
+          <p className="text-sm font-medium mb-1">isSubmitting:</p>
           <span
             className={`text-sm ${
               isSubmitting ? 'text-blue-500' : 'text-gray-500'
@@ -118,7 +118,7 @@ export const FormMethodsExample: React.FC = () => {
           </span>
         </div>
         <div className="p-2 border border-gray-200 dark:border-gray-700 rounded-md">
-          <p className="text-xs font-medium mb-1">Errors:</p>
+          <p className="text-sm font-medium mb-1">Errors:</p>
           <span
             className={`text-sm ${
               Object.keys(errors).length > 0 ? 'text-red-500' : 'text-green-500'

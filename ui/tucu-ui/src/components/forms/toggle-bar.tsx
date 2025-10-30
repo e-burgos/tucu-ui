@@ -27,11 +27,11 @@ export function ToggleBar({
             </div>
           )}
           <div>
-            <span className="block text-xs font-medium uppercase tracking-wider text-gray-900 dark:text-white sm:text-sm">
+            <span className="block text-sm font-medium uppercase tracking-wider text-gray-900 dark:text-white sm:text-sm">
               {title}
             </span>
             {subTitle && (
-              <span className="mt-1 hidden text-xs tracking-tighter text-gray-600 dark:text-gray-400 sm:block">
+              <span className="mt-1 hidden text-sm tracking-tighter text-gray-600 dark:text-gray-400 sm:block">
                 {subTitle}
               </span>
             )}

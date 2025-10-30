@@ -107,7 +107,7 @@ const HeroPage: React.FC<HeroPageProps> = ({
           {icon && <div className="relative mx-auto mb-6 w-fit">{icon}</div>}
           <Typography
             tag="h1"
-            className="text-6xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-brand mb-6"
+            className="text-5xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-brand mb-6"
           >
             {title}
           </Typography>

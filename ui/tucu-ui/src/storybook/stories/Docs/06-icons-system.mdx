@@ -402,7 +402,7 @@ function NotificationIcon({ count }: { count: number }) {
     <div className="relative">
       <LucideIcons.Bell className="w-6 h-6" />
       {count > 0 && (
-        <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+        <span className="absolute -top-2 -right-2 bg-red-500 text-white text-sm rounded-full w-5 h-5 flex items-center justify-center">
           {count > 99 ? '99+' : count}
         </span>
       )}

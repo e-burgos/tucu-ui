@@ -159,7 +159,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
 
     // Label size classes
     const labelSizeClasses = {
-      sm: 'text-xs',
+      sm: 'text-sm',
       md: 'text-sm',
       lg: 'text-base',
     };

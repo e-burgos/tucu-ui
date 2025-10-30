@@ -115,7 +115,7 @@ function CharacterCounterExample() {
         maxLength={maxLength}
       />
       <div
-        className={`text-right text-xs mt-1 ${
+        className={`text-right text-sm mt-1 ${
           charsLeft < 10 ? 'text-red-500' : 'text-gray-500'
         }`}
       >

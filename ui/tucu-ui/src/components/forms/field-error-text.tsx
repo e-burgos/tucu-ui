@@ -5,7 +5,7 @@ const fieldErrorClasses = {
   base: 'text-red-500 mt-2',
   size: {
     sm: 'text-[10px]',
-    DEFAULT: 'text-xs',
+    DEFAULT: 'text-sm',
     lg: 'text-sm',
     xl: 'text-base',
   },

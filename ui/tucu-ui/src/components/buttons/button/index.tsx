@@ -154,7 +154,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           <div
             id={tooltipId}
             role="tooltip"
-            className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 w-max px-2 py-1 text-xs dark:bg-light-dark bg-white rounded-sm shadow-lg border border-gray-200 dark:border-gray-700 z-10"
+            className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 w-max px-2 py-1 text-sm dark:bg-light-dark bg-white rounded-sm shadow-lg border border-gray-200 dark:border-gray-700 z-10"
           >
             {tooltip}
           </div>
@@ -168,7 +168,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           aria-describedby={describedBy}
           aria-busy={isLoading ? 'true' : 'false'}
           className={cn(
-            'group inline-flex shrink-0 items-center justify-center overflow-hidden text-center text-xs font-medium tracking-wider outline-hidden transition-all sm:text-sm',
+            'group inline-flex shrink-0 items-center justify-center overflow-hidden text-center text-sm font-medium tracking-wider outline-hidden transition-all sm:text-sm',
             !disabled
               ? buttonColorClassNames
               : 'cursor-not-allowed dark:bg-gray-700 dark:text-gray-500 bg-gray-300 text-gray-600',

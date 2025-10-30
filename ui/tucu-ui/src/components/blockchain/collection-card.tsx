@@ -48,7 +48,7 @@ export function CollectionCard({ item, className = '' }: CollectionCardProps) {
         />
         <div className="flex justify-between gap-3">
           <div
-            className="inline-flex h-8 shrink-0 items-center rounded-2xl bg-white/20 px-4 text-xs font-medium uppercase -tracking-wide text-white
+            className="inline-flex h-8 shrink-0 items-center rounded-2xl bg-white/20 px-4 text-sm font-medium uppercase -tracking-wide text-white
           backdrop-blur-2xl"
           >
             {name}

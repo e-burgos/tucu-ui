@@ -29,7 +29,7 @@ export function InputLabel({
         )}
       </span>
       {subTitle && (
-        <span className="mt-1 block text-xs tracking-tighter text-gray-600 dark:text-gray-400 sm:text-sm">
+        <span className="mt-1 block text-sm tracking-tighter text-gray-600 dark:text-gray-400 sm:text-sm">
           {subTitle}
         </span>
       )}

@@ -44,10 +44,10 @@ export const InputSwitch: React.FC<InputSwitchProps> = ({
           checked ? 'bg-brand' : 'bg-gray-500'
         )}
       />
-      <span className="absolute font-medium text-xs uppercase right-1 text-white">
+      <span className="absolute font-medium text-sm uppercase right-1 text-white">
         {offLabel || 'OFF'}
       </span>
-      <span className="absolute font-medium text-xs uppercase right-8 text-white">
+      <span className="absolute font-medium text-sm uppercase right-8 text-white">
         {onLabel || 'ON'}
       </span>
       <span

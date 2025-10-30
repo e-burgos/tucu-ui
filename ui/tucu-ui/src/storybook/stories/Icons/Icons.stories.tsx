@@ -31,7 +31,7 @@ const IconGrid = ({
           <div className="h-12 w-12 flex items-center justify-center text-gray-700">
             <Icon className="h-8 w-8 dark:text-gray-300" />
           </div>
-          <span className="mt-2 text-xs text-gray-600 dark:text-gray-300 text-center">
+          <span className="mt-2 text-sm text-gray-600 dark:text-gray-300 text-center">
             {name}
           </span>
         </div>

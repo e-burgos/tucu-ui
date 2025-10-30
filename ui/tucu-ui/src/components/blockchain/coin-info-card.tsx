@@ -62,7 +62,7 @@ export function CoinInfoCard({
         <div className="ltr:ml-2 rtl:mr-2">
           {name}
           {coinType && (
-            <span className="block pt-0.5 text-xs font-normal capitalize text-gray-600 dark:text-gray-400">
+            <span className="block pt-0.5 text-sm font-normal capitalize text-gray-600 dark:text-gray-400">
               {coinType}
             </span>
           )}

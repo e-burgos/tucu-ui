@@ -104,9 +104,9 @@ WithContent.args = {
         className="w-full h-2 rounded-lg appearance-none bg-gray-300 dark:bg-gray-600"
       />
       <div className="flex justify-between mt-1">
-        <span className="text-xs">0%</span>
-        <span className="text-xs">50%</span>
-        <span className="text-xs">100%</span>
+        <span className="text-sm">0%</span>
+        <span className="text-sm">50%</span>
+        <span className="text-sm">100%</span>
       </div>
     </div>
   ),

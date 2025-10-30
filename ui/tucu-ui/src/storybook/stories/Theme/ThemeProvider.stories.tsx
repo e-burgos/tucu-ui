@@ -334,7 +334,7 @@ const meta: Meta<typeof ThemeProvider> = {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="bg-white dark:bg-gray-800 p-3 rounded-lg border border-gray-200 dark:border-gray-700">
                   <h4 className="font-medium text-sm mb-1">Light Mode</h4>
-                  <p className="text-xs text-gray-500">
+                  <p className="text-sm text-gray-500">
                     Default bright theme with light backgrounds and dark text.
                     Ideal for daytime use and standard applications.
                   </p>
@@ -343,7 +343,7 @@ const meta: Meta<typeof ThemeProvider> = {
                   <h4 className="font-medium text-sm mb-1 text-white">
                     Dark Mode
                   </h4>
-                  <p className="text-xs text-gray-400">
+                  <p className="text-sm text-gray-400">
                     Reduced brightness theme with dark backgrounds and light
                     text. Perfect for low-light environments and reducing eye
                     strain.
@@ -356,7 +356,7 @@ const meta: Meta<typeof ThemeProvider> = {
                   storage. The system automatically adds the appropriate class
                   to the HTML tag:
                 </p>
-                <pre className="bg-gray-100 dark:bg-gray-800 p-2 rounded mt-2 text-xs overflow-auto">
+                <pre className="bg-gray-100 dark:bg-gray-800 p-2 rounded mt-2 text-sm overflow-auto">
                   {`// In the useTheme hook
 if (mode === 'dark') {
   htmlTag.classList.remove('light');
@@ -380,7 +380,7 @@ if (mode === 'dark') {
                   <h4 className="font-medium text-sm mb-1">
                     LTR (Left-to-Right)
                   </h4>
-                  <p className="text-xs text-gray-500">
+                  <p className="text-sm text-gray-500">
                     Standard direction for Latin-based languages like English,
                     Spanish, and French. Text flows from left to right.
                   </p>
@@ -389,7 +389,7 @@ if (mode === 'dark') {
                   <h4 className="font-medium text-sm mb-1">
                     RTL (Right-to-Left)
                   </h4>
-                  <p className="text-xs text-gray-500">
+                  <p className="text-sm text-gray-500">
                     Direction for languages like Arabic, Hebrew, and Persian.
                     Text flows from right to left, and UI elements are mirrored.
                   </p>
@@ -401,7 +401,7 @@ if (mode === 'dark') {
                   automatically applies the appropriate styles and layout
                   adjustments to all components.
                 </p>
-                <pre className="bg-gray-100 dark:bg-gray-800 p-2 rounded mt-2 text-xs overflow-auto">
+                <pre className="bg-gray-100 dark:bg-gray-800 p-2 rounded mt-2 text-sm overflow-auto">
                   {`// Example of setting direction
 const { setDirection } = useTheme();
 setDirection('rtl'); // or 'ltr'`}
@@ -449,7 +449,7 @@ setDirection('rtl'); // or 'ltr'`}
                   </ul>
                 </div>
                 <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg mt-2">
-                  <pre className="text-xs overflow-auto">
+                  <pre className="text-sm overflow-auto">
                     {`<ThemeProvider
   menuItems={menuItems}
   logo={logo}
@@ -549,7 +549,7 @@ setDirection('rtl'); // or 'ltr'`}
               </div>
             </div>
             <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg mt-2">
-              <pre className="text-xs overflow-auto">
+              <pre className="text-sm overflow-auto">
                 {`// Menu item structure
 {
   name: 'Home',
@@ -586,11 +586,11 @@ setDirection('rtl'); // or 'ltr'`}
               <div className="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
                 <h3 className="font-bold mb-2">Installation</h3>
                 <div className="bg-gray-100 dark:bg-gray-800 p-2 rounded mt-2">
-                  <code className="text-xs">npm install tucu-ui</code>
+                  <code className="text-sm">npm install tucu-ui</code>
                 </div>
-                <p className="text-xs mt-2">Or with yarn:</p>
+                <p className="text-sm mt-2">Or with yarn:</p>
                 <div className="bg-gray-100 dark:bg-gray-800 p-2 rounded mt-1">
-                  <code className="text-xs">yarn add tucu-ui</code>
+                  <code className="text-sm">yarn add tucu-ui</code>
                 </div>
               </div>
               <div className="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
@@ -606,7 +606,7 @@ setDirection('rtl'); // or 'ltr'`}
             <div className="border border-gray-200 dark:border-gray-700 rounded-lg p-4 mt-2">
               <h3 className="font-bold mb-2">Basic Setup</h3>
               <div className="bg-gray-100 dark:bg-gray-800 p-2 rounded mt-2">
-                <pre className="text-xs overflow-auto">
+                <pre className="text-sm overflow-auto">
                   {`import { ThemeProvider } from 'tucu-ui';
 import 'tucu-ui/styles';
 

@@ -247,7 +247,7 @@ export function Accessibility() {
                     />
                     <Typography
                       tag="p"
-                      className="text-xs text-gray-600 dark:text-gray-400 mt-1"
+                      className="text-sm text-gray-600 dark:text-gray-400 mt-1"
                     >
                       We'll never share your email with anyone else.
                     </Typography>

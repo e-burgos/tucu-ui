@@ -249,7 +249,7 @@ const IconGrid = ({
           ) : (
             <Icon />
           )}
-          <span className="mt-2 text-xs text-gray-600 dark:text-gray-300 text-center">
+          <span className="mt-2 text-sm text-gray-600 dark:text-gray-300 text-center">
             {name}
           </span>
         </div>

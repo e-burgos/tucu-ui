@@ -52,7 +52,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         .join(' ') || undefined;
 
     return (
-      <div className={cn('text-xs sm:text-sm', className)}>
+      <div className={cn('text-sm sm:text-sm', className)}>
         <div className={cn('relative', labelClassName)}>
           {label && (
             <label

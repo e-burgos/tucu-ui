@@ -40,7 +40,7 @@ export function CoinCard({
         {balance}
         <span className="uppercase"> {symbol}</span>
       </div>
-      <div className="flex items-center justify-between text-xs font-medium 2xl:text-sm">
+      <div className="flex items-center justify-between text-sm font-medium 2xl:text-sm">
         <span className="tracking-wider text-gray-600">{usdBalance} USD</span>
         <span
           className={`flex items-center  ${

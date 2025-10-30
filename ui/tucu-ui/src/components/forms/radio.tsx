@@ -67,7 +67,7 @@ const inputClasses = {
 const labelClasses = {
   size: {
     text: {
-      sm: 'text-xs',
+      sm: 'text-sm',
       DEFAULT: 'text-sm',
       lg: 'text-base',
       xl: 'text-lg',

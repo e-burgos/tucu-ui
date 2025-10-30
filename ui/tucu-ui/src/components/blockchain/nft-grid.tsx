@@ -57,7 +57,7 @@ export function NFTGrid({
         <div className="mt-1.5 flex">
           <AnchorLink
             to={profilePath || '/'}
-            className="inline-flex items-center text-xs text-gray-600 dark:text-gray-400"
+            className="inline-flex items-center text-sm text-gray-600 dark:text-gray-400"
           >
             {collection}
             <Verified className="ltr:ml-1 rtl:mr-1" />

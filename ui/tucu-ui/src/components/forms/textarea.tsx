@@ -29,7 +29,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
     },
     ref
   ) => (
-    <div className={cn('text-xs sm:text-sm', className)}>
+    <div className={cn('text-sm sm:text-sm', className)}>
       <label>
         {label && (
           <span

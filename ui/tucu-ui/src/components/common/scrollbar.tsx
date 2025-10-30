@@ -291,7 +291,7 @@ export function Scrollbar({
       >
         <div
           ref={contentRef}
-          className="min-h-full min-w-full text-xs overflow-x-auto whitespace-pre-wrap"
+          className="min-h-full min-w-full text-sm overflow-x-auto whitespace-pre-wrap"
         >
           {children}
         </div>

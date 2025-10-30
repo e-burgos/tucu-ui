@@ -59,7 +59,7 @@ export function LivePriceFeed({
           <span className="ml-3">{symbol}</span>
         </div>
 
-        <div className="flex items-center text-xs font-medium 2xl:text-sm">
+        <div className="flex items-center text-sm font-medium 2xl:text-sm">
           <span
             className="truncate tracking-tighter text-gray-600 ltr:mr-5 rtl:ml-5 dark:text-gray-400 2xl:w-24 3xl:w-auto"
             title={`${usdBalance} USD`}

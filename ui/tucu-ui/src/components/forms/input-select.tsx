@@ -98,7 +98,7 @@ export function InputSelect({
   };
 
   return (
-    <div className={cn('relative text-xs sm:text-sm', className)}>
+    <div className={cn('relative text-sm sm:text-sm', className)}>
       {label && (
         <span
           className={cn(
