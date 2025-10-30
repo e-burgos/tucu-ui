@@ -57,17 +57,23 @@ export const AppRoutes: FC<AppRoutesProps> = ({ menuItems }) => {
 
   const routes = handleRoutes();
 
+  const notFoundRoute = routes.find((route) => route.path === '*');
+
   return (
     <Routes>
       {routes.map((route) => (
         <Route key={route.key} path={route.path} element={route.element} />
       ))}
-      <Route
+      {/* <Route
         key={'home-page'}
         path={window.location.pathname || '/'}
         element={routes[0] ? <Navigate replace to={routes[0].path} /> : null}
+      /> */}
+      <Route
+        key={'not-found-page'}
+        path={'*'}
+        element={notFoundRoute ? notFoundRoute.element : <NotFoundPage />}
       />
-      <Route key={'not-found-page'} path={'*'} element={<NotFoundPage />} />
     </Routes>
   );
 };

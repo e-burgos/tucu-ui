@@ -45,14 +45,13 @@ export function ClassicHeader({
       <div className="flex h-full items-center justify-between px-4 sm:px-6 lg:px-8 3xl:px-10">
         <div className="flex items-center">
           <div
-            onClick={() => navigate('/')}
+            onClick={() => (logo?.path ? navigate(logo?.path) : null)}
             className="flex items-center xl:hidden"
           >
             <Logo
-              name={logo?.name || ''}
-              secondName={logo?.secondName || ''}
               preset={preset?.label as PRESET_LABEL_COLORS}
               isoType={breakPoint === 'sm' || breakPoint === 'xs'}
+              {...(logo as LogoPropTypes)}
             />
           </div>
         </div>
@@ -84,7 +83,7 @@ export default function Header({
   className,
   rightButton,
 }: {
-  logo?: { name: string; secondName: string };
+  logo?: LogoPropTypes;
   searchButton?: React.ReactNode;
   isOpen?: boolean;
   setIsOpen?: (isOpen: boolean) => void;
@@ -110,14 +109,10 @@ export default function Header({
       <div className="flex h-full items-center justify-between px-4 sm:px-6 lg:px-8 3xl:px-10">
         <div className="flex items-center">
           <div
-            onClick={() => navigate('/')}
+            onClick={() => (logo?.path ? navigate(logo?.path) : null)}
             className="flex items-center xl:hidden"
           >
-            <Logo
-              name={logo?.name || ''}
-              secondName={logo?.secondName || ''}
-              isoType={lg}
-            />
+            <Logo isoType={lg} {...(logo as LogoPropTypes)} />
           </div>
           {searchButton && searchButton}
         </div>

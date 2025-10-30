@@ -89,10 +89,9 @@ export function Header({
           </div>
           {logo && (
             <Logo
-              name={logo?.name || ''}
-              secondName={logo?.secondName || ''}
               isoType={breakpoint === 'xs' ? true : false}
               preset={preset?.label as PRESET_LABEL_COLORS}
+              {...(logo as LogoPropTypes)}
             />
           )}
           {isMounted && ['xs', 'sm', 'md', 'lg'].indexOf(breakpoint) === -1 && (

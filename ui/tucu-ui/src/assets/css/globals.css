@@ -8,6 +8,8 @@
 
 @import './tailwind-utilities/text-utilities.css';
 
+@import './tailwind-utilities/bg-utilities.css';
+
 @config '../../../tailwind.config.js';
 
 @plugin "@tailwindcss/typography";

@@ -55,14 +55,7 @@ export function SidebarMenu({
       )}
     >
       <div className="relative flex h-24 items-center justify-between overflow-hidden px-6 py-4 2xl:px-8">
-        {logo && (
-          <Logo
-            name={logo.name}
-            secondName={logo.secondName}
-            preset={logo.preset}
-            isoType={logo.isoType}
-          />
-        )}
+        {logo && <Logo {...(logo as LogoPropTypes)} />}
         {title && (
           <h2 className="text-lg font-medium uppercase tracking-wider text-gray-900 dark:text-white">
             {title}

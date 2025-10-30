@@ -74,14 +74,10 @@ export function ExpandableSidebar({
       >
         {!open ? (
           <div onClick={() => setOpen(!open)}>
-            <Logo
-              name={logo?.name || ''}
-              secondName={logo?.secondName || ''}
-              isoType
-            />
+            <Logo isoType={true} {...(logo as LogoPropTypes)} />
           </div>
         ) : (
-          <Logo name={logo?.name || ''} secondName={logo?.secondName || ''} />
+          <Logo {...(logo as LogoPropTypes)} />
         )}
 
         {open && (
