@@ -9,7 +9,6 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
-      '@tucu-ui': path.resolve(__dirname, '../../ui/tucu-ui/src/index.ts'),
     },
   },
   //     (!) Some chunks are larger than 500 kB after minification. Consider:
@@ -24,12 +23,12 @@ export default defineConfig({
       transformMixedEsModules: true,
     },
     minify: true,
-    rollupOptions: {
-      output: {
-        manualChunks: {
-          'tucu-ui': ['tucu-ui'],
-        },
-      },
-    },
+    // rollupOptions: {
+    //   output: {
+    //     manualChunks: {
+    //       'tucu-ui': ['tucu-ui'],
+    //     },
+    //   },
+    // },
   },
 });
