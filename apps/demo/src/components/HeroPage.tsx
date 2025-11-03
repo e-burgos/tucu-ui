@@ -6,7 +6,7 @@ import {
   useTheme,
   AnchorLink,
   LucideIcons,
-} from 'tucu-ui';
+} from '../../../../ui/tucu-ui';
 
 import {
   DESIGN_SYSTEM_DOCS_URL,
@@ -18,6 +18,7 @@ import {
   HOOKS_UTILITIES_DOCS_URL,
   INTRODUCTION_DOCS_URL,
   LAYOUT_SYSTEM_DOCS_URL,
+  TAILWIND_UTILITIES_DOCS_URL,
 } from '../utils/constants';
 
 interface HeroPageProps {
@@ -35,7 +36,8 @@ interface HeroPageProps {
     | 'icons-system'
     | 'hooks-utilities'
     | 'blockchain-components'
-    | 'accessibility';
+    | 'accessibility'
+    | 'tailwind-utilities';
   backgroundAnimation?: boolean;
   customButton?: {
     label: string;
@@ -68,6 +70,7 @@ const HeroPage: React.FC<HeroPageProps> = ({
     'hooks-utilities': HOOKS_UTILITIES_DOCS_URL,
     'blockchain-components': BLOCKCHAIN_DOCS_URL,
     accessibility: ACCESSIBILITY_DOCS_URL,
+    'tailwind-utilities': TAILWIND_UTILITIES_DOCS_URL,
   };
 
   return (
@@ -107,7 +110,7 @@ const HeroPage: React.FC<HeroPageProps> = ({
           {icon && <div className="relative mx-auto mb-6 w-fit">{icon}</div>}
           <Typography
             tag="h1"
-            className="text-6xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-brand mb-6"
+            className="text-5xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-brand mb-6"
           >
             {title}
           </Typography>

@@ -47,14 +47,6 @@ export function Introduction() {
         }
       />
 
-      {/* Test classes with dynamic values */}
-      <div className="h-[50px] min-w-[200px] p-7 w-[555px] bg-brand/40 text-dark">
-        Test
-      </div>
-      <div className=" p-7 w-1/2 mx-auto bg-gradient-to-br from-brand to-brand/40">
-        Test
-      </div>
-
       {/* Key Features Grid */}
       <section className="space-y-8">
         <div className="text-center">

@@ -22,13 +22,13 @@ Centralized validation powered by React Hook Form with built-in error handling a
 
 Specialized components for DeFi applications, NFT marketplaces, and crypto wallets.
 
-### **🎭 Complete Theming System**
+### **🎭 Advanced Theming System**
 
-6 color presets, dark/light mode, RTL support, and persistent user preferences.
+26+ color presets including modern colors (Bufus Blue, Coral, Mint, Lavender), secondary/accent color support, dark/light mode, RTL support, and persistent user preferences. Dynamic color system with CSS variables for brand, secondary, accent, and semantic colors.
 
 ### **🎯 5000+ Icons Integrated**
 
-Complete Lucide React integration + 90+ custom-designed icons for comprehensive iconography.
+Complete Lucide React integration + 97+ custom-designed icons including blockchain/crypto icons, layout controls, social brands, and specialized UI elements.
 
 ### **♿ Accessibility First**
 
@@ -42,17 +42,43 @@ Responsive design across all components with support for ultra-wide displays (up
 
 Built-in React Router integration for seamless SPA development.
 
+### **🎨 Tailwind CSS v4 Complete Integration**
+
+Full Tailwind CSS v4 implementation with 15 comprehensive utility categories automatically available:
+
+- **Layout & Positioning**: Aspect ratio, display, position, z-index, overflow
+- **Sizing**: Width, height, max/min dimensions with arbitrary values
+- **Spacing**: Padding, margin, gap with responsive breakpoints
+- **Typography**: Font families, sizes, weights, spacing, colors, decoration
+- **Flexbox & Grid**: Complete layout system with all properties
+- **Background**: Colors, gradients, images, positioning, attachment, repeat, size
+- **Borders**: Radius, width, colors, styles, outlines, offsets
+- **Effects**: Shadows, opacity, blend modes, box-shadow utilities
+- **Filters**: Blur, brightness, contrast, grayscale, hue-rotate, invert, saturate, sepia
+- **Tables**: Layout, border spacing, border collapse, caption side
+- **Transitions & Animation**: Properties, duration, timing, delay, animation classes
+- **Transforms**: Backface visibility, perspective, rotate, scale, skew, translate
+- **Interactivity**: Cursors, scroll behavior, snap, touch actions, user select, will-change
+- **SVG**: Fill, stroke, stroke-width utilities
+- **Accessibility**: Forced-color-adjust utilities
+
+All utilities are configured through optimized `@source inline()` directives for maximum performance.
+
 ## 🔧 Core Technology Stack
 
 Built on industry-leading libraries for maximum reliability:
 
 - **[React 18+](https://react.dev/)** - Modern React with hooks and concurrent features
 - **[TypeScript](https://www.typescriptlang.org/)** - Full type safety and excellent DX
-- **[Tailwind CSS](https://tailwindcss.com/)** - Utility-first styling with custom design tokens
+- **[Tailwind CSS v4](https://tailwindcss.com/)** - Next-generation utility-first styling with @source directives
+- **[@tailwindcss/postcss](https://github.com/tailwindlabs/tailwindcss)** - Tailwind v4 PostCSS plugin
 - **[React Hook Form](https://react-hook-form.com/)** - Performant form handling and validation
 - **[Zustand](https://zustand-demo.pmnd.rs/)** - Lightweight state management for theming
 - **[Lucide React](https://lucide.dev/)** - Beautiful, consistent icon library
 - **[Framer Motion](https://www.framer.com/motion/)** - Smooth animations and transitions
+- **[Recharts](https://recharts.org/)** - Composable charting library for data visualization
+- **[Swiper](https://swiperjs.com/)** - Modern mobile touch slider
+- **[React Dropzone](https://react-dropzone.js.org/)** - Simple HTML5 drag-drop zone
 
 ## 📦 Installation
 
@@ -60,9 +86,9 @@ Built on industry-leading libraries for maximum reliability:
 npm install tucu-ui
 ```
 
-### Tailwind CSS Configuration
+### Tailwind CSS v4 Configuration
 
-Add Tucu UI to your Tailwind config to enable all styling features:
+Add Tucu UI to your Tailwind v4 config and PostCSS to enable all styling features:
 
 ```js
 // tailwind.config.js
@@ -74,6 +100,31 @@ module.exports = {
   // ... rest of your configuration
 };
 ```
+
+```js
+// postcss.config.js
+module.exports = {
+  plugins: {
+    '@tailwindcss/postcss': {},
+  },
+};
+```
+
+### Advanced Color Customization
+
+Tucu UI supports advanced color theming with multiple color layers:
+
+```css
+:root {
+  --color-brand: #0184bf; /* Primary brand color */
+  --color-secondary: #00d6f2; /* Secondary color */
+  --color-accent: #f26522; /* Accent color */
+  --color-dark: #0d1321; /* Dark theme background */
+  --color-light: #fcfcfc; /* Light theme background */
+}
+```
+
+Available color presets include: Green, Black, Blue, Red, Purple, Orange, Rose, Pink, Yellow, Lime, Teal, Cyan, Navy, Maroon, Brown, Gray, Silver, Gold, Coral, Salmon, Chocolate, Tan, Beige, Mint, Lavender, Violet, Bufus, BufusBlue, BufusDark, BufusAccent, ThemeLight, ThemeDark.
 
 ## 🎯 Quick Start
 
@@ -409,7 +460,7 @@ function IconShowcase() {
 }
 ```
 
-### **90+ Custom Icons**
+### **97+ Custom Icons**
 
 ```tsx
 import {
@@ -417,25 +468,102 @@ import {
   Bitcoin,
   Ethereum,
   Cardano,
+  Bnb,
+  Doge,
+  Tether,
+  Usdc,
 
   // Layout Controls
   ClassicLayoutIcon,
   MinimalLayoutIcon,
+  ModernLayoutIcon,
+  RetroLayoutIcon,
 
-  // Navigation
+  // Navigation & UI
   HomeIcon,
   SearchIcon,
+  MenuIcon,
+  Close,
+  ArrowRight,
+  ArrowUp,
+  ArrowLinkIcon,
 
   // Social Brands
   Facebook,
   Twitter,
   Instagram,
   Github,
+  Telegram,
 
-  // DeFi Specific
+  // DeFi & Trading
   SwapIcon,
   ExchangeIcon,
   TradingBotIcon,
+  Farm,
+  Pool,
+  VoteIcon,
+  GasIcon,
+  LivePricing,
+
+  // Status & Feedback
+  Check,
+  Checkmark,
+  Warning,
+  InfoIcon,
+  InfoCircle,
+  QuestionIcon,
+  VerifiedIcon,
+  Verified,
+
+  // Actions & Controls
+  Plus,
+  PlusCircle,
+  Edit,
+  Trash2,
+  Copy,
+  Upload,
+  Download,
+  ExportIcon,
+  Refresh,
+  Power,
+  ShutDownIcon,
+  Unlock,
+  LockIcon,
+
+  // Media & Content
+  PlayIcon,
+  MediaPlayIcon,
+  Book,
+  Document,
+  CalendarIcon,
+  Tag,
+  TagIcon,
+
+  // Data Visualization
+  SpikeBar,
+  TrendArrowUpIcon,
+  TrendArrowDownIcon,
+  BarChart3,
+
+  // Layout & Design
+  Grid3X3,
+  CompactGrid,
+  NormalGrid,
+  LeftAlign,
+  RightAlign,
+  DotsIcon,
+  HorizontalThreeDots,
+  VerticalThreeDots,
+
+  // Specialty
+  Tucu,
+  Compass,
+  Flash,
+  Flow,
+  LevelIcon,
+  SandClock,
+  Star,
+  StarFill,
 } from 'tucu-ui';
 ```
 
@@ -557,6 +685,40 @@ function AuthPages() {
 
 ## 📚 Complete Examples
 
+### **Introduction & Documentation Pages**
+
+Tucu UI includes comprehensive documentation pages to help you get started:
+
+- **Introduction** - Overview and getting started guide
+- **TailwindV4** - Complete Tailwind CSS v4 integration guide with 15 utility categories
+- **Features** - Explore all available features and utilities
+- **Components** - Component library overview and usage patterns
+- **Theming Guide** - Advanced theming and customization options
+- **Design System** - Visual design principles and guidelines
+- **Colors** - Complete color palette and theming system
+- **Layout System** - Responsive layout patterns and techniques
+- **Icons System** - Icon library and usage guidelines
+- **Accessibility** - Accessibility features and WCAG compliance
+- **Hooks Utilities** - Custom React hooks for common patterns
+
+### **15 Tailwind CSS v4 Utility Documentation Pages**
+
+Comprehensive documentation for all Tailwind utilities:
+
+- **Layout Utilities** - Aspect ratio, display, position, z-index, overflow
+- **Flexbox & Grid Utilities** - Complete layout system documentation
+- **Background Utilities** - Colors, gradients, images, positioning
+- **Borders Utilities** - Radius, width, colors, styles, outlines
+- **Typography Utilities** - Fonts, sizes, weights, spacing, colors
+- **Effects Utilities** - Shadows, opacity, blend modes
+- **Filters Utilities** - Blur, brightness, contrast, and more
+- **Tables Utilities** - Layout, spacing, display properties
+- **Transitions & Animations** - Smooth animations and transitions
+- **Transforms Utilities** - Rotate, scale, skew, translate
+- **Interactivity Utilities** - Cursors, scroll, touch actions
+- **SVG Utilities** - Fill, stroke, stroke-width
+- **Accessibility Utilities** - Screen reader and focus utilities
+
 ### **Modern Dashboard**
 
 ```tsx
@@ -596,7 +758,16 @@ const dashboardMenuItems = [
 ];
 
 function Dashboard() {
-  return <ThemeProvider layout="classic" menuItems={dashboardMenuItems} logo={{ name: 'Admin', secondName: 'Panel' }} brandColor="Blue" showSettings={true} rightButton={<UserProfileMenu />} />;
+  return (
+    <ThemeProvider
+      layout="classic"
+      menuItems={dashboardMenuItems}
+      logo={{ name: 'Admin', secondName: 'Panel' }}
+      brandColor="BufusBlue" // New advanced color preset
+      showSettings={true}
+      rightButton={<UserProfileMenu />}
+    />
+  );
 }
 ```
 
@@ -664,12 +835,41 @@ function EcommerceAdmin() {
 
 ## 🎨 Customization & Theming
 
+### **Advanced Color System**
+
+Tucu UI supports a multi-layered color system with 26+ presets:
+
+```tsx
+<ThemeProvider
+  brandColor="BufusBlue" // Primary brand color
+  secondaryColor="Bufus" // Secondary color for accents
+  accentColor="BufusAccent" // Accent color for highlights
+  darkColor="ThemeDark" // Dark theme base color
+  lightColor="ThemeLight" // Light theme base color
+  // ... other options
+/>
+```
+
 ### **CSS Custom Properties**
 
 ```css
 :root {
-  --color-brand: 42 82 190; /* RGB values for alpha support */
-  /* Tucu UI will automatically use your brand colors */
+  --color-brand: #0184bf; /* Primary brand color */
+  --color-secondary: #00d6f2; /* Secondary color */
+  --color-accent: #f26522; /* Accent color */
+  --color-dark: #0d1321; /* Dark theme background */
+  --color-light: #fcfcfc; /* Light theme background */
+  --color-body: var(--color-light);
+  --color-sidebar-body: #f8fafc;
+  --color-light-dark: #171e2e;
+  --color-dark-light: #f8fafc;
+
+  /* Dynamic color mixing */
+  --color-muted: color-mix(in oklab, var(--color-brand) 50%, transparent);
+  --color-success: var(--color-emerald-500);
+  --color-warning: var(--color-orange-500);
+  --color-error: var(--color-red-500);
+  --color-info: var(--color-blue-500);
 }
 ```
 

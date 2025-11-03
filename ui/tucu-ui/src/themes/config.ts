@@ -9,6 +9,10 @@ export interface ISettingAction {
   disabledLayout?: boolean;
   disabledDirection?: boolean;
   disabledPreset?: boolean;
+  disabledSecondary?: boolean;
+  disabledAccent?: boolean;
+  disabledDark?: boolean;
+  disabledLight?: boolean;
 }
 
 export type MODE = 'light' | 'dark';
@@ -66,7 +70,13 @@ export type PresetColorType =
   | 'Beige'
   | 'Mint'
   | 'Lavender'
-  | 'Violet';
+  | 'Violet'
+  | 'Bufus'
+  | 'BufusBlue'
+  | 'BufusDark'
+  | 'BufusAccent'
+  | 'ThemeLight'
+  | 'ThemeDark';
 
 export enum PRESET_LABEL_COLORS {
   GREEN = 'Green',
@@ -95,6 +105,12 @@ export enum PRESET_LABEL_COLORS {
   MINT = 'Mint',
   LAVENDER = 'Lavender',
   VIOLET = 'Violet',
+  BUFUS = 'Bufus',
+  BUFUS_BLUE = 'BufusBlue',
+  BUFUS_DARK = 'BufusDark',
+  BUFUS_ACCENT = 'BufusAccent',
+  THEME_LIGHT = 'ThemeLight',
+  THEME_DARK = 'ThemeDark',
 }
 
 export enum PRESET_COLORS {
@@ -124,6 +140,12 @@ export enum PRESET_COLORS {
   MINT = '#98ff98',
   LAVENDER = '#e6e6fa',
   VIOLET = '#ee82ee',
+  BUFUS = '#00D6F2',
+  BUFUS_BLUE = '#0184BF',
+  BUFUS_DARK = '#273240',
+  BUFUS_ACCENT = '#F26522',
+  THEME_LIGHT = '#fcfcfc',
+  THEME_DARK = '#0d1321',
 }
 
 export const ColorPreset: IThemeItem[] = [
@@ -231,6 +253,30 @@ export const ColorPreset: IThemeItem[] = [
     label: PRESET_LABEL_COLORS.VIOLET,
     value: PRESET_COLORS.VIOLET,
   },
+  {
+    label: PRESET_LABEL_COLORS.BUFUS,
+    value: PRESET_COLORS.BUFUS,
+  },
+  {
+    label: PRESET_LABEL_COLORS.BUFUS_BLUE,
+    value: PRESET_COLORS.BUFUS_BLUE,
+  },
+  {
+    label: PRESET_LABEL_COLORS.BUFUS_DARK,
+    value: PRESET_COLORS.BUFUS_DARK,
+  },
+  {
+    label: PRESET_LABEL_COLORS.BUFUS_ACCENT,
+    value: PRESET_COLORS.BUFUS_ACCENT,
+  },
+  {
+    label: PRESET_LABEL_COLORS.THEME_LIGHT,
+    value: PRESET_COLORS.THEME_LIGHT,
+  },
+  {
+    label: PRESET_LABEL_COLORS.THEME_DARK,
+    value: PRESET_COLORS.THEME_DARK,
+  },
 ];
 
 export const Direction: IThemeItem[] = [
@@ -256,11 +302,33 @@ export const defaultSettingActions: ISettingAction = {
   disabledLayout: false,
   disabledDirection: false,
   disabledPreset: false,
+  disabledSecondary: false,
+  disabledAccent: false,
+  disabledDark: false,
+  disabledLight: false,
 };
 
 export const defaultLayout = LAYOUT_OPTIONS.MINIMAL;
 
-export const defaultColorPreset = ColorPreset[0];
+export const defaultColorPreset = ColorPreset.find(
+  (item) => item.label === PRESET_LABEL_COLORS.BUFUS_BLUE
+) as IThemeItem;
+
+export const defaultSecondaryPreset = ColorPreset.find(
+  (item) => item.label === PRESET_LABEL_COLORS.BUFUS
+) as IThemeItem;
+
+export const defaultAccentPreset = ColorPreset.find(
+  (item) => item.label === PRESET_LABEL_COLORS.BUFUS_ACCENT
+) as IThemeItem;
+
+export const defaultDarkPreset = ColorPreset.find(
+  (item) => item.label === PRESET_LABEL_COLORS.THEME_DARK
+) as IThemeItem;
+
+export const defaultLightPreset = ColorPreset.find(
+  (item) => item.label === PRESET_LABEL_COLORS.THEME_LIGHT
+) as IThemeItem;
 
 export const defaultDirection = 'ltr';
 

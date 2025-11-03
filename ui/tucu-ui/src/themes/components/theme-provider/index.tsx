@@ -7,9 +7,6 @@ import AppRoutes, { AppRoutesMenuItem } from './app-routes';
 
 import {
   ColorPreset,
-  defaultColorPreset,
-  defaultLogo,
-  defaultMode,
   defaultSettingActions,
   ISettingAction,
   IThemeItem,
@@ -28,6 +25,13 @@ import '../../../styles.css';
 interface ThemeProviderProps extends Omit<LayoutTypeProps, 'menuItems'> {
   menuItems: AppRoutesMenuItem[];
   brandColor?: PresetColorType;
+  customPaletteColor?: {
+    primary?: PresetColorType | string;
+    secondary?: PresetColorType | string;
+    accent?: PresetColorType | string;
+    dark?: PresetColorType | string;
+    light?: PresetColorType | string;
+  };
   showSettings?: boolean;
   mode?: MODE;
   settingActions?: ISettingAction;
@@ -42,6 +46,7 @@ export function ThemeProvider({
   logo,
   rightButton,
   brandColor,
+  customPaletteColor,
   showSettings,
   customRoutes,
   className,
@@ -61,6 +66,10 @@ export function ThemeProvider({
     setMode,
     setLogo,
     setPreset,
+    setSecondaryPreset,
+    setAccentPreset,
+    setDarkPreset,
+    setLightPreset,
     setShowSettings,
     setSettingActions,
   } = useTheme();
@@ -70,11 +79,17 @@ export function ThemeProvider({
   const menuList = menuItems.filter((item) => !item.hide);
 
   const isPresetDisabled =
-    Boolean(brandColor) || Boolean(settingActions?.disabledPreset);
+    Boolean(brandColor) ||
+    Boolean(customPaletteColor?.primary) ||
+    Boolean(settingActions?.disabledPreset);
   const isLayoutDisabled =
     Boolean(appLayout) || Boolean(settingActions?.disabledLayout);
   const isDirectionDisabled = Boolean(settingActions?.disabledDirection);
   const isModeDisabled = Boolean(settingActions?.disabledMode);
+  const isSecondaryDisabled = Boolean(customPaletteColor?.secondary);
+  const isAccentDisabled = Boolean(customPaletteColor?.accent);
+  const isDarkDisabled = Boolean(customPaletteColor?.dark);
+  const isLightDisabled = Boolean(customPaletteColor?.light);
 
   const handleSelectedColor = useCallback((): IThemeItem => {
     if (brandColor) {
@@ -86,24 +101,37 @@ export function ThemeProvider({
     return preset;
   }, [brandColor, preset]);
 
+  const handleCustomPaletteColor = useCallback(
+    (label: string, color: PresetColorType | string): IThemeItem => {
+      const selectedColor = ColorPreset?.find(
+        (item: IThemeItem) => item?.label === color
+      );
+      if (selectedColor) {
+        return selectedColor;
+      }
+      return {
+        label: label,
+        value: color,
+      };
+    },
+    []
+  );
+
   const selectedColor = handleSelectedColor();
 
   useEffect(() => {
     if (logo) {
       setLogo(logo);
-    } else setLogo(defaultLogo);
-
+    }
     if (appMode) {
       setMode(appMode);
-    } else setMode(defaultMode);
-
+    }
     if (selectedColor) {
       setPreset(selectedColor);
-    } else setPreset(defaultColorPreset);
-
+    }
     if (showSettings) {
       setShowSettings(showSettings);
-    } else setShowSettings(false);
+    }
   }, [
     logo,
     appMode,
@@ -116,17 +144,68 @@ export function ThemeProvider({
   ]);
 
   useEffect(() => {
+    if (customPaletteColor?.primary) {
+      setPreset(
+        handleCustomPaletteColor('CustomPrimary', customPaletteColor.primary)
+      );
+    }
+
+    if (customPaletteColor?.secondary) {
+      setSecondaryPreset(
+        handleCustomPaletteColor(
+          'CustomSecondary',
+          customPaletteColor.secondary
+        )
+      );
+    }
+
+    if (customPaletteColor?.accent) {
+      setAccentPreset(
+        handleCustomPaletteColor('CustomAccent', customPaletteColor.accent)
+      );
+    }
+
+    if (customPaletteColor?.dark) {
+      setDarkPreset(
+        handleCustomPaletteColor('CustomDark', customPaletteColor.dark)
+      );
+    }
+
+    if (customPaletteColor?.light) {
+      setLightPreset(
+        handleCustomPaletteColor('CustomLight', customPaletteColor.light)
+      );
+    }
+  }, [
+    customPaletteColor,
+    handleCustomPaletteColor,
+    setSecondaryPreset,
+    setAccentPreset,
+    setDarkPreset,
+    setLightPreset,
+    setPreset,
+  ]);
+
+  useEffect(() => {
     setSettingActions({
       disabledLayout: isLayoutDisabled,
       disabledPreset: isPresetDisabled,
       disabledDirection: isDirectionDisabled,
       disabledMode: isModeDisabled,
+      disabledSecondary: isSecondaryDisabled,
+      disabledAccent: isAccentDisabled,
+      disabledDark: isDarkDisabled,
+      disabledLight: isLightDisabled,
     });
   }, [
     isLayoutDisabled,
     isPresetDisabled,
     isDirectionDisabled,
     isModeDisabled,
+    isSecondaryDisabled,
+    isAccentDisabled,
+    isDarkDisabled,
+    isLightDisabled,
     setSettingActions,
   ]);
 

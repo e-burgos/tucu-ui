@@ -26,7 +26,7 @@ export function Logo({
   logo = null,
   isoType = false,
 }: LogoPropTypes) {
-  const { mode } = useTheme();
+  const { mode, preset: themePreset } = useTheme();
   const isMounted = useIsMounted();
   const isDarkMode = mode === 'dark';
 
@@ -61,7 +61,7 @@ export function Logo({
                 </span>
                 {secondName && (
                   <span
-                    style={{ color: color }}
+                    style={{ color: color || themePreset?.value }}
                     className={cn('font-semibold', textSize, !preset && color)}
                   >
                     {handleName(secondName)}
@@ -71,19 +71,25 @@ export function Logo({
             </div>
           )}
           {!isDarkMode && (
-            <div className="flex items-end text-base font-medium text-gray-900 dark:text-white sm:text-xl lg:flex-wrap 2xl:flex-nowrap">
+            <div className="flex items-center gap-1 flex-nowrap overflow-hidden truncate">
               {logo && logo}
-              <span className={cn('font-semibold', textSize)}>
-                {handleName(name) || 'Site Name'}
-              </span>
-              {secondName && (
-                <span
-                  style={{ color: color }}
-                  className={cn('font-semibold', textSize, !preset && color)}
-                >
-                  {handleName(secondName)}
+              <div className="flex flex-nowrap truncate items-end text-base font-medium text-gray-900 dark:text-white sm:text-xl">
+                <span className={cn('font-semibold truncate', textSize)}>
+                  {handleName(name) || 'Site Name'}
                 </span>
-              )}
+                {secondName && (
+                  <span
+                    style={{ color: color }}
+                    className={cn(
+                      'font-semibold truncate',
+                      textSize,
+                      !preset && color
+                    )}
+                  >
+                    {handleName(secondName)}
+                  </span>
+                )}
+              </div>
             </div>
           )}
         </span>

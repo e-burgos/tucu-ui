@@ -9,3 +9,6 @@ export const ICONS_SYSTEM_DOCS_URL = `${DOCUMENTATION_URL}?path=/docs/1-document
 export const HOOKS_UTILITIES_DOCS_URL = `${DOCUMENTATION_URL}?path=/docs/1-documentation-7-hooks-utilities--documentation`;
 export const BLOCKCHAIN_DOCS_URL = `${DOCUMENTATION_URL}?path=/docs/1-documentation-8-blockchain-components--documentation`;
 export const ACCESSIBILITY_DOCS_URL = `${DOCUMENTATION_URL}?path=/docs/1-documentation-9-accessibility--documentation`;
+
+/* Tailwind V4 */
+export const TAILWIND_UTILITIES_DOCS_URL = 'https://tailwindcss.com/docs';

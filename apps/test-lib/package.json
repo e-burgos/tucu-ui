@@ -4,8 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
+    "delete-cache": "rm -rf ../../apps/test-lib/node_modules/.vite",
+    "dev": "pnpm delete-cache && vite",
+    "build": "pnpm delete-cache && tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
     "app:install": "cd ../../apps/test-lib && pnpm install"

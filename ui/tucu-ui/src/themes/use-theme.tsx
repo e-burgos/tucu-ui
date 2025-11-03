@@ -13,10 +13,18 @@ import {
   MODE,
   ISettingAction,
   defaultSettingActions,
+  defaultSecondaryPreset,
+  defaultAccentPreset,
+  defaultDarkPreset,
+  defaultLightPreset,
 } from './config';
 
 export interface ITheme {
   preset: IThemeItem;
+  secondaryPreset: IThemeItem;
+  accentPreset: IThemeItem;
+  darkPreset: IThemeItem;
+  lightPreset: IThemeItem;
   direction: DIRECTION;
   layout: LAYOUT_OPTIONS;
   mode: MODE;
@@ -25,6 +33,10 @@ export interface ITheme {
   showSettings: boolean;
   settingActions: ISettingAction;
   setPreset: (preset: IThemeItem) => void;
+  setSecondaryPreset: (secondaryPreset: IThemeItem) => void;
+  setAccentPreset: (accentPreset: IThemeItem) => void;
+  setDarkPreset: (darkPreset: IThemeItem) => void;
+  setLightPreset: (lightPreset: IThemeItem) => void;
   setDirection: (direction: DIRECTION) => void;
   setLayout: (layout: LAYOUT_OPTIONS) => void;
   setMode: (mode: MODE) => void;
@@ -32,12 +44,17 @@ export interface ITheme {
   setIsSettingsOpen: (isSettingsOpen: boolean) => void;
   setShowSettings: (showSettings: boolean) => void;
   setSettingActions: (settingActions: ISettingAction) => void;
+  restoreDefaultColors: () => void;
 }
 
 export const useTheme = create<ITheme>()(
   persist(
     (set) => ({
       preset: defaultColorPreset,
+      secondaryPreset: defaultSecondaryPreset,
+      accentPreset: defaultAccentPreset,
+      darkPreset: defaultDarkPreset,
+      lightPreset: defaultLightPreset,
       direction: defaultDirection,
       layout: defaultLayout,
       mode: defaultMode,
@@ -46,6 +63,11 @@ export const useTheme = create<ITheme>()(
       showSettings: false,
       isSettingsOpen: false,
       setPreset: (preset: IThemeItem) => set({ preset }),
+      setSecondaryPreset: (secondaryPreset: IThemeItem) =>
+        set({ secondaryPreset }),
+      setAccentPreset: (accentPreset: IThemeItem) => set({ accentPreset }),
+      setDarkPreset: (darkPreset: IThemeItem) => set({ darkPreset }),
+      setLightPreset: (lightPreset: IThemeItem) => set({ lightPreset }),
       setDirection: (direction: DIRECTION) => set({ direction }),
       setLayout: (layout: LAYOUT_OPTIONS) => set({ layout }),
       setMode: (mode: MODE) => set({ mode }),
@@ -54,16 +76,28 @@ export const useTheme = create<ITheme>()(
       setSettingActions: (settingActions: ISettingAction) =>
         set({ settingActions }),
       setIsSettingsOpen: (isSettingsOpen: boolean) => set({ isSettingsOpen }),
+      restoreDefaultColors: () =>
+        set({
+          preset: defaultColorPreset,
+          secondaryPreset: defaultSecondaryPreset,
+          accentPreset: defaultAccentPreset,
+          darkPreset: defaultDarkPreset,
+          lightPreset: defaultLightPreset,
+        }),
     }),
     {
       name: 'theme-storage', // unique name for localStorage key
       partialize: (state) => ({
         // Only persist these properties, exclude isSettingsOpen as it's temporary UI state
         preset: state.preset,
+        secondaryPreset: state.secondaryPreset,
+        accentPreset: state.accentPreset,
+        darkPreset: state.darkPreset,
+        lightPreset: state.lightPreset,
         direction: state.direction,
         layout: state.layout,
         mode: state.mode,
-        logo: state.logo,
+        logo: { ...state.logo, logo: null },
         showSettings: state.showSettings,
         settingActions: state.settingActions,
       }),

@@ -18,6 +18,7 @@ import {
   HOOKS_UTILITIES_DOCS_URL,
   INTRODUCTION_DOCS_URL,
   LAYOUT_SYSTEM_DOCS_URL,
+  TAILWIND_UTILITIES_DOCS_URL,
 } from '../utils/constants';
 
 interface HeroPageProps {
@@ -35,7 +36,8 @@ interface HeroPageProps {
     | 'icons-system'
     | 'hooks-utilities'
     | 'blockchain-components'
-    | 'accessibility';
+    | 'accessibility'
+    | 'tailwind-utilities';
   backgroundAnimation?: boolean;
   customButton?: {
     label: string;
@@ -68,6 +70,7 @@ const HeroPage: React.FC<HeroPageProps> = ({
     'hooks-utilities': HOOKS_UTILITIES_DOCS_URL,
     'blockchain-components': BLOCKCHAIN_DOCS_URL,
     accessibility: ACCESSIBILITY_DOCS_URL,
+    'tailwind-utilities': TAILWIND_UTILITIES_DOCS_URL,
   };
 
   return (

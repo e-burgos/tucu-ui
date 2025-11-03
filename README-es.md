@@ -22,13 +22,13 @@ Validación centralizada alimentada por React Hook Form con manejo de errores in
 
 Componentes especializados para aplicaciones DeFi, mercados NFT, y billeteras crypto.
 
-### **🎭 Sistema de Temas Completo**
+### **🎭 Sistema de Temas Avanzado**
 
-6 presets de color, modo oscuro/claro, soporte RTL, y preferencias de usuario persistentes.
+26+ presets de color incluyendo colores modernos (Bufus Blue, Coral, Mint, Lavender), soporte para colores secundarios/accent, modo oscuro/claro, soporte RTL, y preferencias de usuario persistentes. Sistema de colores dinámico con variables CSS para brand, secondary, accent, y colores semánticos.
 
 ### **🎯 5000+ Iconos Integrados**
 
-Integración completa de Lucide React + 90+ iconos diseñados personalizadamente para iconografía integral.
+Integración completa de Lucide React + 97+ iconos diseñados personalizadamente incluyendo iconos blockchain/crypto, controles de layout, marcas sociales, y elementos UI especializados.
 
 ### **♿ Accesibilidad Primero**
 
@@ -42,17 +42,42 @@ Diseño responsive en todos los componentes con soporte para pantallas ultra-anc
 
 Integración incorporada de React Router para desarrollo SPA sin problemas.
 
+### **🎨 Integración Completa de Tailwind CSS v4**
+
+Implementación completa de Tailwind CSS v4 con 15 categorías comprehensivas de utilidades automáticamente disponibles:
+- **Layout & Positioning**: Aspect ratio, display, position, z-index, overflow
+- **Sizing**: Width, height, max/min dimensions con valores arbitrarios
+- **Spacing**: Padding, margin, gap con breakpoints responsive
+- **Typography**: Font families, sizes, weights, spacing, colors, decoration
+- **Flexbox & Grid**: Sistema de layout completo con todas las propiedades
+- **Background**: Colores, gradientes, imágenes, posicionamiento, attachment, repeat, size
+- **Borders**: Radius, width, colores, estilos, outlines, offsets
+- **Effects**: Sombras, opacidad, modos de mezcla, box-shadow utilities
+- **Filters**: Blur, brightness, contrast, grayscale, hue-rotate, invert, saturate, sepia
+- **Tables**: Layout, border spacing, border collapse, caption side
+- **Transitions & Animation**: Propiedades, duration, timing, delay, clases de animation
+- **Transforms**: Backface visibility, perspective, rotate, scale, skew, translate
+- **Interactivity**: Cursores, scroll behavior, snap, touch actions, user select, will-change
+- **SVG**: Fill, stroke, stroke-width utilities
+- **Accessibility**: Forced-color-adjust utilities
+
+Todas las utilidades están configuradas a través de directivas `@source inline()` optimizadas para máximo rendimiento.
+
 ## 🔧 Stack Tecnológico Principal
 
 Construido sobre librerías líderes en la industria para máxima confiabilidad:
 
 - **[React 18+](https://react.dev/)** - React moderno con hooks y características concurrentes
 - **[TypeScript](https://www.typescriptlang.org/)** - Seguridad de tipos completa y excelente DX
-- **[Tailwind CSS](https://tailwindcss.com/)** - Estilos utility-first con tokens de diseño personalizados
+- **[Tailwind CSS v4](https://tailwindcss.com/)** - Next-generation utility-first styling con directivas @source
+- **[@tailwindcss/postcss](https://github.com/tailwindlabs/tailwindcss)** - Plugin PostCSS para Tailwind v4
 - **[React Hook Form](https://react-hook-form.com/)** - Manejo de formularios eficiente y validación
 - **[Zustand](https://zustand-demo.pmnd.rs/)** - Gestión de estado ligera para temas
 - **[Lucide React](https://lucide.dev/)** - Librería de iconos hermosa y consistente
 - **[Framer Motion](https://www.framer.com/motion/)** - Animaciones y transiciones suaves
+- **[Recharts](https://recharts.org/)** - Librería de gráficos composable para visualización de datos
+- **[Swiper](https://swiperjs.com/)** - Slider táctil móvil moderno
+- **[React Dropzone](https://react-dropzone.js.org/)** - Zona de drop HTML5 simple
 
 ## 📦 Instalación
 
@@ -60,9 +85,9 @@ Construido sobre librerías líderes en la industria para máxima confiabilidad:
 npm install tucu-ui
 ```
 
-### Configuración de Tailwind CSS
+### Configuración de Tailwind CSS v4
 
-Agrega Tucu UI a tu configuración de Tailwind para habilitar todas las características de estilo:
+Agrega Tucu UI a tu configuración de Tailwind v4 y PostCSS para habilitar todas las características de estilo:
 
 ```js
 // tailwind.config.js
@@ -74,6 +99,31 @@ module.exports = {
   // ... resto de tu configuración
 };
 ```
+
+```js
+// postcss.config.js
+module.exports = {
+  plugins: {
+    '@tailwindcss/postcss': {},
+  },
+};
+```
+
+### Personalización Avanzada de Colores
+
+Tucu UI soporta un sistema de theming de colores multi-capa con 26+ presets:
+
+```css
+:root {
+  --color-brand: #0184bf; /* Color de marca primario */
+  --color-secondary: #00d6f2; /* Color secundario */
+  --color-accent: #f26522; /* Color de acento */
+  --color-dark: #0d1321; /* Fondo de tema oscuro */
+  --color-light: #fcfcfc; /* Fondo de tema claro */
+}
+```
+
+Presets de color disponibles incluyen: Green, Black, Blue, Red, Purple, Orange, Rose, Pink, Yellow, Lime, Teal, Cyan, Navy, Maroon, Brown, Gray, Silver, Gold, Coral, Salmon, Chocolate, Tan, Beige, Mint, Lavender, Violet, Bufus, BufusBlue, BufusDark, BufusAccent, ThemeLight, ThemeDark.
 
 ## 🎯 Inicio Rápido
 
@@ -409,7 +459,7 @@ function MuestraIconos() {
 }
 ```
 
-### **90+ Iconos Personalizados**
+### **97+ Iconos Personalizados**
 
 ```tsx
 import {
@@ -417,25 +467,102 @@ import {
   Bitcoin,
   Ethereum,
   Cardano,
+  Bnb,
+  Doge,
+  Tether,
+  Usdc,
 
   // Controles de Layout
   ClassicLayoutIcon,
   MinimalLayoutIcon,
+  ModernLayoutIcon,
+  RetroLayoutIcon,
 
-  // Navegación
+  // Navegación & UI
   HomeIcon,
   SearchIcon,
+  MenuIcon,
+  Close,
+  ArrowRight,
+  ArrowUp,
+  ArrowLinkIcon,
 
   // Redes Sociales
   Facebook,
   Twitter,
   Instagram,
   Github,
+  Telegram,
 
-  // Específicos para DeFi
+  // DeFi & Trading
   SwapIcon,
   ExchangeIcon,
   TradingBotIcon,
+  Farm,
+  Pool,
+  VoteIcon,
+  GasIcon,
+  LivePricing,
+
+  // Status & Feedback
+  Check,
+  Checkmark,
+  Warning,
+  InfoIcon,
+  InfoCircle,
+  QuestionIcon,
+  VerifiedIcon,
+  Verified,
+
+  // Actions & Controls
+  Plus,
+  PlusCircle,
+  Edit,
+  Trash2,
+  Copy,
+  Upload,
+  Download,
+  ExportIcon,
+  Refresh,
+  Power,
+  ShutDownIcon,
+  Unlock,
+  LockIcon,
+
+  // Media & Content
+  PlayIcon,
+  MediaPlayIcon,
+  Book,
+  Document,
+  CalendarIcon,
+  Tag,
+  TagIcon,
+
+  // Data Visualization
+  SpikeBar,
+  TrendArrowUpIcon,
+  TrendArrowDownIcon,
+  BarChart3,
+
+  // Layout & Design
+  Grid3X3,
+  CompactGrid,
+  NormalGrid,
+  LeftAlign,
+  RightAlign,
+  DotsIcon,
+  HorizontalThreeDots,
+  VerticalThreeDots,
+
+  // Specialty
+  Tucu,
+  Compass,
+  Flash,
+  Flow,
+  LevelIcon,
+  SandClock,
+  Star,
+  StarFill,
 } from 'tucu-ui';
 ```
 
@@ -557,6 +684,40 @@ function PaginasAuth() {
 
 ## 📚 Ejemplos Completos
 
+### **Páginas Introductorias y Documentación**
+
+Tucu UI incluye páginas comprehensivas de documentación para ayudarte a comenzar:
+
+- **Introduction** - Guía de overview y getting started
+- **TailwindV4** - Guía completa de integración de Tailwind CSS v4 con 15 categorías de utilidades
+- **Features** - Explora todas las características y utilidades disponibles
+- **Components** - Overview de librería de componentes y patrones de uso
+- **Theming Guide** - Opciones avanzadas de theming y personalización
+- **Design System** - Principios de diseño visual y guidelines
+- **Colors** - Paleta completa de colores y sistema de theming
+- **Layout System** - Patrones responsive de layout y técnicas
+- **Icons System** - Librería de iconos y guidelines de uso
+- **Accessibility** - Características de accesibilidad y cumplimiento WCAG
+- **Hooks Utilities** - Hooks custom de React para patrones comunes
+
+### **15 Páginas de Documentación de Utilidades Tailwind CSS v4**
+
+Documentación comprehensiva para todas las utilidades de Tailwind:
+
+- **Layout Utilities** - Aspect ratio, display, position, z-index, overflow
+- **Flexbox & Grid Utilities** - Documentación completa del sistema de layout
+- **Background Utilities** - Colores, gradientes, imágenes, posicionamiento
+- **Borders Utilities** - Radius, width, colores, estilos, outlines
+- **Typography Utilities** - Fonts, sizes, weights, spacing, colores
+- **Effects Utilities** - Sombras, opacidad, modos de mezcla
+- **Filters Utilities** - Blur, brightness, contrast, y más
+- **Tables Utilities** - Layout, spacing, propiedades de display
+- **Transitions & Animations** - Animaciones y transiciones smooth
+- **Transforms Utilities** - Rotate, scale, skew, translate
+- **Interactivity Utilities** - Cursores, scroll, touch actions
+- **SVG Utilities** - Fill, stroke, stroke-width
+- **Accessibility Utilities** - Utilidades de lector de pantalla y foco
+
 ### **Dashboard Moderno**
 
 ```tsx
@@ -596,7 +757,16 @@ const elementosMenuDashboard = [
 ];
 
 function Dashboard() {
-  return <ThemeProvider layout="classic" menuItems={elementosMenuDashboard} logo={{ name: 'Panel', secondName: 'Admin' }} brandColor="Blue" showSettings={true} rightButton={<MenuPerfilUsuario />} />;
+  return (
+    <ThemeProvider
+      layout="classic"
+      menuItems={elementosMenuDashboard}
+      logo={{ name: 'Panel', secondName: 'Admin' }}
+      brandColor="BufusBlue" // Nuevo preset de color avanzado
+      showSettings={true}
+      rightButton={<MenuPerfilUsuario />}
+    />
+  );
 }
 ```
 
@@ -664,12 +834,41 @@ function AdminEcommerce() {
 
 ## 🎨 Personalización y Temas
 
+### **Sistema Avanzado de Colores**
+
+Tucu UI soporta un sistema de theming de colores multi-capa con 26+ presets:
+
+```tsx
+<ThemeProvider
+  brandColor="BufusBlue"     // Color de marca primario
+  secondaryColor="Bufus"     // Color secundario para acentos
+  accentColor="BufusAccent"  // Color de acento para highlights
+  darkColor="ThemeDark"      // Color base de tema oscuro
+  lightColor="ThemeLight"    // Color base de tema claro
+  // ... otras opciones
+/>
+```
+
 ### **Propiedades CSS Personalizadas**
 
 ```css
 :root {
-  --color-brand: 42 82 190; /* Valores RGB para soporte alpha */
-  /* Tucu UI usará automáticamente tus colores de marca */
+  --color-brand: #0184bf;     /* Color de marca primario */
+  --color-secondary: #00d6f2; /* Color secundario */
+  --color-accent: #f26522;    /* Color de acento */
+  --color-dark: #0d1321;      /* Fondo de tema oscuro */
+  --color-light: #fcfcfc;     /* Fondo de tema claro */
+  --color-body: var(--color-light);
+  --color-sidebar-body: #f8fafc;
+  --color-light-dark: #171e2e;
+  --color-dark-light: #f8fafc;
+
+  /* Mezcla dinámica de colores */
+  --color-muted: color-mix(in oklab, var(--color-brand) 50%, transparent);
+  --color-success: var(--color-emerald-500);
+  --color-warning: var(--color-orange-500);
+  --color-error: var(--color-red-500);
+  --color-info: var(--color-blue-500);
 }
 ```
 
@@ -733,14 +932,15 @@ npm test
 ```
 tucu-ui/
 ├── apps/
-│   └── demo/                 # Aplicación demo
+│   └── test-lib/             # Aplicación demo con nuevas páginas introductorias
 ├── ui/
 │   └── tucu-ui/             # Librería principal
 │       ├── src/
 │       │   ├── components/   # Todos los componentes UI
 │       │   ├── hooks/       # Hooks de utilidad
 │       │   ├── themes/      # Sistema de temas
-│       │   └── storybook/   # Documentación
+│       │   ├── pages/       # Nuevas páginas introductorias (TailwindV4, Features, Components)
+│       │   └── tailwind/    # 15 páginas de documentación de utilidades Tailwind
 │       └── package.json
 └── nx.json                  # Configuración Nx
 ```

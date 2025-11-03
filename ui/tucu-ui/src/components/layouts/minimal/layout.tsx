@@ -70,6 +70,7 @@ export function Header({
   return (
     <nav
       className={cn(
+        // 'sticky top-0 z-30 flex w-full max-w-screen overflow-x-auto overflow-y-hidden backdrop-blur-lg shadow-md items-center justify-between px-4 transition-all duration-300 ltr:right-0 rtl:left-0 sm:px-6 lg:px-8 3xl:px-10',
         'sticky top-0 z-30 flex w-full backdrop-blur-lg shadow-md items-center justify-between px-4 transition-all duration-300 ltr:right-0 rtl:left-0 sm:px-6 lg:px-8 3xl:px-10',
         isMounted && windowScroll.y > 17
           ? 'min-h-24 bg-white/80 shadow-card sm:h-24 dark:bg-dark/80'
@@ -77,7 +78,7 @@ export function Header({
         className
       )}
     >
-      <div className="mx-auto flex w-full max-w-[2160px] items-center justify-between">
+      <div className="mx-auto flex w-full items-center justify-between">
         <div className="flex items-center">
           <div className="hidden lg:mr-6 lg:block xl:hidden">
             <Hamburger

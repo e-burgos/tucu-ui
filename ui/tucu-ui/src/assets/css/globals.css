@@ -1,66 +1,1919 @@
+/* ===================================================================
+   TUCU-UI TAILWIND CSS v4 GLOBALS
+   ===================================================================
+
+   This file contains the complete Tailwind CSS v4 configuration for
+   the Tucu UI library. It includes all utility classes organized by
+   categories for better maintainability.
+
+   ORGANIZATION:
+   1. Imports & Configuration
+   2. Theme Configuration (CSS Variables)
+   3. Animations (Keyframes)
+   4. Source Directives
+   5. Layout & Positioning Utilities
+   6. Sizing Utilities
+   7. Spacing Utilities
+   8. Typography Utilities
+   9. Layout (Flexbox & Grid) Utilities
+   10. Visual Effects Utilities
+   11. Borders & Shapes Utilities
+   12. Motion & Transforms Utilities
+   13. Interactivity Utilities
+   14. Color Utilities
+   15. Component Styles
+   16. Custom Utilities
+   17. Third-Party Styles
+
+   =================================================================== */
+
+/* ===================================================================
+   1. IMPORTS & CONFIGURATION
+   =================================================================== */
 @import 'tailwindcss';
+@import 'tailwindcss/utilities.css' layer(utilities);
+@import 'tailwindcss/theme.css' layer(theme);
 
-@import './tailwind-utilities/layout-utilities.css';
+/* ===================================================================
+   2. THEME CONFIGURATION (CSS Variables)
+   =================================================================== */
+@theme {
+  /* Screens/Breakpoints */
+  --breakpoint-xs: 500px;
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1440px;
+  --breakpoint-3xl: 1780px;
+  --breakpoint-4xl: 2160px;
 
-@import './tailwind-utilities/border-utilities.css';
+  /* --color-brand default - updated dynamically by useThemeColor hook */
+  --color-brand: #0184bf;
+  --color-secondary: #00d6f2;
+  --color-accent: #f26522;
+  --color-primary: var(--color-brand);
+  --swiper-theme-color: var(--color-brand);
+  --color-muted: color-mix(in oklab, var(--color-brand) 50%, transparent);
+  --color-success: var(--color-emerald-500);
+  --color-warning: var(--color-orange-500);
+  --color-error: var(--color-red-500);
+  --color-info: var(--color-blue-500);
+  --color-dark: #0d1321;
+  --color-light: #fcfcfc;
+  --color-body: var(--color-light);
+  --color-black: #000000;
+  --color-white: #ffffff;
+  --color-light-dark: #171e2e;
+  --color-dark-light: #f8fafc;
+  --color-sidebar-body: #f8fafc;
 
-@import './tailwind-utilities/outline-rings-utilities.css';
+  /* Background Image */
+  --background-image-gradient-radial: radial-gradient(var(--tw-gradient-stops));
 
-@import './tailwind-utilities/text-utilities.css';
+  --font-family-sans: Roboto, monospace;
+  --font-size-13px: 13px;
+  --font-size-13px--line-height: 18px;
 
-@import './tailwind-utilities/bg-utilities.css';
+  --spacing-13: 3.375rem;
 
-@config '../../../tailwind.config.js';
+  --border-width-3: 3px;
 
-@plugin "@tailwindcss/typography";
+  --shadow-main: 0px 6px 18px rgba(0, 0, 0, 0.04);
+  --shadow-light: 0px 4px 4px rgba(0, 0, 0, 0.08);
+  --shadow-large: 0px 8px 16px rgba(17, 24, 39, 0.1);
+  --shadow-card: 0px 2px 6px rgba(0, 0, 0, 0.06);
+  --shadow-transaction: 0px 8px 16px rgba(17, 24, 39, 0.06);
+  --shadow-expand: 0px 0px 50px rgba(17, 24, 39, 0.2);
+  --shadow-button: 0px 2px 4px rgba(0, 0, 0, 0.06),
+    0px 4px 6px rgba(0, 0, 0, 0.1);
 
-/* Import custom Tailwind color variables */
+  --drop-shadow-main: 0px 4px 8px rgba(0, 0, 0, 0.08);
 
-/*
-  The default border color has changed to `currentcolor` in Tailwind CSS v4,
-  so we've added these compatibility styles to make sure everything still
-  looks the same as it did with Tailwind CSS v3.
+  --animate-blink: blink 1.4s infinite both;
+  --animate-move-up: moveUp 500ms infinite alternate;
+  --animate-scale-up: scaleUp 500ms infinite alternate;
+  --animate-drip-expand: expand 500ms ease-in forwards;
+  --animate-drip-expand-large: expand-large 600ms ease-in forwards;
+  --animate-move-up-small: moveUpSmall 500ms infinite alternate;
 
-  If we ever want to remove these styles, we need to add an explicit border
-  color utility to any element that depends on these defaults.
-*/
+  /* Typography Plugin Configuration */
+  --typography-body-font-family: var(--font-family-sans);
+  --typography-body-color: var(--color-gray-1000);
+  --typography-body-bg: var(--color-gray-100);
 
-/* Tailwind CSS v4 classes */
-@source inline("w-[{1..2000..1}px]");
+  --typography-pre-font-family: var(--font-family-sans);
+  --typography-pre-color: var(--color-gray-1000);
+  --typography-pre-bg: var(--color-gray-100);
 
-@source inline("max-w-[{1..2000..1}px]");
+  --typography-code-font-family: var(--font-family-sans);
+  --typography-code-bg: var(--color-gray-100);
+  --typography-code-color: var(--color-red-500);
+  --typography-code-font-weight: 400;
+  --typography-code-border-radius: 0.25rem;
+}
 
-@source inline("min-w-[{1..2000..1}px]");
+/* ===================================================================
+   3. ANIMATIONS (Keyframes)
+   =================================================================== */
+@keyframes blink {
+  0% {
+    opacity: 0.2;
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.2;
+  }
+}
 
-@source inline("h-[{1..2000..1}px]");
+@keyframes expand {
+  0% {
+    opacity: 0;
+    transform: scale(1);
+  }
+  30% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(30);
+    opacity: 0;
+  }
+}
 
-@source inline("max-h-[{1..2000..1}px]");
+@keyframes expand-large {
+  0% {
+    opacity: 0;
+    transform: scale(1);
+  }
+  30% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(96);
+    opacity: 0;
+  }
+}
 
-@source inline("min-h-[{1..2000..1}px]");
+@keyframes moveUp {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-20px);
+  }
+}
 
-@source inline("p-[{1..1000..1}px]");
+@keyframes moveUpSmall {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-10px);
+  }
+}
 
-@source inline("px-[{1..1000..1}px]");
+@keyframes scaleUp {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
 
-@source inline("py-[{1..1000..1}px]");
+/* ===================================================================
+   4. SOURCE DIRECTIVES
+   =================================================================== */
+/* Generate Tailwind CSS utilities from all source files in the monorepo */
+@source "../../**/*.{ts,tsx,html,css}";
+@source "./src/**/*.{ts,tsx,html,css}";
+@source "./node_modules/@headlessui/**/*.{ts,tsx}";
+@source "./node_modules/framer-motion/**/*.{ts,tsx}";
+@source "./node_modules/lucide-react/**/*.{ts,tsx}";
+@source "./node_modules/@radix-ui/**/*.{ts,tsx}";
 
-@source inline("m-[{1..1000..1}px]");
+/* ===================================================================
+   5. LAYOUT & POSITIONING UTILITIES
+   =================================================================== */
+@source inline("aspect-square");
+@source inline("aspect-video");
+@source inline("aspect-auto");
+@source inline("aspect-{1..16}/{1..16}");
 
-@source inline("my-[{1..1000..1}px]");
+@source inline("columns-auto");
+@source inline("columns-{1..12}");
 
-@source inline("mx-[{1..1000..1}px]");
+@source inline("break-after-auto");
+@source inline("break-after-avoid");
+@source inline("break-after-all");
+@source inline("break-after-avoid-page");
+@source inline("break-after-page");
+@source inline("break-after-left");
+@source inline("break-after-right");
+@source inline("break-after-column");
+@source inline("break-after-avoid-column");
 
-/* color classes */
-/*brand, red, orange, amber, yellow, lime, green, emerald, teal, cyan, sky, blue, indigo, violet, purple, 
+@source inline("break-before-auto");
+@source inline("break-before-avoid");
+@source inline("break-before-all");
+@source inline("break-before-avoid-page");
+@source inline("break-before-page");
+@source inline("break-before-left");
+@source inline("break-before-right");
+@source inline("break-before-column");
+@source inline("break-before-avoid-column");
+
+@source inline("break-inside-auto");
+@source inline("break-inside-avoid");
+@source inline("break-inside-avoid-page");
+@source inline("break-inside-avoid-column");
+
+@source inline("box-decoration-clone");
+@source inline("box-decoration-slice");
+
+@source inline("box-border");
+@source inline("box-content");
+
+@source inline("block");
+@source inline("inline-block");
+@source inline("inline");
+@source inline("table");
+@source inline("inline-table");
+@source inline("table-caption");
+@source inline("table-cell");
+@source inline("table-column");
+@source inline("table-column-group");
+@source inline("table-footer-group");
+@source inline("table-header-group");
+@source inline("table-row-group");
+@source inline("table-row");
+@source inline("flow-root");
+@source inline("contents");
+@source inline("list-item");
+@source inline("hidden");
+
+@source inline("float-start");
+@source inline("float-end");
+@source inline("float-right");
+@source inline("float-left");
+@source inline("float-none");
+
+@source inline("clear-start");
+@source inline("clear-end");
+@source inline("clear-right");
+@source inline("clear-left");
+@source inline("clear-both");
+@source inline("clear-none");
+
+@source inline("isolate");
+@source inline("isolation-auto");
+
+@source inline("object-contain");
+@source inline("object-cover");
+@source inline("object-fill");
+@source inline("object-none");
+@source inline("object-scale-down");
+
+@source inline("object-bottom");
+@source inline("object-center");
+@source inline("object-left");
+@source inline("object-left-bottom");
+@source inline("object-left-top");
+@source inline("object-right");
+@source inline("object-right-bottom");
+@source inline("object-right-top");
+@source inline("object-top");
+
+@source inline("overflow-auto");
+@source inline("overflow-hidden");
+@source inline("overflow-clip");
+@source inline("overflow-visible");
+@source inline("overflow-scroll");
+@source inline("overflow-x-auto");
+@source inline("overflow-y-auto");
+@source inline("overflow-x-hidden");
+@source inline("overflow-y-hidden");
+@source inline("overflow-x-clip");
+@source inline("overflow-y-clip");
+@source inline("overflow-x-visible");
+@source inline("overflow-y-visible");
+@source inline("overflow-x-scroll");
+@source inline("overflow-y-scroll");
+
+@source inline("overscroll-auto");
+@source inline("overscroll-contain");
+@source inline("overscroll-none");
+@source inline("overscroll-y-auto");
+@source inline("overscroll-y-contain");
+@source inline("overscroll-y-none");
+@source inline("overscroll-x-auto");
+@source inline("overscroll-x-contain");
+@source inline("overscroll-x-none");
+
+@source inline("static");
+@source inline("fixed");
+@source inline("absolute");
+@source inline("relative");
+@source inline("sticky");
+
+@source inline("inset-{auto,px,0,0.5,1,1.5,2,2.5,3,3.5,4,5,6,7,8,9,10,11,12,14,16,20,24,28,32,36,40,44,48,52,56,60,64,72,80,96}");
+@source inline("inset-x-{auto,px,0,0.5,1,1.5,2,2.5,3,3.5,4,5,6,7,8,9,10,11,12,14,16,20,24,28,32,36,40,44,48,52,56,60,64,72,80,96}");
+@source inline("inset-y-{auto,px,0,0.5,1,1.5,2,2.5,3,3.5,4,5,6,7,8,9,10,11,12,14,16,20,24,28,32,36,40,44,48,52,56,60,64,72,80,96}");
+@source inline("top-{auto,px,0,0.5,1,1.5,2,2.5,3,3.5,4,5,6,7,8,9,10,11,12,14,16,20,24,28,32,36,40,44,48,52,56,60,64,72,80,96}");
+@source inline("right-{auto,px,0,0.5,1,1.5,2,2.5,3,3.5,4,5,6,7,8,9,10,11,12,14,16,20,24,28,32,36,40,44,48,52,56,60,64,72,80,96}");
+@source inline("bottom-{auto,px,0,0.5,1,1.5,2,2.5,3,3.5,4,5,6,7,8,9,10,11,12,14,16,20,24,28,32,36,40,44,48,52,56,60,64,72,80,96}");
+@source inline("left-{auto,px,0,0.5,1,1.5,2,2.5,3,3.5,4,5,6,7,8,9,10,11,12,14,16,20,24,28,32,36,40,44,48,52,56,60,64,72,80,96}");
+
+@source inline("visible");
+@source inline("invisible");
+@source inline("collapse");
+
+@source inline("z-auto");
+@source inline("z-{0,10,20,30,40,50,60,70,80,90,100}");
+
+/* ===================================================================
+   6. SIZING UTILITIES
+   =================================================================== */
+@source inline("w-[{1..1000..1}px]");
+@source inline("max-w-[{1..1000..1}px]");
+@source inline("min-w-[{1..1000..1}px]");
+
+@source inline("w-[{1..100..1}%]");
+@source inline("max-w-[{1..100..1}%]");
+@source inline("min-w-[{1..100..1}%]");
+
+@source inline("h-[{1..1000..1}px]");
+@source inline("max-h-[{1..1000..1}px]");
+@source inline("min-h-[{1..1000..1}px]");
+
+@source inline("h-[{1..100..1}%]");
+@source inline("max-h-[{1..100..1}%]");
+@source inline("min-h-[{1..100..1}%]");
+
+/* ===================================================================
+   7. SPACING UTILITIES
+   =================================================================== */
+@source inline("px-[{1..100..1}");
+@source inline("py-[{1..100..1}");
+
+@source inline("p-[{1..500..1}px]");
+@source inline("px-[{1..500..1}px]");
+@source inline("py-[{1..500..1}px]");
+
+@source inline("m-{1..100..1}");
+@source inline("my-[{1..100..1}");
+@source inline("mx-[{1..100..1}");
+
+@source inline("m-[{1..500..1}px]");
+@source inline("my-[{1..500..1}px]");
+@source inline("mx-[{1..500..1}px]");
+
+@source inline("top-[{1..500..1}px]");
+@source inline("left-[{1..500..1}px]");
+@source inline("right-[{1..500..1}px]");
+@source inline("bottom-[{1..500..1}px]");
+
+@source inline("gap-{1..100..1}");
+@source inline("gap-x-{1..100..1}");
+@source inline("gap-y-{1..100..1}");
+
+@source inline("gap-[{1..500..1}px]");
+@source inline("gap-x-[{1..500..1}px]");
+@source inline("gap-y-[{1..500..1}px]");
+
+@source inline("gap-[{1..100..1}%]");
+@source inline("gap-x-[{1..100..1}%]");
+@source inline("gap-y-[{1..100..1}%]");
+
+/* ===================================================================
+   8. TYPOGRAPHY UTILITIES
+   =================================================================== */
+@source inline("text-[{1..200..1}px]");
+@source inline("line-height-[{1..200..1}px]");
+
+/* ===================================================================
+   9. LAYOUT (FLEXBOX & GRID) UTILITIES
+   =================================================================== */
+@source inline("flex");
+@source inline("inline-flex");
+@source inline("flex-1");
+@source inline("flex-auto");
+@source inline("flex-initial");
+@source inline("flex-none");
+@source inline("flex-row");
+@source inline("flex-row-reverse");
+@source inline("flex-col");
+@source inline("flex-col-reverse");
+@source inline("flex-wrap");
+@source inline("flex-wrap-reverse");
+@source inline("flex-nowrap");
+@source inline("flex-grow");
+@source inline("flex-grow-0");
+@source inline("flex-shrink");
+@source inline("flex-shrink-0");
+@source inline("order-{1..12}");
+@source inline("order-first");
+@source inline("order-last");
+@source inline("order-none");
+@source inline("order-{-12..-1}");
+
+@source inline("grid");
+@source inline("inline-grid");
+@source inline("grid-cols-{1..12}");
+@source inline("grid-cols-none");
+@source inline("grid-cols-subgrid");
+@source inline("grid-rows-{1..12}");
+@source inline("grid-rows-none");
+@source inline("grid-rows-subgrid");
+@source inline("col-auto");
+@source inline("col-span-{1..12}");
+@source inline("col-span-full");
+@source inline("col-start-{1..13}");
+@source inline("col-start-auto");
+@source inline("col-end-{1..13}");
+@source inline("col-end-auto");
+@source inline("row-auto");
+@source inline("row-span-{1..12}");
+@source inline("row-span-full");
+@source inline("row-start-{1..13}");
+@source inline("row-start-auto");
+@source inline("row-end-{1..13}");
+@source inline("row-end-auto");
+
+@source inline("grid-flow-row");
+@source inline("grid-flow-col");
+@source inline("grid-flow-dense");
+@source inline("grid-flow-row-dense");
+@source inline("grid-flow-col-dense");
+@source inline("auto-cols-auto");
+@source inline("auto-cols-min");
+@source inline("auto-cols-max");
+@source inline("auto-cols-fr");
+@source inline("auto-rows-auto");
+@source inline("auto-rows-min");
+@source inline("auto-rows-max");
+@source inline("auto-rows-fr");
+
+@source inline("justify-start");
+@source inline("justify-end");
+@source inline("justify-center");
+@source inline("justify-between");
+@source inline("justify-around");
+@source inline("justify-evenly");
+@source inline("justify-stretch");
+@source inline("justify-items-start");
+@source inline("justify-items-end");
+@source inline("justify-items-center");
+@source inline("justify-items-stretch");
+@source inline("justify-self-auto");
+@source inline("justify-self-start");
+@source inline("justify-self-end");
+@source inline("justify-self-center");
+@source inline("justify-self-stretch");
+
+@source inline("content-start");
+@source inline("content-end");
+@source inline("content-center");
+@source inline("content-between");
+@source inline("content-around");
+@source inline("content-evenly");
+@source inline("content-baseline");
+@source inline("content-stretch");
+@source inline("items-start");
+@source inline("items-end");
+@source inline("items-center");
+@source inline("items-baseline");
+@source inline("items-stretch");
+@source inline("self-auto");
+@source inline("self-start");
+@source inline("self-end");
+@source inline("self-center");
+@source inline("self-stretch");
+@source inline("self-baseline");
+
+@source inline("place-content-start");
+@source inline("place-content-end");
+@source inline("place-content-center");
+@source inline("place-content-between");
+@source inline("place-content-around");
+@source inline("place-content-evenly");
+@source inline("place-content-baseline");
+@source inline("place-content-stretch");
+@source inline("place-items-start");
+@source inline("place-items-end");
+@source inline("place-items-center");
+@source inline("place-items-baseline");
+@source inline("place-items-stretch");
+@source inline("place-self-auto");
+@source inline("place-self-start");
+@source inline("place-self-end");
+@source inline("place-self-center");
+@source inline("place-self-stretch");
+
+/* ===================================================================
+   10. VISUAL EFFECTS UTILITIES
+   =================================================================== */
+@source inline("bg-fixed");
+@source inline("bg-local");
+@source inline("bg-scroll");
+
+@source inline("bg-clip-border");
+@source inline("bg-clip-padding");
+@source inline("bg-clip-content");
+@source inline("bg-clip-text");
+
+@source inline("bg-none");
+@source inline("bg-gradient-to-t");
+@source inline("bg-gradient-to-tr");
+@source inline("bg-gradient-to-r");
+@source inline("bg-gradient-to-br");
+@source inline("bg-gradient-to-b");
+@source inline("bg-gradient-to-bl");
+@source inline("bg-gradient-to-l");
+@source inline("bg-gradient-to-tl");
+@source inline("bg-gradient-via-{50,25,75}");
+@source inline("bg-gradient-from-{50,25,75}");
+
+@source inline("bg-origin-border");
+@source inline("bg-origin-padding");
+@source inline("bg-origin-content");
+
+@source inline("bg-bottom");
+@source inline("bg-center");
+@source inline("bg-left");
+@source inline("bg-left-bottom");
+@source inline("bg-left-top");
+@source inline("bg-right");
+@source inline("bg-right-bottom");
+@source inline("bg-right-top");
+@source inline("bg-top");
+
+@source inline("bg-repeat");
+@source inline("bg-no-repeat");
+@source inline("bg-repeat-x");
+@source inline("bg-repeat-y");
+@source inline("bg-repeat-round");
+@source inline("bg-repeat-space");
+
+@source inline("bg-auto");
+@source inline("bg-cover");
+@source inline("bg-contain");
+
+/* Effects Utilities */
+@source inline("shadow-sm");
+@source inline("shadow");
+@source inline("shadow-md");
+@source inline("shadow-lg");
+@source inline("shadow-xl");
+@source inline("shadow-2xl");
+@source inline("shadow-inner");
+@source inline("shadow-none");
+
+@source inline("text-shadow");
+@source inline("text-shadow-sm");
+@source inline("text-shadow-md");
+@source inline("text-shadow-lg");
+@source inline("text-shadow-none");
+
+@source inline("opacity-0");
+@source inline("opacity-5");
+@source inline("opacity-10");
+@source inline("opacity-15");
+@source inline("opacity-20");
+@source inline("opacity-25");
+@source inline("opacity-30");
+@source inline("opacity-35");
+@source inline("opacity-40");
+@source inline("opacity-45");
+@source inline("opacity-50");
+@source inline("opacity-55");
+@source inline("opacity-60");
+@source inline("opacity-65");
+@source inline("opacity-70");
+@source inline("opacity-75");
+@source inline("opacity-80");
+@source inline("opacity-85");
+@source inline("opacity-90");
+@source inline("opacity-95");
+@source inline("opacity-100");
+
+@source inline("mix-blend-normal");
+@source inline("mix-blend-multiply");
+@source inline("mix-blend-screen");
+@source inline("mix-blend-overlay");
+@source inline("mix-blend-darken");
+@source inline("mix-blend-lighten");
+@source inline("mix-blend-color-dodge");
+@source inline("mix-blend-color-burn");
+@source inline("mix-blend-hard-light");
+@source inline("mix-blend-soft-light");
+@source inline("mix-blend-difference");
+@source inline("mix-blend-exclusion");
+@source inline("mix-blend-hue");
+@source inline("mix-blend-saturation");
+@source inline("mix-blend-color");
+@source inline("mix-blend-luminosity");
+
+@source inline("bg-blend-normal");
+@source inline("bg-blend-multiply");
+@source inline("bg-blend-screen");
+@source inline("bg-blend-overlay");
+@source inline("bg-blend-darken");
+@source inline("bg-blend-lighten");
+@source inline("bg-blend-color-dodge");
+@source inline("bg-blend-color-burn");
+@source inline("bg-blend-hard-light");
+@source inline("bg-blend-soft-light");
+@source inline("bg-blend-difference");
+@source inline("bg-blend-exclusion");
+@source inline("bg-blend-hue");
+@source inline("bg-blend-saturation");
+@source inline("bg-blend-color");
+@source inline("bg-blend-luminosity");
+
+@source inline("mask-clip-border");
+@source inline("mask-clip-padding");
+@source inline("mask-clip-content");
+@source inline("mask-clip-fill");
+@source inline("mask-clip-stroke");
+@source inline("mask-clip-view-box");
+@source inline("mask-clip-no-clip");
+
+@source inline("mask-composite-add");
+@source inline("mask-composite-subtract");
+@source inline("mask-composite-intersect");
+@source inline("mask-composite-exclude");
+
+@source inline("mask-none");
+@source inline("mask-linear-gradient");
+@source inline("mask-radial-gradient");
+@source inline("mask-conic-gradient");
+
+@source inline("mask-alpha");
+@source inline("mask-luminance");
+
+@source inline("mask-origin-border");
+@source inline("mask-origin-padding");
+@source inline("mask-origin-content");
+@source inline("mask-origin-fill");
+@source inline("mask-origin-stroke");
+@source inline("mask-origin-view-box");
+
+@source inline("mask-center");
+@source inline("mask-top");
+@source inline("mask-bottom");
+@source inline("mask-left");
+@source inline("mask-right");
+
+@source inline("mask-repeat");
+@source inline("mask-no-repeat");
+@source inline("mask-repeat-x");
+@source inline("mask-repeat-y");
+@source inline("mask-repeat-round");
+@source inline("mask-repeat-space");
+
+@source inline("mask-auto");
+@source inline("mask-cover");
+@source inline("mask-contain");
+
+@source inline("mask-type-alpha");
+@source inline("mask-type-luminance");
+@source inline("mask-type-auto");
+
+/* Filters */
+@source inline("filter");
+@source inline("filter-none");
+
+@source inline("blur-none");
+@source inline("blur-sm");
+@source inline("blur");
+@source inline("blur-md");
+@source inline("blur-lg");
+@source inline("blur-xl");
+@source inline("blur-2xl");
+@source inline("blur-3xl");
+
+@source inline("brightness-0");
+@source inline("brightness-50");
+@source inline("brightness-75");
+@source inline("brightness-90");
+@source inline("brightness-95");
+@source inline("brightness-100");
+@source inline("brightness-105");
+@source inline("brightness-110");
+@source inline("brightness-125");
+@source inline("brightness-150");
+@source inline("brightness-200");
+
+@source inline("contrast-0");
+@source inline("contrast-50");
+@source inline("contrast-75");
+@source inline("contrast-100");
+@source inline("contrast-125");
+@source inline("contrast-150");
+@source inline("contrast-200");
+
+@source inline("drop-shadow-sm");
+@source inline("drop-shadow");
+@source inline("drop-shadow-md");
+@source inline("drop-shadow-lg");
+@source inline("drop-shadow-xl");
+@source inline("drop-shadow-2xl");
+@source inline("drop-shadow-none");
+
+@source inline("grayscale-0");
+@source inline("grayscale");
+
+@source inline("hue-rotate-0");
+@source inline("hue-rotate-15");
+@source inline("hue-rotate-30");
+@source inline("hue-rotate-60");
+@source inline("hue-rotate-90");
+@source inline("hue-rotate-180");
+
+@source inline("invert-0");
+@source inline("invert");
+
+@source inline("saturate-0");
+@source inline("saturate-50");
+@source inline("saturate-100");
+@source inline("saturate-150");
+@source inline("saturate-200");
+
+@source inline("sepia-0");
+@source inline("sepia");
+
+@source inline("backdrop-filter");
+@source inline("backdrop-filter-none");
+
+@source inline("backdrop-blur-none");
+@source inline("backdrop-blur-sm");
+@source inline("backdrop-blur");
+@source inline("backdrop-blur-md");
+@source inline("backdrop-blur-lg");
+@source inline("backdrop-blur-xl");
+@source inline("backdrop-blur-2xl");
+@source inline("backdrop-blur-3xl");
+
+@source inline("backdrop-brightness-0");
+@source inline("backdrop-brightness-50");
+@source inline("backdrop-brightness-75");
+@source inline("backdrop-brightness-90");
+@source inline("backdrop-brightness-95");
+@source inline("backdrop-brightness-100");
+@source inline("backdrop-brightness-105");
+@source inline("backdrop-brightness-110");
+@source inline("backdrop-brightness-125");
+@source inline("backdrop-brightness-150");
+@source inline("backdrop-brightness-200");
+
+@source inline("backdrop-contrast-0");
+@source inline("backdrop-contrast-50");
+@source inline("backdrop-contrast-75");
+@source inline("backdrop-contrast-100");
+@source inline("backdrop-contrast-125");
+@source inline("backdrop-contrast-150");
+@source inline("backdrop-contrast-200");
+
+@source inline("backdrop-grayscale-0");
+@source inline("backdrop-grayscale");
+
+@source inline("backdrop-hue-rotate-0");
+@source inline("backdrop-hue-rotate-15");
+@source inline("backdrop-hue-rotate-30");
+@source inline("backdrop-hue-rotate-60");
+@source inline("backdrop-hue-rotate-90");
+@source inline("backdrop-hue-rotate-180");
+
+@source inline("backdrop-invert-0");
+@source inline("backdrop-invert");
+
+@source inline("backdrop-opacity-0");
+@source inline("backdrop-opacity-5");
+@source inline("backdrop-opacity-10");
+@source inline("backdrop-opacity-15");
+@source inline("backdrop-opacity-20");
+@source inline("backdrop-opacity-25");
+@source inline("backdrop-opacity-30");
+@source inline("backdrop-opacity-35");
+@source inline("backdrop-opacity-40");
+@source inline("backdrop-opacity-45");
+@source inline("backdrop-opacity-50");
+@source inline("backdrop-opacity-55");
+@source inline("backdrop-opacity-60");
+@source inline("backdrop-opacity-65");
+@source inline("backdrop-opacity-70");
+@source inline("backdrop-opacity-75");
+@source inline("backdrop-opacity-80");
+@source inline("backdrop-opacity-85");
+@source inline("backdrop-opacity-90");
+@source inline("backdrop-opacity-95");
+@source inline("backdrop-opacity-100");
+
+@source inline("backdrop-saturate-0");
+@source inline("backdrop-saturate-50");
+@source inline("backdrop-saturate-100");
+@source inline("backdrop-saturate-150");
+@source inline("backdrop-saturate-200");
+
+@source inline("backdrop-sepia-0");
+@source inline("backdrop-sepia");
+
+/* ===================================================================
+   11. BORDERS & SHAPES UTILITIES
+   =================================================================== */
+@source inline("rounded-none");
+@source inline("rounded-sm");
+@source inline("rounded");
+@source inline("rounded-md");
+@source inline("rounded-lg");
+@source inline("rounded-xl");
+@source inline("rounded-2xl");
+@source inline("rounded-3xl");
+@source inline("rounded-full");
+@source inline("rounded-t-none");
+@source inline("rounded-t-sm");
+@source inline("rounded-t");
+@source inline("rounded-t-md");
+@source inline("rounded-t-lg");
+@source inline("rounded-t-xl");
+@source inline("rounded-t-2xl");
+@source inline("rounded-t-3xl");
+@source inline("rounded-t-full");
+@source inline("rounded-r-none");
+@source inline("rounded-r-sm");
+@source inline("rounded-r");
+@source inline("rounded-r-md");
+@source inline("rounded-r-lg");
+@source inline("rounded-r-xl");
+@source inline("rounded-r-2xl");
+@source inline("rounded-r-3xl");
+@source inline("rounded-r-full");
+@source inline("rounded-b-none");
+@source inline("rounded-b-sm");
+@source inline("rounded-b");
+@source inline("rounded-b-md");
+@source inline("rounded-b-lg");
+@source inline("rounded-b-xl");
+@source inline("rounded-b-2xl");
+@source inline("rounded-b-3xl");
+@source inline("rounded-b-full");
+@source inline("rounded-l-none");
+@source inline("rounded-l-sm");
+@source inline("rounded-l");
+@source inline("rounded-l-md");
+@source inline("rounded-l-lg");
+@source inline("rounded-l-xl");
+@source inline("rounded-l-2xl");
+@source inline("rounded-l-3xl");
+@source inline("rounded-l-full");
+
+@source inline("border-0");
+@source inline("border-2");
+@source inline("border-4");
+@source inline("border-8");
+@source inline("border");
+@source inline("border-t-0");
+@source inline("border-t-2");
+@source inline("border-t-4");
+@source inline("border-t-8");
+@source inline("border-t");
+@source inline("border-r-0");
+@source inline("border-r-2");
+@source inline("border-r-4");
+@source inline("border-r-8");
+@source inline("border-r");
+@source inline("border-b-0");
+@source inline("border-b-2");
+@source inline("border-b-4");
+@source inline("border-b-8");
+@source inline("border-b");
+@source inline("border-l-0");
+@source inline("border-l-2");
+@source inline("border-l-4");
+@source inline("border-l-8");
+@source inline("border-l");
+
+@source inline("border-red-500");
+@source inline("border-green-500");
+@source inline("border-blue-500");
+@source inline("border-yellow-500");
+@source inline("border-purple-500");
+@source inline("border-pink-500");
+@source inline("border-gray-300");
+@source inline("border-gray-400");
+@source inline("border-gray-500");
+
+@source inline("border-solid");
+@source inline("border-dashed");
+@source inline("border-dotted");
+@source inline("border-double");
+@source inline("border-none");
+
+@source inline("outline-0");
+@source inline("outline-1");
+@source inline("outline-2");
+@source inline("outline-4");
+@source inline("outline-8");
+
+@source inline("outline-brand");
+@source inline("outline-red-500");
+@source inline("outline-green-500");
+@source inline("outline-blue-500");
+@source inline("outline-yellow-500");
+@source inline("outline-purple-500");
+@source inline("outline-pink-500");
+@source inline("outline-gray-500");
+
+@source inline("outline-solid");
+@source inline("outline-dashed");
+@source inline("outline-dotted");
+@source inline("outline-double");
+@source inline("outline-none");
+
+@source inline("outline-offset-0");
+@source inline("outline-offset-1");
+@source inline("outline-offset-2");
+@source inline("outline-offset-4");
+@source inline("outline-offset-8");
+
+/* ===================================================================
+   12. MOTION & TRANSFORMS UTILITIES
+   =================================================================== */
+@source inline("transition-none");
+@source inline("transition-all");
+@source inline("transition");
+@source inline("transition-colors");
+@source inline("transition-opacity");
+@source inline("transition-shadow");
+@source inline("transition-transform");
+
+@source inline("transition-discrete");
+@source inline("transition-normal");
+
+@source inline("duration-0");
+@source inline("duration-75");
+@source inline("duration-100");
+@source inline("duration-150");
+@source inline("duration-200");
+@source inline("duration-300");
+@source inline("duration-500");
+@source inline("duration-700");
+@source inline("duration-1000");
+
+@source inline("ease-linear");
+@source inline("ease-in");
+@source inline("ease-out");
+@source inline("ease-in-out");
+@source inline("ease-in-quad");
+@source inline("ease-in-cubic");
+@source inline("ease-in-quart");
+@source inline("ease-in-quint");
+@source inline("ease-in-expo");
+@source inline("ease-in-circ");
+@source inline("ease-in-back");
+@source inline("ease-out-quad");
+@source inline("ease-out-cubic");
+@source inline("ease-out-quart");
+@source inline("ease-out-quint");
+@source inline("ease-out-expo");
+@source inline("ease-out-circ");
+@source inline("ease-out-back");
+@source inline("ease-in-out-quad");
+@source inline("ease-in-out-cubic");
+@source inline("ease-in-out-quart");
+@source inline("ease-in-out-quint");
+@source inline("ease-in-out-expo");
+@source inline("ease-in-out-circ");
+@source inline("ease-in-out-back");
+
+@source inline("delay-0");
+@source inline("delay-75");
+@source inline("delay-100");
+@source inline("delay-150");
+@source inline("delay-200");
+@source inline("delay-300");
+@source inline("delay-500");
+@source inline("delay-700");
+@source inline("delay-1000");
+
+@source inline("animate-none");
+@source inline("animate-spin");
+@source inline("animate-ping");
+@source inline("animate-pulse");
+@source inline("animate-bounce");
+
+/* Transforms */
+@source inline("backface-visible");
+@source inline("backface-hidden");
+
+@source inline("perspective-none");
+@source inline("perspective-dramatic");
+@source inline("perspective-near");
+@source inline("perspective-normal");
+@source inline("perspective-far");
+
+@source inline("perspective-origin-center");
+@source inline("perspective-origin-top");
+@source inline("perspective-origin-top-right");
+@source inline("perspective-origin-right");
+@source inline("perspective-origin-bottom-right");
+@source inline("perspective-origin-bottom");
+@source inline("perspective-origin-bottom-left");
+@source inline("perspective-origin-left");
+@source inline("perspective-origin-top-left");
+
+@source inline("rotate-0");
+@source inline("rotate-1");
+@source inline("rotate-2");
+@source inline("rotate-3");
+@source inline("rotate-6");
+@source inline("rotate-12");
+@source inline("rotate-45");
+@source inline("rotate-90");
+@source inline("rotate-180");
+@source inline("-rotate-1");
+@source inline("-rotate-2");
+@source inline("-rotate-3");
+@source inline("-rotate-6");
+@source inline("-rotate-12");
+@source inline("-rotate-45");
+@source inline("-rotate-90");
+@source inline("-rotate-180");
+
+@source inline("scale-0");
+@source inline("scale-50");
+@source inline("scale-75");
+@source inline("scale-90");
+@source inline("scale-95");
+@source inline("scale-100");
+@source inline("scale-105");
+@source inline("scale-110");
+@source inline("scale-125");
+@source inline("scale-150");
+
+@source inline("scale-x-0");
+@source inline("scale-x-50");
+@source inline("scale-x-75");
+@source inline("scale-x-90");
+@source inline("scale-x-95");
+@source inline("scale-x-100");
+@source inline("scale-x-105");
+@source inline("scale-x-110");
+@source inline("scale-x-125");
+@source inline("scale-x-150");
+
+@source inline("scale-y-0");
+@source inline("scale-y-50");
+@source inline("scale-y-75");
+@source inline("scale-y-90");
+@source inline("scale-y-95");
+@source inline("scale-y-100");
+@source inline("scale-y-105");
+@source inline("scale-y-110");
+@source inline("scale-y-125");
+@source inline("scale-y-150");
+
+@source inline("skew-x-0");
+@source inline("skew-x-1");
+@source inline("skew-x-2");
+@source inline("skew-x-3");
+@source inline("skew-x-6");
+@source inline("skew-x-12");
+@source inline("-skew-x-1");
+@source inline("-skew-x-2");
+@source inline("-skew-x-3");
+@source inline("-skew-x-6");
+@source inline("-skew-x-12");
+
+@source inline("skew-y-0");
+@source inline("skew-y-1");
+@source inline("skew-y-2");
+@source inline("skew-y-3");
+@source inline("skew-y-6");
+@source inline("skew-y-12");
+@source inline("-skew-y-1");
+@source inline("-skew-y-2");
+@source inline("-skew-y-3");
+@source inline("-skew-y-6");
+@source inline("-skew-y-12");
+
+@source inline("transform");
+@source inline("transform-cpu");
+@source inline("transform-gpu");
+@source inline("transform-none");
+
+@source inline("origin-center");
+@source inline("origin-top");
+@source inline("origin-top-right");
+@source inline("origin-right");
+@source inline("origin-bottom-right");
+@source inline("origin-bottom");
+@source inline("origin-bottom-left");
+@source inline("origin-left");
+@source inline("origin-top-left");
+
+@source inline("preserve-3d");
+@source inline("preserve-flat");
+
+@source inline("translate-x-0");
+@source inline("translate-x-px");
+@source inline("translate-x-0.5");
+@source inline("translate-x-1");
+@source inline("translate-x-1.5");
+@source inline("translate-x-2");
+@source inline("translate-x-2.5");
+@source inline("translate-x-3");
+@source inline("translate-x-3.5");
+@source inline("translate-x-4");
+@source inline("translate-x-5");
+@source inline("translate-x-6");
+@source inline("translate-x-7");
+@source inline("translate-x-8");
+@source inline("translate-x-9");
+@source inline("translate-x-10");
+@source inline("translate-x-11");
+@source inline("translate-x-12");
+@source inline("translate-x-14");
+@source inline("translate-x-16");
+@source inline("translate-x-20");
+@source inline("translate-x-24");
+@source inline("translate-x-28");
+@source inline("translate-x-32");
+@source inline("translate-x-36");
+@source inline("translate-x-40");
+@source inline("translate-x-44");
+@source inline("translate-x-48");
+@source inline("translate-x-52");
+@source inline("translate-x-56");
+@source inline("translate-x-60");
+@source inline("translate-x-64");
+@source inline("translate-x-72");
+@source inline("translate-x-80");
+@source inline("translate-x-96");
+@source inline("translate-x-1/2");
+@source inline("translate-x-1/3");
+@source inline("translate-x-2/3");
+@source inline("translate-x-1/4");
+@source inline("translate-x-2/4");
+@source inline("translate-x-3/4");
+@source inline("translate-x-full");
+@source inline("-translate-x-0");
+@source inline("-translate-x-px");
+@source inline("-translate-x-0.5");
+@source inline("-translate-x-1");
+@source inline("-translate-x-1.5");
+@source inline("-translate-x-2");
+@source inline("-translate-x-2.5");
+@source inline("-translate-x-3");
+@source inline("-translate-x-3.5");
+@source inline("-translate-x-4");
+@source inline("-translate-x-5");
+@source inline("-translate-x-6");
+@source inline("-translate-x-7");
+@source inline("-translate-x-8");
+@source inline("-translate-x-9");
+@source inline("-translate-x-10");
+@source inline("-translate-x-11");
+@source inline("-translate-x-12");
+@source inline("-translate-x-14");
+@source inline("-translate-x-16");
+@source inline("-translate-x-20");
+@source inline("-translate-x-24");
+@source inline("-translate-x-28");
+@source inline("-translate-x-32");
+@source inline("-translate-x-36");
+@source inline("-translate-x-40");
+@source inline("-translate-x-44");
+@source inline("-translate-x-48");
+@source inline("-translate-x-52");
+@source inline("-translate-x-56");
+@source inline("-translate-x-60");
+@source inline("-translate-x-64");
+@source inline("-translate-x-72");
+@source inline("-translate-x-80");
+@source inline("-translate-x-96");
+@source inline("-translate-x-1/2");
+@source inline("-translate-x-1/3");
+@source inline("-translate-x-2/3");
+@source inline("-translate-x-1/4");
+@source inline("-translate-x-2/4");
+@source inline("-translate-x-3/4");
+@source inline("-translate-x-full");
+
+@source inline("translate-y-0");
+@source inline("translate-y-px");
+@source inline("translate-y-0.5");
+@source inline("translate-y-1");
+@source inline("translate-y-1.5");
+@source inline("translate-y-2");
+@source inline("translate-y-2.5");
+@source inline("translate-y-3");
+@source inline("translate-y-3.5");
+@source inline("translate-y-4");
+@source inline("translate-y-5");
+@source inline("translate-y-6");
+@source inline("translate-y-7");
+@source inline("translate-y-8");
+@source inline("translate-y-9");
+@source inline("translate-y-10");
+@source inline("translate-y-11");
+@source inline("translate-y-12");
+@source inline("translate-y-14");
+@source inline("translate-y-16");
+@source inline("translate-y-20");
+@source inline("translate-y-24");
+@source inline("translate-y-28");
+@source inline("translate-y-32");
+@source inline("translate-y-36");
+@source inline("translate-y-40");
+@source inline("translate-y-44");
+@source inline("translate-y-48");
+@source inline("translate-y-52");
+@source inline("translate-y-56");
+@source inline("translate-y-60");
+@source inline("translate-y-64");
+@source inline("translate-y-72");
+@source inline("translate-y-80");
+@source inline("translate-y-96");
+@source inline("translate-y-1/2");
+@source inline("translate-y-1/3");
+@source inline("translate-y-2/3");
+@source inline("translate-y-1/4");
+@source inline("translate-y-2/4");
+@source inline("translate-y-3/4");
+@source inline("translate-y-full");
+@source inline("-translate-y-0");
+@source inline("-translate-y-px");
+@source inline("-translate-y-0.5");
+@source inline("-translate-y-1");
+@source inline("-translate-y-1.5");
+@source inline("-translate-y-2");
+@source inline("-translate-y-2.5");
+@source inline("-translate-y-3");
+@source inline("-translate-y-3.5");
+@source inline("-translate-y-4");
+@source inline("-translate-y-5");
+@source inline("-translate-y-6");
+@source inline("-translate-y-7");
+@source inline("-translate-y-8");
+@source inline("-translate-y-9");
+@source inline("-translate-y-10");
+@source inline("-translate-y-11");
+@source inline("-translate-y-12");
+@source inline("-translate-y-14");
+@source inline("-translate-y-16");
+@source inline("-translate-y-20");
+@source inline("-translate-y-24");
+@source inline("-translate-y-28");
+@source inline("-translate-y-32");
+@source inline("-translate-y-36");
+@source inline("-translate-y-40");
+@source inline("-translate-y-44");
+@source inline("-translate-y-48");
+@source inline("-translate-y-52");
+@source inline("-translate-y-56");
+@source inline("-translate-y-60");
+@source inline("-translate-y-64");
+@source inline("-translate-y-72");
+@source inline("-translate-y-80");
+@source inline("-translate-y-96");
+@source inline("-translate-y-1/2");
+@source inline("-translate-y-1/3");
+@source inline("-translate-y-2/3");
+@source inline("-translate-y-1/4");
+@source inline("-translate-y-2/4");
+@source inline("-translate-y-3/4");
+@source inline("-translate-y-full");
+
+/* ===================================================================
+   13. INTERACTIVITY UTILITIES
+   =================================================================== */
+@source inline("accent-auto");
+@source inline("accent-brand");
+@source inline("accent-red-500");
+@source inline("accent-green-500");
+@source inline("accent-blue-500");
+@source inline("accent-yellow-500");
+@source inline("accent-purple-500");
+@source inline("accent-pink-500");
+
+@source inline("appearance-none");
+@source inline("appearance-auto");
+
+@source inline("caret-brand");
+@source inline("caret-red-500");
+@source inline("caret-green-500");
+@source inline("caret-blue-500");
+@source inline("caret-yellow-500");
+@source inline("caret-purple-500");
+@source inline("caret-pink-500");
+@source inline("caret-gray-500");
+
+@source inline("scheme-normal");
+@source inline("scheme-dark");
+@source inline("scheme-light");
+@source inline("scheme-light-dark");
+
+@source inline("cursor-auto");
+@source inline("cursor-default");
+@source inline("cursor-pointer");
+@source inline("cursor-wait");
+@source inline("cursor-text");
+@source inline("cursor-move");
+@source inline("cursor-help");
+@source inline("cursor-not-allowed");
+@source inline("cursor-none");
+@source inline("cursor-context-menu");
+@source inline("cursor-progress");
+@source inline("cursor-cell");
+@source inline("cursor-crosshair");
+@source inline("cursor-vertical-text");
+@source inline("cursor-alias");
+@source inline("cursor-copy");
+@source inline("cursor-no-drop");
+@source inline("cursor-grab");
+@source inline("cursor-grabbing");
+@source inline("cursor-all-scroll");
+@source inline("cursor-col-resize");
+@source inline("cursor-row-resize");
+@source inline("cursor-n-resize");
+@source inline("cursor-e-resize");
+@source inline("cursor-s-resize");
+@source inline("cursor-w-resize");
+@source inline("cursor-ne-resize");
+@source inline("cursor-nw-resize");
+@source inline("cursor-se-resize");
+@source inline("cursor-sw-resize");
+@source inline("cursor-ew-resize");
+@source inline("cursor-ns-resize");
+@source inline("cursor-nesw-resize");
+@source inline("cursor-nwse-resize");
+@source inline("cursor-zoom-in");
+@source inline("cursor-zoom-out");
+
+@source inline("field-sizing-fixed");
+@source inline("field-sizing-content");
+
+@source inline("pointer-events-none");
+@source inline("pointer-events-auto");
+
+@source inline("resize-none");
+@source inline("resize");
+@source inline("resize-y");
+@source inline("resize-x");
+
+@source inline("scroll-auto");
+@source inline("scroll-smooth");
+
+@source inline("scroll-m-0");
+@source inline("scroll-m-px");
+@source inline("scroll-m-0.5");
+@source inline("scroll-m-1");
+@source inline("scroll-m-1.5");
+@source inline("scroll-m-2");
+@source inline("scroll-m-2.5");
+@source inline("scroll-m-3");
+@source inline("scroll-m-3.5");
+@source inline("scroll-m-4");
+@source inline("scroll-m-5");
+@source inline("scroll-m-6");
+@source inline("scroll-m-7");
+@source inline("scroll-m-8");
+@source inline("scroll-m-9");
+@source inline("scroll-m-10");
+@source inline("scroll-m-11");
+@source inline("scroll-m-12");
+@source inline("scroll-m-14");
+@source inline("scroll-m-16");
+@source inline("scroll-m-20");
+@source inline("scroll-m-24");
+@source inline("scroll-m-28");
+@source inline("scroll-m-32");
+@source inline("scroll-m-36");
+@source inline("scroll-m-40");
+@source inline("scroll-m-44");
+@source inline("scroll-m-48");
+@source inline("scroll-m-52");
+@source inline("scroll-m-56");
+@source inline("scroll-m-60");
+@source inline("scroll-m-64");
+@source inline("scroll-m-72");
+@source inline("scroll-m-80");
+@source inline("scroll-m-96");
+
+@source inline("scroll-mx-0");
+@source inline("scroll-mx-px");
+@source inline("scroll-mx-0.5");
+@source inline("scroll-mx-1");
+@source inline("scroll-mx-1.5");
+@source inline("scroll-mx-2");
+@source inline("scroll-mx-2.5");
+@source inline("scroll-mx-3");
+@source inline("scroll-mx-3.5");
+@source inline("scroll-mx-4");
+@source inline("scroll-mx-5");
+@source inline("scroll-mx-6");
+@source inline("scroll-mx-7");
+@source inline("scroll-mx-8");
+@source inline("scroll-mx-9");
+@source inline("scroll-mx-10");
+@source inline("scroll-mx-11");
+@source inline("scroll-mx-12");
+@source inline("scroll-mx-14");
+@source inline("scroll-mx-16");
+@source inline("scroll-mx-20");
+@source inline("scroll-mx-24");
+@source inline("scroll-mx-28");
+@source inline("scroll-mx-32");
+@source inline("scroll-mx-36");
+@source inline("scroll-mx-40");
+@source inline("scroll-mx-44");
+@source inline("scroll-mx-48");
+@source inline("scroll-mx-52");
+@source inline("scroll-mx-56");
+@source inline("scroll-mx-60");
+@source inline("scroll-mx-64");
+@source inline("scroll-mx-72");
+@source inline("scroll-mx-80");
+@source inline("scroll-mx-96");
+
+@source inline("scroll-my-0");
+@source inline("scroll-my-px");
+@source inline("scroll-my-0.5");
+@source inline("scroll-my-1");
+@source inline("scroll-my-1.5");
+@source inline("scroll-my-2");
+@source inline("scroll-my-2.5");
+@source inline("scroll-my-3");
+@source inline("scroll-my-3.5");
+@source inline("scroll-my-4");
+@source inline("scroll-my-5");
+@source inline("scroll-my-6");
+@source inline("scroll-my-7");
+@source inline("scroll-my-8");
+@source inline("scroll-my-9");
+@source inline("scroll-my-10");
+@source inline("scroll-my-11");
+@source inline("scroll-my-12");
+@source inline("scroll-my-14");
+@source inline("scroll-my-16");
+@source inline("scroll-my-20");
+@source inline("scroll-my-24");
+@source inline("scroll-my-28");
+@source inline("scroll-my-32");
+@source inline("scroll-my-36");
+@source inline("scroll-my-40");
+@source inline("scroll-my-44");
+@source inline("scroll-my-48");
+@source inline("scroll-my-52");
+@source inline("scroll-my-56");
+@source inline("scroll-my-60");
+@source inline("scroll-my-64");
+@source inline("scroll-my-72");
+@source inline("scroll-my-80");
+@source inline("scroll-my-96");
+
+@source inline("scroll-p-0");
+@source inline("scroll-p-px");
+@source inline("scroll-p-0.5");
+@source inline("scroll-p-1");
+@source inline("scroll-p-1.5");
+@source inline("scroll-p-2");
+@source inline("scroll-p-2.5");
+@source inline("scroll-p-3");
+@source inline("scroll-p-3.5");
+@source inline("scroll-p-4");
+@source inline("scroll-p-5");
+@source inline("scroll-p-6");
+@source inline("scroll-p-7");
+@source inline("scroll-p-8");
+@source inline("scroll-p-9");
+@source inline("scroll-p-10");
+@source inline("scroll-p-11");
+@source inline("scroll-p-12");
+@source inline("scroll-p-14");
+@source inline("scroll-p-16");
+@source inline("scroll-p-20");
+@source inline("scroll-p-24");
+@source inline("scroll-p-28");
+@source inline("scroll-p-32");
+@source inline("scroll-p-36");
+@source inline("scroll-p-40");
+@source inline("scroll-p-44");
+@source inline("scroll-p-48");
+@source inline("scroll-p-52");
+@source inline("scroll-p-56");
+@source inline("scroll-p-60");
+@source inline("scroll-p-64");
+@source inline("scroll-p-72");
+@source inline("scroll-p-80");
+@source inline("scroll-p-96");
+
+@source inline("scroll-px-0");
+@source inline("scroll-px-px");
+@source inline("scroll-px-0.5");
+@source inline("scroll-px-1");
+@source inline("scroll-px-1.5");
+@source inline("scroll-px-2");
+@source inline("scroll-px-2.5");
+@source inline("scroll-px-3");
+@source inline("scroll-px-3.5");
+@source inline("scroll-px-4");
+@source inline("scroll-px-5");
+@source inline("scroll-px-6");
+@source inline("scroll-px-7");
+@source inline("scroll-px-8");
+@source inline("scroll-px-9");
+@source inline("scroll-px-10");
+@source inline("scroll-px-11");
+@source inline("scroll-px-12");
+@source inline("scroll-px-14");
+@source inline("scroll-px-16");
+@source inline("scroll-px-20");
+@source inline("scroll-px-24");
+@source inline("scroll-px-28");
+@source inline("scroll-px-32");
+@source inline("scroll-px-36");
+@source inline("scroll-px-40");
+@source inline("scroll-px-44");
+@source inline("scroll-px-48");
+@source inline("scroll-px-52");
+@source inline("scroll-px-56");
+@source inline("scroll-px-60");
+@source inline("scroll-px-64");
+@source inline("scroll-px-72");
+@source inline("scroll-px-80");
+@source inline("scroll-px-96");
+
+@source inline("scroll-py-0");
+@source inline("scroll-py-px");
+@source inline("scroll-py-0.5");
+@source inline("scroll-py-1");
+@source inline("scroll-py-1.5");
+@source inline("scroll-py-2");
+@source inline("scroll-py-2.5");
+@source inline("scroll-py-3");
+@source inline("scroll-py-3.5");
+@source inline("scroll-py-4");
+@source inline("scroll-py-5");
+@source inline("scroll-py-6");
+@source inline("scroll-py-7");
+@source inline("scroll-py-8");
+@source inline("scroll-py-9");
+@source inline("scroll-py-10");
+@source inline("scroll-py-11");
+@source inline("scroll-py-12");
+@source inline("scroll-py-14");
+@source inline("scroll-py-16");
+@source inline("scroll-py-20");
+@source inline("scroll-py-24");
+@source inline("scroll-py-28");
+@source inline("scroll-py-32");
+@source inline("scroll-py-36");
+@source inline("scroll-py-40");
+@source inline("scroll-py-44");
+@source inline("scroll-py-48");
+@source inline("scroll-py-52");
+@source inline("scroll-py-56");
+@source inline("scroll-py-60");
+@source inline("scroll-py-64");
+@source inline("scroll-py-72");
+@source inline("scroll-py-80");
+@source inline("scroll-py-96");
+
+@source inline("snap-start");
+@source inline("snap-end");
+@source inline("snap-center");
+@source inline("snap-align-none");
+
+@source inline("snap-normal");
+@source inline("snap-always");
+
+@source inline("snap-none");
+@source inline("snap-x");
+@source inline("snap-y");
+@source inline("snap-both");
+@source inline("snap-mandatory");
+@source inline("snap-proximity");
+
+@source inline("touch-none");
+@source inline("touch-auto");
+@source inline("touch-pan-x");
+@source inline("touch-pan-left");
+@source inline("touch-pan-right");
+@source inline("touch-pan-y");
+@source inline("touch-pan-up");
+@source inline("touch-pan-down");
+@source inline("touch-pinch-zoom");
+@source inline("touch-manipulation");
+
+@source inline("select-none");
+@source inline("select-text");
+@source inline("select-all");
+@source inline("select-auto");
+
+@source inline("will-change-auto");
+@source inline("will-change-scroll");
+@source inline("will-change-contents");
+@source inline("will-change-transform");
+
+/* ===================================================================
+   14. SPECIALIZED UTILITIES (SVG + Tables + Accessibility)
+   =================================================================== */
+@source inline("fill-none");
+@source inline("fill-current");
+@source inline("fill-brand");
+@source inline("fill-red-500");
+@source inline("fill-green-500");
+@source inline("fill-blue-500");
+@source inline("fill-yellow-500");
+@source inline("fill-purple-500");
+@source inline("fill-pink-500");
+@source inline("fill-gray-500");
+
+@source inline("stroke-none");
+@source inline("stroke-current");
+@source inline("stroke-brand");
+@source inline("stroke-red-500");
+@source inline("stroke-green-500");
+@source inline("stroke-blue-500");
+@source inline("stroke-yellow-500");
+@source inline("stroke-purple-500");
+@source inline("stroke-pink-500");
+@source inline("stroke-gray-500");
+
+@source inline("stroke-0");
+@source inline("stroke-1");
+@source inline("stroke-2");
+
+/* Tables */
+@source inline("border-collapse");
+@source inline("border-separate");
+
+@source inline("border-spacing-0");
+@source inline("border-spacing-px");
+@source inline("border-spacing-0.5");
+@source inline("border-spacing-1");
+@source inline("border-spacing-1.5");
+@source inline("border-spacing-2");
+@source inline("border-spacing-2.5");
+@source inline("border-spacing-3");
+@source inline("border-spacing-3.5");
+@source inline("border-spacing-4");
+@source inline("border-spacing-5");
+@source inline("border-spacing-6");
+@source inline("border-spacing-7");
+@source inline("border-spacing-8");
+@source inline("border-spacing-9");
+@source inline("border-spacing-10");
+@source inline("border-spacing-11");
+@source inline("border-spacing-12");
+@source inline("border-spacing-14");
+@source inline("border-spacing-16");
+@source inline("border-spacing-20");
+@source inline("border-spacing-24");
+@source inline("border-spacing-28");
+@source inline("border-spacing-32");
+@source inline("border-spacing-36");
+@source inline("border-spacing-40");
+@source inline("border-spacing-44");
+@source inline("border-spacing-48");
+@source inline("border-spacing-52");
+@source inline("border-spacing-56");
+@source inline("border-spacing-60");
+@source inline("border-spacing-64");
+@source inline("border-spacing-72");
+@source inline("border-spacing-80");
+@source inline("border-spacing-96");
+
+@source inline("table-auto");
+@source inline("table-fixed");
+
+@source inline("caption-top");
+@source inline("caption-bottom");
+
+/* Accessibility */
+@source inline("forced-color-adjust-auto");
+@source inline("forced-color-adjust-none");
+
+/* Typography */
+@source inline("font-sans");
+@source inline("font-serif");
+@source inline("font-mono");
+
+@source inline("text-xs");
+@source inline("text-sm");
+@source inline("text-base");
+@source inline("text-lg");
+@source inline("text-xl");
+@source inline("text-2xl");
+@source inline("text-3xl");
+@source inline("text-4xl");
+@source inline("text-5xl");
+@source inline("text-6xl");
+@source inline("text-7xl");
+@source inline("text-8xl");
+@source inline("text-9xl");
+
+@source inline("antialiased");
+@source inline("subpixel-antialiased");
+
+@source inline("italic");
+@source inline("not-italic");
+
+@source inline("font-thin");
+@source inline("font-extralight");
+@source inline("font-light");
+@source inline("font-normal");
+@source inline("font-medium");
+@source inline("font-semibold");
+@source inline("font-bold");
+@source inline("font-extrabold");
+@source inline("font-black");
+
+@source inline("normal-nums");
+@source inline("ordinal");
+@source inline("slashed-zero");
+@source inline("lining-nums");
+@source inline("oldstyle-nums");
+@source inline("proportional-nums");
+@source inline("tabular-nums");
+@source inline("diagonal-fractions");
+@source inline("stacked-fractions");
+
+@source inline("tracking-tighter");
+@source inline("tracking-tight");
+@source inline("tracking-normal");
+@source inline("tracking-wide");
+@source inline("tracking-wider");
+@source inline("tracking-widest");
+
+@source inline("line-clamp-1");
+@source inline("line-clamp-2");
+@source inline("line-clamp-3");
+@source inline("line-clamp-4");
+@source inline("line-clamp-5");
+@source inline("line-clamp-6");
+@source inline("line-clamp-none");
+
+@source inline("leading-3");
+@source inline("leading-4");
+@source inline("leading-5");
+@source inline("leading-6");
+@source inline("leading-7");
+@source inline("leading-8");
+@source inline("leading-9");
+@source inline("leading-10");
+@source inline("leading-none");
+@source inline("leading-tight");
+@source inline("leading-snug");
+@source inline("leading-normal");
+@source inline("leading-relaxed");
+@source inline("leading-loose");
+
+@source inline("list-inside");
+@source inline("list-outside");
+
+@source inline("list-disc");
+@source inline("list-decimal");
+@source inline("list-none");
+
+@source inline("text-left");
+@source inline("text-center");
+@source inline("text-right");
+@source inline("text-justify");
+
+@source inline("text-red-500");
+@source inline("text-green-500");
+@source inline("text-blue-500");
+@source inline("text-yellow-500");
+@source inline("text-purple-500");
+@source inline("text-pink-500");
+@source inline("text-gray-500");
+@source inline("text-gray-600");
+@source inline("text-gray-700");
+@source inline("text-gray-800");
+@source inline("text-gray-900");
+
+@source inline("underline");
+@source inline("overline");
+@source inline("line-through");
+@source inline("no-underline");
+
+@source inline("decoration-solid");
+@source inline("decoration-double");
+@source inline("decoration-dotted");
+@source inline("decoration-dashed");
+@source inline("decoration-wavy");
+
+@source inline("decoration-brand");
+@source inline("decoration-red-500");
+@source inline("decoration-green-500");
+@source inline("decoration-blue-500");
+@source inline("decoration-gray-500");
+
+@source inline("decoration-1");
+@source inline("decoration-2");
+@source inline("decoration-4");
+@source inline("decoration-8");
+@source inline("decoration-auto");
+
+@source inline("underline-offset-0");
+@source inline("underline-offset-1");
+@source inline("underline-offset-2");
+@source inline("underline-offset-4");
+@source inline("underline-offset-8");
+@source inline("underline-offset-auto");
+
+@source inline("uppercase");
+@source inline("lowercase");
+@source inline("capitalize");
+@source inline("normal-case");
+
+@source inline("truncate");
+@source inline("text-ellipsis");
+@source inline("text-clip");
+
+@source inline("text-wrap");
+@source inline("text-nowrap");
+@source inline("text-balance");
+@source inline("text-pretty");
+
+@source inline("indent-0");
+@source inline("indent-px");
+@source inline("indent-1");
+@source inline("indent-2");
+@source inline("indent-3");
+@source inline("indent-4");
+@source inline("indent-5");
+@source inline("indent-6");
+@source inline("indent-7");
+@source inline("indent-8");
+@source inline("indent-9");
+@source inline("indent-10");
+@source inline("indent-11");
+@source inline("indent-12");
+@source inline("indent-14");
+@source inline("indent-16");
+@source inline("indent-20");
+@source inline("indent-24");
+@source inline("indent-28");
+@source inline("indent-32");
+@source inline("indent-36");
+@source inline("indent-40");
+@source inline("indent-44");
+@source inline("indent-48");
+@source inline("indent-52");
+@source inline("indent-56");
+@source inline("indent-60");
+@source inline("indent-64");
+@source inline("indent-72");
+@source inline("indent-80");
+@source inline("indent-96");
+
+@source inline("align-baseline");
+@source inline("align-top");
+@source inline("align-middle");
+@source inline("align-bottom");
+@source inline("align-text-top");
+@source inline("align-text-bottom");
+@source inline("align-sub");
+@source inline("align-super");
+
+@source inline("whitespace-normal");
+@source inline("whitespace-nowrap");
+@source inline("whitespace-pre");
+@source inline("whitespace-pre-line");
+@source inline("whitespace-pre-wrap");
+
+@source inline("break-normal");
+@source inline("break-words");
+@source inline("break-all");
+
+@source inline("break-keep");
+@source inline("break-anywhere");
+
+@source inline("hyphens-none");
+@source inline("hyphens-manual");
+@source inline("hyphens-auto");
+
+@source inline("content-none");
+
+/* ===================================================================
+   15. COLOR UTILITIES
+   =================================================================== */
+/* Brand, red, orange, amber, yellow, lime, green, emerald, teal, cyan, sky, blue, indigo, violet, purple,
 fuchsia, rose, pink, slate, gray, zinc, neutral, stone, white, black */
 
-@source inline("bg-accent");
-@source inline("text-accent");
-@source inline("border-accent");
-@source inline("fill-accent");
-@source inline("stroke-accent");
-@source inline("ring-accent");
-@source inline("ring-offset-accent");
 @source inline("bg-muted");
 @source inline("text-muted");
 @source inline("border-muted");
@@ -69,26 +1922,81 @@ fuchsia, rose, pink, slate, gray, zinc, neutral, stone, white, black */
 @source inline("ring-muted");
 @source inline("ring-offset-muted");
 @source inline("bg-black");
-@source inline("text-black");
-@source inline("border-black");
 @source inline("fill-black");
 @source inline("stroke-black");
 @source inline("ring-black");
 @source inline("ring-offset-black");
 @source inline("bg-white");
-@source inline("text-white");
-@source inline("border-white");
 @source inline("fill-white");
 @source inline("stroke-white");
 @source inline("ring-white");
 @source inline("ring-offset-white");
 
-/* brand */
+/* Explicitly generate brand color utilities */
 @source inline("bg-brand");
+@source inline("{hover:,focus:,active:,disabled:}bg-brand");
+@source inline("{hover:,focus:,active:,disabled:}text-brand");
+@source inline("{hover:,focus:,active:,disabled:}border-brand");
+@source inline("{hover:,focus:,active:,disabled:}ring-brand");
+@source inline("{hover:,focus:,active:,disabled:}from-brand");
+@source inline("{hover:,focus:,active:,disabled:}via-brand");
+@source inline("{hover:,focus:,active:,disabled:}to-brand");
+@source inline("{hover:,focus:,active:,disabled:}fill-brand");
+@source inline("{hover:,focus:,active:,disabled:}stroke-brand");
 @source inline("bg-brand/{10..100..10}");
-@source inline("from-brand");
-@source inline("via-brand");
-@source inline("to-brand");
+@source inline("text-brand/{10..100..10}");
+@source inline("border-brand/{10..100..10}");
+@source inline("ring-brand/{10..100..10}");
+
+/* Secondary color utilities */
+@source inline("bg-secondary");
+@source inline("bg-secondary/{10..100..10}");
+@source inline("text-secondary");
+@source inline("text-secondary/{10..100..10}");
+@source inline("border-secondary");
+@source inline("border-secondary/{10..100..10}");
+@source inline("ring-secondary");
+@source inline("ring-secondary/{10..100..10}");
+
+/* Accent color utilities */
+@source inline("bg-accent");
+@source inline("bg-accent/{10..100..10}");
+@source inline("text-accent");
+@source inline("text-accent/{10..100..10}");
+@source inline("border-accent");
+@source inline("border-accent/{10..100..10}");
+@source inline("ring-accent");
+@source inline("ring-accent/{10..100..10}");
+
+/* Dark color utilities */
+@source inline("bg-dark");
+@source inline("bg-dark/{10..100..10}");
+@source inline("text-dark");
+@source inline("text-dark/{10..100..10}");
+@source inline("border-dark");
+@source inline("border-dark/{10..100..10}");
+@source inline("ring-dark");
+@source inline("ring-dark/{10..100..10}");
+
+/* Light color utilities */
+@source inline("bg-light");
+@source inline("bg-light/{10..100..10}");
+@source inline("text-light");
+@source inline("text-light/{10..100..10}");
+@source inline("border-light");
+@source inline("border-light/{10..100..10}");
+@source inline("ring-light");
+@source inline("ring-light/{10..100..10}");
+
+/* Body color utilities */
+@source inline("bg-body");
+@source inline("bg-body/{10..100..10}");
+@source inline("text-body");
+@source inline("text-body/{10..100..10}");
+@source inline("border-body");
+@source inline("border-body/{10..100..10}");
+@source inline("ring-body");
+@source inline("ring-body/{10..100..10}");
 
 /* red */
 @source inline("text-red-{50,{100..900..100},950}");
@@ -330,53 +2238,19 @@ fuchsia, rose, pink, slate, gray, zinc, neutral, stone, white, black */
 @source inline("via-black-{50,{100..900..100},950}");
 @source inline("to-black-{50,{100..900..100},950}");
 
-@layer base {
-  *,
-  ::after,
-  ::before,
-  ::backdrop,
-  ::file-selector-button {
-    border-color: var(--color-gray-200, currentcolor);
-  }
+/* Configure dark mode to only use class strategy */
+@variant dark (.dark &);
 
-  /* Custom theme colors */
-  :root {
-    --color-brand: 17 24 39;
+/* Plugin for Typography */
+@plugin "@tailwindcss/typography";
 
-    /* Custom colors */
-    --color-body: #fcfcfc;
-    --color-dark: #0d1321;
-    --color-light: #fcfcfc;
-    --color-black: #000000;
-    --color-white: #ffffff;
-    --color-light-dark: #171e2e;
-    --color-dark-light: #f8fafc;
-    --color-sidebar-body: #f8fafc;
-  }
+/* ===================================================================
+   16. COMPONENT STYLES
+   =================================================================== */
 
-  html {
-    @apply bg-body font-body;
-    -webkit-tap-highlight-color: transparent;
-  }
-
-  html.dark {
-    @apply bg-dark text-white;
-  }
-
-  html,
-  body {
-    @apply antialiased;
-  }
-
-  .dynamic-html h6 {
-    @apply font-medium uppercase;
-  }
-
-  .dynamic-html p {
-    @apply mb-3;
-  }
-}
-
+/* ===================================================================
+   17. CUSTOM UTILITIES
+   =================================================================== */
 @utility text-case-inherit {
   text-transform: inherit;
 }
@@ -431,12 +2305,9 @@ fuchsia, rose, pink, slate, gray, zinc, neutral, stone, white, black */
   @apply text-base font-medium leading-normal tracking-wide uppercase;
 }
 
-/* Hide spin button for input type number */
-input.spin-button-hidden::-webkit-outer-spin-button,
-input.spin-button-hidden::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
+/* ===================================================================
+   18. THIRD-PARTY STYLES
+   =================================================================== */
 
 /*================================================================
 Styles for Swiper slider
@@ -499,24 +2370,6 @@ Styles for Swiper slider
   @apply flex flex-col items-center justify-center;
 }
 
-::-webkit-scrollbar {
-  width: 4px;
-  height: 4px;
-}
-
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-::-webkit-scrollbar-thumb {
-  background: color-mix(in oklab, rgb(var(--color-brand)) 80%, transparent);
-  border-radius: 2px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: rgb(var(--color-brand));
-}
-
 .pricing-table-head th:nth-child(3),
 .pricing-table-body td:nth-child(3) {
   max-width: 30px;
@@ -553,6 +2406,8 @@ Styles for Swiper slider
   bottom: 0;
 }
 
+/* recharts tooltip styles */
+
 .recharts-tooltip-wrapper .recharts-default-tooltip {
   @apply rounded-xs border-0! bg-white! px-4! shadow-card dark:bg-light-dark!;
 }
@@ -561,11 +2416,11 @@ Styles for Swiper slider
   @apply text-xs uppercase dark:text-gray-400! lg:text-sm;
 }
 
-.tippy-box {
+.tipy-box {
   @apply rounded-xs border-0! bg-white! text-brand! shadow-card dark:bg-gray-600! dark:text-white!;
 }
 
-.tippy-arrow {
+.tipy-arrow {
   @apply text-white! dark:text-gray-600!;
 }
 
@@ -636,4 +2491,81 @@ input.reset-password-pin-code[type='number'] {
 
 .coin-list-scrollbar::-webkit-scrollbar {
   @apply hidden;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-brand) !important;
+  opacity: 0.8;
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-brand);
+}
+
+/* ===================================================================
+   19. BASE STYLES
+   =================================================================== */
+
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+
+  /* Custom theme colors */
+  :root {
+    --color-brand: #0184bf;
+    --color-secondary: #00d6f2;
+    --color-accent: #f26522;
+    --color-primary: var(--color-brand);
+    --swiper-theme-color: var(--color-brand) !important;
+    --color-muted: color-mix(in oklab, var(--color-brand) 50%, transparent);
+    --color-success: var(--color-emerald-500);
+    --color-warning: var(--color-orange-500);
+    --color-error: var(--color-red-500);
+    --color-info: var(--color-blue-500);
+    --color-dark: #0d1321;
+    --color-light: #fcfcfc;
+    --color-body: var(--color-light);
+    --color-black: #000000;
+    --color-white: #ffffff;
+    --color-light-dark: #171e2e;
+    --color-dark-light: #f8fafc;
+    --color-sidebar-body: #f8fafc;
+  }
+
+  html {
+    @apply bg-body font-sans;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  html.dark {
+    @apply bg-dark text-white;
+  }
+
+  html,
+  body {
+    @apply antialiased;
+  }
+
+  .dynamic-html h6 {
+    @apply font-medium uppercase;
+  }
+
+  .dynamic-html p {
+    @apply mb-3;
+  }
 }

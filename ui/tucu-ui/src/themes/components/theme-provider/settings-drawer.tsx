@@ -1,5 +1,6 @@
 import React from 'react';
 import { Radio, RadioGroup } from '@headlessui/react';
+import { Button } from '../../../components/buttons/button';
 import { useTheme } from '../../use-theme';
 import cn from 'classnames';
 import { ColorPreset, LAYOUT_OPTIONS, LayoutOptions } from '../../config';
@@ -176,23 +177,78 @@ function LayoutSwitcher() {
 }
 
 // Component: ColorSwitcher
-function ColorSwitcher() {
-  const { preset, setPreset } = useTheme();
+function ColorSwitcher({
+  type,
+}: {
+  type: 'preset' | 'secondary' | 'accent' | 'dark' | 'light';
+}) {
+  const {
+    preset,
+    secondaryPreset,
+    accentPreset,
+    darkPreset,
+    lightPreset,
+    setPreset,
+    setSecondaryPreset,
+    setAccentPreset,
+    setDarkPreset,
+    setLightPreset,
+  } = useTheme();
+  const color =
+    type === 'preset'
+      ? preset
+      : type === 'secondary'
+      ? secondaryPreset
+      : type === 'accent'
+      ? accentPreset
+      : type === 'dark'
+      ? darkPreset
+      : lightPreset;
+  const setColor =
+    type === 'preset'
+      ? setPreset
+      : type === 'secondary'
+      ? setSecondaryPreset
+      : type === 'accent'
+      ? setAccentPreset
+      : type === 'dark'
+      ? setDarkPreset
+      : setLightPreset;
   return (
     <div className="px-6 pt-8">
-      <h4 className="mb-4 text-sm font-medium text-gray-900 dark:text-white">
-        Color
-      </h4>
+      <div className="flex items-center h-8 justify-between mb-4">
+        <span className=" text-sm font-medium text-gray-900 dark:text-white">
+          {type === 'preset'
+            ? 'Color Preset'
+            : type === 'secondary'
+            ? 'Secondary Color'
+            : type === 'accent'
+            ? 'Accent Color'
+            : type === 'dark'
+            ? 'Dark Color'
+            : 'Light Color'}
+        </span>
+        <span className="text-current text-xs font-medium px-2 py-1 rounded-md">
+          Currently:{' '}
+          <span className="text-brand">
+            {color?.label}{' '}
+            <span
+              style={{ backgroundColor: color?.value }}
+              className="min-h-4 min-w-4 h-4 w-4 inline-block rounded-full ml-1 border border-gray-200 dark:border-gray-700"
+            />
+          </span>
+        </span>
+      </div>
       <RadioGroup
-        value={preset}
-        onChange={setPreset}
-        className="grid grid-cols-3 gap-5 "
+        value={color}
+        onChange={setColor}
+        className="grid grid-cols-3 gap-5 max-h-[226px] border border-gray-200 dark:border-gray-700 rounded-lg p-4 overflow-y-auto overflow-x-hidden scrollbar-thin scrollbar-thumb-brand scrollbar-track-transparent"
       >
         {ColorPreset.map((item, index) => (
           <Radio value={item} key={index}>
             {({ checked }) => (
               <SwitcherButton
-                onClick={() => setPreset(item)}
+                onClick={() => setColor(item)}
                 title={item.label}
                 checked={checked}
               >
@@ -205,6 +261,17 @@ function ColorSwitcher() {
           </Radio>
         ))}
       </RadioGroup>
+    </div>
+  );
+}
+
+export function RestoreDefaults() {
+  const { restoreDefaultColors } = useTheme();
+  return (
+    <div className="px-6 pt-8">
+      <Button fullWidth onClick={restoreDefaultColors}>
+        Restore Theme
+      </Button>
     </div>
   );
 }
@@ -223,7 +290,14 @@ export function SettingsDrawer() {
         {!settingActions?.disabledMode && <ThemeSwitcher />}
         {!settingActions?.disabledDirection && <DirectionSwitcher />}
         {!settingActions?.disabledLayout && <LayoutSwitcher />}
-        {!settingActions?.disabledPreset && <ColorSwitcher />}
+        {!settingActions?.disabledPreset && <ColorSwitcher type="preset" />}
+        {!settingActions?.disabledSecondary && (
+          <ColorSwitcher type="secondary" />
+        )}
+        {!settingActions?.disabledAccent && <ColorSwitcher type="accent" />}
+        {!settingActions?.disabledDark && <ColorSwitcher type="dark" />}
+        {!settingActions?.disabledLight && <ColorSwitcher type="light" />}
+        <RestoreDefaults />
       </div>
     </Drawer>
   );

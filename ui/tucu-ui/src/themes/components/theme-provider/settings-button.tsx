@@ -1,13 +1,35 @@
 import { useDirection } from '../../use-direction';
 import { useThemeColor } from '../../use-theme-color';
 import { useTheme } from '../../use-theme';
-import { defaultColorPreset } from '../../config';
+import {
+  defaultColorPreset,
+  defaultSecondaryPreset,
+  defaultAccentPreset,
+  defaultDarkPreset,
+  defaultLightPreset,
+} from '../../config';
 
 export function SettingsButton() {
   const { setIsSettingsOpen } = useTheme();
-  const { preset, direction, showSettings } = useTheme();
+  const {
+    preset,
+    secondaryPreset,
+    accentPreset,
+    darkPreset,
+    lightPreset,
+    direction,
+    showSettings,
+  } = useTheme();
   useDirection(direction ? direction : 'ltr');
-  useThemeColor(preset ? preset.value : defaultColorPreset.value);
+  useThemeColor({
+    brandColor: preset ? preset.value : defaultColorPreset.value,
+    secondaryColor: secondaryPreset
+      ? secondaryPreset.value
+      : defaultSecondaryPreset.value,
+    accentColor: accentPreset ? accentPreset.value : defaultAccentPreset.value,
+    darkColor: darkPreset ? darkPreset.value : defaultDarkPreset.value,
+    lightColor: lightPreset ? lightPreset.value : defaultLightPreset.value,
+  });
 
   if (!showSettings) return null;
 
