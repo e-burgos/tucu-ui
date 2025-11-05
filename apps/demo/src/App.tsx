@@ -1,4 +1,4 @@
-import { Button, ThemeProvider } from 'tucu-ui';
+import { Button, LucideIcons, ThemeProvider } from 'tucu-ui';
 import { useMenuItems } from './router/menuItems';
 import { DOCUMENTATION_URL } from './utils/constants';
 
@@ -22,7 +22,10 @@ function App() {
             window.open(DOCUMENTATION_URL, '_blank');
           }}
         >
-          Documentation
+          <div className="flex items-center gap-2">
+            <LucideIcons.PlayCircle className="w-4 h-4 animate-pulse" />
+            <span className="text-sm font-medium">Playground</span>
+          </div>
         </Button>
       }
       logo={{

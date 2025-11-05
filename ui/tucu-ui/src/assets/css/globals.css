@@ -332,6 +332,11 @@
 @source inline("bottom-{auto,px,0,0.5,1,1.5,2,2.5,3,3.5,4,5,6,7,8,9,10,11,12,14,16,20,24,28,32,36,40,44,48,52,56,60,64,72,80,96}");
 @source inline("left-{auto,px,0,0.5,1,1.5,2,2.5,3,3.5,4,5,6,7,8,9,10,11,12,14,16,20,24,28,32,36,40,44,48,52,56,60,64,72,80,96}");
 
+@source inline("top-1/2");
+@source inline("right-1/2");
+@source inline("bottom-1/2");
+@source inline("left-1/2");
+
 @source inline("visible");
 @source inline("invisible");
 @source inline("collapse");
@@ -361,18 +366,35 @@
 /* ===================================================================
    7. SPACING UTILITIES
    =================================================================== */
+@source inline("p-[{1..100..1}");
+@source inline("pt-[{1..100..1}");
+@source inline("pb-[{1..100..1}");
+@source inline("pl-[{1..100..1}");
+@source inline("pr-[{1..100..1}");
 @source inline("px-[{1..100..1}");
 @source inline("py-[{1..100..1}");
 
 @source inline("p-[{1..500..1}px]");
+@source inline("pt-[{1..500..1}px]");
+@source inline("pb-[{1..500..1}px]");
+@source inline("pl-[{1..500..1}px]");
+@source inline("pr-[{1..500..1}px]");
 @source inline("px-[{1..500..1}px]");
 @source inline("py-[{1..500..1}px]");
 
 @source inline("m-{1..100..1}");
+@source inline("mt-[{1..100..1}");
+@source inline("mb-[{1..100..1}");
+@source inline("ml-[{1..100..1}");
+@source inline("mr-[{1..100..1}");
 @source inline("my-[{1..100..1}");
 @source inline("mx-[{1..100..1}");
 
 @source inline("m-[{1..500..1}px]");
+@source inline("mt-[{1..500..1}px]");
+@source inline("mb-[{1..500..1}px]");
+@source inline("ml-[{1..500..1}px]");
+@source inline("mr-[{1..500..1}px]");
 @source inline("my-[{1..500..1}px]");
 @source inline("mx-[{1..500..1}px]");
 
@@ -2309,49 +2331,6 @@ fuchsia, rose, pink, slate, gray, zinc, neutral, stone, white, black */
    18. THIRD-PARTY STYLES
    =================================================================== */
 
-/*================================================================
-Styles for Swiper slider
-================================================================*/
-.swiper {
-  @apply flex flex-col;
-}
-
-.swiper-wrapper {
-  @apply order-first;
-}
-
-.swiper-scrollbar {
-  @apply relative bg-gray-200 rounded-sm dark:bg-gray-600;
-}
-
-.swiper-horizontal > .swiper-scrollbar {
-  @apply z-10 mb-0 mt-4 h-0.5 w-full sm:mt-6;
-}
-
-.swiper-vertical > .swiper-scrollbar {
-  @apply absolute right-1 top-0 z-10 h-full w-0.5;
-}
-
-.swiper-scrollbar-drag {
-  @apply relative bg-gray-900 rounded-sm dark:bg-light-dark;
-}
-
-.swiper-horizontal .swiper-scrollbar-drag {
-  @apply left-0 -top-px h-[3px] w-full shadow-xs;
-}
-
-.swiper-vertical .swiper-scrollbar-drag {
-  @apply -left-px top-0 h-full w-[3px] shadow-xs;
-}
-
-.swiper-scrollbar-cursor-drag {
-  @apply cursor-move;
-}
-
-.swiper-scrollbar-lock {
-  @apply hidden;
-}
-
 .transaction-table {
   border-spacing: 0 12px;
   margin-top: -12px;
@@ -2390,22 +2369,6 @@ Styles for Swiper slider
   border-radius: 10px;
 }
 
-.dark .swiper-pagination-bullet {
-  --swiper-pagination-bullet-inactive-color: #334155;
-  --swiper-pagination-color: #475569;
-}
-
-.swiper-pagination-bullet-active {
-  --swiper-pagination-bullet-width: 16px;
-}
-
-.swiper-horizontal > .swiper-pagination-bullets,
-.swiper-pagination-bullets.swiper-pagination-horizontal,
-.swiper-pagination-custom,
-.swiper-pagination-fraction {
-  bottom: 0;
-}
-
 /* recharts tooltip styles */
 
 .recharts-tooltip-wrapper .recharts-default-tooltip {
@@ -2422,17 +2385,6 @@ Styles for Swiper slider
 
 .tipy-arrow {
   @apply text-white! dark:text-gray-600!;
-}
-
-@media (min-width: 1536px) {
-  .swiper-pagination-bullet {
-    --swiper-pagination-bullet-width: 10px;
-    --swiper-pagination-bullet-height: 10px;
-  }
-
-  .swiper-pagination-bullet-active {
-    --swiper-pagination-bullet-width: 20px;
-  }
 }
 
 /* remove input number arrows  */

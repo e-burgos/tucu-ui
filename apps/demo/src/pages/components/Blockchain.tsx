@@ -11,12 +11,12 @@ import {
   CodeBlock,
 } from 'tucu-ui';
 
-import collection1Img from '../assets/images/collection/collection-1.jpg';
-import avatar1Img from '../assets/images/avatar/1.png';
-import bitcoinImg from '../assets/images/coin/bitcoin.svg';
-import ethereumImg from '../assets/images/coin/tether.svg';
-import cardanoImg from '../assets/images/coin/cardano.svg';
-import HeroPage from '../components/HeroPage';
+import collection1Img from '../../assets/images/collection/collection-1.jpg';
+import avatar1Img from '../../assets/images/avatar/1.png';
+import bitcoinImg from '../../assets/images/coin/bitcoin.svg';
+import ethereumImg from '../../assets/images/coin/tether.svg';
+import cardanoImg from '../../assets/images/coin/cardano.svg';
+import HeroPage from '../../components/HeroPage';
 
 export function Blockchain() {
   const priceData = [

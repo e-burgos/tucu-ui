@@ -1,0 +1,17 @@
+.swiper-pagination-bullet-active {
+  background-color: var(--color-brand) !important;
+  opacity: 1 !important;
+}
+
+.swiper-pagination-bullet-active-prev,
+.swiper-pagination-bullet-active-prev-prev,
+.swiper-pagination-bullet-active-next,
+.swiper-pagination-bullet-active-next-next {
+  background-color: var(--color-brand) !important;
+  opacity: 0.2 !important;
+}
+
+.swiper {
+  width: 100%;
+  height: 100%;
+}

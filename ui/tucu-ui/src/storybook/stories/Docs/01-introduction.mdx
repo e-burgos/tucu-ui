@@ -9,65 +9,649 @@ import Banner from '../../../assets/images/logos/tucu-ui-logo.png';
 
 # Welcome to Tucu UI
 
-Tucu UI is a modern, comprehensive React component library built with TypeScript and Tailwind CSS. Designed for developers who need production-ready components that are both beautiful and functional, Tucu UI provides everything you need to build consistent, responsive, and accessible web applications.
+A modern, comprehensive React component library built with TypeScript, Tailwind CSS, and designed for creating production-ready web applications with **automatic layout generation**, **powerful form systems**, and **specialized blockchain components**.
 
-## What is Tucu UI?
+## 🌟 Key Features
 
-Tucu UI is a carefully crafted collection of reusable React components that follows modern design principles and development best practices. Built with a focus on developer experience, the library offers a complete design system with over 80+ components ranging from basic UI elements to complex interactive components.
+### **🎨 Automatic Layout Generation**
 
-## Why Choose Tucu UI?
+Complete application layouts with minimal configuration via ThemeProvider - no manual layout coding required.
 
-- **🎨 Complete Design System**: Consistent visual language across all components
-- **⚡ Production Ready**: Battle-tested components used in real-world applications
-- **🛠️ Developer Friendly**: Fully typed with TypeScript for excellent IDE support
-- **📱 Responsive First**: Mobile-first approach with seamless responsive behavior
-- **🌙 Dark Mode Native**: Built-in dark/light theme support
-- **♿ Accessible**: WCAG compliant components with proper ARIA attributes
-- **🎭 Customizable**: Extensive theming and styling options
-- **📚 Well Documented**: Comprehensive documentation with live examples
+### **📝 Advanced Form System**
 
-## Technology Foundation
+Centralized validation powered by React Hook Form with built-in error handling and accessibility.
 
-- **React 18+** with modern hooks and patterns
-- **TypeScript** for type safety and better developer experience
-- **Tailwind CSS** for utility-first styling and rapid development
-- **Framer Motion** for smooth animations and transitions
-- **Nx Monorepo** for efficient development and build processes
+### **🪙 Blockchain-Ready Components**
 
-## Quick Start
+Specialized components for DeFi applications, NFT marketplaces, and crypto wallets.
 
-Get up and running with Tucu UI in minutes:
+### **🎭 Advanced Theming System**
+
+26+ color presets including modern colors (Bufus Blue, Coral, Mint, Lavender), secondary/accent color support, dark/light mode, RTL support, and persistent user preferences. Dynamic color system with CSS variables for brand, secondary, accent, and semantic colors.
+
+### **🎯 5000+ Icons Integrated**
+
+Complete Lucide React integration + 97+ custom-designed icons including blockchain/crypto icons, layout controls, social brands, and specialized UI elements.
+
+### **♿ Accessibility First**
+
+WCAG 2.1 AA compliant components with proper ARIA attributes and keyboard navigation.
+
+### **📱 Mobile-First Responsive**
+
+Responsive design across all components with support for ultra-wide displays (up to 4K).
+
+### **🌐 Integrated Routing**
+
+Built-in React Router integration for seamless SPA development.
+
+### **🎨 Tailwind CSS v4 Complete Integration**
+
+Full Tailwind CSS v4 implementation with 15 comprehensive utility categories automatically available:
+
+- **Layout & Positioning**: Aspect ratio, display, position, z-index, overflow
+- **Sizing**: Width, height, max/min dimensions with arbitrary values
+- **Spacing**: Padding, margin, gap with responsive breakpoints
+- **Typography**: Font families, sizes, weights, spacing, colors, decoration
+- **Flexbox & Grid**: Complete layout system with all properties
+- **Background**: Colors, gradients, images, positioning, attachment, repeat, size
+- **Borders**: Radius, width, colors, styles, outlines, offsets
+- **Effects**: Shadows, opacity, blend modes, box-shadow utilities
+- **Filters**: Blur, brightness, contrast, grayscale, hue-rotate, invert, saturate, sepia
+- **Tables**: Layout, border spacing, border collapse, caption side
+- **Transitions & Animation**: Properties, duration, timing, delay, animation classes
+- **Transforms**: Backface visibility, perspective, rotate, scale, skew, translate
+- **Interactivity**: Cursors, scroll behavior, snap, touch actions, user select, will-change
+- **SVG**: Fill, stroke, stroke-width utilities
+- **Accessibility**: Forced-color-adjust utilities
+
+All utilities are configured through optimized `@source inline()` directives for maximum performance.
+
+## 🔧 Core Technology Stack
+
+Built on industry-leading libraries for maximum reliability:
+
+- **[React 18+](https://react.dev/)** - Modern React with hooks and concurrent features
+- **[TypeScript](https://www.typescriptlang.org/)** - Full type safety and excellent DX
+- **[Tailwind CSS v4](https://tailwindcss.com/)** - Complete Tailwind v4 integration included with all utilities pre-configured
+- **[React Hook Form](https://react-hook-form.com/)** - Performant form handling and validation
+- **[Zustand](https://zustand-demo.pmnd.rs/)** - Lightweight state management for theming
+- **[Lucide React](https://lucide.dev/)** - Beautiful, consistent icon library
+- **[Framer Motion](https://www.framer.com/motion/)** - Smooth animations and transitions
+- **[Recharts](https://recharts.org/)** - Composable charting library for data visualization
+- **[Swiper](https://swiperjs.com/)** - Modern mobile touch slider
+- **[React Dropzone](https://react-dropzone.js.org/)** - Simple HTML5 drag-drop zone
+
+## 📦 Installation
 
 ```bash
 npm install tucu-ui
+
+// or with pnpm
+
+pnpm install tucu-ui
 ```
 
-```jsx
-import { Button, Card, Avatar } from 'tucu-ui';
+### Import Tucu UI Styles
+
+Add the following import to your main CSS file (usually `index.css` or `main.css`) to include all Tucu UI styles and Tailwind CSS utilities:
+
+```css
+@import 'tucu-ui/styles';
+```
+
+**Note:** Tucu UI includes a complete Tailwind CSS v4 setup with all utilities pre-configured. No additional Tailwind CSS installation or configuration is required.
+
+### Advanced Color Customization
+
+Tucu UI supports advanced color theming with multiple color layers:
+
+```css
+:root {
+  --color-brand: #0184bf; /* Primary brand color */
+  --color-secondary: #00d6f2; /* Secondary color */
+  --color-accent: #f26522; /* Accent color */
+  --color-dark: #0d1321; /* Dark theme background */
+  --color-light: #fcfcfc; /* Light theme background */
+}
+```
+
+Available color presets include:
+
+**Basic Colors:** Green, Black, Blue, Red, Purple, Orange, Rose, Pink, Yellow, Lime, Teal, Cyan
+
+**Extended Colors:** Navy, Maroon, Brown, Gray, Silver, Gold, Coral, Salmon
+
+**Advanced Colors:** BufusBlue, Bufus, BufusAccent, BufusDark, ThemeLight, ThemeDark
+
+## 🎯 Quick Start
+
+### 1. **Basic Component Usage**
+
+```tsx
+import { Button, Card, Input, Alert } from 'tucu-ui';
 
 function App() {
   return (
     <Card className="p-6">
-      <Avatar src="/avatar.jpg" alt="User" size="lg" />
-      <Button variant="primary" size="lg">
+      <h2 className="text-2xl font-bold mb-4">Welcome to Tucu UI</h2>
+      <Input placeholder="Enter your name" className="mb-4" />
+      <Button size="large" className="w-full">
         Get Started
       </Button>
+      <Alert variant="success" className="mt-4">
+        You're ready to build amazing UIs!
+      </Alert>
     </Card>
   );
 }
 ```
 
-## Component Overview
+### 2. **Complete App with Auto-Generated Layout**
 
-Tucu UI provides components organized into logical categories:
+```tsx
+import { ThemeProvider, LucideIcons, useTheme } from 'tucu-ui';
 
-- **🧱 Layout**: Containers, grids, and structural components
-- **🧭 Navigation**: Menus, tabs, breadcrumbs, and navigation elements
-- **📝 Forms**: Inputs, selectors, validation, and form utilities
-- **💬 Feedback**: Alerts, modals, notifications, and loading states
-- **📊 Data Display**: Tables, cards, lists, and data visualization
-- **🎯 Interactive**: Buttons, dropdowns, tooltips, and controls
-- **🔗 Blockchain**: Web3-specific components for DeFi and crypto applications
+const menuItems = [
+  {
+    name: 'Dashboard',
+    href: '/',
+    icon: <LucideIcons.Home />,
+    component: <DashboardPage />,
+  },
+  {
+    name: 'Analytics',
+    href: '/analytics',
+    icon: <LucideIcons.BarChart3 />,
+    component: <AnalyticsPage />,
+    dropdownItems: [
+      {
+        name: 'Reports',
+        href: '/analytics/reports',
+        component: <ReportsPage />,
+      },
+      {
+        name: 'Insights',
+        href: '/analytics/insights',
+        component: <InsightsPage />,
+      },
+    ],
+  },
+  {
+    name: 'Settings',
+    href: '/settings',
+    icon: <LucideIcons.Settings />,
+    component: <SettingsPage />,
+  },
+  {
+    name: 'Profile',
+    href: '/profile',
+    icon: <LucideIcons.User />,
+    component: <ProfilePage />,
+    hide: true,
+  },
+];
+
+function App() {
+  return (
+    <ThemeProvider
+      // Layout Configuration
+      layout="minimal" // 'classic' | 'minimal' | 'none'
+      menuItems={menuItems}
+      logo={{ name: 'My', secondName: 'App' }}
+      // Theme Configuration
+      brandColor="Blue" // Available: 'Green' | 'Black' | 'Blue' | 'Red' | 'Purple' | 'Orange' | 'Rose' | 'Pink' | 'Yellow' | 'Lime' | 'Teal' | 'Cyan' | 'Navy' | 'Maroon' | 'Brown' | 'Gray' | 'Silver' | 'Gold' | 'Coral' | 'Salmon'
+      mode="light" // 'light' | 'dark'
+      // Advanced Color Customization
+      customPaletteColor={{
+        primary: '#0184bf', // Custom hex color for brand
+        secondary: '#00d6f2', // Custom hex color for secondary
+        accent: '#f26522', // Custom hex color for accent
+        dark: '#0d1321', // Custom hex color for dark mode background
+        light: '#fcfcfc', // Custom hex color for light mode background
+      }}
+      // UI Customization
+      showSettings={true} // Show/hide settings panel button
+      rightButton={<UserMenu />} // Custom component for top-right area
+      headerClassName="custom-header" // Custom CSS classes for header
+      contentClassName="custom-content" // Custom CSS classes for content area
+      className="custom-layout" // Custom CSS classes for entire layout
+      fullWidth={false} // Enable/disable full width layout
+      // Advanced Configuration
+      withRouterProvider={true} // Enable/disable automatic React Router setup
+      customRoutes={<CustomRoutes />} // Custom React Router Routes element
+      settingActions={{
+        disabledPreset: false, // Disable color preset selector
+        disabledLayout: false, // Disable layout selector
+        disabledMode: false, // Disable dark/light mode toggle
+        disabledDirection: false, // Disable RTL/LTR direction toggle
+      }}
+    />
+  );
+}
+```
+
+**That's it!** Your complete application with routing, navigation, theming, and responsive design is ready.
+
+## 🎨 Layout System
+
+### **Three Layout Types**
+
+#### **1. Classic Layout** - Traditional Dashboard
+
+- Fixed sidebar with expandable navigation
+- Header with logo and actions
+- Perfect for admin panels and complex applications
+
+#### **2. Minimal Layout** - Modern & Clean
+
+- Horizontal navigation bar
+- Backdrop blur effects
+- Ideal for content-focused applications
+
+#### **3. None Layout** - Maximum Flexibility
+
+- No predefined layout structure
+- Perfect for auth pages and custom designs
+
+### **Automatic Features**
+
+- ✅ **Responsive Design** - Mobile drawer, tablet adaptations
+- ✅ **Dark/Light Mode** - Automatic theme switching
+- ✅ **RTL Support** - Full right-to-left language support
+- ✅ **Brand Colors** - 26+ predefined color presets
+- ✅ **Settings Panel** - Built-in user customization
+- ✅ **Routing Integration** - Automatic route generation
+
+## 📝 Advanced Form System
+
+### **Comprehensive Form Components**
+
+```tsx
+import {
+  Form,
+  FormField,
+  Input,
+  Textarea,
+  Checkbox,
+  RadioGroup,
+  InputSelect,
+  PinCode,
+  FileInput,
+  Button,
+} from 'tucu-ui';
+```
+
+### **Centralized Validation**
+
+```tsx
+interface UserFormData {
+  email: string;
+  password: string;
+  country: string;
+  newsletter: boolean;
+}
+
+function UserRegistrationForm() {
+  const handleSubmit = (data: UserFormData) => {
+    console.log('Form submitted:', data);
+  };
+
+  return (
+    <Form<UserFormData>
+      onSubmit={handleSubmit}
+      useFormProps={{
+        defaultValues: {
+          email: '',
+          password: '',
+          country: '',
+          newsletter: false,
+        },
+        mode: 'onChange',
+      }}
+    >
+      <FormField<UserFormData>
+        name="email"
+        label="Email Address"
+        rules={{
+          required: 'Email is required',
+          pattern: {
+            value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+            message: 'Invalid email address',
+          },
+        }}
+      >
+        <Input type="email" placeholder="Enter your email" />
+      </FormField>
+
+      <FormField<UserFormData>
+        name="password"
+        label="Password"
+        rules={{
+          required: 'Password is required',
+          minLength: {
+            value: 8,
+            message: 'Password must be at least 8 characters',
+          },
+        }}
+      >
+        <Input type="password" placeholder="Enter your password" />
+      </FormField>
+
+      <FormField<UserFormData> name="country" label="Country">
+        <InputSelect
+          options={[
+            { name: 'United States', value: 'us' },
+            { name: 'Canada', value: 'ca' },
+            { name: 'Mexico', value: 'mx' },
+          ]}
+        />
+      </FormField>
+
+      <FormField<UserFormData>
+        name="newsletter"
+        label="Newsletter Subscription"
+      >
+        <Checkbox>Subscribe to our newsletter</Checkbox>
+      </FormField>
+
+      <Button type="submit" size="large" className="w-full">
+        Create Account
+      </Button>
+    </Form>
+  );
+}
+```
+
+## 🪙 Blockchain & DeFi Components
+
+### **Cryptocurrency Components**
+
+```tsx
+import {
+  CoinCard,
+  CoinInfoCard,
+  LivePriceFeed,
+  TransactionInfo,
+  CurrencySwapIcons,
+} from 'tucu-ui';
+
+function CryptoPortfolio() {
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {/* Portfolio Balance Cards */}
+      <CoinCard
+        name="Bitcoin"
+        symbol="BTC"
+        logo="/icons/bitcoin.svg"
+        balance="1.25"
+        usdBalance="45,000"
+        change="+5.2%"
+        isChangePositive={true}
+        color="#FDEDD4"
+      />
+
+      {/* Live Price Feed with Chart */}
+      <LivePriceFeed
+        name="Ethereum"
+        symbol="ETH"
+        icon={<EthereumIcon />}
+        balance="10.5"
+        usdBalance="33,600"
+        change="+2.8%"
+        isChangePositive={true}
+        prices={priceHistory}
+      />
+
+      {/* Transaction Details */}
+      <div className="space-y-3">
+        <TransactionInfo label="Gas Fee" value="0.002 ETH" />
+        <TransactionInfo label="Network" value="Ethereum Mainnet" />
+        <TransactionInfo label="Status" value="Confirmed" />
+      </div>
+    </div>
+  );
+}
+```
+
+## 🎯 Complete Icon System
+
+### **5000+ Lucide Icons**
+
+```tsx
+import { LucideIcons } from 'tucu-ui';
+
+function IconShowcase() {
+  return (
+    <div className="flex gap-4">
+      {/* Navigation Icons */}
+      <LucideIcons.Home className="w-6 h-6" />
+      <LucideIcons.Settings className="w-6 h-6" />
+      <LucideIcons.User className="w-6 h-6" />
+
+      {/* Action Icons */}
+      <LucideIcons.Plus className="w-6 h-6 text-green-500" />
+      <LucideIcons.Trash2 className="w-6 h-6 text-red-500" />
+      <LucideIcons.Edit className="w-6 h-6 text-blue-500" />
+
+      {/* Communication Icons */}
+      <LucideIcons.Mail className="w-6 h-6" />
+      <LucideIcons.Phone className="w-6 h-6" />
+      <LucideIcons.MessageCircle className="w-6 h-6" />
+    </div>
+  );
+}
+```
+
+### **97+ Custom Icons**
+
+```tsx
+import {
+  // Blockchain/Crypto
+  Bitcoin,
+  Ethereum,
+  Cardano,
+  Bnb,
+  Doge,
+  Tether,
+  Usdc,
+
+  // Layout Controls
+  ClassicLayoutIcon,
+  MinimalLayoutIcon,
+  ModernLayoutIcon,
+  RetroLayoutIcon,
+
+  // Navigation & UI
+  HomeIcon,
+  SearchIcon,
+  MenuIcon,
+  Close,
+  ArrowRight,
+  ArrowUp,
+  ArrowLinkIcon,
+
+  // Social Brands
+  Facebook,
+  Twitter,
+  Instagram,
+  Github,
+  Telegram,
+
+  // DeFi & Trading
+  SwapIcon,
+  ExchangeIcon,
+  TradingBotIcon,
+  Farm,
+  Pool,
+  VoteIcon,
+  GasIcon,
+  LivePricing,
+
+  // Status & Feedback
+  Check,
+  Checkmark,
+  Warning,
+  InfoIcon,
+  InfoCircle,
+  QuestionIcon,
+  VerifiedIcon,
+  Verified,
+
+  // Actions & Controls
+  Plus,
+  PlusCircle,
+  Edit,
+  Trash2,
+  Copy,
+  Upload,
+  Download,
+  ExportIcon,
+  Refresh,
+  Power,
+  ShutDownIcon,
+  Unlock,
+  LockIcon,
+
+  // Media & Content
+  PlayIcon,
+  MediaPlayIcon,
+  Book,
+  Document,
+  CalendarIcon,
+  Tag,
+  TagIcon,
+
+  // Data Visualization
+  SpikeBar,
+  TrendArrowUpIcon,
+  TrendArrowDownIcon,
+  BarChart3,
+
+  // Layout & Design
+  Grid3X3,
+  CompactGrid,
+  NormalGrid,
+  LeftAlign,
+  RightAlign,
+  DotsIcon,
+  HorizontalThreeDots,
+  VerticalThreeDots,
+
+  // Specialty
+  Tucu,
+  Compass,
+  Flash,
+  Flow,
+  LevelIcon,
+  SandClock,
+  Star,
+  StarFill,
+} from 'tucu-ui';
+```
+
+## 🔧 UI Components Library
+
+### **Layout & Navigation**
+
+```tsx
+import { Modal, Drawer, CardContainer, PanelActionCard } from 'tucu-ui';
+
+// Modal with Accessibility
+<Modal
+  isOpen={isOpen}
+  setIsOpen={setIsOpen}
+  text={{
+    title: 'Confirm Action',
+    content: 'Are you sure you want to proceed?',
+    button: 'Confirm',
+    backButton: 'Cancel',
+  }}
+  onSubmit={handleConfirm}
+/>
+
+// Responsive Drawer
+<Drawer
+  type="sidebar-menu"
+  isOpen={isDrawerOpen}
+  setIsOpen={setIsDrawerOpen}
+  menuItems={menuItems}
+  position="left"
+/>
+
+// Action Cards
+<PanelActionCard
+  title="User Settings"
+  actions={[
+    { label: 'Save', onClick: handleSave },
+    { label: 'Cancel', variant: 'ghost', onClick: handleCancel },
+  ]}
+>
+  <UserSettingsForm />
+</PanelActionCard>
+```
+
+## 🎣 Utility Hooks
+
+```tsx
+import {
+  useBreakpoint,
+  useIsMobile,
+  useCopyToClipboard,
+  useClickAway,
+  useElementSize,
+  useLockBodyScroll,
+} from 'tucu-ui';
+
+function UtilityExample() {
+  const breakpoint = useBreakpoint();
+  const isMobile = useIsMobile();
+  const [copiedText, copy] = useCopyToClipboard();
+
+  return (
+    <div>
+      <p>Current breakpoint: {breakpoint}</p>
+      {isMobile && <MobileOnlyComponent />}
+
+      <button onClick={() => copy('Hello World!')}>
+        {copiedText ? 'Copied!' : 'Copy Text'}
+      </button>
+    </div>
+  );
+}
+```
+
+## 🚀 Ready-to-Use Authentication
+
+```tsx
+import {
+  SignInForm,
+  SignUpForm,
+  ForgetPasswordForm,
+  ResetPinForm,
+} from 'tucu-ui';
+
+// Complete authentication flow
+function AuthPages() {
+  return (
+    <ThemeProvider layout="none" menuItems={[]}>
+      <div className="min-h-screen flex items-center justify-center">
+        {/* Sign In with validation */}
+        <SignInForm forgetPasswordPath="/forgot-password" />
+
+        {/* Sign Up with terms */}
+        <SignUpForm />
+
+        {/* Password Reset */}
+        <ForgetPasswordForm
+          onSubmit={handlePasswordReset}
+          resetPinPath="/reset-pin"
+        />
+      </div>
+    </ThemeProvider>
+  );
+}
+```
 
 ## What's Next?
 

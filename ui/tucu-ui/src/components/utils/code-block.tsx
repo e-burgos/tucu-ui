@@ -22,16 +22,20 @@ export const CodeBlock = ({
   language,
   expanded = true,
   noExpand = false,
+  className,
 }: {
   code: string;
   language?: string;
   expanded?: boolean;
   noExpand?: boolean;
+  className?: string;
 }) => {
   const { isMobile } = useIsMobile();
   const [copied, setCopied] = useState(false);
-  const [isExpanded, setIsExpanded] = useState(noExpand ? false : expanded);
-  const [highlightedCode, setHighlightedCode] = useState('');
+  const [isExpanded, setIsExpanded] = useState<boolean>(
+    Boolean(noExpand ? false : expanded)
+  );
+  const [highlightedCode, setHighlightedCode] = useState<string>('');
 
   useEffect(() => {
     if (language && Prism.languages[language]) {
@@ -53,8 +57,18 @@ export const CodeBlock = ({
     });
   };
 
+  console.log(isExpanded);
+
   return (
-    <div className="relative h-full overflow-y-auto p-4 bg-gray-100 dark:bg-gray-800 rounded-xl border dark:border-gray-700 hover:border-gray-600 transition-colors mt-4">
+    <div
+      className={cn(
+        'relative bg-gray-100 dark:bg-gray-800 rounded-xl border dark:border-gray-700 hover:border-gray-600 mt-4',
+        isExpanded
+          ? 'max-h-[300px] h-[300px] transition-all duration-300'
+          : 'h-full transition-all duration-300',
+        className
+      )}
+    >
       <div
         className={cn(
           'absolute z-20 top-1 right-1 p-2 flex justify-end items-center w-full gap-1',
@@ -107,9 +121,7 @@ export const CodeBlock = ({
       </div>
 
       <Scrollbar
-        className={`overflow-x-auto ${
-          isExpanded ? 'max-h-[300px] h-[300px]' : 'h-full'
-        } transition-all duration-300`}
+        className={`overflow-x-auto h-full p-4 pr-16 pt-4 lg:pr-4 lg:pt-16 transition-all duration-300`}
       >
         <pre className="text-sm whitespace-pre-wrap font-mono block">
           <code

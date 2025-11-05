@@ -2,6 +2,7 @@ export * from './auth';
 export * from './blockchain';
 export * from './buttons';
 export * from './cards';
+export * from './carousel';
 export * from './common';
 export * from './dialog';
 export * from './forms';

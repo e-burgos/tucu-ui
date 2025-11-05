@@ -7,6 +7,8 @@ import AppRoutes, { AppRoutesMenuItem } from './app-routes';
 
 import {
   ColorPreset,
+  defaultLogo,
+  defaultMode,
   defaultSettingActions,
   ISettingAction,
   IThemeItem,
@@ -78,6 +80,10 @@ export function ThemeProvider({
   const menuItems = [...appMenuItems];
   const menuList = menuItems.filter((item) => !item.hide);
 
+  const isShowSettingsEnabled = Boolean(showSettings);
+  const isLogoEnabled = Boolean(logo);
+  const isAppModeEnabled = Boolean(appMode);
+
   const isPresetDisabled =
     Boolean(brandColor) ||
     Boolean(customPaletteColor?.primary) ||
@@ -120,17 +126,23 @@ export function ThemeProvider({
   const selectedColor = handleSelectedColor();
 
   useEffect(() => {
-    if (logo) {
+    if (isLogoEnabled && logo) {
       setLogo(logo);
+    } else {
+      setLogo(defaultLogo);
     }
-    if (appMode) {
+    if (isAppModeEnabled && appMode) {
       setMode(appMode);
+    } else {
+      setMode(defaultMode);
     }
     if (selectedColor) {
       setPreset(selectedColor);
     }
-    if (showSettings) {
+    if (isShowSettingsEnabled && showSettings) {
       setShowSettings(showSettings);
+    } else {
+      setShowSettings(false);
     }
   }, [
     logo,
@@ -141,6 +153,9 @@ export function ThemeProvider({
     setPreset,
     setShowSettings,
     selectedColor,
+    isLogoEnabled,
+    isAppModeEnabled,
+    isShowSettingsEnabled,
   ]);
 
   useEffect(() => {

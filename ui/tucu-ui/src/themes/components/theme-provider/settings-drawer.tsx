@@ -14,6 +14,7 @@ import {
   Moon,
 } from '../../../components/icons';
 import { Drawer } from '../../../components/dialog';
+import { Scrollbar } from '../../../components/common/scrollbar';
 
 // Component: SwitcherButton
 interface SwitcherButtonProps {
@@ -239,28 +240,33 @@ function ColorSwitcher({
           </span>
         </span>
       </div>
-      <RadioGroup
-        value={color}
-        onChange={setColor}
-        className="grid grid-cols-3 gap-5 max-h-[226px] border border-gray-200 dark:border-gray-700 rounded-lg p-4 overflow-y-auto overflow-x-hidden scrollbar-thin scrollbar-thumb-brand scrollbar-track-transparent"
+      <Scrollbar
+        className="border h-[260px] border-gray-200 dark:border-gray-700 rounded-lg p-4"
+        direction="vertical"
       >
-        {ColorPreset.map((item, index) => (
-          <Radio value={item} key={index}>
-            {({ checked }) => (
-              <SwitcherButton
-                onClick={() => setColor(item)}
-                title={item.label}
-                checked={checked}
-              >
-                <span
-                  className="h-8 w-8 rounded-full"
-                  style={{ backgroundColor: item.value }}
-                />
-              </SwitcherButton>
-            )}
-          </Radio>
-        ))}
-      </RadioGroup>
+        <RadioGroup
+          value={color}
+          onChange={setColor}
+          className="grid grid-cols-3 gap-5 h-full overflow-x-hidden"
+        >
+          {ColorPreset.map((item, index) => (
+            <Radio value={item} key={index}>
+              {({ checked }) => (
+                <SwitcherButton
+                  onClick={() => setColor(item)}
+                  title={item.label}
+                  checked={checked}
+                >
+                  <span
+                    className="h-8 w-8 rounded-full"
+                    style={{ backgroundColor: item.value }}
+                  />
+                </SwitcherButton>
+              )}
+            </Radio>
+          ))}
+        </RadioGroup>
+      </Scrollbar>
     </div>
   );
 }
@@ -268,8 +274,8 @@ function ColorSwitcher({
 export function RestoreDefaults() {
   const { restoreDefaultColors } = useTheme();
   return (
-    <div className="px-6 pt-8">
-      <Button fullWidth onClick={restoreDefaultColors}>
+    <div className="flex justify-center items-center p-4 absolute bg-white dark:bg-gray-800 bottom-0 left-0 right-0 border-t border-gray-200 dark:border-gray-700">
+      <Button fullWidth size="small" onClick={restoreDefaultColors}>
         Restore Theme
       </Button>
     </div>
@@ -285,8 +291,9 @@ export function SettingsDrawer() {
       isOpen={isSettingsOpen}
       setIsOpen={setIsSettingsOpen}
       title="Settings"
+      className="relative"
     >
-      <div>
+      <div className="h-full pb-16">
         {!settingActions?.disabledMode && <ThemeSwitcher />}
         {!settingActions?.disabledDirection && <DirectionSwitcher />}
         {!settingActions?.disabledLayout && <LayoutSwitcher />}

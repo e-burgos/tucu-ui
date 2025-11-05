@@ -201,8 +201,8 @@ importers:
         specifier: ^19.1.0
         version: 19.1.1(react@19.1.1)
       tucu-ui:
-        specifier: 1.1.20
-        version: 1.1.20(@types/react@19.1.13)(immer@10.1.3)(react-dom@19.1.1(react@19.1.1))(react-is@18.3.1)(react@19.1.1)(tailwindcss@4.1.13)(use-sync-external-store@1.5.0(react@19.1.1))
+        specifier: 1.1.21
+        version: 1.1.21(@types/react@19.1.13)(immer@10.1.3)(react-dom@19.1.1(react@19.1.1))(react-is@18.3.1)(react@19.1.1)(tailwindcss@4.1.13)(use-sync-external-store@1.5.0(react@19.1.1))
     devDependencies:
       '@eslint/js':
         specifier: ^9.25.0
@@ -8812,8 +8812,8 @@ packages:
   tty-browserify@0.0.1:
     resolution: {integrity: sha512-C3TaO7K81YvjCgQH9Q1S3R3P3BtN3RIM8n+OvX4il1K1zgE8ZhI0op7kClgkxtutIE8hQrcrHBXvIheqKUUCxw==}
 
-  tucu-ui@1.1.20:
-    resolution: {integrity: sha512-VE3aWza9WXLF57F4idOXvtoHrnjj+x7l+5CmWNWJB8cnMLd6Kn0Q7CrlBGMHRC8tvu9tlj8MoqHQl8OA1MA9QQ==}
+  tucu-ui@1.1.21:
+    resolution: {integrity: sha512-J3T8st7yWnBQ82Q5OgDvhD5OXbYAVWNM8j+2u9qy+Ld9A/sDvPcHdHJKGDOsZi1hKGARin1Ca2EPzH1tDw3Pvw==}
     peerDependencies:
       react: '>=18.0.0'
       react-dom: '>=18.0.0'
@@ -19956,7 +19956,7 @@ snapshots:
 
   tty-browserify@0.0.1: {}
 
-  tucu-ui@1.1.20(@types/react@19.1.13)(immer@10.1.3)(react-dom@19.1.1(react@19.1.1))(react-is@18.3.1)(react@19.1.1)(tailwindcss@4.1.13)(use-sync-external-store@1.5.0(react@19.1.1)):
+  tucu-ui@1.1.21(@types/react@19.1.13)(immer@10.1.3)(react-dom@19.1.1(react@19.1.1))(react-is@18.3.1)(react@19.1.1)(tailwindcss@4.1.13)(use-sync-external-store@1.5.0(react@19.1.1)):
     dependencies:
       '@headlessui/react': 2.2.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       '@tailwindcss/typography': 0.0.0-insiders.0339c42(tailwindcss@4.1.13)

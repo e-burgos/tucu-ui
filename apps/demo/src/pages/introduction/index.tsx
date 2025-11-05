@@ -34,7 +34,7 @@ export function Introduction() {
     <div className="space-y-8 sm:space-y-12 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
       {/* Hero Section */}
       <HeroPage
-        description="A modern, comprehensive React component library built with TypeScript and Tailwind CSS. Designed for developers who need production-ready components that are both beautiful and functional."
+        description="A modern, comprehensive React component library built with TypeScript and Tailwind CSS v4. Features an advanced theming system with 31+ color presets, multi-layered color architecture, and granular control options. Designed for developers who need production-ready components with sophisticated theming capabilities."
         githubButton
         getStartedButton
         backgroundAnimation
@@ -71,9 +71,9 @@ export function Introduction() {
               icon: (
                 <LucideIcons.Palette className="w-8 h-8 text-white filter drop-shadow-sm" />
               ),
-              title: 'Complete Design System',
+              title: 'Advanced Theming System',
               description:
-                'Consistent visual language with 80+ components and comprehensive theming',
+                '31+ color presets with multi-layered architecture (brand, secondary, accent, dark, light)',
               color: 'from-purple-500 via-purple-600 to-pink-500',
             },
             {
@@ -109,8 +109,17 @@ export function Introduction() {
               ),
               title: 'Dark Mode Native',
               description:
-                'Built-in dark/light theme support with smooth transitions',
+                'Advanced dark/light theme support with dynamic color mixing and smooth transitions',
               color: 'from-indigo-500 via-purple-500 to-violet-500',
+            },
+            {
+              icon: (
+                <LucideIcons.Settings className="w-8 h-8 text-white filter drop-shadow-sm" />
+              ),
+              title: 'Granular Theme Control',
+              description:
+                'Fine-tune user customization with partial settings control and advanced configuration options',
+              color: 'from-red-500 via-pink-500 to-rose-500',
             },
             {
               icon: (
@@ -119,7 +128,16 @@ export function Introduction() {
               title: 'Accessible',
               description:
                 'WCAG 2.1 AA compliant with proper ARIA attributes and keyboard navigation',
-              color: 'from-red-500 via-pink-500 to-rose-500',
+              color: 'from-teal-500 via-cyan-500 to-blue-500',
+            },
+            {
+              icon: (
+                <LucideIcons.Wand2 className="w-8 h-8 text-white filter drop-shadow-sm" />
+              ),
+              title: 'Tailwind CSS v4',
+              description:
+                'Latest Tailwind CSS with custom design tokens, dynamic utilities, and performance optimizations',
+              color: 'from-amber-500 via-yellow-500 to-orange-500',
             },
           ].map((feature, index) => (
             <CardContainer
@@ -174,9 +192,9 @@ export function Introduction() {
                       'bg-gradient-to-br from-indigo-500/10 to-blue-500/10 text-indigo-700 border-indigo-200 dark:from-indigo-400/20 dark:to-blue-400/20 dark:text-indigo-300 dark:border-indigo-700',
                   },
                   {
-                    name: 'Tailwind CSS',
+                    name: 'Tailwind CSS v4',
                     description:
-                      'Utility-first styling with custom design tokens',
+                      'Latest version with advanced theming, dynamic utilities, and performance optimizations',
                     icon: '🎨',
                     color:
                       'bg-gradient-to-br from-cyan-500/10 to-teal-500/10 text-cyan-700 border-cyan-200 dark:from-cyan-400/20 dark:to-teal-400/20 dark:text-cyan-300 dark:border-cyan-700',
@@ -222,6 +240,134 @@ export function Introduction() {
             </div>
           </CardTitle>
         </CardContainer>
+      </section>
+
+      {/* Advanced Theming Showcase */}
+      <section className="space-y-8">
+        <div className="text-center">
+          <Typography
+            tag="h2"
+            className="mb-4 text-2xl sm:text-3xl md:text-4xl font-bold"
+          >
+            Advanced Theming Capabilities
+          </Typography>
+          <Typography
+            tag="p"
+            className="text-base sm:text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto"
+          >
+            Experience the power of our sophisticated theming system with multi-layered color architecture and granular control
+          </Typography>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* Color System Demo */}
+          <CardContainer>
+            <CardTitle title="Color Architecture" className="mt-2 mb-6">
+              <div className="space-y-4">
+                <Typography
+                  tag="p"
+                  className="text-gray-600 dark:text-gray-400"
+                >
+                  Multi-layered color system supporting 31+ presets with dynamic theming:
+                </Typography>
+
+                <div className="grid grid-cols-2 gap-3">
+                  {[
+                    { layer: 'Brand', color: 'bg-brand', desc: 'Primary identity' },
+                    { layer: 'Secondary', color: 'bg-secondary', desc: 'Supporting colors' },
+                    { layer: 'Accent', color: 'bg-accent', desc: 'Action highlights' },
+                    { layer: 'Dark', color: 'bg-dark', desc: 'Dark theme base' },
+                    { layer: 'Light', color: 'bg-light', desc: 'Light theme base' },
+                  ].map((item, index) => (
+                    <div key={index} className="flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                      <div className={`w-8 h-8 rounded-lg ${item.color} border border-gray-300 dark:border-gray-600`}></div>
+                      <div>
+                        <Typography tag="h4" className="font-medium text-sm">
+                          {item.layer}
+                        </Typography>
+                        <Typography tag="p" className="text-xs text-gray-500 dark:text-gray-400">
+                          {item.desc}
+                        </Typography>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="p-3 bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-lg border border-purple-200 dark:border-purple-700">
+                  <Typography tag="p" className="text-sm text-purple-700 dark:text-purple-300">
+                    <LucideIcons.Palette className="w-4 h-4 inline mr-2" />
+                    31+ predefined color presets including modern colors like Bufus, ThemeDark, and ThemeLight
+                  </Typography>
+                </div>
+              </div>
+            </CardTitle>
+          </CardContainer>
+
+          {/* Theme Configuration Demo */}
+          <CardContainer>
+            <CardTitle title="Configuration Flexibility" className="mt-2 mb-6">
+              <div className="space-y-4">
+                <Typography
+                  tag="p"
+                  className="text-gray-600 dark:text-gray-400"
+                >
+                  Granular control over theme settings with advanced configuration options:
+                </Typography>
+
+                <div className="space-y-3">
+                  <div className="flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                    <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-lg flex items-center justify-center">
+                      <LucideIcons.Settings className="w-4 h-4 text-white" />
+                    </div>
+                    <div>
+                      <Typography tag="h4" className="font-medium text-sm">
+                        Partial Settings Control
+                      </Typography>
+                      <Typography tag="p" className="text-xs text-gray-500 dark:text-gray-400">
+                        Enable/disable specific theme options per user
+                      </Typography>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                    <div className="w-8 h-8 bg-gradient-to-br from-green-500 to-emerald-500 rounded-lg flex items-center justify-center">
+                      <LucideIcons.Zap className="w-4 h-4 text-white" />
+                    </div>
+                    <div>
+                      <Typography tag="h4" className="font-medium text-sm">
+                        Dynamic Color Mixing
+                      </Typography>
+                      <Typography tag="p" className="text-xs text-gray-500 dark:text-gray-400">
+                        CSS color-mix() for automatic color variations
+                      </Typography>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                    <div className="w-8 h-8 bg-gradient-to-br from-orange-500 to-amber-500 rounded-lg flex items-center justify-center">
+                      <LucideIcons.Moon className="w-4 h-4 text-white" />
+                    </div>
+                    <div>
+                      <Typography tag="h4" className="font-medium text-sm">
+                        Persistent Settings
+                      </Typography>
+                      <Typography tag="p" className="text-xs text-gray-500 dark:text-gray-400">
+                        Automatic localStorage integration for user preferences
+                      </Typography>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="p-3 bg-gradient-to-r from-blue-500/10 to-indigo-500/10 rounded-lg border border-blue-200 dark:border-blue-700">
+                  <Typography tag="p" className="text-sm text-blue-700 dark:text-blue-300">
+                    <LucideIcons.Code className="w-4 h-4 inline mr-2" />
+                    Full TypeScript support with Zustand state management
+                  </Typography>
+                </div>
+              </div>
+            </CardTitle>
+          </CardContainer>
+        </div>
       </section>
 
       {/* Quick Start */}
@@ -339,7 +485,7 @@ export function Introduction() {
               ),
               title: 'Layout',
               description: 'Containers, grids, and structural components',
-              count: '12+',
+              count: '15+',
               bgColor: 'bg-gradient-to-br from-blue-500 to-cyan-500 shadow-lg',
             },
             {
@@ -358,7 +504,7 @@ export function Introduction() {
               ),
               title: 'Forms',
               description: 'Inputs, selectors, validation utilities',
-              count: '15+',
+              count: '18+',
               bgColor:
                 'bg-gradient-to-br from-purple-500 to-violet-500 shadow-lg',
             },
@@ -387,7 +533,7 @@ export function Introduction() {
               ),
               title: 'Interactive',
               description: 'Buttons, dropdowns, tooltips, controls',
-              count: '18+',
+              count: '22+',
               bgColor:
                 'bg-gradient-to-br from-indigo-500 to-purple-500 shadow-lg',
             },
@@ -406,8 +552,8 @@ export function Introduction() {
                 <LucideIcons.Sparkles className="w-6 h-6 text-white filter drop-shadow-sm" />
               ),
               title: 'Utilities',
-              description: 'Hooks, helpers, and utility functions',
-              count: '15+',
+              description: 'Hooks, helpers, theme utilities, and functions',
+              count: '20+',
               bgColor: 'bg-gradient-to-br from-blue-500 to-cyan-500 shadow-lg',
             },
           ].map((category, index) => (
@@ -464,13 +610,13 @@ export function Introduction() {
                     <li className="flex items-center gap-3">
                       <LucideIcons.Check className="w-5 h-5 text-green-500 flex-shrink-0" />
                       <span className="text-sm">
-                        Component API with detailed props and examples
+                        Advanced theming with 31+ color presets and multi-layered architecture
                       </span>
                     </li>
                     <li className="flex items-center gap-3">
                       <LucideIcons.Check className="w-5 h-5 text-green-500 flex-shrink-0" />
                       <span className="text-sm">
-                        Theming system for colors, spacing, and typography
+                        Component API with detailed props and examples
                       </span>
                     </li>
                   </ul>
@@ -484,7 +630,7 @@ export function Introduction() {
                     <li className="flex items-center gap-3">
                       <LucideIcons.Check className="w-5 h-5 text-green-500 flex-shrink-0" />
                       <span className="text-sm">
-                        Accessibility features and best practices
+                        Granular theme configuration and user preference management
                       </span>
                     </li>
                   </ul>

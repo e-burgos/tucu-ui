@@ -62,8 +62,8 @@ export function ClassicLayout({
       <main
         className={cn(
           fullWidth
-            ? 'min-h-full w-full sm:px-0 lg:px-0 xl:px-0 2xl:px-0 3xl:px-0 4xl:px-0'
-            : 'min-h-full px-4 pb-16 pt-4 sm:px-6 sm:pb-20 lg:px-8 xl:pb-24 xl:pt-5 3xl:px-10',
+            ? 'min-h-full w-full h-full px-0'
+            : 'min-h-full px-4 pb-24 pt-4 sm:px-6 sm:pb-24 lg:px-8 xl:pb-24 xl:pt-5 3xl:px-10',
           contentClassName
         )}
       >

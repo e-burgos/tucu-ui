@@ -20,7 +20,7 @@ function App() {
       }}
       rightButton={
         <>
-          <TestBrandClasses />
+          {/* <TestBrandClasses /> */}
           <Button
             variant="ghost"
             size="small"

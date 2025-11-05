@@ -45,6 +45,7 @@ Integración incorporada de React Router para desarrollo SPA sin problemas.
 ### **🎨 Integración Completa de Tailwind CSS v4**
 
 Implementación completa de Tailwind CSS v4 con 15 categorías comprehensivas de utilidades automáticamente disponibles:
+
 - **Layout & Positioning**: Aspect ratio, display, position, z-index, overflow
 - **Sizing**: Width, height, max/min dimensions con valores arbitrarios
 - **Spacing**: Padding, margin, gap con breakpoints responsive
@@ -69,8 +70,7 @@ Construido sobre librerías líderes en la industria para máxima confiabilidad:
 
 - **[React 18+](https://react.dev/)** - React moderno con hooks y características concurrentes
 - **[TypeScript](https://www.typescriptlang.org/)** - Seguridad de tipos completa y excelente DX
-- **[Tailwind CSS v4](https://tailwindcss.com/)** - Next-generation utility-first styling con directivas @source
-- **[@tailwindcss/postcss](https://github.com/tailwindlabs/tailwindcss)** - Plugin PostCSS para Tailwind v4
+- **[Tailwind CSS v4](https://tailwindcss.com/)** - Integración completa de Tailwind v4 incluida con todas las utilidades pre-configuradas
 - **[React Hook Form](https://react-hook-form.com/)** - Manejo de formularios eficiente y validación
 - **[Zustand](https://zustand-demo.pmnd.rs/)** - Gestión de estado ligera para temas
 - **[Lucide React](https://lucide.dev/)** - Librería de iconos hermosa y consistente
@@ -85,33 +85,19 @@ Construido sobre librerías líderes en la industria para máxima confiabilidad:
 npm install tucu-ui
 ```
 
-### Configuración de Tailwind CSS v4
+### Importar Estilos de Tucu UI
 
-Agrega Tucu UI a tu configuración de Tailwind v4 y PostCSS para habilitar todas las características de estilo:
+Agrega la siguiente importación a tu archivo CSS principal (generalmente `index.css` o `main.css`) para incluir todos los estilos de Tucu UI y utilidades de Tailwind CSS:
 
-```js
-// tailwind.config.js
-module.exports = {
-  content: [
-    './src/**/*.{js,ts,jsx,tsx}',
-    './node_modules/tucu-ui/**/*.{js,ts,jsx,tsx}', // Agrega esta línea
-  ],
-  // ... resto de tu configuración
-};
+```css
+@import 'tucu-ui/styles';
 ```
 
-```js
-// postcss.config.js
-module.exports = {
-  plugins: {
-    '@tailwindcss/postcss': {},
-  },
-};
-```
+**Nota:** Tucu UI incluye una configuración completa de Tailwind CSS v4 con todas las utilidades pre-configuradas. No se requiere instalación o configuración adicional de Tailwind CSS.
 
 ### Personalización Avanzada de Colores
 
-Tucu UI soporta un sistema de theming de colores multi-capa con 26+ presets:
+Tucu UI soporta un sistema de theming de colores multi-capa con 26+ presets de colores integrados:
 
 ```css
 :root {
@@ -123,7 +109,13 @@ Tucu UI soporta un sistema de theming de colores multi-capa con 26+ presets:
 }
 ```
 
-Presets de color disponibles incluyen: Green, Black, Blue, Red, Purple, Orange, Rose, Pink, Yellow, Lime, Teal, Cyan, Navy, Maroon, Brown, Gray, Silver, Gold, Coral, Salmon, Chocolate, Tan, Beige, Mint, Lavender, Violet, Bufus, BufusBlue, BufusDark, BufusAccent, ThemeLight, ThemeDark.
+Presets de color disponibles incluyen:
+
+**Colores Básicos:** Green, Black, Blue, Red, Purple, Orange, Rose, Pink, Yellow, Lime, Teal, Cyan
+
+**Colores Extendidos:** Navy, Maroon, Brown, Gray, Silver, Gold, Coral, Salmon
+
+**Colores Avanzados:** BufusBlue, Bufus, BufusAccent, BufusDark, ThemeLight, ThemeDark
 
 ## 🎯 Inicio Rápido
 
@@ -151,7 +143,7 @@ function App() {
 ### 2. **App Completa con Layout Auto-Generado**
 
 ```tsx
-import { ThemeProvider, LucideIcons } from 'tucu-ui';
+import { ThemeProvider, LucideIcons, useTheme } from 'tucu-ui';
 
 const menuItems = [
   {
@@ -194,16 +186,162 @@ function App() {
       menuItems={menuItems}
       logo={{ name: 'Mi', secondName: 'App' }}
       // Configuración de Tema
-      brandColor="Blue" // 'Green' | 'Black' | 'Blue' | 'Red' | 'Purple' | 'Orange'
-      showSettings={true}
-      // Características Adicionales
-      rightButton={<UserMenu />}
+      brandColor="Blue" // Disponibles: 'Green' | 'Black' | 'Blue' | 'Red' | 'Purple' | 'Orange' | 'Rose' | 'Pink' | 'Yellow' | 'Lime' | 'Teal' | 'Cyan' | 'Navy' | 'Maroon' | 'Brown' | 'Gray' | 'Silver' | 'Gold' | 'Coral' | 'Salmon'
+      mode="light" // 'light' | 'dark'
+      // Personalización Avanzada de Colores
+      customPaletteColor={{
+        primary: '#0184bf', // Color hex personalizado para marca
+        secondary: '#00d6f2', // Color hex personalizado para secundario
+        accent: '#f26522', // Color hex personalizado para acento
+        dark: '#0d1321', // Color hex personalizado para fondo modo oscuro
+        light: '#fcfcfc', // Color hex personalizado para fondo modo claro
+      }}
+      // Personalización de UI
+      showSettings={true} // Mostrar/ocultar botón del panel de configuración
+      rightButton={<UserMenu />} // Componente personalizado para área superior derecha
+      headerClassName="header-personalizado" // Clases CSS personalizadas para header
+      contentClassName="contenido-personalizado" // Clases CSS personalizadas para contenido
+      className="layout-personalizado" // Clases CSS personalizadas para layout completo
+      fullWidth={false} // Habilitar/deshabilitar layout de ancho completo
+      // Configuración Avanzada
+      withRouterProvider={true} // Habilitar/deshabilitar configuración automática de React Router
+      customRoutes={<CustomRoutes />} // Elemento React Router Routes personalizado
+      settingActions={{
+        disabledPreset: false, // Deshabilitar selector de preset de color
+        disabledLayout: false, // Deshabilitar selector de layout
+        disabledMode: false, // Deshabilitar toggle modo oscuro/claro
+        disabledDirection: false, // Deshabilitar toggle dirección RTL/LTR
+      }}
     />
   );
 }
 ```
 
+### **Referencia de Props de ThemeProvider**
+
+| Prop                           | Tipo                                  | Default     | Descripción                                                                                             |
+| ------------------------------ | ------------------------------------- | ----------- | ------------------------------------------------------------------------------------------------------- |
+| `layout`                       | `'classic' \| 'minimal' \| 'none'`    | `'minimal'` | Tipo de layout: Classic (sidebar), Minimal (nav horizontal), None (sin layout)                          |
+| `menuItems`                    | `AppRoutesMenuItem[]`                 | Requerido   | Elementos del menú de navegación con configuración de rutas                                             |
+| `logo`                         | `{name: string, secondName?: string}` | -           | Configuración del logo de la aplicación                                                                 |
+| `brandColor`                   | `PresetColorType`                     | -           | Preset de color de marca primario (auto-deshabilitado si `customPaletteColor.primary` está configurado) |
+| `mode`                         | `'light' \| 'dark'`                   | `'light'`   | Modo de tema inicial                                                                                    |
+| `customPaletteColor`           | `object`                              | -           | Personalización avanzada de colores                                                                     |
+| `customPaletteColor.primary`   | `string \| PresetColorType`           | -           | Color primario/marca personalizado (hex o preset)                                                       |
+| `customPaletteColor.secondary` | `string \| PresetColorType`           | -           | Color secundario personalizado (hex o preset)                                                           |
+| `customPaletteColor.accent`    | `string \| PresetColorType`           | -           | Color de acento personalizado (hex o preset)                                                            |
+| `customPaletteColor.dark`      | `string \| PresetColorType`           | -           | Color de fondo modo oscuro personalizado                                                                |
+| `customPaletteColor.light`     | `string \| PresetColorType`           | -           | Color de fondo modo claro personalizado                                                                 |
+| `showSettings`                 | `boolean`                             | `false`     | Mostrar botón de toggle del panel de configuración                                                      |
+| `rightButton`                  | `React.ReactNode`                     | -           | Componente personalizado para área header superior derecha                                              |
+| `headerClassName`              | `string`                              | -           | Clases CSS personalizadas para contenedor header                                                        |
+| `contentClassName`             | `string`                              | -           | Clases CSS personalizadas para área de contenido principal                                              |
+| `className`                    | `string`                              | -           | Clases CSS personalizadas para layout completo                                                          |
+| `fullWidth`                    | `boolean`                             | `false`     | Habilitar layout de ancho completo (remueve restricciones de max-width)                                 |
+| `withRouterProvider`           | `boolean`                             | `true`      | Habilitar configuración automática de React Router                                                      |
+| `customRoutes`                 | `ReactElement<typeof Routes>`         | -           | Elemento React Router Routes personalizado                                                              |
+| `settingActions`               | `ISettingAction`                      | -           | Controlar qué configuraciones están deshabilitadas en el panel de configuración                         |
+
+### **Hook useTheme - API Completa**
+
+El hook `useTheme` proporciona control programático completo sobre el sistema de temas:
+
+```tsx
+import { useTheme } from 'tucu-ui';
+
+function ControlesTema() {
+  const {
+    // Estado Actual
+    mode, // 'light' | 'dark'
+    layout, // 'classic' | 'minimal' | 'none'
+    direction, // 'ltr' | 'rtl'
+    preset, // Preset de color primario actual
+    secondaryPreset, // Preset de color secundario actual
+    accentPreset, // Preset de color acento actual
+    darkPreset, // Preset de tema oscuro actual
+    lightPreset, // Preset de tema claro actual
+    logo, // Configuración de logo actual
+    isSettingsOpen, // Estado abierto del panel de configuración
+    showSettings, // Visibilidad del botón de configuración
+    settingActions, // Configuración de acciones actual
+
+    // Setters de Estado
+    setMode, // (mode: 'light' | 'dark') => void
+    setLayout, // (layout: 'classic' | 'minimal' | 'none') => void
+    setDirection, // (direction: 'ltr' | 'rtl') => void
+    setPreset, // (preset: IThemeItem) => void
+    setSecondaryPreset, // (secondaryPreset: IThemeItem) => void
+    setAccentPreset, // (accentPreset: IThemeItem) => void
+    setDarkPreset, // (darkPreset: IThemeItem) => void
+    setLightPreset, // (lightPreset: IThemeItem) => void
+    setLogo, // (logo: LogoType) => void
+    setIsSettingsOpen, // (isOpen: boolean) => void
+    setShowSettings, // (show: boolean) => void
+    setSettingActions, // (actions: ISettingAction) => void
+    restoreDefaultColors, // () => void - Resetear todos los colores a valores por defecto
+  } = useTheme();
+
+  return (
+    <div>
+      {/* Controles de Modo de Tema */}
+      <button onClick={() => setMode(mode === 'light' ? 'dark' : 'light')}>Cambiar a Modo {mode === 'light' ? 'Oscuro' : 'Claro'}</button>
+
+      {/* Controles de Layout */}
+      <button onClick={() => setLayout('classic')}>Layout Clásico</button>
+      <button onClick={() => setLayout('minimal')}>Layout Minimal</button>
+      <button onClick={() => setLayout('none')}>Sin Layout</button>
+
+      {/* Controles de Dirección */}
+      <button onClick={() => setDirection(direction === 'ltr' ? 'rtl' : 'ltr')}>Cambiar a {direction === 'ltr' ? 'RTL' : 'LTR'}</button>
+
+      {/* Controles de Color */}
+      <button onClick={() => setPreset({ label: 'Morado', value: '#9370DB' })}>Tema Morado</button>
+
+      <button onClick={() => setSecondaryPreset({ label: 'Azul', value: '#3B82F6' })}>Azul Secundario</button>
+
+      {/* Controles del Panel de Configuración */}
+      <button onClick={() => setIsSettingsOpen(!isSettingsOpen)}>{isSettingsOpen ? 'Cerrar' : 'Abrir'} Configuración</button>
+
+      <button onClick={() => setShowSettings(!showSettings)}>{showSettings ? 'Ocultar' : 'Mostrar'} Botón de Configuración</button>
+
+      {/* Resetear Colores */}
+      <button onClick={restoreDefaultColors}>Resetear a Colores por Defecto</button>
+    </div>
+  );
+}
+```
+
+### **Estructura de Elementos del Menú**
+
+```tsx
+interface AppRoutesMenuItem {
+  name: string; // Nombre para mostrar
+  href: string; // URL de navegación
+  icon?: React.ReactNode; // Icono opcional
+  component: JSX.Element; // Componente de página a renderizar
+  dropdownItems?: AppRoutesMenuItem[]; // Elementos de submenú anidados
+  hide?: boolean; // Ocultar de la navegación (por defecto: false)
+  onClick?: () => void; // Manejador de click opcional
+}
+```
+
+### **Presets de Color Disponibles**
+
+Tucu UI incluye 26+ presets de colores integrados:
+
+**Colores Básicos:** Green, Black, Blue, Red, Purple, Orange, Rose, Pink, Yellow, Lime, Teal, Cyan
+
+**Colores Extendidos:** Navy, Maroon, Brown, Gray, Silver, Gold, Coral, Salmon
+
+**Colores Avanzados:** BufusBlue, Bufus, BufusAccent, BufusDark, ThemeLight, ThemeDark
+
+### **Persistencia de Tema**
+
+Todas las configuraciones del tema (colores, layout, modo, dirección) se persisten automáticamente en localStorage y se restauran al recargar la aplicación.
+
 **¡Eso es todo!** Tu aplicación completa con ruteo, navegación, temas y diseño responsive está lista.
+
+**Nota:** Para documentación completa de todos los props disponibles en ThemeProvider y el hook useTheme, consulta las secciones "Referencia de Props de ThemeProvider" y "Hook useTheme - API Completa" más arriba.
 
 ## 🎨 Sistema de Layouts
 
@@ -248,6 +386,7 @@ function ControlesTema() {
     preset, // Preset de color actual
     setMode,
     setLayout,
+    setDirection,
     setPreset,
   } = useTheme();
 
@@ -257,11 +396,15 @@ function ControlesTema() {
 
       <button onClick={() => setLayout('classic')}>Cambiar a Layout Clásico</button>
 
-      <button onClick={() => setPreset({ label: 'Purple', value: '#9370DB' })}>Tema Morado</button>
+      <button onClick={() => setDirection(direction === 'ltr' ? 'rtl' : 'ltr')}>Cambiar a {direction === 'ltr' ? 'RTL' : 'LTR'}</button>
+
+      <button onClick={() => setPreset({ label: 'Morado', value: '#9370DB' })}>Tema Morado</button>
     </div>
   );
 }
 ```
+
+**Nota:** Para documentación completa del hook `useTheme` incluyendo todos los métodos disponibles, consulta la sección "Hook useTheme - API Completa" más arriba.
 
 ## 📝 Sistema de Formularios Avanzado
 
@@ -840,11 +983,11 @@ Tucu UI soporta un sistema de theming de colores multi-capa con 26+ presets:
 
 ```tsx
 <ThemeProvider
-  brandColor="BufusBlue"     // Color de marca primario
-  secondaryColor="Bufus"     // Color secundario para acentos
-  accentColor="BufusAccent"  // Color de acento para highlights
-  darkColor="ThemeDark"      // Color base de tema oscuro
-  lightColor="ThemeLight"    // Color base de tema claro
+  brandColor="BufusBlue" // Color de marca primario
+  secondaryColor="Bufus" // Color secundario para acentos
+  accentColor="BufusAccent" // Color de acento para highlights
+  darkColor="ThemeDark" // Color base de tema oscuro
+  lightColor="ThemeLight" // Color base de tema claro
   // ... otras opciones
 />
 ```
@@ -853,11 +996,11 @@ Tucu UI soporta un sistema de theming de colores multi-capa con 26+ presets:
 
 ```css
 :root {
-  --color-brand: #0184bf;     /* Color de marca primario */
+  --color-brand: #0184bf; /* Color de marca primario */
   --color-secondary: #00d6f2; /* Color secundario */
-  --color-accent: #f26522;    /* Color de acento */
-  --color-dark: #0d1321;      /* Fondo de tema oscuro */
-  --color-light: #fcfcfc;     /* Fondo de tema claro */
+  --color-accent: #f26522; /* Color de acento */
+  --color-dark: #0d1321; /* Fondo de tema oscuro */
+  --color-light: #fcfcfc; /* Fondo de tema claro */
   --color-body: var(--color-light);
   --color-sidebar-body: #f8fafc;
   --color-light-dark: #171e2e;

@@ -21,8 +21,6 @@ export const PanelActionCard: React.FC<PanelActionCardProps> = ({
   actions,
   className,
 }) => {
-  const brandColor =
-    document.documentElement.style.getPropertyValue('--color-brand');
   return (
     <div
       className={`w-full max-w-md border border-gray-200 dark:border-gray-700 rounded-lg shadow-md overflow-hidden ${className}`}

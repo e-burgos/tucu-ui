@@ -70,8 +70,7 @@ Built on industry-leading libraries for maximum reliability:
 
 - **[React 18+](https://react.dev/)** - Modern React with hooks and concurrent features
 - **[TypeScript](https://www.typescriptlang.org/)** - Full type safety and excellent DX
-- **[Tailwind CSS v4](https://tailwindcss.com/)** - Next-generation utility-first styling with @source directives
-- **[@tailwindcss/postcss](https://github.com/tailwindlabs/tailwindcss)** - Tailwind v4 PostCSS plugin
+- **[Tailwind CSS v4](https://tailwindcss.com/)** - Complete Tailwind v4 integration included with all utilities pre-configured
 - **[React Hook Form](https://react-hook-form.com/)** - Performant form handling and validation
 - **[Zustand](https://zustand-demo.pmnd.rs/)** - Lightweight state management for theming
 - **[Lucide React](https://lucide.dev/)** - Beautiful, consistent icon library
@@ -84,31 +83,21 @@ Built on industry-leading libraries for maximum reliability:
 
 ```bash
 npm install tucu-ui
+
+// or with pnpm
+
+pnpm install tucu-ui
 ```
 
-### Tailwind CSS v4 Configuration
+### Import Tucu UI Styles
 
-Add Tucu UI to your Tailwind v4 config and PostCSS to enable all styling features:
+Add the following import to your main CSS file (usually `index.css` or `main.css`) to include all Tucu UI styles and Tailwind CSS utilities:
 
-```js
-// tailwind.config.js
-module.exports = {
-  content: [
-    './src/**/*.{js,ts,jsx,tsx}',
-    './node_modules/tucu-ui/**/*.{js,ts,jsx,tsx}', // Add this line
-  ],
-  // ... rest of your configuration
-};
+```css
+@import 'tucu-ui/styles';
 ```
 
-```js
-// postcss.config.js
-module.exports = {
-  plugins: {
-    '@tailwindcss/postcss': {},
-  },
-};
-```
+**Note:** Tucu UI includes a complete Tailwind CSS v4 setup with all utilities pre-configured. No additional Tailwind CSS installation or configuration is required.
 
 ### Advanced Color Customization
 
@@ -185,6 +174,13 @@ const menuItems = [
     icon: <LucideIcons.Settings />,
     component: <SettingsPage />,
   },
+  {
+    name: 'Profile',
+    href: '/profile',
+    icon: <LucideIcons.User />,
+    component: <ProfilePage />,
+    hide: true,
+  },
 ];
 
 function App() {
@@ -195,14 +191,158 @@ function App() {
       menuItems={menuItems}
       logo={{ name: 'My', secondName: 'App' }}
       // Theme Configuration
-      brandColor="Blue" // 'Green' | 'Black' | 'Blue' | 'Red' | 'Purple' | 'Orange'
-      showSettings={true}
-      // Additional Features
-      rightButton={<UserMenu />}
+      brandColor="Blue" // Available: 'Green' | 'Black' | 'Blue' | 'Red' | 'Purple' | 'Orange' | 'Rose' | 'Pink' | 'Yellow' | 'Lime' | 'Teal' | 'Cyan' | 'Navy' | 'Maroon' | 'Brown' | 'Gray' | 'Silver' | 'Gold' | 'Coral' | 'Salmon'
+      mode="light" // 'light' | 'dark'
+      // Advanced Color Customization
+      customPaletteColor={{
+        primary: '#0184bf', // Custom hex color for brand
+        secondary: '#00d6f2', // Custom hex color for secondary
+        accent: '#f26522', // Custom hex color for accent
+        dark: '#0d1321', // Custom hex color for dark mode background
+        light: '#fcfcfc', // Custom hex color for light mode background
+      }}
+      // UI Customization
+      showSettings={true} // Show/hide settings panel button
+      rightButton={<UserMenu />} // Custom component for top-right area
+      headerClassName="custom-header" // Custom CSS classes for header
+      contentClassName="custom-content" // Custom CSS classes for content area
+      className="custom-layout" // Custom CSS classes for entire layout
+      fullWidth={false} // Enable/disable full width layout
+      // Advanced Configuration
+      withRouterProvider={true} // Enable/disable automatic React Router setup
+      customRoutes={<CustomRoutes />} // Custom React Router Routes element
+      settingActions={{
+        disabledPreset: false, // Disable color preset selector
+        disabledLayout: false, // Disable layout selector
+        disabledMode: false, // Disable dark/light mode toggle
+        disabledDirection: false, // Disable RTL/LTR direction toggle
+      }}
     />
   );
 }
 ```
+
+### **ThemeProvider Props Reference**
+
+| Prop                           | Type                                  | Default     | Description                                                                       |
+| ------------------------------ | ------------------------------------- | ----------- | --------------------------------------------------------------------------------- |
+| `layout`                       | `'classic' \| 'minimal' \| 'none'`    | `'minimal'` | Layout type: Classic (sidebar), Minimal (horizontal nav), None (no layout)        |
+| `menuItems`                    | `AppRoutesMenuItem[]`                 | Required    | Navigation menu items with routing configuration                                  |
+| `logo`                         | `{name: string, secondName?: string}` | -           | Application logo configuration                                                    |
+| `brandColor`                   | `PresetColorType`                     | -           | Primary brand color preset (auto-disabled if `customPaletteColor.primary` is set) |
+| `mode`                         | `'light' \| 'dark'`                   | `'light'`   | Initial theme mode                                                                |
+| `customPaletteColor`           | `object`                              | -           | Advanced color customization                                                      |
+| `customPaletteColor.primary`   | `string \| PresetColorType`           | -           | Custom primary/brand color (hex or preset)                                        |
+| `customPaletteColor.secondary` | `string \| PresetColorType`           | -           | Custom secondary color (hex or preset)                                            |
+| `customPaletteColor.accent`    | `string \| PresetColorType`           | -           | Custom accent color (hex or preset)                                               |
+| `customPaletteColor.dark`      | `string \| PresetColorType`           | -           | Custom dark mode background color                                                 |
+| `customPaletteColor.light`     | `string \| PresetColorType`           | -           | Custom light mode background color                                                |
+| `showSettings`                 | `boolean`                             | `false`     | Display settings panel toggle button                                              |
+| `rightButton`                  | `React.ReactNode`                     | -           | Custom component for top-right header area                                        |
+| `headerClassName`              | `string`                              | -           | Custom CSS classes for header container                                           |
+| `contentClassName`             | `string`                              | -           | Custom CSS classes for main content area                                          |
+| `className`                    | `string`                              | -           | Custom CSS classes for entire layout                                              |
+| `fullWidth`                    | `boolean`                             | `false`     | Enable full-width layout (removes max-width constraints)                          |
+| `withRouterProvider`           | `boolean`                             | `true`      | Enable automatic React Router setup                                               |
+| `customRoutes`                 | `ReactElement<typeof Routes>`         | -           | Custom React Router Routes element                                                |
+| `settingActions`               | `ISettingAction`                      | -           | Control which settings are disabled in the settings panel                         |
+
+### **useTheme Hook - Complete API**
+
+The `useTheme` hook provides full programmatic control over the theme system:
+
+```tsx
+import { useTheme } from 'tucu-ui';
+
+function ThemeControls() {
+  const {
+    // Current State
+    mode, // 'light' | 'dark'
+    layout, // 'classic' | 'minimal' | 'none'
+    direction, // 'ltr' | 'rtl'
+    preset, // Current primary color preset
+    secondaryPreset, // Current secondary color preset
+    accentPreset, // Current accent color preset
+    darkPreset, // Current dark theme preset
+    lightPreset, // Current light theme preset
+    logo, // Current logo configuration
+    isSettingsOpen, // Settings panel open state
+    showSettings, // Settings button visibility
+    settingActions, // Current settings configuration
+
+    // State Setters
+    setMode, // (mode: 'light' | 'dark') => void
+    setLayout, // (layout: 'classic' | 'minimal' | 'none') => void
+    setDirection, // (direction: 'ltr' | 'rtl') => void
+    setPreset, // (preset: IThemeItem) => void
+    setSecondaryPreset, // (secondaryPreset: IThemeItem) => void
+    setAccentPreset, // (accentPreset: IThemeItem) => void
+    setDarkPreset, // (darkPreset: IThemeItem) => void
+    setLightPreset, // (lightPreset: IThemeItem) => void
+    setLogo, // (logo: LogoType) => void
+    setIsSettingsOpen, // (isOpen: boolean) => void
+    setShowSettings, // (show: boolean) => void
+    setSettingActions, // (actions: ISettingAction) => void
+    restoreDefaultColors, // () => void - Reset all colors to defaults
+  } = useTheme();
+
+  return (
+    <div>
+      {/* Theme Mode Controls */}
+      <button onClick={() => setMode(mode === 'light' ? 'dark' : 'light')}>Toggle to {mode === 'light' ? 'Dark' : 'Light'} Mode</button>
+
+      {/* Layout Controls */}
+      <button onClick={() => setLayout('classic')}>Classic Layout</button>
+      <button onClick={() => setLayout('minimal')}>Minimal Layout</button>
+      <button onClick={() => setLayout('none')}>No Layout</button>
+
+      {/* Direction Controls */}
+      <button onClick={() => setDirection(direction === 'ltr' ? 'rtl' : 'ltr')}>Switch to {direction === 'ltr' ? 'RTL' : 'LTR'}</button>
+
+      {/* Color Controls */}
+      <button onClick={() => setPreset({ label: 'Purple', value: '#9370DB' })}>Purple Theme</button>
+
+      <button onClick={() => setSecondaryPreset({ label: 'Blue', value: '#3B82F6' })}>Blue Secondary</button>
+
+      {/* Settings Panel Controls */}
+      <button onClick={() => setIsSettingsOpen(!isSettingsOpen)}>{isSettingsOpen ? 'Close' : 'Open'} Settings</button>
+
+      <button onClick={() => setShowSettings(!showSettings)}>{showSettings ? 'Hide' : 'Show'} Settings Button</button>
+
+      {/* Reset Colors */}
+      <button onClick={restoreDefaultColors}>Reset to Default Colors</button>
+    </div>
+  );
+}
+```
+
+### **Menu Items Structure**
+
+```tsx
+interface AppRoutesMenuItem {
+  name: string; // Display name
+  href: string; // Navigation URL path
+  icon?: React.ReactNode; // Optional icon component
+  component: JSX.Element; // Page component to render
+  dropdownItems?: AppRoutesMenuItem[]; // Nested submenu items
+  hide?: boolean; // Hide from navigation (default: false)
+  onClick?: () => void; // Optional click handler
+}
+```
+
+### **Available Color Presets**
+
+Tucu UI includes 26+ built-in color presets:
+
+**Basic Colors:** Green, Black, Blue, Red, Purple, Orange, Rose, Pink, Yellow, Lime, Teal, Cyan
+
+**Extended Colors:** Navy, Maroon, Brown, Gray, Silver, Gold, Coral, Salmon
+
+**Advanced Colors:** BufusBlue, Bufus, BufusAccent, BufusDark, ThemeLight, ThemeDark
+
+### **Theme Persistence**
+
+All theme settings (colors, layout, mode, direction) are automatically persisted to localStorage and restored on app reload.
 
 **That's it!** Your complete application with routing, navigation, theming, and responsive design is ready.
 

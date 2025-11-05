@@ -4,7 +4,7 @@ import { Introduction } from '../pages/introduction';
 import { DesignSystem } from '../pages/DesignSystem';
 import { ThemingGuide } from '../pages/ThemingGuide';
 import { FormSystem } from '../pages/form-system';
-import { Blockchain } from '../pages/Blockchain';
+import { Blockchain } from '../pages/components/Blockchain';
 import { Accessibility } from '../pages/Accessibility';
 import { LayoutSystem } from '../pages/LayoutSystem';
 import { IconsSystem } from '../pages/IconsSystem';
@@ -13,7 +13,9 @@ import { Colors } from '../pages/Colors';
 import { LayoutUtilities } from '../pages/tailwind/LayoutUtilities';
 import { TailwindV4 } from '../pages/TailwindV4';
 import { Features } from '../pages/Features';
-import { Components } from '../pages/Components';
+import { Components } from '../pages/components';
+import { UiComponents } from '../pages/components/UiComponents';
+import { RoutingSystem } from '../pages/RoutingSystem';
 import { FlexboxGridUtilities } from '../pages/tailwind/FlexboxGridUtilities';
 import { BackgroundUtilities } from '../pages/tailwind/BackgroundUtilities';
 import { EffectsUtilities } from '../pages/tailwind/EffectsUtilities';
@@ -71,22 +73,10 @@ export const useMenuItems = () => {
         icon: <LucideIcons.Component />,
         dropdownItems: [
           {
-            name: 'Form',
-            href: '/form-system',
-            icon: <LucideIcons.FileText />,
-            component: <FormSystem />,
-          },
-          {
-            name: 'Form Example',
-            href: '/form-system/example',
-            icon: <LucideIcons.FormInput />,
-            component: <FormExamplePage />,
-          },
-          {
-            name: 'Code Example',
-            href: '/form-system/code-example',
-            icon: <LucideIcons.Code />,
-            component: <CodeExamplePage />,
+            name: 'UI Components',
+            href: '/ui-components',
+            icon: <LucideIcons.Component />,
+            component: <UiComponents />,
           },
           {
             name: 'Blockchain',
@@ -119,6 +109,30 @@ export const useMenuItems = () => {
             href: '/hooks-utilities',
             icon: <LucideIcons.Settings />,
             component: <HooksUtilities />,
+          },
+          {
+            name: 'Routing',
+            href: '/routing-system',
+            icon: <LucideIcons.Route />,
+            component: <RoutingSystem />,
+          },
+          {
+            name: 'Forms',
+            href: '/form-system',
+            icon: <LucideIcons.FileText />,
+            component: <FormSystem />,
+          },
+          {
+            name: 'Form Live Example',
+            href: '/form-system/example',
+            icon: <LucideIcons.FormInput />,
+            component: <FormExamplePage />,
+          },
+          {
+            name: 'Form Code Example',
+            href: '/form-system/code-example',
+            icon: <LucideIcons.Code />,
+            component: <CodeExamplePage />,
           },
         ],
       },

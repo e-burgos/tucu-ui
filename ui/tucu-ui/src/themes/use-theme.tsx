@@ -83,6 +83,21 @@ export const useTheme = create<ITheme>()(
           accentPreset: defaultAccentPreset,
           darkPreset: defaultDarkPreset,
           lightPreset: defaultLightPreset,
+          direction: defaultDirection,
+          layout: defaultLayout,
+          mode: defaultMode,
+          logo: defaultLogo,
+          settingActions: defaultSettingActions,
+          showSettings: false,
+          isSettingsOpen: false,
+          restoreDefaultColors: () =>
+            set({
+              preset: defaultColorPreset,
+              secondaryPreset: defaultSecondaryPreset,
+              accentPreset: defaultAccentPreset,
+              darkPreset: defaultDarkPreset,
+              lightPreset: defaultLightPreset,
+            }),
         }),
     }),
     {

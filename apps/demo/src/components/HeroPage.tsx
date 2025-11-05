@@ -9,15 +9,7 @@ import {
 } from '../../../../ui/tucu-ui';
 
 import {
-  DESIGN_SYSTEM_DOCS_URL,
-  ACCESSIBILITY_DOCS_URL,
-  THEMING_DOCS_URL,
-  ICONS_SYSTEM_DOCS_URL,
-  FORM_SYSTEM_DOCS_URL,
-  BLOCKCHAIN_DOCS_URL,
-  HOOKS_UTILITIES_DOCS_URL,
   INTRODUCTION_DOCS_URL,
-  LAYOUT_SYSTEM_DOCS_URL,
   TAILWIND_UTILITIES_DOCS_URL,
 } from '../utils/constants';
 
@@ -62,14 +54,14 @@ const HeroPage: React.FC<HeroPageProps> = ({
 
   const docsUrl = {
     introduction: INTRODUCTION_DOCS_URL,
-    'layout-system': LAYOUT_SYSTEM_DOCS_URL,
-    'design-system': DESIGN_SYSTEM_DOCS_URL,
-    'theming-guide': THEMING_DOCS_URL,
-    'form-system': FORM_SYSTEM_DOCS_URL,
-    'icons-system': ICONS_SYSTEM_DOCS_URL,
-    'hooks-utilities': HOOKS_UTILITIES_DOCS_URL,
-    'blockchain-components': BLOCKCHAIN_DOCS_URL,
-    accessibility: ACCESSIBILITY_DOCS_URL,
+    'layout-system': INTRODUCTION_DOCS_URL,
+    'design-system': INTRODUCTION_DOCS_URL,
+    'theming-guide': INTRODUCTION_DOCS_URL,
+    'form-system': INTRODUCTION_DOCS_URL,
+    'icons-system': INTRODUCTION_DOCS_URL,
+    'hooks-utilities': INTRODUCTION_DOCS_URL,
+    'blockchain-components': INTRODUCTION_DOCS_URL,
+    accessibility: INTRODUCTION_DOCS_URL,
     'tailwind-utilities': TAILWIND_UTILITIES_DOCS_URL,
   };
 

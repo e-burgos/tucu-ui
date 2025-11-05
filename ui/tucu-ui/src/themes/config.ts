@@ -308,7 +308,7 @@ export const defaultSettingActions: ISettingAction = {
   disabledLight: false,
 };
 
-export const defaultLayout = LAYOUT_OPTIONS.MINIMAL;
+export const defaultLayout = LAYOUT_OPTIONS.CLASSIC;
 
 export const defaultColorPreset = ColorPreset.find(
   (item) => item.label === PRESET_LABEL_COLORS.BUFUS_BLUE
