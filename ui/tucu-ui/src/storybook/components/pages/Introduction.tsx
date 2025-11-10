@@ -1,17 +1,12 @@
 import {
   CardContainer,
   Button,
-  Avatar,
   Badge,
   Typography,
   AnchorLink,
   Scrollbar,
   CardTitle,
 } from '../../../components';
-
-// import avatarImage from '../../../assets/images/author-dark.jpeg';
-// import Banner from '../../../assets/images/logos/tucu-ui-logo-white.svg';
-// import BannerDark from '../../../assets/images/logos/tucu-ui-logo-black.svg';
 
 import { useTheme } from '../../../themes';
 import {
@@ -295,7 +290,7 @@ export function Introduction() {
                       className="border-0 text-sm sm:text-base"
                       tag="code"
                     >
-                      npm install tucu-ui
+                      npm install @e-burgos/tucu-ui
                     </Typography>
                   </div>
                 </div>
@@ -322,8 +317,8 @@ export function Introduction() {
                         fontFamily: 'monospace',
                       }}
                     >
-                      {`import { Button, CardContainer, Avatar, ThemeProvider } from 'tucu-ui';
-import 'tucu-ui/styles';
+                      {`import { Button, CardContainer, Avatar, ThemeProvider } from '@e-burgos/tucu-ui';
+import '@e-burgos/tucu-ui/styles';
 
 function App() {
   return (

@@ -85,11 +85,11 @@ Built on industry-leading libraries for maximum reliability:
 ## 📦 Installation
 
 ```bash
-npm install tucu-ui
+npm install @e-burgos/tucu-ui
 
 // or with pnpm
 
-pnpm install tucu-ui
+pnpm install @e-burgos/tucu-ui
 ```
 
 ### Import Tucu UI Styles
@@ -97,7 +97,7 @@ pnpm install tucu-ui
 Add the following import to your main CSS file (usually `index.css` or `main.css`) to include all Tucu UI styles and Tailwind CSS utilities:
 
 ```css
-@import 'tucu-ui/styles';
+@import '@e-burgos/tucu-ui/styles';
 ```
 
 **Note:** Tucu UI includes a complete Tailwind CSS v4 setup with all utilities pre-configured. No additional Tailwind CSS installation or configuration is required.
@@ -129,7 +129,7 @@ Available color presets include:
 ### 1. **Basic Component Usage**
 
 ```tsx
-import { Button, Card, Input, Alert } from 'tucu-ui';
+import { Button, Card, Input, Alert } from '@e-burgos/tucu-ui';
 
 function App() {
   return (
@@ -150,7 +150,7 @@ function App() {
 ### 2. **Complete App with Auto-Generated Layout**
 
 ```tsx
-import { ThemeProvider, LucideIcons, useTheme } from 'tucu-ui';
+import { ThemeProvider, LucideIcons, useTheme } from '@e-burgos/tucu-ui';
 
 const menuItems = [
   {
@@ -279,7 +279,7 @@ import {
   PinCode,
   FileInput,
   Button,
-} from 'tucu-ui';
+} from '@e-burgos/tucu-ui';
 ```
 
 ### **Centralized Validation**
@@ -374,7 +374,7 @@ import {
   LivePriceFeed,
   TransactionInfo,
   CurrencySwapIcons,
-} from 'tucu-ui';
+} from '@e-burgos/tucu-ui';
 
 function CryptoPortfolio() {
   return (
@@ -419,7 +419,7 @@ function CryptoPortfolio() {
 ### **5000+ Lucide Icons**
 
 ```tsx
-import { LucideIcons } from 'tucu-ui';
+import { LucideIcons } from '@e-burgos/tucu-ui';
 
 function IconShowcase() {
   return (
@@ -547,7 +547,7 @@ import {
   SandClock,
   Star,
   StarFill,
-} from 'tucu-ui';
+} from '@e-burgos/tucu-ui';
 ```
 
 ## 🔧 UI Components Library
@@ -555,7 +555,7 @@ import {
 ### **Layout & Navigation**
 
 ```tsx
-import { Modal, Drawer, CardContainer, PanelActionCard } from 'tucu-ui';
+import { Modal, Drawer, CardContainer, PanelActionCard } from '@e-burgos/tucu-ui';
 
 // Modal with Accessibility
 <Modal
@@ -601,7 +601,7 @@ import {
   useClickAway,
   useElementSize,
   useLockBodyScroll,
-} from 'tucu-ui';
+} from '@e-burgos/tucu-ui';
 
 function UtilityExample() {
   const breakpoint = useBreakpoint();
@@ -629,26 +629,51 @@ import {
   SignUpForm,
   ForgetPasswordForm,
   ResetPinForm,
-} from 'tucu-ui';
+  ThemeProvider,
+} from '@e-burgos/tucu-ui';
+
+// @ts-ignore
+import '@e-burgos/tucu-ui/styles';
+
+const menuItems = [
+  {
+    name: 'Home',
+    href: '/',
+    icon: <LucideIcons.Home />,
+    component: <Home />,
+  },
+  {
+    name: 'Sign In',
+    href: '/sign-in',
+    hide: true,
+    icon: <LucideIcons.SignIn />,
+    component: <SignIn />,
+  },
+  {
+    name: 'Sign Up',
+    href: '/sign-up',
+    hide: true,
+    icon: <LucideIcons.SignUp />,
+    component: <SignUp />,
+  },
+  {
+    name: 'Forgot Password',
+    href: '/forgot-password',
+    hide: true,
+    icon: <LucideIcons.ForgotPassword />,
+    component: <ForgotPassword />,
+  },
+];
 
 // Complete authentication flow
 function AuthPages() {
   return (
-    <ThemeProvider layout="none" menuItems={[]}>
-      <div className="min-h-screen flex items-center justify-center">
-        {/* Sign In with validation */}
-        <SignInForm forgetPasswordPath="/forgot-password" />
-
-        {/* Sign Up with terms */}
-        <SignUpForm />
-
-        {/* Password Reset */}
-        <ForgetPasswordForm
-          onSubmit={handlePasswordReset}
-          resetPinPath="/reset-pin"
-        />
-      </div>
-    </ThemeProvider>
+    <ThemeProvider
+      layout="none"
+      menuItems={menuItems}
+      logo={{ name: 'My', secondName: 'App' }}
+      className="custom-layout min-h-screen flex items-center justify-center"
+    />
   );
 }
 ```
@@ -659,7 +684,9 @@ Explore the documentation to learn more about:
 
 - **Component API**: Detailed props and usage examples
 - **Theming System**: How to customize colors, spacing, and typography
+- **Layout System**: How to create different layouts with the ThemeProvider
 - **Form System**: Advanced form handling with validation
+- **Routing System**: Advanced routing system with automatic navigation generation, nested routes support, and seamless integration with the theming system.
 - **Accessibility**: Built-in accessibility features and best practices
 - **Migration Guide**: How to upgrade from previous versions
 

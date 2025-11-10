@@ -82,7 +82,7 @@ Construido sobre librerías líderes en la industria para máxima confiabilidad:
 ## 📦 Instalación
 
 ```bash
-npm install tucu-ui
+npm install @e-burgos/tucu-ui
 ```
 
 ### Importar Estilos de Tucu UI
@@ -90,7 +90,7 @@ npm install tucu-ui
 Agrega la siguiente importación a tu archivo CSS principal (generalmente `index.css` o `main.css`) para incluir todos los estilos de Tucu UI y utilidades de Tailwind CSS:
 
 ```css
-@import 'tucu-ui/styles';
+@import '@e-burgos/tucu-ui/styles';
 ```
 
 **Nota:** Tucu UI incluye una configuración completa de Tailwind CSS v4 con todas las utilidades pre-configuradas. No se requiere instalación o configuración adicional de Tailwind CSS.
@@ -122,7 +122,7 @@ Presets de color disponibles incluyen:
 ### 1. **Uso Básico de Componentes**
 
 ```tsx
-import { Button, Card, Input, Alert } from 'tucu-ui';
+import { Button, Card, Input, Alert } from '@e-burgos/tucu-ui';
 
 function App() {
   return (
@@ -143,7 +143,7 @@ function App() {
 ### 2. **App Completa con Layout Auto-Generado**
 
 ```tsx
-import { ThemeProvider, LucideIcons, useTheme } from 'tucu-ui';
+import { ThemeProvider, LucideIcons, useTheme } from '@e-burgos/tucu-ui';
 
 const menuItems = [
   {
@@ -247,7 +247,7 @@ function App() {
 El hook `useTheme` proporciona control programático completo sobre el sistema de temas:
 
 ```tsx
-import { useTheme } from 'tucu-ui';
+import { useTheme } from '@e-burgos/tucu-ui';
 
 function ControlesTema() {
   const {
@@ -376,7 +376,7 @@ Todas las configuraciones del tema (colores, layout, modo, dirección) se persis
 ### **Gestión de Temas**
 
 ```tsx
-import { useTheme } from 'tucu-ui';
+import { useTheme } from '@e-burgos/tucu-ui';
 
 function ControlesTema() {
   const {
@@ -411,7 +411,7 @@ function ControlesTema() {
 ### **Componentes de Formularios Integrales**
 
 ```tsx
-import { Form, FormField, Input, Textarea, Checkbox, RadioGroup, InputSelect, PinCode, FileInput, Button } from 'tucu-ui';
+import { Form, FormField, Input, Textarea, Checkbox, RadioGroup, InputSelect, PinCode, FileInput, Button } from '@e-burgos/tucu-ui';
 ```
 
 ### **Validación Centralizada**
@@ -527,7 +527,7 @@ function FormularioRegistroUsuario() {
 ### **Componentes de Criptomonedas**
 
 ```tsx
-import { CoinCard, CoinInfoCard, LivePriceFeed, TransactionInfo, CurrencySwapIcons } from 'tucu-ui';
+import { CoinCard, CoinInfoCard, LivePriceFeed, TransactionInfo, CurrencySwapIcons } from '@e-burgos/tucu-ui';
 
 function PortfolioCrypto() {
   return (
@@ -552,7 +552,7 @@ function PortfolioCrypto() {
 ### **Componentes NFT**
 
 ```tsx
-import { NFTGrid, CollectionCard } from 'tucu-ui';
+import { NFTGrid, CollectionCard } from '@e-burgos/tucu-ui';
 
 function GaleriaNFT() {
   return (
@@ -578,7 +578,7 @@ function GaleriaNFT() {
 ### **5000+ Iconos Lucide**
 
 ```tsx
-import { LucideIcons } from 'tucu-ui';
+import { LucideIcons } from '@e-burgos/tucu-ui';
 
 function MuestraIconos() {
   return (
@@ -706,7 +706,7 @@ import {
   SandClock,
   Star,
   StarFill,
-} from 'tucu-ui';
+} from '@e-burgos/tucu-ui';
 ```
 
 ## 🔧 Librería de Componentes UI

@@ -140,7 +140,7 @@ export const FAQ = () => (
         <div className="p-5">
           <p className="mb-2">You can install Tucu UI using npm or yarn:</p>
           <pre className="bg-gray-100 dark:bg-gray-800 p-2 rounded-sm">
-            npm install tucu-ui
+            npm install @e-burgos/tucu-ui
           </pre>
         </div>
       </Collapse>

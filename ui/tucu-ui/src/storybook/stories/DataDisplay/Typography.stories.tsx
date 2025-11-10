@@ -313,7 +313,7 @@ export const CustomStyling: Story = {
         </Typography>
 
         <Typography tag="code" className=" text-green-400">
-          npm install tucu-ui
+          npm install @e-burgos/tucu-ui
         </Typography>
       </div>
     </StoryContainer>
@@ -350,7 +350,7 @@ export const ArticleExample: Story = {
           :
         </Typography>
 
-        <Typography tag="pre">npm install tucu-ui</Typography>
+        <Typography tag="pre">npm install @e-burgos/tucu-ui</Typography>
 
         <Typography tag="h3">Basic Usage</Typography>
         <Typography tag="p">
@@ -358,7 +358,7 @@ export const ArticleExample: Story = {
         </Typography>
 
         <Typography tag="pre">
-          {`import { Button, Typography } from 'tucu-ui';
+          {`import { Button, Typography } from '@e-burgos/tucu-ui';
 
 function App() {
   return (
