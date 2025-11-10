@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { LucideIcons, type AppRoutesMenuItem } from 'tucu-ui';
+import { LucideIcons, type AppRoutesMenuItem } from '@e-burgos/tucu-ui';
 import { Introduction } from '../pages/introduction';
 import { DesignSystem } from '../pages/DesignSystem';
 import { ThemingGuide } from '../pages/ThemingGuide';

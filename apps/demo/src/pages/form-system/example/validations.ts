@@ -1,4 +1,4 @@
-import { type FormValidations } from 'tucu-ui';
+import { type FormValidations } from '@e-burgos/tucu-ui';
 
 export interface FormValues {
   name: string;

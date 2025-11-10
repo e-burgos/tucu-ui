@@ -82,11 +82,11 @@ Built on industry-leading libraries for maximum reliability:
 ## 📦 Installation
 
 ```bash
-npm install tucu-ui
+npm install @e-burgos/tucu-ui
 
 // or with pnpm
 
-pnpm install tucu-ui
+pnpm install @e-burgos/tucu-ui
 ```
 
 ### Import Tucu UI Styles
@@ -94,7 +94,7 @@ pnpm install tucu-ui
 Add the following import to your main CSS file (usually `index.css` or `main.css`) to include all Tucu UI styles and Tailwind CSS utilities:
 
 ```css
-@import 'tucu-ui/styles';
+@import '@e-burgos/tucu-ui/styles';
 ```
 
 **Note:** Tucu UI includes a complete Tailwind CSS v4 setup with all utilities pre-configured. No additional Tailwind CSS installation or configuration is required.
@@ -120,7 +120,7 @@ Available color presets include: Green, Black, Blue, Red, Purple, Orange, Rose, 
 ### 1. **Basic Component Usage**
 
 ```tsx
-import { Button, Card, Input, Alert } from 'tucu-ui';
+import { Button, Card, Input, Alert } from '@e-burgos/tucu-ui';
 
 function App() {
   return (
@@ -141,7 +141,7 @@ function App() {
 ### 2. **Complete App with Auto-Generated Layout**
 
 ```tsx
-import { ThemeProvider, LucideIcons } from 'tucu-ui';
+import { ThemeProvider, LucideIcons } from '@e-burgos/tucu-ui';
 
 const menuItems = [
   {
@@ -252,7 +252,7 @@ function App() {
 The `useTheme` hook provides full programmatic control over the theme system:
 
 ```tsx
-import { useTheme } from 'tucu-ui';
+import { useTheme } from '@e-burgos/tucu-ui';
 
 function ThemeControls() {
   const {
@@ -379,7 +379,7 @@ All theme settings (colors, layout, mode, direction) are automatically persisted
 ### **Theme Management**
 
 ```tsx
-import { useTheme } from 'tucu-ui';
+import { useTheme } from '@e-burgos/tucu-ui';
 
 function ThemeControls() {
   const {
@@ -409,7 +409,7 @@ function ThemeControls() {
 ### **Comprehensive Form Components**
 
 ```tsx
-import { Form, FormField, Input, Textarea, Checkbox, RadioGroup, InputSelect, PinCode, FileInput, Button } from 'tucu-ui';
+import { Form, FormField, Input, Textarea, Checkbox, RadioGroup, InputSelect, PinCode, FileInput, Button } from '@e-burgos/tucu-ui';
 ```
 
 ### **Centralized Validation**
@@ -525,7 +525,7 @@ function UserRegistrationForm() {
 ### **Cryptocurrency Components**
 
 ```tsx
-import { CoinCard, CoinInfoCard, LivePriceFeed, TransactionInfo, CurrencySwapIcons } from 'tucu-ui';
+import { CoinCard, CoinInfoCard, LivePriceFeed, TransactionInfo, CurrencySwapIcons } from '@e-burgos/tucu-ui';
 
 function CryptoPortfolio() {
   return (
@@ -550,7 +550,7 @@ function CryptoPortfolio() {
 ### **NFT Components**
 
 ```tsx
-import { NFTGrid, CollectionCard } from 'tucu-ui';
+import { NFTGrid, CollectionCard } from '@e-burgos/tucu-ui';
 
 function NFTGallery() {
   return (
@@ -576,7 +576,7 @@ function NFTGallery() {
 ### **5000+ Lucide Icons**
 
 ```tsx
-import { LucideIcons } from 'tucu-ui';
+import { LucideIcons } from '@e-burgos/tucu-ui';
 
 function IconShowcase() {
   return (
@@ -704,7 +704,7 @@ import {
   SandClock,
   Star,
   StarFill,
-} from 'tucu-ui';
+} from '@e-burgos/tucu-ui';
 ```
 
 ## 🔧 UI Components Library
@@ -712,7 +712,7 @@ import {
 ### **Layout & Navigation**
 
 ```tsx
-import { Modal, Drawer, CardContainer, PanelActionCard } from 'tucu-ui';
+import { Modal, Drawer, CardContainer, PanelActionCard } from '@e-burgos/tucu-ui';
 
 // Modal with Accessibility
 <Modal
@@ -751,7 +751,7 @@ import { Modal, Drawer, CardContainer, PanelActionCard } from 'tucu-ui';
 ### **Feedback Components**
 
 ```tsx
-import { Alert, Toast, useToast } from 'tucu-ui';
+import { Alert, Toast, useToast } from '@e-burgos/tucu-ui';
 
 // Alert Messages
 <Alert variant="success" dismissible>
@@ -781,7 +781,7 @@ function ToastExample() {
 ## 🎣 Utility Hooks
 
 ```tsx
-import { useBreakpoint, useIsMobile, useCopyToClipboard, useClickAway, useElementSize, useLockBodyScroll } from 'tucu-ui';
+import { useBreakpoint, useIsMobile, useCopyToClipboard, useClickAway, useElementSize, useLockBodyScroll } from '@e-burgos/tucu-ui';
 
 function UtilityExample() {
   const breakpoint = useBreakpoint();
@@ -802,7 +802,7 @@ function UtilityExample() {
 ## 🚀 Ready-to-Use Authentication
 
 ```tsx
-import { SignInForm, SignUpForm, ForgetPasswordForm, ResetPinForm } from 'tucu-ui';
+import { SignInForm, SignUpForm, ForgetPasswordForm, ResetPinForm } from '@e-burgos/tucu-ui';
 
 // Complete authentication flow
 function AuthPages() {
@@ -862,7 +862,7 @@ Comprehensive documentation for all Tailwind utilities:
 ### **Modern Dashboard**
 
 ```tsx
-import { ThemeProvider, LucideIcons, useTheme } from 'tucu-ui';
+import { ThemeProvider, LucideIcons, useTheme } from '@e-burgos/tucu-ui';
 
 const dashboardMenuItems = [
   {
@@ -914,7 +914,7 @@ function Dashboard() {
 ### **DeFi Application**
 
 ```tsx
-import { ThemeProvider, CoinCard, LivePriceFeed, LucideIcons } from 'tucu-ui';
+import { ThemeProvider, CoinCard, LivePriceFeed, LucideIcons } from '@e-burgos/tucu-ui';
 
 const defiMenuItems = [
   {
@@ -945,7 +945,7 @@ function DeFiApp() {
 ### **E-commerce Platform**
 
 ```tsx
-import { ThemeProvider, LucideIcons, Form, FormField, Input } from 'tucu-ui';
+import { ThemeProvider, LucideIcons, Form, FormField, Input } from '@e-burgos/tucu-ui';
 
 const ecommerceMenuItems = [
   {
@@ -1018,7 +1018,7 @@ Tucu UI supports a multi-layered color system with 26+ presets:
 ```js
 // tailwind.config.js
 module.exports = {
-  content: ['./src/**/*.{js,ts,jsx,tsx}', './node_modules/tucu-ui/**/*.{js,ts,jsx,tsx}'],
+  content: ['./src/**/*.{js,ts,jsx,tsx}', './node_modules/@e-burgos/tucu-ui/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
       colors: {
@@ -1059,10 +1059,10 @@ git clone <repository-url>
 npm install
 
 # Run Storybook for development
-npm run tucu-ui
+npm run @e-burgos/tucu-ui
 
 # Build the library
-npm run tucu-ui:build
+npm run @e-burgos/tucu-ui:build
 
 # Run tests
 npm test
@@ -1071,7 +1071,7 @@ npm test
 ### **Nx Monorepo Structure**
 
 ```
-tucu-ui/
+@e-burgos/tucu-ui/
 ├── apps/
 │   └── demo/                 # Demo application
 ├── ui/

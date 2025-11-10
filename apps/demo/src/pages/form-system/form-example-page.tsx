@@ -1,4 +1,4 @@
-import { LucideIcons } from 'tucu-ui';
+import { LucideIcons } from '@e-burgos/tucu-ui';
 import FormExample from './example/form-example';
 import HeroPage from '../../components/HeroPage';
 

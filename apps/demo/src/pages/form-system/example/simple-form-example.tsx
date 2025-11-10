@@ -13,7 +13,7 @@ import {
   RadioGroup,
   Radio,
   useToastStore,
-} from 'tucu-ui';
+} from '@e-burgos/tucu-ui';
 
 export const SimpleFormExample: React.FC = () => {
   const { addToast } = useToastStore();

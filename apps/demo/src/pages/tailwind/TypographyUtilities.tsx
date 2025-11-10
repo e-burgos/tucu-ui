@@ -1,4 +1,4 @@
-import { CardContainer, CardTitle, Typography } from 'tucu-ui';
+import { CardContainer, CardTitle, Typography } from '@e-burgos/tucu-ui';
 import HeroPage from '../../components/HeroPage';
 
 export function TypographyUtilities() {

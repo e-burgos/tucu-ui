@@ -1,7 +1,7 @@
 import React from 'react';
-import { useFormContext } from 'tucu-ui';
+import { useFormContext } from '@e-burgos/tucu-ui';
 import { defaultValues, type FormValues } from './validations';
-import { Button, useToastStore } from 'tucu-ui';
+import { Button, useToastStore } from '@e-burgos/tucu-ui';
 
 export const FormMethodsExample: React.FC = () => {
   // All form methods are accessed through useFormContext

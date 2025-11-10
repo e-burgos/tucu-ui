@@ -5,7 +5,7 @@ import {
   LucideIcons,
   Button,
   Badge,
-} from 'tucu-ui';
+} from '@e-burgos/tucu-ui';
 
 import HeroPage from '../../components/HeroPage';
 

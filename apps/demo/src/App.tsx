@@ -1,4 +1,4 @@
-import { Button, LucideIcons, ThemeProvider } from 'tucu-ui';
+import { Button, LucideIcons, ThemeProvider } from '@e-burgos/tucu-ui';
 import { useMenuItems } from './router/menuItems';
 import { DOCUMENTATION_URL } from './utils/constants';
 

@@ -7,7 +7,7 @@ import {
   Badge,
   useTheme,
   CodeBlock,
-} from 'tucu-ui';
+} from '@e-burgos/tucu-ui';
 import HeroPage from '../components/HeroPage';
 
 export function ThemingGuide() {
@@ -253,7 +253,7 @@ export function ThemingGuide() {
                 </div>
                 <CodeBlock
                   language="tsx"
-                  code={`import { ThemeProvider } from 'tucu-ui';
+                  code={`import { ThemeProvider } from '@e-burgos/tucu-ui';
 
 function App() {
   const menuItems = [
@@ -315,7 +315,7 @@ function App() {
                 </div>
                 <CodeBlock
                   language="tsx"
-                  code={`import { useTheme } from 'tucu-ui';
+                  code={`import { useTheme } from '@e-burgos/tucu-ui';
 
 function ThemeControls() {
   const {

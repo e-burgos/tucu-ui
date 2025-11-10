@@ -6,7 +6,7 @@ import {
   LucideIcons,
   AnchorLink,
   CardTitle,
-} from 'tucu-ui';
+} from '@e-burgos/tucu-ui';
 import HeroPage from '../components/HeroPage';
 import { DOCUMENTATION_URL } from '../utils/constants';
 

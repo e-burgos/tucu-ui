@@ -7,7 +7,7 @@ import {
   Button,
   AnchorLink,
   CodeBlock,
-} from 'tucu-ui';
+} from '@e-burgos/tucu-ui';
 import HeroPage from '../../components/HeroPage';
 
 export function FormSystem() {
@@ -129,7 +129,7 @@ export function FormSystem() {
               <div className="">
                 <CodeBlock
                   language="tsx"
-                  code={`import { Form, FormField, Input, Button } from 'tucu-ui';
+                  code={`import { Form, FormField, Input, Button } from '@e-burgos/tucu-ui';
 
 interface ContactFormData {
   name: string;

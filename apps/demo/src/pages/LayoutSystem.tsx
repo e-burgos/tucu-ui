@@ -8,7 +8,7 @@ import {
   CodeBlock,
   PRESET_COLORS,
   PRESET_LABEL_COLORS,
-} from 'tucu-ui';
+} from '@e-burgos/tucu-ui';
 import HeroPage from '../components/HeroPage';
 
 export function LayoutSystem() {
@@ -439,7 +439,7 @@ export function LayoutSystem() {
                   <CodeBlock
                     language="tsx"
                     code={`
-import { ThemeProvider } from 'tucu-ui';
+import { ThemeProvider } from '@e-burgos/tucu-ui';
 
 function App() {
   return <ThemeProvider menuItems={menuItems} />;
@@ -464,7 +464,7 @@ function App() {
 
                   <CodeBlock
                     language="tsx"
-                    code={`import { useTheme } from 'tucu-ui';
+                    code={`import { useTheme } from '@e-burgos/tucu-ui';
 
 function ThemeControls() {
   const { mode, setMode, layout, setLayout } = useTheme();

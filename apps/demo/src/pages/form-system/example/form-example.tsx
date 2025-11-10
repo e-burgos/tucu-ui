@@ -15,7 +15,7 @@ import {
   RadioGroup,
   Radio,
   useToastStore,
-} from 'tucu-ui';
+} from '@e-burgos/tucu-ui';
 
 const Disclaimer = () => {
   return (

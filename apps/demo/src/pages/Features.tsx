@@ -4,7 +4,7 @@ import {
   Typography,
   LucideIcons,
   Button,
-} from 'tucu-ui';
+} from '@e-burgos/tucu-ui';
 
 import HeroPage from '../components/HeroPage';
 

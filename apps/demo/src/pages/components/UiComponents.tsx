@@ -1,4 +1,9 @@
-import { CardContainer, CardTitle, Typography, LucideIcons } from 'tucu-ui';
+import {
+  CardContainer,
+  CardTitle,
+  Typography,
+  LucideIcons,
+} from '@e-burgos/tucu-ui';
 import HeroPage from '../../components/HeroPage';
 
 export function UiComponents() {

@@ -26,7 +26,7 @@ export default defineConfig({
     // rollupOptions: {
     //   output: {
     //     manualChunks: {
-    //       'tucu-ui': ['tucu-ui'],
+    //       '@e-burgos/tucu-ui': ['@e-burgos/tucu-ui'],
     //     },
     //   },
     // },

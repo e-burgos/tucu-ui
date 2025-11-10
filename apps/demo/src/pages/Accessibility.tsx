@@ -9,7 +9,7 @@ import {
   Input,
   Modal,
   CodeBlock,
-} from 'tucu-ui';
+} from '@e-burgos/tucu-ui';
 import { useState } from 'react';
 import HeroPage from '../components/HeroPage';
 

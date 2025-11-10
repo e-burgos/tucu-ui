@@ -7,7 +7,7 @@ import {
   Badge,
   Alert,
   useTheme,
-} from 'tucu-ui';
+} from '@e-burgos/tucu-ui';
 import HeroPage from '../components/HeroPage';
 
 export function RoutingSystem() {
@@ -19,7 +19,7 @@ export function RoutingSystem() {
   dropdownItems?: AppRoutesMenuItem[]; // Optional sub-routes
 }`;
 
-  const basicUsage = `import { ThemeProvider } from 'tucu-ui';
+  const basicUsage = `import { ThemeProvider } from '@e-burgos/tucu-ui';
 import { Introduction } from './pages/Introduction';
 import { ThemingGuide } from './pages/ThemingGuide';
 
@@ -158,7 +158,7 @@ export const useMenuItems = () => {
   return { menuItems };
 };`;
 
-  const customLayout = `import { ThemeProvider } from 'tucu-ui';
+  const customLayout = `import { ThemeProvider } from '@e-burgos/tucu-ui';
 
 function CustomLayoutApp() {
   return (

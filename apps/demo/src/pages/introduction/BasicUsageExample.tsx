@@ -6,10 +6,10 @@ import {
   Typography,
   Badge,
   LucideIcons,
-} from 'tucu-ui';
+} from '@e-burgos/tucu-ui';
 
 // @ts-ignore
-import 'tucu-ui/styles';
+import '@e-burgos/tucu-ui/styles';
 
 function App() {
   return (

@@ -28,7 +28,7 @@
     "noUncheckedSideEffectImports": true,
 
     "paths": {
-      "@tucu-ui": ["../../ui/tucu-ui/src"]
+      "@e-burgos/tucu-ui": ["../../ui/tucu-ui/src"]
     }
   },
   "include": ["src"]

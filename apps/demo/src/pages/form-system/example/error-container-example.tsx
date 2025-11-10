@@ -1,5 +1,5 @@
 import React from 'react';
-import { CodeBlock, useFormContext } from 'tucu-ui';
+import { CodeBlock, useFormContext } from '@e-burgos/tucu-ui';
 import { type FormValues } from './validations';
 
 export const ErrorContainerExample: React.FC = () => {

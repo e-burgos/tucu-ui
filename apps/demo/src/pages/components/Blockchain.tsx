@@ -9,7 +9,7 @@ import {
   CollectionCard,
   Alert,
   CodeBlock,
-} from 'tucu-ui';
+} from '@e-burgos/tucu-ui';
 
 import collection1Img from '../../assets/images/collection/collection-1.jpg';
 import avatar1Img from '../../assets/images/avatar/1.png';

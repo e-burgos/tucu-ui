@@ -15,7 +15,7 @@ import {
   CardTitle,
   LucideIcons,
   CodeBlock,
-} from 'tucu-ui';
+} from '@e-burgos/tucu-ui';
 import HeroPage from '../../components/HeroPage';
 
 export default function CodeExamplePage() {

@@ -7,7 +7,7 @@ import {
   LucideIcons,
   Alert,
   CodeBlock,
-} from 'tucu-ui';
+} from '@e-burgos/tucu-ui';
 import HeroPage from '../components/HeroPage';
 
 export function IconsSystem() {
@@ -221,7 +221,7 @@ export function IconsSystem() {
     setTimeout(() => setCopiedIcon(null), 2000);
   };
 
-  const lucideImportCode = `import { LucideIcons } from 'tucu-ui';
+  const lucideImportCode = `import { LucideIcons } from '@e-burgos/tucu-ui';
 
 function MyComponent() {
   return (
@@ -243,7 +243,7 @@ function MyComponent() {
   PlayIcon,
   InfoIcon,
   DocumentIcon,
-} from 'tucu-ui';
+} from '@e-burgos/tucu-ui';
 
 function MyApp() {
   return (
@@ -255,7 +255,7 @@ function MyApp() {
   );
 }`;
 
-  const iconButtonCode = `import { LucideIcons } from 'tucu-ui';
+  const iconButtonCode = `import { LucideIcons } from '@e-burgos/tucu-ui';
 
 interface IconButtonProps {
   iconName: keyof typeof LucideIcons;
@@ -277,7 +277,7 @@ function IconButton({ iconName, label, onClick }: IconButtonProps) {
   );
 }`;
 
-  const accessibilityCode = `import { LucideIcons } from 'tucu-ui';
+  const accessibilityCode = `import { LucideIcons } from '@e-burgos/tucu-ui';
 
 // Decorative icons
 <LucideIcons.Home className="w-6 h-6" aria-hidden="true" />

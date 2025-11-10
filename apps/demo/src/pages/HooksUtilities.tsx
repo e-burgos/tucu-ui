@@ -20,7 +20,7 @@ import {
   useEventListener,
   CodeBlock,
   useIsMounted,
-} from 'tucu-ui';
+} from '@e-burgos/tucu-ui';
 import HeroPage from '../components/HeroPage';
 
 export function HooksUtilities() {

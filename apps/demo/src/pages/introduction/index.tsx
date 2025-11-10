@@ -9,7 +9,7 @@ import {
   CardTitle,
   CodeBlock,
   Alert,
-} from 'tucu-ui';
+} from '@e-burgos/tucu-ui';
 
 import { DOCUMENTATION_URL } from '../../utils/constants';
 import Banner from '../../assets/images/logos/tucu-ui-logo-white.svg';
@@ -20,11 +20,11 @@ import BasicUsageCode from './BasicUsageExample?raw';
 import BasicUsageWithCustomRouterCode from './BasicUsageWithCustomRouterExample?raw';
 
 const installation = `
-npm install tucu-ui
+npm install @e-burgos/tucu-ui
 
 // or with pnpm
 
-pnpm install tucu-ui
+pnpm install @e-burgos/tucu-ui
 `;
 
 export function Introduction() {
@@ -255,7 +255,8 @@ export function Introduction() {
             tag="p"
             className="text-base sm:text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto"
           >
-            Experience the power of our sophisticated theming system with multi-layered color architecture and granular control
+            Experience the power of our sophisticated theming system with
+            multi-layered color architecture and granular control
           </Typography>
         </div>
 
@@ -268,24 +269,53 @@ export function Introduction() {
                   tag="p"
                   className="text-gray-600 dark:text-gray-400"
                 >
-                  Multi-layered color system supporting 31+ presets with dynamic theming:
+                  Multi-layered color system supporting 31+ presets with dynamic
+                  theming:
                 </Typography>
 
                 <div className="grid grid-cols-2 gap-3">
                   {[
-                    { layer: 'Brand', color: 'bg-brand', desc: 'Primary identity' },
-                    { layer: 'Secondary', color: 'bg-secondary', desc: 'Supporting colors' },
-                    { layer: 'Accent', color: 'bg-accent', desc: 'Action highlights' },
-                    { layer: 'Dark', color: 'bg-dark', desc: 'Dark theme base' },
-                    { layer: 'Light', color: 'bg-light', desc: 'Light theme base' },
+                    {
+                      layer: 'Brand',
+                      color: 'bg-brand',
+                      desc: 'Primary identity',
+                    },
+                    {
+                      layer: 'Secondary',
+                      color: 'bg-secondary',
+                      desc: 'Supporting colors',
+                    },
+                    {
+                      layer: 'Accent',
+                      color: 'bg-accent',
+                      desc: 'Action highlights',
+                    },
+                    {
+                      layer: 'Dark',
+                      color: 'bg-dark',
+                      desc: 'Dark theme base',
+                    },
+                    {
+                      layer: 'Light',
+                      color: 'bg-light',
+                      desc: 'Light theme base',
+                    },
                   ].map((item, index) => (
-                    <div key={index} className="flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
-                      <div className={`w-8 h-8 rounded-lg ${item.color} border border-gray-300 dark:border-gray-600`}></div>
+                    <div
+                      key={index}
+                      className="flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg"
+                    >
+                      <div
+                        className={`w-8 h-8 rounded-lg ${item.color} border border-gray-300 dark:border-gray-600`}
+                      ></div>
                       <div>
                         <Typography tag="h4" className="font-medium text-sm">
                           {item.layer}
                         </Typography>
-                        <Typography tag="p" className="text-xs text-gray-500 dark:text-gray-400">
+                        <Typography
+                          tag="p"
+                          className="text-xs text-gray-500 dark:text-gray-400"
+                        >
                           {item.desc}
                         </Typography>
                       </div>
@@ -294,9 +324,13 @@ export function Introduction() {
                 </div>
 
                 <div className="p-3 bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-lg border border-purple-200 dark:border-purple-700">
-                  <Typography tag="p" className="text-sm text-purple-700 dark:text-purple-300">
+                  <Typography
+                    tag="p"
+                    className="text-sm text-purple-700 dark:text-purple-300"
+                  >
                     <LucideIcons.Palette className="w-4 h-4 inline mr-2" />
-                    31+ predefined color presets including modern colors like Bufus, ThemeDark, and ThemeLight
+                    31+ predefined color presets including modern colors like
+                    Bufus, ThemeDark, and ThemeLight
                   </Typography>
                 </div>
               </div>
@@ -311,7 +345,8 @@ export function Introduction() {
                   tag="p"
                   className="text-gray-600 dark:text-gray-400"
                 >
-                  Granular control over theme settings with advanced configuration options:
+                  Granular control over theme settings with advanced
+                  configuration options:
                 </Typography>
 
                 <div className="space-y-3">
@@ -323,7 +358,10 @@ export function Introduction() {
                       <Typography tag="h4" className="font-medium text-sm">
                         Partial Settings Control
                       </Typography>
-                      <Typography tag="p" className="text-xs text-gray-500 dark:text-gray-400">
+                      <Typography
+                        tag="p"
+                        className="text-xs text-gray-500 dark:text-gray-400"
+                      >
                         Enable/disable specific theme options per user
                       </Typography>
                     </div>
@@ -337,7 +375,10 @@ export function Introduction() {
                       <Typography tag="h4" className="font-medium text-sm">
                         Dynamic Color Mixing
                       </Typography>
-                      <Typography tag="p" className="text-xs text-gray-500 dark:text-gray-400">
+                      <Typography
+                        tag="p"
+                        className="text-xs text-gray-500 dark:text-gray-400"
+                      >
                         CSS color-mix() for automatic color variations
                       </Typography>
                     </div>
@@ -351,7 +392,10 @@ export function Introduction() {
                       <Typography tag="h4" className="font-medium text-sm">
                         Persistent Settings
                       </Typography>
-                      <Typography tag="p" className="text-xs text-gray-500 dark:text-gray-400">
+                      <Typography
+                        tag="p"
+                        className="text-xs text-gray-500 dark:text-gray-400"
+                      >
                         Automatic localStorage integration for user preferences
                       </Typography>
                     </div>
@@ -359,7 +403,10 @@ export function Introduction() {
                 </div>
 
                 <div className="p-3 bg-gradient-to-r from-blue-500/10 to-indigo-500/10 rounded-lg border border-blue-200 dark:border-blue-700">
-                  <Typography tag="p" className="text-sm text-blue-700 dark:text-blue-300">
+                  <Typography
+                    tag="p"
+                    className="text-sm text-blue-700 dark:text-blue-300"
+                  >
                     <LucideIcons.Code className="w-4 h-4 inline mr-2" />
                     Full TypeScript support with Zustand state management
                   </Typography>
@@ -610,7 +657,8 @@ export function Introduction() {
                     <li className="flex items-center gap-3">
                       <LucideIcons.Check className="w-5 h-5 text-green-500 flex-shrink-0" />
                       <span className="text-sm">
-                        Advanced theming with 31+ color presets and multi-layered architecture
+                        Advanced theming with 31+ color presets and
+                        multi-layered architecture
                       </span>
                     </li>
                     <li className="flex items-center gap-3">
@@ -630,7 +678,8 @@ export function Introduction() {
                     <li className="flex items-center gap-3">
                       <LucideIcons.Check className="w-5 h-5 text-green-500 flex-shrink-0" />
                       <span className="text-sm">
-                        Granular theme configuration and user preference management
+                        Granular theme configuration and user preference
+                        management
                       </span>
                     </li>
                   </ul>
