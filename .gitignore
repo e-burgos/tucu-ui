@@ -59,3 +59,6 @@ vitest.config.*.timestamp*
 
 CLAUDE.md
 
+# npm pack files
+*.tgz
+*.tar.gz
