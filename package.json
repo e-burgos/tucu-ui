@@ -10,6 +10,7 @@
     "tucu-ui:build": "pnpm nx run tucu-ui:build",
     "tucu-ui:publish": "pnpm nx run tucu-ui:publish:lib",
     "tucu-ui:install": "pnpm nx run tucu-ui:install:lib",
+    "tucu-ui:pack": "pnpm exec nx run tucu-ui:pack:lib ",
     "tucu-ui:serve": "pnpm nx run tucu-ui:serve-storybook",
     "demo": "pnpm nx run demo:serve",
     "demo:install": "pnpm nx run demo:app:install",

@@ -107,6 +107,8 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
           base: 'border border-brand rounded bg-transparent',
           checked: 'checked:border-brand checked:bg-brand',
           hover: 'hover:enabled:border-brand',
+          checkedHover:
+            'checked:hover:enabled:bg-brand/90 checked:hover:enabled:border-brand/90 checked:hover:enabled:scale-105',
           focus: 'focus:enabled:border-brand focus:ring-brand/30',
           disabled: 'disabled:bg-gray-100 disabled:border-gray-300',
           icon: 'bg-brand',
@@ -115,6 +117,8 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
           base: 'border border-gray-500 bg-transparent',
           checked: 'checked:border-gray-900 checked:bg-gray-900',
           hover: 'hover:enabled:border-gray-900',
+          checkedHover:
+            'checked:hover:enabled:bg-gray-800 checked:hover:enabled:border-gray-800 checked:hover:enabled:scale-105',
           focus: 'focus:enabled:border-gray-900 focus:ring-gray-900/30',
           disabled: 'disabled:bg-gray-100 disabled:border-gray-300',
           icon: 'bg-gray-500',
@@ -123,6 +127,8 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
           base: 'border border-red-500 bg-transparent',
           checked: 'checked:border-red-500 checked:bg-red-500',
           hover: 'hover:enabled:border-red-500',
+          checkedHover:
+            'checked:hover:enabled:bg-red-600 checked:hover:enabled:border-red-600 checked:hover:enabled:scale-105',
           focus: 'focus:enabled:border-red-500 focus:ring-red-500/30',
           disabled: 'disabled:bg-gray-100 disabled:border-gray-300',
           icon: 'bg-red-500',
@@ -131,6 +137,8 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
           base: 'border border-blue-500 bg-transparent',
           checked: 'checked:border-blue-500 checked:bg-blue-500',
           hover: 'hover:enabled:border-blue-500',
+          checkedHover:
+            'checked:hover:enabled:bg-blue-600 checked:hover:enabled:border-blue-600 checked:hover:enabled:scale-105',
           focus: 'focus:enabled:border-blue-500 focus:ring-blue-500/30',
           disabled: 'disabled:bg-gray-100 disabled:border-gray-300',
           icon: 'bg-blue-500',
@@ -139,6 +147,8 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
           base: 'border border-green-500 bg-transparent',
           checked: 'checked:border-green-500 checked:bg-green-500',
           hover: 'hover:enabled:border-green-500',
+          checkedHover:
+            'checked:hover:enabled:bg-green-600 checked:hover:enabled:border-green-600 checked:hover:enabled:scale-105',
           focus: 'focus:enabled:border-green-500 focus:ring-green-500/30',
           disabled: 'disabled:bg-gray-100 disabled:border-gray-300',
           icon: 'bg-green-500',
@@ -147,6 +157,8 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
           base: 'border border-orange-500 bg-transparent',
           checked: 'checked:border-orange-500 checked:bg-orange-500',
           hover: 'hover:enabled:border-orange-500',
+          checkedHover:
+            'checked:hover:enabled:bg-orange-600 checked:hover:enabled:border-orange-600 checked:hover:enabled:scale-105',
           focus: 'focus:enabled:border-orange-500 focus:ring-orange-500/30',
           disabled: 'disabled:bg-gray-100 disabled:border-gray-300',
           icon: 'bg-orange-500',
@@ -190,13 +202,14 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
               aria-describedby={describedBy}
               aria-invalid={error ? 'true' : 'false'}
               className={cn(
-                '!rounded !bg-transparent peer cursor-pointer transition duration-200 ease-in-out',
+                '!rounded !bg-transparent peer cursor-pointer transition-all duration-200 ease-in-out',
                 'focus:outline-none focus:ring-0',
                 'checked:ring-0',
                 sizeClasses[size],
                 colorClasses.base,
                 colorClasses.checked,
                 colorClasses.hover,
+                colorClasses.checkedHover,
                 colorClasses.focus,
                 colorClasses.disabled,
                 inputClassName

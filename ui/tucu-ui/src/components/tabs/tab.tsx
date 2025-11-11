@@ -101,16 +101,5 @@ export function TabPanel({
   children,
   className,
 }: React.PropsWithChildren<{ className?: string }> & TabPanelProps) {
-  return (
-    <HeadlessTabPanel className={className}>
-      <motion.div
-        animate={{ opacity: 1, y: 0 }}
-        initial={{ opacity: 0, y: 32 }}
-        exit={{ opacity: 0, y: -32 }}
-        transition={{ duration: 0.2 }}
-      >
-        {children}
-      </motion.div>
-    </HeadlessTabPanel>
-  );
+  return <HeadlessTabPanel className={className}>{children}</HeadlessTabPanel>;
 }

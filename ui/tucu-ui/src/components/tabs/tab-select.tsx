@@ -1,7 +1,7 @@
 import { forwardRef, useImperativeHandle, useRef, useState } from 'react';
 import cn from 'classnames';
 import { ChevronDown } from '../icons/chevron-down';
-import { TabGroup, TabItem } from './tab';
+import { TabItem } from './tab';
 
 export interface TabSelectMenuItem {
   title: React.ReactNode;

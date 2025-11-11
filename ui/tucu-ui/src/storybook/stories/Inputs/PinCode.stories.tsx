@@ -39,12 +39,12 @@ const meta: Meta<typeof PinCode> = {
     },
     size: {
       control: 'select',
-      options: ['sm', 'DEFAULT', 'lg', 'xl'],
+      options: ['sm', 'md', 'lg', 'xl'],
       description: 'Size of the input fields',
     },
     rounded: {
       control: 'select',
-      options: ['none', 'sm', 'DEFAULT', 'lg', 'full'],
+      options: ['none', 'sm', 'md', 'lg', 'full'],
       description: 'Border radius of the input fields',
     },
     variant: {
@@ -54,15 +54,7 @@ const meta: Meta<typeof PinCode> = {
     },
     color: {
       control: 'select',
-      options: [
-        'DEFAULT',
-        'primary',
-        'secondary',
-        'danger',
-        'info',
-        'success',
-        'warning',
-      ],
+      options: ['primary', 'secondary', 'danger', 'info', 'success', 'warning'],
       description: 'Color theme of the input fields',
     },
     error: {
@@ -76,10 +68,10 @@ const meta: Meta<typeof PinCode> = {
     mask: false,
     center: true,
     placeholder: '○',
-    size: 'DEFAULT',
-    rounded: 'DEFAULT',
+    size: 'md',
+    rounded: 'md',
     variant: 'outline',
-    color: 'DEFAULT',
+    color: 'primary',
   },
 };
 
@@ -265,7 +257,7 @@ export const PasswordExample = () => {
           mask={true}
           variant="outline"
           color="secondary"
-          size="DEFAULT"
+          size="md"
           rounded="full"
           value={pin}
           onChange={setPin}

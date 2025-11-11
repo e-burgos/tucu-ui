@@ -99,8 +99,8 @@ export function ResetPinForm({
                 length={pinLength}
                 placeholder="-"
                 variant="outline"
-                color="DEFAULT"
-                size="lg"
+                color="primary"
+                size="md"
                 value={pin}
                 onChange={handlePinChange}
                 error={validationError}

@@ -48,20 +48,12 @@ const meta: Meta<typeof Radio> = {
     },
     size: {
       control: 'select',
-      options: ['sm', 'DEFAULT', 'lg', 'xl'],
+      options: ['sm', 'md', 'lg', 'xl'],
       description: 'Size of the radio button',
     },
     color: {
       control: 'select',
-      options: [
-        'DEFAULT',
-        'primary',
-        'secondary',
-        'danger',
-        'info',
-        'success',
-        'warning',
-      ],
+      options: ['primary', 'secondary', 'danger', 'info', 'success', 'warning'],
       description: 'Color theme of the radio button',
     },
     className: {
@@ -71,9 +63,9 @@ const meta: Meta<typeof Radio> = {
   },
   args: {
     label: 'Radio button label',
-    variant: 'active',
-    size: 'DEFAULT',
-    color: 'DEFAULT',
+    variant: 'outline',
+    size: 'md',
+    color: 'primary',
     labelPlacement: 'end',
   },
 };

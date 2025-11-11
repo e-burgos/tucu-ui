@@ -5,60 +5,60 @@ import FieldError from './field-error-text';
 import FieldHelperText from './field-helper-text';
 
 const inputClasses = {
-  base: 'disabled:bg-gray-50 disabled:border-gray-200',
+  base: 'appearance-none cursor-pointer rounded-full disabled:bg-gray-50 disabled:border-gray-200 disabled:cursor-not-allowed transition-all duration-200',
   size: {
     sm: 'h-4 w-4',
-    DEFAULT: 'h-5 w-5',
+    md: 'h-5 w-5',
     lg: 'h-6 w-6',
     xl: 'h-7 w-7',
   },
   variant: {
     outline: {
-      base: 'border-2 bg-gray-200/70 hover:enabled:bg-gray-200/90 ',
+      base: 'border-2 bg-white dark:bg-gray-800 hover:enabled:bg-gray-50 dark:hover:enabled:bg-gray-700 transition-colors',
       color: {
-        DEFAULT: 'border-brand focus:ring-brand/30 checked:!bg-brand',
-        primary: 'border-brand focus:ring-brand/30 checked:!bg-brand',
+        primary:
+          'border-brand focus:ring-2 focus:ring-brand/30 checked:border-brand checked:bg-brand checked:hover:enabled:bg-brand/90 checked:hover:enabled:border-brand/90 checked:hover:enabled:scale-105',
         secondary:
-          'border-gray-500 focus:ring-gray-500/30 checked:!bg-gray-500',
-        danger: 'border-red-500 focus:ring-red-500/30 checked:!bg-red-500',
-        info: 'border-blue-500 focus:ring-blue-500/30 checked:!bg-blue-500',
+          'border-gray-500 focus:ring-2 focus:ring-gray-500/30 checked:border-gray-500 checked:bg-gray-500 checked:hover:enabled:bg-gray-600 checked:hover:enabled:border-gray-600 checked:hover:enabled:scale-105',
+        danger:
+          'border-red-500 focus:ring-2 focus:ring-red-500/30 checked:border-red-500 checked:bg-red-500 checked:hover:enabled:bg-red-600 checked:hover:enabled:border-red-600 checked:hover:enabled:scale-105',
+        info: 'border-blue-500 focus:ring-2 focus:ring-blue-500/30 checked:border-blue-500 checked:bg-blue-500 checked:hover:enabled:bg-blue-600 checked:hover:enabled:border-blue-600 checked:hover:enabled:scale-105',
         success:
-          'border-green-500 focus:ring-green-500/30 checked:!bg-green-500',
+          'border-green-500 focus:ring-2 focus:ring-green-500/30 checked:border-green-500 checked:bg-green-500 checked:hover:enabled:bg-green-600 checked:hover:enabled:border-green-600 checked:hover:enabled:scale-105',
         warning:
-          'border-orange-500 focus:ring-orange-500/30 checked:!bg-orange-500',
+          'border-orange-500 focus:ring-2 focus:ring-orange-500/30 checked:border-orange-500 checked:bg-orange-500 checked:hover:enabled:bg-orange-600 checked:hover:enabled:border-orange-600 checked:hover:enabled:scale-105',
       },
     },
     flat: {
-      base: 'border-2',
+      base: 'border-2 bg-gray-100 dark:bg-gray-700 hover:enabled:bg-gray-200 dark:hover:enabled:bg-gray-600 transition-colors',
       color: {
-        DEFAULT:
-          'bg-brand/10 hover:enabled:bg-brand/20 focus:ring-brand/30 checked:!bg-brand/70',
         primary:
-          'bg-brand/70 hover:enabled:bg-brand/90 focus:ring-brand/30 checked:!bg-brand',
+          'border-transparent focus:ring-2 focus:ring-brand/30 checked:border-brand checked:bg-brand checked:hover:enabled:bg-brand/90 checked:hover:enabled:border-brand/90 checked:hover:enabled:scale-105',
         secondary:
-          'bg-gray-500/70 hover:enabled:bg-gray-500/90 focus:ring-gray-500/30 checked:!bg-gray-500',
+          'border-transparent focus:ring-2 focus:ring-gray-500/30 checked:border-gray-500 checked:bg-gray-500 checked:hover:enabled:bg-gray-600 checked:hover:enabled:border-gray-600 checked:hover:enabled:scale-105',
         danger:
-          'bg-red-500/70 hover:enabled:bg-red-500/90 focus:ring-red-500/30 checked:!bg-red-500',
-        info: 'bg-blue-500/70 hover:enabled:bg-blue-500/90 focus:ring-blue-500/30 checked:!bg-blue-500',
+          'border-transparent focus:ring-2 focus:ring-red-500/30 checked:border-red-500 checked:bg-red-500 checked:hover:enabled:bg-red-600 checked:hover:enabled:border-red-600 checked:hover:enabled:scale-105',
+        info: 'border-transparent focus:ring-2 focus:ring-blue-500/30 checked:border-blue-500 checked:bg-blue-500 checked:hover:enabled:bg-blue-600 checked:hover:enabled:border-blue-600 checked:hover:enabled:scale-105',
         success:
-          'bg-green-500/70 hover:enabled:bg-green-500/90 focus:ring-green-500/30 checked:!bg-green-500',
+          'border-transparent focus:ring-2 focus:ring-green-500/30 checked:border-green-500 checked:bg-green-500 checked:hover:enabled:bg-green-600 checked:hover:enabled:border-green-600 checked:hover:enabled:scale-105',
         warning:
-          'bg-orange-500/80 hover:enabled:bg-orange-500/90 focus:ring-orange-500/30 checked:!bg-orange-500',
+          'border-transparent focus:ring-2 focus:ring-orange-500/30 checked:border-orange-500 checked:bg-orange-500 checked:hover:enabled:bg-orange-600 checked:hover:enabled:border-orange-600 checked:hover:enabled:scale-105',
       },
     },
     active: {
-      base: 'border',
+      base: 'border bg-white dark:bg-gray-800 hover:enabled:bg-gray-50 dark:hover:enabled:bg-gray-700 transition-colors',
       color: {
-        DEFAULT: 'border-brand focus:ring-brand/30 checked:!bg-brand',
-        primary: 'border-brand focus:ring-brand/30 checked:!bg-brand',
+        primary:
+          'border-brand focus:ring-2 focus:ring-brand/30 checked:border-brand checked:bg-brand checked:hover:enabled:bg-brand/90 checked:hover:enabled:border-brand/90 checked:hover:enabled:scale-105',
         secondary:
-          'border-gray-500 focus:ring-gray-500/30 checked:!bg-gray-500',
-        danger: 'border-red-500 focus:ring-red-500/30 checked:!bg-red-500',
-        info: 'border-blue-500 focus:ring-blue-500/30 checked:!bg-blue-500',
+          'border-gray-500 focus:ring-2 focus:ring-gray-500/30 checked:border-gray-500 checked:bg-gray-500 checked:hover:enabled:bg-gray-600 checked:hover:enabled:border-gray-600 checked:hover:enabled:scale-105',
+        danger:
+          'border-red-500 focus:ring-2 focus:ring-red-500/30 checked:border-red-500 checked:bg-red-500 checked:hover:enabled:bg-red-600 checked:hover:enabled:border-red-600 checked:hover:enabled:scale-105',
+        info: 'border-blue-500 focus:ring-2 focus:ring-blue-500/30 checked:border-blue-500 checked:bg-blue-500 checked:hover:enabled:bg-blue-600 checked:hover:enabled:border-blue-600 checked:hover:enabled:scale-105',
         success:
-          'border-green-500 focus:ring-green-500/30 checked:!bg-green-500',
+          'border-green-500 focus:ring-2 focus:ring-green-500/30 checked:border-green-500 checked:bg-green-500 checked:hover:enabled:bg-green-600 checked:hover:enabled:border-green-600 checked:hover:enabled:scale-105',
         warning:
-          'border-orange-500 focus:ring-orange-500/30 checked:!bg-orange-500',
+          'border-orange-500 focus:ring-2 focus:ring-orange-500/30 checked:border-orange-500 checked:bg-orange-500 checked:hover:enabled:bg-orange-600 checked:hover:enabled:border-orange-600 checked:hover:enabled:scale-105',
       },
     },
   },
@@ -68,20 +68,20 @@ const labelClasses = {
   size: {
     text: {
       sm: 'text-sm',
-      DEFAULT: 'text-sm',
+      md: 'text-sm',
       lg: 'text-base',
       xl: 'text-lg',
     },
     margin: {
       start: {
         sm: 'mr-1 rtl:ml-1',
-        DEFAULT: 'mr-1.5 rtl:ml-1.5',
+        md: 'mr-1.5 rtl:ml-1.5',
         lg: 'mr-2 rtl:ml-2',
         xl: 'mr-2 rlt:ml-2',
       },
       end: {
         sm: 'ml-1 rtl:mr-1',
-        DEFAULT: 'ml-1.5 rtl:mr-1.5',
+        md: 'ml-1.5 rtl:mr-1.5',
         lg: 'ml-2 rtl:mr-2',
         xl: 'ml-2 rtl:mr-2',
       },
@@ -96,7 +96,7 @@ export interface RadioProps
   /** The size of the component. `"sm"` is equivalent to the dense input styling. */
   size?: keyof typeof inputClasses.size;
   /** Change radio button color */
-  color?: keyof (typeof inputClasses.variant)['outline']['color'];
+  color?: keyof typeof inputClasses.variant.outline.color;
   /** Available directions of the label are: */
   labelPlacement?: 'start' | 'end';
   /** Whether the input is disabled */
@@ -133,8 +133,8 @@ export const Radio = forwardRef<HTMLInputElement, RadioProps>(
   (
     {
       variant = 'outline',
-      size = 'DEFAULT',
-      color = 'DEFAULT',
+      size = 'md',
+      color = 'primary',
       labelPlacement = 'end',
       label,
       disabled,
@@ -159,20 +159,34 @@ export const Radio = forwardRef<HTMLInputElement, RadioProps>(
           containerClassName
         )}
       >
-        <input
-          type="radio"
-          ref={ref}
-          disabled={disabled}
-          className={cn(
-            '!bg-transparent',
-            inputClasses.base,
-            inputClasses.size[size],
-            inputClasses.variant[variant].base,
-            inputClasses.variant[variant].color[color],
-            inputClassName
-          )}
-          {...radioProps}
-        />
+        <div className="relative inline-flex items-center justify-center">
+          <input
+            type="radio"
+            ref={ref}
+            disabled={disabled}
+            className={cn(
+              inputClasses.base,
+              inputClasses.size[size],
+              inputClasses.variant[variant].base,
+              inputClasses.variant[variant].color[color],
+              'peer',
+              inputClassName
+            )}
+            {...radioProps}
+          />
+          <span
+            className={cn(
+              'absolute rounded-full pointer-events-none',
+              'peer-checked:block peer-checked:bg-white',
+              'peer-checked:transition-all',
+              size === 'sm' && 'w-1.5 h-1.5',
+              size === 'md' && 'w-2 h-2',
+              size === 'lg' && 'w-2.5 h-2.5',
+              size === 'xl' && 'w-3 h-3',
+              'hidden'
+            )}
+          />
+        </div>
 
         {label && (
           <span

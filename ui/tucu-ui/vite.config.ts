@@ -19,6 +19,21 @@ const copyReadmePlugin = () => {
   };
 };
 
+const copyChangelogPlugin = () => {
+  return {
+    name: 'copy-changelog',
+    closeBundle: () => {
+      const changelogPath = path.join(__dirname, 'CHANGELOG.md');
+      const destPath = path.join(
+        __dirname,
+        '../../dist/ui/tucu-ui/CHANGELOG.md'
+      );
+      copyFileSync(changelogPath, destPath);
+      console.log('CHANGELOG.md copied to distribution directory');
+    },
+  };
+};
+
 export default defineConfig({
   root: __dirname,
   cacheDir: '../../node_modules/.vite/ui/tucu-ui',
@@ -30,6 +45,7 @@ export default defineConfig({
       tsconfigPath: path.join(__dirname, 'tsconfig.lib.json'),
     }),
     copyReadmePlugin(),
+    copyChangelogPlugin(),
   ],
   css: {
     postcss: {

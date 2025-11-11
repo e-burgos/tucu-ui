@@ -11,18 +11,19 @@ const containerClasses = {
 
 const inputClasses = {
   base: 'block peer text-center bg-transparent mr-2 focus:placeholder:opacity-0 focus:outline-hidden transition duration-200 disabled:bg-gray-50 disabled:placeholder:text-gray-400 disabled:cursor-not-allowed disabled:border-gray-200',
+  numberType: '[&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none [-moz-appearance:textfield]',
   error:
     'border-red hover:enabled:!border-red-500 focus:enabled:!border-red-500 focus:!ring-red-500',
   size: {
     sm: 'px-1 py-1 text-sm h-8 w-8',
-    DEFAULT: 'px-2 py-2 text-sm h-10 w-10',
+    md: 'px-2 py-2 text-sm h-10 w-10',
     lg: 'px-2 py-2 text-base h-12 w-12',
     xl: 'px-2.5 py-2.5 text-lg h-14 w-14',
   },
   rounded: {
     none: 'rounded-none',
     sm: 'rounded-xs',
-    DEFAULT: 'rounded-md',
+    md: 'rounded-md',
     lg: 'rounded-lg',
     full: 'rounded-full',
   },
@@ -30,8 +31,6 @@ const inputClasses = {
     active: {
       base: 'border border-gray-700 focus:ring-[1px] bg-gray-0 placeholder:opacity-80',
       color: {
-        DEFAULT:
-          'not-read-only:focus:enabled:border-gray-1000 focus:ring-brand text-current',
         primary:
           'not-read-only:focus:enabled:border-gray-1000 focus:ring-brand text-current',
         secondary:
@@ -48,8 +47,6 @@ const inputClasses = {
     flat: {
       base: 'border focus:ring-2 border-0 placeholder:opacity-90',
       color: {
-        DEFAULT:
-          'bg-brand/10 not-read-only:hover:enabled:bg-brand/20 focus:ring-brand/30 text-brand placeholder:text-brand/60',
         primary:
           'bg-brand/70 not-read-only:hover:enabled:bg-brand/90 focus:ring-brand/30 text-brand',
         secondary:
@@ -66,8 +63,6 @@ const inputClasses = {
     outline: {
       base: 'bg-transparent focus:ring-[0.6px] border border-gray-300 placeholder:text-gray-500',
       color: {
-        DEFAULT:
-          'not-read-only:hover:enabled:border-brand not-read-only:focus:enabled:border-brand focus:ring-brand',
         primary:
           'not-read-only:hover:enabled:border-brand not-read-only:focus:enabled:border-brand focus:ring-brand',
         secondary:
@@ -135,10 +130,10 @@ export function PinCode({
   mask = false,
   length = 4,
   center = true,
-  size = 'DEFAULT',
-  rounded = 'DEFAULT',
+  size = 'md',
+  rounded = 'md',
   variant = 'outline',
-  color = 'DEFAULT',
+  color = 'primary',
   placeholder = '-',
   error,
   className,
@@ -250,6 +245,7 @@ export function PinCode({
             onPaste={(event) => handlePaste(event, index)}
             className={cn(
               inputClasses.base,
+              type === 'number' && inputClasses.numberType,
               inputClasses.size[size],
               inputClasses.rounded[rounded],
               inputClasses.variant[variant].base,

@@ -1,7 +1,7 @@
 import type { Meta, StoryFn } from '@storybook/react-vite';
 import { Input } from '../../../components/forms';
 import { StoryContainer } from '../../components/StoryContainer';
-import { Mail, User, Calendar, Search } from 'lucide-react';
+import { Mail, User, Search } from 'lucide-react';
 import React from 'react';
 
 const meta: Meta<typeof Input> = {
@@ -49,6 +49,19 @@ const meta: Meta<typeof Input> = {
     suffix: {
       control: 'text',
       description: 'Content to display at the end of the input',
+    },
+    dateFormat: {
+      control: 'select',
+      options: [
+        'DD-MM-YYYY',
+        'MM-DD-YYYY',
+        'YYYY-MM-DD',
+        'DD/MM/YYYY',
+        'MM/DD/YYYY',
+        'YYYY/MM/DD',
+      ],
+      description:
+        'Date format for date inputs (only applies when type="date")',
     },
     className: {
       control: 'text',
@@ -106,6 +119,20 @@ WithSuffix.args = {
   placeholder: 'Enter weight',
 };
 
+export const WithUppercaseLabel = Template.bind({});
+WithUppercaseLabel.args = {
+  label: 'Username',
+  useUppercaseLabel: true,
+  icon: <User className="h-4 w-4" />,
+};
+
+export const SearchInput = Template.bind({});
+SearchInput.args = {
+  label: 'Search',
+  placeholder: 'Search...',
+  icon: <Search className="h-4 w-4" />,
+};
+
 export const Password = Template.bind({});
 Password.args = {
   type: 'password',
@@ -125,21 +152,49 @@ export const Date = Template.bind({});
 Date.args = {
   type: 'date',
   label: 'Birth Date',
-  icon: <Calendar className="h-4 w-4" />,
 };
 
-export const WithUppercaseLabel = Template.bind({});
-WithUppercaseLabel.args = {
-  label: 'Username',
-  useUppercaseLabel: true,
-  icon: <User className="h-4 w-4" />,
+// Date format variations
+export const DateFormatDDMMYYYY = Template.bind({});
+DateFormatDDMMYYYY.args = {
+  type: 'date',
+  label: 'Fecha (DD-MM-YYYY)',
+  dateFormat: 'DD-MM-YYYY',
 };
 
-export const SearchInput = Template.bind({});
-SearchInput.args = {
-  label: 'Search',
-  placeholder: 'Search...',
-  icon: <Search className="h-4 w-4" />,
+export const DateFormatMMDDYYYY = Template.bind({});
+DateFormatMMDDYYYY.args = {
+  type: 'date',
+  label: 'Date (MM-DD-YYYY)',
+  dateFormat: 'MM-DD-YYYY',
+};
+
+export const DateFormatYYYYMMDD = Template.bind({});
+DateFormatYYYYMMDD.args = {
+  type: 'date',
+  label: 'Date (YYYY-MM-DD)',
+  dateFormat: 'YYYY-MM-DD',
+};
+
+export const DateFormatDDMMYYYY_Slash = Template.bind({});
+DateFormatDDMMYYYY_Slash.args = {
+  type: 'date',
+  label: 'Fecha (DD/MM/YYYY)',
+  dateFormat: 'DD/MM/YYYY',
+};
+
+export const DateFormatMMDDYYYY_Slash = Template.bind({});
+DateFormatMMDDYYYY_Slash.args = {
+  type: 'date',
+  label: 'Date (MM/DD/YYYY)',
+  dateFormat: 'MM/DD/YYYY',
+};
+
+export const DateFormatYYYYMMDD_Slash = Template.bind({});
+DateFormatYYYYMMDD_Slash.args = {
+  type: 'date',
+  label: 'Date (YYYY/MM/DD)',
+  dateFormat: 'YYYY/MM/DD',
 };
 
 export const FormExample = () => (

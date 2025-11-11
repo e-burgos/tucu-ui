@@ -1,7 +1,7 @@
 {
   "name": "@e-burgos/tucu-ui",
   "description": "Tucu UI Library",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "main": "./index.js",
   "module": "./index.mjs",
   "types": "./index.d.ts",
@@ -23,6 +23,7 @@
     "zustand"
   ],
   "homepage": "https://tucu-ui.netlify.app",
+  "changelog": "CHANGELOG.md",
   "exports": {
     ".": {
       "types": "./index.d.ts",
@@ -44,7 +45,8 @@
     "chromatic": "pnpm dlx chromatic --project-token --force-rebuild",
     "storybook-doctor": "pnpm dlx storybook doctor",
     "publish:lib": "cd ../../dist/ui/tucu-ui && pnpm npm publish --access public --no-git-checks",
-    "install:lib": "cd ../../ui/tucu-ui && pnpm install"
+    "install:lib": "cd ../../ui/tucu-ui && pnpm install",
+    "pack:lib": "cd ../../ui/tucu-ui && pnpm npm pack"
   },
   "dependencies": {
     "@headlessui/react": "2.2.4",

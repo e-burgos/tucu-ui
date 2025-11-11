@@ -57,20 +57,12 @@ const meta: Meta<typeof RadioGroup> = {
     },
     size: {
       control: 'select',
-      options: ['sm', 'DEFAULT', 'lg', 'xl'],
+      options: ['sm', 'md', 'lg', 'xl'],
       description: 'Size of the radio buttons',
     },
     color: {
       control: 'select',
-      options: [
-        'DEFAULT',
-        'primary',
-        'secondary',
-        'danger',
-        'info',
-        'success',
-        'warning',
-      ],
+      options: ['primary', 'secondary', 'danger', 'info', 'success', 'warning'],
       description: 'Color theme of the radio buttons',
     },
     labelPlacement: {
@@ -92,8 +84,8 @@ const meta: Meta<typeof RadioGroup> = {
     direction: 'vertical',
     gap: 'md',
     variant: 'outline',
-    size: 'DEFAULT',
-    color: 'DEFAULT',
+    size: 'md',
+    color: 'primary',
     labelPlacement: 'end',
   },
 };
