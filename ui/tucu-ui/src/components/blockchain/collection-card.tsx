@@ -37,7 +37,7 @@ export function CollectionCard({ item, className = '' }: CollectionCardProps) {
           src={cover_image}
           placeholder="blur"
           width={600}
-          priority
+          priority="auto"
           alt={name}
         />
       </div>

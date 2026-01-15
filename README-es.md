@@ -1,12 +1,11 @@
 # Tucu UI
 
-Una moderna y completa librería de componentes React construida con TypeScript, Tailwind CSS, y diseñada para crear aplicaciones web listas para producción con **generación automática de layouts**, **sistemas de formularios potentes**, y **componentes especializados para blockchain**.
+Una moderna y completa librería de componentes React construida con TypeScript, Tailwind CSS v4, y diseñada para crear aplicaciones web listas para producción. Incluye **generación automática de layouts**, **sistema de routing avanzado** con soporte para Standalone y Micro Frontends (MFE), **sistemas de formularios potentes** con React Hook Form, **5000+ iconos**, **componentes especializados para blockchain**, y **cumplimiento de accesibilidad WCAG 2.1 AA**.
 
-## 🌟 Storybook y Documentación
+## 🌟 Documentación
 
-- **📚 [Documentación en Vivo](https://main--683712ba90eaad206f988c65.chromatic.com/?path=/docs/1-documentation-1-introduction--documentation)** - Documentación completa de componentes
-- **🎨 [Storybook Interactivo](https://main--683712ba90eaad206f988c65.chromatic.com/)** - Explora componentes en acción
-- **🔧 [Ejemplos de Componentes](https://main--683712ba90eaad206f988c65.chromatic.com/?path=/story/ui-components-buttons-button--default)** - Ve todas las variaciones y casos de uso
+- **📚 [Documentación en Vivo](https://tucu-ui.netlify.app/)** - Documentación completa de componentes
+- **🔧 [Ejemplos de Componentes](https://tucu-ui.netlify.app/components)** - Ve todas las variaciones y casos de uso
 
 ## 🚀 Características Principales
 
@@ -24,7 +23,7 @@ Componentes especializados para aplicaciones DeFi, mercados NFT, y billeteras cr
 
 ### **🎭 Sistema de Temas Avanzado**
 
-26+ presets de color incluyendo colores modernos (Bufus Blue, Coral, Mint, Lavender), soporte para colores secundarios/accent, modo oscuro/claro, soporte RTL, y preferencias de usuario persistentes. Sistema de colores dinámico con variables CSS para brand, secondary, accent, y colores semánticos.
+34+ presets de color con arquitectura de 12 capas (primary, dark primary, secondary, dark secondary, accent, dark accent, muted, dark muted, backgrounds). Incluye colores modernos (Bufus Blue, Coral, Mint, Lavender), soporte para colores secundarios/accent, modo oscuro/claro, soporte RTL, y preferencias de usuario persistentes. Sistema de colores dinámico con variables CSS para brand, secondary, accent, y colores semánticos.
 
 ### **🎯 5000+ Iconos Integrados**
 
@@ -38,9 +37,12 @@ Componentes compatibles con WCAG 2.1 AA con atributos ARIA apropiados y navegaci
 
 Diseño responsive en todos los componentes con soporte para pantallas ultra-anchas (hasta 4K).
 
-### **🌐 Ruteo Integrado**
+### **🌐 Sistema de Routing Avanzado**
 
-Integración incorporada de React Router para desarrollo SPA sin problemas.
+Integración incorporada de React Router con soporte para dos patrones arquitectónicos:
+
+- **Standalone App** (por defecto): Generación automática de rutas desde menuItems
+- **Micro Frontends (MFE)**: Configuración explícita de rutas con basePath y protección de rutas
 
 ### **🎨 Integración Completa de Tailwind CSS v4**
 
@@ -77,7 +79,6 @@ Construido sobre librerías líderes en la industria para máxima confiabilidad:
 - **[Framer Motion](https://www.framer.com/motion/)** - Animaciones y transiciones suaves
 - **[Recharts](https://recharts.org/)** - Librería de gráficos composable para visualización de datos
 - **[Swiper](https://swiperjs.com/)** - Slider táctil móvil moderno
-- **[React Dropzone](https://react-dropzone.js.org/)** - Zona de drop HTML5 simple
 
 ## 📦 Instalación
 
@@ -97,7 +98,7 @@ Agrega la siguiente importación a tu archivo CSS principal (generalmente `index
 
 ### Personalización Avanzada de Colores
 
-Tucu UI soporta un sistema de theming de colores multi-capa con 26+ presets de colores integrados:
+Tucu UI soporta un sistema de theming de colores multi-capa con 34+ presets de colores integrados:
 
 ```css
 :root {
@@ -113,20 +114,22 @@ Presets de color disponibles incluyen:
 
 **Colores Básicos:** Green, Black, Blue, Red, Purple, Orange, Rose, Pink, Yellow, Lime, Teal, Cyan
 
-**Colores Extendidos:** Navy, Maroon, Brown, Gray, Silver, Gold, Coral, Salmon
+**Colores Extendidos:** Navy, Maroon, Brown, Gray, Silver, Gold, Coral, Salmon, Chocolate, Tan, Beige
 
-**Colores Avanzados:** BufusBlue, Bufus, BufusAccent, BufusDark, ThemeLight, ThemeDark
+**Colores Modernos:** Mint, Lavender, Violet, BufusBlue, Bufus, BufusAccent, BufusDark
+
+**Colores de Tema:** ThemeLight, ThemeDark
 
 ## 🎯 Inicio Rápido
 
 ### 1. **Uso Básico de Componentes**
 
 ```tsx
-import { Button, Card, Input, Alert } from '@e-burgos/tucu-ui';
+import { Button, CardContainer, Input, Alert } from '@e-burgos/tucu-ui';
 
 function App() {
   return (
-    <Card className="p-6">
+    <CardContainer className="p-6">
       <h2 className="text-2xl font-bold mb-4">Bienvenido a Tucu UI</h2>
       <Input placeholder="Ingresa tu nombre" className="mb-4" />
       <Button size="large" className="w-full">
@@ -135,44 +138,46 @@ function App() {
       <Alert variant="success" className="mt-4">
         ¡Estás listo para construir UIs increíbles!
       </Alert>
-    </Card>
+    </CardContainer>
   );
 }
 ```
 
-### 2. **App Completa con Layout Auto-Generado**
+### 2. **Patrón Standalone App (Por Defecto)**
+
+El patrón por defecto para aplicaciones standalone con generación automática de rutas:
 
 ```tsx
-import { ThemeProvider, LucideIcons, useTheme } from '@e-burgos/tucu-ui';
+import { ThemeProvider, LucideIcons } from '@e-burgos/tucu-ui';
 
 const menuItems = [
   {
     name: 'Dashboard',
-    href: '/',
+    path: '/',
     icon: <LucideIcons.Home />,
     component: <DashboardPage />,
   },
   {
     name: 'Análisis',
-    href: '/analytics',
+    path: '/analytics',
     icon: <LucideIcons.BarChart3 />,
     component: <AnalyticsPage />,
     dropdownItems: [
       {
         name: 'Reportes',
-        href: '/analytics/reports',
+        path: '/analytics/reports',
         component: <ReportsPage />,
       },
       {
         name: 'Insights',
-        href: '/analytics/insights',
+        path: '/analytics/insights',
         component: <InsightsPage />,
       },
     ],
   },
   {
     name: 'Configuración',
-    href: '/settings',
+    path: '/settings',
     icon: <LucideIcons.Settings />,
     component: <SettingsPage />,
   },
@@ -183,64 +188,115 @@ function App() {
     <ThemeProvider
       // Configuración de Layout
       layout="minimal" // 'classic' | 'minimal' | 'none'
-      menuItems={menuItems}
+      menuItems={menuItems} // Requerido para patrón Standalone
       logo={{ name: 'Mi', secondName: 'App' }}
       // Configuración de Tema
-      brandColor="Blue" // Disponibles: 'Green' | 'Black' | 'Blue' | 'Red' | 'Purple' | 'Orange' | 'Rose' | 'Pink' | 'Yellow' | 'Lime' | 'Teal' | 'Cyan' | 'Navy' | 'Maroon' | 'Brown' | 'Gray' | 'Silver' | 'Gold' | 'Coral' | 'Salmon'
-      mode="light" // 'light' | 'dark'
-      // Personalización Avanzada de Colores
-      customPaletteColor={{
-        primary: '#0184bf', // Color hex personalizado para marca
-        secondary: '#00d6f2', // Color hex personalizado para secundario
-        accent: '#f26522', // Color hex personalizado para acento
-        dark: '#0d1321', // Color hex personalizado para fondo modo oscuro
-        light: '#fcfcfc', // Color hex personalizado para fondo modo claro
-      }}
+      brandColor="Blue"
+      mode="light"
+      // Autenticación (Requerido)
+      isAuthenticated={true} // Estado de autenticación
+      loginUrl="/login" // Opcional: URL de redirección para usuarios no autenticados
+      // Opcional: Sobrescribir generación automática de rutas
+      customRoutes={<CustomRoutes />}
       // Personalización de UI
-      showSettings={true} // Mostrar/ocultar botón del panel de configuración
-      rightButton={<UserMenu />} // Componente personalizado para área superior derecha
-      headerClassName="header-personalizado" // Clases CSS personalizadas para header
-      contentClassName="contenido-personalizado" // Clases CSS personalizadas para contenido
-      className="layout-personalizado" // Clases CSS personalizadas para layout completo
-      fullWidth={false} // Habilitar/deshabilitar layout de ancho completo
-      // Configuración Avanzada
-      withRouterProvider={true} // Habilitar/deshabilitar configuración automática de React Router
-      customRoutes={<CustomRoutes />} // Elemento React Router Routes personalizado
-      settingActions={{
-        disabledPreset: false, // Deshabilitar selector de preset de color
-        disabledLayout: false, // Deshabilitar selector de layout
-        disabledMode: false, // Deshabilitar toggle modo oscuro/claro
-        disabledDirection: false, // Deshabilitar toggle dirección RTL/LTR
-      }}
+      showSettings={true}
+      rightButton={<UserMenu />}
     />
   );
 }
 ```
 
+### 3. **Patrón Micro Frontends (MFE)**
+
+Para arquitecturas de micro-frontends con configuración explícita de rutas:
+
+```tsx
+import { ThemeProvider } from '@e-burgos/tucu-ui';
+
+const appRoutesConfig = [
+  {
+    key: 'home',
+    path: '/',
+    element: <HomePage />,
+    isPublic: true, // Ruta pública
+  },
+  {
+    key: 'dashboard',
+    path: '/dashboard',
+    element: <DashboardPage />,
+    isPublic: false, // Ruta privada, requiere autenticación
+  },
+  {
+    key: 'settings',
+    path: '/settings',
+    element: <SettingsPage />,
+    isPublic: false,
+  },
+];
+
+function MfeApp() {
+  return (
+    <ThemeProvider
+      architecturalPatterns="mfe" // Activa modo MFE
+      basePath="/mi-app" // Ruta base para el micro frontend
+      appRoutesConfig={appRoutesConfig} // Requerido para MFE
+      isAuthenticated={true} // Estado de autenticación (Requerido)
+      loginUrl="/login" // URL de redirección para usuarios no autenticados (Requerido)
+      logo={{ name: 'MFE', secondName: 'App' }}
+      showSettings
+    />
+  );
+}
+```
+
+**Diferencias Clave:**
+
+- **Standalone**: Usa `menuItems` para generación automática de rutas
+- **MFE**: Usa `basePath` y `appRoutesConfig` para configuración explícita de rutas con protección
+- TypeScript asegura que uses las props correctas para cada patrón
+
 ### **Referencia de Props de ThemeProvider**
 
-| Prop                           | Tipo                                  | Default     | Descripción                                                                                             |
-| ------------------------------ | ------------------------------------- | ----------- | ------------------------------------------------------------------------------------------------------- |
-| `layout`                       | `'classic' \| 'minimal' \| 'none'`    | `'minimal'` | Tipo de layout: Classic (sidebar), Minimal (nav horizontal), None (sin layout)                          |
-| `menuItems`                    | `AppRoutesMenuItem[]`                 | Requerido   | Elementos del menú de navegación con configuración de rutas                                             |
-| `logo`                         | `{name: string, secondName?: string}` | -           | Configuración del logo de la aplicación                                                                 |
-| `brandColor`                   | `PresetColorType`                     | -           | Preset de color de marca primario (auto-deshabilitado si `customPaletteColor.primary` está configurado) |
-| `mode`                         | `'light' \| 'dark'`                   | `'light'`   | Modo de tema inicial                                                                                    |
-| `customPaletteColor`           | `object`                              | -           | Personalización avanzada de colores                                                                     |
-| `customPaletteColor.primary`   | `string \| PresetColorType`           | -           | Color primario/marca personalizado (hex o preset)                                                       |
-| `customPaletteColor.secondary` | `string \| PresetColorType`           | -           | Color secundario personalizado (hex o preset)                                                           |
-| `customPaletteColor.accent`    | `string \| PresetColorType`           | -           | Color de acento personalizado (hex o preset)                                                            |
-| `customPaletteColor.dark`      | `string \| PresetColorType`           | -           | Color de fondo modo oscuro personalizado                                                                |
-| `customPaletteColor.light`     | `string \| PresetColorType`           | -           | Color de fondo modo claro personalizado                                                                 |
-| `showSettings`                 | `boolean`                             | `false`     | Mostrar botón de toggle del panel de configuración                                                      |
-| `rightButton`                  | `React.ReactNode`                     | -           | Componente personalizado para área header superior derecha                                              |
-| `headerClassName`              | `string`                              | -           | Clases CSS personalizadas para contenedor header                                                        |
-| `contentClassName`             | `string`                              | -           | Clases CSS personalizadas para área de contenido principal                                              |
-| `className`                    | `string`                              | -           | Clases CSS personalizadas para layout completo                                                          |
-| `fullWidth`                    | `boolean`                             | `false`     | Habilitar layout de ancho completo (remueve restricciones de max-width)                                 |
-| `withRouterProvider`           | `boolean`                             | `true`      | Habilitar configuración automática de React Router                                                      |
-| `customRoutes`                 | `ReactElement<typeof Routes>`         | -           | Elemento React Router Routes personalizado                                                              |
-| `settingActions`               | `ISettingAction`                      | -           | Controlar qué configuraciones están deshabilitadas en el panel de configuración                         |
+#### **Props Comunes (Ambos Patrones)**
+
+| Prop                 | Tipo                                  | Default     | Descripción                                                                                             |
+| -------------------- | ------------------------------------- | ----------- | ------------------------------------------------------------------------------------------------------- |
+| `layout`             | `'classic' \| 'minimal' \| 'none'`    | `'minimal'` | Tipo de layout: Classic (sidebar), Minimal (nav horizontal), None (sin layout)                          |
+| `logo`               | `{name: string, secondName?: string}` | -           | Configuración del logo de la aplicación                                                                 |
+| `brandColor`         | `PresetColorType`                     | -           | Preset de color de marca primario (auto-deshabilitado si `customPaletteColor.primary` está configurado) |
+| `mode`               | `'light' \| 'dark'`                   | `'light'`   | Modo de tema inicial                                                                                    |
+| `customPaletteColor` | `object`                              | -           | Personalización avanzada de colores                                                                     |
+| `showSettings`       | `boolean`                             | `false`     | Mostrar botón de toggle del panel de configuración                                                      |
+| `rightButton`        | `React.ReactNode`                     | -           | Componente personalizado para área header superior derecha                                              |
+| `headerClassName`    | `string`                              | -           | Clases CSS personalizadas para contenedor header                                                        |
+| `contentClassName`   | `string`                              | -           | Clases CSS personalizadas para área de contenido principal                                              |
+| `className`          | `string`                              | -           | Clases CSS personalizadas para layout completo                                                          |
+| `fullWidth`          | `boolean`                             | `false`     | Habilitar layout de ancho completo (remueve restricciones de max-width)                                 |
+| `settingActions`     | `ISettingAction`                      | -           | Controlar qué configuraciones están deshabilitadas en el panel de configuración                         |
+
+#### **Props del Patrón Standalone App**
+
+| Prop                    | Tipo                            | Default        | Descripción                                                 |
+| ----------------------- | ------------------------------- | -------------- | ----------------------------------------------------------- |
+| `architecturalPatterns` | `'standalone'`                  | `'standalone'` | Patrón arquitectónico (por defecto, puede omitirse)         |
+| `menuItems`             | `StandaloneAppRoutesMenuItem[]` | Requerido      | Elementos del menú de navegación con configuración de rutas |
+| `isAuthenticated`       | `boolean`                       | Requerido      | Estado de autenticación para protección de rutas            |
+| `loginUrl`              | `string`                        | -              | Opcional: URL de redirección para usuarios no autenticados  |
+| `customRoutes`          | `ReactElement<typeof Routes>`   | -              | Opcional: Sobrescribir generación automática de rutas       |
+| `withRouterProvider`    | `boolean`                       | `true`         | Habilitar configuración automática de React Router          |
+
+#### **Props del Patrón Micro Frontends (MFE)**
+
+| Prop                    | Tipo                  | Default   | Descripción                                                    |
+| ----------------------- | --------------------- | --------- | -------------------------------------------------------------- |
+| `architecturalPatterns` | `'mfe'`               | Requerido | Debe establecerse en `'mfe'` para activar modo MFE             |
+| `basePath`              | `string`              | Requerido | Ruta base para el micro frontend (ej., `/mi-app`)              |
+| `appRoutesConfig`       | `IAppRouteConfig[]`   | Requerido | Configuración explícita de rutas con protección                |
+| `isAuthenticated`       | `boolean`             | Requerido | Estado de autenticación para protección de rutas               |
+| `loginUrl`              | `string`              | Requerido | URL de redirección para usuarios no autenticados               |
+| `menuItems`             | `AppRoutesMenuItem[]` | -         | Opcional: Elementos del menú de navegación (separado de rutas) |
+
+**Nota:** TypeScript asegura la seguridad de tipos - no puedes mezclar props de Standalone y MFE. El sistema de tipos mostrará errores en tiempo de compilación si usas props incorrectas para el patrón seleccionado.
 
 ### **Hook useTheme - API Completa**
 
@@ -313,27 +369,57 @@ function ControlesTema() {
 
 ### **Estructura de Elementos del Menú**
 
+#### **Patrón Standalone App**
+
 ```tsx
-interface AppRoutesMenuItem {
+interface StandaloneAppRoutesMenuItem {
   name: string; // Nombre para mostrar
-  href: string; // URL de navegación
+  path: string; // Ruta de navegación (ruta de la URL)
+  href?: string; // Opcional: URL de enlace externo (si es diferente de path)
   icon?: React.ReactNode; // Icono opcional
   component: JSX.Element; // Componente de página a renderizar
-  dropdownItems?: AppRoutesMenuItem[]; // Elementos de submenú anidados
+  isPublic?: boolean; // Si la ruta es públicamente accesible (por defecto: true)
+  dropdownItems?: StandaloneAppRoutesMenuItem[]; // Elementos de submenú anidados
   hide?: boolean; // Ocultar de la navegación (por defecto: false)
   onClick?: () => void; // Manejador de click opcional
 }
 ```
 
+#### **Patrón Micro Frontends (MFE)**
+
+```tsx
+interface IAppRouteConfig extends RouteProps {
+  key: string; // Identificador único para la ruta
+  path: string; // Ruta
+  element: JSX.Element; // Componente a renderizar
+  isPublic?: boolean; // Si la ruta es accesible públicamente
+  disabled?: boolean; // Si la ruta está deshabilitada
+}
+
+interface AppRoutesMenuItem {
+  name: string; // Nombre para mostrar (para menú de navegación)
+  path: string; // Ruta de navegación
+  href?: string; // Opcional: URL de enlace externo (si es diferente de path)
+  icon?: React.ReactNode; // Icono opcional
+  hide?: boolean; // Ocultar de la navegación (por defecto: false)
+  onClick?: () => void; // Manejador de click opcional
+  // Nota: component NO se usa en patrón MFE - las rutas se definen en appRoutesConfig
+}
+```
+
 ### **Presets de Color Disponibles**
 
-Tucu UI incluye 26+ presets de colores integrados:
+Tucu UI incluye 34+ presets de colores integrados con arquitectura de 12 capas:
 
 **Colores Básicos:** Green, Black, Blue, Red, Purple, Orange, Rose, Pink, Yellow, Lime, Teal, Cyan
 
-**Colores Extendidos:** Navy, Maroon, Brown, Gray, Silver, Gold, Coral, Salmon
+**Colores Extendidos:** Navy, Maroon, Brown, Gray, Silver, Gold, Coral, Salmon, Chocolate, Tan, Beige
 
-**Colores Avanzados:** BufusBlue, Bufus, BufusAccent, BufusDark, ThemeLight, ThemeDark
+**Colores Modernos:** Mint, Lavender, Violet, BufusBlue, Bufus, BufusAccent, BufusDark
+
+**Colores de Tema:** ThemeLight, ThemeDark
+
+Cada preset incluye 12 capas de color: primary, dark primary, secondary, dark secondary, accent, dark accent, muted, dark muted, y variaciones de backgrounds.
 
 ### **Persistencia de Tema**
 
@@ -364,14 +450,33 @@ Todas las configuraciones del tema (colores, layout, modo, dirección) se persis
 - Sin estructura de layout predefinida
 - Perfecto para páginas de auth y diseños personalizados
 
+### **Patrones Arquitectónicos**
+
+Tucu UI soporta dos patrones arquitectónicos para diferentes casos de uso:
+
+#### **Patrón Standalone App (Por Defecto)**
+
+- Generación automática de rutas desde `menuItems`
+- Configuración simple con navegación basada en menú
+- Perfecto para aplicaciones de página única
+- `customRoutes` opcional para necesidades de routing avanzadas
+
+#### **Patrón Micro Frontends (MFE)**
+
+- Configuración explícita de rutas con `appRoutesConfig`
+- Protección de rutas con `isPublic` e `isAuthenticated`
+- Soporte de ruta base para integración de micro-frontends
+- TypeScript asegura el uso correcto de props para cada patrón
+
 ### **Características Automáticas**
 
 - ✅ **Diseño Responsive** - Drawer móvil, adaptaciones para tablet
 - ✅ **Modo Oscuro/Claro** - Cambio automático de tema
 - ✅ **Soporte RTL** - Soporte completo para idiomas de derecha a izquierda
-- ✅ **Colores de Marca** - 6 presets de color predefinidos
+- ✅ **Colores de Marca** - 34+ presets de color con arquitectura multi-capa
 - ✅ **Panel de Configuración** - Personalización de usuario incorporada
-- ✅ **Integración de Ruteo** - Generación automática de rutas
+- ✅ **Integración de Ruteo** - Generación automática de rutas (Standalone) o configuración explícita (MFE)
+- ✅ **Seguridad de Tipos** - Uniones discriminadas de TypeScript aseguran el uso correcto del patrón
 
 ### **Gestión de Temas**
 
@@ -411,7 +516,7 @@ function ControlesTema() {
 ### **Componentes de Formularios Integrales**
 
 ```tsx
-import { Form, FormField, Input, Textarea, Checkbox, RadioGroup, InputSelect, PinCode, FileInput, Button } from '@e-burgos/tucu-ui';
+import { Form, FormField, Input, Textarea, Checkbox, RadioGroup, Select, PinCode, FileInput, Button } from '@e-burgos/tucu-ui';
 ```
 
 ### **Validación Centralizada**
@@ -471,7 +576,7 @@ function FormularioRegistroUsuario() {
       </FormField>
 
       <FormField<DatosFormularioUsuario> name="pais" label="País">
-        <InputSelect
+        <Select
           options={[
             { name: 'México', value: 'mx' },
             { name: 'Colombia', value: 'co' },
@@ -714,7 +819,7 @@ import {
 ### **Layout y Navegación**
 
 ```tsx
-import { Modal, Drawer, CardContainer, PanelActionCard } from 'tucu-ui';
+import { Modal, Drawer, CardContainer, PanelActionCard, Carousel, CarouselCards, CarouselImage } from '@e-burgos/tucu-ui';
 
 // Modal con Accesibilidad
 <Modal
@@ -750,10 +855,52 @@ import { Modal, Drawer, CardContainer, PanelActionCard } from 'tucu-ui';
 </PanelActionCard>
 ```
 
+### **Componentes Carousel**
+
+Sistema completo de carousel con múltiples variantes:
+
+```tsx
+import { Carousel, CarouselCards, CarouselImage } from '@e-burgos/tucu-ui';
+
+// Carousel Básico
+<Carousel
+  slidesPerView={1}
+  spaceBetween={20}
+  showNavigation
+  showPagination
+  autoplay={{ delay: 3000 }}
+  loop
+>
+  <div>Slide 1</div>
+  <div>Slide 2</div>
+  <div>Slide 3</div>
+</Carousel>
+
+// Carousel de Tarjetas
+<CarouselCards
+  cards={[
+    { title: 'Tarjeta 1', description: 'Descripción 1', content: <div>Contenido 1</div> },
+    { title: 'Tarjeta 2', description: 'Descripción 2', content: <div>Contenido 2</div> },
+  ]}
+  showNavigation
+  showPagination
+/>
+
+// Carousel de Imágenes
+<CarouselImage
+  images={[
+    { src: '/imagen1.jpg', alt: 'Imagen 1', title: 'Título 1' },
+    { src: '/imagen2.jpg', alt: 'Imagen 2', title: 'Título 2' },
+  ]}
+  showNavigation
+  showPagination
+/>
+```
+
 ### **Componentes de Retroalimentación**
 
 ```tsx
-import { Alert, Toast, useToast } from 'tucu-ui';
+import { Alert, useToastStore } from '@e-burgos/tucu-ui';
 
 // Mensajes de Alerta
 <Alert variant="success" dismissible>
@@ -766,10 +913,11 @@ import { Alert, Toast, useToast } from 'tucu-ui';
 
 // Notificaciones Toast
 function EjemploToast() {
-  const { toast } = useToast();
+  const { addToast } = useToastStore();
 
   const mostrarToast = () => {
-    toast({
+    addToast({
+      id: Date.now().toString(),
       title: '¡Éxito!',
       message: 'Tu perfil ha sido actualizado',
       variant: 'success',
@@ -782,20 +930,52 @@ function EjemploToast() {
 
 ## 🎣 Hooks de Utilidad
 
+Colección completa de hooks personalizados de React para patrones comunes:
+
 ```tsx
-import { useBreakpoint, useIsMobile, useCopyToClipboard, useClickAway, useElementSize, useLockBodyScroll } from 'tucu-ui';
+import { useBreakpoint, useIsMobile, useCopyToClipboard, useClickAway, useElementSize, useMeasure, useLockBodyScroll, useToastStore, useGridSwitcher } from '@e-burgos/tucu-ui';
 
 function EjemploUtilidades() {
-  const breakpoint = useBreakpoint();
-  const esMobile = useIsMobile();
+  // Hooks Responsive
+  const breakpoint = useBreakpoint(); // 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl'
+  const { isMobile } = useIsMobile();
+
+  // Medición de Elementos
+  const [ref, { width, height }] = useElementSize();
+  const [measureRef, bounds] = useMeasure();
+
+  // Hooks de Interacción
   const [textoCopiado, copiar] = useCopyToClipboard();
+  const clickAwayRef = useRef(null);
+  useClickAway(clickAwayRef, () => setIsOpen(false));
+
+  // Gestión de Estado UI
+  const { addToast, dismissToast, toasts } = useToastStore();
+  const { isGridCompact, setIsGridCompact } = useGridSwitcher();
 
   return (
     <div>
       <p>Breakpoint actual: {breakpoint}</p>
-      {esMobile && <ComponenteSoloMobile />}
+      {isMobile && <ComponenteSoloMobile />}
+
+      <div ref={ref}>
+        Tamaño: {width} × {height}px
+      </div>
 
       <button onClick={() => copiar('¡Hola Mundo!')}>{textoCopiado ? '¡Copiado!' : 'Copiar Texto'}</button>
+
+      <button
+        onClick={() =>
+          addToast({
+            id: Date.now().toString(),
+            title: '¡Éxito!',
+            message: 'Operación completada',
+            variant: 'success',
+          })
+        }
+      >
+        Mostrar Toast
+      </button>
     </div>
   );
 }
@@ -804,12 +984,12 @@ function EjemploUtilidades() {
 ## 🚀 Autenticación Lista para Usar
 
 ```tsx
-import { SignInForm, SignUpForm, ForgetPasswordForm, ResetPinForm } from 'tucu-ui';
+import { SignInForm, SignUpForm, ForgetPasswordForm, ResetPinForm } from '@e-burgos/tucu-ui';
 
 // Flujo completo de autenticación
 function PaginasAuth() {
   return (
-    <ThemeProvider layout="none" menuItems={[]}>
+    <ThemeProvider layout="none" menuItems={[]} isAuthenticated={false} loginUrl="/login">
       <div className="min-h-screen flex items-center justify-center">
         {/* Inicio de sesión con validación */}
         <SignInForm forgetPasswordPath="/olvide-contraseña" />
@@ -834,14 +1014,21 @@ Tucu UI incluye páginas comprehensivas de documentación para ayudarte a comenz
 - **Introduction** - Guía de overview y getting started
 - **TailwindV4** - Guía completa de integración de Tailwind CSS v4 con 15 categorías de utilidades
 - **Features** - Explora todas las características y utilidades disponibles
+  - **Routing System** - Patrones arquitectónicos Standalone y MFE
+  - **Icons System** - 5000+ iconos de Lucide + 97+ iconos personalizados
+  - **Hooks Utilities** - Hooks personalizados de React para patrones comunes
+  - **Accessibility** - Cumplimiento WCAG 2.1 AA y mejores prácticas
 - **Components** - Overview de librería de componentes y patrones de uso
+  - **UI Components** - 43+ componentes UI (botones, tarjetas, diálogos, notificaciones, etc.)
+  - **Input Components** - 11+ componentes de entrada de formularios
+  - **Blockchain Components** - 9+ componentes especializados DeFi/Web3
+- **Form System** - Solución completa de formularios con validación
+  - **Form Examples** - Ejemplos interactivos y patrones del mundo real
+  - **Code Examples** - Patrones de implementación y mejores prácticas
 - **Theming Guide** - Opciones avanzadas de theming y personalización
 - **Design System** - Principios de diseño visual y guidelines
 - **Colors** - Paleta completa de colores y sistema de theming
 - **Layout System** - Patrones responsive de layout y técnicas
-- **Icons System** - Librería de iconos y guidelines de uso
-- **Accessibility** - Características de accesibilidad y cumplimiento WCAG
-- **Hooks Utilities** - Hooks custom de React para patrones comunes
 
 ### **15 Páginas de Documentación de Utilidades Tailwind CSS v4**
 
@@ -861,39 +1048,39 @@ Documentación comprehensiva para todas las utilidades de Tailwind:
 - **SVG Utilities** - Fill, stroke, stroke-width
 - **Accessibility Utilities** - Utilidades de lector de pantalla y foco
 
-### **Dashboard Moderno**
+### **Dashboard Moderno (Patrón Standalone)**
 
 ```tsx
-import { ThemeProvider, LucideIcons, useTheme } from 'tucu-ui';
+import { ThemeProvider, LucideIcons, useTheme } from '@e-burgos/tucu-ui';
 
 const elementosMenuDashboard = [
   {
     name: 'Resumen',
-    href: '/',
+    path: '/',
     icon: <LucideIcons.LayoutDashboard />,
     component: <PaginaResumen />,
   },
   {
     name: 'Análisis',
-    href: '/analytics',
+    path: '/analytics',
     icon: <LucideIcons.BarChart3 />,
     component: <PaginaAnalisis />,
     dropdownItems: [
       {
         name: 'Reportes',
-        href: '/analytics/reports',
+        path: '/analytics/reports',
         component: <PaginaReportes />,
       },
       {
         name: 'Tiempo Real',
-        href: '/analytics/realtime',
+        path: '/analytics/realtime',
         component: <PaginaTiempoReal />,
       },
     ],
   },
   {
     name: 'Usuarios',
-    href: '/usuarios',
+    path: '/usuarios',
     icon: <LucideIcons.Users />,
     component: <PaginaUsuarios />,
   },
@@ -903,9 +1090,11 @@ function Dashboard() {
   return (
     <ThemeProvider
       layout="classic"
-      menuItems={elementosMenuDashboard}
+      menuItems={elementosMenuDashboard} // Patrón Standalone (por defecto)
+      isAuthenticated={true}
+      loginUrl="/login"
       logo={{ name: 'Panel', secondName: 'Admin' }}
-      brandColor="BufusBlue" // Nuevo preset de color avanzado
+      brandColor="BufusBlue"
       showSettings={true}
       rightButton={<MenuPerfilUsuario />}
     />
@@ -913,65 +1102,128 @@ function Dashboard() {
 }
 ```
 
-### **Aplicación DeFi**
+### **Aplicación DeFi (Patrón Standalone)**
 
 ```tsx
-import { ThemeProvider, CoinCard, LivePriceFeed, LucideIcons } from 'tucu-ui';
+import { ThemeProvider, CoinCard, LivePriceFeed, LucideIcons } from '@e-burgos/tucu-ui';
 
 const elementosMenuDefi = [
   {
     name: 'Portfolio',
-    href: '/',
+    path: '/',
     icon: <LucideIcons.Wallet />,
     component: <PaginaPortfolio />,
   },
   {
     name: 'Swap',
-    href: '/swap',
+    path: '/swap',
     icon: <LucideIcons.ArrowLeftRight />,
     component: <PaginaSwap />,
   },
   {
     name: 'Staking',
-    href: '/staking',
+    path: '/staking',
     icon: <LucideIcons.Coins />,
     component: <PaginaStaking />,
   },
 ];
 
 function AppDeFi() {
-  return <ThemeProvider layout="minimal" menuItems={elementosMenuDefi} logo={{ name: 'DeFi', secondName: 'Portfolio' }} brandColor="Green" rightButton={<ConectorWallet />} />;
+  return (
+    <ThemeProvider
+      layout="minimal"
+      menuItems={elementosMenuDefi} // Patrón Standalone
+      isAuthenticated={true}
+      loginUrl="/login"
+      logo={{ name: 'DeFi', secondName: 'Portfolio' }}
+      brandColor="Green"
+      rightButton={<ConectorWallet />}
+    />
+  );
 }
 ```
 
-### **Plataforma E-commerce**
+### **Aplicación Micro Frontend (Patrón MFE)**
 
 ```tsx
-import { ThemeProvider, LucideIcons, Form, FormField, Input } from 'tucu-ui';
+import { ThemeProvider, LucideIcons } from '@e-burgos/tucu-ui';
+
+const appRoutesConfig = [
+  {
+    key: 'portfolio',
+    path: '/',
+    element: <PaginaPortfolio />,
+    isPublic: false,
+  },
+  {
+    key: 'swap',
+    path: '/swap',
+    element: <PaginaSwap />,
+    isPublic: false,
+  },
+  {
+    key: 'staking',
+    path: '/staking',
+    element: <PaginaStaking />,
+    isPublic: false,
+  },
+];
+
+function AppDeFiMFE() {
+  const estaAutenticado = useAuth(); // Tu hook de autenticación
+
+  return (
+    <ThemeProvider
+      architecturalPatterns="mfe" // Patrón MFE
+      basePath="/defi-app"
+      appRoutesConfig={appRoutesConfig}
+      isAuthenticated={estaAutenticado}
+      loginUrl="/login" // Requerido para patrón MFE
+      logo={{ name: 'DeFi', secondName: 'MFE' }}
+      brandColor="Green"
+    />
+  );
+}
+```
+
+### **Plataforma E-commerce (Patrón Standalone)**
+
+```tsx
+import { ThemeProvider, LucideIcons, Form, FormField, Input } from '@e-burgos/tucu-ui';
 
 const elementosMenuEcommerce = [
   {
     name: 'Productos',
-    href: '/productos',
+    path: '/productos',
     icon: <LucideIcons.Package />,
     component: <PaginaProductos />,
   },
   {
     name: 'Órdenes',
-    href: '/ordenes',
+    path: '/ordenes',
     icon: <LucideIcons.ShoppingCart />,
     component: <PaginaOrdenes />,
   },
   {
     name: 'Clientes',
-    href: '/clientes',
+    path: '/clientes',
     icon: <LucideIcons.Users />,
     component: <PaginaClientes />,
   },
 ];
 
 function AdminEcommerce() {
-  return <ThemeProvider layout="classic" menuItems={elementosMenuEcommerce} logo={{ name: 'Tienda', secondName: 'Admin' }} brandColor="Purple" showSettings={true} />;
+  return (
+    <ThemeProvider
+      layout="classic"
+      menuItems={elementosMenuEcommerce} // Patrón Standalone
+      isAuthenticated={true}
+      loginUrl="/login"
+      logo={{ name: 'Tienda', secondName: 'Admin' }}
+      brandColor="Purple"
+      showSettings={true}
+    />
+  );
 }
 ```
 
@@ -979,7 +1231,7 @@ function AdminEcommerce() {
 
 ### **Sistema Avanzado de Colores**
 
-Tucu UI soporta un sistema de theming de colores multi-capa con 26+ presets:
+Tucu UI soporta un sistema de theming de colores multi-capa con 34+ presets y arquitectura de 12 capas:
 
 ```tsx
 <ThemeProvider
@@ -1104,8 +1356,7 @@ Licencia MIT - ¡siéntete libre de usar en tus proyectos!
 
 ## 🌐 Comunidad y Soporte
 
-- **📚 [Documentación](https://main--683712ba90eaad206f988c65.chromatic.com/?path=/docs/1-documentation-1-introduction--documentation)** - Guías completas y ejemplos
-- **🎨 [Storybook](https://main--683712ba90eaad206f988c65.chromatic.com/)** - Explorador interactivo de componentes
+- **📚 [Documentación](https://tucu-ui.netlify.app/)** - Guías completas y ejemplos
 - **🐛 [Issues](https://github.com/e-burgos/tucu-ui/issues)** - Reportar bugs y solicitar características
 - **💬 [Discusiones](https://github.com/e-burgos/tucu-ui/discussions)** - Soporte de la comunidad e ideas
 

@@ -217,7 +217,7 @@ export const Theme: Story = {
 export const UsageIcons: Story = {
   render: () => (
     <StoryContainer className="flex justify-start items-center">
-      <div className="p-4 max-w-4xl mx-auto">
+      <div className="p-4 max-w-6xl mx-auto">
         <h1 className="text-2xl font-bold mb-6">How to Import and Use</h1>
 
         <div className="mb-8">

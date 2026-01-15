@@ -10,9 +10,10 @@ import {
 } from '@storybook/addon-docs/blocks';
 import { ReactRenderer, Preview, StoryContext } from '@storybook/react-vite';
 import { PartialStoryFn } from 'storybook/internal/types';
-import { useTheme } from '../src/themes/use-theme';
-import ThemeProvider from '../src/themes/components/theme-provider';
+import { useTheme } from '../src/themes/hooks/use-theme';
+import { ThemeProvider } from '../src/themes/components/theme-provider';
 import '../src/styles.css';
+import { LAYOUT_OPTIONS } from '../src/themes/config';
 
 const ThemeDecorator = (
   Story: PartialStoryFn<ReactRenderer, object>,
@@ -42,21 +43,18 @@ const ThemeDecorator = (
 
   return (
     <ThemeProvider
-      layout="none"
+      layout={LAYOUT_OPTIONS.CLEAN}
       showSettings={false}
-      settingActions={{
-        disabledDirection: true,
-      }}
-      className="flex min-h-[500px] h-screen w-screen items-center justify-center overflow-auto"
+      contentClassName="flex min-h-[500px] h-screen w-screen items-center justify-center overflow-auto"
       menuItems={[
         {
           name: 'Story',
-          href: '/',
+          path: '/',
           component: <Story />,
         },
         {
           name: 'Story',
-          href: '*',
+          path: '*',
           component: <Story />,
         },
       ]}

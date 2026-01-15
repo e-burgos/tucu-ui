@@ -70,7 +70,7 @@ export const CarouselCards: React.FC<CarouselCardsProps> = ({
         >
           {/* Image/Icon */}
           {(card.image || card.icon) && (
-            <div className="flex-shrink-0 mb-4">
+            <div className="shrink-0 mb-4">
               {card.image ? (
                 <img
                   src={card.image}

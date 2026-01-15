@@ -1,17 +1,17 @@
 import React from 'react';
 import type { Meta, StoryFn } from '@storybook/react-vite';
-import { InputSwitch } from '../../../components/forms';
+import { Switch } from '../../../components/forms';
 import { StoryContainer } from '../../components/StoryContainer';
 
-const meta: Meta<typeof InputSwitch> = {
-  title: '3. UI COMPONENTS/Inputs/InputSwitch',
+const meta: Meta<typeof Switch> = {
+  title: '3. UI COMPONENTS/Inputs/Switch',
   tags: ['autodocs'],
-  component: InputSwitch,
+  component: Switch,
   parameters: {
     docs: {
       description: {
         component:
-          'The InputSwitch component provides a toggle control that can be switched between on and off states. It includes on/off labels and supports custom styling.',
+          'The Switch component provides a toggle control that can be switched between on and off states. It includes on/off labels and supports custom styling.',
       },
     },
   },
@@ -51,12 +51,12 @@ const meta: Meta<typeof InputSwitch> = {
 
 export default meta;
 
-const Template: StoryFn<typeof InputSwitch> = (args) => {
+const Template: StoryFn<typeof Switch> = (args) => {
   const [checked, setChecked] = React.useState(args.checked || false);
 
   return (
     <StoryContainer>
-      <InputSwitch {...args} checked={checked} onChange={setChecked} />
+      <Switch {...args} checked={checked} onChange={setChecked} />
     </StoryContainer>
   );
 };
@@ -107,7 +107,7 @@ export const FeatureToggleExample = () => {
                 Enable dark theme for the application
               </p>
             </div>
-            <InputSwitch
+            <Switch
               checked={features.darkMode}
               onChange={() => handleToggle('darkMode')}
             />
@@ -120,7 +120,7 @@ export const FeatureToggleExample = () => {
                 Receive notifications about updates
               </p>
             </div>
-            <InputSwitch
+            <Switch
               checked={features.notifications}
               onChange={() => handleToggle('notifications')}
             />
@@ -133,7 +133,7 @@ export const FeatureToggleExample = () => {
                 Automatically save your progress
               </p>
             </div>
-            <InputSwitch
+            <Switch
               checked={features.autoSave}
               onChange={() => handleToggle('autoSave')}
             />
@@ -165,19 +165,19 @@ export const FormExample = () => {
         <h2 className="text-xl font-semibold mb-4">Notification Preferences</h2>
 
         <div className="space-y-6">
-          <InputSwitch
+          <Switch
             label="Enable notifications"
             checked={enableNotifications}
             onChange={setEnableNotifications}
           />
 
-          <InputSwitch
+          <Switch
             label="Receive product updates"
             checked={receiveUpdates}
             onChange={setReceiveUpdates}
           />
 
-          <InputSwitch
+          <Switch
             label="Marketing emails"
             checked={marketingEmails}
             onChange={setMarketingEmails}

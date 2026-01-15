@@ -69,7 +69,6 @@ const config: StorybookConfig = {
           'react-router-dom',
           'lucide-react',
           'react-hook-form',
-          'react-dropzone',
           'swiper/modules',
           'swiper/react',
           'framer-motion',

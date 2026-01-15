@@ -57,12 +57,10 @@ export const CodeBlock = ({
     });
   };
 
-  console.log(isExpanded);
-
   return (
     <div
       className={cn(
-        'relative bg-gray-100 dark:bg-gray-800 rounded-xl border dark:border-gray-700 hover:border-gray-600 mt-4',
+        'overflow-x-auto relative bg-gray-100 dark:bg-gray-800 rounded-xl border dark:border-gray-700 hover:border-gray-600 mt-4',
         isExpanded
           ? 'max-h-[300px] h-[300px] transition-all duration-300'
           : 'h-full transition-all duration-300',

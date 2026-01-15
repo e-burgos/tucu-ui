@@ -1,0 +1,34 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "bundler",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "ES2022",
+    "module": "ESNext",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@e-burgos-mfe/utils": ["libs/utils/src/index.ts"],
+      "@e-burgos-mfe/shell": ["libs/shell/src/index.ts"],
+      "@e-burgos-mfe/auth-security": ["libs/auth-security/src/index.ts"],
+      "@e-burgos-mfe/api": ["libs/api/src/index.ts"],
+      "@e-burgos/tucu-ui": ["../../ui/tucu-ui/src/index.ts"],
+      "@e-burgos/tucu-ui/styles": ["../../dist/ui/tucu-ui/index.css"]
+    },
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "forceConsistentCasingInFileNames": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "jsx": "react-jsx"
+  },
+  "exclude": ["node_modules", "tmp"]
+}

@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "module": "ESNext",
+    "lib": ["ES2022", "DOM"],
+    "declaration": true,
+    "declarationMap": true,
+    "outDir": "../../dist/out-tsc",
+    "types": []
+  },
+  "extends": "../../tsconfig.base.json",
+  "include": ["src/**/*.ts", "../../vite-env.d.ts"],
+  "exclude": ["jest.config.ts", "src/**/*.spec.ts", "src/**/*.test.ts"]
+}

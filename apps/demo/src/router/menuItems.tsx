@@ -1,216 +1,251 @@
 import { useMemo } from 'react';
-import { LucideIcons, type AppRoutesMenuItem } from '@e-burgos/tucu-ui';
-import { Introduction } from '../pages/introduction';
-import { DesignSystem } from '../pages/DesignSystem';
-import { ThemingGuide } from '../pages/ThemingGuide';
-import { FormSystem } from '../pages/form-system';
-import { Blockchain } from '../pages/components/Blockchain';
-import { Accessibility } from '../pages/Accessibility';
-import { LayoutSystem } from '../pages/LayoutSystem';
-import { IconsSystem } from '../pages/IconsSystem';
-import { HooksUtilities } from '../pages/HooksUtilities';
-import { Colors } from '../pages/Colors';
-import { LayoutUtilities } from '../pages/tailwind/LayoutUtilities';
-import { TailwindV4 } from '../pages/TailwindV4';
-import { Features } from '../pages/Features';
-import { Components } from '../pages/components';
-import { UiComponents } from '../pages/components/UiComponents';
-import { RoutingSystem } from '../pages/RoutingSystem';
-import { FlexboxGridUtilities } from '../pages/tailwind/FlexboxGridUtilities';
-import { BackgroundUtilities } from '../pages/tailwind/BackgroundUtilities';
-import { EffectsUtilities } from '../pages/tailwind/EffectsUtilities';
-import { FiltersUtilities } from '../pages/tailwind/FiltersUtilities';
-import { TablesUtilities } from '../pages/tailwind/TablesUtilities';
-import { TransitionsAnimations } from '../pages/tailwind/TransitionsAnimations';
-import { TransformsUtilities } from '../pages/tailwind/TransformsUtilities';
-import { InteractivityUtilities } from '../pages/tailwind/InteractivityUtilities';
-import { SVGUtilities } from '../pages/tailwind/SVGUtilities';
-import { AccessibilityUtilities } from '../pages/tailwind/AccessibilityUtilities';
-import { BordersUtilities } from '../pages/tailwind/BordersUtilities';
-import { TypographyUtilities } from '../pages/tailwind/TypographyUtilities';
-import FormExamplePage from '../pages/form-system/form-example-page';
-import CodeExamplePage from '../pages/form-system/code-example-page';
+
+import {
+  type StandaloneAppRoutesMenuItem,
+  LucideIcons,
+} from '@e-burgos/tucu-ui';
+
+// Components
+import {
+  BlockchainComponents,
+  ComponentsIntroduction,
+  InputsComponents,
+  UiComponents,
+} from '@e-burgos/tucu-ui';
+
+// Design System
+import { DesignSystem, LayoutSystem, ThemingGuide } from '@e-burgos/tucu-ui';
+
+// Features
+import {
+  FeaturesIntroduction,
+  Accessibility,
+  HooksUtilities,
+  IconsSystem,
+  RoutingSystem,
+} from '@e-burgos/tucu-ui';
+
+// Form System
+import {
+  FormExamplePage,
+  CodeExamplePage,
+  FormSystem,
+} from '@e-burgos/tucu-ui';
+
+// Introduction
+import { Introduction } from '@e-burgos/tucu-ui';
+
+// Tailwind Utilities
+import {
+  TailwindIntroduction,
+  Colors,
+  LayoutUtilities,
+  FlexboxGridUtilities,
+  BackgroundUtilities,
+  BordersUtilities,
+  TypographyUtilities,
+  EffectsUtilities,
+  FiltersUtilities,
+  TablesUtilities,
+  TransitionsAnimations,
+  TransformsUtilities,
+  InteractivityUtilities,
+  SVGUtilities,
+  AccessibilityUtilities,
+} from '@e-burgos/tucu-ui';
+
+// Components
+export const APP_PATHS = {
+  INTRODUCTION: { path: '/', name: 'Home' },
+  DESIGN_SYSTEM: { path: '/design-system', name: 'Design System' },
+  FORMS: { path: '/form-system', name: 'Forms' },
+  COMPONENTS: { path: '/components', name: 'Components' },
+  FEATURES: { path: '/features', name: 'Features' },
+  TAILWIND_UTILITIES: { path: '/tailwind-utilities', name: 'Tailwind V4' },
+};
 
 export const useMenuItems = () => {
-  const menuItems: AppRoutesMenuItem[] = useMemo(
+  const menuItems: StandaloneAppRoutesMenuItem[] = useMemo(
     () => [
       {
-        name: 'Introduction',
-        href: '/',
+        name: APP_PATHS.INTRODUCTION.name,
+        path: APP_PATHS.INTRODUCTION.path,
         icon: <LucideIcons.Home />,
         component: <Introduction />,
       },
       {
-        name: 'Theming',
-        href: '/theming-guide',
-        icon: <LucideIcons.Paintbrush />,
-        component: <ThemingGuide />,
+        name: APP_PATHS.DESIGN_SYSTEM.name,
+        path: APP_PATHS.DESIGN_SYSTEM.path,
+        icon: <LucideIcons.LampDesk />,
+        component: <DesignSystem />,
         dropdownItems: [
           {
             name: 'Layout',
-            href: '/layout-system',
+            path: APP_PATHS.DESIGN_SYSTEM.path + '/layout-system',
             icon: <LucideIcons.Layout />,
             component: <LayoutSystem />,
           },
           {
-            name: 'Design',
-            href: '/design-system',
-            icon: <LucideIcons.LampDesk />,
-            component: <DesignSystem />,
-          },
-          {
-            name: 'Colors',
-            href: '/colors',
-            icon: <LucideIcons.Palette />,
-            component: <Colors />,
+            name: 'Theming Guide',
+            path: APP_PATHS.DESIGN_SYSTEM.path + '/theming-guide',
+            icon: <LucideIcons.Paintbrush />,
+            component: <ThemingGuide />,
           },
         ],
       },
       {
-        name: 'Components',
-        href: '/components',
-        component: <Components />,
-        icon: <LucideIcons.Component />,
+        name: APP_PATHS.FORMS.name,
+        path: APP_PATHS.FORMS.path,
+        icon: <LucideIcons.FileText />,
+        component: <FormSystem />,
         dropdownItems: [
           {
-            name: 'UI Components',
-            href: '/ui-components',
-            icon: <LucideIcons.Component />,
-            component: <UiComponents />,
-          },
-          {
-            name: 'Blockchain',
-            href: '/blockchain',
-            icon: <LucideIcons.Coins />,
-            component: <Blockchain />,
-          },
-        ],
-      },
-      {
-        name: 'Features',
-        href: '/features',
-        icon: <LucideIcons.Layers />,
-        component: <Features />,
-        dropdownItems: [
-          {
-            name: 'Icons',
-            href: '/icons-system',
-            icon: <LucideIcons.Sparkles />,
-            component: <IconsSystem />,
-          },
-          {
-            name: 'Accessibility',
-            href: '/accessibility',
-            icon: <LucideIcons.Eye />,
-            component: <Accessibility />,
-          },
-          {
-            name: 'Hooks',
-            href: '/hooks-utilities',
-            icon: <LucideIcons.Settings />,
-            component: <HooksUtilities />,
-          },
-          {
-            name: 'Routing',
-            href: '/routing-system',
-            icon: <LucideIcons.Route />,
-            component: <RoutingSystem />,
-          },
-          {
-            name: 'Forms',
-            href: '/form-system',
-            icon: <LucideIcons.FileText />,
-            component: <FormSystem />,
-          },
-          {
-            name: 'Form Live Example',
-            href: '/form-system/example',
+            name: 'Form Example',
+            path: APP_PATHS.FORMS.path + '/example',
             icon: <LucideIcons.FormInput />,
             component: <FormExamplePage />,
           },
           {
-            name: 'Form Code Example',
-            href: '/form-system/code-example',
+            name: 'Code Example',
+            path: APP_PATHS.FORMS.path + '/code-example',
             icon: <LucideIcons.Code />,
             component: <CodeExamplePage />,
           },
         ],
       },
       {
-        name: 'TailwindV4',
-        href: '/tailwind-utilities',
+        name: APP_PATHS.COMPONENTS.name,
+        path: APP_PATHS.COMPONENTS.path,
+        component: <ComponentsIntroduction />,
+        icon: <LucideIcons.Component />,
+        dropdownItems: [
+          {
+            name: 'Blockchain',
+            path: APP_PATHS.COMPONENTS.path + '/blockchain',
+            icon: <LucideIcons.Coins />,
+            component: <BlockchainComponents />,
+          },
+          {
+            name: 'UI Components',
+            path: APP_PATHS.COMPONENTS.path + '/ui-components',
+            icon: <LucideIcons.Component />,
+            component: <UiComponents />,
+          },
+          {
+            name: 'Inputs Components',
+            path: APP_PATHS.COMPONENTS.path + '/inputs-components',
+            icon: <LucideIcons.Keyboard />,
+            component: <InputsComponents />,
+          },
+        ],
+      },
+      {
+        name: APP_PATHS.FEATURES.name,
+        path: APP_PATHS.FEATURES.path,
+        icon: <LucideIcons.Layers />,
+        component: <FeaturesIntroduction />,
+        dropdownItems: [
+          {
+            name: 'Icons',
+            path: APP_PATHS.FEATURES.path + '/icons-system',
+            icon: <LucideIcons.Sparkles />,
+            component: <IconsSystem />,
+          },
+          {
+            name: 'Accessibility',
+            path: APP_PATHS.FEATURES.path + '/accessibility',
+            icon: <LucideIcons.Eye />,
+            component: <Accessibility />,
+          },
+          {
+            name: 'Hooks',
+            path: APP_PATHS.FEATURES.path + '/hooks-utilities',
+            icon: <LucideIcons.Settings />,
+            component: <HooksUtilities />,
+          },
+          {
+            name: 'Routing',
+            path: APP_PATHS.FEATURES.path + '/routing-system',
+            icon: <LucideIcons.Route />,
+            component: <RoutingSystem />,
+          },
+        ],
+      },
+      {
+        name: APP_PATHS.TAILWIND_UTILITIES.name,
+        path: APP_PATHS.TAILWIND_UTILITIES.path,
         icon: <LucideIcons.Layout />,
-        component: <TailwindV4 />,
+        component: <TailwindIntroduction />,
         dropdownItems: [
           {
             name: 'Layout Utilities',
-            href: '/tailwind-utilities/layout-utilities',
+            path: APP_PATHS.TAILWIND_UTILITIES.path + '/layout-utilities',
             icon: <LucideIcons.Layout />,
             component: <LayoutUtilities />,
           },
           {
             name: 'Flexbox & Grid',
-            href: '/tailwind-utilities/flexbox-grid',
+            path: APP_PATHS.TAILWIND_UTILITIES.path + '/flexbox-grid',
             icon: <LucideIcons.Grid3X3 />,
             component: <FlexboxGridUtilities />,
           },
           {
             name: 'Background',
-            href: '/tailwind-utilities/background',
+            path: APP_PATHS.TAILWIND_UTILITIES.path + '/background',
             icon: <LucideIcons.Image />,
             component: <BackgroundUtilities />,
           },
           {
             name: 'Borders',
-            href: '/tailwind-utilities/borders',
+            path: APP_PATHS.TAILWIND_UTILITIES.path + '/borders',
             icon: <LucideIcons.Square />,
             component: <BordersUtilities />,
           },
           {
             name: 'Typography',
-            href: '/tailwind-utilities/typography',
+            path: APP_PATHS.TAILWIND_UTILITIES.path + '/typography',
             icon: <LucideIcons.Type />,
             component: <TypographyUtilities />,
           },
           {
             name: 'Effects',
-            href: '/tailwind-utilities/effects',
+            path: APP_PATHS.TAILWIND_UTILITIES.path + '/effects',
             icon: <LucideIcons.Sparkles />,
             component: <EffectsUtilities />,
           },
           {
             name: 'Filters',
-            href: '/tailwind-utilities/filters',
+            path: APP_PATHS.TAILWIND_UTILITIES.path + '/filters',
             icon: <LucideIcons.Filter />,
             component: <FiltersUtilities />,
           },
           {
             name: 'Tables',
-            href: '/tailwind-utilities/tables',
+            path: APP_PATHS.TAILWIND_UTILITIES.path + '/tables',
             icon: <LucideIcons.Table />,
             component: <TablesUtilities />,
           },
           {
             name: 'Transitions',
-            href: '/tailwind-utilities/transitions',
+            path: APP_PATHS.TAILWIND_UTILITIES.path + '/transitions',
             icon: <LucideIcons.Play />,
             component: <TransitionsAnimations />,
           },
           {
             name: 'Transforms',
-            href: '/tailwind-utilities/transforms',
+            path: APP_PATHS.TAILWIND_UTILITIES.path + '/transforms',
             icon: <LucideIcons.Move3D />,
             component: <TransformsUtilities />,
           },
           {
             name: 'Interactivity',
-            href: '/tailwind-utilities/interactivity',
+            path: APP_PATHS.TAILWIND_UTILITIES.path + '/interactivity',
             icon: <LucideIcons.MousePointerClick />,
             component: <InteractivityUtilities />,
           },
           {
             name: 'SVG',
-            href: '/tailwind-utilities/svg',
+            path: APP_PATHS.TAILWIND_UTILITIES.path + '/svg',
             icon: (
               <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
                 <circle
@@ -228,9 +263,15 @@ export const useMenuItems = () => {
           },
           {
             name: 'Accessibility',
-            href: '/tailwind-utilities/accessibility',
+            path: APP_PATHS.TAILWIND_UTILITIES.path + '/accessibility',
             icon: <LucideIcons.Accessibility />,
             component: <AccessibilityUtilities />,
+          },
+          {
+            name: 'Colors',
+            path: APP_PATHS.TAILWIND_UTILITIES.path + '/colors',
+            icon: <LucideIcons.Palette />,
+            component: <Colors />,
           },
         ],
       },

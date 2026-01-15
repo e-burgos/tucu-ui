@@ -1,0 +1,9 @@
+{
+  "name": "utils",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/utils/src",
+  "projectType": "library",
+  "tags": [],
+  "// NOTE": "Build target disabled - libraries are not built, only apps are built",
+  "targets": {}
+}

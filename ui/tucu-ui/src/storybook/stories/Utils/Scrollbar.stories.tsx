@@ -96,7 +96,7 @@ HorizontalScroll.args = {
       {Array.from({ length: 10 }, (_, i) => (
         <div
           key={i}
-          className="flex-shrink-0 w-48 p-4 bg-gray-100 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700"
+          className="shrink-0 w-48 p-4 bg-gray-100 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700"
         >
           <h3 className="font-semibold text-gray-900 dark:text-white">
             Card {i + 1}

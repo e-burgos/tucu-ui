@@ -1,12 +1,11 @@
 import AnchorLink from '../links/anchor-link';
-import { useIsMounted } from '../../hooks/use-is-mounted';
 import cn from 'classnames';
-import { useTheme } from '../../themes/use-theme';
-import { PRESET_COLORS } from '../../themes/config';
 import { PRESET_LABEL_COLORS } from '../../themes/config';
+import TucuUiLogo from './tucu-ui-logo';
+import Typography from '../typography';
 
 export interface LogoPropTypes {
-  name: string;
+  name?: string;
   secondName?: string;
   path?: string;
   preset?: PRESET_LABEL_COLORS;
@@ -20,20 +19,11 @@ export function Logo({
   name,
   secondName,
   path,
-  preset,
   className,
   size = 'medium',
   logo = null,
   isoType = false,
 }: LogoPropTypes) {
-  const { mode, preset: themePreset } = useTheme();
-  const isMounted = useIsMounted();
-  const isDarkMode = mode === 'dark';
-
-  const color = preset
-    ? PRESET_COLORS[preset?.toLocaleUpperCase() as keyof typeof PRESET_COLORS]
-    : 'text-brand';
-
   const textSize =
     size === 'small'
       ? 'text-xl'
@@ -42,6 +32,14 @@ export function Logo({
       : size === 'large'
       ? 'text-3xl'
       : 'text-4xl';
+  const logoSize =
+    size === 'small'
+      ? 60
+      : size === 'medium'
+      ? 80
+      : size === 'large'
+      ? 100
+      : 120;
 
   const handleName = (name: string) => {
     if (isoType) return name?.[0]?.toUpperCase();
@@ -49,52 +47,51 @@ export function Logo({
   };
 
   return (
-    isMounted && (
-      <AnchorLink to={path || '/'}>
-        <span className={cn('relative flex w-full', className)}>
-          {isDarkMode && (
-            <div className="flex items-center gap-1">
-              {logo && logo}
-              <div className="flex items-end text-base font-medium text-gray-900 dark:text-white sm:text-xl flex-nowrap">
-                <span className={cn('font-semibold', textSize)}>
-                  {handleName(name) || 'Site Name'}
-                </span>
-                {secondName && (
-                  <span
-                    style={{ color: color || themePreset?.value }}
-                    className={cn('font-semibold', textSize, !preset && color)}
-                  >
-                    {handleName(secondName)}
-                  </span>
-                )}
-              </div>
-            </div>
+    <AnchorLink to={path || '/'}>
+      <span className={cn('relative flex w-full', className)}>
+        <div
+          className={cn(
+            logo && 'gap-1',
+            'flex items-center flex-nowrap overflow-hidden truncate'
           )}
-          {!isDarkMode && (
-            <div className="flex items-center gap-1 flex-nowrap overflow-hidden truncate">
-              {logo && logo}
-              <div className="flex flex-nowrap truncate items-end text-base font-medium text-gray-900 dark:text-white sm:text-xl">
-                <span className={cn('font-semibold truncate', textSize)}>
-                  {handleName(name) || 'Site Name'}
-                </span>
-                {secondName && (
-                  <span
-                    style={{ color: color }}
-                    className={cn(
-                      'font-semibold truncate',
-                      textSize,
-                      !preset && color
-                    )}
-                  >
-                    {handleName(secondName)}
-                  </span>
-                )}
-              </div>
-            </div>
+        >
+          {logo ? (
+            logo
+          ) : name || secondName ? (
+            <TucuUiLogo
+              size={logoSize}
+              className={`w-[${logoSize}px] h-[${logoSize}px]`}
+            />
+          ) : (
+            <TucuUiLogo
+              size={logoSize}
+              className={`w-[${logoSize}px] h-[${logoSize}px]`}
+            />
           )}
-        </span>
-      </AnchorLink>
-    )
+          <div
+            className={cn(
+              !logo && '-ml-2',
+              'flex flex-nowrap truncate items-end text-base font-medium text-gray-900 dark:text-white sm:text-xl'
+            )}
+          >
+            <Typography
+              tag="span"
+              className={cn('font-semibold truncate ', textSize)}
+            >
+              {handleName(name ? name : name === undefined ? 'TUCU' : '')}
+            </Typography>
+            <Typography
+              tag="span"
+              className={cn('font-semibold truncate text-primary', textSize)}
+            >
+              {handleName(
+                secondName ? secondName : secondName === undefined ? 'UI' : ''
+              )}
+            </Typography>
+          </div>
+        </div>
+      </span>
+    </AnchorLink>
   );
 }
 

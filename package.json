@@ -12,12 +12,16 @@
     "tucu-ui:install": "pnpm nx run tucu-ui:install:lib",
     "tucu-ui:pack": "pnpm exec nx run tucu-ui:pack:lib ",
     "tucu-ui:serve": "pnpm nx run tucu-ui:serve-storybook",
+    "tucu-ui:lint": "pnpm nx run tucu-ui:lint --verbose",
     "demo": "pnpm nx run demo:serve",
     "demo:install": "pnpm nx run demo:app:install",
     "demo:build": "pnpm nx run demo:build",
     "test-lib": "pnpm nx run test-lib:serve",
     "test-lib:install": "pnpm nx run test-lib:app:install",
-    "test-lib:build": "pnpm nx run test-lib:build"
+    "test-lib:build": "pnpm nx run test-lib:build",
+    "design-system": "pnpm nx run design-system:serve",
+    "design-system:install": "pnpm nx run design-system:app:install",
+    "design-system:build": "pnpm nx run design-system:build"
   },
   "devDependencies": {
     "@babel/core": "^7.14.5",
@@ -53,6 +57,7 @@
     "@vitest/ui": "^1.3.1",
     "autoprefixer": "10.4.13",
     "babel-jest": "30.0.5",
+    "baseline-browser-mapping": "^2.9.9",
     "chromatic": "^12.0.0",
     "eslint": "^8.57.1",
     "eslint-plugin-import": "^2.31.0",
@@ -63,6 +68,7 @@
     "gl-matrix": "^3.4.3",
     "jest": "30.0.5",
     "jest-environment-jsdom": "30.0.5",
+    "jest-util": "30.0.5",
     "jiti": "2.4.2",
     "jsdom": "~22.1.0",
     "lodash": "^4.17.21",
@@ -79,8 +85,7 @@
     "vite-plugin-dts": "4.5.4",
     "vite-plugin-node-polyfills": "^0.23.0",
     "vite-plugin-svgr": "^4.2.0",
-    "vitest": "^1.3.1",
-    "jest-util": "30.0.5"
+    "vitest": "^1.3.1"
   },
   "engines": {
     "node": ">=22.0.0",

@@ -1,11 +1,11 @@
 /// <reference types='vitest' />
-import { defineConfig } from 'vite';
+import { defineConfig, PluginOption } from 'vite';
 import react from '@vitejs/plugin-react';
 import dts from 'vite-plugin-dts';
 import * as path from 'path';
 import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin';
 import { copyFileSync } from 'fs';
-import tailwindcssPostcss from '@tailwindcss/postcss';
+import tailwindcss from '@tailwindcss/vite';
 
 const copyReadmePlugin = () => {
   return {
@@ -46,12 +46,8 @@ export default defineConfig({
     }),
     copyReadmePlugin(),
     copyChangelogPlugin(),
+    tailwindcss() as PluginOption,
   ],
-  css: {
-    postcss: {
-      plugins: [tailwindcssPostcss({})],
-    },
-  },
   resolve: {
     alias: {
       '@/lucide-react': path.resolve(__dirname, 'src/lucide-react'),

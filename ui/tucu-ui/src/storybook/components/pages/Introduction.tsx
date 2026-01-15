@@ -33,7 +33,7 @@ import {
 export function Introduction() {
   const { mode } = useTheme();
   return (
-    <div className="space-y-8 sm:space-y-12 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+    <div className="space-y-8 sm:space-y-12 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative pt-8 lg:pt-12">
       {/* Hero Section */}
       <section className="relative overflow-hidden">
         <div className="relative bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 rounded-2xl p-6 sm:p-8 md:p-12 lg:p-16">
@@ -57,7 +57,7 @@ export function Introduction() {
 
             <Typography
               tag="p"
-              className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-600 dark:text-gray-300 max-w-4xl mx-auto leading-relaxed"
+              className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-600 dark:text-gray-300 max-w-6xl mx-auto leading-relaxed"
             >
               A modern, comprehensive React component library built with
               TypeScript and Tailwind CSS. Designed for developers who need
@@ -540,13 +540,13 @@ function App() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <ul className="space-y-3">
                     <li className="flex items-center gap-3">
-                      <Check className="w-5 h-5 text-green-500 flex-shrink-0" />
+                      <Check className="w-5 h-5 text-green-500 shrink-0" />
                       <span className="text-sm">
                         Component API with detailed props and examples
                       </span>
                     </li>
                     <li className="flex items-center gap-3">
-                      <Check className="w-5 h-5 text-green-500 flex-shrink-0" />
+                      <Check className="w-5 h-5 text-green-500 shrink-0" />
                       <span className="text-sm">
                         Theming system for colors, spacing, and typography
                       </span>
@@ -554,13 +554,13 @@ function App() {
                   </ul>
                   <ul className="space-y-3">
                     <li className="flex items-center gap-3">
-                      <Check className="w-5 h-5 text-green-500 flex-shrink-0" />
+                      <Check className="w-5 h-5 text-green-500 shrink-0" />
                       <span className="text-sm">
                         Advanced form handling with validation
                       </span>
                     </li>
                     <li className="flex items-center gap-3">
-                      <Check className="w-5 h-5 text-green-500 flex-shrink-0" />
+                      <Check className="w-5 h-5 text-green-500 shrink-0" />
                       <span className="text-sm">
                         Accessibility features and best practices
                       </span>

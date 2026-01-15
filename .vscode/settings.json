@@ -3,10 +3,12 @@
   "cSpell.words": [
     "agro",
     "datatable",
+    "eburgos",
     "headlessui",
     "Presupuestos",
     "Siochana",
     "Tucu"
   ],
-  "nxConsole.generateAiAgentRules": true
+  "nxConsole.generateAiAgentRules": true,
+  "vitest.disableWorkspaceWarning": true
 }

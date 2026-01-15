@@ -164,7 +164,7 @@ const sampleVerticalSlides = [
 
 export const Basic: StoryFn<typeof Carousel> = (args) => (
   <StoryContainer>
-    <div className="w-full max-w-4xl h-[400px]">
+    <div className="w-full max-w-6xl h-[400px]">
       <h2 className="text-2xl font-bold mb-6 text-center">Basic Carousel</h2>
       <Carousel {...args}>
         {args.direction === 'vertical' ? sampleVerticalSlides : sampleSlides}
@@ -216,7 +216,7 @@ MultipleSlides.args = {
 
 export const Autoplay: StoryFn<typeof Carousel> = (args) => (
   <StoryContainer>
-    <div className="w-full max-w-4xl h-[400px]">
+    <div className="w-full max-w-6xl h-[400px]">
       <h2 className="text-2xl font-bold mb-6 text-center">Autoplay Carousel</h2>
       <Carousel {...args}>
         {args.direction === 'vertical' ? sampleVerticalSlides : sampleSlides}
@@ -237,7 +237,7 @@ Autoplay.args = {
 
 export const FadeEffect: StoryFn<typeof Carousel> = (args) => (
   <StoryContainer>
-    <div className="w-full max-w-4xl h-[400px]">
+    <div className="w-full max-w-6xl h-[400px]">
       <h2 className="text-2xl font-bold mb-6 text-center">
         Fade Effect Carousel
       </h2>
@@ -374,7 +374,7 @@ ImageCarousel.args = {
 export const Breakpoints: StoryFn<typeof Carousel> = (args) => {
   return (
     <StoryContainer>
-      <div className="w-full max-w-4xl">
+      <div className="w-full max-w-6xl">
         <h2 className="text-2xl font-bold mb-6 text-center">Breakpoints</h2>
         <Carousel {...args}>
           {args.direction === 'vertical' ? sampleVerticalSlides : sampleSlides}

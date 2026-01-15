@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import cn from 'classnames';
 import Button from '../buttons/button';
-import PinCode from '../forms/pin-code';
+import { PinCode } from '../inputs/pin-code';
 import AnchorLink from '../links/anchor-link';
 
 export interface ResetPinFormData {
@@ -98,7 +98,7 @@ export function ResetPinForm({
               <PinCode
                 length={pinLength}
                 placeholder="-"
-                variant="outline"
+                variant="ghost"
                 color="primary"
                 size="md"
                 value={pin}

@@ -75,7 +75,7 @@ export const WithComplexContent = () => (
 
 export const GridOfCards = () => (
   <StoryContainer>
-    <div className="w-full max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div className="w-full max-w-6xl grid grid-cols-1 md:grid-cols-2 gap-4">
       <CardContainer className="flex flex-col !bg-brand/20 gap-4">
         <h3 className="font-bold">Statistics</h3>
         <p className="mt-2">User activity metrics</p>

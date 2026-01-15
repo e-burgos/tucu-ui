@@ -15,6 +15,7 @@ export * from './check';
 export * from './checkmark';
 export * from './chevron-down';
 export * from './chevron-forward';
+export * from './chevron-left';
 export * from './chevron-right';
 export * from './classic-layout-icon';
 export * from './close';

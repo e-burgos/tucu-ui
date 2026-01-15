@@ -61,7 +61,7 @@ export function Avatar({
             alt={alt}
             width={'100%'}
             height={'100%'}
-            priority
+            priority="auto"
             className="rounded-full"
           />
         ) : (
@@ -70,7 +70,7 @@ export function Avatar({
             alt={alt}
             width={'100%'}
             height={'100%'}
-            priority
+            priority="auto"
             placeholder="blur"
             className="rounded-full"
           />
@@ -82,6 +82,7 @@ export function Avatar({
           className=""
           width={'100%'}
           height={'100%'}
+          priority="auto"
         />
       )}
     </figure>

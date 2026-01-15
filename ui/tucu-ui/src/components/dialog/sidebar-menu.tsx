@@ -1,12 +1,10 @@
 import React from 'react';
 import cn from 'classnames';
 import Logo, { LogoPropTypes } from '../logos/logo';
-import { MenuItem } from '../common/menu-item';
+import { MenuItem, IMenuItem } from '../layouts/menus/menu-item';
 import Button from '../buttons';
-import { X } from 'lucide-react';
-import { IMenuItem } from '../common/menu-item';
+import { Close } from '../icons/close';
 import Scrollbar from '../common/scrollbar';
-import { useIsMobile } from '../../hooks';
 
 export function SidebarMenu({
   className,
@@ -25,12 +23,12 @@ export function SidebarMenu({
   onClose: () => void;
   logo?: LogoPropTypes;
 }) {
-  const { isMobile } = useIsMobile();
   const sidebarMenu =
     menuItems &&
     menuItems?.map((item) => ({
       name: item.name,
       icon: item.icon,
+      path: item.path,
       href: item.href,
       hide: item.hide,
       isActive: item.isActive,
@@ -39,6 +37,7 @@ export function SidebarMenu({
         dropdownItems: item?.dropdownItems?.map((dropdownItem) => ({
           name: dropdownItem.name,
           ...(dropdownItem?.icon && { icon: dropdownItem.icon }),
+          path: dropdownItem.path,
           href: dropdownItem.href,
           hide: dropdownItem.hide,
           isActive: dropdownItem.isActive,
@@ -50,11 +49,11 @@ export function SidebarMenu({
   return (
     <aside
       className={cn(
-        'top-0 z-40 h-full w-full max-w-full border-dashed border-gray-200 bg-body dark:border-gray-700 dark:bg-dark xs:w-80 2xl:w-96',
+        'top-0 z-40 h-full w-full max-w-full border-dashed border-gray-200 dark:border-gray-700 bg-light-dark xs:w-80 2xl:w-96',
         className
       )}
     >
-      <div className="relative flex h-24 items-center justify-between overflow-hidden px-6 py-4 2xl:px-8">
+      <div className="relative flex h-[96px] items-center justify-between overflow-hidden px-[24px] py-[16px] 2xl:px-[32px]">
         {logo && <Logo {...(logo as LogoPropTypes)} />}
         {title && (
           <h2 className="text-lg font-medium uppercase tracking-wider text-gray-900 dark:text-white">
@@ -66,15 +65,15 @@ export function SidebarMenu({
           shape="circle"
           variant="ghost"
           size="mini"
-          onClick={isMobile ? undefined : onClose}
+          onClick={onClose}
           onTouchStart={onClose}
           onTouchEnd={onClose}
         >
-          <X className="h-4 w-4" />
+          <Close className="h-[8px] w-[8px]" width={16} height={16} />
         </Button>
       </div>
-      <Scrollbar style={{ height: 'calc(100% - 96px)' }}>
-        <div className="px-4 2xl:px-6 pb-20">
+      <Scrollbar className="h-[calc(100%-96px)] custom-scrollbar overflow-hidden overflow-y-auto">
+        <div className="px-[16px] 2xl:px-[24px] pb-[80px]">
           {children}
           {sidebarMenu &&
             sidebarMenu.map((item, index) => (
@@ -82,6 +81,7 @@ export function SidebarMenu({
                 onClick={onClose}
                 key={`menu-item-${index}`}
                 name={item.name}
+                path={item.path}
                 href={item.href}
                 icon={item.icon}
                 hide={item.hide}
@@ -98,7 +98,7 @@ export function SidebarMenu({
         </div>
       </Scrollbar>
       {actionContent && (
-        <div className="absolute bottom-4 left-0 z-10 w-full px-6 flex gap-2">
+        <div className="absolute bottom-[16px] left-0 z-10 w-full px-[24px] flex gap-[8px]">
           {actionContent}
         </div>
       )}

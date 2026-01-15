@@ -3,10 +3,10 @@ import { fn } from 'storybook/test';
 import { InputSearcher } from '../../../components/forms';
 import { StoryContainer } from '../../components/StoryContainer';
 import React, { useState } from 'react';
-import { InputSelectOption } from '../../../components/forms/input-select';
+import { SelectOption } from '../../../components/forms/input-select';
 
 // Sample options for demonstration
-const sampleOptions: InputSelectOption[] = [
+const sampleOptions: SelectOption[] = [
   { name: 'Apple', value: 'apple' },
   { name: 'Banana', value: 'banana' },
   { name: 'Orange', value: 'orange' },
@@ -130,15 +130,16 @@ Disabled.args = {
 };
 
 export const WithOptions = () => {
-  const [selectedOption, setSelectedOption] =
-    useState<InputSelectOption | null>(null);
+  const [selectedOption, setSelectedOption] = useState<SelectOption | null>(
+    null
+  );
 
   return (
     <StoryContainer>
       <div className="w-full max-w-md space-y-4">
         <InputSearcher
           onOptionSelect={(option) => {
-            setSelectedOption(option as InputSelectOption);
+            setSelectedOption(option as SelectOption);
             console.log('Option selected:', option);
           }}
           options={sampleOptions}
@@ -176,9 +177,7 @@ export const WithOptions = () => {
 };
 
 export const MultipleSelection = () => {
-  const [selectedOptions, setSelectedOptions] = useState<InputSelectOption[]>(
-    []
-  );
+  const [selectedOptions, setSelectedOptions] = useState<SelectOption[]>([]);
 
   return (
     <StoryContainer>
@@ -186,7 +185,7 @@ export const MultipleSelection = () => {
         <InputSearcher
           multiple
           onOptionSelect={(options) => {
-            setSelectedOptions(options as InputSelectOption[]);
+            setSelectedOptions(options as SelectOption[]);
             console.log('Options selected:', options);
           }}
           options={sampleOptions}

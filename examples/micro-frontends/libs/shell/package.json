@@ -1,0 +1,13 @@
+{
+  "name": "@e-burgos-mfe/shell",
+  "version": "0.0.0",
+  "type": "module",
+  "main": "./index.js",
+  "typings": "./index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./index.js",
+      "types": "./index.d.ts"
+    }
+  }
+}

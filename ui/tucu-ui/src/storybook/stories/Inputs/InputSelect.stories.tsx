@@ -1,20 +1,20 @@
 import React from 'react';
 import type { Meta, StoryFn } from '@storybook/react-vite';
-import { InputSelect, InputSelectOption } from '../../../components/forms';
+import { Select, SelectOption } from '../../../components/forms';
 import { StoryContainer } from '../../components/StoryContainer';
 import { Globe, MapPin, Flag, Building } from 'lucide-react';
 import Button from '../../../components/buttons';
 import { AnchorLink } from '../../../components';
 
-const meta: Meta<typeof InputSelect> = {
-  title: '3. UI COMPONENTS/Inputs/InputSelect',
+const meta: Meta<typeof Select> = {
+  title: '3. UI COMPONENTS/Inputs/Select',
   tags: ['autodocs'],
-  component: InputSelect,
+  component: Select,
   parameters: {
     docs: {
       description: {
         component:
-          'The InputSelect component provides a dropdown selection control with customizable options. It supports icons, different variants, and can be integrated with form libraries.',
+          'The Select component provides a dropdown selection control with customizable options. It supports icons, different variants, and can be integrated with form libraries.',
       },
     },
   },
@@ -64,7 +64,7 @@ const meta: Meta<typeof InputSelect> = {
 
 export default meta;
 
-const countryOptions: InputSelectOption[] = [
+const countryOptions: SelectOption[] = [
   { name: 'United States', value: 'us' },
   { name: 'Canada', value: 'ca' },
   { name: 'United Kingdom', value: 'uk' },
@@ -77,15 +77,15 @@ const countryOptions: InputSelectOption[] = [
   { name: 'China', value: 'cn' },
 ];
 
-const Template: StoryFn<typeof InputSelect> = (args) => {
+const Template: StoryFn<typeof Select> = (args) => {
   const [selectedOption, setSelectedOption] = React.useState<
-    InputSelectOption | undefined
+    SelectOption | undefined
   >(args.selectedOption);
 
   return (
     <StoryContainer>
       <div className="w-full max-w-md">
-        <InputSelect
+        <Select
           {...args}
           options={args.options || countryOptions}
           selectedOption={selectedOption}
@@ -152,13 +152,13 @@ CustomOptions.args = {
 
 export const WithCustomChild = () => {
   const [selectedOption, setSelectedOption] = React.useState<
-    InputSelectOption | undefined
+    SelectOption | undefined
   >(countryOptions[0]);
 
   return (
     <StoryContainer>
       <div className="w-full max-w-md">
-        <InputSelect
+        <Select
           label="Country"
           options={countryOptions}
           selectedOption={selectedOption}
@@ -173,17 +173,17 @@ export const WithCustomChild = () => {
               View all countries
             </AnchorLink>
           </div>
-        </InputSelect>
+        </Select>
       </div>
     </StoryContainer>
   );
 };
 
 export const LocationSelector = () => {
-  const [country, setCountry] = React.useState<InputSelectOption | undefined>();
-  const [city, setCity] = React.useState<InputSelectOption | undefined>();
+  const [country, setCountry] = React.useState<SelectOption | undefined>();
+  const [city, setCity] = React.useState<SelectOption | undefined>();
 
-  const cityOptions: Record<string, InputSelectOption[]> = {
+  const cityOptions: Record<string, SelectOption[]> = {
     us: [
       { name: 'New York', value: 'ny' },
       { name: 'Los Angeles', value: 'la' },
@@ -221,7 +221,7 @@ export const LocationSelector = () => {
           <div className="flex items-center">
             <Flag className="h-5 w-5 mr-3 text-gray-500" />
             <div className="flex-1">
-              <InputSelect
+              <Select
                 label="Country"
                 options={countryOptions.slice(0, 3)}
                 selectedOption={country}
@@ -233,7 +233,7 @@ export const LocationSelector = () => {
           <div className="flex items-center">
             <Building className="h-5 w-5 mr-3 text-gray-500" />
             <div className="flex-1">
-              <InputSelect
+              <Select
                 label="City"
                 options={availableCities}
                 selectedOption={city}
@@ -246,7 +246,7 @@ export const LocationSelector = () => {
           <div className="flex items-center">
             <MapPin className="h-5 w-5 mr-3 text-gray-500" />
             <div className="flex-1">
-              <InputSelect
+              <Select
                 label="District"
                 options={[]}
                 disabled={!city}
@@ -258,7 +258,7 @@ export const LocationSelector = () => {
                 <div className="p-2 text-center text-sm text-gray-500">
                   {city ? 'No districts available' : 'Select a city first'}
                 </div>
-              </InputSelect>
+              </Select>
             </div>
           </div>
         </div>
@@ -280,8 +280,8 @@ export const LocationSelector = () => {
 
 export const FormExample = () => {
   const [formData, setFormData] = React.useState({
-    category: undefined as InputSelectOption | undefined,
-    priority: undefined as InputSelectOption | undefined,
+    category: undefined as SelectOption | undefined,
+    priority: undefined as SelectOption | undefined,
   });
 
   const categoryOptions = [
@@ -312,7 +312,7 @@ export const FormExample = () => {
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <InputSelect
+            <Select
               label="Category"
               options={categoryOptions}
               selectedOption={formData.category}
@@ -324,7 +324,7 @@ export const FormExample = () => {
           </div>
 
           <div>
-            <InputSelect
+            <Select
               label="Priority"
               options={priorityOptions}
               selectedOption={formData.priority}

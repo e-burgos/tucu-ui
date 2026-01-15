@@ -80,7 +80,6 @@ Built on industry-leading libraries for maximum reliability:
 - **[Framer Motion](https://www.framer.com/motion/)** - Smooth animations and transitions
 - **[Recharts](https://recharts.org/)** - Composable charting library for data visualization
 - **[Swiper](https://swiperjs.com/)** - Modern mobile touch slider
-- **[React Dropzone](https://react-dropzone.js.org/)** - Simple HTML5 drag-drop zone
 
 ## 📦 Installation
 
@@ -275,7 +274,7 @@ import {
   Textarea,
   Checkbox,
   RadioGroup,
-  InputSelect,
+  Select,
   PinCode,
   FileInput,
   Button,
@@ -339,7 +338,7 @@ function UserRegistrationForm() {
       </FormField>
 
       <FormField<UserFormData> name="country" label="Country">
-        <InputSelect
+        <Select
           options={[
             { name: 'United States', value: 'us' },
             { name: 'Canada', value: 'ca' },

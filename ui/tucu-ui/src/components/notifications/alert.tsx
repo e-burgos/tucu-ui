@@ -5,6 +5,7 @@ interface AlertProps {
   children: React.ReactNode;
   variant?: 'info' | 'warning' | 'error' | 'success';
   dismissible?: boolean;
+  className?: string;
   onDismiss?: () => void;
   'aria-label'?: string;
 }
@@ -13,6 +14,7 @@ export function Alert({
   children,
   variant = 'info',
   dismissible = true,
+  className,
   onDismiss,
   'aria-label': ariaLabel,
 }: React.PropsWithChildren<AlertProps>) {
@@ -30,13 +32,13 @@ export function Alert({
   const getVariantStyles = () => {
     switch (variant) {
       case 'error':
-        return 'bg-red-50 border-red-200 text-red-800 dark:bg-red-900/20 dark:border-red-800 dark:text-red-200';
+        return 'bg-red-50 border-red-200 dark:bg-red-900/20 dark:border-red-800 text-white dark:text-red-200';
       case 'warning':
-        return 'bg-yellow-50 border-yellow-200 text-yellow-800 dark:bg-yellow-900/20 dark:border-yellow-800 dark:text-yellow-200';
+        return 'bg-yellow-50 border-yellow-200 dark:bg-yellow-900/20 dark:border-yellow-800 text-white dark:text-yellow-200';
       case 'success':
-        return 'bg-green-50 border-green-200 text-green-800 dark:bg-green-900/20 dark:border-green-800 dark:text-green-200';
+        return 'bg-green-50 border-green-200 dark:bg-green-900/20 dark:border-green-800 text-white dark:text-green-200';
       default:
-        return 'bg-blue-50 border-blue-200 text-blue-800 dark:bg-blue-900/20 dark:border-blue-800 dark:text-blue-200';
+        return 'bg-blue-50 border-blue-200 dark:bg-blue-900/20 dark:border-blue-800 text-white dark:text-blue-200';
     }
   };
 
@@ -46,7 +48,7 @@ export function Alert({
       aria-live="assertive"
       aria-atomic="true"
       aria-label={ariaLabel}
-      className={`relative rounded-lg border py-4 shadow-card ltr:pl-4 ltr:pr-8 rtl:pr-4 rtl:pl-8 sm:py-6 sm:ltr:pr-10 sm:ltr:pl-6 sm:rtl:pl-10 sm:rtl:pr-6 ${getVariantStyles()}`}
+      className={`relative rounded-lg border py-4 shadow-card ltr:pl-4 ltr:pr-8 rtl:pr-4 rtl:pl-8 sm:py-6 sm:ltr:pr-10 sm:ltr:pl-6 sm:rtl:pl-10 sm:rtl:pr-6 ${getVariantStyles()} ${className}`}
     >
       {children}
 

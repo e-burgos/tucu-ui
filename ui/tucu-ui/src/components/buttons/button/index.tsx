@@ -190,15 +190,18 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           disabled={disabled}
           {...buttonProps}
         >
-          <span className={cn(isLoading && 'invisible opacity-0')}>
+          <span
+            className={cn(
+              isLoading
+                ? 'invisible opacity-0'
+                : 'flex items-center justify-center gap-1'
+            )}
+          >
             {children}
           </span>
 
           {isLoading && (
-            <>
-              <ButtonLoader size={loaderSize} variant={loaderVariant} />
-              <span className="sr-only">Loading...</span>
-            </>
+            <ButtonLoader size={loaderSize} variant={loaderVariant} />
           )}
 
           {dripShow && (

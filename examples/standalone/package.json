@@ -1,0 +1,39 @@
+{
+  "name": "@e-burgos/standalone",
+  "version": "0.0.0",
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "install:local": "pnpm install --ignore-workspace"
+  },
+  "dependencies": {
+    "@tanstack/react-query": "^5.90.12",
+    "@tanstack/react-query-devtools": "^5.91.1",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
+    "react-hook-form": "^7.70.0",
+    "react-router-dom": "^7.9.6",
+    "tailwindcss": "^4.1.18",
+    "zustand": "^5.0.8",
+    "country-flag-icons": "^1.6.4"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.1.18",
+    "@types/node": "^20.0.0",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.0.0",
+    "@typescript-eslint/eslint-plugin": "^8.47.0",
+    "@typescript-eslint/parser": "^8.47.0",
+    "@vitejs/plugin-react": "^4.2.0",
+    "eslint": "~9.39.2",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "eslint-plugin-react-refresh": "^0.4.26",
+    "typescript": "~5.9.2",
+    "vite": "^7.3.0",
+    "vite-plugin-node-polyfills": "^0.24.0"
+  }
+}

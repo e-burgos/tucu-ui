@@ -410,7 +410,7 @@ export const AllIcons: Story = {
 export const ImportExamples: Story = {
   render: () => (
     <StoryContainer>
-      <div className="p-4 max-w-4xl mx-auto">
+      <div className="p-4 max-w-6xl mx-auto">
         <h1 className="text-2xl font-bold mb-6">How to Import and Use</h1>
 
         <div className="mb-8">

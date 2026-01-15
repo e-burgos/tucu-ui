@@ -1,7 +1,7 @@
 {
   "name": "@e-burgos/tucu-ui",
   "description": "Tucu UI Library",
-  "version": "1.1.0",
+  "version": "2.0.0",
   "main": "./index.js",
   "module": "./index.mjs",
   "types": "./index.d.ts",
@@ -49,12 +49,11 @@
     "pack:lib": "cd ../../ui/tucu-ui && pnpm npm pack"
   },
   "dependencies": {
-    "@headlessui/react": "2.2.4",
+    "@headlessui/react": "2.2.9",
     "@tailwindcss/typography": "0.0.0-insiders.0339c42",
     "classnames": "^2.5.1",
     "framer-motion": "12.23.3",
     "lucide-react": "^0.460.0",
-    "react-dropzone": "14.3.8",
     "react-hook-form": "7.60.0",
     "react-router-dom": "7.9.1",
     "react-router": "7.9.1",
@@ -64,9 +63,8 @@
     "zustand": "^5.0.8"
   },
   "devDependencies": {
-    "tailwindcss": "^4.1.10",
-    "@tailwindcss/postcss": "^4.1.10",
-    "postcss": "^8.5.6",
+    "@tailwindcss/vite": "^4.1.18",
+    "tailwindcss": "^4.1.18",
     "prismjs": "^1.30.0",
     "@types/prismjs": "^1.26.5"
   },

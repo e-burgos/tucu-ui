@@ -1,10 +1,8 @@
 import { useState } from 'react';
 import AnchorLink from '../links/anchor-link';
-import Checkbox from '../forms/checkbox';
-import Button from '../buttons/button';
-import Input from '../forms/input';
-import { Form } from '../forms/form-system';
-import { FormField } from '../forms/form-system/form-field';
+import { Checkbox, Input } from '../inputs';
+import { Button } from '../buttons';
+import { Form, FormField } from '../forms';
 
 // import icons
 import { EyeIcon } from '../icons/eye';

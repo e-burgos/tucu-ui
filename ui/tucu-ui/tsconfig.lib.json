@@ -31,6 +31,7 @@
     "src/**/*.jsx",
     "src/**/*.ts",
     "src/**/*.tsx",
-    "vite-env.d.ts"
+    "vite-env.d.ts",
+    "src/demo/pages/introduction/BasicUsageExample.tsx?raw"
   ]
 }

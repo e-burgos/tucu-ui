@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "skipLibCheck": true,
+    "jsx": "react-jsx",
+    "allowJs": false,
+    "esModuleInterop": false,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "types": ["vite/client"],
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@e-burgos/tucu-ui": ["../../ui/tucu-ui/src/index.ts"],
+      "@e-burgos/tucu-ui/*": ["../../ui/tucu-ui/src/*"]
+    }
+  },
+  "include": ["src", "../../ui/tucu-ui/src"],
+  "references": [{ "path": "./tsconfig.node.json" }]
+}

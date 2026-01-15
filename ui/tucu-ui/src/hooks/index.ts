@@ -11,3 +11,4 @@ export * from './use-measure';
 export * from './use-scrollable-slider';
 export * from './use-toast-store';
 export * from './use-window-scroll';
+export * from './use-anchor-scroll';

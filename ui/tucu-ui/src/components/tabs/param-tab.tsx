@@ -4,17 +4,23 @@ import { TabGroup, TabList, TabItem, TabPanels, TabPanel } from './tab';
 import { useBreakpoint } from '../../hooks';
 import { useIsMounted } from '../../hooks/use-is-mounted';
 import TabSelect from './tab-select';
-import cn from 'classnames';
+
+type VariantNames = 'underline' | 'pills' | 'bordered' | 'solid';
+type SizeNames = 'small' | 'medium' | 'large';
 
 export interface TabMenuItem {
   title: React.ReactNode;
   path: string;
+  icon?: React.ReactNode;
 }
 
 export interface ParamTabTypes {
   tabMenu: TabMenuItem[];
   children: React.ReactNode;
   tabListClassName?: string;
+  variant?: VariantNames;
+  size?: SizeNames;
+  showMobileSelect?: boolean;
 }
 
 export { TabPanel };
@@ -23,6 +29,9 @@ export function ParamTab({
   tabMenu,
   children,
   tabListClassName,
+  variant = 'underline',
+  size = 'medium',
+  showMobileSelect = true,
 }: ParamTabTypes) {
   const router = useNavigate();
   const pathname = useLocation().pathname;
@@ -50,23 +59,26 @@ export function ParamTab({
   }
 
   useEffect(() => {
-    if (query)
-      setSelectedTabIndex(tabMenu.findIndex((item) => query === item.path));
+    if (query) {
+      const index = tabMenu.findIndex((item) => query === item.path);
+      if (index !== -1) {
+        setSelectedTabIndex(index);
+      }
+    }
   }, [query, tabMenu]);
+
+  const shouldShowMobileSelect =
+    showMobileSelect && isMounted && ['xs', 'sm'].indexOf(breakpoint) !== -1;
 
   return (
     <TabGroup
+      variant={variant}
       selectedIndex={selectedTabIndex}
       onChange={(index: number) => handleTabChange(index)}
     >
-      <TabList
-        className={cn(
-          'relative mb-6 bg-body text-sm uppercase before:absolute before:bottom-0 before:left-0 before:w-full before:rounded-xs before:bg-gray-200 dark:bg-dark dark:before:bg-gray-800 sm:gap-8 sm:rounded-none md:before:h-0.5',
-          tabListClassName
-        )}
-      >
-        {isMounted && ['xs', 'sm'].indexOf(breakpoint) !== -1 ? (
-          <div ref={dropdownEl}>
+      <TabList variant={variant} className={tabListClassName}>
+        {shouldShowMobileSelect ? (
+          <div ref={dropdownEl} className="w-full">
             <TabSelect
               tabMenu={tabMenu}
               selectedTabIndex={selectedTabIndex}
@@ -74,11 +86,18 @@ export function ParamTab({
             />
           </div>
         ) : (
-          <div className="flex gap-6 md:gap-8 xl:gap-10 3xl:gap-12">
+          <>
             {tabMenu.map((item) => (
-              <TabItem key={item.path}>{item.title}</TabItem>
+              <TabItem
+                key={item.path}
+                variant={variant}
+                size={size}
+                icon={item.icon}
+              >
+                {item.title}
+              </TabItem>
             ))}
-          </div>
+          </>
         )}
       </TabList>
       <TabPanels>{children}</TabPanels>

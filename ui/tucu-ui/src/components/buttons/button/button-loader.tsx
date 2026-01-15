@@ -11,7 +11,7 @@ export default function ButtonLoader({
   variant: LoaderVariantTypes;
 }) {
   return (
-    <span className="absolute inset-0 h-full w-full flex items-center justify-center">
+    <span className="inset-0 h-full w-full flex items-center justify-center">
       <Loader
         tag="span"
         size={size}

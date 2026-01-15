@@ -12,7 +12,7 @@ export const CardContainer: React.FC<CardContainerProps> = ({
   return (
     <div
       className={cn(
-        'flex flex-wrap justify-start align-middle w-full rounded-lg bg-white p-4 shadow-card dark:bg-light-dark sm:p-6 h-full 2xl:px-8',
+        'flex flex-col flex-wrap justify-start align-middle w-full h-full rounded-lg border border-gray-200/50 dark:border-gray-700/50 shadow-card bg-light-dark p-[16px] sm:p-[24px] 2xl:p-[32px]',
         className
       )}
     >

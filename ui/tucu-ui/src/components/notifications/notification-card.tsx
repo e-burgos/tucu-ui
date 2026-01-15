@@ -32,7 +32,7 @@ export function NotificationCard({
           src={actor.avatar}
           alt={actor.name}
           placeholder="blur"
-          priority
+          priority="auto"
         />
       </div>
       <div className="ltr:ml-3 rtl:mr-3 sm:ltr:ml-4 sm:rtl:mr-4">

@@ -1,12 +1,11 @@
-import { useEffect, useState } from 'react';
-import { useTheme } from '../../themes/use-theme';
-import MinimalLayout from './minimal/layout';
-import ClassicLayout from './classic/layout';
-import AuthLayout from './authentication/layout';
+import { useState } from 'react';
+import HorizontalLayout from './horizontal';
+import AdminLayout from './admin-layout';
+import CleanLayout from './clean-layout';
 import Toast from '../notifications/toast';
 import { LogoPropTypes } from '../logos/logo';
-import { LAYOUT_OPTIONS, LayoutOptionType } from '../../themes/config';
-import { IMenuItem } from '../common/menu-item';
+import { LAYOUT_OPTIONS, LayoutOptionType } from '../../themes/config/index';
+import { IMenuItem } from './menus/menu-item';
 
 export interface LayoutTypeProps {
   logo?: LogoPropTypes;
@@ -36,17 +35,17 @@ const LayoutType = ({
 }: RootLayoutProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  if (layout === LAYOUT_OPTIONS.NONE) {
+  if (layout === LAYOUT_OPTIONS.CLEAN) {
     return (
-      <AuthLayout className={className || contentClassName}>
+      <CleanLayout className={className || contentClassName}>
         {children}
         <Toast />
-      </AuthLayout>
+      </CleanLayout>
     );
   }
-  if (layout === LAYOUT_OPTIONS.MINIMAL) {
+  if (layout === LAYOUT_OPTIONS.HORIZONTAL) {
     return (
-      <MinimalLayout
+      <HorizontalLayout
         logo={logo}
         rightButton={rightButton}
         menuItems={menuItems}
@@ -59,12 +58,12 @@ const LayoutType = ({
       >
         {children}
         <Toast />
-      </MinimalLayout>
+      </HorizontalLayout>
     );
   }
-  if (layout === LAYOUT_OPTIONS.CLASSIC) {
+  if (layout === LAYOUT_OPTIONS.ADMIN) {
     return (
-      <ClassicLayout
+      <AdminLayout
         logo={logo}
         rightButton={rightButton}
         menuItems={menuItems}
@@ -77,34 +76,19 @@ const LayoutType = ({
       >
         {children}
         <Toast />
-      </ClassicLayout>
+      </AdminLayout>
     );
   }
 
   return (
-    <AuthLayout className={className || contentClassName}>
+    <CleanLayout className={className || contentClassName}>
       {children}
       <Toast />
-    </AuthLayout>
+    </CleanLayout>
   );
 };
 
 export function RootLayout(props: RootLayoutProps) {
-  const { mode } = useTheme();
-  const htmlTag = document.documentElement;
-
-  useEffect(() => {
-    if (htmlTag) {
-      if (mode === 'dark') {
-        htmlTag.classList.remove('light');
-        htmlTag.classList.add('dark');
-      } else {
-        htmlTag.classList.remove('dark');
-        htmlTag.classList.add('light');
-      }
-    }
-  }, [htmlTag, mode]);
-
   return <LayoutType {...props} />;
 }
 

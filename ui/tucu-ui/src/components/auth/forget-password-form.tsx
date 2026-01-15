@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import Input from '../forms/input';
+import { Input } from '../inputs/input';
 import Button from '../buttons/button';
-import { Form } from '../forms/form-system';
-import { FormField } from '../forms/form-system/form-field';
+import { Form } from '../forms';
+import { FormField } from '../forms/form-field';
 import cn from 'classnames';
 
 export interface ForgetPasswordFormData {

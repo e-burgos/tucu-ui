@@ -6,9 +6,10 @@ import {
   DialogTitle,
   TransitionChild,
 } from '@headlessui/react';
-import { CardContainer } from '../cards';
+import { CardContainer } from '../cards/card-container';
 import cn from 'classnames';
-import { X } from 'lucide-react';
+import { Close } from '../icons/close';
+import Typography from '../typography';
 
 export interface ModalProps {
   isOpen: boolean;
@@ -17,6 +18,8 @@ export interface ModalProps {
   children?: React.ReactNode;
   buttonContainer?: React.ReactNode;
   className?: string;
+  contentClassName?: string;
+  titleContainerClassName?: string;
   text?: {
     title?: string;
     content?: string;
@@ -37,6 +40,8 @@ export const Modal: React.FC<ModalProps> = ({
   children,
   buttonContainer,
   className,
+  titleContainerClassName,
+  contentClassName,
   setIsOpen,
   onSubmit,
   onBack,
@@ -121,7 +126,7 @@ export const Modal: React.FC<ModalProps> = ({
           leaveFrom="opacity-100 scale-100"
           leaveTo="opacity-0 scale-105"
         >
-          <div className="flex min-h-full items-center justify-center p-4">
+          <div className="flex min-h-full items-center justify-center p-[16px]">
             <DialogPanel
               className="flex h-full w-full items-center justify-center overflow-y duration-300 ease-out data-closed:transform-[scale(95%)] data-closed:opacity-0"
               role="dialog"
@@ -138,39 +143,57 @@ export const Modal: React.FC<ModalProps> = ({
                   ref={titleRef}
                   id={titleId}
                   className={cn(
-                    'flex w-full justify-between items-center font-bold uppercase tracking-wider text-lg h-14 dark:text-white text-current',
-                    !text?.title ? 'text-transparent dark:text-transparent' : ''
+                    'flex w-full h-fit justify-between items-start pb-3 dark:text-white text-current',
+                    !text?.title
+                      ? 'text-transparent dark:text-transparent'
+                      : ' border-b border-gray-200 dark:border-gray-700',
+                    titleContainerClassName
                   )}
                   tabIndex={-1}
                 >
-                  {text?.title || '.'}
+                  <Typography
+                    tag="h3"
+                    className="font-bold font-figtree text-[22px] font-600 leading-[100%] tracking-[0.022px]"
+                  >
+                    {text?.title || ''}
+                  </Typography>
                   <Button
-                    variant="ghost"
+                    variant="transparent"
                     size="mini"
                     shape="circle"
                     onClick={closeableClose}
                     aria-label={closeable ? 'Close modal' : 'Close'}
                   >
-                    <X className="h-4 w-4 cursor-pointer" aria-hidden="true" />
+                    <Close
+                      className="h-[18px] w-[18px] cursor-pointer text-gray-500 dark:text-gray-200"
+                      aria-hidden="true"
+                      width={18}
+                      height={18}
+                    />
                   </Button>
                 </DialogTitle>
 
                 {text?.content && (
                   <p
                     id={descriptionId}
-                    className="mt-4 text-sm/6 dark:text-white text-current"
+                    className="mt-[16px] text-sm/6 dark:text-white text-current"
                   >
                     {text.content}
                   </p>
                 )}
-                <div className="flex flex-col w-full overflow-x-hidden overflow-y-auto max-h-[60vh] p-2 dark:text-white text-current mt-4">
+                <div
+                  className={cn(
+                    'flex flex-col w-full overflow-x-hidden overflow-y-auto max-h-[60vh] p-[8px] dark:text-white text-current mt-[16px]',
+                    contentClassName
+                  )}
+                >
                   {children}
                 </div>
                 {buttonContainer && (
-                  <div className="mt-6">{buttonContainer}</div>
+                  <div className="mt-[24px]">{buttonContainer}</div>
                 )}
                 {!hideButtons && (
-                  <div className="flex w-full justify-end gap-2 mt-6">
+                  <div className="flex w-full justify-end gap-[8px] mt-[24px]">
                     <Button
                       size="medium"
                       shape="rounded"
@@ -180,7 +203,7 @@ export const Modal: React.FC<ModalProps> = ({
                         onBack && onBack();
                       }}
                     >
-                      {text?.backButton || 'Cerrar'}
+                      {text?.backButton || 'Close'}
                     </Button>
                     <Button
                       size="medium"
@@ -189,7 +212,7 @@ export const Modal: React.FC<ModalProps> = ({
                         onSubmit && onSubmit();
                       }}
                     >
-                      {text?.button || 'Aceptar'}
+                      {text?.button || 'Accept'}
                     </Button>
                   </div>
                 )}
