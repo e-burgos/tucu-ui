@@ -4,7 +4,6 @@ import Logo, { LogoPropTypes } from '../logos/logo';
 import { MenuItem, IMenuItem } from '../layouts/menus/menu-item';
 import Button from '../buttons';
 import { Close } from '../icons/close';
-import Scrollbar from '../common/scrollbar';
 
 export function SidebarMenu({
   className,
@@ -72,7 +71,7 @@ export function SidebarMenu({
           <Close className="h-[8px] w-[8px]" width={16} height={16} />
         </Button>
       </div>
-      <Scrollbar className="h-[calc(100%-96px)] custom-scrollbar overflow-hidden overflow-y-auto">
+      <div className="h-[calc(100%-96px)] overflow-y-auto">
         <div className="px-[16px] 2xl:px-[24px] pb-[80px]">
           {children}
           {sidebarMenu &&
@@ -96,7 +95,7 @@ export function SidebarMenu({
               />
             ))}
         </div>
-      </Scrollbar>
+      </div>
       {actionContent && (
         <div className="absolute bottom-[16px] left-0 z-10 w-full px-[24px] flex gap-[8px]">
           {actionContent}

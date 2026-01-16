@@ -3,8 +3,6 @@ import cn from 'classnames';
 import Logo, { LogoPropTypes } from '../logos/logo';
 import Button from '../buttons';
 import { Close } from '../icons/close';
-import Scrollbar from '../common/scrollbar';
-
 export interface SidebarProps {
   className?: string;
   children: React.ReactNode;
@@ -48,9 +46,9 @@ export function Sidebar({
           <Close className="h-[16px] w-[16px]" width={16} height={16} />
         </Button>
       </div>
-      <Scrollbar className="h-[calc(100%-96px)] custom-scrollbar overflow-hidden overflow-y-auto">
+      <div className="h-[calc(100%-96px)] overflow-y-auto">
         <div className="px-[24px] pb-[80px] pt-[4px]">{children}</div>
-      </Scrollbar>
+      </div>
       {actionContent && (
         <div className="absolute bottom-[16px] left-0 z-10 w-full px-[24px] flex gap-[8px]">
           {actionContent}

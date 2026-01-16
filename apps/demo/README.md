@@ -1,54 +1,259 @@
-# React + TypeScript + Vite
+# Tucu UI Demo Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A comprehensive demo application showcasing the [Tucu UI](https://github.com/e-burgos/tucu-ui) component library. This application demonstrates all components, features, design system, form system, and Tailwind CSS utilities available in the library.
 
-Currently, two official plugins are available:
+## 🌐 Live Demo
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Production**: [https://tucu-ui.netlify.app/](https://tucu-ui.netlify.app/)
 
-## Expanding the ESLint configuration
+## ✨ Features
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### 📚 Complete Documentation
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+- **Introduction**: Overview and getting started guide
+- **Design System**: Layout system and theming guide
+- **Components**: UI components, input components, and blockchain components
+- **Form System**: Form examples and code patterns
+- **Features**: Icons system, accessibility, hooks, and routing
+- **Tailwind Utilities**: Complete Tailwind CSS v4 utilities documentation
+
+### 🎨 Design System
+
+- Layout system with multiple layout options
+- Advanced theming guide with 34+ color presets
+- Multi-layered color architecture
+- Dark/light mode support
+
+### 🧩 Components Showcase
+
+- **UI Components**: 43+ components including buttons, cards, dialogs, notifications, and more
+- **Input Components**: 11+ form input components with comprehensive examples
+- **Blockchain Components**: 9+ specialized components for DeFi and Web3 applications
+
+### 📝 Form System
+
+- React Hook Form integration
+- Comprehensive validation examples
+- Live demo forms
+- Code examples and best practices
+
+### 🚀 Advanced Features
+
+- **Icons System**: 5000+ icons integration
+- **Accessibility**: WCAG 2.1 AA compliance
+- **Hooks Utilities**: Custom React hooks
+- **Routing System**: Standalone and MFE support
+
+### 🎯 SEO & Analytics
+
+- **SEO Optimized**: Dynamic meta tags, Open Graph, Twitter Cards
+- **Sitemap**: Automatically generated sitemap.xml
+- **Google Analytics**: Page view tracking for SPA navigation
+- **Structured Data**: JSON-LD schema markup
+
+## 🛠️ Tech Stack
+
+- **React 19+**: Modern React with hooks
+- **TypeScript**: Full type safety
+- **Vite**: Fast build tool and dev server
+- **Tucu UI**: Component library and design system
+- **React Router**: Client-side routing
+
+## 📦 Installation
+
+```bash
+# Install dependencies
+pnpm install
+
+# Or using npm
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🚀 Development
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+```bash
+# Start development server
+pnpm dev
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+# Or using npm
+npm run dev
 ```
+
+The application will be available at `http://localhost:4200` (or the port specified in `VITE_APP_PORT`).
+
+## 🏗️ Build
+
+```bash
+# Build for production
+pnpm build
+
+# Or using npm
+npm run build
+```
+
+The build output will be in the `dist/` directory.
+
+### Build Features
+
+- **Sitemap Generation**: Automatically generates `sitemap.xml` during build
+- **Source Maps**: Enabled for debugging
+- **Code Splitting**: Optimized chunking for performance
+- **Minification**: Production-ready minified output
+
+## 📁 Project Structure
+
+```
+apps/demo/
+├── public/
+│   ├── robots.txt          # SEO crawler configuration
+│   ├── _redirects          # Netlify redirects for SPA
+│   └── favicon.svg         # App favicon
+├── src/
+│   ├── components/
+│   │   └── right-button.tsx    # Header right button with SEO/GA hooks
+│   ├── hooks/
+│   │   ├── useSEO.ts           # SEO meta tags hook
+│   │   └── useGoogleAnalytics.ts # Google Analytics tracking hook
+│   ├── router/
+│   │   └── menuItems.tsx       # Route configuration
+│   ├── utils/
+│   │   ├── seo.ts              # SEO utilities and constants
+│   │   └── generateSitemap.ts  # Sitemap generation logic
+│   ├── App.tsx                 # Main app component
+│   └── main.tsx                # Application entry point
+├── index.html                  # HTML template with SEO meta tags
+├── vite.config.ts              # Vite configuration
+├── vite.config.sitemap.ts      # Sitemap generation plugin
+└── SEO.md                      # SEO configuration guide
+```
+
+## ⚙️ Configuration
+
+### Environment Variables
+
+Create a `.env` file in the root directory:
+
+```env
+# Application
+VITE_APP_PORT=4200
+VITE_APP_URL=https://tucu-ui.netlify.app
+
+# Google Analytics
+VITE_GOOGLE_ANALYTICS_TAG_ID=G-XXXXXXXXXX
+```
+
+### SEO Configuration
+
+The application includes comprehensive SEO features:
+
+- **Dynamic Meta Tags**: Automatically updated per route
+- **Open Graph Tags**: For social media sharing
+- **Twitter Cards**: Optimized Twitter sharing
+- **Structured Data**: JSON-LD schema markup
+- **Sitemap**: Auto-generated during build
+- **Robots.txt**: Search engine crawler configuration
+
+See [SEO.md](./SEO.md) for detailed SEO configuration guide.
+
+## 📊 Google Analytics
+
+Google Analytics is integrated and automatically tracks:
+
+- Page views on route changes (SPA navigation)
+- Page paths and titles
+- User interactions
+
+Configure your Google Analytics Measurement ID in the `.env` file.
+
+## 🧪 Scripts
+
+```bash
+# Development
+pnpm dev              # Start dev server
+
+# Build
+pnpm build            # Build for production
+
+# Lint
+pnpm lint             # Run ESLint
+
+# Preview
+pnpm preview          # Preview production build
+```
+
+## 🎯 Key Routes
+
+- `/` - Introduction and getting started
+- `/design-system` - Design system documentation
+- `/components` - Component showcase
+- `/form-system` - Form system examples
+- `/features` - Advanced features
+- `/tailwind-utilities` - Tailwind CSS utilities
+
+## 📚 Documentation
+
+- **SEO Guide**: [SEO.md](./SEO.md) - Complete SEO configuration guide
+- **Tucu UI Docs**: [Main README](../../README.md) - Component library documentation
+- **GitHub**: [https://github.com/e-burgos/tucu-ui](https://github.com/e-burgos/tucu-ui)
+
+## 🔧 Customization
+
+### Adding New Routes
+
+Edit `src/router/menuItems.tsx` to add new routes:
+
+```tsx
+{
+  name: 'My New Page',
+  path: '/my-new-page',
+  icon: <LucideIcons.Star />,
+  component: <MyNewPage />,
+}
+```
+
+### Custom SEO per Page
+
+Use the `useSEO` hook in your page components:
+
+```tsx
+import { useSEO } from '../hooks/useSEO';
+
+export function MyPage() {
+  useSEO({
+    title: 'My Custom Page',
+    description: 'Custom page description',
+    keywords: ['custom', 'keywords'],
+  });
+
+  return <div>My page content</div>;
+}
+```
+
+## 🚀 Deployment
+
+The application is configured for deployment on Netlify with:
+
+- SPA redirects (`_redirects` file)
+- Automatic sitemap generation
+- Environment variable support
+
+### Netlify Configuration
+
+The app uses `netlify.toml` at the root of the monorepo for deployment settings.
+
+## 📝 License
+
+This demo application is part of the Tucu UI project. See the main [LICENSE](../../LICENSE) file for details.
+
+## 🤝 Contributing
+
+Contributions are welcome! Please see the main [CONTRIBUTING](../../CONTRIBUTING.md) guide.
+
+## 📞 Support
+
+- **GitHub Issues**: [https://github.com/e-burgos/tucu-ui/issues](https://github.com/e-burgos/tucu-ui/issues)
+- **Documentation**: [https://tucu-ui.netlify.app/](https://tucu-ui.netlify.app/)
+
+---
+
+Built with ❤️ using [Tucu UI](https://github.com/e-burgos/tucu-ui)

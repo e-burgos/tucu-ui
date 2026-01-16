@@ -5,6 +5,40 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Changed
+
+- **Drawer Component**: Complete rewrite without `@headlessui/react` dependency
+  - Removed dependency on `@headlessui/react` Dialog, DialogPanel, Transition, and TransitionChild components
+  - Implemented custom drawer container using React hooks (`useState`, `useEffect`)
+  - Added portal rendering using `createPortal` to render directly in `document.body`
+  - Improved z-index layering: backdrop (z-50) and drawer (z-51) for proper stacking
+  - Enhanced mobile event handling and touch interactions
+  - Maintained all existing functionality: backdrop click, escape key, body scroll lock, animations
+  - Better control over event propagation and mobile compatibility
+- **Modal Component**: Complete rewrite without `@headlessui/react` dependency
+  - Removed dependency on `@headlessui/react` Dialog, DialogPanel, DialogTitle, and TransitionChild components
+  - Implemented custom modal using React hooks (`useState`, `useEffect`, `useRef`, `useCallback`)
+  - Added portal rendering using `createPortal` to render directly in `document.body`
+  - Improved z-index layering: backdrop (z-50) and modal content (z-51) for proper stacking
+  - Enhanced focus management: stores previous focus and restores on close
+  - Maintained all existing functionality: backdrop click, escape key, body scroll lock, animations, ARIA attributes
+  - Better control over event propagation and accessibility features
+- **Backdrop Styling**: Updated backdrop appearance for both Drawer and Modal
+  - Changed from `bg-gray-700/90 backdrop-blur-sm` to `bg-gray-700/10 backdrop-blur-xs` for lighter, more subtle backdrop
+  - Improved visual consistency across dialog components
+
+### Fixed
+
+- **Drawer Component**: Fixed backdrop covering drawer content
+  - Resolved z-index stacking issues by using portals and explicit z-index values
+  - Backdrop now correctly covers only the background, not the drawer itself
+  - Improved mobile touch event handling
+- **Modal Component**: Fixed potential event blocking issues
+  - Improved event handling with better pointer-events management
+  - Enhanced mobile compatibility
+
 ## [2.0.0] - 2026-01-15
 
 ### Added

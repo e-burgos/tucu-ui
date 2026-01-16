@@ -156,6 +156,7 @@ export function Select({
                 {({ selected }) => (
                   <div
                     onClick={() => onSelect && onSelect(option.value)}
+                    onTouchStart={() => onSelect && onSelect(option.value)}
                     className={`flex cursor-pointer items-center rounded-md px-[12px] py-[8px] text-sm text-gray-900 transition dark:text-gray-100  ${
                       selected
                         ? 'bg-gray-200/70 font-medium dark:bg-gray-600/60'

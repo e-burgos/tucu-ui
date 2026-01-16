@@ -69,7 +69,7 @@ export const CodeBlock = ({
     >
       <div
         className={cn(
-          'absolute z-20 top-1 right-1 p-2 flex justify-end items-center w-full gap-1',
+          'absolute z-10 top-1 right-1 p-2 flex justify-end items-center w-full gap-1',
           isMobile && 'flex-col items-end'
         )}
       >

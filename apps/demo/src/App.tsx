@@ -1,5 +1,6 @@
-import { ThemeProvider, NavOptions } from '@e-burgos/tucu-ui';
+import { ThemeProvider } from '@e-burgos/tucu-ui';
 import { useMenuItems } from './router/menuItems';
+import { RightButton } from './components/right-button';
 
 function App() {
   const { menuItems } = useMenuItems();
@@ -8,7 +9,7 @@ function App() {
     <ThemeProvider
       showSettings
       isAuthenticated
-      rightButton={<NavOptions />}
+      rightButton={<RightButton />}
       menuItems={menuItems}
     />
   );

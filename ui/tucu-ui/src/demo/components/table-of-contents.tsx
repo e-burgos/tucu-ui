@@ -238,13 +238,13 @@ export const TableOfContents: React.FC<TableOfContentsProps> = ({
       {/* Sidebar - Table of Contents */}
       {isSidebarOpen && (
         <aside
-          className={`fixed left-0 h-screen bg-body backdrop-blur-lg shadow-md border-r border-gray-100 dark:border-gray-800 z-20 transition-all duration-300 ease-in-out overflow-y-hidden ${className} ${
+          className={`fixed left-0 h-screen bg-body backdrop-blur-lg shadow-md border-r border-gray-100 dark:border-gray-800 z-21 transition-all duration-300 ease-in-out overflow-y-hidden ${className} ${
             isSidebarOpen
               ? 'translate-x-0 w-64 lg:w-72'
               : '-translate-x-full lg:translate-x-0 lg:w-72'
           }`}
           style={{
-            top: isMobile ? '60px' : '72px',
+            top: isMobile ? '80px' : '72px',
             height: isMobile ? 'calc(100vh - 60px)' : 'calc(100vh - 72px)',
           }}
         >
@@ -356,7 +356,7 @@ export const TableOfContents: React.FC<TableOfContentsProps> = ({
       {/* Overlay for mobile */}
       {isSidebarOpen && (
         <div
-          className="fixed inset-0 bg-black/50 z-10 lg:hidden"
+          className="fixed inset-0 bg-black/50 z-20 lg:hidden"
           onClick={() => setIsSidebarOpen(false)}
           aria-hidden="true"
         />

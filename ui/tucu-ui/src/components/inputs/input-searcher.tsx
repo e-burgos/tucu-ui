@@ -286,6 +286,9 @@ export function InputSearcher({
               <button
                 type="button"
                 onClick={(e) => handleRemoveOption(e, option)}
+                onTouchStart={(e) =>
+                  handleRemoveOption(e as unknown as React.MouseEvent, option)
+                }
                 className="hover:bg-brand/20 rounded-full p-[2px] transition-colors"
                 aria-label={`Remove ${option.name}`}
               >
@@ -314,6 +317,7 @@ export function InputSearcher({
                   key={`${option.value}-${index}`}
                   type="button"
                   onClick={() => handleOptionSelect(option)}
+                  onTouchStart={() => handleOptionSelect(option)}
                   className={cn(
                     'w-full px-[16px] py-[8px] text-left text-sm hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors',
                     'flex items-center justify-between',

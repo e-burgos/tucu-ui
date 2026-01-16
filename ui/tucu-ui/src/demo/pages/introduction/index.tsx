@@ -11,6 +11,7 @@ import {
   Alert,
   HeroCard,
   DOCUMENTATION_URL,
+  Logo,
 } from '../../../index';
 
 import Banner from '../../assets/images/logos/tucu-ui-logo-white.svg';
@@ -40,11 +41,9 @@ pnpm install @e-burgos/tucu-ui
         getStartedButton
         backgroundAnimation
         icon={
-          <img
-            src={mode !== 'dark' ? BannerDark : Banner}
-            alt="Tucu UI"
-            className="relative h-16 sm:h-20 md:h-24 filter drop-shadow-2xl hover:scale-110 transition-transform duration-300"
-          />
+          <div className="flex items-center justify-center w-full h-full bg-gradient-to-br from-brand via-secondary to-light-dark rounded-full border border-gray-200 dark:border-gray-700">
+            <Logo name="" secondName="" size="xxlarge" />
+          </div>
         }
       />
 

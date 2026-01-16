@@ -406,6 +406,12 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       setShowYearPicker(!showYearPicker);
     };
 
+    const handleFocusInput = () => {
+      if (ref && 'current' in ref) {
+        (ref.current as HTMLInputElement).focus();
+      }
+    };
+
     return (
       <div className={cn('text-sm sm:text-sm', className)}>
         <div className={cn('relative', labelClassName)}>
@@ -443,6 +449,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
               }
               onChange={type !== 'date' ? onChange : undefined}
               onClick={type === 'date' ? toggleCalendar : undefined}
+              onTouchStart={type === 'date' ? toggleCalendar : handleFocusInput}
               {...(type !== 'date'
                 ? props
                 : {
@@ -478,6 +485,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
               <button
                 type="button"
                 onClick={togglePasswordVisibility}
+                onTouchStart={togglePasswordVisibility}
                 className="absolute top-1/2 right-[12px] -translate-y-1/2 flex items-center justify-center w-[20px] h-[20px] text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300 transition-colors duration-200 focus:outline-none cursor-pointer"
                 aria-label={showPassword ? 'Hide password' : 'Show password'}
               >
@@ -494,6 +502,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
               <button
                 type="button"
                 onClick={toggleCalendar}
+                onTouchStart={toggleCalendar}
                 className="absolute top-1/2 right-[12px] -translate-y-1/2 flex items-center justify-center w-[20px] h-[20px] text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300 transition-colors duration-200 focus:outline-none cursor-pointer"
                 aria-label="Open date picker"
               >
@@ -513,6 +522,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
                 <button
                   type="button"
                   onClick={() => navigateMonth('prev')}
+                  onTouchStart={() => navigateMonth('prev')}
                   className="p-[4px] hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md transition-colors"
                 >
                   <ChevronLeft className="w-[16px] h-[16px] text-gray-600 dark:text-gray-400" />
@@ -521,6 +531,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
                 <button
                   type="button"
                   onClick={toggleYearPicker}
+                  onTouchStart={toggleYearPicker}
                   className="text-sm font-semibold text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700 px-[8px] py-[4px] rounded-md transition-colors"
                 >
                   {currentMonth.toLocaleDateString(locale, {
@@ -532,6 +543,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
                 <button
                   type="button"
                   onClick={() => navigateMonth('next')}
+                  onTouchStart={() => navigateMonth('next')}
                   className="p-[4px] hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md transition-colors"
                 >
                   <ChevronRight className="w-[16px] h-[16px] text-gray-600 dark:text-gray-400" />
@@ -547,6 +559,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
                         key={year}
                         type="button"
                         onClick={() => handleYearSelect(year)}
+                        onTouchStart={() => handleYearSelect(year)}
                         className={cn(
                           'text-xs p-[8px] rounded-md transition-colors',
                           {
@@ -594,6 +607,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
                           key={index}
                           type="button"
                           onClick={() => handleDateSelect(date)}
+                          onTouchStart={() => handleDateSelect(date)}
                           className={cn(
                             'text-xs p-[8px] rounded-md transition-colors hover:bg-gray-100 dark:hover:bg-gray-700',
                             {
@@ -619,6 +633,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
                     <button
                       type="button"
                       onClick={() => handleDateSelect(new Date())}
+                      onTouchStart={() => handleDateSelect(new Date())}
                       className="w-full text-xs text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium py-[4px] transition-colors"
                     >
                       {getTodayText(locale)}

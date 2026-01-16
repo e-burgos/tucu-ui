@@ -291,6 +291,7 @@ export function FileInput(
                 <div className="absolute top-2 right-2 w-4 h-4 rounded-full flex items-center justify-center bg-brand text-white">
                   <Close
                     onClick={() => handleFileDelete(index)}
+                    onTouchStart={() => handleFileDelete(index)}
                     className="h-2 w-2 cursor-pointer transition duration-75"
                   />
                 </div>

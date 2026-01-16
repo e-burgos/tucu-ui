@@ -10,7 +10,7 @@ export interface LogoPropTypes {
   path?: string;
   preset?: PRESET_LABEL_COLORS;
   className?: string;
-  size?: 'small' | 'medium' | 'large' | 'xlarge';
+  size?: 'small' | 'medium' | 'large' | 'xlarge' | 'xxlarge';
   logo?: React.ReactNode | null;
   isoType?: boolean;
 }
@@ -39,7 +39,11 @@ export function Logo({
       ? 80
       : size === 'large'
       ? 100
-      : 120;
+      : size === 'xlarge'
+      ? 120
+      : size === 'xxlarge'
+      ? 200
+      : 80;
 
   const handleName = (name: string) => {
     if (isoType) return name?.[0]?.toUpperCase();

@@ -1,10 +1,5 @@
-import { Fragment } from 'react';
-import {
-  Dialog,
-  DialogPanel,
-  Transition,
-  TransitionChild,
-} from '@headlessui/react';
+import { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import cn from 'classnames';
 
 export interface DrawerContainerProps {
@@ -22,62 +17,107 @@ export function DrawerContainer({
   position = 'left',
   backdrop = true,
 }: DrawerContainerProps) {
-  return (
-    <Transition appear show={isOpen || false} as={Fragment}>
-      <Dialog
-        as="div"
-        className={cn('fixed inset-0 z-50 overflow-hidden')}
-        onClose={() => null}
-      >
-        <TransitionChild
-          as={Fragment}
-          enter="ease-out duration-300"
-          enterFrom="opacity-0"
-          enterTo="opacity-100"
-          leave="ease-in duration-300"
-          leaveFrom="opacity-100"
-          leaveTo="opacity-0"
-        >
-          <DialogPanel
-            onClick={() => setIsOpen(false)}
-            className={cn(
-              'fixed inset-0',
-              backdrop ? 'bg-gray-700/10 backdrop-blur-xs' : ''
-            )}
-          />
-        </TransitionChild>
+  const [isVisible, setIsVisible] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
 
-        {position === 'left' && (
-          <TransitionChild
-            as={Fragment}
-            enter="transform transition ease-out duration-300"
-            enterFrom="-translate-x-full"
-            enterTo="translate-x-0"
-            leave="transform transition ease-in duration-300"
-            leaveFrom="translate-x-0"
-            leaveTo="-translate-x-full"
-          >
-            <div className="fixed inset-y-0 ltr:left-0 rtl:right-0 flex w-full max-w-full xs:w-auto">
-              {children}
-            </div>
-          </TransitionChild>
-        )}
-        {position === 'right' && (
-          <TransitionChild
-            as={Fragment}
-            enter="transform transition ease-out duration-300"
-            enterFrom="ltr:translate-x-full rtl:-translate-x-full"
-            enterTo="translate-x-0"
-            leave="transform transition ease-in duration-300"
-            leaveFrom="translate-x-0"
-            leaveTo="ltr:translate-x-full rtl:-translate-x-full"
-          >
-            <div className="fixed inset-y-0 ltr:right-0 rtl:left-0 flex w-full max-w-full xs:w-auto">
-              {children}
-            </div>
-          </TransitionChild>
-        )}
-      </Dialog>
-    </Transition>
+  useEffect(() => {
+    if (isOpen) {
+      // Prevent body scroll when drawer is open
+      document.body.style.overflow = 'hidden';
+      // Show drawer immediately
+      setIsVisible(true);
+      // Trigger animation after DOM update
+      const timer = setTimeout(() => {
+        setIsAnimating(true);
+      }, 0);
+      return () => clearTimeout(timer);
+    } else {
+      // Start closing animation
+      setIsAnimating(false);
+      // Hide drawer after animation completes
+      const timer = setTimeout(() => {
+        setIsVisible(false);
+        document.body.style.overflow = '';
+      }, 300); // Match transition duration
+      return () => clearTimeout(timer);
+    }
+  }, [isOpen]);
+
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, []);
+
+  // Handle backdrop click
+  const handleBackdropClick = (e: React.MouseEvent) => {
+    // Only close if clicking directly on the backdrop, not on children
+    if (e.target === e.currentTarget) {
+      setIsOpen(false);
+    }
+  };
+
+  // Handle escape key
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isOpen) {
+        setIsOpen(false);
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener('keydown', handleEscape);
+      return () => document.removeEventListener('keydown', handleEscape);
+    }
+    return undefined;
+  }, [isOpen, setIsOpen]);
+
+  if (!isVisible) {
+    return null;
+  }
+
+  const backdropClasses = cn(
+    'fixed inset-0 w-screen h-screen transition-opacity duration-300 ease-out',
+    isAnimating ? 'opacity-100' : 'opacity-0',
+    backdrop ? 'bg-gray-700/10 backdrop-blur-xs' : ''
   );
+
+  const drawerClasses = cn(
+    'fixed inset-y-0 h-screen w-full max-w-full xs:w-auto transition-transform duration-300 ease-out',
+    position === 'left'
+      ? cn(
+          'ltr:left-0 rtl:right-0',
+          isAnimating
+            ? 'ltr:translate-x-0 rtl:translate-x-0'
+            : 'ltr:-translate-x-full rtl:translate-x-full'
+        )
+      : cn(
+          'ltr:right-0 rtl:left-0',
+          isAnimating
+            ? 'translate-x-0'
+            : 'ltr:translate-x-full rtl:-translate-x-full'
+        )
+  );
+
+  const drawerContent = (
+    <>
+      {/* Backdrop - rendered first, lower z-index */}
+      {backdrop && (
+        <div
+          className={backdropClasses}
+          onClick={handleBackdropClick}
+          aria-hidden="true"
+          style={{ zIndex: 50 }}
+        />
+      )}
+      {/* Drawer - rendered second, higher z-index to be above backdrop */}
+      <div className={drawerClasses} style={{ zIndex: 51 }}>
+        {children}
+      </div>
+    </>
+  );
+
+  // Use portal to render drawer and backdrop directly in body, ensuring proper stacking
+  return createPortal(drawerContent, document.body) as React.ReactElement;
 }
