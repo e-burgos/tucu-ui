@@ -63,6 +63,7 @@ export function useSEO(config: Partial<SEOConfig> = {}): void {
     };
 
     // Basic meta tags
+    updateMetaTag('title', pageTitle);
     updateMetaTag('description', seoConfig.description);
     if (seoConfig.keywords && seoConfig.keywords.length > 0) {
       updateMetaTag('keywords', getKeywordsString(seoConfig.keywords));

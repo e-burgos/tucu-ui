@@ -5,7 +5,6 @@ import {
   Typography,
   LucideIcons,
   AnchorLink,
-  useTheme,
   CardTitle,
   CodeBlock,
   Alert,
@@ -14,15 +13,12 @@ import {
   Logo,
 } from '../../../index';
 
-import Banner from '../../assets/images/logos/tucu-ui-logo-white.svg';
-import BannerDark from '../../assets/images/logos/tucu-ui-logo-black.svg';
 import { Home } from './BasicUsageDemo';
 import { BasicUsageExampleCode } from './BasicUsageExampleCode';
 import { BasicUsageWithCustomRouterExampleCode } from './BasicUsageWithCustomRouterExampleCode';
 import { StandaloneAppExample, MfeAppExample } from './ThemeProviderExamples';
 
 export function Introduction() {
-  const { mode } = useTheme();
 
   const installation = `
 npm install @e-burgos/tucu-ui

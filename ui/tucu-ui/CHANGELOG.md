@@ -5,7 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [2.0.2] - 2026-01-22
+
+### Changed
+
+- **Horizontal Navigation Menu**: Improved responsive text sizing
+  - Menu item text now dynamically adjusts based on screen size
+  - Text sizes: `11px` (mobile) → `12px` (sm) → `13px` (md) → `14px` (lg+)
+  - Better space utilization on smaller screens while maintaining readability
+  - Applied to both dropdown and non-dropdown menu items
+
+## [2.0.1] - 2026-01-17
 
 ### Changed
 
@@ -353,6 +363,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Version History
 
+- **2.0.2** - Responsive navigation menu improvements with dynamic text sizing
 - **2.0.0** - Major release with advanced routing system (Standalone & MFE), enhanced theming (34+ presets, 12-layer architecture), comprehensive documentation improvements, and architectural pattern support
 - **1.2.0** - Major input components update, new carousel system, and comprehensive improvements
 - **1.1.1** - Beta version publication

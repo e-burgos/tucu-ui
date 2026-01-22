@@ -9,7 +9,7 @@ function App() {
     <ThemeProvider
       showSettings
       isAuthenticated
-      rightButton={<RightButton />}
+      rightButton={<RightButton menuItems={menuItems} />}
       menuItems={menuItems}
     />
   );

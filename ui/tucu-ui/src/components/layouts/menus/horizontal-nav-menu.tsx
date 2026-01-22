@@ -80,8 +80,9 @@ export function HorizontalNavMenu({ menuItems }: { menuItems: IMenuItem[] }) {
                     )}
                     <span
                       className={cn(
-                        'text-[14px]',
-                        item.isActive && 'text-brand'
+                        'text-[11px] sm:text-[12px] md:text-[13px] lg:text-[14px] overflow-hidden text-ellipsis whitespace-nowrap',
+                        item.isActive && 'text-brand',
+                        
                       )}
                     >
                       {item.name}
@@ -195,7 +196,7 @@ export function HorizontalNavMenu({ menuItems }: { menuItems: IMenuItem[] }) {
                           {item.icon}
                         </span>
                       )}
-                      <span className="text-[14px]">{item.name}</span>
+                      <span className="text-[11px] sm:text-[12px] md:text-[13px] lg:text-[14px] overflow-hidden text-ellipsis whitespace-nowrap">{item.name}</span>
                     </span>
                   </ActiveLink>
                 </li>

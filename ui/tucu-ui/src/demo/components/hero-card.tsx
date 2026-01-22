@@ -153,7 +153,7 @@ export const HeroCard: React.FC<HeroCardProps> = ({
               >
                 <div className="flex justify-center items-center">
                   <AnchorLink
-                    to={docsUrl[docsButton || 'introduction']}
+                    to={INTRODUCTION_DOCS_URL}
                     target="_blank"
                   >
                     <div className="flex justify-center items-center">

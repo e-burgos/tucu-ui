@@ -37,13 +37,14 @@ export function AdminHeader({
     }
   };
 
+  const smallScreen = breakPoint === 'sm' || breakPoint === 'xs' || breakPoint === 'md' || breakPoint === 'lg';
+
   return (
     <nav
       className={cn(
-        'sticky top-0 z-30 backdrop-blur-lg shadow-md h-[64px] w-full transition-all duration-300 ltr:right-0 rtl:left-0 sm:h-[72px] 3xl:h-[80px]',
-        ((isMounted && windowScroll.y) as number) > 2
-          ? 'shadow-card bg-light-dark'
-          : '',
+        'sticky top-0 z-30 backdrop-blur-lg min-h-[72px] h-[72px] w-full transition-all duration-300 ltr:right-0 rtl:left-0',
+        ((isMounted && windowScroll.y) as number) > 2 && 'shadow-card',
+        smallScreen ? 'shadow-card border-b border-transparent dark:border-gray-800' : '',
         className
       )}
     >
@@ -71,7 +72,7 @@ export function AdminHeader({
         </div>
         <AdminRightArea
           rightButton={
-            <div className="flex flex-row items-center justify-center ">
+            <div className="flex flex-row items-center justify-center">
               {rightButton}
               <div className="mx-[8px] block sm:mx-[16px] xl:hidden">
                 <Hamburger

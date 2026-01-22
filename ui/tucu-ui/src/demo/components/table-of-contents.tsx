@@ -5,7 +5,11 @@ import {
   LucideIcons,
   useIsMobile,
   Scrollbar,
+  useTheme,
+  LAYOUT_OPTIONS,
+  useBreakpoint,
 } from '../../index';
+import cn from 'classnames';
 
 export interface TableOfContentsItem {
   id: string;
@@ -30,6 +34,8 @@ export const TableOfContents: React.FC<TableOfContentsProps> = ({
   children,
   onSidebarToggle,
 }) => {
+  const breakPoint = useBreakpoint();
+  const {layout} = useTheme();
   const { isMobile } = useIsMobile();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string>('');
@@ -214,13 +220,24 @@ export const TableOfContents: React.FC<TableOfContentsProps> = ({
     }
   };
 
+  const smallScreen = breakPoint === 'sm' || breakPoint === 'xs' || breakPoint === 'md' || breakPoint === 'lg';
+
   return (
     <>
       {/* Floating Toggle Button - Fixed position */}
-      <div className="fixed top-1/2 z-40 -translate-y-1/2 ltr:left-0 rtl:right-0">
+      <div className={cn( 
+        layout === LAYOUT_OPTIONS.ADMIN && 'fixed top-1/2 mt-[52px] z-40 -translate-y-1/2 ltr:right-0 rtl:left-0',
+        layout === LAYOUT_OPTIONS.HORIZONTAL && 'fixed top-1/2 z-40 -translate-y-1/2 ltr:left-0 rtl:right-0',
+        layout === LAYOUT_OPTIONS.CLEAN && 'fixed top-1/2 z-40 -translate-y-1/2 ltr:left-0 rtl:right-0',
+        )}>
         {!isSidebarOpen && (
           <button
-            className="flex h-[48px] w-[48px] items-center justify-center text-gray-600 shadow-large backdrop-blur-sm rounded-r-lg bg-light-dark dark:text-gray-200/70"
+            className={cn(
+              "flex h-[48px] w-[48px] items-center justify-center text-gray-600 shadow-large backdrop-blur-sm bg-light-dark dark:text-gray-200/70",
+              layout === LAYOUT_OPTIONS.ADMIN && 'rounded-l-lg',
+              layout === LAYOUT_OPTIONS.HORIZONTAL && 'rounded-r-lg',
+              layout === LAYOUT_OPTIONS.CLEAN && 'rounded-r-lg',
+            )}
             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
             aria-label="Toggle table of contents"
             title="Toggle table of contents"
@@ -238,14 +255,17 @@ export const TableOfContents: React.FC<TableOfContentsProps> = ({
       {/* Sidebar - Table of Contents */}
       {isSidebarOpen && (
         <aside
-          className={`fixed left-0 h-screen bg-body backdrop-blur-lg shadow-md border-r border-gray-100 dark:border-gray-800 z-21 transition-all duration-300 ease-in-out overflow-y-hidden ${className} ${
+          className={cn(
+            "fixed left-0 h-screen bg-body backdrop-blur-lg shadow-md border-r border-gray-100 dark:border-gray-800 transition-all duration-300 ease-in-out overflow-y-hidden", 
+            isMobile ? 'z-50' : 'z-21',
             isSidebarOpen
-              ? 'translate-x-0 w-64 lg:w-72'
-              : '-translate-x-full lg:translate-x-0 lg:w-72'
-          }`}
+              ? layout === LAYOUT_OPTIONS.ADMIN && !smallScreen ? 'translate-x-[100px] w-64 lg:w-72' : 'translate-x-0 w-72 lg:w-72'
+              : '-translate-x-full lg:translate-x-0 lg:w-72',
+              className,
+          )}
           style={{
-            top: isMobile ? '80px' : '72px',
-            height: isMobile ? 'calc(100vh - 60px)' : 'calc(100vh - 72px)',
+            top: isMobile ? '0px' : '72px',
+            height: isMobile ? '100vh' : 'calc(100vh - 72px)',
           }}
         >
           <div className="pl-4 pr-2 bg-body border-b border-gray-100 dark:border-gray-800 z-10 p-4 flex items-center justify-between">

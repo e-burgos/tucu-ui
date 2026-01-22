@@ -4,16 +4,21 @@ import {
   LucideIcons,
   SwitchMode,
   Typography,
+  type StandaloneAppRoutesMenuItem,
 } from '@e-burgos/tucu-ui';
 import { useGoogleAnalytics } from '../hooks/useGoogleAnalytics';
 import { useSEO } from '../hooks/useSEO';
+import { useDynamicTitle } from '../hooks/useDynamicTitle';
 
-export const RightButton = () => {
+export const RightButton = ({ menuItems }: { menuItems: StandaloneAppRoutesMenuItem[] }) => {
+
   // SEO meta tags will be updated dynamically based on route
   useSEO();
 
   // Google Analytics
   useGoogleAnalytics();
+
+  useDynamicTitle(menuItems);
 
   return (
     <ListContainer
