@@ -4,10 +4,10 @@ import {
   CardTitle,
   Typography,
   CodeBlock,
-  BasicTable,
 } from '../../../../index';
 import { ParamTab, TabPanel } from '../../../../components/tabs';
 import { Home, Settings, User, BarChart, FileText, Bell } from 'lucide-react';
+import { AutoPropsTable } from '../../../components/auto-props-table';
 
 const ParamTabSection: React.FC = () => {
   const basicTabMenu = [
@@ -54,78 +54,6 @@ const ParamTabSection: React.FC = () => {
       title: 'Settings',
       path: 'settings',
       icon: <Settings size={16} />,
-    },
-  ];
-
-  const propsTableColumns = [
-    {
-      key: 'prop',
-      label: 'Prop',
-      render: (value: unknown) => (
-        <code className="text-xs text-brand">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'type',
-      label: 'Type',
-      render: (value: unknown) => (
-        <code className="text-xs">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'default',
-      label: 'Default',
-      render: (value: unknown) => {
-        const val = String(value);
-        if (val === 'required') {
-          return <span className="text-xs text-red-500">required</span>;
-        }
-        return <code className="text-xs">{val}</code>;
-      },
-    },
-    {
-      key: 'description',
-      label: 'Description',
-    },
-  ];
-
-  const propsData = [
-    {
-      prop: 'tabMenu',
-      type: 'TabMenuItem[]',
-      default: 'required',
-      description:
-        'Array of tab menu items with title, path, and optional icon',
-    },
-    {
-      prop: 'children',
-      type: 'React.ReactNode',
-      default: 'required',
-      description: 'TabPanel components for each tab content',
-    },
-    {
-      prop: 'variant',
-      type: "'underline' | 'pills' | 'bordered' | 'solid'",
-      default: "'underline'",
-      description: 'Visual style variant of the tabs',
-    },
-    {
-      prop: 'size',
-      type: "'small' | 'medium' | 'large'",
-      default: "'medium'",
-      description: 'Size of the tab items',
-    },
-    {
-      prop: 'tabListClassName',
-      type: 'string',
-      default: '-',
-      description: 'Additional CSS classes for tab list container',
-    },
-    {
-      prop: 'showMobileSelect',
-      type: 'boolean',
-      default: 'true',
-      description: 'Whether to show TabSelect on mobile devices',
     },
   ];
 
@@ -522,18 +450,45 @@ const ParamTabSection: React.FC = () => {
       <CardContainer className="overflow-hidden">
         <CardTitle title="TabMenuItem Interface" className="mt-2 mb-2">
           <div className="w-full p-4 sm:p-6">
-            <BasicTable columns={propsTableColumns} data={interfaceData} />
+            <table className="w-full text-sm text-left">
+              <thead>
+                <tr className="border-b border-gray-200 dark:border-gray-700">
+                  <th className="px-3 py-2 font-semibold">Prop</th>
+                  <th className="px-3 py-2 font-semibold">Type</th>
+                  <th className="px-3 py-2 font-semibold">Default</th>
+                  <th className="px-3 py-2 font-semibold">Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                {interfaceData.map((row) => (
+                  <tr
+                    key={row.prop}
+                    className="border-b border-gray-100 dark:border-gray-800"
+                  >
+                    <td className="px-3 py-2">
+                      <code className="text-xs text-brand">{row.prop}</code>
+                    </td>
+                    <td className="px-3 py-2">
+                      <code className="text-xs">{row.type}</code>
+                    </td>
+                    <td className="px-3 py-2">
+                      {row.default === 'required' ? (
+                        <span className="text-xs text-red-500">required</span>
+                      ) : (
+                        <code className="text-xs">{row.default}</code>
+                      )}
+                    </td>
+                    <td className="px-3 py-2 text-gray-600 dark:text-gray-400">
+                      {row.description}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </CardTitle>
       </CardContainer>
-
-      <CardContainer className="overflow-hidden">
-        <CardTitle title="Props" className="mt-2 mb-2">
-          <div className="w-full p-4 sm:p-6">
-            <BasicTable columns={propsTableColumns} data={propsData} />
-          </div>
-        </CardTitle>
-      </CardContainer>
+      <AutoPropsTable componentName="ParamTab" />
 
       <CardContainer className="overflow-hidden">
         <CardTitle title="Code Examples" className="mt-2 mb-2">

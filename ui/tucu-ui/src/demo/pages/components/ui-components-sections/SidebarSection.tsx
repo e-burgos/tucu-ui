@@ -4,84 +4,13 @@ import {
   CardTitle,
   Typography,
   CodeBlock,
-  BasicTable,
   Sidebar,
   Button,
 } from '../../../../index';
+import { AutoPropsTable } from '../../../components/auto-props-table';
 
 const SidebarSection: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
-
-  const propsTableColumns = [
-    {
-      key: 'prop',
-      label: 'Prop',
-      render: (value: unknown) => (
-        <code className="text-xs text-brand">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'type',
-      label: 'Type',
-      render: (value: unknown) => (
-        <code className="text-xs">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'default',
-      label: 'Default',
-      render: (value: unknown) => {
-        const val = String(value);
-        if (val === 'required') {
-          return <span className="text-xs text-red-500">required</span>;
-        }
-        return <code className="text-xs">{val}</code>;
-      },
-    },
-    {
-      key: 'description',
-      label: 'Description',
-    },
-  ];
-
-  const propsData = [
-    {
-      prop: 'children',
-      type: 'React.ReactNode',
-      default: 'required',
-      description: 'Content to display in the sidebar',
-    },
-    {
-      prop: 'title',
-      type: 'string',
-      default: '-',
-      description: 'Title for the sidebar',
-    },
-    {
-      prop: 'logo',
-      type: 'LogoPropTypes',
-      default: '-',
-      description: 'Logo configuration',
-    },
-    {
-      prop: 'actionContent',
-      type: 'React.ReactNode',
-      default: '-',
-      description: 'Action buttons at the bottom',
-    },
-    {
-      prop: 'onClose',
-      type: '() => void',
-      default: '-',
-      description: 'Callback when sidebar closes',
-    },
-    {
-      prop: 'className',
-      type: 'string',
-      default: '-',
-      description: 'Additional CSS classes',
-    },
-  ];
 
   return (
     <>
@@ -120,14 +49,7 @@ const SidebarSection: React.FC = () => {
           </div>
         </CardTitle>
       </CardContainer>
-
-      <CardContainer className="overflow-hidden">
-        <CardTitle title="Props" className="mt-2 mb-2">
-          <div className="w-full p-4 sm:p-6">
-            <BasicTable columns={propsTableColumns} data={propsData} />
-          </div>
-        </CardTitle>
-      </CardContainer>
+      <AutoPropsTable componentName="Sidebar" />
 
       <CardContainer className="overflow-hidden">
         <CardTitle title="Code Example" className="mt-2 mb-2">

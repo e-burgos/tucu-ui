@@ -4,11 +4,11 @@ import {
   CardTitle,
   Typography,
   CodeBlock,
-  BasicTable,
   CollectionCard,
 } from '../../../../index';
 import collection1Img from '../../../assets/images/collection/collection-1.jpg';
 import avatar1Img from '../../../assets/images/avatar/1.png';
+import { AutoPropsTable } from '../../../components/auto-props-table';
 
 const CollectionCardSection: React.FC = () => {
   const collectionData = {
@@ -26,53 +26,8 @@ const CollectionCardSection: React.FC = () => {
   };
 
   // Table columns definition for props tables
-  const propsTableColumns = [
-    {
-      key: 'prop',
-      label: 'Prop',
-      render: (value: unknown) => (
-        <code className="text-xs text-brand">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'type',
-      label: 'Type',
-      render: (value: unknown) => (
-        <code className="text-xs">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'default',
-      label: 'Default',
-      render: (value: unknown) => {
-        const val = String(value);
-        if (val === 'required') {
-          return <span className="text-xs text-red-500">required</span>;
-        }
-        return <code className="text-xs">{val}</code>;
-      },
-    },
-    {
-      key: 'description',
-      label: 'Description',
-    },
-  ];
 
   // CollectionCard props data
-  const collectionCardPropsData = [
-    {
-      prop: 'item',
-      type: 'ItemType',
-      default: 'required',
-      description: 'Collection data object',
-    },
-    {
-      prop: 'className',
-      type: 'string',
-      default: "''",
-      description: 'Custom CSS classes for the card',
-    },
-  ];
 
   return (
     <>
@@ -98,17 +53,7 @@ const CollectionCardSection: React.FC = () => {
           </div>
         </CardTitle>
       </CardContainer>
-
-      <CardContainer className="overflow-hidden">
-        <CardTitle title="Props" className="mt-2 mb-2">
-          <div className="w-full p-4 sm:p-6">
-            <BasicTable
-              columns={propsTableColumns}
-              data={collectionCardPropsData}
-            />
-          </div>
-        </CardTitle>
-      </CardContainer>
+      <AutoPropsTable componentName="CollectionCard" />
 
       <CardContainer className="overflow-hidden">
         <CardTitle title="Code Example" className="mt-2 mb-2">

@@ -4,9 +4,9 @@ import {
   CardTitle,
   Typography,
   CodeBlock,
-  BasicTable,
   RadioGroup,
 } from '../../../../index';
+import { AutoPropsTable } from '../../../components/auto-props-table';
 
 const RadioGroupSection: React.FC = () => {
   const [radioValue, setRadioValue] = useState<string>('');
@@ -15,107 +15,6 @@ const RadioGroupSection: React.FC = () => {
     { value: 'male', label: 'Male' },
     { value: 'female', label: 'Female' },
     { value: 'other', label: 'Other' },
-  ];
-
-  const propsTableColumns = [
-    {
-      key: 'prop',
-      label: 'Prop',
-      render: (value: unknown) => (
-        <code className="text-xs text-brand">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'type',
-      label: 'Type',
-      render: (value: unknown) => (
-        <code className="text-xs">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'default',
-      label: 'Default',
-      render: (value: unknown) => {
-        const val = String(value);
-        if (val === 'required') {
-          return <span className="text-xs text-red-500">required</span>;
-        }
-        return <code className="text-xs">{val}</code>;
-      },
-    },
-    {
-      key: 'description',
-      label: 'Description',
-    },
-  ];
-
-  const radioGroupPropsData = [
-    {
-      prop: 'options',
-      type: '{ value: string | number, label: string }[]',
-      default: 'required',
-      description: 'Array of radio options',
-    },
-    {
-      prop: 'value',
-      type: 'string | number',
-      default: '-',
-      description: 'Currently selected value',
-    },
-    {
-      prop: 'onChange',
-      type: '(value: string | number) => void',
-      default: '-',
-      description: 'Callback when selection changes',
-    },
-    {
-      prop: 'variant',
-      type: "'ghost' | 'solid' | 'transparent'",
-      default: "'ghost'",
-      description: 'Visual variant of the radio buttons',
-    },
-    {
-      prop: 'size',
-      type: "'sm' | 'md' | 'lg' | 'xl'",
-      default: "'md'",
-      description: 'Size of the radio buttons',
-    },
-    {
-      prop: 'color',
-      type: "'primary' | 'secondary' | 'danger' | 'info' | 'success' | 'warning'",
-      default: "'primary'",
-      description: 'Color theme of the radio buttons',
-    },
-    {
-      prop: 'direction',
-      type: "'horizontal' | 'vertical'",
-      default: "'vertical'",
-      description: 'Layout direction of radio buttons',
-    },
-    {
-      prop: 'label',
-      type: 'React.ReactNode',
-      default: '-',
-      description: 'Group label text',
-    },
-    {
-      prop: 'disabled',
-      type: 'boolean',
-      default: 'false',
-      description: 'Disables all radio buttons in the group',
-    },
-    {
-      prop: 'error',
-      type: 'string',
-      default: '-',
-      description: 'Error message to display',
-    },
-    {
-      prop: 'helperText',
-      type: 'React.ReactNode',
-      default: '-',
-      description: 'Helper text displayed below the group',
-    },
   ];
 
   return (
@@ -268,17 +167,7 @@ const RadioGroupSection: React.FC = () => {
           </div>
         </CardTitle>
       </CardContainer>
-
-      <CardContainer className="overflow-hidden">
-        <CardTitle title="Props" className="mt-2 mb-2">
-          <div className="w-full p-4 sm:p-6">
-            <BasicTable
-              columns={propsTableColumns}
-              data={radioGroupPropsData}
-            />
-          </div>
-        </CardTitle>
-      </CardContainer>
+      <AutoPropsTable componentName="RadioGroup" />
 
       <CardContainer className="overflow-hidden">
         <CardTitle title="Code Example" className="mt-2 mb-2">

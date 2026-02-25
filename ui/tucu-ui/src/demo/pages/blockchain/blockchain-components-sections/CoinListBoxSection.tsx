@@ -4,12 +4,12 @@ import {
   CardTitle,
   Typography,
   CodeBlock,
-  BasicTable,
   Bitcoin,
 } from '../../../../index';
 import CoinListBox from '../../../../components/blockchain/coin-listbox';
 import { Ethereum } from '../../../../components/icons/ethereum';
 import { Tether } from '../../../../components/icons/tether';
+import { AutoPropsTable } from '../../../components/auto-props-table';
 
 const CoinListBoxSection: React.FC = () => {
   const [selectedCoin, setSelectedCoin] = useState({
@@ -37,73 +37,6 @@ const CoinListBoxSection: React.FC = () => {
       code: 'USDT',
       name: 'Tether',
       price: 1,
-    },
-  ];
-
-  // Table columns definition for props tables
-  const propsTableColumns = [
-    {
-      key: 'prop',
-      label: 'Prop',
-      render: (value: unknown) => (
-        <code className="text-xs text-brand">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'type',
-      label: 'Type',
-      render: (value: unknown) => (
-        <code className="text-xs">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'default',
-      label: 'Default',
-      render: (value: unknown) => {
-        const val = String(value);
-        if (val === 'required') {
-          return <span className="text-xs text-red-500">required</span>;
-        }
-        return <code className="text-xs">{val}</code>;
-      },
-    },
-    {
-      key: 'description',
-      label: 'Description',
-    },
-  ];
-
-  // CoinListBox props data
-  const coinListBoxPropsData = [
-    {
-      prop: 'coins',
-      type: 'CoinTypes[]',
-      default: 'required',
-      description: 'Array of available coins',
-    },
-    {
-      prop: 'selectedCoin',
-      type: 'CoinTypes',
-      default: 'required',
-      description: 'Currently selected coin',
-    },
-    {
-      prop: 'setSelectedCoin',
-      type: '(coin: CoinTypes) => void',
-      default: 'required',
-      description: 'Callback when coin selection changes',
-    },
-    {
-      prop: 'className',
-      type: 'string',
-      default: "''",
-      description: 'Custom CSS classes',
-    },
-    {
-      prop: 'disabled',
-      type: 'boolean',
-      default: 'false',
-      description: 'Disables the listbox',
     },
   ];
 
@@ -153,16 +86,7 @@ const CoinListBoxSection: React.FC = () => {
         </CardTitle>
       </CardContainer>
 
-      <CardContainer className="overflow-hidden">
-        <CardTitle title="Props" className="mt-2 mb-2">
-          <div className="w-full p-4 sm:p-6">
-            <BasicTable
-              columns={propsTableColumns}
-              data={coinListBoxPropsData}
-            />
-          </div>
-        </CardTitle>
-      </CardContainer>
+      <AutoPropsTable componentName="CoinListBox" />
 
       <CardContainer className="overflow-hidden">
         <CardTitle title="Code Example" className="mt-2 mb-2">

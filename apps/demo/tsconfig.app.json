@@ -21,7 +21,10 @@
     "noUnusedParameters": true,
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "noUncheckedSideEffectImports": true,
+    "rootDir": ".",
+    "paths": {}
   },
-  "include": ["src"]
+  "include": ["src", "!node_modules", "!**/*.spec.ts", "!**/*.test.ts"],
+  "exclude": ["node_modules"]
 }

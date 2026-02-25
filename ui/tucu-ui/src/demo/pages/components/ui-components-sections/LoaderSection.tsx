@@ -4,82 +4,12 @@ import {
   CardTitle,
   Typography,
   CodeBlock,
-  BasicTable,
   Loader,
 } from '../../../../index';
+import { AutoPropsTable } from '../../../components/auto-props-table';
+import { PropPlayground } from '../../../components/prop-playground';
 
 const LoaderSection: React.FC = () => {
-  const propsTableColumns = [
-    {
-      key: 'prop',
-      label: 'Prop',
-      render: (value: unknown) => (
-        <code className="text-xs text-brand">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'type',
-      label: 'Type',
-      render: (value: unknown) => (
-        <code className="text-xs">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'default',
-      label: 'Default',
-      render: (value: unknown) => {
-        const val = String(value);
-        if (val === 'required') {
-          return <span className="text-xs text-red-500">required</span>;
-        }
-        return <code className="text-xs">{val}</code>;
-      },
-    },
-    {
-      key: 'description',
-      label: 'Description',
-    },
-  ];
-
-  const propsData = [
-    {
-      prop: 'tag',
-      type: "'div' | 'span'",
-      default: "'div'",
-      description: 'HTML tag to render',
-    },
-    {
-      prop: 'size',
-      type: "'large' | 'medium' | 'small'",
-      default: "'medium'",
-      description: 'Size of the loader',
-    },
-    {
-      prop: 'variant',
-      type: "'blink' | 'scaleUp' | 'moveUp'",
-      default: "'moveUp'",
-      description: 'Animation variant',
-    },
-    {
-      prop: 'color',
-      type: "'primary' | 'gray' | 'success' | 'danger' | 'info' | 'warning'",
-      default: "'primary'",
-      description: 'Color of the loader',
-    },
-    {
-      prop: 'showOnlyThreeDots',
-      type: 'boolean',
-      default: 'false',
-      description: 'Show only three dots instead of four',
-    },
-    {
-      prop: 'className',
-      type: 'string',
-      default: '-',
-      description: 'Additional CSS classes',
-    },
-  ];
-
   return (
     <>
       <div className="text-center space-y-4">
@@ -154,14 +84,20 @@ const LoaderSection: React.FC = () => {
           </div>
         </CardTitle>
       </CardContainer>
-
-      <CardContainer className="overflow-hidden">
-        <CardTitle title="Props" className="mt-2 mb-2">
-          <div className="w-full p-4 sm:p-6">
-            <BasicTable columns={propsTableColumns} data={propsData} />
-          </div>
-        </CardTitle>
-      </CardContainer>
+      <PropPlayground
+        componentName="Loader"
+        defaultValues={{
+          variant: 'moveUp',
+          size: 'medium',
+          color: 'primary',
+          showOnlyThreeDots: false,
+          tag: 'div',
+        }}
+        excludeProps={[]}
+      >
+        {(props) => <Loader {...props} />}
+      </PropPlayground>
+      <AutoPropsTable componentName="Loader" />
 
       <CardContainer className="overflow-hidden">
         <CardTitle title="Code Example" className="mt-2 mb-2">

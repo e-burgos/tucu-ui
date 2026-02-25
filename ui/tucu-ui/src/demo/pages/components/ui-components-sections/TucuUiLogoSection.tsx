@@ -4,64 +4,12 @@ import {
   CardTitle,
   Typography,
   CodeBlock,
-  BasicTable,
   TucuUiLogo,
 } from '../../../../index';
+import { AutoPropsTable } from '../../../components/auto-props-table';
+import { PropPlayground } from '../../../components/prop-playground';
 
 const TucuUiLogoSection: React.FC = () => {
-  const propsTableColumns = [
-    {
-      key: 'prop',
-      label: 'Prop',
-      render: (value: unknown) => (
-        <code className="text-xs text-brand">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'type',
-      label: 'Type',
-      render: (value: unknown) => (
-        <code className="text-xs">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'default',
-      label: 'Default',
-      render: (value: unknown) => {
-        const val = String(value);
-        if (val === 'required') {
-          return <span className="text-xs text-red-500">required</span>;
-        }
-        return <code className="text-xs">{val}</code>;
-      },
-    },
-    {
-      key: 'description',
-      label: 'Description',
-    },
-  ];
-
-  const propsData = [
-    {
-      prop: 'size',
-      type: 'number | string',
-      default: '120',
-      description: 'Size of the logo icon',
-    },
-    {
-      prop: 'className',
-      type: 'string',
-      default: "''",
-      description: 'Additional CSS classes',
-    },
-    {
-      prop: 'props',
-      type: 'React.SVGAttributes<SVGElement>',
-      default: '-',
-      description: 'Additional SVG attributes',
-    },
-  ];
-
   return (
     <>
       <div className="text-center space-y-4">
@@ -110,14 +58,14 @@ const TucuUiLogoSection: React.FC = () => {
           </div>
         </CardTitle>
       </CardContainer>
-
-      <CardContainer className="overflow-hidden">
-        <CardTitle title="Props" className="mt-2 mb-2">
-          <div className="w-full p-4 sm:p-6">
-            <BasicTable columns={propsTableColumns} data={propsData} />
-          </div>
-        </CardTitle>
-      </CardContainer>
+      <PropPlayground
+        componentName="TucuUiLogo"
+        defaultValues={{ size: 60 }}
+        excludeProps={['props']}
+      >
+        {(props) => <TucuUiLogo {...props} />}
+      </PropPlayground>
+      <AutoPropsTable componentName="TucuUiLogo" />
 
       <CardContainer className="overflow-hidden">
         <CardTitle title="Code Example" className="mt-2 mb-2">

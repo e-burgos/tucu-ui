@@ -4,73 +4,16 @@ import {
   CardTitle,
   Typography,
   CodeBlock,
-  BasicTable,
   CoinInfoCard,
 } from '../../../../index';
 import bitcoinImg from '../../../assets/images/coin/bitcoin.svg';
 import ethereumImg from '../../../assets/images/coin/tether.svg';
+import { AutoPropsTable } from '../../../components/auto-props-table';
 
 const CoinInfoCardSection: React.FC = () => {
   // Table columns definition for props tables
-  const propsTableColumns = [
-    {
-      key: 'prop',
-      label: 'Prop',
-      render: (value: unknown) => (
-        <code className="text-xs text-brand">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'type',
-      label: 'Type',
-      render: (value: unknown) => (
-        <code className="text-xs">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'default',
-      label: 'Default',
-      render: (value: unknown) => {
-        const val = String(value);
-        if (val === 'required') {
-          return <span className="text-xs text-red-500">required</span>;
-        }
-        return <code className="text-xs">{val}</code>;
-      },
-    },
-    {
-      key: 'description',
-      label: 'Description',
-    },
-  ];
 
   // CoinInfoCard props data
-  const coinInfoCardPropsData = [
-    {
-      prop: 'item',
-      type: 'ItemType',
-      default: 'required',
-      description: 'Coin information object',
-    },
-    {
-      prop: 'className',
-      type: 'string',
-      default: "''",
-      description: 'Custom CSS classes for the card',
-    },
-    {
-      prop: 'variant',
-      type: "'small' | 'medium' | 'large'",
-      default: "'small'",
-      description: 'Size variant of the coin icon',
-    },
-    {
-      prop: 'imageClassName',
-      type: 'string',
-      default: "'bg-brand rounded p-1'",
-      description: 'Custom CSS classes for the coin image',
-    },
-  ];
 
   return (
     <>
@@ -173,17 +116,7 @@ const CoinInfoCardSection: React.FC = () => {
           </div>
         </CardTitle>
       </CardContainer>
-
-      <CardContainer className="overflow-hidden">
-        <CardTitle title="Props" className="mt-2 mb-2">
-          <div className="w-full p-4 sm:p-6">
-            <BasicTable
-              columns={propsTableColumns}
-              data={coinInfoCardPropsData}
-            />
-          </div>
-        </CardTitle>
-      </CardContainer>
+      <AutoPropsTable componentName="CoinInfoCard" />
 
       <CardContainer className="overflow-hidden">
         <CardTitle title="Code Example" className="mt-2 mb-2">

@@ -4,9 +4,9 @@ import {
   CardTitle,
   Typography,
   CodeBlock,
-  BasicTable,
   Carousel,
 } from '../../../../index';
+import { AutoPropsTable } from '../../../components/auto-props-table';
 
 const CarouselSection: React.FC = () => {
   const slides = [
@@ -28,77 +28,6 @@ const CarouselSection: React.FC = () => {
     >
       Slide 3
     </div>,
-  ];
-
-  const propsTableColumns = [
-    {
-      key: 'prop',
-      label: 'Prop',
-      render: (value: unknown) => (
-        <code className="text-xs text-brand">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'type',
-      label: 'Type',
-      render: (value: unknown) => (
-        <code className="text-xs">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'default',
-      label: 'Default',
-      render: (value: unknown) => {
-        const val = String(value);
-        if (val === 'required') {
-          return <span className="text-xs text-red-500">required</span>;
-        }
-        return <code className="text-xs">{val}</code>;
-      },
-    },
-    {
-      key: 'description',
-      label: 'Description',
-    },
-  ];
-
-  const propsData = [
-    {
-      prop: 'children',
-      type: 'React.ReactNode[]',
-      default: 'required',
-      description: 'Array of slide elements',
-    },
-    {
-      prop: 'slidesPerView',
-      type: 'number | "auto"',
-      default: '1',
-      description: 'Number of slides visible at once',
-    },
-    {
-      prop: 'spaceBetween',
-      type: 'number',
-      default: '0',
-      description: 'Space between slides in pixels',
-    },
-    {
-      prop: 'showNavigation',
-      type: 'boolean',
-      default: 'false',
-      description: 'Show navigation arrows',
-    },
-    {
-      prop: 'showPagination',
-      type: 'boolean',
-      default: 'false',
-      description: 'Show pagination dots',
-    },
-    {
-      prop: 'autoplay',
-      type: 'boolean | { delay: number }',
-      default: 'false',
-      description: 'Enable autoplay',
-    },
   ];
 
   return (
@@ -158,14 +87,7 @@ const CarouselSection: React.FC = () => {
           </div>
         </CardTitle>
       </CardContainer>
-
-      <CardContainer className="overflow-hidden">
-        <CardTitle title="Props" className="mt-2 mb-2">
-          <div className="w-full p-4 sm:p-6">
-            <BasicTable columns={propsTableColumns} data={propsData} />
-          </div>
-        </CardTitle>
-      </CardContainer>
+      <AutoPropsTable componentName="Carousel" />
 
       <CardContainer className="overflow-hidden">
         <CardTitle title="Code Example" className="mt-2 mb-2">

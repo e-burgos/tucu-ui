@@ -4,76 +4,12 @@ import {
   CardTitle,
   Typography,
   CodeBlock,
-  BasicTable,
   Alert,
 } from '../../../../index';
+import { AutoPropsTable } from '../../../components/auto-props-table';
+import { PropPlayground } from '../../../components/prop-playground';
 
 const AlertSection: React.FC = () => {
-  const propsTableColumns = [
-    {
-      key: 'prop',
-      label: 'Prop',
-      render: (value: unknown) => (
-        <code className="text-xs text-brand">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'type',
-      label: 'Type',
-      render: (value: unknown) => (
-        <code className="text-xs">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'default',
-      label: 'Default',
-      render: (value: unknown) => {
-        const val = String(value);
-        if (val === 'required') {
-          return <span className="text-xs text-red-500">required</span>;
-        }
-        return <code className="text-xs">{val}</code>;
-      },
-    },
-    {
-      key: 'description',
-      label: 'Description',
-    },
-  ];
-
-  const propsData = [
-    {
-      prop: 'children',
-      type: 'React.ReactNode',
-      default: 'required',
-      description: 'Content to display in the alert',
-    },
-    {
-      prop: 'variant',
-      type: "'info' | 'warning' | 'error' | 'success'",
-      default: "'info'",
-      description: 'Visual variant of the alert',
-    },
-    {
-      prop: 'dismissible',
-      type: 'boolean',
-      default: 'true',
-      description: 'Whether the alert can be dismissed',
-    },
-    {
-      prop: 'onDismiss',
-      type: '() => void',
-      default: '-',
-      description: 'Callback when alert is dismissed',
-    },
-    {
-      prop: 'aria-label',
-      type: 'string',
-      default: '-',
-      description: 'Accessibility label',
-    },
-  ];
-
   return (
     <>
       <div className="text-center space-y-4">
@@ -169,14 +105,18 @@ const AlertSection: React.FC = () => {
           </div>
         </CardTitle>
       </CardContainer>
-
-      <CardContainer className="overflow-hidden">
-        <CardTitle title="Props" className="mt-2 mb-2">
-          <div className="w-full p-4 sm:p-6">
-            <BasicTable columns={propsTableColumns} data={propsData} />
-          </div>
-        </CardTitle>
-      </CardContainer>
+      <PropPlayground
+        componentName="Alert"
+        defaultValues={{ variant: 'info', dismissible: true }}
+        excludeProps={['onDismiss', 'aria-label']}
+      >
+        {(props) => (
+          <Alert {...props}>
+            This is an alert message for the playground preview.
+          </Alert>
+        )}
+      </PropPlayground>
+      <AutoPropsTable componentName="Alert" />
 
       <CardContainer className="overflow-hidden">
         <CardTitle title="Code Example" className="mt-2 mb-2">

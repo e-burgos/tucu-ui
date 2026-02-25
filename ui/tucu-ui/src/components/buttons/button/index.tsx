@@ -3,12 +3,12 @@ import React, {
   useImperativeHandle,
   useRef,
   useState,
-  useId,
 } from 'react';
 import cn from 'classnames';
 import ButtonDrip from './button-drip';
 import ButtonLoader from './button-loader';
 import { LoaderSizeTypes, LoaderVariantTypes } from '../../loaders/loader';
+import { Tooltip, TooltipPlacement, TooltipColor } from '../../common/tooltip';
 
 type ShapeNames = 'rounded' | 'pill' | 'circle';
 type VariantNames = 'solid' | 'ghost' | 'transparent';
@@ -60,7 +60,14 @@ export interface ButtonProps
   fullWidth?: boolean;
   loaderSize?: LoaderSizeTypes;
   loaderVariant?: LoaderVariantTypes;
-  tooltip?: string;
+  /** Tooltip text or content to display on hover */
+  tooltip?: React.ReactNode;
+  /** Tooltip placement relative to button */
+  tooltipPlacement?: TooltipPlacement;
+  /** Tooltip color theme */
+  tooltipColor?: TooltipColor;
+  /** Show an arrow on the tooltip */
+  tooltipArrow?: boolean;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   'aria-label'?: string;
   'aria-describedby'?: string;
@@ -81,6 +88,9 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       loaderSize = 'small',
       loaderVariant = 'scaleUp',
       tooltip,
+      tooltipPlacement = 'top',
+      tooltipColor,
+      tooltipArrow = true,
       onClick,
       'aria-label': ariaLabel,
       'aria-describedby': ariaDescribedBy,
@@ -88,14 +98,12 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     },
     ref: React.Ref<HTMLButtonElement | null>
   ) => {
-    const [hover, setHover] = useState<boolean>(false);
     const [dripShow, setDripShow] = useState<boolean>(false);
     const [dripX, setDripX] = useState<number>(0);
     const [dripY, setDripY] = useState<number>(0);
     const colorClassNames = colors[color];
     const sizeClassNames = sizes[size];
     const buttonRef = useRef<HTMLButtonElement>(null);
-    const tooltipId = useId();
 
     useImperativeHandle(ref, () => buttonRef.current);
 
@@ -138,34 +146,18 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         break;
     }
 
-    // Build aria-describedby string
-    const describedBy =
-      [ariaDescribedBy, tooltip ? tooltipId : null].filter(Boolean).join(' ') ||
-      undefined;
-
-    return (
+    const buttonElement = (
       <div
         className={cn(
           'relative backdrop-blur-xl transition-all duration-300 transform',
           fullWidth && 'w-full'
         )}
       >
-        {tooltip && hover && (
-          <div
-            id={tooltipId}
-            role="tooltip"
-            className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 w-max px-2 py-1 text-sm dark:bg-light-dark bg-white rounded-sm shadow-lg border border-gray-200 dark:border-gray-700 z-10"
-          >
-            {tooltip}
-          </div>
-        )}
         <button
-          onMouseEnter={() => setHover(true)}
-          onMouseLeave={() => setHover(false)}
           ref={buttonRef}
           onClick={clickHandler}
           aria-label={ariaLabel}
-          aria-describedby={describedBy}
+          aria-describedby={ariaDescribedBy || undefined}
           aria-busy={isLoading ? 'true' : 'false'}
           className={cn(
             'group inline-flex shrink-0 items-center justify-center overflow-hidden text-center text-sm font-medium tracking-wider outline-hidden transition-all sm:text-sm',
@@ -178,7 +170,9 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             isLoading &&
               'pointer-events-auto cursor-default focus:outline-hidden',
             fullWidth && 'w-full',
-            color === 'white' || color === 'gray'
+            color === 'white'
+              ? 'text-gray-900'
+              : color === 'gray'
               ? 'text-gray-900 dark:text-white'
               : variants[variant],
             shapes[shape],
@@ -220,6 +214,21 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         </button>
       </div>
     );
+
+    if (tooltip) {
+      return (
+        <Tooltip
+          content={tooltip}
+          placement={tooltipPlacement}
+          color={tooltipColor}
+          arrow={tooltipArrow}
+        >
+          {buttonElement}
+        </Tooltip>
+      );
+    }
+
+    return buttonElement;
   }
 );
 

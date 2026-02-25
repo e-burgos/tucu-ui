@@ -4,89 +4,13 @@ import {
   CardTitle,
   Typography,
   CodeBlock,
-  BasicTable,
   ListItem,
   LucideIcons,
 } from '../../../../index';
+import { AutoPropsTable } from '../../../components/auto-props-table';
+import { PropPlayground } from '../../../components/prop-playground';
 
 const ListItemSection: React.FC = () => {
-  const propsTableColumns = [
-    {
-      key: 'prop',
-      label: 'Prop',
-      render: (value: unknown) => (
-        <code className="text-xs text-brand">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'type',
-      label: 'Type',
-      render: (value: unknown) => (
-        <code className="text-xs">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'default',
-      label: 'Default',
-      render: (value: unknown) => {
-        const val = String(value);
-        if (val === 'required') {
-          return <span className="text-xs text-red-500">required</span>;
-        }
-        return <code className="text-xs">{val}</code>;
-      },
-    },
-    {
-      key: 'description',
-      label: 'Description',
-    },
-  ];
-
-  const propsData = [
-    {
-      prop: 'id',
-      type: 'string | number',
-      default: 'required',
-      description: 'Unique identifier for the item',
-    },
-    {
-      prop: 'label',
-      type: 'string',
-      default: '-',
-      description: 'Text label for the item',
-    },
-    {
-      prop: 'icon',
-      type: 'React.ReactNode',
-      default: '-',
-      description: 'Icon to display before the label',
-    },
-    {
-      prop: 'content',
-      type: 'React.ReactNode',
-      default: '-',
-      description: 'Custom content to display instead of label',
-    },
-    {
-      prop: 'onClick',
-      type: '() => void',
-      default: '-',
-      description: 'Click handler function',
-    },
-    {
-      prop: 'disabled',
-      type: 'boolean',
-      default: 'false',
-      description: 'Whether the item is disabled',
-    },
-    {
-      prop: 'active',
-      type: 'boolean',
-      default: 'false',
-      description: 'Whether the item is active',
-    },
-  ];
-
   return (
     <>
       <div className="text-center space-y-4">
@@ -168,14 +92,14 @@ const ListItemSection: React.FC = () => {
           </div>
         </CardTitle>
       </CardContainer>
-
-      <CardContainer className="overflow-hidden">
-        <CardTitle title="Props" className="mt-2 mb-2">
-          <div className="w-full p-4 sm:p-6">
-            <BasicTable columns={propsTableColumns} data={propsData} />
-          </div>
-        </CardTitle>
-      </CardContainer>
+      <PropPlayground
+        componentName="ListItem"
+        defaultValues={{ label: 'List Item', active: false, disabled: false }}
+        excludeProps={['onClick', 'content', 'icon', 'id']}
+      >
+        {(props) => <ListItem {...props} />}
+      </PropPlayground>
+      <AutoPropsTable componentName="ListItem" />
 
       <CardContainer className="overflow-hidden">
         <CardTitle title="Code Example" className="mt-2 mb-2">

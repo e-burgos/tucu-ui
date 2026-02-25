@@ -6,84 +6,9 @@ import {
   CodeBlock,
   BasicTable,
 } from '../../../../index';
+import { AutoPropsTable } from '../../../components/auto-props-table';
 
 const BasicTableSection: React.FC = () => {
-  const propsTableColumns = [
-    {
-      key: 'prop',
-      label: 'Prop',
-      render: (value: unknown) => (
-        <code className="text-xs text-brand">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'type',
-      label: 'Type',
-      render: (value: unknown) => (
-        <code className="text-xs">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'default',
-      label: 'Default',
-      render: (value: unknown) => {
-        const val = String(value);
-        if (val === 'required') {
-          return <span className="text-xs text-red-500">required</span>;
-        }
-        return <code className="text-xs">{val}</code>;
-      },
-    },
-    {
-      key: 'description',
-      label: 'Description',
-    },
-  ];
-
-  const propsData = [
-    {
-      prop: 'columns',
-      type: 'TableColumn<T>[]',
-      default: 'required',
-      description: 'Array of column definitions',
-    },
-    {
-      prop: 'data',
-      type: 'T[]',
-      default: 'required',
-      description: 'Array of data rows',
-    },
-    {
-      prop: 'rounded',
-      type: 'boolean',
-      default: 'true',
-      description: 'Whether to round table corners',
-    },
-    {
-      prop: 'border',
-      type: 'boolean',
-      default: 'true',
-      description: 'Whether to show borders',
-    },
-    {
-      prop: 'hoverable',
-      type: 'boolean',
-      default: 'true',
-      description: 'Whether rows are hoverable',
-    },
-    {
-      prop: 'striped',
-      type: 'boolean',
-      default: 'false',
-      description: 'Whether to show striped rows',
-    },
-    {
-      prop: 'showHeader',
-      type: 'boolean',
-      default: 'true',
-      description: 'Whether to show table header',
-    },
-  ];
 
   const exampleColumns = [
     { key: 'name', label: 'Name' },
@@ -146,14 +71,7 @@ const BasicTableSection: React.FC = () => {
           </div>
         </CardTitle>
       </CardContainer>
-
-      <CardContainer className="overflow-hidden">
-        <CardTitle title="Props" className="mt-2 mb-2">
-          <div className="w-full p-4 sm:p-6">
-            <BasicTable columns={propsTableColumns} data={propsData} />
-          </div>
-        </CardTitle>
-      </CardContainer>
+      <AutoPropsTable componentName="BasicTable" />
 
       <CardContainer className="overflow-hidden">
         <CardTitle title="Code Example" className="mt-2 mb-2">

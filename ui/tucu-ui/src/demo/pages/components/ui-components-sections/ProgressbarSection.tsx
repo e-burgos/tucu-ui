@@ -4,89 +4,13 @@ import {
   CardTitle,
   Typography,
   CodeBlock,
-  BasicTable,
   Progressbar,
 } from '../../../../index';
+import { AutoPropsTable } from '../../../components/auto-props-table';
+import { PropPlayground } from '../../../components/prop-playground';
 
 const ProgressbarSection: React.FC = () => {
   const [progress, setProgress] = useState(45);
-
-  const propsTableColumns = [
-    {
-      key: 'prop',
-      label: 'Prop',
-      render: (value: unknown) => (
-        <code className="text-xs text-brand">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'type',
-      label: 'Type',
-      render: (value: unknown) => (
-        <code className="text-xs">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'default',
-      label: 'Default',
-      render: (value: unknown) => {
-        const val = String(value);
-        if (val === 'required') {
-          return <span className="text-xs text-red-500">required</span>;
-        }
-        return <code className="text-xs">{val}</code>;
-      },
-    },
-    {
-      key: 'description',
-      label: 'Description',
-    },
-  ];
-
-  const propsData = [
-    {
-      prop: 'value',
-      type: 'number',
-      default: '-',
-      description: 'Percentage value (0-100)',
-    },
-    {
-      prop: 'label',
-      type: 'React.ReactNode',
-      default: "''",
-      description: 'Label to display inside the bar',
-    },
-    {
-      prop: 'size',
-      type: "'sm' | 'DEFAULT' | 'lg' | 'xl'",
-      default: "'DEFAULT'",
-      description: 'Size of the progressbar',
-    },
-    {
-      prop: 'rounded',
-      type: "'none' | 'sm' | 'md' | 'lg' | 'DEFAULT'",
-      default: "'DEFAULT'",
-      description: 'Border radius',
-    },
-    {
-      prop: 'color',
-      type: "'DEFAULT' | 'primary' | 'secondary' | 'danger' | 'info' | 'success' | 'warning'",
-      default: "'DEFAULT'",
-      description: 'Color variant',
-    },
-    {
-      prop: 'variant',
-      type: "'solid' | 'flat'",
-      default: "'solid'",
-      description: 'Visual variant',
-    },
-    {
-      prop: 'className',
-      type: 'string',
-      default: '-',
-      description: 'Additional CSS classes',
-    },
-  ];
 
   return (
     <>
@@ -194,14 +118,24 @@ const ProgressbarSection: React.FC = () => {
           </div>
         </CardTitle>
       </CardContainer>
-
-      <CardContainer className="overflow-hidden">
-        <CardTitle title="Props" className="mt-2 mb-2">
-          <div className="w-full p-4 sm:p-6">
-            <BasicTable columns={propsTableColumns} data={propsData} />
+      <PropPlayground
+        componentName="Progressbar"
+        defaultValues={{
+          value: 65,
+          variant: 'solid',
+          size: 'DEFAULT',
+          color: 'primary',
+          rounded: 'DEFAULT',
+        }}
+        excludeProps={['label', 'barClassName', 'labelClassName']}
+      >
+        {(props) => (
+          <div className="w-full">
+            <Progressbar {...props} />
           </div>
-        </CardTitle>
-      </CardContainer>
+        )}
+      </PropPlayground>
+      <AutoPropsTable componentName="Progressbar" />
 
       <CardContainer className="overflow-hidden">
         <CardTitle title="Code Example" className="mt-2 mb-2">

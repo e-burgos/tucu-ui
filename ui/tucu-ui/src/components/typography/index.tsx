@@ -1,4 +1,5 @@
 import cn from 'classnames';
+import { Tooltip, TooltipPlacement, TooltipColor } from '../common/tooltip';
 
 const classes = {
   h1: 'text-h1',
@@ -60,6 +61,14 @@ export interface TypographyProps {
   fontFamily?: keyof typeof fontFamilyClasses;
   /** Add custom classes for extra style */
   className?: string;
+  /** Tooltip text or content to display on hover */
+  tooltip?: React.ReactNode;
+  /** Tooltip placement relative to the text element */
+  tooltipPlacement?: TooltipPlacement;
+  /** Tooltip color theme */
+  tooltipColor?: TooltipColor;
+  /** Show an arrow on the tooltip */
+  tooltipArrow?: boolean;
 }
 
 const validHtmlTags = [
@@ -99,6 +108,10 @@ export function Typography({
   className,
   color,
   fontFamily,
+  tooltip,
+  tooltipPlacement = 'top',
+  tooltipColor,
+  tooltipArrow = true,
 }: React.PropsWithChildren<TypographyProps>) {
   const isCustomTag = !validHtmlTags.includes(
     tag as (typeof validHtmlTags)[number]
@@ -116,7 +129,7 @@ export function Typography({
     fontFamilyClass =
       fontFamilyClasses[fontFamily as keyof typeof fontFamilyClasses];
   }
-  return (
+  const element = (
     <Component
       {...(title && { title })}
       className={cn(classes[tag], fontFamilyClass, textColorClass, className)}
@@ -124,6 +137,21 @@ export function Typography({
       {children}
     </Component>
   );
+
+  if (tooltip) {
+    return (
+      <Tooltip
+        content={tooltip}
+        placement={tooltipPlacement}
+        color={tooltipColor}
+        arrow={tooltipArrow}
+      >
+        {element}
+      </Tooltip>
+    );
+  }
+
+  return element;
 }
 
 export default Typography;

@@ -4,101 +4,12 @@ import {
   CardTitle,
   Typography,
   CodeBlock,
-  BasicTable,
   Textarea,
 } from '../../../../index';
+import { AutoPropsTable } from '../../../components/auto-props-table';
 
 const TextareaSection: React.FC = () => {
   const [textareaValue, setTextareaValue] = useState('');
-
-  const propsTableColumns = [
-    {
-      key: 'prop',
-      label: 'Prop',
-      render: (value: unknown) => (
-        <code className="text-xs text-brand">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'type',
-      label: 'Type',
-      render: (value: unknown) => (
-        <code className="text-xs">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'default',
-      label: 'Default',
-      render: (value: unknown) => {
-        const val = String(value);
-        if (val === 'required') {
-          return <span className="text-xs text-red-500">required</span>;
-        }
-        return <code className="text-xs">{val}</code>;
-      },
-    },
-    {
-      key: 'description',
-      label: 'Description',
-    },
-  ];
-
-  const textareaPropsData = [
-    {
-      prop: 'label',
-      type: 'string',
-      default: '-',
-      description: 'Field label text',
-    },
-    {
-      prop: 'variant',
-      type: "'ghost' | 'solid' | 'transparent'",
-      default: "'ghost'",
-      description: 'Visual variant of the textarea',
-    },
-    {
-      prop: 'error',
-      type: 'string',
-      default: '-',
-      description: 'Error message to display',
-    },
-    {
-      prop: 'helperText',
-      type: 'string',
-      default: '-',
-      description: 'Helper text displayed below the textarea',
-    },
-    {
-      prop: 'disabled',
-      type: 'boolean',
-      default: 'false',
-      description: 'Disables the textarea field',
-    },
-    {
-      prop: 'rows',
-      type: 'number',
-      default: '-',
-      description: 'Number of visible text lines',
-    },
-    {
-      prop: 'useUppercaseLabel',
-      type: 'boolean',
-      default: 'false',
-      description: 'Display label in uppercase',
-    },
-    {
-      prop: 'className',
-      type: 'string',
-      default: '-',
-      description: 'Custom CSS classes for the container',
-    },
-    {
-      prop: 'inputClassName',
-      type: 'string',
-      default: '-',
-      description: 'Custom CSS classes for the textarea element',
-    },
-  ];
 
   return (
     <>
@@ -209,14 +120,7 @@ const TextareaSection: React.FC = () => {
           </div>
         </CardTitle>
       </CardContainer>
-
-      <CardContainer className="overflow-hidden">
-        <CardTitle title="Props" className="mt-2 mb-2">
-          <div className="w-full p-4 sm:p-6">
-            <BasicTable columns={propsTableColumns} data={textareaPropsData} />
-          </div>
-        </CardTitle>
-      </CardContainer>
+      <AutoPropsTable componentName="Textarea" />
 
       <CardContainer className="overflow-hidden">
         <CardTitle title="Code Example" className="mt-2 mb-2">

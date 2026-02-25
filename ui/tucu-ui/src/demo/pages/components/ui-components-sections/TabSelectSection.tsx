@@ -4,10 +4,10 @@ import {
   CardTitle,
   Typography,
   CodeBlock,
-  BasicTable,
 } from '../../../../index';
 import { TabSelect } from '../../../../components/tabs';
 import { Home, Settings, User } from 'lucide-react';
+import { AutoPropsTable } from '../../../components/auto-props-table';
 
 const TabSelectSection: React.FC = () => {
   const [selectedIndex1, setSelectedIndex1] = useState(0);
@@ -60,65 +60,6 @@ const TabSelectSection: React.FC = () => {
     { title: 'Reports', path: 'reports' },
     { title: 'Integrations', path: 'integrations' },
     { title: 'Settings', path: 'settings' },
-  ];
-
-  const propsTableColumns = [
-    {
-      key: 'prop',
-      label: 'Prop',
-      render: (value: unknown) => (
-        <code className="text-xs text-brand">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'type',
-      label: 'Type',
-      render: (value: unknown) => (
-        <code className="text-xs">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'default',
-      label: 'Default',
-      render: (value: unknown) => {
-        const val = String(value);
-        if (val === 'required') {
-          return <span className="text-xs text-red-500">required</span>;
-        }
-        return <code className="text-xs">{val}</code>;
-      },
-    },
-    {
-      key: 'description',
-      label: 'Description',
-    },
-  ];
-
-  const propsData = [
-    {
-      prop: 'tabMenu',
-      type: 'TabSelectMenuItem[]',
-      default: 'required',
-      description: 'Array of menu items with title and path',
-    },
-    {
-      prop: 'selectedTabIndex',
-      type: 'number',
-      default: 'required',
-      description: 'Currently selected tab index (0-based)',
-    },
-    {
-      prop: 'onChange',
-      type: '(index: number) => void',
-      default: 'required',
-      description: 'Callback function when tab selection changes',
-    },
-    {
-      prop: 'ref',
-      type: 'React.Ref<HTMLElement | null>',
-      default: '-',
-      description: 'Forward ref to the select element',
-    },
   ];
 
   const interfaceData = [
@@ -376,18 +317,45 @@ const TabSelectSection: React.FC = () => {
       <CardContainer className="overflow-hidden">
         <CardTitle title="TabSelectMenuItem Interface" className="mt-2 mb-2">
           <div className="w-full p-4 sm:p-6">
-            <BasicTable columns={propsTableColumns} data={interfaceData} />
+            <table className="w-full text-sm text-left">
+              <thead>
+                <tr className="border-b border-gray-200 dark:border-gray-700">
+                  <th className="px-3 py-2 font-semibold">Prop</th>
+                  <th className="px-3 py-2 font-semibold">Type</th>
+                  <th className="px-3 py-2 font-semibold">Default</th>
+                  <th className="px-3 py-2 font-semibold">Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                {interfaceData.map((row) => (
+                  <tr
+                    key={row.prop}
+                    className="border-b border-gray-100 dark:border-gray-800"
+                  >
+                    <td className="px-3 py-2">
+                      <code className="text-xs text-brand">{row.prop}</code>
+                    </td>
+                    <td className="px-3 py-2">
+                      <code className="text-xs">{row.type}</code>
+                    </td>
+                    <td className="px-3 py-2">
+                      {row.default === 'required' ? (
+                        <span className="text-xs text-red-500">required</span>
+                      ) : (
+                        <code className="text-xs">{row.default}</code>
+                      )}
+                    </td>
+                    <td className="px-3 py-2 text-gray-600 dark:text-gray-400">
+                      {row.description}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </CardTitle>
       </CardContainer>
-
-      <CardContainer className="overflow-hidden">
-        <CardTitle title="Props" className="mt-2 mb-2">
-          <div className="w-full p-4 sm:p-6">
-            <BasicTable columns={propsTableColumns} data={propsData} />
-          </div>
-        </CardTitle>
-      </CardContainer>
+      <AutoPropsTable componentName="TabSelect" />
 
       <CardContainer className="overflow-hidden">
         <CardTitle title="Code Examples" className="mt-2 mb-2">

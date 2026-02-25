@@ -2,6 +2,7 @@ import React, { JSX, useState } from 'react';
 import { Radio, RadioGroup } from '@headlessui/react';
 import { Button } from '../../../components/buttons/button';
 import { useTheme } from '../../hooks/use-theme';
+import type { ITheme } from '../../hooks/use-theme';
 import cn from 'classnames';
 import {
   colorPreset,
@@ -33,7 +34,109 @@ import { Drawer } from '../../../components/dialog/drawer';
 import { Input } from '../../../components/inputs/input';
 import { Select, SelectOption } from '../../../components/inputs/select';
 
-// Component: SwitcherButton
+// ─── Color Configuration Map ───────────────────────────────────
+// Single source of truth: eliminates repetitive ternary chains.
+
+type ColorType =
+  | 'primary'
+  | 'darkPrimary'
+  | 'secondary'
+  | 'darkSecondary'
+  | 'accent'
+  | 'darkAccent'
+  | 'muted'
+  | 'darkMuted'
+  | 'darkBg'
+  | 'lightBg'
+  | 'lightDark'
+  | 'darkLightDark';
+
+interface ColorConfig {
+  presetKey: keyof ITheme;
+  setterKey: keyof ITheme;
+  defaultValue: IThemeItem;
+  label: string;
+}
+
+const COLOR_CONFIG: Record<ColorType, ColorConfig> = {
+  primary: {
+    presetKey: 'primaryPreset',
+    setterKey: 'setPrimaryPreset',
+    defaultValue: defaultPrimaryPreset,
+    label: 'Primary Color',
+  },
+  darkPrimary: {
+    presetKey: 'darkPrimaryPreset',
+    setterKey: 'setDarkPrimaryPreset',
+    defaultValue: defaultDarkPrimaryPreset,
+    label: 'Dark Primary Color',
+  },
+  secondary: {
+    presetKey: 'secondaryPreset',
+    setterKey: 'setSecondaryPreset',
+    defaultValue: defaultSecondaryPreset,
+    label: 'Secondary Color',
+  },
+  darkSecondary: {
+    presetKey: 'darkSecondaryPreset',
+    setterKey: 'setDarkSecondaryPreset',
+    defaultValue: defaultDarkSecondaryPreset,
+    label: 'Dark Secondary Color',
+  },
+  accent: {
+    presetKey: 'accentPreset',
+    setterKey: 'setAccentPreset',
+    defaultValue: defaultAccentPreset,
+    label: 'Accent Color',
+  },
+  darkAccent: {
+    presetKey: 'darkAccentPreset',
+    setterKey: 'setDarkAccentPreset',
+    defaultValue: defaultDarkAccentPreset,
+    label: 'Dark Accent Color',
+  },
+  muted: {
+    presetKey: 'mutedPreset',
+    setterKey: 'setMutedPreset',
+    defaultValue: defaultMutedPreset,
+    label: 'Muted Color',
+  },
+  darkMuted: {
+    presetKey: 'darkMutedPreset',
+    setterKey: 'setDarkMutedPreset',
+    defaultValue: defaultDarkMutedPreset,
+    label: 'Dark Muted Color',
+  },
+  darkBg: {
+    presetKey: 'darkBgPreset',
+    setterKey: 'setDarkBgPreset',
+    defaultValue: defaultDarkBgPreset,
+    label: 'Dark Background Color',
+  },
+  lightBg: {
+    presetKey: 'lightBgPreset',
+    setterKey: 'setLightBgPreset',
+    defaultValue: defaultLightBgPreset,
+    label: 'Light Background Color',
+  },
+  lightDark: {
+    presetKey: 'lightDarkPreset',
+    setterKey: 'setLightDarkPreset',
+    defaultValue: defaultLightDarkPreset,
+    label: 'Light Dark Color',
+  },
+  darkLightDark: {
+    presetKey: 'darkLightDarkPreset',
+    setterKey: 'setDarkLightDarkPreset',
+    defaultValue: defaultDarkLightDarkPreset,
+    label: 'Dark Light Dark Color',
+  },
+};
+
+const COLOR_TYPES = Object.keys(COLOR_CONFIG) as ColorType[];
+
+// ─── Shared Components ─────────────────────────────────────────
+
 interface SwitcherButtonProps {
   onClick?: () => void;
   checked: boolean;
@@ -55,7 +158,7 @@ function SwitcherButton({
     >
       <span
         className={cn(
-          'flex h-[70px] items-center justify-center rounded-lg text-center text-sm font-medium uppercase tracking-wide transition-all',
+          'flex h-17.5 items-center justify-center rounded-lg text-center text-sm font-medium uppercase tracking-wide transition-all',
           checked
             ? 'shadow-large bg-brand/50'
             : 'bg-white dark:bg-gray-600 text-gray-500 group-hover:bg-brand/20 dark:text-gray-400'
@@ -65,7 +168,7 @@ function SwitcherButton({
       </span>
       <span
         className={cn(
-          'mt-[12px] block text-center text-sm transition-all',
+          'mt-3 block text-center text-sm transition-all',
           checked
             ? 'text-brand dark:text-white'
             : 'text-gray-500 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white'
@@ -77,18 +180,19 @@ function SwitcherButton({
   );
 }
 
-// Component: ThemeSwitcher
+// ─── ThemeSwitcher ─────────────────────────────────────────────
+
 function ThemeSwitcher() {
   const { mode, setMode } = useTheme();
   return (
-    <div className="px-[24px] pt-[32px]">
-      <h4 className="mb-[16px] text-sm font-medium text-gray-900 dark:text-white">
+    <div className="px-6 pt-8">
+      <h4 className="mb-4 text-sm font-medium text-gray-900 dark:text-white">
         Mode
       </h4>
       <RadioGroup
         value={mode}
         onChange={setMode}
-        className="grid grid-cols-2 gap-[20px]"
+        className="grid grid-cols-2 gap-5"
       >
         <Radio value="light">
           {({ checked }) => (
@@ -117,18 +221,19 @@ function ThemeSwitcher() {
   );
 }
 
-// Component: DirectionSwitcher
+// ─── DirectionSwitcher ─────────────────────────────────────────
+
 function DirectionSwitcher() {
   const { direction, setDirection } = useTheme();
   return (
-    <div className="px-[24px] pt-[32px]">
-      <h4 className="mb-[16px] text-sm font-medium text-gray-900 dark:text-white">
+    <div className="px-6 pt-8">
+      <h4 className="mb-4 text-sm font-medium text-gray-900 dark:text-white">
         Direction
       </h4>
       <RadioGroup
         value={direction}
         onChange={setDirection}
-        className="grid grid-cols-2 gap-[20px]"
+        className="grid grid-cols-2 gap-5"
       >
         <Radio value="ltr">
           {({ checked }) => (
@@ -157,7 +262,8 @@ function DirectionSwitcher() {
   );
 }
 
-// Component: LayoutSwitcher
+// ─── LayoutSwitcher ────────────────────────────────────────────
+
 const LayoutIcons: Record<string, JSX.Element> = {
   [LAYOUT_OPTIONS.HORIZONTAL]: <MinimalLayoutIcon />,
   [LAYOUT_OPTIONS.ADMIN]: <ClassicLayoutIcon />,
@@ -167,8 +273,8 @@ const LayoutIcons: Record<string, JSX.Element> = {
 function LayoutSwitcher() {
   const { layout, setLayout } = useTheme();
   return (
-    <div className="px-[24px] pt-[32px]">
-      <h4 className="mb-[16px] text-sm font-medium text-gray-900 dark:text-white">
+    <div className="px-6 pt-8">
+      <h4 className="mb-4 text-sm font-medium text-gray-900 dark:text-white">
         Layout
       </h4>
       <RadioGroup
@@ -194,192 +300,65 @@ function LayoutSwitcher() {
   );
 }
 
-// Component: ColorSwitcher
-function ColorSwitcher({
-  type,
-}: {
-  type:
-    | 'primary'
-    | 'darkPrimary'
-    | 'secondary'
-    | 'darkSecondary'
-    | 'accent'
-    | 'darkAccent'
-    | 'muted'
-    | 'darkMuted'
-    | 'darkBg'
-    | 'lightBg'
-    | 'lightDark'
-    | 'darkLightDark';
-}) {
-  const [colorValue, setColorValue] = useState<string>('');
-  const {
-    primaryPreset,
-    darkPrimaryPreset,
-    secondaryPreset,
-    darkSecondaryPreset,
-    accentPreset,
-    darkAccentPreset,
-    mutedPreset,
-    darkMutedPreset,
-    darkBgPreset,
-    lightBgPreset,
-    lightDarkPreset,
-    darkLightDarkPreset,
-    setPrimaryPreset,
-    setDarkPrimaryPreset,
-    setSecondaryPreset,
-    setDarkSecondaryPreset,
-    setAccentPreset,
-    setDarkAccentPreset,
-    setMutedPreset,
-    setDarkMutedPreset,
-    setDarkBgPreset,
-    setLightBgPreset,
-    setLightDarkPreset,
-    setDarkLightDarkPreset,
-  } = useTheme();
-  const color =
-    type === 'primary'
-      ? primaryPreset
-      : type === 'darkPrimary'
-      ? darkPrimaryPreset
-      : type === 'secondary'
-      ? secondaryPreset
-      : type === 'darkSecondary'
-      ? darkSecondaryPreset
-      : type === 'accent'
-      ? accentPreset
-      : type === 'darkAccent'
-      ? darkAccentPreset
-      : type === 'muted'
-      ? mutedPreset
-      : type === 'darkMuted'
-      ? darkMutedPreset
-      : type === 'darkBg'
-      ? darkBgPreset
-      : type === 'lightBg'
-      ? lightBgPreset
-      : type === 'lightDark'
-      ? lightDarkPreset
-      : type === 'darkLightDark'
-      ? darkLightDarkPreset
-      : undefined;
+// ─── ColorSwitcher ─────────────────────────────────────────────
 
-  const setColor =
-    type === 'primary'
-      ? setPrimaryPreset
-      : type === 'darkPrimary'
-      ? setDarkPrimaryPreset
-      : type === 'secondary'
-      ? setSecondaryPreset
-      : type === 'darkSecondary'
-      ? setDarkSecondaryPreset
-      : type === 'accent'
-      ? setAccentPreset
-      : type === 'darkAccent'
-      ? setDarkAccentPreset
-      : type === 'muted'
-      ? setMutedPreset
-      : type === 'darkMuted'
-      ? setDarkMutedPreset
-      : type === 'darkBg'
-      ? setDarkBgPreset
-      : type === 'lightBg'
-      ? setLightBgPreset
-      : type === 'lightDark'
-      ? setLightDarkPreset
-      : type === 'darkLightDark'
-      ? setDarkLightDarkPreset
-      : undefined;
+function ColorSwitcher({ type }: { type: ColorType }) {
+  const [colorValue, setColorValue] = useState('');
+  const { presetKey, setterKey, defaultValue, label } = COLOR_CONFIG[type];
 
-  const defaultColor =
-    type === 'primary'
-      ? defaultPrimaryPreset
-      : type === 'darkPrimary'
-      ? defaultDarkPrimaryPreset
-      : type === 'secondary'
-      ? defaultSecondaryPreset
-      : type === 'darkSecondary'
-      ? defaultDarkSecondaryPreset
-      : type === 'accent'
-      ? defaultAccentPreset
-      : type === 'darkAccent'
-      ? defaultDarkAccentPreset
-      : type === 'muted'
-      ? defaultMutedPreset
-      : type === 'darkMuted'
-      ? defaultDarkMutedPreset
-      : type === 'darkBg'
-      ? defaultDarkBgPreset
-      : type === 'lightBg'
-      ? defaultLightBgPreset
-      : type === 'lightDark'
-      ? defaultLightDarkPreset
-      : type === 'darkLightDark'
-      ? defaultDarkLightDarkPreset
-      : undefined;
+  // Dynamic Zustand selectors — only subscribes to the 2 needed slices
+  const color = useTheme((s) => s[presetKey] as IThemeItem);
+  const setColor = useTheme((s) => s[setterKey] as (value: IThemeItem) => void);
+
+  const selectOptions = colorPreset.map((item) => ({
+    name: item.label,
+    value: item.value,
+  }));
+
+  const matchedPreset = colorPreset.find((item) => item.value === color?.value);
+
+  const handleSelectChange = (option: SelectOption) => {
+    // Map SelectOption back to IThemeItem (preserves label + value)
+    const preset = colorPreset.find((item) => item.value === option.value);
+    if (preset) setColor(preset);
+  };
+
+  const handleCustomColor = () => {
+    setColor({
+      label: colorValue ? `Custom ${type}` : defaultValue.label,
+      value: colorValue || defaultValue.value,
+    });
+  };
+
   return (
     <div className="px-6 pt-8">
-      <div className="flex items-start flex-col h-[32px] justify-between mb-[16px]">
-        <span className=" text-sm font-medium text-gray-900 dark:text-white">
-          {type === 'primary'
-            ? 'Primary Color'
-            : type === 'darkPrimary'
-            ? 'Dark Primary Color'
-            : type === 'secondary'
-            ? 'Secondary Color'
-            : type === 'darkSecondary'
-            ? 'Dark Secondary Color'
-            : type === 'accent'
-            ? 'Accent Color'
-            : type === 'darkAccent'
-            ? 'Dark Accent Color'
-            : type === 'muted'
-            ? 'Muted Color'
-            : type === 'darkMuted'
-            ? 'Dark Muted Color'
-            : type === 'darkBg'
-            ? 'Dark Background Color'
-            : type === 'lightBg'
-            ? 'Light Background Color'
-            : type === 'lightDark'
-            ? 'Light Dark Color'
-            : type === 'darkLightDark'
-            ? 'Dark Light Dark Color'
-            : ''}
+      <div className="flex items-start flex-col h-8 justify-between mb-4">
+        <span className="text-sm font-medium text-gray-900 dark:text-white">
+          {label}
         </span>
-        <span className="text-current text-xs font-medium  rounded-md">
+        <span className="text-current text-xs font-medium rounded-md">
           Currently:{' '}
           <span className="text-brand">
             {color?.label}{' '}
             <span
               style={{ backgroundColor: color?.value }}
-              className="min-h-[16px] min-w-[16px] h-[16px] w-[16px] inline-block rounded-full ml-[4px] border border-gray-200 dark:border-gray-700"
+              className="min-h-4 min-w-4 h-4 w-4 inline-block rounded-full ml-1 border border-gray-200 dark:border-gray-700"
             />
           </span>
         </span>
       </div>
-      <div className="flex  flex-col w-full gap-[8px]">
+      <div className="flex flex-col w-full gap-2">
         <Select
-          options={colorPreset.map((item) => ({
-            name: item.label,
-            value: item.value,
-          }))}
+          options={selectOptions}
           selectedOption={{
             name: color?.label?.includes('Custom')
-              ? color?.label
-              : colorPreset.find((item) => item.value === color?.value)
-                  ?.label || '',
-            value:
-              colorPreset.find((item) => item.value === color?.value)?.value ||
-              '',
+              ? color.label
+              : matchedPreset?.label || '',
+            value: matchedPreset?.value || '',
           }}
-          onChange={(value: SelectOption) =>
-            setColor?.(value as unknown as IThemeItem)
-          }
+          onChange={handleSelectChange}
         />
-        <div className="flex items-center gap-[8px]">
+        <div className="flex items-center gap-2">
           <Input
             placeholder="Enter color code"
             type="text"
@@ -388,14 +367,9 @@ function ColorSwitcher({
           />
           <Button
             size="small"
-            className="w-[140px] h-[48px] mt-[4px]"
+            className="w-35 h-12 mt-1"
             variant="ghost"
-            onClick={() =>
-              setColor?.({
-                label: colorValue ? `Custom ${type}` : defaultColor?.label,
-                value: colorValue || defaultColor?.value,
-              } as IThemeItem)
-            }
+            onClick={handleCustomColor}
           >
             {colorValue ? 'Set Color' : 'Set Default'}
           </Button>
@@ -405,16 +379,20 @@ function ColorSwitcher({
   );
 }
 
+// ─── RestoreDefaults ───────────────────────────────────────────
+
 export function RestoreDefaults() {
   const { restoreDefaultColors } = useTheme();
   return (
-    <div className="flex justify-center items-center p-[16px] absolute bg-white dark:bg-gray-800 bottom-0 left-0 right-0 border-t border-gray-200 dark:border-gray-700">
+    <div className="flex justify-center items-center p-4 absolute bg-white dark:bg-gray-800 bottom-0 left-0 right-0 border-t border-gray-200 dark:border-gray-700">
       <Button fullWidth size="small" onClick={restoreDefaultColors}>
         Restore Theme
       </Button>
     </div>
   );
 }
+
+// ─── SettingsDrawer ────────────────────────────────────────────
 
 export function SettingsDrawer() {
   const { isSettingsOpen, setIsSettingsOpen } = useTheme();
@@ -427,22 +405,13 @@ export function SettingsDrawer() {
       title="Settings"
       className="relative"
     >
-      <div className="h-full pb-[64px]">
+      <div className="h-full pb-16">
         <ThemeSwitcher />
         <DirectionSwitcher />
         <LayoutSwitcher />
-        <ColorSwitcher type="primary" />
-        <ColorSwitcher type="darkPrimary" />
-        <ColorSwitcher type="secondary" />
-        <ColorSwitcher type="darkSecondary" />
-        <ColorSwitcher type="accent" />
-        <ColorSwitcher type="darkAccent" />
-        <ColorSwitcher type="muted" />
-        <ColorSwitcher type="darkMuted" />
-        <ColorSwitcher type="darkBg" />
-        <ColorSwitcher type="lightBg" />
-        <ColorSwitcher type="lightDark" />
-        <ColorSwitcher type="darkLightDark" />
+        {COLOR_TYPES.map((type) => (
+          <ColorSwitcher key={type} type={type} />
+        ))}
         <RestoreDefaults />
       </div>
     </Drawer>

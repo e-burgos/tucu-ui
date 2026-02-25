@@ -4,10 +4,10 @@ import {
   CardTitle,
   Typography,
   CodeBlock,
-  BasicTable,
   CarouselCards,
   LucideIcons,
 } from '../../../../index';
+import { AutoPropsTable } from '../../../components/auto-props-table';
 
 const CarouselCardsSection: React.FC = () => {
   const cards = [
@@ -44,77 +44,6 @@ const CarouselCardsSection: React.FC = () => {
       title: 'Documentation',
       description: 'Extensive documentation with examples and best practices',
       icon: <LucideIcons.BookOpen className="w-8 h-8" />,
-    },
-  ];
-
-  const propsTableColumns = [
-    {
-      key: 'prop',
-      label: 'Prop',
-      render: (value: unknown) => (
-        <code className="text-xs text-brand">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'type',
-      label: 'Type',
-      render: (value: unknown) => (
-        <code className="text-xs">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'default',
-      label: 'Default',
-      render: (value: unknown) => {
-        const val = String(value);
-        if (val === 'required') {
-          return <span className="text-xs text-red-500">required</span>;
-        }
-        return <code className="text-xs">{val}</code>;
-      },
-    },
-    {
-      key: 'description',
-      label: 'Description',
-    },
-  ];
-
-  const propsData = [
-    {
-      prop: 'cards',
-      type: 'CarouselCardItem[]',
-      default: 'required',
-      description: 'Array of card items to display',
-    },
-    {
-      prop: 'cardSize',
-      type: "'sm' | 'md' | 'lg' | 'xl'",
-      default: "'md'",
-      description: 'Size of the cards',
-    },
-    {
-      prop: 'variant',
-      type: "'default' | 'elevated' | 'outlined' | 'filled'",
-      default: "'default'",
-      description: 'Visual variant of the cards',
-    },
-    {
-      prop: 'showCardTitles',
-      type: 'boolean',
-      default: 'true',
-      description: 'Whether to show card titles',
-    },
-    {
-      prop: 'showNavigation',
-      type: 'boolean',
-      default: 'false',
-      description: 'Show navigation arrows',
-    },
-    {
-      prop: 'showPagination',
-      type: 'boolean',
-      default: 'false',
-      description: 'Show pagination dots',
     },
   ];
 
@@ -197,14 +126,7 @@ const CarouselCardsSection: React.FC = () => {
           </div>
         </CardTitle>
       </CardContainer>
-
-      <CardContainer className="overflow-hidden">
-        <CardTitle title="Props" className="mt-2 mb-2">
-          <div className="w-full p-4 sm:p-6">
-            <BasicTable columns={propsTableColumns} data={propsData} />
-          </div>
-        </CardTitle>
-      </CardContainer>
+      <AutoPropsTable componentName="CarouselCards" />
 
       <CardContainer className="overflow-hidden">
         <CardTitle title="Code Example" className="mt-2 mb-2">

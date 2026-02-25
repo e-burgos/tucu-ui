@@ -4,76 +4,12 @@ import {
   CardTitle,
   Typography,
   CodeBlock,
-  BasicTable,
   Scrollbar,
 } from '../../../../index';
+import { AutoPropsTable } from '../../../components/auto-props-table';
+import { PropPlayground } from '../../../components/prop-playground';
 
 const ScrollbarSection: React.FC = () => {
-  const propsTableColumns = [
-    {
-      key: 'prop',
-      label: 'Prop',
-      render: (value: unknown) => (
-        <code className="text-xs text-brand">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'type',
-      label: 'Type',
-      render: (value: unknown) => (
-        <code className="text-xs">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'default',
-      label: 'Default',
-      render: (value: unknown) => {
-        const val = String(value);
-        if (val === 'required') {
-          return <span className="text-xs text-red-500">required</span>;
-        }
-        return <code className="text-xs">{val}</code>;
-      },
-    },
-    {
-      key: 'description',
-      label: 'Description',
-    },
-  ];
-
-  const propsData = [
-    {
-      prop: 'children',
-      type: 'React.ReactNode',
-      default: 'required',
-      description: 'Content to display inside the scrollbar',
-    },
-    {
-      prop: 'autoHide',
-      type: "'never' | 'scroll' | 'leave' | 'move'",
-      default: "'scroll'",
-      description: 'When to hide the scrollbar',
-    },
-    {
-      prop: 'direction',
-      type: "'horizontal' | 'vertical' | 'both'",
-      default: "'vertical'",
-      description: 'Scroll direction',
-    },
-    {
-      prop: 'className',
-      type: 'string',
-      default: '-',
-      description: 'Additional CSS classes',
-    },
-    {
-      prop: 'scrollbarStyle',
-      type: '{ track?: CSSProperties; thumb?: CSSProperties }',
-      default: '-',
-      description: 'Custom styles for scrollbar track and thumb',
-    },
-  ];
-
   const longContent = Array.from({ length: 20 }, (_, i) => (
     <div key={i} className="p-4 border-b">
       <Typography tag="p">Content item {i + 1}</Typography>
@@ -141,14 +77,22 @@ const ScrollbarSection: React.FC = () => {
           </div>
         </CardTitle>
       </CardContainer>
-
-      <CardContainer className="overflow-hidden">
-        <CardTitle title="Props" className="mt-2 mb-2">
-          <div className="w-full p-4 sm:p-6">
-            <BasicTable columns={propsTableColumns} data={propsData} />
-          </div>
-        </CardTitle>
-      </CardContainer>
+      <PropPlayground
+        componentName="Scrollbar"
+        defaultValues={{ autoHide: 'scroll', direction: 'vertical' }}
+        excludeProps={['scrollbarStyle', 'style']}
+      >
+        {(props) => (
+          <Scrollbar {...props} style={{ height: 200 }}>
+            <div style={{ height: 600, padding: 16 }}>
+              <p>Scroll down to see more content...</p>
+              <p style={{ marginTop: 200 }}>Middle content</p>
+              <p style={{ marginTop: 200 }}>End of content</p>
+            </div>
+          </Scrollbar>
+        )}
+      </PropPlayground>
+      <AutoPropsTable componentName="Scrollbar" />
 
       <CardContainer className="overflow-hidden">
         <CardTitle title="Code Example" className="mt-2 mb-2">

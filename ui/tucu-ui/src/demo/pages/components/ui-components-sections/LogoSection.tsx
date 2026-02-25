@@ -4,88 +4,12 @@ import {
   CardTitle,
   Typography,
   CodeBlock,
-  BasicTable,
   Logo,
 } from '../../../../index';
+import { AutoPropsTable } from '../../../components/auto-props-table';
+import { PropPlayground } from '../../../components/prop-playground';
 
 const LogoSection: React.FC = () => {
-  const propsTableColumns = [
-    {
-      key: 'prop',
-      label: 'Prop',
-      render: (value: unknown) => (
-        <code className="text-xs text-brand">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'type',
-      label: 'Type',
-      render: (value: unknown) => (
-        <code className="text-xs">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'default',
-      label: 'Default',
-      render: (value: unknown) => {
-        const val = String(value);
-        if (val === 'required') {
-          return <span className="text-xs text-red-500">required</span>;
-        }
-        return <code className="text-xs">{val}</code>;
-      },
-    },
-    {
-      key: 'description',
-      label: 'Description',
-    },
-  ];
-
-  const propsData = [
-    {
-      prop: 'name',
-      type: 'string',
-      default: '-',
-      description: 'Primary logo text. Defaults to "TUCU" if not provided',
-    },
-    {
-      prop: 'secondName',
-      type: 'string',
-      default: '-',
-      description: 'Secondary logo text. Defaults to "UI" if not provided',
-    },
-    {
-      prop: 'path',
-      type: 'string',
-      default: "'/'",
-      description: 'Link path for the logo anchor link',
-    },
-    {
-      prop: 'className',
-      type: 'string',
-      default: '-',
-      description: 'Additional CSS classes for the logo container',
-    },
-    {
-      prop: 'size',
-      type: "'small' | 'medium' | 'large' | 'xlarge'",
-      default: "'medium'",
-      description: 'Size of the logo. Affects both icon and text sizes',
-    },
-    {
-      prop: 'logo',
-      type: 'React.ReactNode | null',
-      default: 'null',
-      description: 'Custom logo component to replace the default TucuUiLogo',
-    },
-    {
-      prop: 'isoType',
-      type: 'boolean',
-      default: 'false',
-      description: 'Show only the first letter of each name (isotype mode)',
-    },
-  ];
-
   return (
     <>
       <div className="text-center space-y-4">
@@ -246,14 +170,19 @@ const LogoSection: React.FC = () => {
           </div>
         </CardTitle>
       </CardContainer>
-
-      <CardContainer className="overflow-hidden">
-        <CardTitle title="Props" className="mt-2 mb-2">
-          <div className="w-full p-4 sm:p-6">
-            <BasicTable columns={propsTableColumns} data={propsData} />
-          </div>
-        </CardTitle>
-      </CardContainer>
+      <PropPlayground
+        componentName="Logo"
+        defaultValues={{
+          name: 'Tucu',
+          secondName: 'UI',
+          size: 'medium',
+          isoType: false,
+        }}
+        excludeProps={['path', 'logo', 'preset']}
+      >
+        {(props) => <Logo {...props} />}
+      </PropPlayground>
+      <AutoPropsTable componentName="Logo" />
 
       <CardContainer className="overflow-hidden">
         <CardTitle title="Code Example" className="mt-2 mb-2">

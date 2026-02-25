@@ -7,6 +7,7 @@ import {
   BasicTable,
   Button,
 } from '../../../../index';
+import { PropPlayground } from '../../../components/prop-playground';
 
 const ButtonLoaderSection: React.FC = () => {
   const propsTableColumns = [
@@ -130,6 +131,33 @@ const ButtonLoaderSection: React.FC = () => {
           </div>
         </CardTitle>
       </CardContainer>
+
+      <PropPlayground
+        componentName="Button"
+        title="Button Loader Playground"
+        defaultValues={{
+          variant: 'solid',
+          color: 'primary',
+          size: 'medium',
+          isLoading: true,
+          loaderSize: 'small',
+          loaderVariant: 'scaleUp',
+        }}
+        excludeProps={[
+          'onClick',
+          'aria-label',
+          'aria-describedby',
+          'tooltip',
+          'tooltipArrow',
+          'tooltipColor',
+          'tooltipPlacement',
+          'shape',
+          'fullWidth',
+          'disabled',
+        ]}
+      >
+        {(props) => <Button {...props}>Loading...</Button>}
+      </PropPlayground>
 
       <CardContainer className="overflow-hidden">
         <CardTitle title="Props" className="mt-2 mb-2">

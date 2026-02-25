@@ -4,92 +4,12 @@ import {
   CardTitle,
   Typography,
   CodeBlock,
-  BasicTable,
   ScrollToTop,
 } from '../../../../index';
+import { AutoPropsTable } from '../../../components/auto-props-table';
+import { PropPlayground } from '../../../components/prop-playground';
 
 const ScrollToTopSection: React.FC = () => {
-  const propsTableColumns = [
-    {
-      key: 'prop',
-      label: 'Prop',
-      render: (value: unknown) => (
-        <code className="text-xs text-brand">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'type',
-      label: 'Type',
-      render: (value: unknown) => (
-        <code className="text-xs">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'default',
-      label: 'Default',
-      render: (value: unknown) => {
-        const val = String(value);
-        if (val === 'required') {
-          return <span className="text-xs text-red-500">required</span>;
-        }
-        return <code className="text-xs">{val}</code>;
-      },
-    },
-    {
-      key: 'description',
-      label: 'Description',
-    },
-  ];
-
-  const propsData = [
-    {
-      prop: 'top',
-      type: 'string | number',
-      default: 'undefined',
-      description:
-        'Distance from the top of the viewport (in pixels or Tailwind class). If undefined, uses bottom instead.',
-    },
-    {
-      prop: 'right',
-      type: 'string | number',
-      default: '24',
-      description:
-        'Distance from the right of the viewport (in pixels or Tailwind class).',
-    },
-    {
-      prop: 'bottom',
-      type: 'string | number',
-      default: '24',
-      description:
-        'Distance from the bottom of the viewport (in pixels or Tailwind class).',
-    },
-    {
-      prop: 'left',
-      type: 'string | number',
-      default: 'undefined',
-      description:
-        'Distance from the left of the viewport (in pixels or Tailwind class). If undefined, uses right instead.',
-    },
-    {
-      prop: 'showAfter',
-      type: 'number',
-      default: '400',
-      description: 'Minimum scroll position (in pixels) to show the button.',
-    },
-    {
-      prop: 'size',
-      type: "'small' | 'medium' | 'large'",
-      default: "'medium'",
-      description: 'Size of the button.',
-    },
-    {
-      prop: 'className',
-      type: 'string',
-      default: 'undefined',
-      description: 'Custom className for the button.',
-    },
-  ];
-
   return (
     <>
       <div className="text-center space-y-4">
@@ -189,14 +109,19 @@ const ScrollToTopSection: React.FC = () => {
           </div>
         </CardTitle>
       </CardContainer>
-
-      <CardContainer className="overflow-hidden">
-        <CardTitle title="Props" className="mt-2 mb-2">
-          <div className="w-full p-4 sm:p-6">
-            <BasicTable columns={propsTableColumns} data={propsData} />
-          </div>
-        </CardTitle>
-      </CardContainer>
+      <PropPlayground
+        componentName="ScrollToTop"
+        defaultValues={{
+          size: 'medium',
+          showAfter: 400,
+          bottom: 24,
+          right: 24,
+        }}
+        excludeProps={[]}
+      >
+        {(props) => <ScrollToTop {...props} />}
+      </PropPlayground>
+      <AutoPropsTable componentName="ScrollToTop" />
 
       <CardContainer className="overflow-hidden">
         <CardTitle title="Code Example" className="mt-2 mb-2">

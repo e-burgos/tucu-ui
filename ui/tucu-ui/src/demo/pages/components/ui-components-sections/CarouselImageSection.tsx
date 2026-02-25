@@ -4,9 +4,9 @@ import {
   CardTitle,
   Typography,
   CodeBlock,
-  BasicTable,
   CarouselImage,
 } from '../../../../index';
+import { AutoPropsTable } from '../../../components/auto-props-table';
 
 const CarouselImageSection: React.FC = () => {
   const images = [
@@ -45,83 +45,6 @@ const CarouselImageSection: React.FC = () => {
       alt: 'Northern Lights',
       title: 'Aurora Borealis',
       description: 'Magical northern lights dancing across the night sky',
-    },
-  ];
-
-  const propsTableColumns = [
-    {
-      key: 'prop',
-      label: 'Prop',
-      render: (value: unknown) => (
-        <code className="text-xs text-brand">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'type',
-      label: 'Type',
-      render: (value: unknown) => (
-        <code className="text-xs">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'default',
-      label: 'Default',
-      render: (value: unknown) => {
-        const val = String(value);
-        if (val === 'required') {
-          return <span className="text-xs text-red-500">required</span>;
-        }
-        return <code className="text-xs">{val}</code>;
-      },
-    },
-    {
-      key: 'description',
-      label: 'Description',
-    },
-  ];
-
-  const propsData = [
-    {
-      prop: 'images',
-      type: 'CarouselImageItem[]',
-      default: 'required',
-      description: 'Array of image items to display',
-    },
-    {
-      prop: 'showTitles',
-      type: 'boolean',
-      default: 'false',
-      description: 'Whether to show image titles and descriptions',
-    },
-    {
-      prop: 'imageFit',
-      type: "'cover' | 'contain' | 'fill' | 'none' | 'scale-down'",
-      default: "'cover'",
-      description: 'How images should fit in their containers',
-    },
-    {
-      prop: 'aspectRatio',
-      type: 'string',
-      default: "'aspect-video'",
-      description: 'Aspect ratio class for images',
-    },
-    {
-      prop: 'lazy',
-      type: 'boolean',
-      default: 'true',
-      description: 'Enable lazy loading for images',
-    },
-    {
-      prop: 'showNavigation',
-      type: 'boolean',
-      default: 'false',
-      description: 'Show navigation arrows',
-    },
-    {
-      prop: 'showPagination',
-      type: 'boolean',
-      default: 'false',
-      description: 'Show pagination dots',
     },
   ];
 
@@ -202,14 +125,7 @@ const CarouselImageSection: React.FC = () => {
           </div>
         </CardTitle>
       </CardContainer>
-
-      <CardContainer className="overflow-hidden">
-        <CardTitle title="Props" className="mt-2 mb-2">
-          <div className="w-full p-4 sm:p-6">
-            <BasicTable columns={propsTableColumns} data={propsData} />
-          </div>
-        </CardTitle>
-      </CardContainer>
+      <AutoPropsTable componentName="CarouselImage" />
 
       <CardContainer className="overflow-hidden">
         <CardTitle title="Code Example" className="mt-2 mb-2">

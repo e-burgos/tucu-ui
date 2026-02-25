@@ -15,6 +15,8 @@ type StandaloneAppRouteType = {
 interface StandaloneAppRoutesMenuItem extends Omit<IMenuItem, 'dropdownItems'> {
   component: JSX.Element;
   isPublic?: boolean;
+  /** When true, appends /* to the route path so the page can handle internal sub-routes */
+  enableNestedRoutes?: boolean;
   dropdownItems?: StandaloneAppRoutesMenuItem[];
 }
 
@@ -47,31 +49,37 @@ export const StandaloneAppRoutesProvider: FC<StandaloneAppRoutesProps> = ({
     const privateRoutes: StandaloneAppRouteType[] = [];
 
     menuItems?.forEach((route, index) => {
+      const routePath = route.enableNestedRoutes
+        ? `${route.path}/*`
+        : route.path;
       if (route.isPublic || route.isPublic === undefined) {
         publicRoutes.push({
           key: `route-${index}`,
-          path: route.path,
+          path: routePath,
           element: route.component,
         });
       } else {
         privateRoutes.push({
           key: `route-${index}`,
-          path: route.path,
+          path: routePath,
           element: route.component,
         });
       }
       if (route.dropdownItems) {
         route.dropdownItems.forEach((dropdownRoute, dropdownIndex) => {
+          const dropdownPath = dropdownRoute.enableNestedRoutes
+            ? `${dropdownRoute.path}/*`
+            : dropdownRoute.path;
           if (dropdownRoute.isPublic || dropdownRoute.isPublic === undefined) {
             publicRoutes.push({
               key: `route-${index}-${dropdownIndex}`,
-              path: dropdownRoute.path,
+              path: dropdownPath,
               element: dropdownRoute.component,
             });
           } else {
             privateRoutes.push({
               key: `route-${index}-${dropdownIndex}`,
-              path: dropdownRoute.path,
+              path: dropdownPath,
               element: dropdownRoute.component,
             });
           }

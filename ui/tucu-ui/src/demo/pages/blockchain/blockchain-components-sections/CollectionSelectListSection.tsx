@@ -4,10 +4,10 @@ import {
   CardTitle,
   Typography,
   CodeBlock,
-  BasicTable,
   CollectionSelectList,
 } from '../../../../index';
 import avatar1Img from '../../../assets/images/avatar/1.png';
+import { AutoPropsTable } from '../../../components/auto-props-table';
 
 const CollectionSelectListSection: React.FC = () => {
   const collectionList = [
@@ -17,53 +17,8 @@ const CollectionSelectListSection: React.FC = () => {
   ];
 
   // Table columns definition for props tables
-  const propsTableColumns = [
-    {
-      key: 'prop',
-      label: 'Prop',
-      render: (value: unknown) => (
-        <code className="text-xs text-brand">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'type',
-      label: 'Type',
-      render: (value: unknown) => (
-        <code className="text-xs">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'default',
-      label: 'Default',
-      render: (value: unknown) => {
-        const val = String(value);
-        if (val === 'required') {
-          return <span className="text-xs text-red-500">required</span>;
-        }
-        return <code className="text-xs">{val}</code>;
-      },
-    },
-    {
-      key: 'description',
-      label: 'Description',
-    },
-  ];
 
   // CollectionSelectList props data
-  const collectionSelectListPropsData = [
-    {
-      prop: 'collectionList',
-      type: 'CollectionList[]',
-      default: 'required',
-      description: 'Array of collection items',
-    },
-    {
-      prop: 'onSelect',
-      type: '(value: string) => void',
-      default: 'required',
-      description: 'Callback when a collection is selected',
-    },
-  ];
 
   return (
     <>
@@ -99,17 +54,7 @@ const CollectionSelectListSection: React.FC = () => {
           </div>
         </CardTitle>
       </CardContainer>
-
-      <CardContainer className="overflow-hidden">
-        <CardTitle title="Props" className="mt-2 mb-2">
-          <div className="w-full p-4 sm:p-6">
-            <BasicTable
-              columns={propsTableColumns}
-              data={collectionSelectListPropsData}
-            />
-          </div>
-        </CardTitle>
-      </CardContainer>
+      <AutoPropsTable componentName="CollectionSelectList" />
 
       <CardContainer className="overflow-hidden">
         <CardTitle title="Code Example" className="mt-2 mb-2">

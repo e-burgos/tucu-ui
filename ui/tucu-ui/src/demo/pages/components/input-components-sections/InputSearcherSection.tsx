@@ -4,9 +4,9 @@ import {
   CardTitle,
   Typography,
   CodeBlock,
-  BasicTable,
   InputSearcher,
 } from '../../../../index';
+import { AutoPropsTable } from '../../../components/auto-props-table';
 
 const InputSearcherSection: React.FC = () => {
   const [selectedSearchOption, setSelectedSearchOption] = useState<
@@ -19,89 +19,6 @@ const InputSearcherSection: React.FC = () => {
     { name: 'Angular', value: 'angular' },
     { name: 'Svelte', value: 'svelte' },
     { name: 'Next.js', value: 'nextjs' },
-  ];
-
-  const propsTableColumns = [
-    {
-      key: 'prop',
-      label: 'Prop',
-      render: (value: unknown) => (
-        <code className="text-xs text-brand">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'type',
-      label: 'Type',
-      render: (value: unknown) => (
-        <code className="text-xs">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'default',
-      label: 'Default',
-      render: (value: unknown) => {
-        const val = String(value);
-        if (val === 'required') {
-          return <span className="text-xs text-red-500">required</span>;
-        }
-        return <code className="text-xs">{val}</code>;
-      },
-    },
-    {
-      key: 'description',
-      label: 'Description',
-    },
-  ];
-
-  const inputSearcherPropsData = [
-    {
-      prop: 'options',
-      type: 'SelectOption[]',
-      default: '[]',
-      description: 'Array of searchable options',
-    },
-    {
-      prop: 'onOptionSelect',
-      type: '(option: SelectOption | SelectOption[]) => void',
-      default: '-',
-      description: 'Callback when an option is selected',
-    },
-    {
-      prop: 'initialValue',
-      type: 'string | number',
-      default: '-',
-      description: 'Initial input value',
-    },
-    {
-      prop: 'variant',
-      type: "'ghost' | 'solid' | 'transparent'",
-      default: "'ghost'",
-      description: 'Visual variant of the input',
-    },
-    {
-      prop: 'multiple',
-      type: 'boolean',
-      default: 'false',
-      description: 'Allow multiple option selection',
-    },
-    {
-      prop: 'noMatchesMessage',
-      type: 'string',
-      default: '-',
-      description: 'Message to display when no matches found',
-    },
-    {
-      prop: 'label',
-      type: 'string',
-      default: '-',
-      description: 'Field label text',
-    },
-    {
-      prop: 'disabled',
-      type: 'boolean',
-      default: 'false',
-      description: 'Disables the input searcher',
-    },
   ];
 
   return (
@@ -237,17 +154,7 @@ const InputSearcherSection: React.FC = () => {
           </div>
         </CardTitle>
       </CardContainer>
-
-      <CardContainer className="overflow-hidden">
-        <CardTitle title="Props" className="mt-2 mb-2">
-          <div className="w-full p-4 sm:p-6">
-            <BasicTable
-              columns={propsTableColumns}
-              data={inputSearcherPropsData}
-            />
-          </div>
-        </CardTitle>
-      </CardContainer>
+      <AutoPropsTable componentName="InputSearcher" />
 
       <CardContainer className="overflow-hidden">
         <CardTitle title="Code Example" className="mt-2 mb-2">

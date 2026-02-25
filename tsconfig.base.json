@@ -4,7 +4,7 @@
     "rootDir": ".",
     "sourceMap": true,
     "declaration": false,
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
@@ -13,10 +13,9 @@
     "lib": ["es2020", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
-    "baseUrl": ".",
     "paths": {
-      "@/lucide-react": ["ui/tucu-ui/src/lucide-react/index.ts"],
-      "@e-burgos/tucu-ui": ["ui/tucu-ui/src"]
+      "@/lucide-react": ["./ui/tucu-ui/src/lucide-react/index.ts"],
+      "@e-burgos/tucu-ui": ["./ui/tucu-ui/src"]
     }
   },
   "exclude": ["node_modules", "tmp"]

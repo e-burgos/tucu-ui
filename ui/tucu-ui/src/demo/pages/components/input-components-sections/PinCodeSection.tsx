@@ -4,119 +4,12 @@ import {
   CardTitle,
   Typography,
   CodeBlock,
-  BasicTable,
   PinCode,
 } from '../../../../index';
+import { AutoPropsTable } from '../../../components/auto-props-table';
 
 const PinCodeSection: React.FC = () => {
   const [pinCodeValue, setPinCodeValue] = useState('');
-
-  const propsTableColumns = [
-    {
-      key: 'prop',
-      label: 'Prop',
-      render: (value: unknown) => (
-        <code className="text-xs text-brand">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'type',
-      label: 'Type',
-      render: (value: unknown) => (
-        <code className="text-xs">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'default',
-      label: 'Default',
-      render: (value: unknown) => {
-        const val = String(value);
-        if (val === 'required') {
-          return <span className="text-xs text-red-500">required</span>;
-        }
-        return <code className="text-xs">{val}</code>;
-      },
-    },
-    {
-      key: 'description',
-      label: 'Description',
-    },
-  ];
-
-  const pinCodePropsData = [
-    {
-      prop: 'length',
-      type: 'number',
-      default: 'required',
-      description: 'Number of pin code digits',
-    },
-    {
-      prop: 'value',
-      type: 'string',
-      default: '-',
-      description: 'Current pin code value',
-    },
-    {
-      prop: 'onChange',
-      type: '(value: string) => void',
-      default: '-',
-      description: 'Callback when pin code changes',
-    },
-    {
-      prop: 'variant',
-      type: "'ghost' | 'solid' | 'transparent'",
-      default: "'ghost'",
-      description: 'Visual variant of the pin code inputs',
-    },
-    {
-      prop: 'size',
-      type: "'sm' | 'md' | 'lg' | 'xl'",
-      default: "'md'",
-      description: 'Size of the pin code inputs',
-    },
-    {
-      prop: 'color',
-      type: "'primary' | 'secondary' | 'danger' | 'info' | 'success' | 'warning'",
-      default: "'primary'",
-      description: 'Color theme of the pin code inputs',
-    },
-    {
-      prop: 'type',
-      type: "'text' | 'number'",
-      default: "'text'",
-      description: 'Input type for pin code fields',
-    },
-    {
-      prop: 'mask',
-      type: 'boolean',
-      default: 'false',
-      description: 'Mask the pin code values',
-    },
-    {
-      prop: 'center',
-      type: 'boolean',
-      default: 'false',
-      description: 'Center the pin code horizontally',
-    },
-    {
-      prop: 'disabled',
-      type: 'boolean',
-      default: 'false',
-      description: 'Disables all pin code inputs',
-    },
-    {
-      prop: 'error',
-      type: 'string',
-      default: '-',
-      description: 'Error message to display',
-    },
-    {
-      prop: 'helperText',
-      type: 'string',
-      default: '-',
-      description: 'Helper text displayed below the pin code',
-    },
-  ];
 
   return (
     <>
@@ -293,14 +186,7 @@ const PinCodeSection: React.FC = () => {
           </div>
         </CardTitle>
       </CardContainer>
-
-      <CardContainer className="overflow-hidden">
-        <CardTitle title="Props" className="mt-2 mb-2">
-          <div className="w-full p-4 sm:p-6">
-            <BasicTable columns={propsTableColumns} data={pinCodePropsData} />
-          </div>
-        </CardTitle>
-      </CardContainer>
+      <AutoPropsTable componentName="PinCode" />
 
       <CardContainer className="overflow-hidden">
         <CardTitle title="Code Example" className="mt-2 mb-2">

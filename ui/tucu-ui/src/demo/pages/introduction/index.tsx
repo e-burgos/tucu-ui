@@ -19,7 +19,6 @@ import { BasicUsageWithCustomRouterExampleCode } from './BasicUsageWithCustomRou
 import { StandaloneAppExample, MfeAppExample } from './ThemeProviderExamples';
 
 export function Introduction() {
-
   const installation = `
 npm install @e-burgos/tucu-ui
 
@@ -1209,12 +1208,7 @@ export default defineConfig({
                     </AnchorLink>
                   </Button>
                   <Button variant="ghost" size="medium">
-                    <AnchorLink
-                      to={
-                        'https://main--683712ba90eaad206f988c65.chromatic.com/?path=/story/3-ui-components-auth-forgetpasswordform--default'
-                      }
-                      target="_blank"
-                    >
+                    <AnchorLink to={'/form-system'} target="_blank">
                       <div className="flex justify-center items-center">
                         <LucideIcons.Code className="w-4 h-4 mr-2" />
                         View Examples

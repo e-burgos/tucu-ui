@@ -86,8 +86,14 @@ export const FormField = <TFormValues extends FieldValues = FieldValues>({
           const isPinCode = children.type === PinCode;
 
           // Base props from field and children
+          // Normalize field.value to avoid React "uncontrolled to controlled" warnings:
+          // when react-hook-form hasn't initialized a field yet, value can be undefined.
+          const normalizedValue =
+            isCheckbox || isRadio ? !!field.value : field.value ?? '';
+
           const baseProps = {
             ...field,
+            value: normalizedValue,
             id: name,
             label: label || (children.props as { label?: string })?.label,
             ...(children.props as { [key: string]: unknown }),
@@ -98,7 +104,7 @@ export const FormField = <TFormValues extends FieldValues = FieldValues>({
             ...baseProps,
             // For Select, ensure we're passing the value correctly
             ...(isSelect && {
-              value: field.value,
+              value: field.value ?? '',
               onChange: (option: SelectOption) => {
                 // If the option has a value property, use that
                 const value =
@@ -121,7 +127,6 @@ export const FormField = <TFormValues extends FieldValues = FieldValues>({
               },
             }),
             // For PinCode, ensure we're passing the value and onChange correctly
-            // This must come last to override any conflicting props
             ...(isPinCode && {
               value: field.value ?? '',
               onChange: (value: string) => {

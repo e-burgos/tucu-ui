@@ -304,4 +304,6 @@ export function FileInput(
   );
 }
 
-export default forwardRef(FileInput);
+const FileInputWithRef = forwardRef(FileInput);
+FileInputWithRef.displayName = 'FileInput';
+export default FileInputWithRef;

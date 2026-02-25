@@ -4,104 +4,17 @@ import {
   CardTitle,
   Typography,
   CodeBlock,
-  BasicTable,
   CoinCard,
 } from '../../../../index';
 import bitcoinImg from '../../../assets/images/coin/bitcoin.svg';
 import ethereumImg from '../../../assets/images/coin/tether.svg';
 import cardanoImg from '../../../assets/images/coin/cardano.svg';
+import { AutoPropsTable } from '../../../components/auto-props-table';
 
 const CoinCardSection: React.FC = () => {
   // Table columns definition for props tables
-  const propsTableColumns = [
-    {
-      key: 'prop',
-      label: 'Prop',
-      render: (value: unknown) => (
-        <code className="text-xs text-brand">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'type',
-      label: 'Type',
-      render: (value: unknown) => (
-        <code className="text-xs">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'default',
-      label: 'Default',
-      render: (value: unknown) => {
-        const val = String(value);
-        if (val === 'required') {
-          return <span className="text-xs text-red-500">required</span>;
-        }
-        return <code className="text-xs">{val}</code>;
-      },
-    },
-    {
-      key: 'description',
-      label: 'Description',
-    },
-  ];
 
   // CoinCard props data
-  const coinCardPropsData = [
-    {
-      prop: 'id',
-      type: 'string',
-      default: 'required',
-      description: 'Unique identifier for the coin',
-    },
-    {
-      prop: 'name',
-      type: 'string',
-      default: 'required',
-      description: 'Full name of the cryptocurrency',
-    },
-    {
-      prop: 'symbol',
-      type: 'string',
-      default: 'required',
-      description: 'Cryptocurrency symbol (e.g., BTC, ETH)',
-    },
-    {
-      prop: 'logo',
-      type: 'string',
-      default: 'required',
-      description: 'URL or path to the coin logo image',
-    },
-    {
-      prop: 'balance',
-      type: 'string',
-      default: 'required',
-      description: 'Coin balance amount',
-    },
-    {
-      prop: 'usdBalance',
-      type: 'string',
-      default: 'required',
-      description: 'USD equivalent balance',
-    },
-    {
-      prop: 'change',
-      type: 'string',
-      default: 'required',
-      description: 'Price change percentage (e.g., "+2.5%")',
-    },
-    {
-      prop: 'isChangePositive',
-      type: 'boolean',
-      default: 'required',
-      description: 'Whether the price change is positive',
-    },
-    {
-      prop: 'color',
-      type: 'string',
-      default: "'#FDEDD4'",
-      description: 'Background color for the card',
-    },
-  ];
 
   return (
     <>
@@ -175,14 +88,7 @@ const CoinCardSection: React.FC = () => {
           </div>
         </CardTitle>
       </CardContainer>
-
-      <CardContainer className="overflow-hidden">
-        <CardTitle title="Props" className="mt-2 mb-2">
-          <div className="w-full p-4 sm:p-6">
-            <BasicTable columns={propsTableColumns} data={coinCardPropsData} />
-          </div>
-        </CardTitle>
-      </CardContainer>
+      <AutoPropsTable componentName="CoinCard" />
 
       <CardContainer className="overflow-hidden">
         <CardTitle title="Code Example" className="mt-2 mb-2">

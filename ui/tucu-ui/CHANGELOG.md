@@ -5,6 +5,91 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.3] - 2026-02-25
+
+### Added
+
+- **Tooltip Component**: New reusable `Tooltip` component exported from `common/index.ts`
+  - Supports `TooltipPlacement` and `TooltipColor` types
+  - Natively integrated in `Button` and `Typography` components
+- **Button Tooltip Integration**: Enhanced `Button` component with built-in tooltip support
+  - `tooltip` prop now accepts `React.ReactNode` (previously `string`)
+  - New props: `tooltipPlacement`, `tooltipColor`, `tooltipArrow`
+  - Replaced manual hover state tooltip with `Tooltip` component
+- **Typography Tooltip Integration**: Added native tooltip support to `Typography` component
+  - New props: `tooltip`, `tooltipPlacement`, `tooltipColor`, `tooltipArrow`
+  - Wraps element in `Tooltip` component when tooltip prop is provided
+- **Nested Routes Support**: New `enableNestedRoutes` prop in `StandaloneAppRoutesMenuItem`
+  - When `true`, appends `/*` to the route path for internal sub-route support
+- **TableOfContents Navigation Mode**: New props in `TableOfContents` component
+  - `navigationMode` prop (`'anchor' | 'route'`) for route-based navigation
+  - `activeSectionId` prop for active category auto-expansion
+- **Vitest**: Migrated testing framework from Jest to Vitest (`@nx/vitest`)
+- **Props Generation Script**: New `generate-props` script using `react-docgen-typescript`
+
+### Changed
+
+- **useTheme Hook**: Major refactoring of the Zustand store
+  - Introduced `defaultPresets` and `defaultState` as single source of truth
+  - Created generic `Setters<T>` type for auto-generated setter types
+  - New `IThemeState` interface (values only) separated from `ITheme` (state + setters + actions)
+  - `createSetters()` function dynamically generates ~19 setters (eliminates ~60 lines of boilerplate)
+  - `restoreDefaultColors` uses `defaultPresets` instead of duplicating values
+  - `partialize` now filters functions generically instead of listing each key manually
+- **ThemeWrapper Component**: Major refactoring (~255→70 lines of logic)
+  - Introduced `PALETTE_MAP` and `resolveColor()` helper to eliminate 12 repetitive if/else blocks
+  - Theme initialization with a single `useTheme.setState()` instead of multiple callbacks
+  - Custom palette colors applied in a single `setState` batch instead of 12 individual setter calls
+  - Dark/light mode toggle with `classList.toggle()` instead of `remove()`+`add()`
+  - Menu items memoized with `useMemo`
+- **SettingsDrawer Component**: Major refactoring
+  - New `COLOR_CONFIG` record as single source of truth for 12 color types
+  - `ColorSwitcher` simplified: uses dynamic Zustand selectors instead of destructuring entire store
+  - ColorSwitchers rendered with `.map()` instead of 12 hardcoded instances
+  - Migrated arbitrary CSS values (`[70px]`, `[12px]`, `[32px]`) to standard Tailwind classes
+- **Select Component**: Refactored controlled state synchronization
+  - Immediate state initialization from `value` prop (avoids React "uncontrolled to controlled" warning)
+  - Removed `setTimeout(100ms)` hack for state sync
+  - Extracted `resolveOption()` helper
+- **RadioGroup Component**: Removed `setTimeout(100ms)` in controlled `value` synchronization
+  - `setSelectedValue` is now called directly in `useEffect`
+- **FormField Component**: Added `field.value` normalization
+  - Checkboxes/radios normalized to `!!field.value`
+  - Other fields normalized to `field.value ?? ''`
+  - Select `value` normalized with `?? ''`
+- **Nx & Toolchain**: Upgraded from Nx 21.6.3 → 22.5.2
+  - Updated `@swc/core`, `@swc/cli`, `@swc/helpers`, `@swc-node/register`
+  - Added `"type": "module"` to root `package.json`
+- **tsconfig.lib.json**: Include pattern changed from specific path to generic glob `src/**/*.tsx?raw`
+
+### Removed
+
+- **Storybook**: Completely removed Storybook and all related files
+  - Removed `.storybook/` configuration directory
+  - Removed all 76 story files (~15,297 lines)
+  - Removed `StoryContainer`, internal pages (Introduction, Accessibility), and `useDummy` hook
+  - Demo app now serves as the interactive documentation
+- **Storybook Dependencies**: Removed `storybook`, `@storybook/addon-docs`, `@storybook/builder-vite`, `@storybook/react-vite`, `@chromatic-com/storybook`, `@chromatic-com/turbosnap-helper`, `eslint-plugin-storybook`, `remark-gfm`
+- **Jest Dependencies**: Removed `jest`, `jest-environment-jsdom`, `jest-util`, `ts-jest`, `babel-jest`, `@types/jest`, `@nx/jest`
+- **Storybook Scripts**: Removed `storybook`, `build-storybook`, `publish-storybook`, `serve-storybook`, `chromatic`, `storybook-doctor` scripts
+
+### Fixed
+
+- **Select Component**: Fixed initial render without visible selection when used with `react-hook-form`
+  - State now initializes immediately from `value` prop instead of delayed `setTimeout`
+- **RadioGroup Component**: Fixed state sync race conditions by removing `setTimeout` hack
+- **FormField Component**: Fixed React "uncontrolled to controlled" warnings
+  - Normalized `undefined` values to `''` or `false` depending on input type
+- **FileInput Component**: Added `displayName = 'FileInput'` for better React DevTools debugging
+- **CoinListBox Component**: Added `displayName = 'CoinListBox'` for better React DevTools debugging
+
+### Documentation
+
+- **Demo App Refactoring**: Major refactoring of 76+ documentation section files
+  - Cleaner, more consistent patterns across all component documentation
+  - New exports in `demo/components/index.ts` and `demo/index.ts`
+  - Updated all UI component, input, blockchain, design system, features, and form system sections
+
 ## [2.0.2] - 2026-01-22
 
 ### Changed
@@ -363,6 +448,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Version History
 
+- **2.0.3** - Removed Storybook, new Tooltip component, major theme/component refactoring, migrated from Jest to Vitest, upgraded Nx to 22.5.2
 - **2.0.2** - Responsive navigation menu improvements with dynamic text sizing
 - **2.0.0** - Major release with advanced routing system (Standalone & MFE), enhanced theming (34+ presets, 12-layer architecture), comprehensive documentation improvements, and architectural pattern support
 - **1.2.0** - Major input components update, new carousel system, and comprehensive improvements
@@ -371,6 +457,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **1.0.0** - Initial release with core form components and UI elements
 
 ## Migration Notes
+
+### Version 2.0.3 Migration
+
+If you're upgrading from version 2.0.2 to 2.0.3:
+
+- **Storybook Removed**: Storybook is no longer included. Use the demo app for interactive documentation
+- **Button `tooltip` Prop**: Changed from `string` to `React.ReactNode`. Existing string values still work
+- **Button Tooltip Props**: New optional props `tooltipPlacement`, `tooltipColor`, `tooltipArrow` available
+- **Testing**: Migrated from Jest to Vitest. Update test configuration accordingly
+- **Nx**: Upgraded to Nx 22.5.2. Run `pnpm install` to update dependencies
 
 ### Version 2.0.0 Migration
 

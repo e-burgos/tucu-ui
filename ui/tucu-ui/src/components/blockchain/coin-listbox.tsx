@@ -19,7 +19,7 @@ export type CoinListBoxProps = {
   disabled?: boolean;
 };
 
-export default function CoinListBox({
+function CoinListBox({
   className,
   coins,
   selectedCoin,
@@ -76,3 +76,6 @@ export default function CoinListBox({
     </div>
   );
 }
+
+CoinListBox.displayName = 'CoinListBox';
+export default CoinListBox;

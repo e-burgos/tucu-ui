@@ -4,119 +4,12 @@ import {
   CardTitle,
   Typography,
   CodeBlock,
-  BasicTable,
   Input,
 } from '../../../../index';
+import { AutoPropsTable } from '../../../components/auto-props-table';
 
 const InputSection: React.FC = () => {
   const [inputValue, setInputValue] = useState('');
-
-  const propsTableColumns = [
-    {
-      key: 'prop',
-      label: 'Prop',
-      render: (value: unknown) => (
-        <code className="text-xs text-brand">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'type',
-      label: 'Type',
-      render: (value: unknown) => (
-        <code className="text-xs">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'default',
-      label: 'Default',
-      render: (value: unknown) => {
-        const val = String(value);
-        if (val === 'required') {
-          return <span className="text-xs text-red-500">required</span>;
-        }
-        return <code className="text-xs">{val}</code>;
-      },
-    },
-    {
-      key: 'description',
-      label: 'Description',
-    },
-  ];
-
-  const inputPropsData = [
-    {
-      prop: 'label',
-      type: 'string',
-      default: '-',
-      description: 'Field label text',
-    },
-    {
-      prop: 'variant',
-      type: "'ghost' | 'solid' | 'transparent'",
-      default: "'ghost'",
-      description: 'Visual variant of the input',
-    },
-    {
-      prop: 'type',
-      type: 'string',
-      default: "'text'",
-      description: 'Input type (text, email, password, date, number, etc.)',
-    },
-    {
-      prop: 'error',
-      type: 'string',
-      default: '-',
-      description: 'Error message to display',
-    },
-    {
-      prop: 'helperText',
-      type: 'string',
-      default: '-',
-      description: 'Helper text displayed below the input',
-    },
-    {
-      prop: 'disabled',
-      type: 'boolean',
-      default: 'false',
-      description: 'Disables the input field',
-    },
-    {
-      prop: 'icon',
-      type: 'React.ReactNode',
-      default: '-',
-      description: 'Icon displayed on the left side',
-    },
-    {
-      prop: 'suffix',
-      type: 'React.ReactNode',
-      default: '-',
-      description: 'Content displayed on the right side',
-    },
-    {
-      prop: 'dateFormat',
-      type: "'DD-MM-YYYY' | 'MM-DD-YYYY' | 'YYYY-MM-DD' | 'DD/MM/YYYY' | 'MM/DD/YYYY' | 'YYYY/MM/DD'",
-      default: "'DD-MM-YYYY'",
-      description: 'Date format for date type inputs',
-    },
-    {
-      prop: 'useUppercaseLabel',
-      type: 'boolean',
-      default: 'false',
-      description: 'Display label in uppercase',
-    },
-    {
-      prop: 'className',
-      type: 'string',
-      default: '-',
-      description: 'Custom CSS classes for the container',
-    },
-    {
-      prop: 'inputClassName',
-      type: 'string',
-      default: '-',
-      description: 'Custom CSS classes for the input element',
-    },
-  ];
 
   return (
     <>
@@ -228,19 +121,10 @@ const InputSection: React.FC = () => {
               </CardContainer>
             </div>
           </div>
-
-          <div>
-            <Typography tag="headline" className="mb-4">
-              Props
-            </Typography>
-            <BasicTable
-              columns={propsTableColumns}
-              data={inputPropsData}
-              containerClassName="mb-4"
-            />
-          </div>
         </CardTitle>
       </CardContainer>
+
+      <AutoPropsTable componentName="Input" />
 
       <CardContainer className="overflow-hidden">
         <CardTitle title="Code Example" className="mt-2 mb-2">

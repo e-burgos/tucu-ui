@@ -4,77 +4,13 @@ import {
   CardTitle,
   Typography,
   CodeBlock,
-  BasicTable,
   TopupButton,
   LucideIcons,
 } from '../../../../index';
+import { AutoPropsTable } from '../../../components/auto-props-table';
+import { PropPlayground } from '../../../components/prop-playground';
 
 const TopupButtonSection: React.FC = () => {
-  const propsTableColumns = [
-    {
-      key: 'prop',
-      label: 'Prop',
-      render: (value: unknown) => (
-        <code className="text-xs text-brand">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'type',
-      label: 'Type',
-      render: (value: unknown) => (
-        <code className="text-xs">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'default',
-      label: 'Default',
-      render: (value: unknown) => {
-        const val = String(value);
-        if (val === 'required') {
-          return <span className="text-xs text-red-500">required</span>;
-        }
-        return <code className="text-xs">{val}</code>;
-      },
-    },
-    {
-      key: 'description',
-      label: 'Description',
-    },
-  ];
-
-  const propsData = [
-    {
-      prop: 'label',
-      type: 'string',
-      default: 'required',
-      description: 'Button label text',
-    },
-    {
-      prop: 'icon',
-      type: 'React.ReactNode',
-      default: '-',
-      description: 'Optional icon to display before the label',
-    },
-    {
-      prop: 'href',
-      type: 'string',
-      default: '-',
-      description: 'Optional link URL',
-    },
-    {
-      prop: 'className',
-      type: 'string',
-      default: '-',
-      description: 'Additional CSS classes',
-    },
-    {
-      prop: 'onClick',
-      type: '() => void',
-      default: '-',
-      description: 'Click handler function',
-    },
-  ];
-
   return (
     <>
       <div className="text-center space-y-4">
@@ -133,14 +69,14 @@ const TopupButtonSection: React.FC = () => {
           </div>
         </CardTitle>
       </CardContainer>
-
-      <CardContainer className="overflow-hidden">
-        <CardTitle title="Props" className="mt-2 mb-2">
-          <div className="w-full p-4 sm:p-6">
-            <BasicTable columns={propsTableColumns} data={propsData} />
-          </div>
-        </CardTitle>
-      </CardContainer>
+      <PropPlayground
+        componentName="TopupButton"
+        defaultValues={{ label: 'Top Up' }}
+        excludeProps={['onClick', 'icon']}
+      >
+        {(props) => <TopupButton {...props} />}
+      </PropPlayground>
+      <AutoPropsTable componentName="TopupButton" />
 
       <CardContainer className="overflow-hidden">
         <CardTitle title="Code Example" className="mt-2 mb-2">
