@@ -7,7 +7,6 @@
     "skipLibCheck": true,
     "jsx": "react-jsx",
     "allowJs": false,
-    "esModuleInterop": false,
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "types": ["vite/client"],
@@ -16,7 +15,8 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "baseUrl": ".",
+    // "esModuleInterop": false,
+    // "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
       "@e-burgos/tucu-ui": ["../../ui/tucu-ui/src/index.ts"],

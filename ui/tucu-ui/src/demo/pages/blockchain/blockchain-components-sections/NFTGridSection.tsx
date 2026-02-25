@@ -4,91 +4,16 @@ import {
   CardTitle,
   Typography,
   CodeBlock,
-  BasicTable,
   NFTGrid,
 } from '../../../../index';
 import collection1Img from '../../../assets/images/collection/collection-1.jpg';
 import avatar1Img from '../../../assets/images/avatar/1.png';
+import { AutoPropsTable } from '../../../components/auto-props-table';
 
 const NFTGridSection: React.FC = () => {
   // Table columns definition for props tables
-  const propsTableColumns = [
-    {
-      key: 'prop',
-      label: 'Prop',
-      render: (value: unknown) => (
-        <code className="text-xs text-brand">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'type',
-      label: 'Type',
-      render: (value: unknown) => (
-        <code className="text-xs">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'default',
-      label: 'Default',
-      render: (value: unknown) => {
-        const val = String(value);
-        if (val === 'required') {
-          return <span className="text-xs text-red-500">required</span>;
-        }
-        return <code className="text-xs">{val}</code>;
-      },
-    },
-    {
-      key: 'description',
-      label: 'Description',
-    },
-  ];
 
   // NFTGrid props data
-  const nftGridPropsData = [
-    {
-      prop: 'author',
-      type: 'string',
-      default: 'required',
-      description: 'NFT author/creator name',
-    },
-    {
-      prop: 'authorImage',
-      type: 'string',
-      default: 'required',
-      description: 'URL to author avatar image',
-    },
-    {
-      prop: 'image',
-      type: 'string',
-      default: 'required',
-      description: 'URL to NFT image',
-    },
-    {
-      prop: 'name',
-      type: 'string',
-      default: 'required',
-      description: 'NFT name',
-    },
-    {
-      prop: 'collection',
-      type: 'string',
-      default: 'required',
-      description: 'Collection name',
-    },
-    {
-      prop: 'price',
-      type: 'string',
-      default: 'required',
-      description: 'NFT price',
-    },
-    {
-      prop: 'profilePath',
-      type: 'string',
-      default: "'/'",
-      description: 'Path to profile page',
-    },
-  ];
 
   return (
     <>
@@ -126,14 +51,7 @@ const NFTGridSection: React.FC = () => {
           </div>
         </CardTitle>
       </CardContainer>
-
-      <CardContainer className="overflow-hidden">
-        <CardTitle title="Props" className="mt-2 mb-2">
-          <div className="w-full p-4 sm:p-6">
-            <BasicTable columns={propsTableColumns} data={nftGridPropsData} />
-          </div>
-        </CardTitle>
-      </CardContainer>
+      <AutoPropsTable componentName="NFTGrid" />
 
       <CardContainer className="overflow-hidden">
         <CardTitle title="Code Example" className="mt-2 mb-2">

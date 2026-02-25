@@ -835,7 +835,7 @@
 /* ===================================================================
    SOURCE DIRECTIVES (Generate Tailwind CSS utilities from all source files in the monorepo)
    =================================================================== */
-/* Capture all source files in src/ directory (components, demo, hooks, themes, storybook, libs, etc.) */
+/* Capture all source files in src/ directory (components, demo, hooks, themes, libs, etc.) */
 @source "../../**/*.{ts,tsx,html,css}";
 /* Third-party libraries in node_modules */
 @source "../../../node_modules/framer-motion/**/*.{ts,tsx}";

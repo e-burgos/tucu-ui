@@ -4,107 +4,12 @@ import {
   CardTitle,
   Typography,
   CodeBlock,
-  BasicTable,
   Checkbox,
 } from '../../../../index';
+import { AutoPropsTable } from '../../../components/auto-props-table';
 
 const CheckboxSection: React.FC = () => {
   const [checkboxChecked, setCheckboxChecked] = useState(false);
-
-  const propsTableColumns = [
-    {
-      key: 'prop',
-      label: 'Prop',
-      render: (value: unknown) => (
-        <code className="text-xs text-brand">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'type',
-      label: 'Type',
-      render: (value: unknown) => (
-        <code className="text-xs">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'default',
-      label: 'Default',
-      render: (value: unknown) => {
-        const val = String(value);
-        if (val === 'required') {
-          return <span className="text-xs text-red-500">required</span>;
-        }
-        return <code className="text-xs">{val}</code>;
-      },
-    },
-    {
-      key: 'description',
-      label: 'Description',
-    },
-  ];
-
-  const checkboxPropsData = [
-    {
-      prop: 'label',
-      type: 'React.ReactNode',
-      default: '-',
-      description: 'Checkbox label',
-    },
-    {
-      prop: 'checked',
-      type: 'boolean',
-      default: 'false',
-      description: 'Whether the checkbox is checked',
-    },
-    {
-      prop: 'variant',
-      type: "'ghost' | 'solid' | 'transparent'",
-      default: "'ghost'",
-      description: 'Visual variant of the checkbox',
-    },
-    {
-      prop: 'shape',
-      type: "'rounded' | 'square'",
-      default: "'square'",
-      description: 'Shape of the checkbox',
-    },
-    {
-      prop: 'size',
-      type: "'sm' | 'md' | 'lg'",
-      default: "'md'",
-      description: 'Size of the checkbox',
-    },
-    {
-      prop: 'color',
-      type: "'primary' | 'secondary' | 'danger' | 'info' | 'success' | 'warning'",
-      default: "'primary'",
-      description: 'Color theme of the checkbox',
-    },
-    {
-      prop: 'disabled',
-      type: 'boolean',
-      default: 'false',
-      description: 'Disables the checkbox',
-    },
-    {
-      prop: 'labelPlacement',
-      type: "'start' | 'end'",
-      default: "'end'",
-      description: 'Position of the label relative to the checkbox',
-    },
-    {
-      prop: 'error',
-      type: 'string',
-      default: '-',
-      description: 'Error message to display',
-    },
-    {
-      prop: 'helperText',
-      type: 'React.ReactNode',
-      default: '-',
-      description: 'Helper text displayed below the checkbox',
-    },
-  ];
 
   return (
     <>
@@ -232,14 +137,7 @@ const CheckboxSection: React.FC = () => {
           </div>
         </CardTitle>
       </CardContainer>
-
-      <CardContainer className="overflow-hidden">
-        <CardTitle title="Props" className="mt-2 mb-2">
-          <div className="w-full p-4 sm:p-6">
-            <BasicTable columns={propsTableColumns} data={checkboxPropsData} />
-          </div>
-        </CardTitle>
-      </CardContainer>
+      <AutoPropsTable componentName="Checkbox" />
 
       <CardContainer className="overflow-hidden">
         <CardTitle title="Code Example" className="mt-2 mb-2">

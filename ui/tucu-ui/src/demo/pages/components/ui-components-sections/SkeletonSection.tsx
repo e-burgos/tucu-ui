@@ -4,88 +4,12 @@ import {
   CardTitle,
   Typography,
   CodeBlock,
-  BasicTable,
   Skeleton,
 } from '../../../../index';
+import { AutoPropsTable } from '../../../components/auto-props-table';
+import { PropPlayground } from '../../../components/prop-playground';
 
 const SkeletonSection: React.FC = () => {
-  const propsTableColumns = [
-    {
-      key: 'prop',
-      label: 'Prop',
-      render: (value: unknown) => (
-        <code className="text-xs text-brand">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'type',
-      label: 'Type',
-      render: (value: unknown) => (
-        <code className="text-xs">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'default',
-      label: 'Default',
-      render: (value: unknown) => {
-        const val = String(value);
-        if (val === 'required') {
-          return <span className="text-xs text-red-500">required</span>;
-        }
-        return <code className="text-xs">{val}</code>;
-      },
-    },
-    {
-      key: 'description',
-      label: 'Description',
-    },
-  ];
-
-  const propsData = [
-    {
-      prop: 'animation',
-      type: "'pulse' | 'wave' | 'shimmer' | 'none'",
-      default: "'shimmer'",
-      description: 'Animation type for the skeleton',
-    },
-    {
-      prop: 'shape',
-      type: "'rectangle' | 'circle' | 'text' | 'rounded'",
-      default: "'rounded'",
-      description: 'Shape of the skeleton',
-    },
-    {
-      prop: 'size',
-      type: "'tiny' | 'small' | 'medium' | 'large' | 'full'",
-      default: "'medium'",
-      description: 'Predefined size of the skeleton',
-    },
-    {
-      prop: 'width',
-      type: 'string',
-      default: '-',
-      description: 'Width of the skeleton (overrides size)',
-    },
-    {
-      prop: 'height',
-      type: 'string',
-      default: '-',
-      description: 'Height of the skeleton (overrides size)',
-    },
-    {
-      prop: 'count',
-      type: 'number',
-      default: '1',
-      description: 'Number of skeleton lines to render',
-    },
-    {
-      prop: 'className',
-      type: 'string',
-      default: '-',
-      description: 'Additional CSS classes',
-    },
-  ];
-
   return (
     <>
       <div className="text-center space-y-4">
@@ -294,14 +218,19 @@ const SkeletonSection: React.FC = () => {
           </div>
         </CardTitle>
       </CardContainer>
-
-      <CardContainer className="overflow-hidden">
-        <CardTitle title="Props" className="mt-2 mb-2">
-          <div className="w-full p-4 sm:p-6">
-            <BasicTable columns={propsTableColumns} data={propsData} />
-          </div>
-        </CardTitle>
-      </CardContainer>
+      <PropPlayground
+        componentName="Skeleton"
+        defaultValues={{
+          shape: 'rounded',
+          animation: 'shimmer',
+          size: 'medium',
+          count: 1,
+        }}
+        excludeProps={['width', 'height']}
+      >
+        {(props) => <Skeleton {...props} />}
+      </PropPlayground>
+      <AutoPropsTable componentName="Skeleton" />
 
       <CardContainer className="overflow-hidden">
         <CardTitle title="Code Example" className="mt-2 mb-2">

@@ -4,76 +4,12 @@ import {
   CardTitle,
   Typography,
   CodeBlock,
-  BasicTable,
   Button,
 } from '../../../../index';
+import { AutoPropsTable } from '../../../components/auto-props-table';
+import { PropPlayground } from '../../../components/prop-playground';
 
 const ButtonDripSection: React.FC = () => {
-  const propsTableColumns = [
-    {
-      key: 'prop',
-      label: 'Prop',
-      render: (value: unknown) => (
-        <code className="text-xs text-brand">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'type',
-      label: 'Type',
-      render: (value: unknown) => (
-        <code className="text-xs">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'default',
-      label: 'Default',
-      render: (value: unknown) => {
-        const val = String(value);
-        if (val === 'required') {
-          return <span className="text-xs text-red-500">required</span>;
-        }
-        return <code className="text-xs">{val}</code>;
-      },
-    },
-    {
-      key: 'description',
-      label: 'Description',
-    },
-  ];
-
-  const propsData = [
-    {
-      prop: 'x',
-      type: 'number',
-      default: '0',
-      description: 'X coordinate for the drip effect',
-    },
-    {
-      prop: 'y',
-      type: 'number',
-      default: '0',
-      description: 'Y coordinate for the drip effect',
-    },
-    {
-      prop: 'color',
-      type: 'string',
-      default: 'required',
-      description: 'Color of the drip effect',
-    },
-    {
-      prop: 'fullWidth',
-      type: 'boolean',
-      default: 'false',
-      description: 'Whether the button is full width',
-    },
-    {
-      prop: 'onCompleted',
-      type: '() => void',
-      default: 'required',
-      description: 'Callback when animation completes',
-    },
-  ];
-
   return (
     <>
       <div className="text-center space-y-4">
@@ -98,18 +34,66 @@ const ButtonDripSection: React.FC = () => {
                 </Typography>
                 <Button>Click me</Button>
               </CardContainer>
+              <CardContainer className="p-4">
+                <Typography tag="h5" className="mb-3">
+                  Button with Tooltip
+                </Typography>
+                <div className="flex flex-wrap gap-4">
+                  <Button tooltip="Save changes" tooltipPlacement="top">
+                    Top
+                  </Button>
+                  <Button
+                    tooltip="Delete item"
+                    tooltipPlacement="bottom"
+                    tooltipColor="light"
+                    color="danger"
+                  >
+                    Bottom (light)
+                  </Button>
+                  <Button
+                    tooltip="Go back"
+                    tooltipPlacement="left"
+                    variant="ghost"
+                  >
+                    Left
+                  </Button>
+                  <Button
+                    tooltip="More info"
+                    tooltipPlacement="right"
+                    variant="ghost"
+                    color="info"
+                  >
+                    Right
+                  </Button>
+                </div>
+              </CardContainer>
             </div>
           </div>
         </CardTitle>
       </CardContainer>
 
-      <CardContainer className="overflow-hidden">
-        <CardTitle title="Props" className="mt-2 mb-2">
-          <div className="w-full p-4 sm:p-6">
-            <BasicTable columns={propsTableColumns} data={propsData} />
-          </div>
-        </CardTitle>
-      </CardContainer>
+      <PropPlayground
+        componentName="Button"
+        defaultValues={{
+          variant: 'solid',
+          color: 'primary',
+          size: 'medium',
+          shape: 'rounded',
+          tooltip: '',
+          tooltipPlacement: 'top',
+        }}
+        excludeProps={[
+          'onClick',
+          'loaderSize',
+          'loaderVariant',
+          'aria-label',
+          'aria-describedby',
+        ]}
+      >
+        {(props) => <Button {...props}>Click me</Button>}
+      </PropPlayground>
+
+      <AutoPropsTable componentName="Button" />
 
       <CardContainer className="overflow-hidden">
         <CardTitle title="Code Example" className="mt-2 mb-2">
@@ -127,7 +111,16 @@ const ButtonDripSection: React.FC = () => {
   color="#3b82f6"
   fullWidth={false}
   onCompleted={() => console.log('Animation completed')}
-/>`}
+/>
+
+// Button with tooltip (portal-based, renders above all DOM)
+<Button tooltip="Save changes" tooltipPlacement="top">
+  Save
+</Button>
+
+<Button tooltip="Delete" tooltipPlacement="bottom" tooltipColor="light" color="danger">
+  Delete
+</Button>`}
             />
           </div>
         </CardTitle>

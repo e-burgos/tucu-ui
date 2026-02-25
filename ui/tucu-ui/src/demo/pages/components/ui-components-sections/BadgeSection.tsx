@@ -4,94 +4,12 @@ import {
   CardTitle,
   Typography,
   CodeBlock,
-  BasicTable,
   Badge,
 } from '../../../../index';
+import { AutoPropsTable } from '../../../components/auto-props-table';
+import { PropPlayground } from '../../../components/prop-playground';
 
 const BadgeSection: React.FC = () => {
-  const propsTableColumns = [
-    {
-      key: 'prop',
-      label: 'Prop',
-      render: (value: unknown) => (
-        <code className="text-xs text-brand">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'type',
-      label: 'Type',
-      render: (value: unknown) => (
-        <code className="text-xs">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'default',
-      label: 'Default',
-      render: (value: unknown) => {
-        const val = String(value);
-        if (val === 'required') {
-          return <span className="text-xs text-red-500">required</span>;
-        }
-        return <code className="text-xs">{val}</code>;
-      },
-    },
-    {
-      key: 'description',
-      label: 'Description',
-    },
-  ];
-
-  const propsData = [
-    {
-      prop: 'children',
-      type: 'ReactNode',
-      default: '-',
-      description: 'Content to display inside the badge',
-    },
-    {
-      prop: 'status',
-      type: "'active' | 'inactive' | 'pending' | 'default'",
-      default: '-',
-      description: 'Status indicator (overrides color prop)',
-    },
-    {
-      prop: 'color',
-      type: "'primary' | 'success' | 'info' | 'warning' | 'danger' | 'gray' | 'white'",
-      default: "'gray'",
-      description: 'Color of the badge',
-    },
-    {
-      prop: 'size',
-      type: "'tiny' | 'small' | 'medium' | 'large'",
-      default: "'small'",
-      description: 'Size of the badge',
-    },
-    {
-      prop: 'variant',
-      type: "'solid' | 'ghost' | 'outline' | 'soft'",
-      default: "'solid'",
-      description: 'Visual variant of the badge',
-    },
-    {
-      prop: 'shape',
-      type: "'rounded' | 'pill' | 'circle'",
-      default: "'pill'",
-      description: 'Shape of the badge',
-    },
-    {
-      prop: 'withDot',
-      type: 'boolean',
-      default: 'false',
-      description: 'Show a dot indicator (without children shows only dot)',
-    },
-    {
-      prop: 'className',
-      type: 'string',
-      default: '-',
-      description: 'Additional CSS classes',
-    },
-  ];
-
   return (
     <>
       <div className="text-center space-y-4">
@@ -291,14 +209,20 @@ const BadgeSection: React.FC = () => {
           </div>
         </CardTitle>
       </CardContainer>
-
-      <CardContainer className="overflow-hidden">
-        <CardTitle title="Props" className="mt-2 mb-2">
-          <div className="w-full p-4 sm:p-6">
-            <BasicTable columns={propsTableColumns} data={propsData} />
-          </div>
-        </CardTitle>
-      </CardContainer>
+      <PropPlayground
+        componentName="Badge"
+        defaultValues={{
+          variant: 'solid',
+          size: 'small',
+          shape: 'pill',
+          color: 'primary',
+          withDot: false,
+        }}
+        excludeProps={['status']}
+      >
+        {(props) => <Badge {...props}>Badge</Badge>}
+      </PropPlayground>
+      <AutoPropsTable componentName="Badge" />
 
       <CardContainer className="overflow-hidden">
         <CardTitle title="Code Example" className="mt-2 mb-2">

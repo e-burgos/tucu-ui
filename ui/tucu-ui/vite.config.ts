@@ -83,6 +83,12 @@ export default defineConfig({
           'lucide-react': 'LucideReact',
           'react-router-dom': 'ReactRouter',
         },
+        chunkFileNames: (chunkInfo) => {
+          if (chunkInfo.name && /Section/.test(chunkInfo.name)) {
+            return 'documentation/[name]-[hash].js';
+          }
+          return '[name]-[hash].js';
+        },
       },
     },
   },

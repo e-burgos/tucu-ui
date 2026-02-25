@@ -4,70 +4,12 @@ import {
   CardTitle,
   Typography,
   CodeBlock,
-  BasicTable,
   ActiveLink,
 } from '../../../../index';
+import { AutoPropsTable } from '../../../components/auto-props-table';
+import { PropPlayground } from '../../../components/prop-playground';
 
 const ActiveLinkSection: React.FC = () => {
-  const propsTableColumns = [
-    {
-      key: 'prop',
-      label: 'Prop',
-      render: (value: unknown) => (
-        <code className="text-xs text-brand">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'type',
-      label: 'Type',
-      render: (value: unknown) => (
-        <code className="text-xs">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'default',
-      label: 'Default',
-      render: (value: unknown) => {
-        const val = String(value);
-        if (val === 'required') {
-          return <span className="text-xs text-red-500">required</span>;
-        }
-        return <code className="text-xs">{val}</code>;
-      },
-    },
-    {
-      key: 'description',
-      label: 'Description',
-    },
-  ];
-
-  const propsData = [
-    {
-      prop: 'path',
-      type: 'string',
-      default: 'required',
-      description: 'Path to match against current location',
-    },
-    {
-      prop: 'to',
-      type: 'string',
-      default: 'required',
-      description: 'Link destination',
-    },
-    {
-      prop: 'activeClassName',
-      type: 'string',
-      default: "'active'",
-      description: 'CSS class to apply when link is active',
-    },
-    {
-      prop: 'className',
-      type: 'string',
-      default: '-',
-      description: 'Additional CSS classes',
-    },
-  ];
-
   return (
     <>
       <div className="text-center space-y-4">
@@ -116,14 +58,18 @@ const ActiveLinkSection: React.FC = () => {
           </div>
         </CardTitle>
       </CardContainer>
-
-      <CardContainer className="overflow-hidden">
-        <CardTitle title="Props" className="mt-2 mb-2">
-          <div className="w-full p-4 sm:p-6">
-            <BasicTable columns={propsTableColumns} data={propsData} />
-          </div>
-        </CardTitle>
-      </CardContainer>
+      <PropPlayground
+        componentName="ActiveLink"
+        defaultValues={{ path: '/demo', activeClassName: 'active' }}
+        excludeProps={['state', 'to']}
+      >
+        {(props) => (
+          <ActiveLink {...props} to="#">
+            Active Link Example
+          </ActiveLink>
+        )}
+      </PropPlayground>
+      <AutoPropsTable componentName="ActiveLink" />
 
       <CardContainer className="overflow-hidden">
         <CardTitle title="Code Example" className="mt-2 mb-2">

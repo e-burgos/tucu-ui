@@ -4,11 +4,11 @@ import {
   CardTitle,
   Typography,
   CodeBlock,
-  BasicTable,
   ListContainer,
   ListItem,
   LucideIcons,
 } from '../../../../index';
+import { AutoPropsTable } from '../../../components/auto-props-table';
 
 const ListContainerSection: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -31,83 +31,6 @@ const ListContainerSection: React.FC = () => {
       label: 'Share',
       icon: <LucideIcons.Share className="w-4 h-4" />,
       onClick: () => console.log('Share clicked'),
-    },
-  ];
-
-  const propsTableColumns = [
-    {
-      key: 'prop',
-      label: 'Prop',
-      render: (value: unknown) => (
-        <code className="text-xs text-brand">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'type',
-      label: 'Type',
-      render: (value: unknown) => (
-        <code className="text-xs">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'default',
-      label: 'Default',
-      render: (value: unknown) => {
-        const val = String(value);
-        if (val === 'required') {
-          return <span className="text-xs text-red-500">required</span>;
-        }
-        return <code className="text-xs">{val}</code>;
-      },
-    },
-    {
-      key: 'description',
-      label: 'Description',
-    },
-  ];
-
-  const propsData = [
-    {
-      prop: 'items',
-      type: 'ListItemProps[]',
-      default: 'required',
-      description: 'Array of list items to display',
-    },
-    {
-      prop: 'label',
-      type: 'string',
-      default: '-',
-      description: 'Label for the trigger button',
-    },
-    {
-      prop: 'triggerIcon',
-      type: 'React.ReactNode',
-      default: '-',
-      description: 'Custom icon for the trigger',
-    },
-    {
-      prop: 'position',
-      type: "'left' | 'right' | 'top' | 'bottom'",
-      default: "'bottom'",
-      description: 'Position of the dropdown',
-    },
-    {
-      prop: 'align',
-      type: "'start' | 'end' | 'center'",
-      default: "'end'",
-      description: 'Alignment of the dropdown',
-    },
-    {
-      prop: 'trigger',
-      type: "'hover' | 'click'",
-      default: "'hover'",
-      description: 'Trigger type for opening the dropdown',
-    },
-    {
-      prop: 'keepOpen',
-      type: 'boolean',
-      default: 'false',
-      description: 'Whether to keep dropdown open after item click',
     },
   ];
 
@@ -170,14 +93,7 @@ const ListContainerSection: React.FC = () => {
           </div>
         </CardTitle>
       </CardContainer>
-
-      <CardContainer className="overflow-hidden">
-        <CardTitle title="Props" className="mt-2 mb-2">
-          <div className="w-full p-4 sm:p-6">
-            <BasicTable columns={propsTableColumns} data={propsData} />
-          </div>
-        </CardTitle>
-      </CardContainer>
+      <AutoPropsTable componentName="ListContainer" />
 
       <CardContainer className="overflow-hidden">
         <CardTitle title="Code Example" className="mt-2 mb-2">

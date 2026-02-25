@@ -29,6 +29,10 @@ Componentes especializados para aplicaciones DeFi, mercados NFT, y billeteras cr
 
 Integración completa de Lucide React + 97+ iconos diseñados personalizadamente incluyendo iconos blockchain/crypto, controles de layout, marcas sociales, y elementos UI especializados.
 
+### **💬 Sistema de Tooltip**
+
+Componente Tooltip flexible con renderizado basado en portal (`createPortal`), 4 opciones de posicionamiento (top, bottom, left, right), 7 temas de color, reposicionamiento automático inteligente dentro del viewport, delays configurables de entrada/salida, y accesibilidad compatible con ARIA.
+
 ### **♿ Accesibilidad Primero**
 
 Componentes compatibles con WCAG 2.1 AA con atributos ARIA apropiados y navegación por teclado.
@@ -41,7 +45,7 @@ Diseño responsive en todos los componentes con soporte para pantallas ultra-anc
 
 Integración incorporada de React Router con soporte para dos patrones arquitectónicos:
 
-- **Standalone App** (por defecto): Generación automática de rutas desde menuItems
+- **Standalone App** (por defecto): Generación automática de rutas desde menuItems con soporte de rutas anidadas (`enableNestedRoutes`)
 - **Micro Frontends (MFE)**: Configuración explícita de rutas con basePath y protección de rutas
 
 ### **🎨 Integración Completa de Tailwind CSS v4**
@@ -79,11 +83,16 @@ Construido sobre librerías líderes en la industria para máxima confiabilidad:
 - **[Framer Motion](https://www.framer.com/motion/)** - Animaciones y transiciones suaves
 - **[Recharts](https://recharts.org/)** - Librería de gráficos composable para visualización de datos
 - **[Swiper](https://swiperjs.com/)** - Slider táctil móvil moderno
+- **[Vitest](https://vitest.dev/)** - Framework de testing unitario rápido alimentado por Vite
 
 ## 📦 Instalación
 
 ```bash
 npm install @e-burgos/tucu-ui
+
+// o con pnpm
+
+pnpm install @e-burgos/tucu-ui
 ```
 
 ### Importar Estilos de Tucu UI
@@ -897,6 +906,32 @@ import { Carousel, CarouselCards, CarouselImage } from '@e-burgos/tucu-ui';
 />
 ```
 
+### **Componente Tooltip**
+
+```tsx
+import { Tooltip } from '@e-burgos/tucu-ui';
+
+// Tooltip Básico
+<Tooltip content="Editar perfil" placement="top">
+  <button>Pasa el cursor</button>
+</Tooltip>
+
+// Tooltip con color personalizado y delay
+<Tooltip content="Eliminar elemento" color="danger" enterDelay={300} arrow>
+  <button>Eliminar</button>
+</Tooltip>
+
+// Tooltip con contenido enriquecido
+<Tooltip
+  content={<div><strong>Pro tip:</strong> Usa atajos de teclado para navegar más rápido.</div>}
+  placement="right"
+  color="primary"
+  arrow
+>
+  <span>Ayuda</span>
+</Tooltip>
+```
+
 ### **Componentes de Retroalimentación**
 
 ```tsx
@@ -1019,7 +1054,7 @@ Tucu UI incluye páginas comprehensivas de documentación para ayudarte a comenz
   - **Hooks Utilities** - Hooks personalizados de React para patrones comunes
   - **Accessibility** - Cumplimiento WCAG 2.1 AA y mejores prácticas
 - **Components** - Overview de librería de componentes y patrones de uso
-  - **UI Components** - 43+ componentes UI (botones, tarjetas, diálogos, notificaciones, etc.)
+  - **UI Components** - 43+ componentes UI (botones, tarjetas, diálogos, tooltips, notificaciones, etc.)
   - **Input Components** - 11+ componentes de entrada de formularios
   - **Blockchain Components** - 9+ componentes especializados DeFi/Web3
 - **Form System** - Solución completa de formularios con validación
@@ -1310,16 +1345,16 @@ Tucu UI está construido pensando en la accesibilidad:
 git clone <repository-url>
 
 # Instalar dependencias
-npm install
+pnpm install
 
-# Ejecutar Storybook para desarrollo
-npm run tucu-ui
+# Ejecutar el demo para desarrollo
+pnpm nx run demo:serve
 
 # Construir la librería
-npm run tucu-ui:build
+pnpm nx run tucu-ui:build
 
 # Ejecutar pruebas
-npm test
+pnpm nx run tucu-ui:test
 ```
 
 ### **Estructura del Monorepo Nx**
@@ -1327,17 +1362,21 @@ npm test
 ```
 tucu-ui/
 ├── apps/
-│   └── test-lib/             # Aplicación demo con nuevas páginas introductorias
+│   ├── demo/                 # Documentación y app demo (tucu-ui.netlify.app)
+│   └── test-lib/             # Playground de testing de la librería
+├── examples/
+│   ├── standalone/           # Ejemplo de arquitectura Standalone
+│   └── micro-frontends/      # Ejemplo de arquitectura Micro Frontends
 ├── ui/
-│   └── tucu-ui/             # Librería principal
+│   └── tucu-ui/             # Librería principal (@e-burgos/tucu-ui)
 │       ├── src/
-│       │   ├── components/   # Todos los componentes UI
-│       │   ├── hooks/       # Hooks de utilidad
-│       │   ├── themes/      # Sistema de temas
-│       │   ├── pages/       # Nuevas páginas introductorias (TailwindV4, Features, Components)
-│       │   └── tailwind/    # 15 páginas de documentación de utilidades Tailwind
+│       │   ├── components/   # Todos los componentes UI (70+)
+│       │   ├── hooks/        # Hooks de utilidad
+│       │   ├── themes/       # Sistema de temas (Zustand + tokens CSS)
+│       │   └── styles.css    # Configuración Tailwind CSS v4
 │       └── package.json
-└── nx.json                  # Configuración Nx
+├── scripts/                  # Scripts de build y generación
+└── nx.json                   # Configuración del workspace Nx
 ```
 
 ## 📄 Licencia

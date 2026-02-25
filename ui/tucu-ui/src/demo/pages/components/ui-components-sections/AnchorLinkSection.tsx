@@ -4,59 +4,13 @@ import {
   CardTitle,
   Typography,
   CodeBlock,
-  BasicTable,
   AnchorLink,
   GITHUB_URL,
 } from '../../../../index';
+import { AutoPropsTable } from '../../../components/auto-props-table';
+import { PropPlayground } from '../../../components/prop-playground';
 
 const AnchorLinkSection: React.FC = () => {
-  const propsTableColumns = [
-    {
-      key: 'prop',
-      label: 'Prop',
-      render: (value: unknown) => (
-        <code className="text-xs text-brand">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'type',
-      label: 'Type',
-      render: (value: unknown) => (
-        <code className="text-xs">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'default',
-      label: 'Default',
-      render: (value: unknown) => {
-        const val = String(value);
-        if (val === 'required') {
-          return <span className="text-xs text-red-500">required</span>;
-        }
-        return <code className="text-xs">{val}</code>;
-      },
-    },
-    {
-      key: 'description',
-      label: 'Description',
-    },
-  ];
-
-  const propsData = [
-    {
-      prop: 'to',
-      type: 'string',
-      default: 'required',
-      description: 'Link destination (internal or external URL)',
-    },
-    {
-      prop: '...LinkProps',
-      type: 'LinkProps',
-      default: '-',
-      description: 'All React Router Link props are supported',
-    },
-  ];
-
   return (
     <>
       <div className="text-center space-y-4">
@@ -94,14 +48,18 @@ const AnchorLinkSection: React.FC = () => {
           </div>
         </CardTitle>
       </CardContainer>
-
-      <CardContainer className="overflow-hidden">
-        <CardTitle title="Props" className="mt-2 mb-2">
-          <div className="w-full p-4 sm:p-6">
-            <BasicTable columns={propsTableColumns} data={propsData} />
-          </div>
-        </CardTitle>
-      </CardContainer>
+      <PropPlayground
+        componentName="AnchorLink"
+        defaultValues={{}}
+        excludeProps={['state', 'to']}
+      >
+        {(props) => (
+          <AnchorLink {...props} to="#">
+            Anchor Link Example
+          </AnchorLink>
+        )}
+      </PropPlayground>
+      <AutoPropsTable componentName="AnchorLink" />
 
       <CardContainer className="overflow-hidden">
         <CardTitle title="Code Example" className="mt-2 mb-2">

@@ -4,142 +4,12 @@ import {
   CardTitle,
   Typography,
   CodeBlock,
-  BasicTable,
   Image,
 } from '../../../../index';
+import { AutoPropsTable } from '../../../components/auto-props-table';
+import { PropPlayground } from '../../../components/prop-playground';
 
 const ImageSection: React.FC = () => {
-  const propsTableColumns = [
-    {
-      key: 'prop',
-      label: 'Prop',
-      render: (value: unknown) => (
-        <code className="text-xs text-brand">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'type',
-      label: 'Type',
-      render: (value: unknown) => (
-        <code className="text-xs">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'default',
-      label: 'Default',
-      render: (value: unknown) => {
-        const val = String(value);
-        if (val === 'required') {
-          return <span className="text-xs text-red-500">required</span>;
-        }
-        return <code className="text-xs">{val}</code>;
-      },
-    },
-    {
-      key: 'description',
-      label: 'Description',
-    },
-  ];
-
-  const propsData = [
-    {
-      prop: 'src',
-      type: 'string',
-      default: 'required',
-      description: 'Image source URL',
-    },
-    {
-      prop: 'alt',
-      type: 'string',
-      default: 'required',
-      description: 'Alt text for accessibility',
-    },
-    {
-      prop: 'width',
-      type: 'number | string',
-      default: '-',
-      description: 'Image width in pixels or percentage',
-    },
-    {
-      prop: 'height',
-      type: 'number | string',
-      default: '-',
-      description: 'Image height in pixels or percentage',
-    },
-    {
-      prop: 'objectFit',
-      type: "'cover' | 'contain' | 'fill' | 'none' | 'scale-down'",
-      default: "'cover'",
-      description: 'How the image should fit its container',
-    },
-    {
-      prop: 'loading',
-      type: "'lazy' | 'eager'",
-      default: "'lazy'",
-      description: 'Browser native lazy loading',
-    },
-    {
-      prop: 'priority',
-      type: "'high' | 'low' | 'auto'",
-      default: "'auto'",
-      description: 'Fetch priority hint for browser',
-    },
-    {
-      prop: 'placeholder',
-      type: "'blur' | 'empty'",
-      default: "'empty'",
-      description: 'Placeholder type while loading',
-    },
-    {
-      prop: 'blurDataURL',
-      type: 'string',
-      default: '-',
-      description: 'Base64 or URL for blur placeholder',
-    },
-    {
-      prop: 'fallbackSrc',
-      type: 'string',
-      default: 'placeholder image',
-      description: 'Image to show on error',
-    },
-    {
-      prop: 'aspectRatio',
-      type: 'string',
-      default: '-',
-      description: 'CSS aspect-ratio (e.g., "16/9", "4/3")',
-    },
-    {
-      prop: 'fill',
-      type: 'boolean',
-      default: 'false',
-      description: 'Fill parent container (position: absolute)',
-    },
-    {
-      prop: 'onLoad',
-      type: '() => void',
-      default: '-',
-      description: 'Callback when image loads',
-    },
-    {
-      prop: 'onError',
-      type: '() => void',
-      default: '-',
-      description: 'Callback when image fails to load',
-    },
-    {
-      prop: 'className',
-      type: 'string',
-      default: '-',
-      description: 'CSS classes for image element',
-    },
-    {
-      prop: 'containerClassName',
-      type: 'string',
-      default: '-',
-      description: 'CSS classes for wrapper container',
-    },
-  ];
-
   return (
     <>
       <div className="text-center space-y-4">
@@ -566,14 +436,30 @@ const ImageSection: React.FC = () => {
           </div>
         </CardTitle>
       </CardContainer>
-
-      <CardContainer className="overflow-hidden">
-        <CardTitle title="Props" className="mt-2 mb-2">
-          <div className="w-full p-4 sm:p-6">
-            <BasicTable columns={propsTableColumns} data={propsData} />
-          </div>
-        </CardTitle>
-      </CardContainer>
+      <PropPlayground
+        componentName="Image"
+        defaultValues={{
+          src: 'https://picsum.photos/400/300',
+          alt: 'Sample image',
+          objectFit: 'cover',
+          loading: 'lazy',
+          placeholder: 'empty',
+          fill: false,
+          priority: 'auto',
+        }}
+        excludeProps={[
+          'onError',
+          'onLoad',
+          'blurDataURL',
+          'fallbackSrc',
+          'containerClassName',
+          'aspectRatio',
+          'quality',
+        ]}
+      >
+        {(props) => <Image {...props} width={400} height={300} />}
+      </PropPlayground>
+      <AutoPropsTable componentName="Image" />
 
       <CardContainer className="overflow-hidden">
         <CardTitle title="Code Examples" className="mt-2 mb-2">

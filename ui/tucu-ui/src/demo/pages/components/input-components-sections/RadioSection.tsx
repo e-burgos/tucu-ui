@@ -4,101 +4,12 @@ import {
   CardTitle,
   Typography,
   CodeBlock,
-  BasicTable,
   Radio,
 } from '../../../../index';
+import { AutoPropsTable } from '../../../components/auto-props-table';
 
 const RadioSection: React.FC = () => {
   const [radioValue, setRadioValue] = useState<string>('');
-
-  const propsTableColumns = [
-    {
-      key: 'prop',
-      label: 'Prop',
-      render: (value: unknown) => (
-        <code className="text-xs text-brand">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'type',
-      label: 'Type',
-      render: (value: unknown) => (
-        <code className="text-xs">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'default',
-      label: 'Default',
-      render: (value: unknown) => {
-        const val = String(value);
-        if (val === 'required') {
-          return <span className="text-xs text-red-500">required</span>;
-        }
-        return <code className="text-xs">{val}</code>;
-      },
-    },
-    {
-      key: 'description',
-      label: 'Description',
-    },
-  ];
-
-  const radioPropsData = [
-    {
-      prop: 'label',
-      type: 'React.ReactNode',
-      default: '-',
-      description: 'Radio button label',
-    },
-    {
-      prop: 'value',
-      type: 'string',
-      default: 'required',
-      description: 'Radio button value',
-    },
-    {
-      prop: 'variant',
-      type: "'ghost' | 'solid' | 'transparent'",
-      default: "'ghost'",
-      description: 'Visual variant of the radio button',
-    },
-    {
-      prop: 'size',
-      type: "'sm' | 'md' | 'lg' | 'xl'",
-      default: "'md'",
-      description: 'Size of the radio button',
-    },
-    {
-      prop: 'color',
-      type: "'primary' | 'secondary' | 'danger' | 'info' | 'success' | 'warning'",
-      default: "'primary'",
-      description: 'Color theme of the radio button',
-    },
-    {
-      prop: 'disabled',
-      type: 'boolean',
-      default: 'false',
-      description: 'Disables the radio button',
-    },
-    {
-      prop: 'labelPlacement',
-      type: "'start' | 'end'",
-      default: "'end'",
-      description: 'Position of the label relative to the radio',
-    },
-    {
-      prop: 'error',
-      type: 'string',
-      default: '-',
-      description: 'Error message to display',
-    },
-    {
-      prop: 'helperText',
-      type: 'React.ReactNode',
-      default: '-',
-      description: 'Helper text displayed below the radio',
-    },
-  ];
 
   return (
     <>
@@ -212,14 +123,7 @@ const RadioSection: React.FC = () => {
           </div>
         </CardTitle>
       </CardContainer>
-
-      <CardContainer className="overflow-hidden">
-        <CardTitle title="Props" className="mt-2 mb-2">
-          <div className="w-full p-4 sm:p-6">
-            <BasicTable columns={propsTableColumns} data={radioPropsData} />
-          </div>
-        </CardTitle>
-      </CardContainer>
+      <AutoPropsTable componentName="Radio" />
 
       <CardContainer className="overflow-hidden">
         <CardTitle title="Code Example" className="mt-2 mb-2">

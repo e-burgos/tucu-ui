@@ -4,3 +4,4 @@ export * from './collapse';
 export * from './scrollbar';
 export * from './scrollbar-native';
 export * from './skeleton';
+export * from './tooltip';

@@ -4,101 +4,12 @@ import {
   CardTitle,
   Typography,
   CodeBlock,
-  BasicTable,
   Switch,
 } from '../../../../index';
+import { AutoPropsTable } from '../../../components/auto-props-table';
 
 const SwitchSection: React.FC = () => {
   const [switchChecked, setSwitchChecked] = useState(false);
-
-  const propsTableColumns = [
-    {
-      key: 'prop',
-      label: 'Prop',
-      render: (value: unknown) => (
-        <code className="text-xs text-brand">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'type',
-      label: 'Type',
-      render: (value: unknown) => (
-        <code className="text-xs">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'default',
-      label: 'Default',
-      render: (value: unknown) => {
-        const val = String(value);
-        if (val === 'required') {
-          return <span className="text-xs text-red-500">required</span>;
-        }
-        return <code className="text-xs">{val}</code>;
-      },
-    },
-    {
-      key: 'description',
-      label: 'Description',
-    },
-  ];
-
-  const switchPropsData = [
-    {
-      prop: 'checked',
-      type: 'boolean',
-      default: 'required',
-      description: 'Whether the switch is checked',
-    },
-    {
-      prop: 'onChange',
-      type: '(checked: boolean) => void',
-      default: 'required',
-      description: 'Callback when switch state changes',
-    },
-    {
-      prop: 'label',
-      type: 'string | React.ReactNode',
-      default: '-',
-      description: 'Switch label text',
-    },
-    {
-      prop: 'variant',
-      type: "'ghost' | 'solid' | 'transparent'",
-      default: "'ghost'",
-      description: 'Visual variant of the switch',
-    },
-    {
-      prop: 'onLabel',
-      type: 'string | React.ReactNode',
-      default: "'ON'",
-      description: 'Label text when switch is on',
-    },
-    {
-      prop: 'offLabel',
-      type: 'string | React.ReactNode',
-      default: "'OFF'",
-      description: 'Label text when switch is off',
-    },
-    {
-      prop: 'disabled',
-      type: 'boolean',
-      default: 'false',
-      description: 'Disables the switch',
-    },
-    {
-      prop: 'errorMessage',
-      type: 'string',
-      default: '-',
-      description: 'Error message to display',
-    },
-    {
-      prop: 'helperText',
-      type: 'string',
-      default: '-',
-      description: 'Helper text displayed below the switch',
-    },
-  ];
 
   return (
     <>
@@ -219,14 +130,7 @@ const SwitchSection: React.FC = () => {
           </div>
         </CardTitle>
       </CardContainer>
-
-      <CardContainer className="overflow-hidden">
-        <CardTitle title="Props" className="mt-2 mb-2">
-          <div className="w-full p-4 sm:p-6">
-            <BasicTable columns={propsTableColumns} data={switchPropsData} />
-          </div>
-        </CardTitle>
-      </CardContainer>
+      <AutoPropsTable componentName="Switch" />
 
       <CardContainer className="overflow-hidden">
         <CardTitle title="Code Example" className="mt-2 mb-2">

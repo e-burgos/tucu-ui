@@ -29,6 +29,10 @@ Specialized components for DeFi applications, NFT marketplaces, and crypto walle
 
 Complete Lucide React integration + 97+ custom-designed icons including blockchain/crypto icons, layout controls, social brands, and specialized UI elements.
 
+### **💬 Tooltip System**
+
+Flexible Tooltip component with portal-based rendering (`createPortal`), 4 placement options (top, bottom, left, right), 7 color themes, smart auto-repositioning within the viewport, configurable enter/leave delays, and ARIA-compliant accessibility.
+
 ### **♿ Accessibility First**
 
 WCAG 2.1 AA compliant components with proper ARIA attributes and keyboard navigation.
@@ -41,7 +45,7 @@ Responsive design across all components with support for ultra-wide displays (up
 
 Built-in React Router integration with support for two architectural patterns:
 
-- **Standalone App** (default): Automatic route generation from menuItems
+- **Standalone App** (default): Automatic route generation from menuItems with nested routes support (`enableNestedRoutes`)
 - **Micro Frontends (MFE)**: Explicit route configuration with basePath and route protection
 
 ### **🎨 Tailwind CSS v4 Complete Integration**
@@ -79,6 +83,7 @@ Built on industry-leading libraries for maximum reliability:
 - **[Framer Motion](https://www.framer.com/motion/)** - Smooth animations and transitions
 - **[Recharts](https://recharts.org/)** - Composable charting library for data visualization
 - **[Swiper](https://swiperjs.com/)** - Modern mobile touch slider
+- **[Vitest](https://vitest.dev/)** - Fast unit testing framework powered by Vite
 
 ## 📦 Installation
 
@@ -886,6 +891,32 @@ import { Carousel, CarouselCards, CarouselImage } from '@e-burgos/tucu-ui';
 />
 ```
 
+### **Tooltip Component**
+
+```tsx
+import { Tooltip } from '@e-burgos/tucu-ui';
+
+// Basic Tooltip
+<Tooltip content="Edit profile" placement="top">
+  <button>Hover me</button>
+</Tooltip>
+
+// Tooltip with custom color and delay
+<Tooltip content="Delete item" color="danger" enterDelay={300} arrow>
+  <button>Delete</button>
+</Tooltip>
+
+// Rich content Tooltip
+<Tooltip
+  content={<div><strong>Pro tip:</strong> Use keyboard shortcuts for faster navigation.</div>}
+  placement="right"
+  color="primary"
+  arrow
+>
+  <span>Help</span>
+</Tooltip>
+```
+
 ### **Feedback Components**
 
 ```tsx
@@ -1008,7 +1039,7 @@ Tucu UI includes comprehensive documentation pages to help you get started:
   - **Hooks Utilities** - Custom React hooks for common patterns
   - **Accessibility** - WCAG 2.1 AA compliance and best practices
 - **Components** - Component library overview and usage patterns
-  - **UI Components** - 43+ UI components (buttons, cards, dialogs, notifications, etc.)
+  - **UI Components** - 43+ UI components (buttons, cards, dialogs, tooltips, notifications, etc.)
   - **Input Components** - 11+ form input components
   - **Blockchain Components** - 9+ specialized DeFi/Web3 components
 - **Form System** - Complete form solution with validation
@@ -1299,33 +1330,38 @@ Tucu UI is built with accessibility in mind:
 git clone <repository-url>
 
 # Install dependencies
-npm install
+pnpm install
 
-# Run Storybook for development
-npm run @e-burgos/tucu-ui
+# Run the demo for development
+pnpm nx run demo:serve
 
 # Build the library
-npm run @e-burgos/tucu-ui:build
+pnpm nx run tucu-ui:build
 
 # Run tests
-npm test
+pnpm nx run tucu-ui:test
 ```
 
 ### **Nx Monorepo Structure**
 
 ```
-@e-burgos/tucu-ui/
+tucu-ui/
 ├── apps/
-│   └── demo/                 # Demo application
+│   ├── demo/                 # Documentation & demo app (tucu-ui.netlify.app)
+│   └── test-lib/             # Library testing playground
+├── examples/
+│   ├── standalone/           # Standalone architecture example
+│   └── micro-frontends/      # Micro Frontends architecture example
 ├── ui/
-│   └── tucu-ui/             # Main library
+│   └── tucu-ui/             # Main library (@e-burgos/tucu-ui)
 │       ├── src/
-│       │   ├── components/   # All UI components
-│       │   ├── hooks/       # Utility hooks
-│       │   ├── themes/      # Theme system
-│       │   └── storybook/   # Documentation
+│       │   ├── components/   # All UI components (70+)
+│       │   ├── hooks/        # Utility hooks
+│       │   ├── themes/       # Theme system (Zustand + CSS tokens)
+│       │   └── styles.css    # Tailwind CSS v4 configuration
 │       └── package.json
-└── nx.json                  # Nx configuration
+├── scripts/                  # Build & generation scripts
+└── nx.json                   # Nx workspace configuration
 ```
 
 ## 📄 License

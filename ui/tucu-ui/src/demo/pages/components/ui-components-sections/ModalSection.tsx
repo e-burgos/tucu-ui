@@ -4,90 +4,14 @@ import {
   CardTitle,
   Typography,
   CodeBlock,
-  BasicTable,
   Modal,
   Button,
 } from '../../../../index';
+import { AutoPropsTable } from '../../../components/auto-props-table';
+import { PropPlayground } from '../../../components/prop-playground';
 
 const ModalSection: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
-
-  const propsTableColumns = [
-    {
-      key: 'prop',
-      label: 'Prop',
-      render: (value: unknown) => (
-        <code className="text-xs text-brand">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'type',
-      label: 'Type',
-      render: (value: unknown) => (
-        <code className="text-xs">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'default',
-      label: 'Default',
-      render: (value: unknown) => {
-        const val = String(value);
-        if (val === 'required') {
-          return <span className="text-xs text-red-500">required</span>;
-        }
-        return <code className="text-xs">{val}</code>;
-      },
-    },
-    {
-      key: 'description',
-      label: 'Description',
-    },
-  ];
-
-  const propsData = [
-    {
-      prop: 'isOpen',
-      type: 'boolean',
-      default: 'required',
-      description: 'Whether the modal is open',
-    },
-    {
-      prop: 'setIsOpen',
-      type: '(isOpen: boolean) => void',
-      default: 'required',
-      description: 'Function to control modal state',
-    },
-    {
-      prop: 'closeable',
-      type: 'boolean',
-      default: 'true',
-      description: 'Whether the modal can be closed',
-    },
-    {
-      prop: 'hideButtons',
-      type: 'boolean',
-      default: 'false',
-      description: 'Hide default buttons',
-    },
-    {
-      prop: 'text',
-      type: '{ title?: string; content?: string; button?: string; backButton?: string }',
-      default: '-',
-      description: 'Text content for modal',
-    },
-    {
-      prop: 'onClose',
-      type: '() => void',
-      default: '-',
-      description: 'Callback when modal closes',
-    },
-    {
-      prop: 'onSubmit',
-      type: '() => void',
-      default: '-',
-      description: 'Callback when submit button is clicked',
-    },
-  ];
 
   return (
     <>
@@ -142,14 +66,36 @@ const ModalSection: React.FC = () => {
           </div>
         </CardTitle>
       </CardContainer>
-
-      <CardContainer className="overflow-hidden">
-        <CardTitle title="Props" className="mt-2 mb-2">
-          <div className="w-full p-4 sm:p-6">
-            <BasicTable columns={propsTableColumns} data={propsData} />
-          </div>
-        </CardTitle>
-      </CardContainer>
+      <PropPlayground
+        componentName="Modal"
+        defaultValues={{ isOpen: true, closeable: true, hideButtons: false }}
+        excludeProps={[
+          'setIsOpen',
+          'onBack',
+          'onClose',
+          'onSubmit',
+          'buttonContainer',
+          'text',
+          'contentClassName',
+          'titleContainerClassName',
+        ]}
+      >
+        {(props) => (
+          <Modal
+            {...props}
+            setIsOpen={() => {}}
+            text={{
+              title: 'Modal Preview',
+              content: 'This is a preview of the modal component.',
+            }}
+          >
+            <p className="text-sm text-gray-600 dark:text-gray-400">
+              Modal body content
+            </p>
+          </Modal>
+        )}
+      </PropPlayground>
+      <AutoPropsTable componentName="Modal" />
 
       <CardContainer className="overflow-hidden">
         <CardTitle title="Code Example" className="mt-2 mb-2">

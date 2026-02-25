@@ -4,59 +4,14 @@ import {
   CardTitle,
   Typography,
   CodeBlock,
-  BasicTable,
   CurrencySwapIcons,
 } from '../../../../index';
+import { AutoPropsTable } from '../../../components/auto-props-table';
 
 const CurrencySwapIconsSection: React.FC = () => {
   // Table columns definition for props tables
-  const propsTableColumns = [
-    {
-      key: 'prop',
-      label: 'Prop',
-      render: (value: unknown) => (
-        <code className="text-xs text-brand">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'type',
-      label: 'Type',
-      render: (value: unknown) => (
-        <code className="text-xs">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'default',
-      label: 'Default',
-      render: (value: unknown) => {
-        const val = String(value);
-        if (val === 'required') {
-          return <span className="text-xs text-red-500">required</span>;
-        }
-        return <code className="text-xs">{val}</code>;
-      },
-    },
-    {
-      key: 'description',
-      label: 'Description',
-    },
-  ];
 
   // CurrencySwapIcons props data
-  const currencySwapIconsPropsData = [
-    {
-      prop: 'from',
-      type: "CoinList ('BTC' | 'ETH' | 'USDT' | 'BNB' | 'USDC' | 'ADA' | 'DOGE')",
-      default: 'required',
-      description: 'Source currency',
-    },
-    {
-      prop: 'to',
-      type: "CoinList ('BTC' | 'ETH' | 'USDT' | 'BNB' | 'USDC' | 'ADA' | 'DOGE')",
-      default: 'required',
-      description: 'Target currency',
-    },
-  ];
 
   return (
     <>
@@ -99,17 +54,7 @@ const CurrencySwapIconsSection: React.FC = () => {
           </div>
         </CardTitle>
       </CardContainer>
-
-      <CardContainer className="overflow-hidden">
-        <CardTitle title="Props" className="mt-2 mb-2">
-          <div className="w-full p-4 sm:p-6">
-            <BasicTable
-              columns={propsTableColumns}
-              data={currencySwapIconsPropsData}
-            />
-          </div>
-        </CardTitle>
-      </CardContainer>
+      <AutoPropsTable componentName="CurrencySwapIcons" />
 
       <CardContainer className="overflow-hidden">
         <CardTitle title="Code Example" className="mt-2 mb-2">

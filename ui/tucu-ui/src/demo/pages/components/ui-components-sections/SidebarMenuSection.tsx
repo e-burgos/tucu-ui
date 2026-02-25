@@ -4,10 +4,10 @@ import {
   CardTitle,
   Typography,
   CodeBlock,
-  BasicTable,
   SidebarMenu,
   LucideIcons,
 } from '../../../../index';
+import { AutoPropsTable } from '../../../components/auto-props-table';
 
 const SidebarMenuSection: React.FC = () => {
   const menuItems = [
@@ -25,77 +25,6 @@ const SidebarMenuSection: React.FC = () => {
       name: 'Profile',
       icon: <LucideIcons.User className="w-5 h-5" />,
       path: '/profile',
-    },
-  ];
-
-  const propsTableColumns = [
-    {
-      key: 'prop',
-      label: 'Prop',
-      render: (value: unknown) => (
-        <code className="text-xs text-brand">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'type',
-      label: 'Type',
-      render: (value: unknown) => (
-        <code className="text-xs">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'default',
-      label: 'Default',
-      render: (value: unknown) => {
-        const val = String(value);
-        if (val === 'required') {
-          return <span className="text-xs text-red-500">required</span>;
-        }
-        return <code className="text-xs">{val}</code>;
-      },
-    },
-    {
-      key: 'description',
-      label: 'Description',
-    },
-  ];
-
-  const propsData = [
-    {
-      prop: 'menuItems',
-      type: 'IMenuItem[]',
-      default: 'required',
-      description: 'Array of menu items to display',
-    },
-    {
-      prop: 'children',
-      type: 'React.ReactNode',
-      default: '-',
-      description: 'Additional content to display',
-    },
-    {
-      prop: 'title',
-      type: 'string',
-      default: '-',
-      description: 'Title for the sidebar menu',
-    },
-    {
-      prop: 'logo',
-      type: 'LogoPropTypes',
-      default: '-',
-      description: 'Logo configuration',
-    },
-    {
-      prop: 'actionContent',
-      type: 'React.ReactNode',
-      default: '-',
-      description: 'Action buttons at the bottom',
-    },
-    {
-      prop: 'onClose',
-      type: '() => void',
-      default: 'required',
-      description: 'Callback when sidebar closes',
     },
   ];
 
@@ -135,14 +64,7 @@ const SidebarMenuSection: React.FC = () => {
           </div>
         </CardTitle>
       </CardContainer>
-
-      <CardContainer className="overflow-hidden">
-        <CardTitle title="Props" className="mt-2 mb-2">
-          <div className="w-full p-4 sm:p-6">
-            <BasicTable columns={propsTableColumns} data={propsData} />
-          </div>
-        </CardTitle>
-      </CardContainer>
+      <AutoPropsTable componentName="SidebarMenu" />
 
       <CardContainer className="overflow-hidden">
         <CardTitle title="Code Example" className="mt-2 mb-2">

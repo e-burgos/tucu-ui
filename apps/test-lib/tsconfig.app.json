@@ -25,11 +25,7 @@
     "noUnusedParameters": true,
     //"erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true,
-
-    "paths": {
-      "@tucu-ui": ["../../ui/tucu-ui/src"]
-    }
+    "noUncheckedSideEffectImports": true
   },
   "include": ["src"]
 }

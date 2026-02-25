@@ -1,0 +1,330 @@
+---
+description: Documentation pattern rules for Tucu UI based on documentation-pattern-guide.md
+globs: *.tsx
+alwaysApply: false
+---
+
+# Documentation Pattern Rules - Tucu UI
+
+These rules ensure consistent patterns across documentation pages in the Tucu UI library. Apply these rules when creating or updating documentation pages in `.tsx` files.
+
+## Page Structure
+
+### Main Category Pages
+
+- **Container**: Use `max-w-6xl mx-auto px-4 sm:px-6 lg:px-8` for main container
+- **Spacing**: Use `space-y-8 sm:space-y-12` for main sections
+- **Padding Top**: Use `pt-8 lg:pt-12`
+- **HeroCard**: Always at the top with icon, title, description, and action buttons
+- **Sections**: Use semantic `<section>` tags with `space-y-8`
+
+### Component Listing Pages (With Table of Contents)
+
+- **Wrapper**: Use `<div className="relative scroll-smooth">`
+- **TableOfContents**: Wrap all content
+- **useAnchorScroll**: Hook for smooth scrolling
+- **Lazy Loading**: All sections loaded with `React.lazy()`
+- **LazyComponentSection**: Wrapper component for lazy-loaded sections
+
+## Component Section Patterns
+
+### Standard Section Order
+
+1. **Header** - Centered title and description
+2. **Basic Examples** - Common use cases in a grid
+3. **Variants** (optional) - Different visual variants
+4. **Props** - Complete props table using BasicTable
+5. **Code Example** - Implementation examples
+
+### CardContainer Structure
+
+```tsx
+<CardContainer className="overflow-hidden">
+  <CardTitle title="Section Title" className="mt-2 mb-2">
+    <div className="w-full p-4 sm:p-6">{/* Content */}</div>
+  </CardTitle>
+</CardContainer>
+```
+
+## Styling Conventions
+
+### Container Classes
+
+- Main page container: `space-y-8 sm:space-y-12 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative pt-8 lg:pt-12`
+- Card container wrapper: `overflow-hidden`
+- Card title wrapper: `mt-2 mb-2`
+- Content wrapper inside CardTitle: `w-full p-4 sm:p-6`
+- Example grid: `grid grid-cols-1 md:grid-cols-2 gap-4`
+- Individual example card: `p-4`
+
+### Typography Sizes
+
+- Page title (h2): `text-3xl md:text-4xl font-bold`
+- Section title (h2): `text-2xl sm:text-3xl md:text-4xl font-bold`
+- Description text: `text-base sm:text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto`
+- Example label: `text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto`
+- Label for examples: `tag="label-2" className="mb-3"`
+
+### Spacing
+
+- Main sections: `space-y-8 sm:space-y-12`
+- Card content: `space-y-4` or `space-y-6`
+- Grid gaps: `gap-4`, `gap-6`
+- Padding: `p-4 sm:p-6` (responsive)
+
+## Iconography Backgrounds
+
+### Rules
+
+- Icon backgrounds **CAN** use colored gradients (orange, blue, green, purple, red, etc.)
+- Choose colors that work well in both light and dark modes
+- Use consistent color schemes within the same section
+- White icons on colored backgrounds provide good contrast
+
+### Examples
+
+```tsx
+// Colored gradient background
+<div className="p-2 bg-linear-to-br from-orange-500 to-amber-500 rounded-lg shadow-lg">
+  <LucideIcons.IconName className="w-5 h-5 text-white filter drop-shadow-sm" />
+</div>
+
+// Color options:
+// Blue: from-blue-500 to-cyan-500
+// Green: from-green-500 to-emerald-500
+// Purple: from-purple-500 to-indigo-500
+// Red: from-red-500 to-rose-500
+// Orange: from-orange-500 to-amber-500
+
+// Simple gray background (minimalist option)
+<div className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300">
+  <LucideIcons.IconName className="w-5 h-5" />
+</div>
+```
+
+## Container Backgrounds
+
+### Rules
+
+- **Prefer semantic classes**: Use `bg-light dark:bg-dark` when the parent container doesn't have `bg-light-dark`
+- **Match parent context**: If the parent container has `bg-light-dark`, use `bg-light-dark` for child containers
+- **Default to semantic**: When in doubt, use `bg-light-dark` as it works in both modes
+- **Always provide dark variants**: If using specific color classes, always include `dark:` variants
+- **Test in both modes**: Ensure backgrounds look good and maintain readability in both light and dark modes
+
+### Examples
+
+```tsx
+// Preferred: Semantic classes
+className = 'bg-light dark:bg-dark';
+
+// If parent has bg-light-dark, use the same
+className = 'bg-light-dark';
+
+// Default to semantic
+className = 'bg-light-dark';
+
+// Alternative: Specific gray variants
+className = 'bg-gray-50 dark:bg-gray-800';
+
+// Good: Semantic colors that adapt
+className = 'bg-white dark:bg-gray-900';
+
+// ❌ Avoid: Missing dark variant
+className = 'bg-blue-50'; // Missing dark: variant
+```
+
+## Text Highlighting
+
+### Rules
+
+- **Prefer borders over backgrounds** for highlighting inline text
+- Use backgrounds only for code blocks or when necessary
+- Borders provide better visual separation without overwhelming the design
+
+### Examples
+
+```tsx
+// ✅ Good: Using border
+<code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
+  menuItems
+</code>
+
+// ❌ Avoid: Using background (unless necessary for code blocks)
+<code className="px-1 py-0.5 bg-gray-100 dark:bg-gray-800 rounded text-xs">
+  menuItems
+</code>
+```
+
+**Note:** Backgrounds in `<code>` elements within code blocks are acceptable, but for inline text highlighting, prefer borders.
+
+## Component Usage
+
+### BasicTable for Props and API Reference
+
+**CRITICAL: Always use BasicTable component instead of HTML tables.**
+
+```tsx
+import { BasicTable, type TableColumn } from '../../../../index';
+
+const propsTableColumns: TableColumn[] = [
+  {
+    key: 'prop',
+    label: 'Prop',
+    render: (value: unknown) => (
+      <code className="text-xs text-brand">{String(value)}</code>
+    ),
+  },
+  {
+    key: 'type',
+    label: 'Type',
+    render: (value: unknown) => (
+      <code className="text-xs">{String(value)}</code>
+    ),
+  },
+  {
+    key: 'default',
+    label: 'Default',
+    render: (value: unknown) => {
+      const val = String(value);
+      if (val === 'required') {
+        return <span className="text-xs text-red-500">required</span>;
+      }
+      return <code className="text-xs">{val}</code>;
+    },
+  },
+  {
+    key: 'description',
+    label: 'Description',
+  },
+];
+
+<BasicTable columns={propsTableColumns} data={propsData} />;
+```
+
+**Rules:**
+
+- ❌ **Never use HTML `<table>` elements directly**
+- ✅ **Always use `BasicTable` component for all table data**
+- BasicTable handles responsive design, dark mode, and styling automatically
+
+### Alert Component
+
+**CRITICAL: Do NOT add text color classes to Alert content.**
+
+```tsx
+// ✅ Correct
+<Alert variant="info" dismissible={false}>
+  <Typography tag="p" className="text-sm">
+    This is an informational message.
+  </Typography>
+</Alert>
+
+// ❌ Incorrect - Don't add text-gray-600 dark:text-gray-400
+<Alert variant="info" dismissible={false}>
+  <Typography tag="p" className="text-sm text-gray-600 dark:text-gray-400">
+    This is an informational message.
+  </Typography>
+</Alert>
+```
+
+**Rules:**
+
+- Alert components automatically handle text colors based on variant
+- Only add text size classes (`text-sm`, `text-xs`, etc.) if needed
+- Do not override text colors in Alert content
+
+### CodeBlock
+
+```tsx
+<CodeBlock
+  language="tsx"
+  code={`import { ComponentName } from '@e-burgos/tucu-ui';
+
+// Example usage
+<ComponentName prop="value" />`}
+/>
+```
+
+## Best Practices Checklist
+
+### 1. Consistency
+
+- [ ] Use the same structure for similar content
+- [ ] Follow the established section order
+- [ ] Use consistent spacing and padding classes
+
+### 2. Responsive Design
+
+- [ ] Include responsive breakpoints (`sm:`, `md:`, `lg:`)
+- [ ] Use responsive grid layouts
+- [ ] Test on different screen sizes
+
+### 3. Iconography
+
+- [ ] Icon backgrounds can use colored gradients
+- [ ] Choose colors that work in both light and dark modes
+- [ ] White icons on colored backgrounds provide good contrast
+- [ ] Use consistent color schemes within sections
+
+### 4. Component Text Colors
+
+- [ ] **Alert components**: Do NOT add text color classes
+- [ ] **Typography components**: Add text color classes only when not inside Alert
+
+### 5. Container Backgrounds
+
+- [ ] Prefer semantic classes (`bg-light dark:bg-dark` or `bg-light-dark`)
+- [ ] Match parent context
+- [ ] Always provide both light and dark mode variants
+- [ ] Test backgrounds in both modes
+
+### 6. Text Highlighting
+
+- [ ] Prefer borders over backgrounds for inline text
+- [ ] Use backgrounds only for code blocks when necessary
+
+### 7. Tables
+
+- [ ] **Always use BasicTable component** instead of HTML `<table>` elements
+- [ ] Never create manual HTML tables for documentation
+
+## Common Patterns
+
+| Pattern                       | Usage                   | Example Files                  |
+| ----------------------------- | ----------------------- | ------------------------------ |
+| **HeroCard**                  | Page headers            | All main pages                 |
+| **TableOfContents**           | Component listing pages | UiComponents, InputsComponents |
+| **LazyComponentSection**      | Lazy-loaded sections    | All component listing pages    |
+| **CardContainer + CardTitle** | Content sections        | All section files              |
+| **BasicTable**                | Props documentation     | All component sections         |
+| **CodeBlock**                 | Code examples           | All component sections         |
+| **Grid Layouts**              | Example displays        | All component sections         |
+
+## Quick Reference
+
+### Container Backgrounds Decision Tree
+
+1. Does parent container have `bg-light-dark`? → Use `bg-light-dark`
+2. Otherwise → Use `bg-light dark:bg-dark`
+3. When in doubt → Use `bg-light-dark`
+
+### Text Highlighting Decision Tree
+
+1. Is it inline text highlighting? → Use `border border-gray-300 dark:border-gray-600`
+2. Is it inside a code block? → Background is acceptable
+3. Otherwise → Prefer borders
+
+### Table Decision Tree
+
+1. Need to display tabular data? → Use `BasicTable` component
+2. Never use HTML `<table>` elements
+
+### Alert Content Decision Tree
+
+1. Is content inside Alert? → Do NOT add text color classes
+2. Only add text size classes if needed
+
+---
+
+_These rules are based on the documentation-pattern-guide.md and should be applied to all `.tsx` documentation files in the Tucu UI library._

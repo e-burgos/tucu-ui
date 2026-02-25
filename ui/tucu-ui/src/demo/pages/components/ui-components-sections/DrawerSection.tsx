@@ -4,93 +4,17 @@ import {
   CardTitle,
   Typography,
   CodeBlock,
-  BasicTable,
   Drawer,
   Button,
 } from '../../../../index';
+import { AutoPropsTable } from '../../../components/auto-props-table';
+import { PropPlayground } from '../../../components/prop-playground';
 
 const DrawerSection: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [drawerType, setDrawerType] = useState<'sidebar' | 'sidebar-menu'>(
     'sidebar'
   );
-
-  const propsTableColumns = [
-    {
-      key: 'prop',
-      label: 'Prop',
-      render: (value: unknown) => (
-        <code className="text-xs text-brand">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'type',
-      label: 'Type',
-      render: (value: unknown) => (
-        <code className="text-xs">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'default',
-      label: 'Default',
-      render: (value: unknown) => {
-        const val = String(value);
-        if (val === 'required') {
-          return <span className="text-xs text-red-500">required</span>;
-        }
-        return <code className="text-xs">{val}</code>;
-      },
-    },
-    {
-      key: 'description',
-      label: 'Description',
-    },
-  ];
-
-  const propsData = [
-    {
-      prop: 'isOpen',
-      type: 'boolean',
-      default: 'required',
-      description: 'Whether the drawer is open',
-    },
-    {
-      prop: 'setIsOpen',
-      type: '(isOpen: boolean) => void',
-      default: 'required',
-      description: 'Function to control drawer state',
-    },
-    {
-      prop: 'type',
-      type: "'sidebar' | 'sidebar-menu'",
-      default: 'required',
-      description: 'Type of drawer to display',
-    },
-    {
-      prop: 'position',
-      type: "'left' | 'right'",
-      default: "'left'",
-      description: 'Position of the drawer',
-    },
-    {
-      prop: 'backdrop',
-      type: 'boolean',
-      default: 'true',
-      description: 'Whether to show backdrop',
-    },
-    {
-      prop: 'title',
-      type: 'string',
-      default: '-',
-      description: 'Title for the drawer',
-    },
-    {
-      prop: 'menuItems',
-      type: 'IMenuItem[]',
-      default: '-',
-      description: 'Menu items (required for sidebar-menu type)',
-    },
-  ];
 
   return (
     <>
@@ -158,14 +82,29 @@ const DrawerSection: React.FC = () => {
           </div>
         </CardTitle>
       </CardContainer>
-
-      <CardContainer className="overflow-hidden">
-        <CardTitle title="Props" className="mt-2 mb-2">
-          <div className="w-full p-4 sm:p-6">
-            <BasicTable columns={propsTableColumns} data={propsData} />
+      <PropPlayground
+        componentName="Drawer"
+        defaultValues={{ isOpen: true, position: 'left', backdrop: true }}
+        excludeProps={[
+          'setIsOpen',
+          'onClose',
+          'actionContent',
+          'logo',
+          'menuItems',
+          'type',
+        ]}
+      >
+        {(props) => (
+          <div
+            style={{ position: 'relative', height: 300, overflow: 'hidden' }}
+          >
+            <Drawer {...props} setIsOpen={() => {}} title="Drawer Preview">
+              <p className="text-sm p-4">Drawer content</p>
+            </Drawer>
           </div>
-        </CardTitle>
-      </CardContainer>
+        )}
+      </PropPlayground>
+      <AutoPropsTable componentName="Drawer" />
 
       <CardContainer className="overflow-hidden">
         <CardTitle title="Code Example" className="mt-2 mb-2">

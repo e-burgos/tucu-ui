@@ -5,7 +5,6 @@ dist
 tmp
 /out-tsc
 
-
 # dependencies
 node_modules
 
@@ -39,14 +38,8 @@ testem.log
 .DS_Store
 Thumbs.db
 temp
-
-.nx/cache
-.nx/workspace-data
-
-.cursor
-.cursor/rules/nx-rules.mdc
-.github/instructions/nx.instructions.md
-.cursorrules
+.playwright-mcp
+.nx
 
 .env
 .env.local
@@ -54,8 +47,6 @@ temp
 .env.test.local
 .env.production.local
 
-storybook-static
-build-storybook.log
 vite.config.*.timestamp*
 vitest.config.*.timestamp*
 

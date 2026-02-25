@@ -4,11 +4,11 @@ import {
   CardTitle,
   Typography,
   CodeBlock,
-  BasicTable,
   LivePriceFeed,
   Bitcoin,
 } from '../../../../index';
 import { Ethereum } from '../../../../components/icons/ethereum';
+import { AutoPropsTable } from '../../../components/auto-props-table';
 
 const LivePriceFeedSection: React.FC = () => {
   const priceData = [
@@ -17,101 +17,6 @@ const LivePriceFeedSection: React.FC = () => {
     { name: 3, value: 44800 },
     { name: 4, value: 45100 },
     { name: 5, value: 45300 },
-  ];
-
-  const propsTableColumns = [
-    {
-      key: 'prop',
-      label: 'Prop',
-      render: (value: unknown) => (
-        <code className="text-xs text-brand">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'type',
-      label: 'Type',
-      render: (value: unknown) => (
-        <code className="text-xs">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'default',
-      label: 'Default',
-      render: (value: unknown) => {
-        const val = String(value);
-        if (val === 'required') {
-          return <span className="text-xs text-red-500">required</span>;
-        }
-        return <code className="text-xs">{val}</code>;
-      },
-    },
-    {
-      key: 'description',
-      label: 'Description',
-    },
-  ];
-
-  const livePriceFeedPropsData = [
-    {
-      prop: 'id',
-      type: 'string',
-      default: 'required',
-      description: 'Unique identifier for the price feed',
-    },
-    {
-      prop: 'name',
-      type: 'string',
-      default: 'required',
-      description: 'Full name of the cryptocurrency',
-    },
-    {
-      prop: 'symbol',
-      type: 'string',
-      default: 'required',
-      description: 'Cryptocurrency symbol',
-    },
-    {
-      prop: 'icon',
-      type: 'React.ReactElement',
-      default: 'required',
-      description: 'Icon element for the cryptocurrency',
-    },
-    {
-      prop: 'balance',
-      type: 'string',
-      default: 'required',
-      description: 'Coin balance amount',
-    },
-    {
-      prop: 'usdBalance',
-      type: 'string',
-      default: 'required',
-      description: 'USD equivalent balance',
-    },
-    {
-      prop: 'change',
-      type: 'string',
-      default: 'required',
-      description: 'Price change percentage',
-    },
-    {
-      prop: 'isChangePositive',
-      type: 'boolean',
-      default: 'required',
-      description: 'Whether the price change is positive',
-    },
-    {
-      prop: 'prices',
-      type: 'Price[]',
-      default: 'required',
-      description: 'Array of price data points for the chart',
-    },
-    {
-      prop: 'isBorder',
-      type: 'boolean',
-      default: 'false',
-      description: 'Whether to show border instead of shadow',
-    },
   ];
 
   return (
@@ -175,17 +80,7 @@ const LivePriceFeedSection: React.FC = () => {
           </div>
         </CardTitle>
       </CardContainer>
-
-      <CardContainer className="overflow-hidden">
-        <CardTitle title="Props" className="mt-2 mb-2">
-          <div className="w-full p-4 sm:p-6">
-            <BasicTable
-              columns={propsTableColumns}
-              data={livePriceFeedPropsData}
-            />
-          </div>
-        </CardTitle>
-      </CardContainer>
+      <AutoPropsTable componentName="LivePriceFeed" />
 
       <CardContainer className="overflow-hidden">
         <CardTitle title="Code Example" className="mt-2 mb-2">

@@ -110,11 +110,10 @@ export const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>(
       string | number | undefined
     >(value !== undefined ? value : defaultValue);
 
+    // Keep internal state in sync when controlled `value` changes
     useEffect(() => {
       if (value !== undefined) {
-        setTimeout(() => {
-          setSelectedValue(value as string | number | undefined);
-        }, 100);
+        setSelectedValue(value as string | number | undefined);
       }
     }, [value]);
 

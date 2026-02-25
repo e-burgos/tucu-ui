@@ -10,8 +10,11 @@ import { useGoogleAnalytics } from '../hooks/useGoogleAnalytics';
 import { useSEO } from '../hooks/useSEO';
 import { useDynamicTitle } from '../hooks/useDynamicTitle';
 
-export const RightButton = ({ menuItems }: { menuItems: StandaloneAppRoutesMenuItem[] }) => {
-
+export const RightButton = ({
+  menuItems,
+}: {
+  menuItems: StandaloneAppRoutesMenuItem[];
+}) => {
   // SEO meta tags will be updated dynamically based on route
   useSEO();
 

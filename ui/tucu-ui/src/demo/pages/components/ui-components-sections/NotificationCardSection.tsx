@@ -4,77 +4,13 @@ import {
   CardTitle,
   Typography,
   CodeBlock,
-  BasicTable,
   NotificationCard,
 } from '../../../../index';
 import avatar1Img from '../../../assets/images/avatar/1.png';
+import { AutoPropsTable } from '../../../components/auto-props-table';
+import { PropPlayground } from '../../../components/prop-playground';
 
 const NotificationCardSection: React.FC = () => {
-  const propsTableColumns = [
-    {
-      key: 'prop',
-      label: 'Prop',
-      render: (value: unknown) => (
-        <code className="text-xs text-brand">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'type',
-      label: 'Type',
-      render: (value: unknown) => (
-        <code className="text-xs">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'default',
-      label: 'Default',
-      render: (value: unknown) => {
-        const val = String(value);
-        if (val === 'required') {
-          return <span className="text-xs text-red-500">required</span>;
-        }
-        return <code className="text-xs">{val}</code>;
-      },
-    },
-    {
-      key: 'description',
-      label: 'Description',
-    },
-  ];
-
-  const propsData = [
-    {
-      prop: 'type',
-      type: "'followed' | 'liked' | 'purchased'",
-      default: 'required',
-      description: 'Type of notification',
-    },
-    {
-      prop: 'actor',
-      type: '{ name: string; avatar: string }',
-      default: 'required',
-      description: 'Actor information',
-    },
-    {
-      prop: 'time',
-      type: 'string',
-      default: 'required',
-      description: 'Time of the notification',
-    },
-    {
-      prop: 'url',
-      type: 'string',
-      default: 'required',
-      description: 'Link URL',
-    },
-    {
-      prop: 'notifier',
-      type: 'string',
-      default: 'required',
-      description: 'What was notified',
-    },
-  ];
-
   return (
     <>
       <div className="text-center space-y-4">
@@ -134,14 +70,27 @@ const NotificationCardSection: React.FC = () => {
           </div>
         </CardTitle>
       </CardContainer>
-
-      <CardContainer className="overflow-hidden">
-        <CardTitle title="Props" className="mt-2 mb-2">
-          <div className="w-full p-4 sm:p-6">
-            <BasicTable columns={propsTableColumns} data={propsData} />
-          </div>
-        </CardTitle>
-      </CardContainer>
+      <PropPlayground
+        componentName="NotificationCard"
+        defaultValues={{
+          notifier: 'CryptoKing',
+          type: 'liked',
+          time: '2 hours ago',
+          url: '#',
+        }}
+        excludeProps={['actor']}
+      >
+        {(props) => (
+          <NotificationCard
+            {...props}
+            actor={{
+              name: 'John Doe',
+              avatar: 'https://randomuser.me/api/portraits/men/1.jpg',
+            }}
+          />
+        )}
+      </PropPlayground>
+      <AutoPropsTable componentName="NotificationCard" />
 
       <CardContainer className="overflow-hidden">
         <CardTitle title="Code Example" className="mt-2 mb-2">

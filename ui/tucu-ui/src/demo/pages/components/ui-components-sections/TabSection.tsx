@@ -4,7 +4,6 @@ import {
   CardTitle,
   Typography,
   CodeBlock,
-  BasicTable,
 } from '../../../../index';
 import {
   TabGroup,
@@ -14,78 +13,9 @@ import {
   TabPanel,
 } from '../../../../components/tabs';
 import { Home, Settings, User, Bell, Mail, Calendar } from 'lucide-react';
+import { AutoPropsTable } from '../../../components/auto-props-table';
 
 const TabSection: React.FC = () => {
-  const propsTableColumns = [
-    {
-      key: 'prop',
-      label: 'Prop',
-      render: (value: unknown) => (
-        <code className="text-xs text-brand">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'type',
-      label: 'Type',
-      render: (value: unknown) => (
-        <code className="text-xs">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'default',
-      label: 'Default',
-      render: (value: unknown) => {
-        const val = String(value);
-        if (val === 'required') {
-          return <span className="text-xs text-red-500">required</span>;
-        }
-        return <code className="text-xs">{val}</code>;
-      },
-    },
-    {
-      key: 'description',
-      label: 'Description',
-    },
-  ];
-
-  const propsData = [
-    {
-      prop: 'variant',
-      type: "'underline' | 'pills' | 'bordered' | 'solid'",
-      default: "'underline'",
-      description: 'Visual style variant of the tabs',
-    },
-    {
-      prop: 'size',
-      type: "'small' | 'medium' | 'large'",
-      default: "'medium'",
-      description: 'Size of the tab items',
-    },
-    {
-      prop: 'color',
-      type: "'primary' | 'secondary' | 'success' | 'danger'",
-      default: '-',
-      description: 'Color theme for unselected tabs',
-    },
-    {
-      prop: 'icon',
-      type: 'React.ReactNode',
-      default: '-',
-      description: 'Icon to display before tab label',
-    },
-    {
-      prop: 'disabled',
-      type: 'boolean',
-      default: 'false',
-      description: 'Whether the tab is disabled',
-    },
-    {
-      prop: 'showMobileIndicator',
-      type: 'boolean',
-      default: 'true',
-      description: 'Show indicator on mobile devices',
-    },
-  ];
 
   return (
     <>
@@ -509,14 +439,7 @@ const TabSection: React.FC = () => {
           </div>
         </CardTitle>
       </CardContainer>
-
-      <CardContainer className="overflow-hidden">
-        <CardTitle title="Props" className="mt-2 mb-2">
-          <div className="w-full p-4 sm:p-6">
-            <BasicTable columns={propsTableColumns} data={propsData} />
-          </div>
-        </CardTitle>
-      </CardContainer>
+      <AutoPropsTable componentName="Tab" />
 
       <CardContainer className="overflow-hidden">
         <CardTitle title="Code Examples" className="mt-2 mb-2">

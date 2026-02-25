@@ -4,83 +4,13 @@ import {
   CardTitle,
   Typography,
   CodeBlock,
-  BasicTable,
   Avatar,
 } from '../../../../index';
 import avatar1Img from '../../../assets/images/avatar/1.png';
+import { AutoPropsTable } from '../../../components/auto-props-table';
+import { PropPlayground } from '../../../components/prop-playground';
 
 const AvatarSection: React.FC = () => {
-  const propsTableColumns = [
-    {
-      key: 'prop',
-      label: 'Prop',
-      render: (value: unknown) => (
-        <code className="text-xs text-brand">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'type',
-      label: 'Type',
-      render: (value: unknown) => (
-        <code className="text-xs">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'default',
-      label: 'Default',
-      render: (value: unknown) => {
-        const val = String(value);
-        if (val === 'required') {
-          return <span className="text-xs text-red-500">required</span>;
-        }
-        return <code className="text-xs">{val}</code>;
-      },
-    },
-    {
-      key: 'description',
-      label: 'Description',
-    },
-  ];
-
-  const propsData = [
-    {
-      prop: 'image',
-      type: 'string',
-      default: 'required',
-      description: 'URL or path to the avatar image',
-    },
-    {
-      prop: 'alt',
-      type: 'string',
-      default: 'required',
-      description: 'Alt text for the image',
-    },
-    {
-      prop: 'size',
-      type: "'xl' | 'lg' | 'md' | 'sm' | 'xs'",
-      default: "'md'",
-      description: 'Size of the avatar',
-    },
-    {
-      prop: 'shape',
-      type: "'rounded' | 'circle'",
-      default: "'circle'",
-      description: 'Shape of the avatar',
-    },
-    {
-      prop: 'border',
-      type: 'boolean',
-      default: 'true',
-      description: 'Whether to show border',
-    },
-    {
-      prop: 'className',
-      type: 'string',
-      default: '-',
-      description: 'Additional CSS classes',
-    },
-  ];
-
   return (
     <>
       <div className="text-center space-y-4">
@@ -146,14 +76,19 @@ const AvatarSection: React.FC = () => {
           </div>
         </CardTitle>
       </CardContainer>
-
-      <CardContainer className="overflow-hidden">
-        <CardTitle title="Props" className="mt-2 mb-2">
-          <div className="w-full p-4 sm:p-6">
-            <BasicTable columns={propsTableColumns} data={propsData} />
-          </div>
-        </CardTitle>
-      </CardContainer>
+      <PropPlayground
+        componentName="Avatar"
+        defaultValues={{
+          size: 'md',
+          shape: 'circle',
+          border: true,
+          image: 'https://randomuser.me/api/portraits/men/1.jpg',
+          alt: 'Avatar',
+        }}
+      >
+        {(props) => <Avatar {...props} />}
+      </PropPlayground>
+      <AutoPropsTable componentName="Avatar" />
 
       <CardContainer className="overflow-hidden">
         <CardTitle title="Code Example" className="mt-2 mb-2">

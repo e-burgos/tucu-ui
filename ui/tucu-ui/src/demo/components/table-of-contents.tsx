@@ -24,6 +24,10 @@ interface TableOfContentsProps {
   onItemClick?: (item: TableOfContentsItem) => void;
   children?: React.ReactNode;
   onSidebarToggle?: (isOpen: boolean) => void;
+  /** Navigation mode: 'anchor' scrolls to sections (default), 'route' navigates via onItemClick */
+  navigationMode?: 'anchor' | 'route';
+  /** Active section ID (used in 'route' mode to highlight the current item) */
+  activeSectionId?: string;
 }
 
 export const TableOfContents: React.FC<TableOfContentsProps> = ({
@@ -33,9 +37,11 @@ export const TableOfContents: React.FC<TableOfContentsProps> = ({
   onItemClick,
   children,
   onSidebarToggle,
+  navigationMode = 'anchor',
+  activeSectionId: externalActiveSection,
 }) => {
   const breakPoint = useBreakpoint();
-  const {layout} = useTheme();
+  const { layout } = useTheme();
   const { isMobile } = useIsMobile();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string>('');
@@ -64,8 +70,29 @@ export const TableOfContents: React.FC<TableOfContentsProps> = ({
     }
   }, [isSidebarOpen, onSidebarToggle]);
 
-  // Track active section on scroll
+  // In route mode, sync active section from external prop
   useEffect(() => {
+    if (navigationMode === 'route' && externalActiveSection !== undefined) {
+      setActiveSection(externalActiveSection);
+      // Auto-open the category containing the active section
+      if (externalActiveSection) {
+        const activeItem = items.find((i) => i.id === externalActiveSection);
+        if (activeItem?.category) {
+          const cat = activeItem.category;
+          setOpenCategories((prev) => {
+            const next = new Set(prev);
+            next.add(cat);
+            return next;
+          });
+        }
+      }
+    }
+  }, [navigationMode, externalActiveSection, items]);
+
+  // Track active section on scroll (anchor mode only)
+  useEffect(() => {
+    if (navigationMode === 'route') return;
+
     const observerOptions = {
       root: null,
       rootMargin: '-20% 0px -70% 0px',
@@ -96,7 +123,7 @@ export const TableOfContents: React.FC<TableOfContentsProps> = ({
     return () => {
       observer.disconnect();
     };
-  }, [items]);
+  }, [items, navigationMode]);
 
   // Group items by category if categories are present
   const groupedItems = React.useMemo(() => {
@@ -132,38 +159,39 @@ export const TableOfContents: React.FC<TableOfContentsProps> = ({
         return next;
       });
     } else {
-      // Open category - scroll to first item
+      // Open category
       setOpenCategories((prev) => {
         const next = new Set(prev);
         next.add(category);
         return next;
       });
 
-      // Scroll to first item in the category
+      // In route mode, navigate to first item; in anchor mode, scroll
       if (categoryItems.length > 0) {
         const firstItem = categoryItems[0];
 
-        // Force load the section first
-        window.dispatchEvent(
-          new CustomEvent('forceLoadSection', {
-            detail: { sectionId: firstItem.id },
-          })
-        );
+        if (navigationMode === 'route') {
+          if (onItemClick) onItemClick(firstItem);
+        } else {
+          // Force load the section first
+          window.dispatchEvent(
+            new CustomEvent('forceLoadSection', {
+              detail: { sectionId: firstItem.id },
+            })
+          );
 
-        // Wait a bit for the section to render, then scroll
-        setTimeout(() => {
-          const element = document.getElementById(firstItem.id);
-          if (element) {
-            // Update URL hash
-            window.history.replaceState(null, '', `#${firstItem.id}`);
-
-            // Scroll to the section
-            element.scrollIntoView({
-              behavior: 'smooth',
-              block: 'start',
-            });
-          }
-        }, 100);
+          // Wait a bit for the section to render, then scroll
+          setTimeout(() => {
+            const element = document.getElementById(firstItem.id);
+            if (element) {
+              window.history.replaceState(null, '', `#${firstItem.id}`);
+              element.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start',
+              });
+            }
+          }, 100);
+        }
       }
     }
   };
@@ -179,7 +207,13 @@ export const TableOfContents: React.FC<TableOfContentsProps> = ({
       setIsSidebarOpen(false);
     }
 
-    // First: Force load the section by dispatching a custom event
+    // In route mode, just call onItemClick and return
+    if (navigationMode === 'route') {
+      if (onItemClick) onItemClick(item);
+      return;
+    }
+
+    // Anchor mode: Force load the section by dispatching a custom event
     window.dispatchEvent(
       new CustomEvent('forceLoadSection', { detail: { sectionId: item.id } })
     );
@@ -220,23 +254,32 @@ export const TableOfContents: React.FC<TableOfContentsProps> = ({
     }
   };
 
-  const smallScreen = breakPoint === 'sm' || breakPoint === 'xs' || breakPoint === 'md' || breakPoint === 'lg';
+  const smallScreen =
+    breakPoint === 'sm' ||
+    breakPoint === 'xs' ||
+    breakPoint === 'md' ||
+    breakPoint === 'lg';
 
   return (
     <>
       {/* Floating Toggle Button - Fixed position */}
-      <div className={cn( 
-        layout === LAYOUT_OPTIONS.ADMIN && 'fixed top-1/2 mt-[52px] z-40 -translate-y-1/2 ltr:right-0 rtl:left-0',
-        layout === LAYOUT_OPTIONS.HORIZONTAL && 'fixed top-1/2 z-40 -translate-y-1/2 ltr:left-0 rtl:right-0',
-        layout === LAYOUT_OPTIONS.CLEAN && 'fixed top-1/2 z-40 -translate-y-1/2 ltr:left-0 rtl:right-0',
-        )}>
+      <div
+        className={cn(
+          layout === LAYOUT_OPTIONS.ADMIN &&
+            'fixed top-1/2 mt-[52px] z-40 -translate-y-1/2 ltr:right-0 rtl:left-0',
+          layout === LAYOUT_OPTIONS.HORIZONTAL &&
+            'fixed top-1/2 z-40 -translate-y-1/2 ltr:left-0 rtl:right-0',
+          layout === LAYOUT_OPTIONS.CLEAN &&
+            'fixed top-1/2 z-40 -translate-y-1/2 ltr:left-0 rtl:right-0'
+        )}
+      >
         {!isSidebarOpen && (
           <button
             className={cn(
-              "flex h-[48px] w-[48px] items-center justify-center text-gray-600 shadow-large backdrop-blur-sm bg-light-dark dark:text-gray-200/70",
+              'flex h-[48px] w-[48px] items-center justify-center text-gray-600 shadow-large backdrop-blur-sm bg-light-dark dark:text-gray-200/70',
               layout === LAYOUT_OPTIONS.ADMIN && 'rounded-l-lg',
               layout === LAYOUT_OPTIONS.HORIZONTAL && 'rounded-r-lg',
-              layout === LAYOUT_OPTIONS.CLEAN && 'rounded-r-lg',
+              layout === LAYOUT_OPTIONS.CLEAN && 'rounded-r-lg'
             )}
             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
             aria-label="Toggle table of contents"
@@ -256,12 +299,14 @@ export const TableOfContents: React.FC<TableOfContentsProps> = ({
       {isSidebarOpen && (
         <aside
           className={cn(
-            "fixed left-0 h-screen bg-body backdrop-blur-lg shadow-md border-r border-gray-100 dark:border-gray-800 transition-all duration-300 ease-in-out overflow-y-hidden", 
+            'fixed left-0 h-screen bg-body backdrop-blur-lg shadow-md border-r border-gray-100 dark:border-gray-800 transition-all duration-300 ease-in-out overflow-y-hidden',
             isMobile ? 'z-50' : 'z-21',
             isSidebarOpen
-              ? layout === LAYOUT_OPTIONS.ADMIN && !smallScreen ? 'translate-x-[100px] w-64 lg:w-72' : 'translate-x-0 w-72 lg:w-72'
+              ? layout === LAYOUT_OPTIONS.ADMIN && !smallScreen
+                ? 'translate-x-[100px] w-64 lg:w-72'
+                : 'translate-x-0 w-72 lg:w-72'
               : '-translate-x-full lg:translate-x-0 lg:w-72',
-              className,
+            className
           )}
           style={{
             top: isMobile ? '0px' : '72px',

@@ -4,65 +4,13 @@ import {
   CardTitle,
   Typography,
   CodeBlock,
-  BasicTable,
   AuthorCard,
 } from '../../../../index';
 import avatar1Img from '../../../assets/images/avatar/1.png';
+import { AutoPropsTable } from '../../../components/auto-props-table';
+import { PropPlayground } from '../../../components/prop-playground';
 
 const AuthorCardSection: React.FC = () => {
-  const propsTableColumns = [
-    {
-      key: 'prop',
-      label: 'Prop',
-      render: (value: unknown) => (
-        <code className="text-xs text-brand">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'type',
-      label: 'Type',
-      render: (value: unknown) => (
-        <code className="text-xs">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'default',
-      label: 'Default',
-      render: (value: unknown) => {
-        const val = String(value);
-        if (val === 'required') {
-          return <span className="text-xs text-red-500">required</span>;
-        }
-        return <code className="text-xs">{val}</code>;
-      },
-    },
-    {
-      key: 'description',
-      label: 'Description',
-    },
-  ];
-
-  const propsData = [
-    {
-      prop: 'image',
-      type: 'string',
-      default: 'required',
-      description: 'URL or path to the author avatar image',
-    },
-    {
-      prop: 'name',
-      type: 'string',
-      default: '-',
-      description: 'Author name',
-    },
-    {
-      prop: 'authorRole',
-      type: 'string',
-      default: '-',
-      description: 'Author role or title',
-    },
-  ];
-
   return (
     <>
       <div className="text-center space-y-4">
@@ -108,14 +56,18 @@ const AuthorCardSection: React.FC = () => {
           </div>
         </CardTitle>
       </CardContainer>
-
-      <CardContainer className="overflow-hidden">
-        <CardTitle title="Props" className="mt-2 mb-2">
-          <div className="w-full p-4 sm:p-6">
-            <BasicTable columns={propsTableColumns} data={propsData} />
-          </div>
-        </CardTitle>
-      </CardContainer>
+      <PropPlayground
+        componentName="AuthorCard"
+        defaultValues={{
+          name: 'John Doe',
+          authorRole: 'Developer',
+          image: 'https://randomuser.me/api/portraits/men/1.jpg',
+        }}
+        excludeProps={[]}
+      >
+        {(props) => <AuthorCard {...props} />}
+      </PropPlayground>
+      <AutoPropsTable componentName="AuthorCard" />
 
       <CardContainer className="overflow-hidden">
         <CardTitle title="Code Example" className="mt-2 mb-2">

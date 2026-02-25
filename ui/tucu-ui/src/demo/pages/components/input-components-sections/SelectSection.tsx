@@ -4,9 +4,9 @@ import {
   CardTitle,
   Typography,
   CodeBlock,
-  BasicTable,
   Select,
 } from '../../../../index';
+import { AutoPropsTable } from '../../../components/auto-props-table';
 
 const SelectSection: React.FC = () => {
   const [selectedOption, setSelectedOption] = useState<
@@ -19,119 +19,6 @@ const SelectSection: React.FC = () => {
     { name: 'Chile', value: 'cl' },
     { name: 'Colombia', value: 'co' },
     { name: 'México', value: 'mx' },
-  ];
-
-  const propsTableColumns = [
-    {
-      key: 'prop',
-      label: 'Prop',
-      render: (value: unknown) => (
-        <code className="text-xs text-brand">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'type',
-      label: 'Type',
-      render: (value: unknown) => (
-        <code className="text-xs">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'default',
-      label: 'Default',
-      render: (value: unknown) => {
-        const val = String(value);
-        if (val === 'required') {
-          return <span className="text-xs text-red-500">required</span>;
-        }
-        return <code className="text-xs">{val}</code>;
-      },
-    },
-    {
-      key: 'description',
-      label: 'Description',
-    },
-  ];
-
-  const selectPropsData = [
-    {
-      prop: 'options',
-      type: 'SelectOption[]',
-      default: 'required',
-      description: 'Array of select options',
-    },
-    {
-      prop: 'selectedOption',
-      type: 'SelectOption',
-      default: '-',
-      description: 'Currently selected option',
-    },
-    {
-      prop: 'onChange',
-      type: '(option: SelectOption) => void',
-      default: '-',
-      description: 'Callback when selection changes',
-    },
-    {
-      prop: 'onSelect',
-      type: '(value: string) => void',
-      default: '-',
-      description: 'Callback with selected value string',
-    },
-    {
-      prop: 'variant',
-      type: "'ghost' | 'solid' | 'transparent'",
-      default: "'ghost'",
-      description: 'Visual variant of the select',
-    },
-    {
-      prop: 'label',
-      type: 'string',
-      default: '-',
-      description: 'Field label text',
-    },
-    {
-      prop: 'placeholder',
-      type: 'string',
-      default: '-',
-      description: 'Placeholder text',
-    },
-    {
-      prop: 'disabled',
-      type: 'boolean',
-      default: 'false',
-      description: 'Disables the select field',
-    },
-    {
-      prop: 'required',
-      type: 'boolean',
-      default: 'false',
-      description: 'Marks the field as required',
-    },
-    {
-      prop: 'errorMessage',
-      type: 'string',
-      default: '-',
-      description: 'Error message to display',
-    },
-    {
-      prop: 'helperText',
-      type: 'string',
-      default: '-',
-      description: 'Helper text displayed below the select',
-    },
-    {
-      prop: 'value',
-      type: 'string',
-      default: '-',
-      description: 'String value for react-hook-form integration',
-    },
-    {
-      prop: 'name',
-      type: 'string',
-      default: '-',
-      description: 'Name attribute for form submission',
-    },
   ];
 
   return (
@@ -268,14 +155,7 @@ const SelectSection: React.FC = () => {
           </div>
         </CardTitle>
       </CardContainer>
-
-      <CardContainer className="overflow-hidden">
-        <CardTitle title="Props" className="mt-2 mb-2">
-          <div className="w-full p-4 sm:p-6">
-            <BasicTable columns={propsTableColumns} data={selectPropsData} />
-          </div>
-        </CardTitle>
-      </CardContainer>
+      <AutoPropsTable componentName="Select" />
 
       <CardContainer className="overflow-hidden">
         <CardTitle title="Code Example" className="mt-2 mb-2">

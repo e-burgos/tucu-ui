@@ -4,59 +4,13 @@ import {
   CardTitle,
   Typography,
   CodeBlock,
-  BasicTable,
   Hamburger,
 } from '../../../../index';
+import { AutoPropsTable } from '../../../components/auto-props-table';
+import { PropPlayground } from '../../../components/prop-playground';
 
 const HamburgerSection: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
-
-  const propsTableColumns = [
-    {
-      key: 'prop',
-      label: 'Prop',
-      render: (value: unknown) => (
-        <code className="text-xs text-brand">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'type',
-      label: 'Type',
-      render: (value: unknown) => (
-        <code className="text-xs">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'default',
-      label: 'Default',
-      render: (value: unknown) => {
-        const val = String(value);
-        if (val === 'required') {
-          return <span className="text-xs text-red-500">required</span>;
-        }
-        return <code className="text-xs">{val}</code>;
-      },
-    },
-    {
-      key: 'description',
-      label: 'Description',
-    },
-  ];
-
-  const propsData = [
-    {
-      prop: 'isOpen',
-      type: 'boolean',
-      default: 'false',
-      description: 'Whether the hamburger menu is open',
-    },
-    {
-      prop: '...ButtonProps',
-      type: 'ButtonProps',
-      default: '-',
-      description: 'All Button component props are supported',
-    },
-  ];
 
   return (
     <>
@@ -109,14 +63,32 @@ const HamburgerSection: React.FC = () => {
           </div>
         </CardTitle>
       </CardContainer>
-
-      <CardContainer className="overflow-hidden">
-        <CardTitle title="Props" className="mt-2 mb-2">
-          <div className="w-full p-4 sm:p-6">
-            <BasicTable columns={propsTableColumns} data={propsData} />
-          </div>
-        </CardTitle>
-      </CardContainer>
+      <PropPlayground
+        componentName="Hamburger"
+        defaultValues={{
+          isOpen: false,
+          color: 'primary',
+          size: 'medium',
+          variant: 'solid',
+        }}
+        excludeProps={[
+          'onClick',
+          'aria-label',
+          'aria-describedby',
+          'tooltip',
+          'tooltipArrow',
+          'tooltipColor',
+          'tooltipPlacement',
+          'isLoading',
+          'loaderSize',
+          'loaderVariant',
+          'fullWidth',
+          'disabled',
+        ]}
+      >
+        {(props) => <Hamburger {...props} />}
+      </PropPlayground>
+      <AutoPropsTable componentName="Hamburger" />
 
       <CardContainer className="overflow-hidden">
         <CardTitle title="Code Example" className="mt-2 mb-2">

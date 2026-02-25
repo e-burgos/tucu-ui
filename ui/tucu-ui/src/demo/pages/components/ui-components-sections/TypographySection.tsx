@@ -4,63 +4,11 @@ import {
   CardTitle,
   Typography,
   CodeBlock,
-  BasicTable,
 } from '../../../../index';
+import { AutoPropsTable } from '../../../components/auto-props-table';
+import { PropPlayground } from '../../../components/prop-playground';
 
 const TypographySection: React.FC = () => {
-  const propsTableColumns = [
-    {
-      key: 'prop',
-      label: 'Prop',
-      render: (value: unknown) => (
-        <code className="text-xs text-brand">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'type',
-      label: 'Type',
-      render: (value: unknown) => (
-        <code className="text-xs">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'default',
-      label: 'Default',
-      render: (value: unknown) => {
-        const val = String(value);
-        if (val === 'required') {
-          return <span className="text-xs text-red-500">required</span>;
-        }
-        return <code className="text-xs">{val}</code>;
-      },
-    },
-    {
-      key: 'description',
-      label: 'Description',
-    },
-  ];
-
-  const propsData = [
-    {
-      prop: 'tag',
-      type: 'string',
-      default: 'required',
-      description: 'HTML tag or typography variant to render',
-    },
-    {
-      prop: 'children',
-      type: 'React.ReactNode',
-      default: 'required',
-      description: 'Content to display',
-    },
-    {
-      prop: 'className',
-      type: 'string',
-      default: '-',
-      description: 'Additional CSS classes',
-    },
-  ];
-
   return (
     <>
       <div className="text-center space-y-4">
@@ -118,18 +66,58 @@ const TypographySection: React.FC = () => {
                   <Typography tag="pre">Preformatted text</Typography>
                 </div>
               </CardContainer>
+              <CardContainer className="p-4">
+                <Typography tag="h5" className="mb-3">
+                  With Tooltip
+                </Typography>
+                <div className="flex flex-wrap gap-4 items-center">
+                  <Typography
+                    tag="span"
+                    tooltip="This is an abbreviation"
+                    tooltipPlacement="top"
+                    className="underline decoration-dotted cursor-help"
+                  >
+                    Hover this text
+                  </Typography>
+                  <Typography
+                    tag="strong"
+                    tooltip="Important information"
+                    tooltipPlacement="right"
+                    tooltipColor="light"
+                  >
+                    Bold with tooltip
+                  </Typography>
+                  <Typography
+                    tag="code"
+                    tooltip="Copied!"
+                    tooltipPlacement="bottom"
+                  >
+                    Code with tooltip
+                  </Typography>
+                </div>
+              </CardContainer>
             </div>
           </div>
         </CardTitle>
       </CardContainer>
-
-      <CardContainer className="overflow-hidden">
-        <CardTitle title="Props" className="mt-2 mb-2">
-          <div className="w-full p-4 sm:p-6">
-            <BasicTable columns={propsTableColumns} data={propsData} />
-          </div>
-        </CardTitle>
-      </CardContainer>
+      <PropPlayground
+        componentName="Typography"
+        defaultValues={{ tag: 'p', color: 'default' }}
+        excludeProps={[
+          'tooltip',
+          'tooltipArrow',
+          'tooltipColor',
+          'tooltipPlacement',
+          'title',
+        ]}
+      >
+        {(props) => (
+          <Typography {...props}>
+            The quick brown fox jumps over the lazy dog.
+          </Typography>
+        )}
+      </PropPlayground>
+      <AutoPropsTable componentName="Typography" />
 
       <CardContainer className="overflow-hidden">
         <CardTitle title="Code Example" className="mt-2 mb-2">
@@ -159,6 +147,14 @@ const TypographySection: React.FC = () => {
 // With custom className
 <Typography tag="h1" className="text-blue-500">
   Custom Styled Heading
+</Typography>
+
+// With tooltip
+<Typography tag="span" tooltip="Extra info" tooltipPlacement="top">
+  Hover me
+</Typography>
+<Typography tag="strong" tooltip="Details" tooltipPlacement="right" tooltipColor="light">
+  Bold with tooltip
 </Typography>`}
             />
           </div>

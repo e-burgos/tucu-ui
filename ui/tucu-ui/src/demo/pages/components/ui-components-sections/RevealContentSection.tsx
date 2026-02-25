@@ -4,64 +4,12 @@ import {
   CardTitle,
   Typography,
   CodeBlock,
-  BasicTable,
   RevealContent,
 } from '../../../../index';
+import { AutoPropsTable } from '../../../components/auto-props-table';
+import { PropPlayground } from '../../../components/prop-playground';
 
 const RevealContentSection: React.FC = () => {
-  const propsTableColumns = [
-    {
-      key: 'prop',
-      label: 'Prop',
-      render: (value: unknown) => (
-        <code className="text-xs text-brand">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'type',
-      label: 'Type',
-      render: (value: unknown) => (
-        <code className="text-xs">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'default',
-      label: 'Default',
-      render: (value: unknown) => {
-        const val = String(value);
-        if (val === 'required') {
-          return <span className="text-xs text-red-500">required</span>;
-        }
-        return <code className="text-xs">{val}</code>;
-      },
-    },
-    {
-      key: 'description',
-      label: 'Description',
-    },
-  ];
-
-  const propsData = [
-    {
-      prop: 'defaultHeight',
-      type: 'number',
-      default: 'required',
-      description: 'Default collapsed height in pixels',
-    },
-    {
-      prop: 'children',
-      type: 'React.ReactNode',
-      default: 'required',
-      description: 'Content to reveal/hide',
-    },
-    {
-      prop: 'className',
-      type: 'string',
-      default: '-',
-      description: 'Additional CSS classes',
-    },
-  ];
-
   const longContent = (
     <div className="space-y-2">
       <Typography tag="p">
@@ -120,14 +68,35 @@ const RevealContentSection: React.FC = () => {
           </div>
         </CardTitle>
       </CardContainer>
-
-      <CardContainer className="overflow-hidden">
-        <CardTitle title="Props" className="mt-2 mb-2">
-          <div className="w-full p-4 sm:p-6">
-            <BasicTable columns={propsTableColumns} data={propsData} />
-          </div>
-        </CardTitle>
-      </CardContainer>
+      <PropPlayground
+        componentName="RevealContent"
+        defaultValues={{ defaultHeight: 100 }}
+        excludeProps={[]}
+      >
+        {(props) => (
+          <RevealContent {...props}>
+            <div className="space-y-2">
+              <p className="text-sm text-gray-600 dark:text-gray-400">
+                This is the first paragraph of content that is initially
+                visible.
+              </p>
+              <p className="text-sm text-gray-600 dark:text-gray-400">
+                This second paragraph may be hidden depending on the
+                defaultHeight value.
+              </p>
+              <p className="text-sm text-gray-600 dark:text-gray-400">
+                This third paragraph is likely hidden and revealed when
+                expanded.
+              </p>
+              <p className="text-sm text-gray-600 dark:text-gray-400">
+                And here is even more content to demonstrate the reveal
+                functionality.
+              </p>
+            </div>
+          </RevealContent>
+        )}
+      </PropPlayground>
+      <AutoPropsTable componentName="RevealContent" />
 
       <CardContainer className="overflow-hidden">
         <CardTitle title="Code Example" className="mt-2 mb-2">
