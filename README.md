@@ -1,6 +1,6 @@
 # Tucu UI
 
-A modern, comprehensive React component library built with TypeScript, Tailwind CSS v4, and designed for creating production-ready web applications. Features **automatic layout generation**, **advanced routing system** with Standalone and Micro Frontends (MFE) support, **powerful form systems** with React Hook Form, **5000+ icons**, **specialized blockchain components**, and **WCAG 2.1 AA accessibility compliance**.
+A modern, comprehensive React component library built with TypeScript, Tailwind CSS v4, and designed for creating production-ready web applications. Features **automatic layout generation**, **advanced routing system** with Standalone and Micro Frontends (MFE) support, **powerful form systems** with React Hook Form, **data visualization charts**, **5000+ icons**, **specialized blockchain components**, and **WCAG 2.1 AA accessibility compliance**.
 
 ## 🌟 Documentation
 
@@ -32,6 +32,10 @@ Complete Lucide React integration + 97+ custom-designed icons including blockcha
 ### **💬 Tooltip System**
 
 Flexible Tooltip component with portal-based rendering (`createPortal`), 4 placement options (top, bottom, left, right), 7 color themes, smart auto-repositioning within the viewport, configurable enter/leave delays, and ARIA-compliant accessibility.
+
+### **📊 Data Visualization Charts**
+
+6 chart components built on Recharts 3.8.1 with full dark mode support: BarChart, LineChart, AreaChart, PieChart, RadarChart, and ComposedChart. Theme-aware color palettes, empty states, and shared tooltip infrastructure.
 
 ### **♿ Accessibility First**
 
@@ -74,7 +78,7 @@ All utilities are configured through optimized `@source inline()` directives for
 
 Built on industry-leading libraries for maximum reliability:
 
-- **[React 18+](https://react.dev/)** - Modern React with hooks and concurrent features
+- **[React 19+](https://react.dev/)** - Modern React with hooks and concurrent features
 - **[TypeScript](https://www.typescriptlang.org/)** - Full type safety and excellent DX
 - **[Tailwind CSS v4](https://tailwindcss.com/)** - Complete Tailwind v4 integration included with all utilities pre-configured
 - **[React Hook Form](https://react-hook-form.com/)** - Performant form handling and validation
@@ -1039,7 +1043,8 @@ Tucu UI includes comprehensive documentation pages to help you get started:
   - **Hooks Utilities** - Custom React hooks for common patterns
   - **Accessibility** - WCAG 2.1 AA compliance and best practices
 - **Components** - Component library overview and usage patterns
-  - **UI Components** - 43+ UI components (buttons, cards, dialogs, tooltips, notifications, etc.)
+  - **UI Components** - 50+ UI components (buttons, cards, dialogs, tooltips, charts, notifications, etc.)
+  - **Charts Components** - 6 chart types (Bar, Line, Area, Pie, Radar, Composed)
   - **Input Components** - 11+ form input components
   - **Blockchain Components** - 9+ specialized DeFi/Web3 components
 - **Form System** - Complete form solution with validation
@@ -1355,7 +1360,7 @@ tucu-ui/
 ├── ui/
 │   └── tucu-ui/             # Main library (@e-burgos/tucu-ui)
 │       ├── src/
-│       │   ├── components/   # All UI components (70+)
+│       │   ├── components/   # All UI components (85+)
 │       │   ├── hooks/        # Utility hooks
 │       │   ├── themes/       # Theme system (Zustand + CSS tokens)
 │       │   └── styles.css    # Tailwind CSS v4 configuration

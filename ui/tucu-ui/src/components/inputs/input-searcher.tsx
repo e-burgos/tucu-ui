@@ -1,9 +1,31 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, {
+  useState,
+  useRef,
+  useEffect,
+  useCallback,
+  useMemo,
+  type KeyboardEvent as ReactKeyboardEvent,
+} from 'react';
+import { createPortal } from 'react-dom';
 import Input from './input';
 import { SearchIcon, Check, Close } from '../icons';
-import { Transition } from '@headlessui/react';
 import { SelectOption } from './select';
 import cn from 'classnames';
+
+export interface InputSearcherProps
+  extends Omit<
+    React.InputHTMLAttributes<HTMLInputElement>,
+    'onChange' | 'value'
+  > {
+  label?: string;
+  initialValue?: string | number;
+  onOptionSelect?: (option: SelectOption | SelectOption[]) => void;
+  options?: SelectOption[];
+  noMatchesMessage?: string;
+  multiple?: boolean;
+  variant?: 'ghost' | 'solid' | 'transparent';
+  disabled?: boolean;
+}
 
 export function InputSearcher({
   label,
@@ -15,281 +37,469 @@ export function InputSearcher({
   variant = 'ghost',
   disabled = false,
   ...props
-}: {
-  label?: string;
-  initialValue?: string | number;
-  onOptionSelect?: (option: SelectOption | SelectOption[]) => void;
-  options?: SelectOption[];
-  noMatchesMessage?: string;
-  multiple?: boolean;
-  variant?: 'ghost' | 'solid' | 'transparent';
-  disabled?: boolean;
-} & Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange' | 'value'>) {
+}: InputSearcherProps) {
   const [value, setValue] = useState<string>(initialValue?.toString() || '');
-  const [filteredOptions, setFilteredOptions] = useState<SelectOption[]>([]);
   const [showDropdown, setShowDropdown] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
+  const [highlightedIndex, setHighlightedIndex] = useState(-1);
   const [selectedOption, setSelectedOption] = useState<SelectOption | null>(
     null
   );
   const [selectedOptions, setSelectedOptions] = useState<SelectOption[]>([]);
-  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  const containerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const optionsRef = useRef<(HTMLDivElement | null)[]>([]);
   const previousInitialValueRef = useRef<string | number | undefined>(
     initialValue
   );
+
+  // Dropdown position state (for portal)
+  const [dropdownStyle, setDropdownStyle] = useState<React.CSSProperties>({});
 
   // Update value when initialValue changes (only if it actually changed)
   useEffect(() => {
     const newValue = initialValue?.toString() || '';
     const previousValue = previousInitialValueRef.current?.toString() || '';
 
-    // Only update if initialValue actually changed
     if (newValue !== previousValue) {
       previousInitialValueRef.current = initialValue;
-      setTimeout(() => {
-        setValue(newValue);
-      }, 100);
+      setValue(newValue);
 
-      // If no value, clear selected option(s)
       if (!newValue) {
-        setTimeout(() => {
-          setSelectedOption(null);
-        }, 100);
-        setTimeout(() => {
-          setSelectedOptions([]);
-        }, 100);
+        setSelectedOption(null);
+        setSelectedOptions([]);
       }
     }
   }, [initialValue]);
 
   // Filter options based on current value
-  useEffect(() => {
-    if (options?.length > 0) {
-      // Show all options initially, or filter if there's text to search
-      const filtered = value.trim()
-        ? options.filter((option) =>
-            option.name.toLowerCase().includes(value.toLowerCase())
-          )
-        : options;
-      if (filtered.length > 0) {
-        setTimeout(() => {
-          setFilteredOptions(filtered);
-        }, 100);
-
-        // Show/hide dropdown based on matches and character count
-        if (value.trim().length > 3) {
-          if (filtered.length === 0) {
-            // Hide dropdown if no matches found
-            setTimeout(() => {
-              setShowDropdown(false);
-            }, 100);
-          } else {
-            // Show dropdown if there are matches
-            setTimeout(() => {
-              setShowDropdown(true);
-            }, 100);
-          }
-        }
-      } else {
-        setTimeout(() => {
-          setFilteredOptions([]);
-        }, 100);
-        setTimeout(() => {
-          setShowDropdown(false);
-        }, 100);
-      }
-    }
+  const filteredOptions = useMemo(() => {
+    if (!options || options.length === 0) return [];
+    if (!value.trim()) return options;
+    const q = value.toLowerCase();
+    return options.filter(
+      (option) =>
+        option.name.toLowerCase().includes(q) ||
+        option.value.toLowerCase().includes(q) ||
+        option.description?.toLowerCase().includes(q)
+    );
   }, [value, options]);
 
-  // Close dropdown when clicking outside
+  // Compute dropdown position relative to the input (with drop-up detection)
+  const updateDropdownPosition = useCallback(() => {
+    if (!containerRef.current) return;
+    const rect = containerRef.current.getBoundingClientRect();
+    const dropdownHeight = 260;
+    const spaceBelow = window.innerHeight - rect.bottom;
+    const spaceAbove = rect.top;
+    const shouldDropUp = spaceBelow < dropdownHeight && spaceAbove > spaceBelow;
+    setDropdownStyle({
+      position: 'fixed',
+      ...(shouldDropUp
+        ? { bottom: window.innerHeight - rect.top + 4 }
+        : { top: rect.bottom + 4 }),
+      left: rect.left,
+      width: rect.width,
+      zIndex: 9999,
+    });
+  }, []);
+
+  // Open the dropdown
+  const openDropdown = useCallback(() => {
+    if (disabled) return;
+    updateDropdownPosition();
+    setHighlightedIndex(-1);
+    setIsClosing(false);
+    setShowDropdown(true);
+  }, [disabled, updateDropdownPosition]);
+
+  // Close with leave animation
+  const closeDropdown = useCallback(() => {
+    setIsClosing(true);
+    const timer = setTimeout(() => {
+      setShowDropdown(false);
+      setIsClosing(false);
+      setHighlightedIndex(-1);
+    }, 100);
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Click outside handler
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
+    if (!showDropdown) return;
+
+    const handleClickOutside = (e: MouseEvent) => {
       if (
+        containerRef.current &&
+        !containerRef.current.contains(e.target as Node) &&
         dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
+        !dropdownRef.current.contains(e.target as Node)
       ) {
-        setTimeout(() => {
-          setShowDropdown(false);
-        }, 100);
+        closeDropdown();
       }
     };
 
-    if (showDropdown) {
-      document.addEventListener('mousedown', handleClickOutside);
-    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [showDropdown, closeDropdown]);
 
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+  // Escape key handler
+  useEffect(() => {
+    if (!showDropdown) return;
+
+    const handleEscape = (e: globalThis.KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        closeDropdown();
+        inputRef.current?.focus();
+      }
     };
-  }, [showDropdown]);
+
+    document.addEventListener('keydown', handleEscape);
+    return () => document.removeEventListener('keydown', handleEscape);
+  }, [showDropdown, closeDropdown]);
+
+  // Reposition on scroll / resize while open
+  useEffect(() => {
+    if (!showDropdown) return;
+
+    const reposition = () => updateDropdownPosition();
+    window.addEventListener('scroll', reposition, true);
+    window.addEventListener('resize', reposition);
+    return () => {
+      window.removeEventListener('scroll', reposition, true);
+      window.removeEventListener('resize', reposition);
+    };
+  }, [showDropdown, updateDropdownPosition]);
+
+  // Scroll highlighted option into view
+  useEffect(() => {
+    if (highlightedIndex >= 0 && optionsRef.current[highlightedIndex]) {
+      optionsRef.current[highlightedIndex]?.scrollIntoView({
+        block: 'nearest',
+      });
+    }
+  }, [highlightedIndex]);
 
   // Handle option selection
-  const handleOptionSelect = (option: SelectOption) => {
-    if (multiple) {
-      // Toggle selection in multiple mode
-      const isSelected = selectedOptions.some(
-        (opt) => opt.value === option.value
-      );
-      let newSelectedOptions: SelectOption[];
+  const handleOptionSelect = useCallback(
+    (option: SelectOption) => {
+      if (option.disabled) return;
 
-      if (isSelected) {
-        // Remove option if already selected
-        newSelectedOptions = selectedOptions.filter(
-          (opt) => opt.value !== option.value
+      if (multiple) {
+        const isSelected = selectedOptions.some(
+          (opt) => opt.value === option.value
         );
-      } else {
-        // Add option if not selected
-        newSelectedOptions = [...selectedOptions, option];
-      }
+        const newSelectedOptions = isSelected
+          ? selectedOptions.filter((opt) => opt.value !== option.value)
+          : [...selectedOptions, option];
 
-      setSelectedOptions(newSelectedOptions);
-      setValue(''); // Clear input value in multiple mode
-      onOptionSelect?.(newSelectedOptions);
-    } else {
-      // Single selection mode
-      setSelectedOption(option);
-      setValue(option.name);
-      setShowDropdown(false);
-      onOptionSelect?.(option);
-    }
-  };
+        setSelectedOptions(newSelectedOptions);
+        setValue('');
+        onOptionSelect?.(newSelectedOptions);
+        inputRef.current?.focus();
+      } else {
+        setSelectedOption(option);
+        setValue(option.name);
+        closeDropdown();
+        onOptionSelect?.(option);
+      }
+    },
+    [multiple, selectedOptions, onOptionSelect, closeDropdown]
+  );
 
   // Handle removing a selected option in multiple mode
-  const handleRemoveOption = (
-    e: React.MouseEvent,
-    optionToRemove: SelectOption
-  ) => {
-    e.stopPropagation();
-    const newSelectedOptions = selectedOptions.filter(
-      (opt) => opt.value !== optionToRemove.value
-    );
-    setSelectedOptions(newSelectedOptions);
-    onOptionSelect?.(newSelectedOptions);
-    if (inputRef.current) {
-      inputRef.current.focus();
-    }
-  };
+  const handleRemoveOption = useCallback(
+    (e: React.MouseEvent, optionToRemove: SelectOption) => {
+      e.stopPropagation();
+      const newSelectedOptions = selectedOptions.filter(
+        (opt) => opt.value !== optionToRemove.value
+      );
+      setSelectedOptions(newSelectedOptions);
+      onOptionSelect?.(newSelectedOptions);
+      inputRef.current?.focus();
+    },
+    [selectedOptions, onOptionSelect]
+  );
 
   // Handle input change
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = e.target.value;
-    setValue(newValue);
+  const handleInputChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const newValue = e.target.value;
+      setValue(newValue);
 
-    // If user is typing and there's a selected option (single mode), clear it
-    if (!multiple && selectedOption && newValue !== selectedOption.name) {
-      setSelectedOption(null);
-    }
-  };
-
-  // Calculate error message when no matches found (only if more than 3 characters typed)
-  const errorMessage =
-    value.trim().length > 3 &&
-    options.length > 0 &&
-    filteredOptions.length === 0 &&
-    (multiple ? selectedOptions.length === 0 : !selectedOption)
-      ? noMatchesMessage || 'Not found matches'
-      : undefined;
-
-  // Highlight matching text in option name
-  const highlightMatch = (text: string, searchValue: string) => {
-    if (!searchValue.trim()) {
-      return <span>{text}</span>;
-    }
-
-    const lowerText = text.toLowerCase();
-    const lowerSearch = searchValue.toLowerCase();
-    const parts: Array<{ text: string; isMatch: boolean }> = [];
-    let lastIndex = 0;
-    let index = lowerText.indexOf(lowerSearch, lastIndex);
-
-    while (index !== -1) {
-      // Add non-matching part before the match
-      if (index > lastIndex) {
-        parts.push({
-          text: text.substring(lastIndex, index),
-          isMatch: false,
-        });
+      if (!multiple && selectedOption && newValue !== selectedOption.name) {
+        setSelectedOption(null);
       }
 
-      // Add matching part
-      parts.push({
-        text: text.substring(index, index + searchValue.length),
-        isMatch: true,
-      });
+      // Open dropdown when typing
+      if (!showDropdown && newValue.trim()) {
+        openDropdown();
+      }
+    },
+    [multiple, selectedOption, showDropdown, openDropdown]
+  );
 
-      lastIndex = index + searchValue.length;
-      index = lowerText.indexOf(lowerSearch, lastIndex);
-    }
+  // Keyboard navigation
+  const handleKeyDown = useCallback(
+    (e: ReactKeyboardEvent<HTMLInputElement>) => {
+      if (!showDropdown) {
+        if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+          e.preventDefault();
+          openDropdown();
+        }
+        return;
+      }
 
-    // Add remaining non-matching part
-    if (lastIndex < text.length) {
-      parts.push({
-        text: text.substring(lastIndex),
-        isMatch: false,
-      });
-    }
+      switch (e.key) {
+        case 'ArrowDown':
+          e.preventDefault();
+          setHighlightedIndex((prev) => {
+            let next = prev < filteredOptions.length - 1 ? prev + 1 : 0;
+            // Skip disabled options
+            while (filteredOptions[next]?.disabled && next !== prev) {
+              next = next < filteredOptions.length - 1 ? next + 1 : 0;
+            }
+            return next;
+          });
+          break;
+        case 'ArrowUp':
+          e.preventDefault();
+          setHighlightedIndex((prev) => {
+            let next = prev > 0 ? prev - 1 : filteredOptions.length - 1;
+            while (filteredOptions[next]?.disabled && next !== prev) {
+              next = next > 0 ? next - 1 : filteredOptions.length - 1;
+            }
+            return next;
+          });
+          break;
+        case 'Enter':
+          e.preventDefault();
+          if (
+            highlightedIndex >= 0 &&
+            filteredOptions[highlightedIndex] &&
+            !filteredOptions[highlightedIndex].disabled
+          ) {
+            handleOptionSelect(filteredOptions[highlightedIndex]);
+          }
+          break;
+        case 'Escape':
+          e.preventDefault();
+          closeDropdown();
+          break;
+        case 'Tab':
+          closeDropdown();
+          break;
+      }
+    },
+    [
+      showDropdown,
+      filteredOptions,
+      highlightedIndex,
+      handleOptionSelect,
+      openDropdown,
+      closeDropdown,
+    ]
+  );
 
-    return (
-      <span>
-        {parts.map((part, idx) =>
-          part.isMatch ? (
-            <span key={idx} className="font-semibold text-brand">
-              {part.text}
-            </span>
-          ) : (
-            <span key={idx}>{part.text}</span>
-          )
+  // Error message when no matches found
+  const errorMessage = useMemo(
+    () =>
+      value.trim().length > 3 &&
+      options.length > 0 &&
+      filteredOptions.length === 0 &&
+      (multiple ? selectedOptions.length === 0 : !selectedOption)
+        ? noMatchesMessage || 'No matches found'
+        : undefined,
+    [
+      value,
+      options.length,
+      filteredOptions.length,
+      multiple,
+      selectedOptions.length,
+      selectedOption,
+      noMatchesMessage,
+    ]
+  );
+
+  // Highlight matching text in option name
+  const highlightMatch = useCallback(
+    (text: string) => {
+      const searchValue = value.trim();
+      if (!searchValue) return <span>{text}</span>;
+
+      const lowerText = text.toLowerCase();
+      const lowerSearch = searchValue.toLowerCase();
+      const parts: Array<{ text: string; isMatch: boolean }> = [];
+      let lastIndex = 0;
+      let index = lowerText.indexOf(lowerSearch, lastIndex);
+
+      while (index !== -1) {
+        if (index > lastIndex) {
+          parts.push({
+            text: text.substring(lastIndex, index),
+            isMatch: false,
+          });
+        }
+        parts.push({
+          text: text.substring(index, index + searchValue.length),
+          isMatch: true,
+        });
+        lastIndex = index + searchValue.length;
+        index = lowerText.indexOf(lowerSearch, lastIndex);
+      }
+
+      if (lastIndex < text.length) {
+        parts.push({ text: text.substring(lastIndex), isMatch: false });
+      }
+
+      return (
+        <span>
+          {parts.map((part, idx) =>
+            part.isMatch ? (
+              <span key={idx} className="font-semibold text-brand">
+                {part.text}
+              </span>
+            ) : (
+              <span key={idx}>{part.text}</span>
+            )
+          )}
+        </span>
+      );
+    },
+    [value]
+  );
+
+  // Check if option is selected
+  const isOptionSelected = useCallback(
+    (option: SelectOption) => {
+      if (multiple) {
+        return selectedOptions.some((opt) => opt.value === option.value);
+      }
+      return selectedOption?.value === option.value;
+    },
+    [multiple, selectedOptions, selectedOption]
+  );
+
+  // Portal dropdown
+  const dropdown =
+    showDropdown &&
+    filteredOptions.length > 0 &&
+    createPortal(
+      <div
+        ref={dropdownRef}
+        role="listbox"
+        tabIndex={-1}
+        aria-activedescendant={
+          highlightedIndex >= 0
+            ? `searcher-option-${highlightedIndex}`
+            : undefined
+        }
+        style={dropdownStyle}
+        className={cn(
+          'max-h-60 overflow-hidden rounded-xl border border-gray-200 bg-white shadow-large outline-hidden dark:border-gray-700 dark:bg-gray-800',
+          'transition ease-in duration-100',
+          isClosing ? 'opacity-0' : 'opacity-100'
         )}
-      </span>
+      >
+        <div className="max-h-56 overflow-auto grid gap-0.5 p-1 xs:p-2">
+          {filteredOptions.map((option, index) => {
+            const isSelected = isOptionSelected(option);
+            const isHighlighted = index === highlightedIndex;
+            const isDisabled = option.disabled;
+            return (
+              <div
+                key={`${option.value}-${index}`}
+                id={`searcher-option-${index}`}
+                ref={(el) => {
+                  optionsRef.current[index] = el;
+                }}
+                role="option"
+                aria-selected={isSelected}
+                aria-disabled={isDisabled}
+                onClick={() => !isDisabled && handleOptionSelect(option)}
+                onMouseEnter={() => !isDisabled && setHighlightedIndex(index)}
+                className={cn(
+                  'flex items-center rounded-md px-3 py-2 text-sm transition',
+                  isDisabled
+                    ? 'cursor-not-allowed opacity-50 text-gray-400 dark:text-gray-600'
+                    : 'cursor-pointer text-gray-900 dark:text-gray-100',
+                  !isDisabled &&
+                    isSelected &&
+                    'bg-gray-200/70 font-medium dark:bg-gray-600/60',
+                  !isDisabled &&
+                    !isSelected &&
+                    isHighlighted &&
+                    'bg-gray-300 dark:bg-gray-600',
+                  !isDisabled &&
+                    !isSelected &&
+                    !isHighlighted &&
+                    'hover:bg-gray-300 dark:hover:bg-gray-600'
+                )}
+              >
+                {option.icon && (
+                  <span className="mr-2 shrink-0">{option.icon}</span>
+                )}
+                <div className="flex-1 min-w-0">
+                  <span className="block truncate">
+                    {highlightMatch(option.name)}
+                  </span>
+                  {option.description && (
+                    <span className="block text-[11px] text-gray-500 dark:text-gray-400 truncate">
+                      {option.description}
+                    </span>
+                  )}
+                </div>
+                {isSelected && (
+                  <Check className="h-4 w-4 shrink-0 ml-2 text-brand" />
+                )}
+              </div>
+            );
+          })}
+        </div>
+      </div>,
+      document.body
     );
-  };
-
-  // Check if option is selected (for both single and multiple modes)
-  const isOptionSelected = (option: SelectOption) => {
-    if (multiple) {
-      return selectedOptions.some((opt) => opt.value === option.value);
-    }
-    return selectedOption?.value === option.value;
-  };
 
   return (
-    <div className="relative" ref={dropdownRef}>
-      <div className="relative">
-        <Input
-          ref={inputRef}
-          label={label}
-          variant={variant}
-          disabled={disabled}
-          icon={<SearchIcon className="h-4 w-4 dark:text-white text-current" />}
-          value={value}
-          onChange={handleInputChange}
-          error={errorMessage}
-          onFocus={() => {
-            // Show dropdown if there are filtered options available
-            if (filteredOptions.length > 0) {
-              setShowDropdown(true);
-            }
-          }}
-          {...props}
-        />
-      </div>
+    <div className="relative" ref={containerRef}>
+      <Input
+        ref={inputRef}
+        label={label}
+        variant={variant}
+        disabled={disabled}
+        icon={<SearchIcon className="h-4 w-4 dark:text-white text-current" />}
+        value={value}
+        onChange={handleInputChange}
+        error={errorMessage}
+        onFocus={() => {
+          if (filteredOptions.length > 0) {
+            openDropdown();
+          }
+        }}
+        onKeyDown={handleKeyDown}
+        aria-role="combobox"
+        aria-expanded={showDropdown}
+        aria-haspopup="listbox"
+        aria-autocomplete="list"
+        {...props}
+      />
 
-      {/* Selected chips in multiple mode - displayed below input */}
+      {/* Selected chips in multiple mode */}
       {multiple && selectedOptions.length > 0 && (
-        <div className="mt-[8px] flex flex-wrap items-center gap-[8px]">
+        <div className="mt-2 flex flex-wrap items-center gap-2">
           {selectedOptions.map((option) => (
             <span
               key={option.value}
-              className="inline-flex items-center gap-[4px] px-[8px] py-[2px] text-xs font-medium bg-brand/10 text-brand rounded-md"
+              className="inline-flex items-center gap-1 px-2 py-0.5 text-xs font-medium bg-brand/10 text-brand rounded-md"
             >
+              {option.icon && <span className="shrink-0">{option.icon}</span>}
               {option.name}
               <button
                 type="button"
                 onClick={(e) => handleRemoveOption(e, option)}
-                onTouchStart={(e) =>
-                  handleRemoveOption(e as unknown as React.MouseEvent, option)
-                }
-                className="hover:bg-brand/20 rounded-full p-[2px] transition-colors"
+                className="hover:bg-brand/20 rounded-full p-0.5 transition-colors"
                 aria-label={`Remove ${option.name}`}
               >
                 <Close className="h-3 w-3" />
@@ -299,46 +509,7 @@ export function InputSearcher({
         </div>
       )}
 
-      {/* Dropdown with filtered options */}
-      {filteredOptions.length > 0 && (
-        <Transition
-          show={showDropdown}
-          enter="transition ease-out duration-100"
-          enterFrom="transform opacity-0 scale-95"
-          enterTo="transform opacity-100 scale-100"
-          leave="transition ease-in duration-75"
-          leaveFrom="transform opacity-100 scale-100"
-          leaveTo="transform opacity-0 scale-95"
-        >
-          <div className="absolute top-full left-0 z-50 mt-[4px] w-full max-h-[240px] overflow-auto rounded-lg border border-gray-200 bg-white shadow-lg dark:border-gray-700 dark:bg-gray-800">
-            <div className="grid">
-              {filteredOptions.map((option, index) => (
-                <button
-                  key={`${option.value}-${index}`}
-                  type="button"
-                  onClick={() => handleOptionSelect(option)}
-                  onTouchStart={() => handleOptionSelect(option)}
-                  className={cn(
-                    'w-full px-[16px] py-[8px] text-left text-sm hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors',
-                    'flex items-center justify-between',
-                    isOptionSelected(option) &&
-                      'bg-brand/10 text-brand font-semibold',
-                    options.length > 1 &&
-                      index !== filteredOptions.length - 1 &&
-                      isOptionSelected(option) &&
-                      'border-b border-white dark:border-gray-800'
-                  )}
-                >
-                  <span>{highlightMatch(option.name, value.trim())}</span>
-                  {isOptionSelected(option) && (
-                    <Check className="h-4 w-4 text-brand" />
-                  )}
-                </button>
-              ))}
-            </div>
-          </div>
-        </Transition>
-      )}
+      {dropdown as React.ReactPortal}
     </div>
   );
 }

@@ -3,6 +3,7 @@ export * from './blockchain';
 export * from './buttons';
 export * from './cards';
 export * from './carousel';
+export * from './charts';
 export * from './common';
 export * from './dialog';
 export * from './forms';

@@ -112,12 +112,13 @@ const ScrollToTopSection: React.FC = () => {
       <PropPlayground
         componentName="ScrollToTop"
         defaultValues={{
-          size: 'medium',
+          size: 'large',
           showAfter: 400,
-          bottom: 24,
-          right: 24,
+          bottom: '45%',
+          right: 50,
+          behavior: 'smooth',
         }}
-        excludeProps={[]}
+        excludeProps={['scrollContainer']}
       >
         {(props) => <ScrollToTop {...props} />}
       </PropPlayground>

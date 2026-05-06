@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   CardContainer,
   CardTitle,
@@ -6,19 +6,59 @@ import {
   CodeBlock,
   CollectionSelectList,
 } from '../../../../index';
-import avatar1Img from '../../../assets/images/avatar/1.png';
 import { AutoPropsTable } from '../../../components/auto-props-table';
 
 const CollectionSelectListSection: React.FC = () => {
+  const [selected, setSelected] = useState<string | null>(null);
+
   const collectionList = [
-    { icon: avatar1Img, name: 'Crypto Punks', value: 'crypto-punks' },
-    { icon: avatar1Img, name: 'Bored Ape', value: 'bored-ape' },
-    { icon: avatar1Img, name: 'Azuki', value: 'azuki' },
+    {
+      icon: 'https://i.pravatar.cc/80?img=1',
+      name: 'CryptoPunks',
+      value: 'crypto-punks',
+    },
+    {
+      icon: 'https://i.pravatar.cc/80?img=5',
+      name: 'Bored Ape Yacht Club',
+      value: 'bayc',
+    },
+    { icon: 'https://i.pravatar.cc/80?img=12', name: 'Azuki', value: 'azuki' },
+    {
+      icon: 'https://i.pravatar.cc/80?img=20',
+      name: 'Doodles',
+      value: 'doodles',
+    },
+    {
+      icon: 'https://i.pravatar.cc/80?img=25',
+      name: 'CloneX',
+      value: 'clonex',
+    },
+    {
+      icon: 'https://i.pravatar.cc/80?img=30',
+      name: 'Moonbirds',
+      value: 'moonbirds',
+    },
+    {
+      icon: 'https://i.pravatar.cc/80?img=35',
+      name: 'Pudgy Penguins',
+      value: 'pudgy-penguins',
+    },
+    {
+      icon: 'https://i.pravatar.cc/80?img=40',
+      name: 'World of Women',
+      value: 'wow',
+    },
   ];
 
-  // Table columns definition for props tables
-
-  // CollectionSelectList props data
+  const shortList = [
+    {
+      icon: 'https://i.pravatar.cc/80?img=50',
+      name: 'Art Blocks',
+      value: 'art-blocks',
+    },
+    { icon: 'https://i.pravatar.cc/80?img=55', name: 'Nouns', value: 'nouns' },
+    { icon: 'https://i.pravatar.cc/80?img=60', name: 'Loot', value: 'loot' },
+  ];
 
   return (
     <>
@@ -30,30 +70,44 @@ const CollectionSelectListSection: React.FC = () => {
           tag="p"
           className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
         >
-          Searchable list component for selecting NFT collections with avatars
-          and search functionality.
+          A searchable list with keyboard navigation for selecting NFT
+          collections. Supports filtering, highlight, and ARIA roles.
         </Typography>
       </div>
 
       <CardContainer className="overflow-hidden">
-        <CardTitle title="Basic Examples" className="mt-2 mb-2">
+        <CardTitle title="Examples" className="mt-2 mb-2">
           <div className="w-full p-4 sm:p-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <CardContainer className="p-4">
-                <Typography tag="h5" className="mb-3">
-                  Basic List
-                </Typography>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="space-y-3">
+                <Typography tag="h5">Full Collection (8 items)</Typography>
+                {selected && (
+                  <div className="text-xs text-brand font-medium bg-brand/10 rounded-lg px-3 py-1.5 inline-block">
+                    Selected: {selected}
+                  </div>
+                )}
                 <CollectionSelectList
                   collectionList={collectionList}
-                  onSelect={(value) => {
-                    console.log('Selected collection:', value);
-                  }}
+                  onSelect={setSelected}
                 />
-              </CardContainer>
+              </div>
+
+              <div className="space-y-3">
+                <Typography tag="h5">
+                  Short List + Custom Placeholder
+                </Typography>
+                <CollectionSelectList
+                  collectionList={shortList}
+                  onSelect={(v) => console.log('Selected:', v)}
+                  placeholder="Find a collection..."
+                  noResultsMessage="No matching collections"
+                />
+              </div>
             </div>
           </div>
         </CardTitle>
       </CardContainer>
+
       <AutoPropsTable componentName="CollectionSelectList" />
 
       <CardContainer className="overflow-hidden">
@@ -63,17 +117,18 @@ const CollectionSelectListSection: React.FC = () => {
               language="tsx"
               code={`import { CollectionSelectList } from '@e-burgos/tucu-ui';
 
-const collectionList = [
-  { icon: '/icons/crypto-punks.jpg', name: 'Crypto Punks', value: 'crypto-punks' },
-  { icon: '/icons/bored-ape.jpg', name: 'Bored Ape', value: 'bored-ape' },
-  { icon: '/icons/azuki.jpg', name: 'Azuki', value: 'azuki' },
+const collections = [
+  { icon: '/avatars/punks.jpg', name: 'CryptoPunks', value: 'crypto-punks' },
+  { icon: '/avatars/bayc.jpg', name: 'Bored Ape Yacht Club', value: 'bayc' },
+  { icon: '/avatars/azuki.jpg', name: 'Azuki', value: 'azuki' },
+  { icon: '/avatars/doodles.jpg', name: 'Doodles', value: 'doodles' },
 ];
 
 <CollectionSelectList
-  collectionList={collectionList}
-  onSelect={(value) => {
-    console.log('Selected:', value);
-  }}
+  collectionList={collections}
+  onSelect={(value) => console.log('Selected:', value)}
+  placeholder="Search collections..."
+  noResultsMessage="No collections found"
 />`}
             />
           </div>

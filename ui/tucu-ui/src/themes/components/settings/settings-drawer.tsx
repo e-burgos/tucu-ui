@@ -1,5 +1,4 @@
 import React, { JSX, useState } from 'react';
-import { Radio, RadioGroup } from '@headlessui/react';
 import { Button } from '../../../components/buttons/button';
 import { useTheme } from '../../hooks/use-theme';
 import type { ITheme } from '../../hooks/use-theme';
@@ -189,34 +188,22 @@ function ThemeSwitcher() {
       <h4 className="mb-4 text-sm font-medium text-gray-900 dark:text-white">
         Mode
       </h4>
-      <RadioGroup
-        value={mode}
-        onChange={setMode}
-        className="grid grid-cols-2 gap-5"
-      >
-        <Radio value="light">
-          {({ checked }) => (
-            <SwitcherButton
-              onClick={() => setMode('light')}
-              title={'Light'}
-              checked={checked}
-            >
-              <Sun />
-            </SwitcherButton>
-          )}
-        </Radio>
-        <Radio value="dark">
-          {({ checked }) => (
-            <SwitcherButton
-              onClick={() => setMode('dark')}
-              title={'Dark'}
-              checked={checked}
-            >
-              <Moon />
-            </SwitcherButton>
-          )}
-        </Radio>
-      </RadioGroup>
+      <div role="radiogroup" className="grid grid-cols-2 gap-5">
+        <SwitcherButton
+          onClick={() => setMode('light')}
+          title="Light"
+          checked={mode === 'light'}
+        >
+          <Sun />
+        </SwitcherButton>
+        <SwitcherButton
+          onClick={() => setMode('dark')}
+          title="Dark"
+          checked={mode === 'dark'}
+        >
+          <Moon />
+        </SwitcherButton>
+      </div>
     </div>
   );
 }
@@ -230,34 +217,22 @@ function DirectionSwitcher() {
       <h4 className="mb-4 text-sm font-medium text-gray-900 dark:text-white">
         Direction
       </h4>
-      <RadioGroup
-        value={direction}
-        onChange={setDirection}
-        className="grid grid-cols-2 gap-5"
-      >
-        <Radio value="ltr">
-          {({ checked }) => (
-            <SwitcherButton
-              onClick={() => setDirection('ltr')}
-              title={'LTR'}
-              checked={checked}
-            >
-              <LeftAlign />
-            </SwitcherButton>
-          )}
-        </Radio>
-        <Radio value="rtl">
-          {({ checked }) => (
-            <SwitcherButton
-              onClick={() => setDirection('rtl')}
-              title={'RTL'}
-              checked={checked}
-            >
-              <RightAlign />
-            </SwitcherButton>
-          )}
-        </Radio>
-      </RadioGroup>
+      <div role="radiogroup" className="grid grid-cols-2 gap-5">
+        <SwitcherButton
+          onClick={() => setDirection('ltr')}
+          title="LTR"
+          checked={direction === 'ltr'}
+        >
+          <LeftAlign />
+        </SwitcherButton>
+        <SwitcherButton
+          onClick={() => setDirection('rtl')}
+          title="RTL"
+          checked={direction === 'rtl'}
+        >
+          <RightAlign />
+        </SwitcherButton>
+      </div>
     </div>
   );
 }
@@ -277,25 +252,18 @@ function LayoutSwitcher() {
       <h4 className="mb-4 text-sm font-medium text-gray-900 dark:text-white">
         Layout
       </h4>
-      <RadioGroup
-        value={layout}
-        onChange={setLayout}
-        className="grid grid-cols-2 gap-5 "
-      >
+      <div role="radiogroup" className="grid grid-cols-2 gap-5">
         {layoutOptions.map((option) => (
-          <Radio key={option.label} value={option.value}>
-            {({ checked }) => (
-              <SwitcherButton
-                onClick={() => setLayout(option.value as LAYOUT_OPTIONS)}
-                title={option.label}
-                checked={checked}
-              >
-                {LayoutIcons[option.value]}
-              </SwitcherButton>
-            )}
-          </Radio>
+          <SwitcherButton
+            key={option.label}
+            onClick={() => setLayout(option.value as LAYOUT_OPTIONS)}
+            title={option.label}
+            checked={layout === option.value}
+          >
+            {LayoutIcons[option.value]}
+          </SwitcherButton>
         ))}
-      </RadioGroup>
+      </div>
     </div>
   );
 }

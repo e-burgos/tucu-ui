@@ -11,14 +11,14 @@
     "app:install": "cd ../../apps/demo && pnpm install"
   },
   "dependencies": {
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
-    "@e-burgos/tucu-ui": "^2.0.3"
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5",
+    "@e-burgos/tucu-ui": "^2.0.4"
   },
   "devDependencies": {
     "@eslint/js": "^9.25.0",
-    "@types/react": "^19.1.2",
-    "@types/react-dom": "^19.1.2",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^4.4.1",
     "eslint": "^9.25.0",
     "eslint-plugin-react-hooks": "^5.2.0",

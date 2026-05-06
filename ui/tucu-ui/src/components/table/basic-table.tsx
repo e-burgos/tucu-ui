@@ -44,8 +44,8 @@ export const BasicTable = <
 }: BasicTableProps<T>) => {
   const getRowClassName = (row: T, index: number): string => {
     const baseClasses = cn('transition-colors', {
-      'hover:bg-gray-100 dark:hover:bg-gray-900/50 hover:shadow-sm': hoverable,
-      'bg-gray-50 dark:bg-gray-900/50': striped && index % 2 === 0,
+      'hover:bg-gray-5 dark:hover:bg-gray-900/50 hover:shadow-sm': hoverable,
+      'bg-gray-5 dark:bg-gray-900/50': striped && index % 2 === 0,
     });
 
     if (typeof rowClassName === 'function') {
@@ -109,7 +109,7 @@ export const BasicTable = <
           <div
             className={cn(
               'overflow-x-auto overflow-y-auto rounded-xl',
-              border && 'border border-gray-300 dark:border-gray-700'
+              border && 'border border-gray-15 dark:border-gray-700'
             )}
             style={{ maxHeight: `${maxHeight}px` }}
           >
@@ -123,7 +123,7 @@ export const BasicTable = <
                 <thead className="sticky top-0 z-10">
                   <tr
                     className={cn(
-                      'bg-gray-200 dark:bg-gray-800 shadow-sm',
+                      'bg-gray-10 dark:bg-gray-800 shadow-sm',
                       headerClassName
                     )}
                   >
@@ -135,10 +135,10 @@ export const BasicTable = <
                           className={cn(
                             'p-3 text-left text-sm font-semibold',
                             border &&
-                              'border-b border-gray-300 dark:border-gray-700',
+                              'border-b border-gray-15 dark:border-gray-700',
                             border &&
                               !isLastCol &&
-                              'border-r border-r-gray-300 dark:border-r-gray-700',
+                              'border-r border-r-gray-15 dark:border-r-gray-700',
                             rounded &&
                               showHeader &&
                               colIndex === 0 &&
@@ -180,10 +180,10 @@ export const BasicTable = <
                             className={cn(
                               'p-3 text-xs text-gray-600 dark:text-gray-400',
                               border &&
-                                'border-b border-gray-300 dark:border-gray-700',
+                                'border-b border-gray-15 dark:border-gray-700',
                               border &&
                                 !isLastCol &&
-                                'border-r border-gray-300 dark:border-gray-700',
+                                'border-r border-gray-15 dark:border-gray-700',
                               border && isLastRow && 'border-b-0',
                               rounded &&
                                 isLastRow &&
@@ -226,7 +226,7 @@ export const BasicTable = <
             <table
               className={cn(
                 'min-w-max w-full border-collapse',
-                border && 'border border-gray-300 dark:border-gray-700',
+                border && 'border border-gray-15 dark:border-gray-700',
                 tableClassName
               )}
             >
@@ -234,7 +234,7 @@ export const BasicTable = <
                 <thead className="sticky top-0 z-10">
                   <tr
                     className={cn(
-                      'bg-gray-200 dark:bg-gray-800 shadow-sm',
+                      'bg-gray-10 dark:bg-gray-800 shadow-sm',
                       headerClassName
                     )}
                   >
@@ -244,7 +244,7 @@ export const BasicTable = <
                         className={cn(
                           'p-3 text-left text-sm font-semibold',
                           border &&
-                            'border-r border-b border-gray-300 dark:border-gray-700',
+                            'border-r border-b border-gray-15 dark:border-gray-700',
                           border &&
                             colIndex === columns.length - 1 &&
                             'border-r-0',
@@ -279,7 +279,7 @@ export const BasicTable = <
                             className={cn(
                               'p-3 text-xs text-gray-600 dark:text-gray-400',
                               border &&
-                                'border-r border-b border-gray-300 dark:border-gray-700',
+                                'border-r border-b border-gray-15 dark:border-gray-700',
                               border && isLastCol && 'border-r-0',
                               border && isLastRow && 'border-b-0',
                               column.className

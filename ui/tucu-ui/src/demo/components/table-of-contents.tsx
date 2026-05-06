@@ -3,8 +3,8 @@ import {
   Button,
   Typography,
   LucideIcons,
-  useIsMobile,
   Scrollbar,
+  DrawerContainer,
   useTheme,
   LAYOUT_OPTIONS,
   useBreakpoint,
@@ -42,7 +42,6 @@ export const TableOfContents: React.FC<TableOfContentsProps> = ({
 }) => {
   const breakPoint = useBreakpoint();
   const { layout } = useTheme();
-  const { isMobile } = useIsMobile();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string>('');
   const [openCategories, setOpenCategories] = useState<Set<string>>(new Set()); // All categories closed by default
@@ -260,6 +259,87 @@ export const TableOfContents: React.FC<TableOfContentsProps> = ({
     breakPoint === 'md' ||
     breakPoint === 'lg';
 
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 1024;
+
+  // Shared nav content
+  const navContent = (
+    <nav className="p-4 space-y-2">
+      {groupedItems
+        ? Object.entries(groupedItems).map(([category, categoryItems]) => {
+            const isOpen = openCategories.has(category);
+            return (
+              <div key={category} className="space-y-1">
+                <button
+                  type="button"
+                  onClick={() => handleCategoryToggle(category, categoryItems)}
+                  className="w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-200"
+                  aria-expanded={isOpen}
+                  aria-label={`${
+                    isOpen ? 'Close' : 'Open'
+                  } ${category} category`}
+                >
+                  <span>{category}</span>
+                  <LucideIcons.ChevronDown
+                    className={`w-4 h-4 transition-transform duration-200 ${
+                      isOpen ? 'rotate-180' : ''
+                    }`}
+                  />
+                </button>
+                <div
+                  ref={(el) => {
+                    categoryRefs.current[category] = el;
+                  }}
+                  className="grid transition-all duration-300 ease-in-out"
+                  style={{
+                    gridTemplateRows: isOpen ? '1fr' : '0fr',
+                    opacity: isOpen ? 1 : 0,
+                  }}
+                >
+                  <div className="overflow-hidden">
+                    <div className="space-y-1 pt-1">
+                      {categoryItems.map((item) => {
+                        const isActive = activeSection === item.id;
+                        return (
+                          <a
+                            key={item.id}
+                            href={`#${item.id}`}
+                            className={`block w-full text-left px-3 py-2 rounded-lg text-sm transition-all duration-200 ${
+                              isActive
+                                ? 'bg-brand/10 text-brand font-semibold'
+                                : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-gray-100'
+                            }`}
+                            onClick={(e) => handleItemClick(e, item)}
+                          >
+                            {item.label}
+                          </a>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            );
+          })
+        : items.map((item) => {
+            const isActive = activeSection === item.id;
+            return (
+              <a
+                key={item.id}
+                href={`#${item.id}`}
+                className={`block w-full text-left px-3 py-2 rounded-lg text-sm transition-all duration-200 ${
+                  isActive
+                    ? 'bg-brand/10 text-brand font-semibold'
+                    : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-gray-100'
+                }`}
+                onClick={(e) => handleItemClick(e, item)}
+              >
+                {item.label}
+              </a>
+            );
+          })}
+    </nav>
+  );
+
   return (
     <>
       {/* Floating Toggle Button - Fixed position */}
@@ -295,22 +375,56 @@ export const TableOfContents: React.FC<TableOfContentsProps> = ({
         )}
       </div>
 
-      {/* Sidebar - Table of Contents */}
-      {isSidebarOpen && (
+      {/* Mobile: DrawerContainer */}
+      {isMobile && (
+        <DrawerContainer
+          isOpen={isSidebarOpen}
+          setIsOpen={setIsSidebarOpen}
+          position="left"
+        >
+          <div className="h-full w-72 bg-body border-r border-gray-100 dark:border-gray-800 flex flex-col">
+            <div className="px-4 py-4 border-b border-gray-100 dark:border-gray-800 flex items-center justify-between shrink-0">
+              <Typography tag="h3" className="text-lg font-semibold">
+                {title}
+              </Typography>
+              <Button
+                variant="ghost"
+                size="tiny"
+                shape="circle"
+                className="w-4 h-4"
+                onClick={() => setIsSidebarOpen(false)}
+                aria-label="Close table of contents"
+              >
+                <LucideIcons.X className="w-3 h-3" />
+              </Button>
+            </div>
+            <Scrollbar
+              style={{ height: 'calc(100vh - 60px)' }}
+              className="h-full"
+            >
+              {navContent}
+            </Scrollbar>
+          </div>
+        </DrawerContainer>
+      )}
+
+      {/* Desktop: Inline sidebar */}
+      {!isMobile && isSidebarOpen && (
         <aside
           className={cn(
-            'fixed left-0 h-screen bg-body backdrop-blur-lg shadow-md border-r border-gray-100 dark:border-gray-800 transition-all duration-300 ease-in-out overflow-y-hidden',
-            isMobile ? 'z-50' : 'z-21',
-            isSidebarOpen
-              ? layout === LAYOUT_OPTIONS.ADMIN && !smallScreen
-                ? 'translate-x-[100px] w-64 lg:w-72'
-                : 'translate-x-0 w-72 lg:w-72'
-              : '-translate-x-full lg:translate-x-0 lg:w-72',
+            'fixed left-0 bg-body backdrop-blur-lg shadow-md border-r border-gray-100 dark:border-gray-800 transition-all duration-300 ease-in-out overflow-y-hidden z-20',
+            layout === LAYOUT_OPTIONS.ADMIN && !smallScreen
+              ? 'translate-x-[100px] w-64 lg:w-72'
+              : 'translate-x-0 w-72 lg:w-72',
             className
           )}
           style={{
-            top: isMobile ? '0px' : '72px',
-            height: isMobile ? '100vh' : 'calc(100vh - 72px)',
+            top: layout === LAYOUT_OPTIONS.HORIZONTAL ? '80px' : '0px',
+            zIndex: layout === LAYOUT_OPTIONS.HORIZONTAL ? 'inherit' : 30,
+            height:
+              layout === LAYOUT_OPTIONS.HORIZONTAL
+                ? 'calc(100vh - 80px)'
+                : '100vh',
           }}
         >
           <div className="pl-4 pr-2 bg-body border-b border-gray-100 dark:border-gray-800 z-10 p-4 flex items-center justify-between">
@@ -321,7 +435,7 @@ export const TableOfContents: React.FC<TableOfContentsProps> = ({
               variant="ghost"
               size="tiny"
               shape="circle"
-              className="w-4 h-4 "
+              className="w-4 h-4"
               onClick={() => setIsSidebarOpen(false)}
               aria-label="Close table of contents"
             >
@@ -330,101 +444,12 @@ export const TableOfContents: React.FC<TableOfContentsProps> = ({
           </div>
 
           <Scrollbar
-            style={{ height: 'calc(100vh - 140px)' }}
+            style={{ height: 'calc(100vh - 72px - 60px)' }}
             className="h-full"
           >
-            <nav className="p-4 space-y-2">
-              {groupedItems
-                ? // Render grouped by categories
-                  Object.entries(groupedItems).map(
-                    ([category, categoryItems]) => {
-                      const isOpen = openCategories.has(category);
-                      return (
-                        <div key={category} className="space-y-1">
-                          <button
-                            type="button"
-                            onClick={() =>
-                              handleCategoryToggle(category, categoryItems)
-                            }
-                            className="w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-200"
-                            aria-expanded={isOpen}
-                            aria-label={`${
-                              isOpen ? 'Close' : 'Open'
-                            } ${category} category`}
-                          >
-                            <span>{category}</span>
-                            <LucideIcons.ChevronDown
-                              className={`w-4 h-4 transition-transform duration-200 ${
-                                isOpen ? 'rotate-180' : ''
-                              }`}
-                            />
-                          </button>
-                          <div
-                            ref={(el) => {
-                              categoryRefs.current[category] = el;
-                            }}
-                            className="grid transition-all duration-300 ease-in-out"
-                            style={{
-                              gridTemplateRows: isOpen ? '1fr' : '0fr',
-                              opacity: isOpen ? 1 : 0,
-                            }}
-                          >
-                            <div className="overflow-hidden">
-                              <div className="space-y-1 pt-1">
-                                {categoryItems.map((item) => {
-                                  const isActive = activeSection === item.id;
-                                  return (
-                                    <a
-                                      key={item.id}
-                                      href={`#${item.id}`}
-                                      className={`block w-full text-left px-3 py-2 rounded-lg text-sm transition-all duration-200 ${
-                                        isActive
-                                          ? 'bg-brand/10 text-brand font-semibold'
-                                          : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-gray-100'
-                                      }`}
-                                      onClick={(e) => handleItemClick(e, item)}
-                                    >
-                                      {item.label}
-                                    </a>
-                                  );
-                                })}
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      );
-                    }
-                  )
-                : // Render flat list if no categories
-                  items.map((item) => {
-                    const isActive = activeSection === item.id;
-                    return (
-                      <a
-                        key={item.id}
-                        href={`#${item.id}`}
-                        className={`block w-full text-left px-3 py-2 rounded-lg text-sm transition-all duration-200 ${
-                          isActive
-                            ? 'bg-brand/10 text-brand font-semibold'
-                            : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-gray-100'
-                        }`}
-                        onClick={(e) => handleItemClick(e, item)}
-                      >
-                        {item.label}
-                      </a>
-                    );
-                  })}
-            </nav>
+            {navContent}
           </Scrollbar>
         </aside>
-      )}
-
-      {/* Overlay for mobile */}
-      {isSidebarOpen && (
-        <div
-          className="fixed inset-0 bg-black/50 z-20 lg:hidden"
-          onClick={() => setIsSidebarOpen(false)}
-          aria-hidden="true"
-        />
       )}
 
       {/* Main Content Wrapper */}

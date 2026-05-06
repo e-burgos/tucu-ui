@@ -30,7 +30,7 @@ const shapes: Record<ShapeNames, string[]> = {
 const variants: Record<VariantNames, string[]> = {
   ghost: ['bg-transparent'],
   solid: ['text-white'],
-  transparent: ['bg-transparent hover:bg-gray-50 dark:hover:bg-gray-800'],
+  transparent: ['bg-transparent hover:bg-gray-100  dark:hover:bg-gray-800'],
 };
 const colors: Record<ColorNames, string[]> = {
   primary: ['text-brand', 'bg-brand', 'border-brand'],

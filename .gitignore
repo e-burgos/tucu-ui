@@ -55,3 +55,5 @@ CLAUDE.md
 # npm pack files
 *.tgz
 *.tar.gz
+.claude/worktrees
+.claude/settings.local.json

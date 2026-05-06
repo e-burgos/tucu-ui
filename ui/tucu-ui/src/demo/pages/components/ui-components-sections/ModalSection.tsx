@@ -68,22 +68,17 @@ const ModalSection: React.FC = () => {
       </CardContainer>
       <PropPlayground
         componentName="Modal"
-        defaultValues={{ isOpen: true, closeable: true, hideButtons: false }}
-        excludeProps={[
-          'setIsOpen',
-          'onBack',
-          'onClose',
-          'onSubmit',
-          'buttonContainer',
-          'text',
-          'contentClassName',
-          'titleContainerClassName',
-        ]}
+        defaultValues={{
+          isOpen: isOpen,
+          setIsOpen: setIsOpen,
+          closeable: true,
+          hideButtons: false,
+        }}
+        excludeProps={['setIsOpen', 'onBack', 'onClose', 'onSubmit']}
       >
         {(props) => (
           <Modal
             {...props}
-            setIsOpen={() => {}}
             text={{
               title: 'Modal Preview',
               content: 'This is a preview of the modal component.',

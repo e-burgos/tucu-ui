@@ -313,7 +313,7 @@ export const PropPlayground: React.FC<PropPlaygroundProps> = ({
       <CardTitle title={title || `${meta.displayName} Playground`}>
         <div className="w-full">
           {/* Preview Area */}
-          <div className="p-6 sm:p-8 border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50 flex items-center justify-center min-h-[120px]">
+          <div className="p-6 sm:p-8 border-b border-gray-200 dark:border-gray-700 bg-gray-100 dark:bg-gray-800/50 flex items-center justify-center min-h-[120px]">
             {children(renderProps)}
           </div>
 
@@ -337,10 +337,10 @@ export const PropPlayground: React.FC<PropPlaygroundProps> = ({
             </div>
 
             {/* Storybook-style table */}
-            <div className="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
+            <div className="border border-gray-15 dark:border-gray-700 rounded-lg overflow-hidden">
               <table className="w-full text-left">
                 <thead>
-                  <tr className="bg-gray-100 dark:bg-gray-800/80 border-b border-gray-200 dark:border-gray-700">
+                  <tr className="bg-gray-10 dark:bg-gray-800/80 border-b border-gray-15 dark:border-gray-700">
                     <th className="px-4 py-2.5 text-[11px] font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider w-1/2">
                       Prop
                     </th>
@@ -349,7 +349,7 @@ export const PropPlayground: React.FC<PropPlaygroundProps> = ({
                     </th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-200 dark:divide-gray-700/50">
+                <tbody className="divide-y divide-gray-15 dark:divide-gray-700/50">
                   {controllableProps.map(({ prop, control }) => {
                     const controlProps: ControlProps = {
                       prop,
@@ -377,7 +377,7 @@ export const PropPlayground: React.FC<PropPlaygroundProps> = ({
                     return (
                       <tr
                         key={prop.name}
-                        className="hover:bg-gray-50 dark:hover:bg-gray-800/30 transition-colors"
+                        className="hover:bg-gray-100 dark:hover:bg-gray-800/30 transition-colors"
                       >
                         {/* Prop column */}
                         <td className="px-4 py-3 align-middle">

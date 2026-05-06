@@ -9,14 +9,14 @@ Complete API reference for all components, hooks, utilities, and types in `@e-bu
 
 ## 1. Package Information
 
-| Field            | Value                                                                                                                        |
-| ---------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| **Name**         | `@e-burgos/tucu-ui`                                                                                                          |
-| **Version**      | 2.0.2                                                                                                                        |
-| **Author**       | Esteban Burgos                                                                                                               |
-| **License**      | MIT                                                                                                                          |
-| **Peer Deps**    | `react >=18`, `react-dom >=18`, `tailwindcss >=4`                                                                            |
-| **Dependencies** | `@headlessui/react`, `framer-motion`, `lucide-react`, `react-hook-form`, `react-router-dom v7.9`, `recharts`, `swiper v11.2`, `zustand v5`, `classnames`, `react-use`, `prismjs` |
+| Field            | Value                                                                                                                                                       |
+| ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Name**         | `@e-burgos/tucu-ui`                                                                                                                                         |
+| **Version**      | 2.0.4+                                                                                                                                                      |
+| **Author**       | Esteban Burgos                                                                                                                                              |
+| **License**      | MIT                                                                                                                                                         |
+| **Peer Deps**    | `react >=18`, `react-dom >=18`, `tailwindcss >=4`                                                                                                           |
+| **Dependencies** | `framer-motion`, `lucide-react`, `react-hook-form`, `react-router-dom v7.9`, `recharts v3.8`, `swiper v11.2`, `zustand v5`, `classnames`, `react-use`, `prismjs` |
 
 ### Universal Import
 
@@ -104,9 +104,19 @@ const CryptoDashboard = () => (
   <div className="space-y-6">
     <CoinCard id="btc" name="Bitcoin" symbol="BTC" logo="/icons/btc.svg" balance="1.5234" usdBalance="$45,702.30" change="+2.4%" isChangePositive={true} />
     <LivePriceFeed
-      id="eth" name="Ethereum" symbol="ETH" icon="/icons/eth.svg"
-      balance="32.1" usdBalance="$98,432.10" change="-0.8%" isChangePositive={false}
-      prices={[{ name: '1h', value: 3050 }, { name: '2h', value: 3080 }, { name: '3h', value: 3020 }]}
+      id="eth"
+      name="Ethereum"
+      symbol="ETH"
+      icon="/icons/eth.svg"
+      balance="32.1"
+      usdBalance="$98,432.10"
+      change="-0.8%"
+      isChangePositive={false}
+      prices={[
+        { name: '1h', value: 3050 },
+        { name: '2h', value: 3080 },
+        { name: '3h', value: 3020 },
+      ]}
     />
     <CurrencySwapIcons from="BTC" to="ETH" />
   </div>
@@ -130,11 +140,21 @@ import { Button } from '@e-burgos/tucu-ui';
 
 const ButtonShowcase = () => (
   <div className="flex gap-4">
-    <Button variant="solid" color="primary" size="medium">Primary</Button>
-    <Button variant="ghost" color="danger" shape="pill">Delete</Button>
-    <Button variant="transparent" size="small" isLoading>Loading</Button>
-    <Button shape="circle" color="success" tooltip="Add">+</Button>
-    <Button fullWidth color="info">Full Width</Button>
+    <Button variant="solid" color="primary" size="medium">
+      Primary
+    </Button>
+    <Button variant="ghost" color="danger" shape="pill">
+      Delete
+    </Button>
+    <Button variant="transparent" size="small" isLoading>
+      Loading
+    </Button>
+    <Button shape="circle" color="success" tooltip="Add">
+      +
+    </Button>
+    <Button fullWidth color="info">
+      Full Width
+    </Button>
   </div>
 );
 ```
@@ -200,7 +220,12 @@ const ProductGallery = () => (
       { title: 'Product A', description: 'Brief description', image: '/img/prod-a.jpg' },
       { title: 'Product B', description: 'Brief description', image: '/img/prod-b.jpg' },
     ]}
-    cardSize="lg" variant="elevated" showNavigation showPagination autoplay={{ delay: 3000 }} loop
+    cardSize="lg"
+    variant="elevated"
+    showNavigation
+    showPagination
+    autoplay={{ delay: 3000 }}
+    loop
   />
 );
 ```
@@ -211,11 +236,15 @@ const ProductGallery = () => (
 
 | Component     | Key Props                                                                                                                                                    | Description               |
 | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------- |
-| **Avatar**    | `{image, alt, size?: 'xl'\|'lg'\|'md'\|'sm'\|'xs', shape?: 'rounded'\|'circle', border?(true)}`                                                              | Avatar with size variants |
-| **Badge**     | `{status?, color?, size?: 'tiny'\|'small'\|'medium'\|'large', variant?: 'solid'\|'ghost'\|'outline'\|'soft', shape?: 'rounded'\|'pill'\|'circle', withDot?}` | Multi-variant badge       |
-| **Collapse**  | `{label, initialOpen?, className?}`                                                                                                                          | Animated accordion        |
-| **Scrollbar** | `{autoHide?: 'never'\|'scroll'\|'leave'\|'move', direction?, scrollbarStyle?}`                                                                               | Custom scrollbar          |
-| **Skeleton**  | `{animation?: 'pulse'\|'wave'\|'shimmer'\|'none', shape?: 'rectangle'\|'circle'\|'text'\|'rounded', size?, width?, height?, count?}`                         | Skeleton loader           |
+| **Avatar**       | `{image, alt, size?: 'xl'\|'lg'\|'md'\|'sm'\|'xs', shape?: 'rounded'\|'circle', border?(true)}`                                                              | Avatar with size variants       |
+| **Badge**        | `{status?, color?, size?: 'tiny'\|'small'\|'medium'\|'large', variant?: 'solid'\|'ghost'\|'outline'\|'soft', shape?: 'rounded'\|'pill'\|'circle', withDot?}` | Multi-variant badge             |
+| **Collapse**     | `{label, initialOpen?, className?}`                                                                                                                          | Animated accordion              |
+| **KeyValueRow**  | `{label, value: ReactNode, mono?, accent?, className?}`                                                                                                      | Label-value row for detail views |
+| **Pagination**   | `{currentPage, totalPages, onPageChange, windowSize?(2), className?}`                                                                                        | Page navigation with ellipsis   |
+| **Scrollbar**    | `{autoHide?: 'never'\|'scroll'\|'leave'\|'move', direction?, scrollbarStyle?}`                                                                               | Custom scrollbar                |
+| **Skeleton**     | `{animation?: 'pulse'\|'wave'\|'shimmer'\|'none', shape?: 'rectangle'\|'circle'\|'text'\|'rounded', size?, width?, height?, count?}`                         | Skeleton loader                 |
+| **Stepper**      | `{steps: {id, label, icon?}[], currentStep, onStepChange?, className?}`                                                                                      | Step navigation indicator        |
+| **Tooltip**      | `{content, placement?: 'top'\|'bottom'\|'left'\|'right', color?: 'dark'\|'light'\|'primary'\|'success'\|'info'\|'warning'\|'danger', arrow?, enterDelay?, leaveDelay?, disabled?}` | Portal tooltip with auto-theme |
 
 **Example:**
 
@@ -227,7 +256,9 @@ const UserProfile = ({ user }) => (
     <Avatar image={user.avatar} alt={user.name} size="lg" shape="circle" />
     <div>
       <span>{user.name}</span>
-      <Badge status="active" variant="soft" size="small">Online</Badge>
+      <Badge status="active" variant="soft" size="small">
+        Online
+      </Badge>
     </div>
   </div>
 );
@@ -260,15 +291,7 @@ const UserProfileLoading = () => (
 ```tsx
 import { Modal } from '@e-burgos/tucu-ui';
 
-const ConfirmDialog = ({ isOpen, onConfirm, onCancel }) => (
-  <Modal
-    isOpen={isOpen}
-    setIsOpen={onCancel}
-    text={{ title: 'Are you sure?', content: 'This action cannot be undone.', button: 'Confirm', backButton: 'Cancel' }}
-    onSubmit={onConfirm}
-    onBack={onCancel}
-  />
-);
+const ConfirmDialog = ({ isOpen, onConfirm, onCancel }) => <Modal isOpen={isOpen} setIsOpen={onCancel} text={{ title: 'Are you sure?', content: 'This action cannot be undone.', button: 'Confirm', backButton: 'Cancel' }} onSubmit={onConfirm} onBack={onCancel} />;
 ```
 
 ---
@@ -335,7 +358,9 @@ import { ListContainer, LucideIcons } from '@e-burgos/tucu-ui';
 
 const UserMenu = () => (
   <ListContainer
-    trigger="click" position="bottom" align="right"
+    trigger="click"
+    position="bottom"
+    align="right"
     triggerIcon={<LucideIcons.User />}
     items={[
       { id: '1', label: 'Profile', icon: <LucideIcons.User />, onClick: () => navigate('/profile') },
@@ -392,7 +417,9 @@ const NotificationExample = () => {
 
   return (
     <div className="space-y-4">
-      <Alert variant="info" dismissible>You have 3 unread notifications</Alert>
+      <Alert variant="info" dismissible>
+        You have 3 unread notifications
+      </Alert>
       <button onClick={showSuccess}>Save</button>
       <button onClick={showError}>Simulate Error</button>
     </div>
@@ -422,22 +449,30 @@ import { BasicTable, Badge, Avatar } from '@e-burgos/tucu-ui';
 type User = { id: number; name: string; email: string; role: string; status: 'active' | 'inactive' };
 
 const columns: TableColumn<User>[] = [
-  { key: 'name', label: 'Name', render: (row) => (
-    <div className="flex items-center gap-2">
-      <Avatar image={`/avatars/${row.id}.jpg`} size="xs" shape="circle" />
-      <span>{row.name}</span>
-    </div>
-  )},
+  {
+    key: 'name',
+    label: 'Name',
+    render: (row) => (
+      <div className="flex items-center gap-2">
+        <Avatar image={`/avatars/${row.id}.jpg`} size="xs" shape="circle" />
+        <span>{row.name}</span>
+      </div>
+    ),
+  },
   { key: 'email', label: 'Email' },
   { key: 'role', label: 'Role' },
-  { key: 'status', label: 'Status', render: (row) => (
-    <Badge status={row.status} variant="soft" size="small">{row.status}</Badge>
-  )},
+  {
+    key: 'status',
+    label: 'Status',
+    render: (row) => (
+      <Badge status={row.status} variant="soft" size="small">
+        {row.status}
+      </Badge>
+    ),
+  },
 ];
 
-const UsersTable = ({ users }: { users: User[] }) => (
-  <BasicTable columns={columns} data={users} striped hoverable maxRows={20} />
-);
+const UsersTable = ({ users }: { users: User[] }) => <BasicTable columns={columns} data={users} striped hoverable maxRows={20} />;
 ```
 
 ---
@@ -466,7 +501,9 @@ const ProfilePage = () => (
       { title: 'Security', path: 'security', content: <SecuritySettings /> },
       { title: 'Notifications', path: 'notifications', content: <NotificationSettings /> },
     ]}
-    variant="underline" size="medium" showMobileSelect
+    variant="underline"
+    size="medium"
+    showMobileSelect
   />
 );
 // URL updates automatically: /profile?view=general, /profile?view=security, etc.
@@ -489,11 +526,21 @@ import { Typography } from '@e-burgos/tucu-ui';
 
 const ArticlePage = () => (
   <article>
-    <Typography tag="headline" color="primary">Main Title</Typography>
-    <Typography tag="body" color="default">Article content with descriptive text...</Typography>
-    <Typography tag="caption" color="muted">Published 2 hours ago</Typography>
-    <Typography tag="code" fontFamily="mono">const x = 42;</Typography>
-    <Typography tag="legal" color="muted">© 2026 All rights reserved</Typography>
+    <Typography tag="headline" color="primary">
+      Main Title
+    </Typography>
+    <Typography tag="body" color="default">
+      Article content with descriptive text...
+    </Typography>
+    <Typography tag="caption" color="muted">
+      Published 2 hours ago
+    </Typography>
+    <Typography tag="code" fontFamily="mono">
+      const x = 42;
+    </Typography>
+    <Typography tag="legal" color="muted">
+      © 2026 All rights reserved
+    </Typography>
   </article>
 );
 ```
@@ -549,6 +596,61 @@ import { LucideIcons } from '@e-burgos/tucu-ui';
 
 ---
 
+### 2.21 Charts
+
+> Built on **Recharts v3**. All chart components auto-theme with dark/light mode via `useChartTheme`.
+
+| Component          | Key Props                                                                                                               | Description                                     |
+| ------------------ | ----------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------- |
+| **LineChart**      | extends `ChartBaseProps` + `{series: ChartSeries[], xAxisKey?, curved?(true), showDots?, strokeWidth?(2)}`             | Line chart with auto-dots, theme-aware          |
+| **BarChart**       | extends `ChartBaseProps` + `{series: ChartSeries[], xAxisKey?, layout?: 'horizontal'\|'vertical', stacked?, barRadius?(4), barGap?(4)}` | Bar chart with stacking & orientation   |
+| **AreaChart**      | extends `ChartBaseProps` + `{series: ChartSeries[], xAxisKey?, curved?(true), gradient?(true), stacked?}`              | Area chart with gradient fills                  |
+| **PieChart**       | `{data: PieDataPoint[], height?, donut?, showLabels?(true), showTooltip?, showLegend?, animate?, innerContent?, emptyMessage?}` | Pie/donut with inner content slot      |
+| **RadarChart**     | `{data: RadarDataPoint[], series: {dataKey, name?, color?}[], height?, showTooltip?, showLegend?, fillOpacity?(0.3), animate?, emptyMessage?}` | Radar/spider chart               |
+| **ComposedChart**  | extends `ChartBaseProps` + `{series: (ChartSeries & {type: 'line'\|'bar'\|'area'})[], xAxisKey?, barRadius?(4)}`       | Mixed chart combining lines, bars, and areas    |
+| **ChartContainer** | `{children, height?(300), className?, ariaLabel?}`                                                                      | ResponsiveContainer wrapper with ARIA           |
+| **ChartTooltip**   | `{active?, payload?, label?}`                                                                                           | Theme-aware custom tooltip                      |
+| **ChartEmptyState**| `{message?('No data available'), height?(300)}`                                                                         | Empty state placeholder for charts              |
+
+**Shared Types:**
+
+```typescript
+interface ChartDataPoint { name: string; [key: string]: string | number | null | undefined }
+interface ChartSeries { dataKey: string; name?: string; color?: string; type?: 'line' | 'bar' | 'area'; strokeDasharray?: string; fillOpacity?: number; stackId?: string }
+interface ChartBaseProps { data: ChartDataPoint[]; height?: number; className?: string; showGrid?: boolean; showTooltip?: boolean; showLegend?: boolean; animate?: boolean; emptyMessage?: string }
+interface PieDataPoint { name: string; value: number; color?: string }
+interface RadarDataPoint { subject: string; [key: string]: string | number }
+interface ChartTheme { mode: 'light' | 'dark'; colors: string[]; grid: string; text: string; background: string; border: string; tooltipBg: string; tooltipText: string; tooltipBorder: string; cursorFill: string }
+```
+
+**Hook:** `useChartTheme() → ChartTheme` — Returns colors, grid, text, tooltip styles, and cursor fill based on current dark/light mode.
+
+**Example:**
+
+```tsx
+import { LineChart, BarChart, PieChart } from '@e-burgos/tucu-ui';
+
+const data = [
+  { name: 'Jan', sales: 400, profit: 240 },
+  { name: 'Feb', sales: 300, profit: 139 },
+  { name: 'Mar', sales: 520, profit: 380 },
+];
+
+// Line chart
+<LineChart data={data} series={[{ dataKey: 'sales', name: 'Sales' }, { dataKey: 'profit', name: 'Profit' }]} height={250} />
+
+// Bar chart (stacked, horizontal)
+<BarChart data={data} series={[{ dataKey: 'sales', stackId: 'a' }, { dataKey: 'profit', stackId: 'a' }]} stacked />
+
+// Donut chart
+<PieChart data={[{ name: 'Desktop', value: 65 }, { name: 'Mobile', value: 35 }]} donut innerContent={<span className="text-2xl font-bold">100</span>} />
+
+// Composed chart (mix line + bar)
+<ComposedChart data={data} series={[{ dataKey: 'sales', type: 'bar', name: 'Sales' }, { dataKey: 'profit', type: 'line', name: 'Profit' }]} />
+```
+
+---
+
 ## 3. Hooks
 
 | Hook                    | Signature                                                 | Description                           |
@@ -567,6 +669,7 @@ import { LucideIcons } from '@e-burgos/tucu-ui';
 | **useScrollableSlider** | `(defaultActivePath?) => {sliderEl, prev, next, ...}`     | Horizontal slider control             |
 | **useToastStore**       | Zustand: `{toasts, addToast, dismissToast, setToasts}`    | Global toast store                    |
 | **useWindowScroll**     | `() => {x, y}`                                            | Window scroll position                |
+| **useChartTheme**       | `() => ChartTheme`                                        | Chart colors/styles for dark/light    |
 
 **Available Breakpoints:** xs:480, sm:640, md:768, lg:1024, xl:1280, 2xl:1440, 3xl:1780, 4xl:2160
 
@@ -612,9 +715,10 @@ const ResponsiveComponent = () => {
 
 | Category                 | Count               |
 | ------------------------ | ------------------- |
-| UI Components            | ~70+                |
-| Hooks                    | 14                  |
+| UI Components            | ~85+                |
+| Hooks                    | 15                  |
 | Utilities/Libs           | 3 modules           |
+| Chart Components         | 9 (6 charts + 3 shared) |
 | Native SVG Icons         | 97+                 |
 | Lucide Icons (namespace) | 1500+               |
 | Error Pages              | 10                  |

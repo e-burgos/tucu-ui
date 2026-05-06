@@ -5,6 +5,7 @@ import { type StandaloneAppRoutesMenuItem, LucideIcons } from '@tucu-ui';
 // Components
 import {
   BlockchainComponents,
+  ChartsComponents,
   ComponentsIntroduction,
   InputsComponents,
   UiComponents,
@@ -121,6 +122,13 @@ export const useMenuItems = () => {
             path: APP_PATHS.COMPONENTS.path + '/blockchain',
             icon: <LucideIcons.Coins />,
             component: <BlockchainComponents />,
+            enableNestedRoutes: true,
+          },
+          {
+            name: 'Charts',
+            path: APP_PATHS.COMPONENTS.path + '/charts',
+            icon: <LucideIcons.BarChart3 />,
+            component: <ChartsComponents />,
             enableNestedRoutes: true,
           },
           {

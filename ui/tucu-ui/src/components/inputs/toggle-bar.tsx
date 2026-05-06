@@ -1,5 +1,4 @@
 import cn from 'classnames';
-import { Switch } from '@headlessui/react';
 
 export interface ToggleBarProps {
   title: string;
@@ -38,25 +37,25 @@ export function ToggleBar({
           </div>
         </div>
 
-        <Switch checked={checked} onChange={onChange}>
-          <div
+        <button
+          type="button"
+          role="switch"
+          aria-checked={checked}
+          onClick={onChange}
+          className={cn(
+            checked ? 'bg-brand dark:bg-white' : 'bg-gray-200 dark:bg-gray-700',
+            'relative inline-flex h-[22px] w-10 items-center rounded-full transition-colors duration-300 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-brand/50'
+          )}
+        >
+          <span
             className={cn(
               checked
-                ? 'bg-brand dark:bg-white'
-                : 'bg-gray-200 dark:bg-gray-700',
-              'relative inline-flex h-[22px] w-10 items-center rounded-full transition-colors duration-300'
+                ? 'bg-white ltr:translate-x-5 rtl:-translate-x-5 dark:bg-gray-700'
+                : 'bg-white ltr:translate-x-0.5 rtl:-translate-x-0.5 dark:bg-gray-400',
+              'inline-block h-[18px] w-[18px] transform rounded-full bg-white transition-transform duration-200'
             )}
-          >
-            <span
-              className={cn(
-                checked
-                  ? 'bg-white ltr:translate-x-5 rtl:-translate-x-5 dark:bg-gray-700'
-                  : 'bg-white ltr:translate-x-0.5 rtl:-translate-x-0.5 dark:bg-gray-400',
-                'inline-block h-[18px] w-[18px] transform rounded-full bg-white transition-transform duration-200'
-              )}
-            />
-          </div>
-        </Switch>
+          />
+        </button>
       </div>
 
       {children && <div className="px-4 pb-4">{children}</div>}

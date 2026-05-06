@@ -446,18 +446,13 @@ const ImageSection: React.FC = () => {
           placeholder: 'empty',
           fill: false,
           priority: 'auto',
+          width: '400',
+          height: '300',
+          aspectRatio: '16/9',
         }}
-        excludeProps={[
-          'onError',
-          'onLoad',
-          'blurDataURL',
-          'fallbackSrc',
-          'containerClassName',
-          'aspectRatio',
-          'quality',
-        ]}
+        excludeProps={[]}
       >
-        {(props) => <Image {...props} width={400} height={300} />}
+        {(props) => <Image {...props} />}
       </PropPlayground>
       <AutoPropsTable componentName="Image" />
 

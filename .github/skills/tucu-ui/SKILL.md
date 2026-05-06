@@ -10,8 +10,9 @@ This skill provides the essential knowledge to work with `@e-burgos/tucu-ui`, a 
 
 A production-ready React component library built with **TypeScript** and **Tailwind CSS v4**. It provides:
 
-- **70+ UI components** across 20 categories (auth, blockchain, forms, dialogs, tables, etc.)
-- **14 utility hooks** for responsive design, state, and lifecycle management
+- **85+ UI components** across 21 categories (auth, blockchain, charts, forms, dialogs, tables, etc.)
+- **15 utility hooks** for responsive design, state, and lifecycle management
+- **Chart system** wrapping Recharts v3 with 6 themed chart types + shared components
 - **Advanced form system** wrapping `react-hook-form` with validation
 - **Theming engine** with 22 color presets, semantic tokens, light/dark mode, and RTL support
 - **3 layout systems** (Admin, Horizontal, Clean) for enterprise applications
@@ -21,7 +22,7 @@ A production-ready React component library built with **TypeScript** and **Tailw
 
 ### Key Dependencies
 
-`react >=18`, `react-dom >=18`, `tailwindcss >=4`, `react-router-dom v7.9`, `zustand v5`, `framer-motion`, `@headlessui/react`, `lucide-react`, `swiper v11.2`, `recharts`, `prismjs`
+`react >=18`, `react-dom >=18`, `tailwindcss >=4`, `react-router-dom v7.9`, `zustand v5`, `framer-motion`, `lucide-react`, `swiper v11.2`, `recharts v3.8`, `prismjs`
 
 ---
 
@@ -68,12 +69,20 @@ import {
   Badge,
   Skeleton,
   Tabs,
+  // Charts
+  LineChart,
+  BarChart,
+  AreaChart,
+  PieChart,
+  RadarChart,
+  ComposedChart,
   // Hooks
   useTheme,
   useBreakpoint,
   useIsMobile,
   useToastStore,
   useFormContext,
+  useChartTheme,
   // Icons
   LucideIcons,
   // Types
@@ -144,13 +153,14 @@ For specific topics, consult these specialized skills:
 | Skill                     | Covers                                                                                              |
 | ------------------------- | --------------------------------------------------------------------------------------------------- |
 | **tucu-ui** (this file)   | Overview, installation, architecture modes, agent guidelines                                        |
-| **tucu-ui-catalog**       | Complete API reference: all 70+ components, 14 hooks, utilities, types, and code examples           |
+| **tucu-ui-catalog**       | Complete API reference: all 85+ components, 15 hooks, utilities, types, and code examples           |
 | **tucu-ui-forms**         | Form system, validation patterns, all input components, `useFormContext`, advanced form patterns    |
 | **tucu-ui-design-system** | Layouts, semantic tokens, color presets, `useTheme`, dark/light mode, typography, CSS design tokens |
 | **tucu-ui-routing**       | Standalone routing, MFE routing, nested routes, dynamic routes, permissions, navigation patterns    |
 | **tucu-ui-standalone**    | Standalone architecture, menu-driven routes, auth guards, layout strategy, Vite setup               |
 | **tucu-ui-mfe**           | MFE architecture, shell orchestrator, inter-app navigation, shared auth, Vite config, deployment    |
 | **tucu-ui-docs**          | Documentation site patterns, TOC, hero, lazy sections, props tables, code blocks, page composition  |
+| **recharts**              | Recharts v3 reference, chart types, performance, theming — used internally by TucuChart components  |
 
 ---
 

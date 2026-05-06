@@ -5,16 +5,18 @@ Before answering complex questions or generating code, please check the relevant
 
 ## 📚 Available Skills
 
-| Topic                 | Description                                                        | Skill File                                                             |
-| --------------------- | ------------------------------------------------------------------ | ---------------------------------------------------------------------- |
-| **Overview**          | Installation, architecture modes, quick start, agent guidelines    | [tucu-ui](.github/skills/tucu-ui/SKILL.md)                             |
-| **Component Catalog** | Full API reference: 70+ components, hooks, utils, types & examples | [tucu-ui-catalog](.github/skills/tucu-ui-catalog/SKILL.md)             |
-| **Form System**       | Form component, validation, all inputs, useFormContext patterns    | [tucu-ui-forms](.github/skills/tucu-ui-forms/SKILL.md)                 |
-| **Design System**     | Layouts, tokens, color presets, useTheme, dark/light, typography   | [tucu-ui-design-system](.github/skills/tucu-ui-design-system/SKILL.md) |
-| **Routing**           | Standalone routing, MFE routing, nested/dynamic routes, navigation | [tucu-ui-routing](.github/skills/tucu-ui-routing/SKILL.md)             |
-| **Standalone**        | Standalone architecture, menu-driven routes, auth, layouts, vite   | [tucu-ui-standalone](.github/skills/tucu-ui-standalone/SKILL.md)       |
-| **Micro Frontends**   | MFE architecture, shell, inter-app nav, shared auth, Vite config   | [tucu-ui-mfe](.github/skills/tucu-ui-mfe/SKILL.md)                     |
-| **Documentation**     | Doc site patterns, TOC, hero, sections, props tables, code blocks  | [tucu-ui-docs](.github/skills/tucu-ui-docs/SKILL.md)                   |
+| Topic                 | Description                                                         | Skill File                                                             |
+| --------------------- | ------------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| **Overview**          | Installation, architecture modes, quick start, agent guidelines     | [tucu-ui](.github/skills/tucu-ui/SKILL.md)                             |
+| **Component Catalog** | Full API reference: 85+ components, hooks, utils, types & examples  | [tucu-ui-catalog](.github/skills/tucu-ui-catalog/SKILL.md)             |
+| **Form System**       | Form component, validation, all inputs, useFormContext patterns     | [tucu-ui-forms](.github/skills/tucu-ui-forms/SKILL.md)                 |
+| **Design System**     | Layouts, tokens, color presets, useTheme, dark/light, typography    | [tucu-ui-design-system](.github/skills/tucu-ui-design-system/SKILL.md) |
+| **Routing**           | Standalone routing, MFE routing, nested/dynamic routes, navigation  | [tucu-ui-routing](.github/skills/tucu-ui-routing/SKILL.md)             |
+| **Standalone**        | Standalone architecture, menu-driven routes, auth, layouts, vite    | [tucu-ui-standalone](.github/skills/tucu-ui-standalone/SKILL.md)       |
+| **Micro Frontends**   | MFE architecture, shell, inter-app nav, shared auth, Vite config    | [tucu-ui-mfe](.github/skills/tucu-ui-mfe/SKILL.md)                     |
+| **Documentation**     | Doc site patterns, TOC, hero, sections, props tables, code blocks   | [tucu-ui-docs](.github/skills/tucu-ui-docs/SKILL.md)                   |
+| **Recharts**          | Chart types, components, theming, performance, patterns & examples  | [recharts](.github/skills/recharts/SKILL.md)                           |
+| **SDD**               | Spec-Driven Development flow, specs, plans, implementation workflow | [sdd](.github/skills/sdd/SKILL.md)                                     |
 
 ## 🤖 Available Agents
 

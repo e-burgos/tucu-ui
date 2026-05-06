@@ -6,15 +6,9 @@ import {
   CodeBlock,
   NFTGrid,
 } from '../../../../index';
-import collection1Img from '../../../assets/images/collection/collection-1.jpg';
-import avatar1Img from '../../../assets/images/avatar/1.png';
 import { AutoPropsTable } from '../../../components/auto-props-table';
 
 const NFTGridSection: React.FC = () => {
-  // Table columns definition for props tables
-
-  // NFTGrid props data
-
   return (
     <>
       <div className="text-center space-y-4">
@@ -31,26 +25,63 @@ const NFTGridSection: React.FC = () => {
       </div>
 
       <CardContainer className="overflow-hidden">
-        <CardTitle title="Basic Examples" className="mt-2 mb-2">
+        <CardTitle title="Grid Examples" className="mt-2 mb-2">
           <div className="w-full p-4 sm:p-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <CardContainer className="p-4">
-                <Typography tag="h5" className="mb-3">
-                  Basic NFT
-                </Typography>
-                <NFTGrid
-                  author="CryptoPunk"
-                  authorImage={avatar1Img}
-                  image={collection1Img}
-                  name="CryptoPunk #1234"
-                  collection="Crypto Punks"
-                  price="45 ETH"
-                />
-              </CardContainer>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              <NFTGrid
+                author="CryptoPunk"
+                authorImage="https://i.pravatar.cc/80?img=1"
+                image="https://picsum.photos/seed/nft1/400/300"
+                name="CryptoPunk #1234"
+                collection="Crypto Punks"
+                price="45 ETH"
+              />
+              <NFTGrid
+                author="BoredApe"
+                authorImage="https://i.pravatar.cc/80?img=12"
+                image="https://picsum.photos/seed/nft2/400/300"
+                name="Bored Ape #8821"
+                collection="BAYC"
+                price="72 ETH"
+              />
+              <NFTGrid
+                author="Azuki"
+                authorImage="https://i.pravatar.cc/80?img=25"
+                image="https://picsum.photos/seed/nft3/400/300"
+                name="Azuki #5501"
+                collection="Azuki"
+                price="18.5 ETH"
+              />
+              <NFTGrid
+                author="Doodles"
+                authorImage="https://i.pravatar.cc/80?img=33"
+                image="https://picsum.photos/seed/nft4/400/300"
+                name="Doodle #3120"
+                collection="Doodles"
+                price="8.2 ETH"
+              />
+              <NFTGrid
+                author="CloneX"
+                authorImage="https://i.pravatar.cc/80?img=44"
+                image="https://picsum.photos/seed/nft5/400/300"
+                name="CloneX #12882"
+                collection="CloneX"
+                price="5.8 ETH"
+              />
+              <NFTGrid
+                author="Moonbird"
+                authorImage="https://i.pravatar.cc/80?img=56"
+                image="https://picsum.photos/seed/nft6/400/300"
+                name="Moonbird #7744"
+                collection="Moonbirds"
+                price="12 ETH"
+                profilePath="/profile/moonbird"
+              />
             </div>
           </div>
         </CardTitle>
       </CardContainer>
+
       <AutoPropsTable componentName="NFTGrid" />
 
       <CardContainer className="overflow-hidden">
@@ -60,6 +91,7 @@ const NFTGridSection: React.FC = () => {
               language="tsx"
               code={`import { NFTGrid } from '@e-burgos/tucu-ui';
 
+// Single card
 <NFTGrid
   author="CryptoPunk"
   authorImage="/avatars/cryptopunk.jpg"
@@ -67,8 +99,15 @@ const NFTGridSection: React.FC = () => {
   name="CryptoPunk #1234"
   collection="Crypto Punks"
   price="45 ETH"
-  profilePath="/profile/cryptopunk" // Optional
-/>`}
+  profilePath="/profile/cryptopunk"
+/>
+
+// Grid layout
+<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+  <NFTGrid {...nft1} />
+  <NFTGrid {...nft2} />
+  <NFTGrid {...nft3} />
+</div>`}
             />
           </div>
         </CardTitle>

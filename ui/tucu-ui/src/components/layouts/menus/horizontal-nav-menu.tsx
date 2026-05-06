@@ -81,8 +81,7 @@ export function HorizontalNavMenu({ menuItems }: { menuItems: IMenuItem[] }) {
                     <span
                       className={cn(
                         'text-[11px] sm:text-[12px] md:text-[13px] lg:text-[14px] overflow-hidden text-ellipsis whitespace-nowrap',
-                        item.isActive && 'text-brand',
-                        
+                        item.isActive && 'text-brand'
                       )}
                     >
                       {item.name}
@@ -133,7 +132,7 @@ export function HorizontalNavMenu({ menuItems }: { menuItems: IMenuItem[] }) {
                                         path={subMenu.path}
                                         href={subMenu.href}
                                         to={SubMenuHrefToUse}
-                                        className="block rounded-lg px-[12px] py-[8px] text-sm font-medium uppercase !text-gray-600 transition hover:bg-gray-50 hover:text-gray-900 dark:!text-white dark:hover:bg-gray-700/50"
+                                        className="block rounded-lg px-[12px] py-[8px] text-sm font-medium uppercase !text-gray-600 transition hover:bg-gray-100  hover:text-gray-900 dark:!text-white dark:hover:bg-gray-700/50"
                                         activeClassName={cn(
                                           'bg-gray-100 dark:bg-gray-700 my-[4px] last:mb-[0px] first:mt-[0px] !text-gray-900 dark:!text-white',
                                           subMenu.isActive &&
@@ -196,7 +195,9 @@ export function HorizontalNavMenu({ menuItems }: { menuItems: IMenuItem[] }) {
                           {item.icon}
                         </span>
                       )}
-                      <span className="text-[11px] sm:text-[12px] md:text-[13px] lg:text-[14px] overflow-hidden text-ellipsis whitespace-nowrap">{item.name}</span>
+                      <span className="text-[11px] sm:text-[12px] md:text-[13px] lg:text-[14px] overflow-hidden text-ellipsis whitespace-nowrap">
+                        {item.name}
+                      </span>
                     </span>
                   </ActiveLink>
                 </li>
