@@ -5,6 +5,110 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.4] - 2026-05-06
+
+### Added
+
+- **Charts System**: Complete chart module built on Recharts 3.8.1 with 6 chart components
+  - `BarChart`: Vertical/horizontal bar charts with stacked mode, configurable bar radius and gap
+  - `LineChart`: Line charts with curved/straight lines, dot markers, configurable stroke width
+  - `AreaChart`: Area charts with gradient fill, stacked mode, curved/flat options
+  - `PieChart`: Pie/donut charts with labels, inner content support, and customizable colors
+  - `RadarChart`: Radar/spider charts for multi-variable comparisons with configurable fill opacity
+  - `ComposedChart`: Mixed chart combining bar, line, and area series in a single visualization
+  - Shared infrastructure: `ChartContainer`, `ChartTooltip`, `ChartEmptyState`, `useChartTheme` hook
+  - Full dark mode support with automatic theme-aware color palettes
+  - TypeScript interfaces: `ChartSeries`, `ComposedChartSeries`, `ChartDataItem`
+- **Card Component**: New flexible card component with title, description, icon, header, footer, and actions slots
+- **InfoCard Component**: Multi-column info card with grouped key-value data, accent colors, and tooltip support
+- **KeyValueRow Component**: Compact label-value display with mono and accent styling options
+- **Pagination Component**: Page navigation with configurable window size and chevron controls
+- **Stepper Component**: Step progress indicator with icons, labels, and step change callbacks
+- **TabModal Component**: Tabbed modal dialog with sidebar navigation, mobile-responsive dropdown, and portal rendering
+- **Charts Documentation Page**: Full interactive demo with 6 chart sections including PropPlayground and AutoPropsTable
+- **New Demo Sections**: CardSection, InfoCardSection, KeyValueRowSection, PaginationSection, StepperSection, TabModalSection
+
+### Changed
+
+- **Tab Component**: Complete rewrite without `@headlessui/react`
+  - Removed dependency on HeadlessUI `TabGroup`, `TabList`, `TabPanel`, `TabPanels`
+  - Implemented custom tab system using React context, `useId`, and keyboard navigation
+  - Added ARIA roles (`tablist`, `tab`, `tabpanel`) with proper `aria-selected` and `aria-controls`
+  - Full keyboard navigation (Arrow Left/Right, Home, End)
+  - Maintained Framer Motion `LayoutGroup` animations
+  - Portal rendering for mobile dropdown
+- **TabSelect Component**: Complete rewrite without `@headlessui/react`
+  - Removed HeadlessUI dependency
+  - Implemented portal-based dropdown with dynamic positioning
+  - Added keyboard navigation (Arrow Up/Down, Enter, Escape)
+  - Added close animation state management
+  - Improved highlight tracking and ARIA attributes
+- **ToggleBar Component**: Rewritten without `@headlessui/react` Switch
+  - Replaced HeadlessUI `Switch` with native `<button role="switch">` element
+  - Added `aria-checked` attribute and proper focus-visible ring
+  - Maintained same visual appearance and transitions
+- **InputSearcher Component**: Complete rewrite without `@headlessui/react`
+  - Removed HeadlessUI `Transition` component
+  - Implemented portal-based dropdown with `createPortal`
+  - Added full keyboard navigation and proper TypeScript interface
+  - Enhanced filtering with `useMemo` and memoized callbacks
+- **CoinListBox Component**: Complete rewrite without `@headlessui/react`
+  - Removed HeadlessUI `Listbox` and `Transition` components
+  - Implemented custom listbox with `createPortal` for dropdown
+  - Added keyboard navigation and ARIA compliance
+- **CollectionSelectList Component**: Refactored with new search/filter UI
+  - Replaced custom search icon with Lucide `Search` and `X` icons
+  - Integrated `Scrollbar` component for list scrolling
+- **Select Component**: Enhanced with search and clear icons from `lucide-react`
+- **Scrollbar Component**: Improved overflow handling
+  - Added `max-h-[inherit]` for proper nested height inheritance
+  - Simplified overflow management with inline style
+  - Improved timeout cleanup with null checks
+- **ScrollToTop Component**: Enhanced with new props
+  - New `behavior` prop (`'smooth' | 'instant'`) for scroll animation control
+  - Improved position prop documentation (CSS values instead of Tailwind classes)
+  - Better internal memoization with `useCallback` and `useRef`
+- **Image Component**: Improved loading and error handling
+  - Added cached image detection using `requestAnimationFrame` + `naturalWidth` check
+  - Added fallback loop prevention (won't retry if fallback also fails)
+  - Better dimension normalization for numeric strings
+- **BasicTable Component**: Minor styling improvements
+- **HorizontalNavMenu**: Layout adjustments
+- **SettingsDrawer**: Styling improvements (~116 lines changed)
+- **globals.css**: Expanded color token system with new color scale mappings
+- **Props Metadata**: Regenerated to include all new components (charts, cards, common utilities)
+- **Recharts**: Upgraded from `3.0.0` to `3.8.1`
+- **React Types**: Upgraded `@types/react` to `^19.2.14` and `@types/react-dom` to `^19.2.3`
+
+### Removed
+
+- **`@headlessui/react` Dependency**: Completely removed from the library
+  - All components previously depending on HeadlessUI have been rewritten with native React
+  - Affected components: Tab, TabSelect, ToggleBar, InputSearcher, CoinListBox
+  - Reduces bundle size and eliminates external UI dependency
+  - All functionality maintained with custom implementations
+
+### Fixed
+
+- **Charts TooltipContentProps**: Fixed TypeScript error with Recharts 3.x by wrapping with `Partial<>`
+- **Charts Focus Ring**: Removed unwanted focus outlines on chart interactions
+  - Disabled `accessibilityLayer` on chart containers
+  - Applied `tabIndex={-1}` and `outline: none` styles
+  - Added CSS `ring-0` and `[&_*]:outline-none` to `ChartContainer`
+- **Scrollbar Native**: Removed unused scrollbar-native component (8 lines)
+- **Image Component**: Fixed infinite fallback loop when both src and fallback fail
+- **PropPlayground**: Minor adjustments for chart component integration
+
+### Documentation
+
+- **Charts Components Page**: New full documentation page with 6 chart sections
+  - Each section includes multiple demo cards with different configurations
+  - CodeBlock usage examples for each chart type
+  - PropPlayground for interactive prop manipulation
+  - AutoPropsTable for auto-generated API reference
+- **New UI Component Sections**: Card, InfoCard, KeyValueRow, Pagination, Stepper, TabModal
+- **Updated Props Registry**: All new components registered with complete prop metadata
+
 ## [2.0.3] - 2026-02-25
 
 ### Added
@@ -448,6 +552,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Version History
 
+- **2.0.4** - Charts system (6 components), new UI components (Card, InfoCard, KeyValueRow, Pagination, Stepper, TabModal), complete removal of @headlessui/react, recharts 3.8.1
 - **2.0.3** - Removed Storybook, new Tooltip component, major theme/component refactoring, migrated from Jest to Vitest, upgraded Nx to 22.5.2
 - **2.0.2** - Responsive navigation menu improvements with dynamic text sizing
 - **2.0.0** - Major release with advanced routing system (Standalone & MFE), enhanced theming (34+ presets, 12-layer architecture), comprehensive documentation improvements, and architectural pattern support
@@ -457,6 +562,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **1.0.0** - Initial release with core form components and UI elements
 
 ## Migration Notes
+
+### Version 2.0.4 Migration
+
+If you're upgrading from version 2.0.3 to 2.0.4:
+
+- **`@headlessui/react` Removed**: This dependency is no longer required. You can remove it from your project if not used elsewhere
+- **Tab/TabSelect**: API remains the same — no breaking changes in props or behavior
+- **ToggleBar**: Same props (`checked`, `onChange`) — internal implementation changed but external API is identical
+- **InputSearcher**: TypeScript interface now explicitly exported as `InputSearcherProps`
+- **Charts**: New module available at `import { BarChart, LineChart, ... } from '@e-burgos/tucu-ui'`
+- **Recharts Peer Dependency**: If using charts, ensure `recharts >= 3.8.1` is installed
+- **React Types**: Updated to `@types/react@^19.2.14` — ensure compatibility with your React version
 
 ### Version 2.0.3 Migration
 
