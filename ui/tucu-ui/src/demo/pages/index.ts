@@ -1,5 +1,6 @@
 export * from './blockchain/BlockchainComponents';
 export * from './components/ComponentsIntroduction';
+export * from './components/ChartsComponents';
 export * from './components/InputsComponents';
 export * from './components/UiComponents';
 export * from './design-system/DesignSystem';

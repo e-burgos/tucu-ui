@@ -197,7 +197,7 @@ const CustomIconsSection: React.FC = () => {
                   {category.icons.map((icon, iconIndex) => (
                     <div
                       key={iconIndex}
-                      className="flex flex-col items-center gap-2 p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors cursor-pointer group relative"
+                      className="flex flex-col items-center gap-2 p-3 rounded-lg hover:bg-gray-100  dark:hover:bg-gray-800 transition-colors cursor-pointer group relative"
                       onClick={() => handleCopyIcon(icon.name)}
                       title={`Click to copy: ${icon.name}`}
                     >

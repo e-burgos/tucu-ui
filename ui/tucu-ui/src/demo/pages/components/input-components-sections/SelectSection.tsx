@@ -7,6 +7,7 @@ import {
   Select,
 } from '../../../../index';
 import { AutoPropsTable } from '../../../components/auto-props-table';
+import { Globe, Zap, Shield, Star } from 'lucide-react';
 
 const SelectSection: React.FC = () => {
   const [selectedOption, setSelectedOption] = useState<
@@ -19,6 +20,36 @@ const SelectSection: React.FC = () => {
     { name: 'Chile', value: 'cl' },
     { name: 'Colombia', value: 'co' },
     { name: 'México', value: 'mx' },
+    { name: 'Perú', value: 'pe' },
+    { name: 'Uruguay', value: 'uy' },
+    { name: 'Venezuela', value: 've' },
+  ];
+
+  const planOptions = [
+    {
+      name: 'Free',
+      value: 'free',
+      description: 'Basic features, 1 user',
+      icon: <Star className="h-4 w-4 text-gray-400" />,
+    },
+    {
+      name: 'Pro',
+      value: 'pro',
+      description: 'Advanced features, 5 users',
+      icon: <Zap className="h-4 w-4 text-brand" />,
+    },
+    {
+      name: 'Enterprise',
+      value: 'enterprise',
+      description: 'Custom features, unlimited',
+      icon: <Shield className="h-4 w-4 text-green-500" />,
+    },
+    {
+      name: 'Legacy',
+      value: 'legacy',
+      description: 'No longer available',
+      disabled: true,
+    },
   ];
 
   return (
@@ -31,7 +62,8 @@ const SelectSection: React.FC = () => {
           tag="p"
           className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
         >
-          A dropdown select component for choosing from a list of options.
+          A dropdown select component with search, descriptions, disabled
+          options, and check indicators.
         </Typography>
       </div>
 
@@ -53,6 +85,30 @@ const SelectSection: React.FC = () => {
               </CardContainer>
               <CardContainer className="p-4">
                 <Typography tag="h5" className="mb-3">
+                  Searchable
+                </Typography>
+                <Select
+                  label="Country"
+                  placeholder="Search and select..."
+                  options={countryOptions}
+                  searchable
+                  searchPlaceholder="Type to filter..."
+                  showCheck
+                />
+              </CardContainer>
+              <CardContainer className="p-4">
+                <Typography tag="h5" className="mb-3">
+                  With Descriptions & Icons
+                </Typography>
+                <Select
+                  label="Plan"
+                  placeholder="Choose a plan"
+                  options={planOptions}
+                  showCheck
+                />
+              </CardContainer>
+              <CardContainer className="p-4">
+                <Typography tag="h5" className="mb-3">
                   With Helper Text
                 </Typography>
                 <Select
@@ -60,9 +116,21 @@ const SelectSection: React.FC = () => {
                   placeholder="Select a language"
                   helperText="Choose your preferred language"
                   options={[
-                    { name: 'English', value: 'en' },
-                    { name: 'Spanish', value: 'es' },
-                    { name: 'French', value: 'fr' },
+                    {
+                      name: 'English',
+                      value: 'en',
+                      icon: <Globe className="h-4 w-4" />,
+                    },
+                    {
+                      name: 'Spanish',
+                      value: 'es',
+                      icon: <Globe className="h-4 w-4" />,
+                    },
+                    {
+                      name: 'French',
+                      value: 'fr',
+                      icon: <Globe className="h-4 w-4" />,
+                    },
                   ]}
                 />
               </CardContainer>
@@ -91,21 +159,6 @@ const SelectSection: React.FC = () => {
                   options={[
                     { name: 'Active', value: 'active' },
                     { name: 'Inactive', value: 'inactive' },
-                  ]}
-                />
-              </CardContainer>
-              <CardContainer className="p-4">
-                <Typography tag="h5" className="mb-3">
-                  Required Field
-                </Typography>
-                <Select
-                  label="Priority"
-                  placeholder="Select priority"
-                  required
-                  options={[
-                    { name: 'Low', value: 'low' },
-                    { name: 'Medium', value: 'medium' },
-                    { name: 'High', value: 'high' },
                   ]}
                 />
               </CardContainer>
@@ -170,6 +223,7 @@ const options = [
   { name: 'Chile', value: 'cl' },
 ];
 
+// Basic
 <Select
   label="Country"
   placeholder="Select a country"
@@ -178,10 +232,28 @@ const options = [
   onChange={setSelectedOption}
 />
 
+// Searchable with check
+<Select
+  label="Country"
+  placeholder="Search..."
+  options={options}
+  searchable
+  searchPlaceholder="Type to filter..."
+  showCheck
+/>
+
+// With descriptions, icons, and disabled options
+const plans = [
+  { name: 'Free', value: 'free', description: 'Basic features' },
+  { name: 'Pro', value: 'pro', description: 'Advanced', icon: <Zap /> },
+  { name: 'Legacy', value: 'legacy', disabled: true },
+];
+<Select label="Plan" options={plans} showCheck />
+
 // Variants
-<Select label="Ghost" variant="ghost" options={options} />
-<Select label="Solid" variant="solid" options={options} />
-<Select label="Transparent" variant="transparent" options={options} />`}
+<Select variant="ghost" options={options} />
+<Select variant="solid" options={options} />
+<Select variant="transparent" options={options} />`}
             />
           </div>
         </CardTitle>

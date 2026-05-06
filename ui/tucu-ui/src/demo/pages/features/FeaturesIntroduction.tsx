@@ -300,7 +300,7 @@ export function FeaturesIntroduction() {
               </Typography>
             </div>
             <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              <div className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+              <div className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-100  dark:hover:bg-gray-800 transition-colors">
                 <div className="flex items-center gap-2 mb-2">
                   <LucideIcons.Palette className="w-5 h-5 text-indigo-500" />
                   <Typography tag="p" className="font-medium">
@@ -314,7 +314,7 @@ export function FeaturesIntroduction() {
                   Consistent theming, colors, and component library
                 </Typography>
               </div>
-              <div className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+              <div className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-100  dark:hover:bg-gray-800 transition-colors">
                 <div className="flex items-center gap-2 mb-2">
                   <LucideIcons.Accessibility className="w-5 h-5 text-blue-500" />
                   <Typography tag="p" className="font-medium">
@@ -328,7 +328,7 @@ export function FeaturesIntroduction() {
                   WCAG compliant components and utilities
                 </Typography>
               </div>
-              <div className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+              <div className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-100  dark:hover:bg-gray-800 transition-colors">
                 <div className="flex items-center gap-2 mb-2">
                   <LucideIcons.Zap className="w-5 h-5 text-yellow-500" />
                   <Typography tag="p" className="font-medium">

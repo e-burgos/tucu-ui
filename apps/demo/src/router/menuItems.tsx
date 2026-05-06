@@ -8,6 +8,7 @@ import {
 // Components
 import {
   BlockchainComponents,
+  ChartsComponents,
   ComponentsIntroduction,
   InputsComponents,
   UiComponents,
@@ -104,6 +105,13 @@ export const APP_PATHS = {
         path: '/components/blockchain',
         icon: <LucideIcons.Coins />,
         component: <BlockchainComponents />,
+        enableNestedRoutes: true,
+      },
+      {
+        name: 'Charts',
+        path: '/components/charts',
+        icon: <LucideIcons.BarChart3 />,
+        component: <ChartsComponents />,
         enableNestedRoutes: true,
       },
       {

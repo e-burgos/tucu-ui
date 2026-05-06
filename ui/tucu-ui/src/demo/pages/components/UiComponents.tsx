@@ -42,6 +42,12 @@ const sections: SectionConfig[] = [
     component: lazy(() => import('./ui-components-sections/AuthorCardSection')),
   },
   {
+    id: 'card',
+    label: 'Card',
+    category: 'Cards',
+    component: lazy(() => import('./ui-components-sections/CardSection')),
+  },
+  {
     id: 'card-container',
     label: 'CardContainer',
     category: 'Cards',
@@ -54,6 +60,12 @@ const sections: SectionConfig[] = [
     label: 'CardTitle',
     category: 'Cards',
     component: lazy(() => import('./ui-components-sections/CardTitleSection')),
+  },
+  {
+    id: 'info-card',
+    label: 'InfoCard',
+    category: 'Cards',
+    component: lazy(() => import('./ui-components-sections/InfoCardSection')),
   },
   {
     id: 'panel-action-card',
@@ -129,12 +141,38 @@ const sections: SectionConfig[] = [
     category: 'Common',
     component: lazy(() => import('./ui-components-sections/TooltipSection')),
   },
+  {
+    id: 'key-value-row',
+    label: 'KeyValueRow',
+    category: 'Common',
+    component: lazy(
+      () => import('./ui-components-sections/KeyValueRowSection')
+    ),
+  },
+  {
+    id: 'pagination',
+    label: 'Pagination',
+    category: 'Common',
+    component: lazy(() => import('./ui-components-sections/PaginationSection')),
+  },
+  {
+    id: 'stepper',
+    label: 'Stepper',
+    category: 'Common',
+    component: lazy(() => import('./ui-components-sections/StepperSection')),
+  },
   // Dialog
   {
     id: 'modal',
     label: 'Modal',
     category: 'Dialog',
     component: lazy(() => import('./ui-components-sections/ModalSection')),
+  },
+  {
+    id: 'tab-modal',
+    label: 'TabModal',
+    category: 'Dialog',
+    component: lazy(() => import('./ui-components-sections/TabModalSection')),
   },
   {
     id: 'drawer',

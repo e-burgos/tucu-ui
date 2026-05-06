@@ -84,7 +84,12 @@ const DrawerSection: React.FC = () => {
       </CardContainer>
       <PropPlayground
         componentName="Drawer"
-        defaultValues={{ isOpen: true, position: 'left', backdrop: true }}
+        defaultValues={{
+          isOpen: isOpen,
+          setIsOpen: setIsOpen,
+          position: 'left',
+          backdrop: true,
+        }}
         excludeProps={[
           'setIsOpen',
           'onClose',
@@ -98,7 +103,12 @@ const DrawerSection: React.FC = () => {
           <div
             style={{ position: 'relative', height: 300, overflow: 'hidden' }}
           >
-            <Drawer {...props} setIsOpen={() => {}} title="Drawer Preview">
+            <Drawer
+              {...props}
+              setIsOpen={setIsOpen}
+              isOpen={isOpen}
+              title="Drawer Preview"
+            >
               <p className="text-sm p-4">Drawer content</p>
             </Drawer>
           </div>

@@ -131,7 +131,7 @@ const SectionsGrid: React.FC<SectionsGridProps> = ({
               <CardContainer key={item.id}>
                 <button
                   onClick={() => onSectionClick(item.id)}
-                  className="w-full p-4 text-left transition-colors hover:bg-gray-50 dark:hover:bg-gray-800/50 rounded-lg group"
+                  className="w-full p-4 text-left transition-colors hover:bg-gray-100 dark:hover:bg-gray-800/50 rounded-lg group"
                 >
                   <div className="flex items-center gap-2">
                     <LucideIcons.ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-brand transition-colors" />
