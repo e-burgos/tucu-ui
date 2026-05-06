@@ -26,7 +26,7 @@ export function Scrollbar({
   const verticalThumbRef = useRef<HTMLDivElement>(null);
   const horizontalThumbRef = useRef<HTMLDivElement>(null);
 
-  const [isScrolling, setIsScrolling] = useState(false);
+  const [, setIsScrolling] = useState(false);
   const [showScrollbar, setShowScrollbar] = useState(autoHide === 'never');
   const [isDragging, setIsDragging] = useState(false);
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
@@ -36,7 +36,7 @@ export function Scrollbar({
   const [isTouchDragging, setIsTouchDragging] = useState(false);
   const [lastTouch, setLastTouch] = useState({ x: 0, y: 0 });
 
-  const scrollTimeout = useRef<NodeJS.Timeout>();
+  const scrollTimeout = useRef<NodeJS.Timeout | null>(null);
 
   const updateScrollbars = useCallback(() => {
     if (!containerRef.current || !contentRef.current) return;
@@ -93,7 +93,7 @@ export function Scrollbar({
 
     if (autoHide === 'scroll') {
       setShowScrollbar(true);
-      clearTimeout(scrollTimeout.current);
+      if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
       scrollTimeout.current = setTimeout(() => {
         setIsScrolling(false);
         if (!isDragging && !isTouchDragging) {
@@ -252,7 +252,7 @@ export function Scrollbar({
       document.removeEventListener('mouseup', handleMouseUp);
       document.removeEventListener('touchmove', handleTouchMove);
       document.removeEventListener('touchend', handleTouchEnd);
-      clearTimeout(scrollTimeout.current);
+      if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
     };
   }, [
     handleScroll,
@@ -267,61 +267,44 @@ export function Scrollbar({
 
   return (
     <div
-      className={cn('relative overflow-hidden', className)}
-      style={style}
+      className={cn('relative', className)}
+      style={{ overflow: 'hidden', ...style }}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
       <div
         ref={containerRef}
         className={cn(
-          'h-full w-full overflow-auto scrollbar-hide',
-          'transition-all duration-200',
-          // Mobile-specific classes
-          'mobile-scrollbar',
+          'h-full max-h-[inherit] w-full overflow-auto scrollbar-hide',
           'touch-pan-xy'
         )}
         onTouchStart={handleTouchStart}
         style={{
-          // Enable momentum scrolling on iOS
           WebkitOverflowScrolling: 'touch',
-          // Prevent default touch behaviors that might interfere
           touchAction: 'pan-y pan-x',
         }}
       >
-        <div
-          ref={contentRef}
-          className="min-h-full min-w-full text-sm overflow-x-auto whitespace-pre-wrap"
-        >
-          {children}
-        </div>
+        <div ref={contentRef}>{children}</div>
       </div>
 
       {/* Vertical Scrollbar */}
       {(direction === 'vertical' || direction === 'both') && (
         <div
           className={cn(
-            'absolute right-0 top-0 w-2 h-full transition-opacity duration-200 z-10',
+            'absolute right-0.5 top-0.5 bottom-0.5 w-1.5 transition-opacity duration-300 z-10 rounded-full',
             scrollbarVisible ? 'opacity-100' : 'opacity-0'
           )}
         >
           <div
-            className={cn(
-              'absolute right-0 top-0 w-full rounded-sm transition-all duration-200',
-              'bg-gray-200 dark:bg-gray-800'
-            )}
-            style={{ height: '100%', ...scrollbarStyle?.track }}
+            className="absolute right-0 top-0 w-full h-full rounded-full"
+            style={{ ...scrollbarStyle?.track }}
           />
           <div
             ref={verticalThumbRef}
             className={cn(
-              'absolute right-0 top-0 w-full rounded-sm cursor-pointer transition-all duration-200',
-              'bg-brand/50 hover:bg-brand dark:hover:bg-brand',
-              isDragging || isTouchDragging ? 'bg-brand/50' : '',
-              isScrolling ? 'bg-brand/50' : '',
-              // Mobile-specific classes
-              'mobile-touch-target',
-              'mobile-active'
+              'absolute right-0 top-0 w-full rounded-full cursor-pointer transition-colors duration-200',
+              'bg-gray-300 hover:bg-gray-400 dark:bg-gray-600 dark:hover:bg-gray-500',
+              (isDragging || isTouchDragging) && 'bg-gray-400 dark:bg-gray-500'
             )}
             style={scrollbarStyle?.thumb}
             onMouseDown={handleMouseDown}
@@ -334,27 +317,20 @@ export function Scrollbar({
       {(direction === 'horizontal' || direction === 'both') && (
         <div
           className={cn(
-            'absolute bottom-0 left-0 h-2 w-full transition-opacity duration-200 z-10',
+            'absolute bottom-0.5 left-0.5 right-0.5 h-1.5 transition-opacity duration-300 z-10 rounded-full',
             scrollbarVisible ? 'opacity-100' : 'opacity-0'
           )}
         >
           <div
-            className={cn(
-              'absolute bottom-0 left-0 h-full rounded-sm transition-all duration-200',
-              'bg-gray-200 dark:bg-gray-800'
-            )}
-            style={{ width: '100%', ...scrollbarStyle?.track }}
+            className="absolute bottom-0 left-0 h-full w-full rounded-full"
+            style={{ ...scrollbarStyle?.track }}
           />
           <div
             ref={horizontalThumbRef}
             className={cn(
-              'absolute bottom-0 left-0 h-full rounded-sm cursor-pointer transition-all duration-200',
-              'bg-brand/50 hover:bg-brand dark:hover:bg-brand',
-              isDragging || isTouchDragging ? 'bg-brand/50' : '',
-              isScrolling ? 'bg-brand/50' : '',
-              // Mobile-specific classes
-              'mobile-touch-target',
-              'mobile-active'
+              'absolute bottom-0 left-0 h-full rounded-full cursor-pointer transition-colors duration-200',
+              'bg-gray-300 hover:bg-gray-400 dark:bg-gray-600 dark:hover:bg-gray-500',
+              (isDragging || isTouchDragging) && 'bg-gray-400 dark:bg-gray-500'
             )}
             style={scrollbarStyle?.thumb}
             onMouseDown={handleMouseDown}

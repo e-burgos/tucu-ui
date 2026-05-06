@@ -219,7 +219,7 @@ export function FileInput(
     >
       <div
         className={cn(
-          'hover:bg-gray-50 dark:hover:bg-gray-900/50 border border-dashed dark:hover:border-brand hover:border-brand transition-all duration-300 relative border-gray-200 dark:border-gray-700 h-48 flex items-center justify-center rounded-lg',
+          'hover:bg-gray-100  dark:hover:bg-gray-900/50 border border-dashed dark:hover:border-brand hover:border-brand transition-all duration-300 relative border-gray-200 dark:border-gray-700 h-48 flex items-center justify-center rounded-lg',
           containerClassName
         )}
         {...containerProps}

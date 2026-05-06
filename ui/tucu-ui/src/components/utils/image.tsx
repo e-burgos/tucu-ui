@@ -53,7 +53,15 @@ export const Image: React.FC<ImageProps> = ({
     setCurrentSrc(src);
     setHasError(false);
     setIsLoading(true);
-  }, [src]);
+
+    // Check if the image is already cached/complete after state reset
+    requestAnimationFrame(() => {
+      if (imgRef.current?.complete && imgRef.current.naturalWidth > 0) {
+        setIsLoading(false);
+        onLoad?.();
+      }
+    });
+  }, [src]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleLoad = () => {
     setIsLoading(false);
@@ -61,25 +69,47 @@ export const Image: React.FC<ImageProps> = ({
   };
 
   const handleError = () => {
+    if (currentSrc === fallbackSrc) {
+      // Avoid infinite loop if fallback also fails
+      setHasError(true);
+      setIsLoading(false);
+      onError?.();
+      return;
+    }
     setHasError(true);
     setIsLoading(false);
     setCurrentSrc(fallbackSrc);
     onError?.();
   };
 
+  // Normalize dimension values: numeric strings → number (React auto-appends "px")
+  const normalizeDimension = (
+    val: string | number | undefined
+  ): string | number | undefined => {
+    if (val === undefined || val === '') return undefined;
+    if (typeof val === 'number') return val;
+    // Pure numeric string → convert to number so React adds "px"
+    const num = Number(val);
+    if (!isNaN(num)) return num;
+    // Already has units (e.g. "100%", "50vh", "auto") → keep as-is
+    return val;
+  };
+
+  const normalizedWidth = normalizeDimension(width);
+  const normalizedHeight = normalizeDimension(height);
+
   const containerStyles: React.CSSProperties = {
-    position: fill ? 'relative' : undefined,
-    width: fill ? '100%' : width,
-    // When aspectRatio is defined, let CSS handle height automatically
-    height: aspectRatio ? undefined : fill ? '100%' : height,
+    position: 'relative',
+    width: fill ? '100%' : normalizedWidth,
+    height: aspectRatio ? undefined : fill ? '100%' : normalizedHeight,
     aspectRatio: aspectRatio,
     overflow: 'hidden',
   };
 
   const imageStyles: React.CSSProperties = {
     objectFit,
-    width: fill ? '100%' : width,
-    height: fill ? '100%' : height,
+    width: fill ? '100%' : '100%',
+    height: fill ? '100%' : '100%',
     display: 'block',
     transition: 'opacity 0.3s ease-in-out, filter 0.3s ease-in-out',
     opacity: isLoading ? 0 : 1,
@@ -98,26 +128,15 @@ export const Image: React.FC<ImageProps> = ({
     opacity: isLoading && placeholder === 'blur' ? 1 : 0,
   };
 
-  // Always use wrapper for consistent layout and error/loading states
-  const needsWrapper =
-    fill || aspectRatio || placeholder === 'blur' || isLoading || hasError;
-  const WrapperComponent = needsWrapper ? 'div' : React.Fragment;
-  const wrapperProps =
-    WrapperComponent === 'div'
-      ? {
-          className: cn(
-            'relative inline-block overflow-hidden',
-            {
-              'bg-gray-200 dark:bg-gray-800': isLoading || hasError,
-            },
-            containerClassName
-          ),
-          style: containerStyles,
-        }
-      : {};
-
   return (
-    <WrapperComponent {...wrapperProps}>
+    <div
+      className={cn(
+        'relative inline-block overflow-hidden',
+        { 'bg-gray-200 dark:bg-gray-800': isLoading || hasError },
+        containerClassName
+      )}
+      style={containerStyles}
+    >
       {placeholder === 'blur' && blurDataURL && isLoading && (
         <img
           src={blurDataURL}
@@ -139,8 +158,6 @@ export const Image: React.FC<ImageProps> = ({
         ref={imgRef}
         src={currentSrc}
         alt={alt}
-        width={!fill ? width : undefined}
-        height={!fill ? height : undefined}
         loading={loading}
         fetchPriority={priority}
         onLoad={handleLoad}
@@ -189,7 +206,7 @@ export const Image: React.FC<ImageProps> = ({
           <span className="text-xs">Failed to load image</span>
         </div>
       )}
-    </WrapperComponent>
+    </div>
   );
 };
 

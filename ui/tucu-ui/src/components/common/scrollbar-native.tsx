@@ -32,14 +32,6 @@ export function ScrollbarNative({
       className={className}
       autoHide={finalAutoHide}
       direction="vertical"
-      scrollbarStyle={{
-        track: {
-          backgroundColor: 'transparent',
-        },
-        thumb: {
-          backgroundColor: 'transparent',
-        },
-      }}
       {...props}
     >
       {children}
