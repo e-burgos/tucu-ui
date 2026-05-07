@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   MfeAppThemeProvider,
   MfeAppThemeProviderProps,
@@ -59,13 +60,13 @@ type ThemeProviderProps =
 // Function overload for Standalone App Pattern
 export function ThemeProvider(
   props: StandaloneAppThemeProviderProps
-): JSX.Element;
+): React.JSX.Element;
 
 // Function overload for MFE Pattern
-export function ThemeProvider(props: MfeThemeProviderProps): JSX.Element;
+export function ThemeProvider(props: MfeThemeProviderProps): React.JSX.Element;
 
 // Implementation signature
-export function ThemeProvider(props: ThemeProviderProps): JSX.Element {
+export function ThemeProvider(props: ThemeProviderProps): React.JSX.Element {
   const architecturalPatterns = props.architecturalPatterns ?? 'standalone';
 
   if (architecturalPatterns === 'standalone') {

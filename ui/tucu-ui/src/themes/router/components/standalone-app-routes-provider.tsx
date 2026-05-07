@@ -9,11 +9,11 @@ import { AuthProvider } from '../..';
 type StandaloneAppRouteType = {
   key: string;
   path: string;
-  element: JSX.Element;
+  element: React.JSX.Element;
 };
 
 interface StandaloneAppRoutesMenuItem extends Omit<IMenuItem, 'dropdownItems'> {
-  component: JSX.Element;
+  component: React.JSX.Element;
   isPublic?: boolean;
   /** When true, appends /* to the route path so the page can handle internal sub-routes */
   enableNestedRoutes?: boolean;
