@@ -51,7 +51,7 @@ export interface FileInputProps
  * You can use props like `disabled`, `multiple`, `capture` etc.
  */
 
-export function FileInput(
+function FileInput(
   {
     accept,
     children,
@@ -307,3 +307,4 @@ export function FileInput(
 const FileInputWithRef = forwardRef(FileInput);
 FileInputWithRef.displayName = 'FileInput';
 export default FileInputWithRef;
+export { FileInputWithRef as FileInput };

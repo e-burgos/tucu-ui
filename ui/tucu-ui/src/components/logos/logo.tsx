@@ -55,7 +55,7 @@ export function Logo({
       <span className={cn('relative flex w-full', className)}>
         <div
           className={cn(
-            logo && 'gap-1',
+            !!logo && 'gap-1',
             'flex items-center flex-nowrap overflow-hidden truncate'
           )}
         >

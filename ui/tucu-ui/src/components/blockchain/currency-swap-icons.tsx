@@ -1,3 +1,4 @@
+import React from 'react';
 import { Bitcoin } from '../icons/bitcoin';
 import { Ethereum } from '../icons/ethereum';
 import { Tether } from '../icons/tether';
@@ -8,7 +9,7 @@ import { Doge } from '../icons/doge';
 
 export type CoinList = 'BTC' | 'ETH' | 'USDT' | 'BNB' | 'USDC' | 'ADA' | 'DOGE';
 
-const coinIcons: Record<CoinList, JSX.Element> = {
+const coinIcons: Record<CoinList, React.JSX.Element> = {
   BTC: <Bitcoin />,
   ETH: <Ethereum />,
   USDT: <Tether />,

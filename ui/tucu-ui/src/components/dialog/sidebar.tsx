@@ -23,7 +23,7 @@ export function Sidebar({
   return (
     <aside
       className={cn(
-        'top-0 z-40 h-full w-full max-w-full border-dashed border-gray-200 dark:border-gray-700 bg-light-dark xs:w-80 lg:w-96 xl:w-96 2xl:w-96',
+        'top-0 z-40 h-full w-full max-w-full border-dashed border-gray-200 dark:border-gray-700 bg-light-dark min-[500px]:w-80 lg:w-96 xl:w-96 2xl:w-96',
         className
       )}
     >

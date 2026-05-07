@@ -43,14 +43,12 @@ export function Header({
   return (
     <nav
       className={cn(
-        'sticky top-0 z-30 h-[72px] w-full backdrop-blur-sm transition-shadow duration-300 ltr:right-0 rtl:left-0 sm:h-[80px] 3xl:h-[96px]',
-        ((isMounted && windowScroll.y) as number) > 2
-          ? 'shadow-card '
-          : '',
+        'sticky top-0 z-30 h-[72px] w-full backdrop-blur-sm transition-shadow duration-300 ltr:right-0 rtl:left-0 sm:h-[80px] min-[1780px]:h-[96px]',
+        ((isMounted && windowScroll.y) as number) > 2 ? 'shadow-card ' : '',
         className
       )}
     >
-      <div className="flex h-full items-center justify-between px-[16px] sm:px-[24px] lg:px-[32px] 3xl:px-[40px]">
+      <div className="flex h-full items-center justify-between px-[16px] sm:px-[24px] lg:px-[32px] min-[1780px]:px-[40px]">
         <div className="flex items-center">
           <div
             onClick={() => (logo?.path ? handleNavigation(logo.path) : null)}

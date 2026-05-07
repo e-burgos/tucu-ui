@@ -83,7 +83,7 @@ export function ScrollToTop({
     const candidates = document.querySelectorAll(
       '[class*="overflow-auto"], [class*="overflow-y-auto"], [class*="overflow-scroll"]'
     );
-    for (const el of candidates) {
+    for (const el of Array.from(candidates)) {
       const htmlEl = el as HTMLElement;
       // A valid scroll container has scrollable content (scrollHeight > clientHeight)
       if (htmlEl.scrollHeight > htmlEl.clientHeight + 50) {

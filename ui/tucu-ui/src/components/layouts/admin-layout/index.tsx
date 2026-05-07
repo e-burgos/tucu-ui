@@ -63,7 +63,7 @@ export function AdminLayout({
         className={cn(
           fullWidth
             ? 'min-h-full w-full h-full px-[0px]'
-            : 'min-h-full px-[16px] pb-[96px] pt-[16px] sm:px-[24px] sm:pb-[96px] lg:px-[32px] xl:pb-[96px] xl:pt-[20px] 3xl:px-[40px]',
+            : 'min-h-full px-[16px] pb-[96px] pt-[16px] sm:px-[24px] sm:pb-[96px] lg:px-[32px] xl:pb-[96px] xl:pt-[20px] min-[1780px]:px-[40px]',
           contentClassName
         )}
       >

@@ -403,7 +403,7 @@ export function InputSearcher({
           isClosing ? 'opacity-0' : 'opacity-100'
         )}
       >
-        <div className="max-h-56 overflow-auto grid gap-0.5 p-1 xs:p-2">
+        <div className="max-h-56 overflow-auto grid gap-0.5 p-1 min-[500px]:p-2">
           {filteredOptions.map((option, index) => {
             const isSelected = isOptionSelected(option);
             const isHighlighted = index === highlightedIndex;
