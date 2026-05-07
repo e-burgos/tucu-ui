@@ -389,13 +389,13 @@ export const TableOfContents: React.FC<TableOfContentsProps> = ({
               </Typography>
               <Button
                 variant="ghost"
-                size="tiny"
+                size="mini"
                 shape="circle"
-                className="w-4 h-4"
+                className="!p-0.5 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
                 onClick={() => setIsSidebarOpen(false)}
                 aria-label="Close table of contents"
               >
-                <LucideIcons.X className="w-3 h-3" />
+                <LucideIcons.X className="w-3.5 h-3.5" />
               </Button>
             </div>
             <Scrollbar
@@ -433,13 +433,13 @@ export const TableOfContents: React.FC<TableOfContentsProps> = ({
             </Typography>
             <Button
               variant="ghost"
-              size="tiny"
+              size="mini"
               shape="circle"
-              className="w-4 h-4"
+              className="!p-0.5 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
               onClick={() => setIsSidebarOpen(false)}
               aria-label="Close table of contents"
             >
-              <LucideIcons.X className="w-3 h-3" />
+              <LucideIcons.X className="w-3.5 h-3.5" />
             </Button>
           </div>
 

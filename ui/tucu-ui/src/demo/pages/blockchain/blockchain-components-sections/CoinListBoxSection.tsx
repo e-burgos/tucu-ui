@@ -7,12 +7,13 @@ import {
   Bitcoin,
 } from '../../../../index';
 import CoinListBox from '../../../../components/blockchain/coin-listbox';
+import { CoinTypes } from '../../../../components/blockchain/coin-listbox';
 import { Ethereum } from '../../../../components/icons/ethereum';
 import { Tether } from '../../../../components/icons/tether';
 import { AutoPropsTable } from '../../../components/auto-props-table';
 
 const CoinListBoxSection: React.FC = () => {
-  const [selectedCoin, setSelectedCoin] = useState({
+  const [selectedCoin, setSelectedCoin] = useState<CoinTypes>({
     icon: <Bitcoin className="w-6 h-6" />,
     code: 'BTC',
     name: 'Bitcoin',

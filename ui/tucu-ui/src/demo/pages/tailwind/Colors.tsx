@@ -718,7 +718,7 @@ export function Colors() {
         <div className="bg-blue-500/10 bg-blue-500/20 bg-blue-500/30 bg-blue-500/40 bg-blue-500/50 bg-blue-500/60 bg-blue-500/70 bg-blue-500/80 bg-blue-500/90 bg-blue-500/100"></div>
         {/* Color Palettes: Neutrals - slate, gray, zinc, neutral, stone */}
         <div className="bg-slate-50 bg-slate-100 bg-slate-200 bg-slate-300 bg-slate-400 bg-slate-500 bg-slate-600 bg-slate-700 bg-slate-800 bg-slate-900 bg-slate-950"></div>
-        <div className="bg-gray-50 bg-gray-100 bg-gray-200 bg-gray-300 bg-gray-400 bg-gray-500 bg-gray-600 bg-gray-700 bg-gray-800 bg-gray-900 bg-gray-950"></div>
+        <div className="bg-gray-100 bg-gray-100 bg-gray-200 bg-gray-300 bg-gray-400 bg-gray-500 bg-gray-600 bg-gray-700 bg-gray-800 bg-gray-900 bg-gray-950"></div>
         <div className="bg-zinc-50 bg-zinc-100 bg-zinc-200 bg-zinc-300 bg-zinc-400 bg-zinc-500 bg-zinc-600 bg-zinc-700 bg-zinc-800 bg-zinc-900 bg-zinc-950"></div>
         <div className="bg-neutral-50 bg-neutral-100 bg-neutral-200 bg-neutral-300 bg-neutral-400 bg-neutral-500 bg-neutral-600 bg-neutral-700 bg-neutral-800 bg-neutral-900 bg-neutral-950"></div>
         <div className="bg-stone-50 bg-stone-100 bg-stone-200 bg-stone-300 bg-stone-400 bg-stone-500 bg-stone-600 bg-stone-700 bg-stone-800 bg-stone-900 bg-stone-950"></div>
