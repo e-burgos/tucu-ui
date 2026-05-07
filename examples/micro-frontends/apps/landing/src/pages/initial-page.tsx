@@ -186,7 +186,7 @@ const InitialPage = () => {
       </section>
 
       {/* Architecture Overview Section */}
-      <section className="py-20 lg:py-24 bg-gray-50 bg-light-dark">
+      <section className="py-20 lg:py-24 bg-gray-100 bg-light-dark">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <Typography

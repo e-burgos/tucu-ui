@@ -25,18 +25,10 @@
    THEME CONFIGURATION (CSS Variables)
    =================================================================== */
 @theme {
-  /* Screens/Breakpoints */
-  --breakpoint-xs: 500px;
-  --breakpoint-sm: 640px;
-  --breakpoint-md: 768px;
-  --breakpoint-lg: 1024px;
-  --breakpoint-xl: 1280px;
-  --breakpoint-2xl: 1440px;
-  --breakpoint-3xl: 1780px;
-  --breakpoint-4xl: 1920px;
-  --breakpoint-5xl: 2160px;
-  --breakpoint-6xl: 2560px;
-  --breakpoint-4k: 3840px;
+  /* Screens/Breakpoints — removed custom definitions to avoid conflicts
+     with consumer's Tailwind config. Standard breakpoints (sm, md, lg, xl, 2xl)
+     come from Tailwind defaults. Custom breakpoints use arbitrary values
+     directly in components: min-[500px]: (xs), min-[1780px]: (3xl) */
 
   /* ===================================================================
      Tucu UI Design Tokens - Core Colors Spectrum (Light)
@@ -86,20 +78,20 @@
   --color-tucu-ui-orange-90: #641a00;
   --color-tucu-ui-orange-100: #330d00;
 
-  /* Gray Spectrum */
+  /* Gray Spectrum — aligned to Tailwind v4 default gray palette */
   --color-tucu-ui-gray-0: #ffffff;
-  --color-tucu-ui-gray-5: #f7f8f9;
-  --color-tucu-ui-gray-10: #eef0f3;
-  --color-tucu-ui-gray-15: #dee1e7;
-  --color-tucu-ui-gray-20: #ced2db;
-  --color-tucu-ui-gray-30: #b1b7c3;
-  --color-tucu-ui-gray-40: #89909e;
-  --color-tucu-ui-gray-50: #717886;
-  --color-tucu-ui-gray-60: #5b616e;
-  --color-tucu-ui-gray-70: #464b55;
-  --color-tucu-ui-gray-80: #32353d;
-  --color-tucu-ui-gray-90: #1e2025;
-  --color-tucu-ui-gray-100: #0a0b0d;
+  --color-tucu-ui-gray-5: #f9fafb;
+  --color-tucu-ui-gray-10: #f3f4f6;
+  --color-tucu-ui-gray-15: #e5e7eb;
+  --color-tucu-ui-gray-20: #d1d5dc;
+  --color-tucu-ui-gray-30: #99a1af;
+  --color-tucu-ui-gray-40: #828a99;
+  --color-tucu-ui-gray-50: #6a7282;
+  --color-tucu-ui-gray-60: #4a5565;
+  --color-tucu-ui-gray-70: #364153;
+  --color-tucu-ui-gray-80: #1e2939;
+  --color-tucu-ui-gray-90: #101828;
+  --color-tucu-ui-gray-100: #030712;
 
   /* Indigo Spectrum */
   --color-tucu-ui-indigo-0: #f6f7ff;
@@ -254,19 +246,19 @@
   --color-tucu-ui-dark-orange-90: #fedbb9;
   --color-tucu-ui-dark-orange-100: #fffaf5;
 
-  /* Gray Spectrum Dark */
-  --color-tucu-ui-dark-gray-0: #0a0b0d;
-  --color-tucu-ui-dark-gray-5: #141519;
-  --color-tucu-ui-dark-gray-10: #1e2025;
-  --color-tucu-ui-dark-gray-15: #282b31;
-  --color-tucu-ui-dark-gray-20: #32353d;
-  --color-tucu-ui-dark-gray-30: #464b55;
-  --color-tucu-ui-dark-gray-40: #5b616e;
-  --color-tucu-ui-dark-gray-50: #727886;
-  --color-tucu-ui-dark-gray-60: #8a919e;
-  --color-tucu-ui-dark-gray-70: #a5aab6;
-  --color-tucu-ui-dark-gray-80: #c1c6cf;
-  --color-tucu-ui-dark-gray-90: #e0e2e7;
+  /* Gray Spectrum Dark — reversed from Tailwind v4 default gray palette */
+  --color-tucu-ui-dark-gray-0: #030712;
+  --color-tucu-ui-dark-gray-5: #0a101d;
+  --color-tucu-ui-dark-gray-10: #101828;
+  --color-tucu-ui-dark-gray-15: #172131;
+  --color-tucu-ui-dark-gray-20: #1e2939;
+  --color-tucu-ui-dark-gray-30: #364153;
+  --color-tucu-ui-dark-gray-40: #4a5565;
+  --color-tucu-ui-dark-gray-50: #6a7282;
+  --color-tucu-ui-dark-gray-60: #828a99;
+  --color-tucu-ui-dark-gray-70: #99a1af;
+  --color-tucu-ui-dark-gray-80: #d1d5dc;
+  --color-tucu-ui-dark-gray-90: #e5e7eb;
   --color-tucu-ui-dark-gray-100: #ffffff;
 
   /* Indigo Spectrum Dark */
@@ -807,48 +799,19 @@
   --color-white: #ffffff;
 
   /* ===================================================================
-      Tailwind Spacing Scale - Mapped to Tucu UI Design Tokens
+      Tailwind Spacing Scale
      =================================================================== */
 
-  /* Default Tailwind Spacing Scale */
-  /* Tailwind spacing scale: each unit = 0.25rem (4px) */
-  /* Reference: https://tailwindcss.com/docs/customizing-spacing */
-  --spacing-0: 0px; /* Tailwind: 0 */
-  --spacing-1: 4px; /* Tailwind: 1 */
-  --spacing-2: 8px; /* Tailwind: 2 */
-  --spacing-3: 12px; /* Tailwind: 3 */
-  --spacing-4: 16px; /* Tailwind: 4 */
-  --spacing-5: 20px; /* Tailwind: 5 */
-  --spacing-6: 24px; /* Tailwind: 6 */
-  --spacing-7: 28px; /* Tailwind: 7 */
-  --spacing-8: 32px; /* Tailwind: 8 */
-  --spacing-9: 36px; /* Tailwind: 9 */
-  --spacing-10: 40px; /* Tailwind: 10 */
-  --spacing-11: 44px; /* Tailwind: 11 */
-  --spacing-12: 48px; /* Tailwind: 12 */
-  --spacing-13: 52px; /* Tailwind: 13 */
-  --spacing-14: 56px; /* Tailwind: 14 */
-  --spacing-15: 60px; /* Tailwind: 15 */
-  --spacing-16: 64px; /* Tailwind: 16 */
-  --spacing-17: 68px; /* Tailwind: 17 */
-  --spacing-18: 72px; /* Tailwind: 18 */
-  --spacing-19: 76px; /* Tailwind: 19 */
-  --spacing-20: 80px; /* Tailwind: 20 */
+  /* Dynamic multiplier: enables full Tailwind scale (0, 0.5, 1, 1.5, …, 96) */
+  /* Each unit = 0.25rem (4px). E.g. p-4 = 16px, p-24 = 96px, gap-0.5 = 2px */
+  --spacing: 0.25rem;
 
   /* ===================================================================
-     Tailwind Border Radius Scale - Mapped to Tucu UI Design Tokens
+     Tailwind Border Radius Scale
      =================================================================== */
-  --radius-0: 0px;
-  --radius-100: 4px;
-  --radius-200: 8px;
-  --radius-300: 12px;
-  --radius-400: 16px;
-  --radius-500: 24px;
-  --radius-600: 32px;
-  --radius-700: 40px;
-  --radius-800: 48px;
-  --radius-900: 56px;
-  --radius-1000: 100000px;
+  /* Removed custom --radius-N tokens to preserve Tailwind defaults
+     (rounded-sm, rounded-md, rounded-lg, rounded-xl, rounded-2xl, rounded-full).
+     Design token radius values are documented in the demo using arbitrary values. */
 
   /* ===================================================================
      Tucu UI Design Tokens - Sizing (Raw Variables)
@@ -921,7 +884,9 @@
   /* ===================================================================
      Typography
      =================================================================== */
-  --font-family-sans: Roboto, monospace;
+  --font-family-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont,
+    'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
+    'Droid Sans', 'Helvetica Neue', sans-serif;
   --font-family-mono: SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   --font-sans: var(--font-family-sans);
   --font-mono: var(--font-family-mono);
@@ -1087,10 +1052,13 @@
   }
 
   /* Base Styles - Light Mode (default) */
-  html {
-    @apply font-sans antialiased;
+  html:root {
+    @apply antialiased;
     @apply bg-light;
     -webkit-tap-highlight-color: transparent;
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont,
+      'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
+      'Droid Sans', 'Helvetica Neue', sans-serif;
     color: var(--font-primary-color);
 
     --color-brand: var(--color-semantic-bg-primary);

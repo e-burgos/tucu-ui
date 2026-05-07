@@ -408,7 +408,7 @@ export function Select({
           </div>
         )}
         {/* Options list */}
-        <div className="max-h-44 overflow-auto grid gap-0.5 p-1 xs:p-2">
+        <div className="max-h-44 overflow-auto grid gap-0.5 p-1 min-[500px]:p-2">
           {filteredOptions.length === 0 ? (
             <div className="px-3 py-3 text-center text-sm text-gray-500 dark:text-gray-400">
               No results

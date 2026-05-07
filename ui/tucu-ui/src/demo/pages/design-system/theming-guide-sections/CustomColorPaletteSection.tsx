@@ -1,5 +1,11 @@
 import React from 'react';
-import { CardContainer, CardTitle, Typography, Alert, CodeBlock } from '../../../../index';
+import {
+  CardContainer,
+  CardTitle,
+  Typography,
+  Alert,
+  CodeBlock,
+} from '../../../../index';
 
 const CustomColorPaletteSection: React.FC = () => {
   return (
@@ -21,16 +27,16 @@ const CustomColorPaletteSection: React.FC = () => {
   customPaletteColor={{
     primary: '#0052ff',           // Hex color or preset name
     darkPrimary: '#578bfa',
-    secondary: '#eef0f3',
-    darkSecondary: '#282b31',
+    secondary: '#f3f4f6',
+    darkSecondary: '#172131',
     accent: '#f7d21a',
     darkAccent: '#936000',
-    muted: '#5b616e',
-    darkMuted: '#8a919e',
-    darkBg: '#0a0b0d',
+    muted: '#4a5565',
+    darkMuted: '#828a99',
+    darkBg: '#030712',
     lightBg: '#ffffff',
-    lightDark: '#f7f8f9',
-    darkLightDark: '#141519',
+    lightDark: '#f9fafb',
+    darkLightDark: '#0a101d',
   }}
 >
   {/* Your app */}
@@ -58,4 +64,3 @@ const CustomColorPaletteSection: React.FC = () => {
 };
 
 export default CustomColorPaletteSection;
-

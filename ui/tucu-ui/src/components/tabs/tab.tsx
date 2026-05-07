@@ -298,7 +298,7 @@ const mobileVariantOption: Record<
   underline: {
     selected:
       'bg-gray-100 dark:bg-gray-700 font-medium border-l-2 border-brand',
-    highlighted: 'bg-gray-50 dark:bg-gray-700/50',
+    highlighted: 'bg-gray-100 dark:bg-gray-700/50',
   },
   pills: {
     selected: 'bg-brand text-white font-medium rounded-full',

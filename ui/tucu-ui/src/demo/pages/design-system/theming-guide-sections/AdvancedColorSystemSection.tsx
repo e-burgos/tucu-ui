@@ -1,5 +1,10 @@
 import React from 'react';
-import { CardContainer, CardTitle, Typography, CodeBlock } from '../../../../index';
+import {
+  CardContainer,
+  CardTitle,
+  Typography,
+  CodeBlock,
+} from '../../../../index';
 
 const AdvancedColorSystemSection: React.FC = () => {
   return (
@@ -23,10 +28,7 @@ const AdvancedColorSystemSection: React.FC = () => {
         <CardContainer>
           <CardTitle title="Color Layers" className="mt-2 mb-6">
             <div className="space-y-4">
-              <Typography
-                tag="p"
-                className="text-gray-600 dark:text-gray-400"
-              >
+              <Typography tag="p" className="text-gray-600 dark:text-gray-400">
                 The theming system supports multiple color layers for
                 comprehensive theming:
               </Typography>
@@ -49,13 +51,13 @@ const AdvancedColorSystemSection: React.FC = () => {
                     layer: 'Secondary',
                     description: 'Supporting color for accents',
                     variable: '--color-semantic-bg-secondary',
-                    default: '#eef0f3 (DEFAULT_SECONDARY)',
+                    default: '#f3f4f6 (DEFAULT_SECONDARY)',
                   },
                   {
                     layer: 'Dark Secondary',
                     description: 'Secondary color for dark mode',
                     variable: '--color-semantic-dark-bg-secondary',
-                    default: '#282b31 (DEFAULT_DARK_SECONDARY)',
+                    default: '#172131 (DEFAULT_DARK_SECONDARY)',
                   },
                   {
                     layer: 'Accent',
@@ -73,19 +75,19 @@ const AdvancedColorSystemSection: React.FC = () => {
                     layer: 'Muted',
                     description: 'Muted text color',
                     variable: '--color-semantic-fg-muted',
-                    default: '#5b616e (DEFAULT_MUTED)',
+                    default: '#4a5565 (DEFAULT_MUTED)',
                   },
                   {
                     layer: 'Dark Muted',
                     description: 'Muted text color for dark mode',
                     variable: '--color-semantic-dark-fg-muted',
-                    default: '#8a919e (DEFAULT_DARK_MUTED)',
+                    default: '#828a99 (DEFAULT_DARK_MUTED)',
                   },
                   {
                     layer: 'Dark Background',
                     description: 'Dark theme base color',
                     variable: '--color-semantic-dark-bg',
-                    default: '#0a0b0d (DEFAULT_DARK_BG)',
+                    default: '#030712 (DEFAULT_DARK_BG)',
                   },
                   {
                     layer: 'Light Background',
@@ -97,13 +99,13 @@ const AdvancedColorSystemSection: React.FC = () => {
                     layer: 'Light Dark',
                     description: 'Light theme secondary background',
                     variable: '--color-semantic-bg-secondary-wash',
-                    default: '#f7f8f9 (DEFAULT_LIGHT_DARK)',
+                    default: '#f9fafb (DEFAULT_LIGHT_DARK)',
                   },
                   {
                     layer: 'Dark Light Dark',
                     description: 'Dark theme secondary background',
                     variable: '--color-semantic-dark-bg-secondary-wash',
-                    default: '#141519 (DEFAULT_DARK_LIGHT_DARK)',
+                    default: '#0a101d (DEFAULT_DARK_LIGHT_DARK)',
                   },
                 ].map((item, index) => (
                   <div
@@ -141,17 +143,11 @@ const AdvancedColorSystemSection: React.FC = () => {
         </CardContainer>
 
         <CardContainer>
-          <CardTitle
-            title="Dynamic Color Mixing"
-            className="mt-2 mb-6 h-full"
-          >
+          <CardTitle title="Dynamic Color Mixing" className="mt-2 mb-6 h-full">
             <div className="space-y-4">
-              <Typography
-                tag="p"
-                className="text-gray-600 dark:text-gray-400"
-              >
-                Advanced color manipulation using CSS color-mix() for
-                automatic variations:
+              <Typography tag="p" className="text-gray-600 dark:text-gray-400">
+                Advanced color manipulation using CSS color-mix() for automatic
+                variations:
               </Typography>
 
               <CodeBlock
@@ -184,4 +180,3 @@ const AdvancedColorSystemSection: React.FC = () => {
 };
 
 export default AdvancedColorSystemSection;
-

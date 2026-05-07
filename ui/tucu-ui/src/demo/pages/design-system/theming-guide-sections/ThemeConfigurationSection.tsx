@@ -1,5 +1,10 @@
 import React from 'react';
-import { CardContainer, CardTitle, Typography, LucideIcons } from '../../../../index';
+import {
+  CardContainer,
+  CardTitle,
+  Typography,
+  LucideIcons,
+} from '../../../../index';
 
 const ThemeConfigurationSection: React.FC = () => {
   return (
@@ -82,24 +87,24 @@ const ThemeConfigurationSection: React.FC = () => {
                 {[
                   { name: 'DEFAULT_PRIMARY', color: '#0052ff' },
                   { name: 'DEFAULT_DARK_PRIMARY', color: '#578bfa' },
-                  { name: 'DEFAULT_SECONDARY', color: '#eef0f3' },
-                  { name: 'DEFAULT_DARK_SECONDARY', color: '#282b31' },
+                  { name: 'DEFAULT_SECONDARY', color: '#f3f4f6' },
+                  { name: 'DEFAULT_DARK_SECONDARY', color: '#172131' },
                   { name: 'DEFAULT_ACCENT', color: '#f7d21a' },
                   { name: 'DEFAULT_DARK_ACCENT', color: '#936000' },
-                  { name: 'DEFAULT_MUTED', color: '#5b616e' },
-                  { name: 'DEFAULT_DARK_MUTED', color: '#8a919e' },
+                  { name: 'DEFAULT_MUTED', color: '#4a5565' },
+                  { name: 'DEFAULT_DARK_MUTED', color: '#828a99' },
                   { name: 'DEFAULT_LIGHT_BG', color: '#ffffff' },
-                  { name: 'DEFAULT_DARK_BG', color: '#0a0b0d' },
-                  { name: 'DEFAULT_LIGHT_DARK', color: '#f7f8f9' },
-                  { name: 'DEFAULT_DARK_LIGHT_DARK', color: '#141519' },
+                  { name: 'DEFAULT_DARK_BG', color: '#030712' },
+                  { name: 'DEFAULT_LIGHT_DARK', color: '#f9fafb' },
+                  { name: 'DEFAULT_DARK_LIGHT_DARK', color: '#0a101d' },
                   { name: 'BLUE', color: '#105eff' },
                   { name: 'DARK_BLUE', color: '#2162ee' },
                   { name: 'GREEN', color: '#129961' },
                   { name: 'DARK_GREEN', color: '#159962' },
                   { name: 'ORANGE', color: '#e1591b' },
                   { name: 'DARK_ORANGE', color: '#e66020' },
-                  { name: 'GRAY', color: '#717886' },
-                  { name: 'DARK_GRAY', color: '#727886' },
+                  { name: 'GRAY', color: '#6a7282' },
+                  { name: 'DARK_GRAY', color: '#6a7282' },
                   { name: 'INDIGO', color: '#596ff2' },
                   { name: 'DARK_INDIGO', color: '#5c71ee' },
                   { name: 'PINK', color: '#cb51bb' },
@@ -145,4 +150,3 @@ const ThemeConfigurationSection: React.FC = () => {
 };
 
 export default ThemeConfigurationSection;
-

@@ -69,7 +69,7 @@ export function ExpandableSidebar({
       onTouchStart={() => setOpen(true)}
       className={cn(
         open
-          ? 'ltr:border-r rtl:border-l border-dashed border-gray-200 xs:w-[320px] xl:w-[288px] 2xl:w-[320px] bg-light-dark'
+          ? 'ltr:border-r rtl:border-l border-dashed border-gray-200 min-[500px]:w-[320px] xl:w-[288px] 2xl:w-[320px] bg-light-dark'
           : 'w-[96px] border-dashed border-gray-200 ltr:border-r rtl:border-l 2xl:w-[112px]',
         'top-0 z-40 h-full max-w-full duration-200 ltr:left-0 rtl:right-0 dark:border-gray-700 xl:fixed bg-light-dark',
         className
@@ -77,7 +77,7 @@ export function ExpandableSidebar({
     >
       <div
         className={cn(
-          'relative flex h-[96px] items-center  overflow-hidden px-[24px] py-[16px] pt-[0px] 2xl:px-[32px] 3xl:pt-[24px]',
+          'relative flex h-[96px] items-center  overflow-hidden px-[24px] py-[16px] pt-[0px] 2xl:px-[32px] min-[1780px]:pt-[24px]',
           open ? 'flex-start' : 'justify-center'
         )}
       >

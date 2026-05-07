@@ -37,18 +37,24 @@ export function AdminHeader({
     }
   };
 
-  const smallScreen = breakPoint === 'sm' || breakPoint === 'xs' || breakPoint === 'md' || breakPoint === 'lg';
+  const smallScreen =
+    breakPoint === 'sm' ||
+    breakPoint === 'xs' ||
+    breakPoint === 'md' ||
+    breakPoint === 'lg';
 
   return (
     <nav
       className={cn(
         'sticky top-0 z-30 backdrop-blur-lg min-h-[72px] h-[72px] w-full transition-all duration-300 ltr:right-0 rtl:left-0',
         ((isMounted && windowScroll.y) as number) > 2 && 'shadow-card',
-        smallScreen ? 'shadow-card border-b border-transparent dark:border-gray-800' : '',
+        smallScreen
+          ? 'shadow-card border-b border-transparent dark:border-gray-800'
+          : '',
         className
       )}
     >
-      <div className="flex h-full items-center justify-between px-[16px] sm:px-[24px] lg:px-[32px] 3xl:px-[40px]">
+      <div className="flex h-full items-center justify-between px-[16px] sm:px-[24px] lg:px-[32px] min-[1780px]:px-[40px]">
         <div className="flex items-center">
           <div
             onClick={() => (logo?.path ? handleNavigation(logo.path) : null)}

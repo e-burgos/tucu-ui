@@ -96,24 +96,24 @@ export enum PRESET_COLORS {
   DEFAULT_DARK_PRIMARY = '#578bfa', // --color-tucu-ui-dark-blue-70 (dark mode)
 
   // Secondary colors - mapped from --color-semantic-bg-secondary
-  DEFAULT_SECONDARY = '#eef0f3', // --color-tucu-ui-gray-10 (light mode)
-  DEFAULT_DARK_SECONDARY = '#282b31', // --color-tucu-ui-dark-gray-15 (dark mode)
+  DEFAULT_SECONDARY = '#f3f4f6', // --color-tucu-ui-gray-10 (light mode)
+  DEFAULT_DARK_SECONDARY = '#172131', // --color-tucu-ui-dark-gray-15 (dark mode)
 
   // Accent colors - mapped from --color-semantic-accent-bold-yellow
   DEFAULT_ACCENT = '#f7d21a', // --color-tucu-ui-yellow-30 (light mode)
   DEFAULT_DARK_ACCENT = '#936000', // --color-tucu-ui-dark-yellow-30 (dark mode)
 
   // Muted colors - mapped from --color-semantic-fg-muted
-  DEFAULT_MUTED = '#5b616e', // --color-tucu-ui-gray-60 (light mode)
-  DEFAULT_DARK_MUTED = '#8a919e', // --color-tucu-ui-dark-gray-60 (dark mode)
+  DEFAULT_MUTED = '#4a5565', // --color-tucu-ui-gray-60 (light mode)
+  DEFAULT_DARK_MUTED = '#828a99', // --color-tucu-ui-dark-gray-60 (dark mode)
 
   // Background colors - mapped from --color-semantic-bg
   DEFAULT_LIGHT_BG = '#ffffff', // --color-tucu-ui-gray-0 (light mode)
-  DEFAULT_DARK_BG = '#0a0b0d', // --color-tucu-ui-dark-gray-0 (dark mode)
+  DEFAULT_DARK_BG = '#030712', // --color-tucu-ui-dark-gray-0 (dark mode)
 
   // Light Dark colors - mapped from --color-semantic-bg-secondary-wash
-  DEFAULT_LIGHT_DARK = '#f7f8f9', // --color-tucu-ui-gray-5 (light mode)
-  DEFAULT_DARK_LIGHT_DARK = '#141519', // --color-tucu-ui-dark-gray-5 (dark mode)
+  DEFAULT_LIGHT_DARK = '#f9fafb', // --color-tucu-ui-gray-5 (light mode)
+  DEFAULT_DARK_LIGHT_DARK = '#0a101d', // --color-tucu-ui-dark-gray-5 (dark mode)
 
   // Color presets - mapped from --color-tucu-ui-*-50 (light mode)
   BLUE = '#105eff', // --color-tucu-ui-blue-50
@@ -122,8 +122,8 @@ export enum PRESET_COLORS {
   DARK_GREEN = '#159962', // --color-tucu-ui-dark-green-50
   ORANGE = '#e1591b', // --color-tucu-ui-orange-50
   DARK_ORANGE = '#e66020', // --color-tucu-ui-dark-orange-50
-  GRAY = '#717886', // --color-tucu-ui-gray-50
-  DARK_GRAY = '#727886', // --color-tucu-ui-dark-gray-50
+  GRAY = '#6a7282', // --color-tucu-ui-gray-50
+  DARK_GRAY = '#6a7282', // --color-tucu-ui-dark-gray-50
   INDIGO = '#596ff2', // --color-tucu-ui-indigo-50
   DARK_INDIGO = '#5c71ee', // --color-tucu-ui-dark-indigo-50
   PINK = '#cb51bb', // --color-tucu-ui-pink-50

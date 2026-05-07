@@ -3,6 +3,7 @@ import { defineConfig, loadEnv } from 'vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
 import { sitemapPlugin } from './vite.config.sitemap';
+import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig(async ({ mode }) => {
   const env = loadEnv(mode, process.cwd());
@@ -14,6 +15,7 @@ export default defineConfig(async ({ mode }) => {
     plugins: [
       react(),
       sitemapPlugin(),
+      tailwindcss(),
       googleAnalyticsTagId
         ? {
             name: 'google-analytics',
