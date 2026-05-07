@@ -5,6 +5,34 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.8] - 2026-05-07
+
+### Changed
+
+- **Tailwind CSS v4 Compatibility**: Fixed `@theme` namespace collision that broke default Tailwind utilities when importing library styles
+  - **Breakpoints**: Removed all 11 custom `--breakpoint-*` definitions from `@theme` to preserve Tailwind defaults
+    - Replaced `xs:` with `min-[500px]:` and `3xl:` with `min-[1780px]:` across 26 component/theme/demo files
+  - **Spacing**: Replaced 21 explicit `--spacing-0` through `--spacing-20` values with single `--spacing: 0.25rem` dynamic multiplier
+  - **Border Radius**: Removed 11 custom `--radius-*` definitions from `@theme`; replaced with arbitrary values (`rounded-[4px]`, etc.)
+  - Library styles are now import-order-independent — `@import 'tailwindcss'` and `@import '@e-burgos/tucu-ui/styles'` work in any order
+- **Gray Color Palette**: Aligned tucu-ui gray spectrum with Tailwind v4 default gray palette
+  - Updated 13 light mode primitives (`--color-tucu-ui-gray-0` through `--color-tucu-ui-gray-100`) to match Tailwind v4 oklch-derived hex values
+  - Updated 13 dark mode primitives (`--color-tucu-ui-dark-gray-0` through `--color-tucu-ui-dark-gray-100`) as symmetric reverse
+  - Updated hardcoded hex values in `themes/config/index.ts` (PRESET_COLORS enum)
+  - Updated hardcoded hex values in `use-chart-theme.ts` (chart grid, text, background, border, tooltip colors)
+  - Updated 4 demo documentation files with new color references
+  - Key changes: `gray-800` from `#32353d` → `#1e2939`, `gray-600` from `#5b616e` → `#4a5565`, `gray-50` from `#717886` → `#6a7282`
+- **TableOfContents Component**: Improved close button sizing and interaction
+  - Changed from `size="tiny"` to `size="mini"` with proportional icon (`w-3.5 h-3.5`)
+  - Added hover state (`hover:bg-gray-100 dark:hover:bg-gray-800`) for visual feedback
+  - Applied to both mobile drawer and desktop sidebar instances
+
+### Fixed
+
+- **Tailwind CSS v4 Import Order**: Fixed issue where `@import '@e-burgos/tucu-ui/styles'` before `@import 'tailwindcss'` would override all default breakpoints, spacing, and border-radius values
+  - Root cause: In Tailwind CSS v4, defining ANY value in a `@theme` namespace replaces ALL defaults for that namespace
+  - Solution: Removed conflicting definitions and use arbitrary values for custom breakpoints/radius
+
 ## [2.0.4] - 2026-05-06
 
 ### Added

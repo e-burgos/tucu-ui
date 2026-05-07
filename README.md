@@ -107,7 +107,7 @@ Add the following import to your main CSS file (usually `index.css` or `main.css
 @import '@e-burgos/tucu-ui/styles';
 ```
 
-**Note:** Tucu UI includes a complete Tailwind CSS v4 setup with all utilities pre-configured. No additional Tailwind CSS installation or configuration is required.
+**Note:** Tucu UI includes a complete Tailwind CSS v4 setup with all utilities pre-configured. No additional Tailwind CSS installation or configuration is required. The import order does not matter — `@import 'tailwindcss'` and `@import '@e-burgos/tucu-ui/styles'` work in any order without conflicts. The library's `@theme` definitions are designed to extend (not override) Tailwind's default breakpoints, spacing, and colors.
 
 ### Advanced Color Customization
 
