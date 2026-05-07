@@ -125,7 +125,7 @@ className = 'bg-light-dark';
 className = 'bg-light-dark';
 
 // Alternative: Specific gray variants
-className = 'bg-gray-50 dark:bg-gray-800';
+className = 'bg-gray-100 dark:bg-gray-800';
 
 // Good: Semantic colors that adapt
 className = 'bg-white dark:bg-gray-900';
