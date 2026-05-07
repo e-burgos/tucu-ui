@@ -51,7 +51,9 @@ export type PresetColorType =
   | 'Green'
   | 'Lime'
   | 'Black'
-  | 'Gray';
+  | 'Gray'
+  | 'MacOS'
+  | 'MacOSDark';
 
 export enum PRESET_LABEL_COLORS {
   DEFAULT_PRIMARY = 'DefaultPrimary',
@@ -88,6 +90,18 @@ export enum PRESET_LABEL_COLORS {
   DARK_YELLOW = 'DarkYellow',
   CHARTREUSE = 'Chartreuse',
   DARK_CHARTREUSE = 'DarkChartreuse',
+  MACOS_PRIMARY = 'MacOSPrimary',
+  MACOS_DARK_PRIMARY = 'MacOSDarkPrimary',
+  MACOS_SECONDARY = 'MacOSSecondary',
+  MACOS_DARK_SECONDARY = 'MacOSDarkSecondary',
+  MACOS_ACCENT = 'MacOSAccent',
+  MACOS_DARK_ACCENT = 'MacOSDarkAccent',
+  MACOS_MUTED = 'MacOSMuted',
+  MACOS_DARK_MUTED = 'MacOSDarkMuted',
+  MACOS_LIGHT_BG = 'MacOSLightBg',
+  MACOS_DARK_BG = 'MacOSDarkBg',
+  MACOS_LIGHT_DARK = 'MacOSLightDark',
+  MACOS_DARK_LIGHT_DARK = 'MacOSDarkLightDark',
 }
 
 export enum PRESET_COLORS {
@@ -138,6 +152,20 @@ export enum PRESET_COLORS {
   DARK_YELLOW = '#c79e00', // --color-tucu-ui-dark-yellow-50
   CHARTREUSE = '#56b340', // --color-tucu-ui-chartreuse-50
   DARK_CHARTREUSE = '#7bc869', // --color-tucu-ui-dark-chartreuse-50
+
+  // macOS / Apple design system presets
+  MACOS_PRIMARY = '#0071e3',
+  MACOS_DARK_PRIMARY = '#0a84ff',
+  MACOS_SECONDARY = '#f5f5f7',
+  MACOS_DARK_SECONDARY = '#2c2c2e',
+  MACOS_ACCENT = '#ff9f0a',
+  MACOS_DARK_ACCENT = '#ff9f0a',
+  MACOS_MUTED = '#6e6e73',
+  MACOS_DARK_MUTED = '#98989d',
+  MACOS_LIGHT_BG = '#f5f5f7',
+  MACOS_DARK_BG = '#1c1c1e',
+  MACOS_LIGHT_DARK = '#e8e8ed',
+  MACOS_DARK_LIGHT_DARK = '#3a3a3c',
 }
 
 export const colorPreset: IThemeItem[] = [
@@ -276,6 +304,54 @@ export const colorPreset: IThemeItem[] = [
   {
     label: PRESET_LABEL_COLORS.DARK_CHARTREUSE,
     value: PRESET_COLORS.DARK_CHARTREUSE,
+  },
+  {
+    label: PRESET_LABEL_COLORS.MACOS_PRIMARY,
+    value: PRESET_COLORS.MACOS_PRIMARY,
+  },
+  {
+    label: PRESET_LABEL_COLORS.MACOS_DARK_PRIMARY,
+    value: PRESET_COLORS.MACOS_DARK_PRIMARY,
+  },
+  {
+    label: PRESET_LABEL_COLORS.MACOS_SECONDARY,
+    value: PRESET_COLORS.MACOS_SECONDARY,
+  },
+  {
+    label: PRESET_LABEL_COLORS.MACOS_DARK_SECONDARY,
+    value: PRESET_COLORS.MACOS_DARK_SECONDARY,
+  },
+  {
+    label: PRESET_LABEL_COLORS.MACOS_ACCENT,
+    value: PRESET_COLORS.MACOS_ACCENT,
+  },
+  {
+    label: PRESET_LABEL_COLORS.MACOS_DARK_ACCENT,
+    value: PRESET_COLORS.MACOS_DARK_ACCENT,
+  },
+  {
+    label: PRESET_LABEL_COLORS.MACOS_MUTED,
+    value: PRESET_COLORS.MACOS_MUTED,
+  },
+  {
+    label: PRESET_LABEL_COLORS.MACOS_DARK_MUTED,
+    value: PRESET_COLORS.MACOS_DARK_MUTED,
+  },
+  {
+    label: PRESET_LABEL_COLORS.MACOS_LIGHT_BG,
+    value: PRESET_COLORS.MACOS_LIGHT_BG,
+  },
+  {
+    label: PRESET_LABEL_COLORS.MACOS_DARK_BG,
+    value: PRESET_COLORS.MACOS_DARK_BG,
+  },
+  {
+    label: PRESET_LABEL_COLORS.MACOS_LIGHT_DARK,
+    value: PRESET_COLORS.MACOS_LIGHT_DARK,
+  },
+  {
+    label: PRESET_LABEL_COLORS.MACOS_DARK_LIGHT_DARK,
+    value: PRESET_COLORS.MACOS_DARK_LIGHT_DARK,
   },
 ];
 
