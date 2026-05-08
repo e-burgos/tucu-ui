@@ -12,6 +12,7 @@ import {
   ComponentsIntroduction,
   InputsComponents,
   UiComponents,
+  MacOSShowcase,
 } from '@e-burgos/tucu-ui';
 
 // Design System
@@ -95,6 +96,10 @@ export const APP_PATHS = {
         component: <CodeExamplePage />,
       },
     ],
+  },
+  MACOS: {
+    path: '/macos',
+    name: 'macOS',
   },
   COMPONENTS: {
     path: '/components',
@@ -284,6 +289,13 @@ export const useMenuItems = () => {
         component: <DesignSystem />,
         enableNestedRoutes: true,
         dropdownItems: [...APP_PATHS.DESIGN_SYSTEM.dropdownItems],
+      },
+      {
+        name: APP_PATHS.MACOS.name,
+        path: APP_PATHS.MACOS.path,
+        icon: <LucideIcons.Monitor />,
+        component: <MacOSShowcase />,
+        enableNestedRoutes: true,
       },
       {
         name: APP_PATHS.FORMS.name,
