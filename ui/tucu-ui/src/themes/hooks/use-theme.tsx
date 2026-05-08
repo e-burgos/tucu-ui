@@ -10,6 +10,8 @@ import {
   LAYOUT_OPTIONS,
   defaultDirection,
   MODE,
+  THEME_VARIANT,
+  defaultThemeVariant,
   defaultPrimaryPreset,
   defaultDarkPrimaryPreset,
   defaultSecondaryPreset,
@@ -22,6 +24,7 @@ import {
   defaultLightBgPreset,
   defaultLightDarkPreset,
   defaultDarkLightDarkPreset,
+  macosLightPresets,
   LangType,
   defaultLang,
 } from '../config/index';
@@ -50,6 +53,7 @@ const defaultState = {
   direction: defaultDirection,
   layout: defaultLayout,
   mode: defaultMode,
+  colorScheme: defaultThemeVariant,
   logo: defaultLogo,
   showSettings: false,
   isSettingsOpen: false,
@@ -80,6 +84,7 @@ interface IThemeState {
   direction: DIRECTION;
   layout: LAYOUT_OPTIONS;
   mode: MODE;
+  colorScheme: THEME_VARIANT;
   logo: LogoType;
   isSettingsOpen: boolean;
   showSettings: boolean;
@@ -89,6 +94,8 @@ interface IThemeState {
 /** Full store interface: state + auto-generated setters + actions */
 export interface ITheme extends IThemeState, Setters<IThemeState> {
   restoreDefaultColors: () => void;
+  applyMacOSTheme: () => void;
+  applyDefaultTheme: () => void;
 }
 
 // ─── Store ─────────────────────────────────────────────────────
@@ -125,10 +132,17 @@ export const useTheme = create<ITheme>()(
           direction: defaultDirection,
           layout: defaultLayout,
           mode: defaultMode,
+          colorScheme: defaultThemeVariant,
           logo: defaultLogo,
           isSettingsOpen: false,
           lang: defaultLang,
         }),
+
+      applyMacOSTheme: () =>
+        set({ ...macosLightPresets, colorScheme: 'macos' }),
+
+      applyDefaultTheme: () =>
+        set({ ...defaultPresets, colorScheme: 'default' }),
     }),
     {
       name: 'theme-storage',

@@ -1572,6 +1572,45 @@
     --color-chartreuse-100: var(--color-tucu-ui-dark-chartreuse-100);
   }
 
+  /* ===================================================================
+     macOS Theme Variant — Light Mode
+     Overrides structural tokens to match Apple's design language.
+     Color tokens (primary, secondary, bg, muted) are applied via JS
+     (useThemeColor / applyMacOSTheme) since they use inline styles.
+     =================================================================== */
+  html.macos {
+    /* Surfaces: cards float white on Apple gray background */
+    --color-semantic-bg-tertiary: #e8e8ed;
+    --color-semantic-elevation-1: #ffffff;
+    --color-semantic-elevation-2: #ffffff;
+
+    /* Borders: barely-visible Apple hairlines */
+    --color-semantic-line-primary-subtle: rgba(0, 0, 0, 0.08);
+    --color-semantic-line-primary: #0071e3;
+
+    /* Shadows: diffuse Apple-style glow */
+    --shadow-main: 0px 4px 20px rgba(0, 0, 0, 0.06);
+    --shadow-card: 0px 2px 8px rgba(0, 0, 0, 0.05);
+    --drop-shadow-main: 0px 2px 10px rgba(0, 0, 0, 0.08);
+  }
+
+  /* macOS Theme Variant — Dark Mode */
+  html.macos.dark {
+    /* Surfaces: layered Apple dark grays */
+    --color-semantic-bg-tertiary: #3a3a3c;
+    --color-semantic-elevation-1: #2c2c2e;
+    --color-semantic-elevation-2: #3a3a3c;
+
+    /* Borders */
+    --color-semantic-line-primary-subtle: rgba(255, 255, 255, 0.12);
+    --color-semantic-line-primary: #0a84ff;
+
+    /* Shadows: subtle on dark surfaces */
+    --shadow-main: 0px 4px 20px rgba(0, 0, 0, 0.35);
+    --shadow-card: 0px 2px 8px rgba(0, 0, 0, 0.25);
+    --drop-shadow-main: 0px 2px 10px rgba(0, 0, 0, 0.4);
+  }
+
   .dynamic-html h6 {
     @apply font-medium uppercase;
   }
