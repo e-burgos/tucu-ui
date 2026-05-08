@@ -1,5 +1,5 @@
 import cn from 'classnames';
-import { Search } from '../icons';
+import { SearchIcon } from '../icons';
 
 // ─── Types ─────────────────────────────────────────────────────
 
@@ -52,7 +52,7 @@ export function MacOSSearchBar({
         className
       )}
     >
-      <Search
+      <SearchIcon
         className={cn(
           'pointer-events-none absolute shrink-0 text-gray-400 dark:text-gray-500',
           icon

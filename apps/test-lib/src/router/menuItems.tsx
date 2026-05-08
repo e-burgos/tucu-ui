@@ -52,6 +52,7 @@ import {
 // Components
 export const APP_PATHS = {
   INTRODUCTION: { path: '/', name: 'Home' },
+  MACOS: { path: '/macos', name: 'macOS' },
   DESIGN_SYSTEM: { path: '/design-system', name: 'Design System' },
   FORMS: { path: '/form-system', name: 'Forms' },
   COMPONENTS: { path: '/components', name: 'Components' },
@@ -67,6 +68,13 @@ export const useMenuItems = () => {
         path: APP_PATHS.INTRODUCTION.path,
         icon: <LucideIcons.Home />,
         component: <Introduction />,
+      },
+      {
+        name: APP_PATHS.MACOS.name,
+        path: APP_PATHS.MACOS.path,
+        icon: <LucideIcons.Monitor />,
+        component: <MacOSShowcase />,
+        enableNestedRoutes: true,
       },
       {
         name: APP_PATHS.DESIGN_SYSTEM.name,
