@@ -18,23 +18,16 @@ export enum LAYOUT_OPTIONS {
   CLEAN = 'clean',
   ADMIN = 'admin',
   HORIZONTAL = 'horizontal',
+  MACOS = 'macos',
 }
 
-export type LayoutOptionType = 'clean' | 'admin' | 'horizontal';
+export type LayoutOptionType = 'clean' | 'admin' | 'horizontal' | 'macos';
 
 export const layoutOptions: IThemeItem[] = [
-  {
-    label: 'Clean',
-    value: LAYOUT_OPTIONS.CLEAN,
-  },
-  {
-    label: 'Admin',
-    value: LAYOUT_OPTIONS.ADMIN,
-  },
-  {
-    label: 'Horizontal',
-    value: LAYOUT_OPTIONS.HORIZONTAL,
-  },
+  { label: 'Clean',      value: LAYOUT_OPTIONS.CLEAN      },
+  { label: 'Admin',      value: LAYOUT_OPTIONS.ADMIN      },
+  { label: 'Horizontal', value: LAYOUT_OPTIONS.HORIZONTAL },
+  { label: 'macOS',      value: LAYOUT_OPTIONS.MACOS      },
 ];
 
 export type PresetColorType =

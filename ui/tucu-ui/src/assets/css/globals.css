@@ -1579,36 +1579,68 @@
      (useThemeColor / applyMacOSTheme) since they use inline styles.
      =================================================================== */
   html.macos {
-    /* Surfaces — systemGray5/6 palette (macOS Sonoma 14) */
-    --color-semantic-bg-tertiary: #e5e5ea;    /* systemGray5 light */
-    --color-semantic-elevation-1: #ffffff;    /* contentBackground */
-    --color-semantic-elevation-2: #f2f2f7;   /* systemGray6 — raised panel */
+    /* ── Surfaces (systemGray5/6 — macOS Sonoma 14) ── */
+    --color-semantic-bg-tertiary: #e5e5ea;
+    --color-semantic-elevation-1: #ffffff;
+    --color-semantic-elevation-2: #f2f2f7;
 
-    /* Borders — separatorColor: rgba(60,60,67,0.29) */
+    /* ── Borders (separatorColor: rgba(60,60,67,0.29)) ── */
     --color-semantic-line-primary-subtle: rgba(60, 60, 67, 0.18);
-    --color-semantic-line-primary: #007aff;   /* systemBlue light */
+    --color-semantic-line-primary: #007aff;
 
-    /* Shadows — diffuse, very low opacity (macOS Sonoma style) */
+    /* ── Shadows (diffuse, dual-layer, macOS Sonoma style) ── */
     --shadow-main: 0px 4px 24px rgba(0, 0, 0, 0.07);
     --shadow-card: 0px 1px 6px rgba(0, 0, 0, 0.04), 0px 4px 16px rgba(0, 0, 0, 0.04);
     --drop-shadow-main: 0px 2px 12px rgba(0, 0, 0, 0.10);
+
+    /* ── Vibrancy materials (backdrop-blur + translucent bg) ── */
+    --macos-material-sidebar:  rgba(246, 246, 248, 0.82);
+    --macos-material-toolbar:  rgba(255, 255, 255, 0.72);
+    --macos-material-popover:  rgba(255, 255, 255, 0.90);
+    --macos-material-sheet:    rgba(255, 255, 255, 0.94);
+    --macos-material-overlay:  rgba(0, 0, 0, 0.40);
+
+    /* ── Traffic lights ── */
+    --macos-traffic-close:    #ff5f57;
+    --macos-traffic-minimize: #febc2e;
+    --macos-traffic-maximize: #28c840;
+
+    /* ── Focus ring (systemBlue at 50% opacity) ── */
+    --macos-focus-ring:        rgba(0, 122, 255, 0.50);
+    --macos-focus-ring-width:  3px;
+    --macos-focus-ring-offset: 2px;
+
+    /* ── Dimensions ── */
+    --macos-sidebar-width:   220px;
+    --macos-titlebar-height: 52px;
+    --macos-toolbar-height:  44px;
   }
 
   /* macOS Sonoma — Dark Mode */
   html.macos.dark {
-    /* Surfaces — systemGray3/4/5 palette dark */
-    --color-semantic-bg-tertiary: #3a3a3c;    /* systemGray3 dark */
-    --color-semantic-elevation-1: #2c2c2e;   /* systemGray4 — raised surface */
-    --color-semantic-elevation-2: #3a3a3c;   /* systemGray3 — further raised */
+    /* ── Surfaces (systemGray3/4/5 dark) ── */
+    --color-semantic-bg-tertiary: #3a3a3c;
+    --color-semantic-elevation-1: #2c2c2e;
+    --color-semantic-elevation-2: #3a3a3c;
 
-    /* Borders — separatorColor dark: rgba(84,84,88,0.65) */
+    /* ── Borders (separatorColor dark: rgba(84,84,88,0.65)) ── */
     --color-semantic-line-primary-subtle: rgba(84, 84, 88, 0.65);
-    --color-semantic-line-primary: #0a84ff;   /* systemBlue dark */
+    --color-semantic-line-primary: #0a84ff;
 
-    /* Shadows — heavier on dark to create depth */
+    /* ── Shadows (heavier on dark for depth) ── */
     --shadow-main: 0px 4px 24px rgba(0, 0, 0, 0.40);
     --shadow-card: 0px 1px 6px rgba(0, 0, 0, 0.25), 0px 4px 16px rgba(0, 0, 0, 0.30);
     --drop-shadow-main: 0px 2px 12px rgba(0, 0, 0, 0.45);
+
+    /* ── Vibrancy materials — dark ── */
+    --macos-material-sidebar:  rgba(28, 28, 30, 0.85);
+    --macos-material-toolbar:  rgba(40, 40, 42, 0.80);
+    --macos-material-popover:  rgba(44, 44, 46, 0.92);
+    --macos-material-sheet:    rgba(44, 44, 46, 0.96);
+    --macos-material-overlay:  rgba(0, 0, 0, 0.60);
+
+    /* ── Focus ring dark (systemBlue dark) ── */
+    --macos-focus-ring: rgba(10, 132, 255, 0.50);
   }
 
   .dynamic-html h6 {
