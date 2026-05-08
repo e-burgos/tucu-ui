@@ -1,0 +1,101 @@
+/* ============================================================
+   macOS Sonoma 14 — Button Overrides
+
+   Targets: Button (solid/ghost/transparent), TopupButton
+   Selector: html.macos [data-tucu="button"]
+
+   References:
+   - Apple HIG > Buttons > macOS > Push buttons
+   - Push button height: 22pt (regular), radius: 5pt
+   - Font: 13pt SF Pro Text, weight Medium (500)
+   - Focus ring: 3px systemBlue 50%
+   ============================================================ */
+
+/* ── Base button ─────────────────────────────────────────────── */
+html.macos [data-tucu='button'] {
+  border-radius: var(--macos-radius-md);
+  font-family: var(--macos-font-family);
+  font-size: var(--macos-font-size-body);
+  font-weight: var(--macos-font-weight-medium);
+  letter-spacing: var(--macos-tracking-13);
+  transition: all var(--macos-transition-fast);
+}
+
+/* ── Solid variant: subtle shadow like native push button ──── */
+html.macos [data-tucu='button'][data-variant='solid'] {
+  box-shadow: 0 0.5px 1px rgba(0, 0, 0, 0.12), 0 0.5px 0.5px rgba(0, 0, 0, 0.08);
+}
+html.macos [data-tucu='button'][data-variant='solid']:hover {
+  filter: brightness(1.05);
+}
+html.macos [data-tucu='button'][data-variant='solid']:active {
+  filter: brightness(0.95);
+  box-shadow: var(--macos-shadow-button-pressed);
+}
+
+/* ── Ghost variant: subtle border ──────────────────────────── */
+html.macos [data-tucu='button'][data-variant='ghost'] {
+  border: 1px solid var(--macos-separator);
+}
+html.macos [data-tucu='button'][data-variant='ghost']:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+html.macos.dark [data-tucu='button'][data-variant='ghost']:hover {
+  background-color: rgba(255, 255, 255, 0.06);
+}
+
+/* ── Transparent variant ───────────────────────────────────── */
+html.macos [data-tucu='button'][data-variant='transparent']:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+html.macos.dark [data-tucu='button'][data-variant='transparent']:hover {
+  background-color: rgba(255, 255, 255, 0.06);
+}
+
+/* ── Shape overrides ───────────────────────────────────────── */
+html.macos [data-tucu='button'][data-shape='pill'],
+html.macos [data-tucu='button'][data-shape='circle'] {
+  border-radius: var(--macos-radius-full);
+}
+
+/* ── Size overrides: match macOS native control sizes ──────── */
+html.macos [data-tucu='button'][data-size='large'] {
+  min-height: 28px;
+  padding-left: 20px;
+  padding-right: 20px;
+  font-size: var(--macos-font-size-title3);
+}
+html.macos [data-tucu='button'][data-size='medium'] {
+  min-height: var(--macos-control-height);
+  padding-left: 16px;
+  padding-right: 16px;
+}
+html.macos [data-tucu='button'][data-size='small'] {
+  min-height: var(--macos-control-height);
+  padding-left: 12px;
+  padding-right: 12px;
+}
+html.macos [data-tucu='button'][data-size='mini'] {
+  min-height: var(--macos-control-height-sm);
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: var(--macos-font-size-callout);
+}
+html.macos [data-tucu='button'][data-size='tiny'] {
+  min-height: var(--macos-control-height-mini);
+  padding-left: 8px;
+  padding-right: 8px;
+  font-size: var(--macos-font-size-subheadline);
+}
+
+/* ── Focus ring ────────────────────────────────────────────── */
+html.macos [data-tucu='button']:focus-visible {
+  outline: none;
+  box-shadow: var(--macos-shadow-focus);
+}
+
+/* ── Disabled state ────────────────────────────────────────── */
+html.macos [data-tucu='button']:disabled {
+  opacity: 0.4;
+  cursor: default;
+}

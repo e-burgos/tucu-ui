@@ -20,7 +20,7 @@ export const Spinner: React.FC<SpinnerProps> = ({
   color = 'primary',
 }) => {
   return (
-    <div className="flex items-center justify-center">
+    <div data-tucu="spinner" className="flex items-center justify-center">
       <div
         className={cn(
           'border-4 border-t-4 border-gray-200 rounded-full animate-spin',

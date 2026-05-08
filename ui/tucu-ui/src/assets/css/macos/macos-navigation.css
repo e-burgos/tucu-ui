@@ -1,0 +1,136 @@
+/* ============================================================
+   macOS Sonoma 14 — Navigation Overrides
+
+   Targets: Tabs, ParamTab, CollapsibleMenu, NavLink
+   Selectors: html.macos [data-tucu="tabs"], etc.
+
+   References:
+   - macOS Sonoma segmented control: 24pt height, 5pt radius
+   - Tab bar: bottom border, semibold active tab
+   - macOS Finder sidebar groups
+   ============================================================ */
+
+/* ── Tabs container ──────────────────────────────────────────── */
+html.macos [data-tucu='tabs'] {
+  border-bottom: 1px solid var(--macos-separator);
+  gap: 0;
+  font-family: var(--macos-font-family);
+}
+
+/* ── Tab item ────────────────────────────────────────────────── */
+html.macos [data-tucu='tab'] {
+  padding: var(--macos-space-2) var(--macos-space-4);
+  font-size: var(--macos-font-size-body);
+  font-weight: var(--macos-font-weight-regular);
+  color: var(--macos-secondary-label);
+  border-bottom: 2px solid transparent;
+  transition: all var(--macos-transition-fast);
+  border-radius: 0;
+  background: transparent;
+}
+
+html.macos [data-tucu='tab']:hover {
+  color: var(--macos-label);
+  background-color: rgba(0, 0, 0, 0.03);
+}
+
+html.macos.dark [data-tucu='tab']:hover {
+  background-color: rgba(255, 255, 255, 0.04);
+}
+
+html.macos [data-tucu='tab'][data-active='true'] {
+  color: var(--macos-control-accent);
+  font-weight: var(--macos-font-weight-medium);
+  border-bottom-color: var(--macos-control-accent);
+}
+
+html.macos [data-tucu='tab']:focus-visible {
+  outline: none;
+  box-shadow: var(--macos-shadow-focus);
+}
+
+/* ── Segmented Control style (ParamTab) ──────────────────────── */
+html.macos [data-tucu='segmented-control'] {
+  display: inline-flex;
+  background-color: var(--macos-gray6);
+  border-radius: var(--macos-radius-md);
+  padding: 2px;
+  gap: 1px;
+}
+
+html.macos.dark [data-tucu='segmented-control'] {
+  background-color: var(--macos-gray5);
+}
+
+html.macos [data-tucu='segmented-item'] {
+  height: calc(var(--macos-segmented-height) - 4px);
+  padding: 0 var(--macos-space-3);
+  border-radius: calc(var(--macos-radius-md) - 2px);
+  font-size: var(--macos-font-size-body);
+  font-weight: var(--macos-font-weight-regular);
+  color: var(--macos-label);
+  background: transparent;
+  transition: all var(--macos-transition-fast);
+}
+
+html.macos [data-tucu='segmented-item'][data-active='true'] {
+  background-color: var(--macos-control-bg);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 0.5px 1px rgba(0, 0, 0, 0.06);
+  font-weight: var(--macos-font-weight-medium);
+}
+
+html.macos.dark [data-tucu='segmented-item'][data-active='true'] {
+  background-color: var(--macos-gray4);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+}
+
+/* ── Collapsible Menu ────────────────────────────────────────── */
+html.macos [data-tucu='collapsible-menu'] {
+  font-family: var(--macos-font-family);
+}
+
+html.macos [data-tucu='collapsible-header'] {
+  font-size: var(--macos-font-size-subheadline);
+  font-weight: var(--macos-font-weight-semibold);
+  color: var(--macos-secondary-label);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: var(--macos-space-3) var(--macos-space-3) var(--macos-space-1);
+}
+
+html.macos [data-tucu='collapsible-item'] {
+  height: var(--macos-sidebar-row-height);
+  padding: 0 var(--macos-space-3);
+  border-radius: var(--macos-radius-md);
+  font-size: var(--macos-font-size-body);
+  transition: background-color var(--macos-transition-fast);
+}
+
+html.macos [data-tucu='collapsible-item']:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+html.macos.dark [data-tucu='collapsible-item']:hover {
+  background-color: rgba(255, 255, 255, 0.06);
+}
+
+html.macos [data-tucu='collapsible-item'][data-active='true'] {
+  background-color: var(--macos-selected-content-bg);
+  color: #ffffff;
+}
+
+/* ── NavLink ─────────────────────────────────────────────────── */
+html.macos [data-tucu='nav-link'] {
+  color: var(--macos-link);
+  text-decoration: none;
+  font-weight: var(--macos-font-weight-regular);
+  transition: color var(--macos-transition-fast);
+}
+
+html.macos [data-tucu='nav-link']:hover {
+  text-decoration: underline;
+}
+
+html.macos [data-tucu='nav-link'][data-active='true'] {
+  font-weight: var(--macos-font-weight-medium);
+}

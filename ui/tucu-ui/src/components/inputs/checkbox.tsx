@@ -226,6 +226,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
               type="checkbox"
               ref={ref}
               id={finalId}
+              data-tucu="checkbox"
               disabled={disabled}
               aria-describedby={describedBy}
               aria-invalid={error ? 'true' : 'false'}

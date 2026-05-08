@@ -1,0 +1,223 @@
+/* ============================================================
+   macOS Sonoma 14 — Input/Form Control Overrides
+
+   Targets: Input, Select, Checkbox, Radio, Switch, InputSearcher,
+            TextArea, DatePicker, TimePicker, PasswordInput
+
+   References:
+   - Apple HIG > Text Fields: 22pt height, 5pt radius, 1px border
+   - Apple HIG > Toggles: Switch 38×22pt, Checkbox 14×14pt(r3), Radio 16×16pt
+   - Apple HIG > Color: controlAccentColor = systemBlue
+   ============================================================ */
+
+/* ── Text Input ──────────────────────────────────────────────── */
+html.macos [data-tucu='input'] {
+  min-height: var(--macos-control-height);
+  border-radius: var(--macos-radius-md);
+  border: 1px solid var(--macos-separator);
+  background-color: var(--macos-control-bg);
+  font-family: var(--macos-font-family);
+  font-size: var(--macos-font-size-body);
+  letter-spacing: var(--macos-tracking-13);
+  padding: var(--macos-space-1) var(--macos-space-2);
+  transition: border-color var(--macos-transition-fast),
+    box-shadow var(--macos-transition-fast);
+}
+
+html.macos [data-tucu='input']:focus-within {
+  border-color: var(--macos-control-accent);
+  box-shadow: var(--macos-shadow-focus);
+  outline: none;
+}
+
+html.macos [data-tucu='input']:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+/* Input variants */
+html.macos [data-tucu='input'][data-variant='ghost'] {
+  border-color: var(--macos-separator);
+}
+html.macos [data-tucu='input'][data-variant='solid'] {
+  border-color: var(--macos-gray4);
+  background-color: var(--macos-gray6);
+}
+html.macos [data-tucu='input'][data-variant='transparent'] {
+  border-color: transparent;
+  background-color: transparent;
+}
+
+/* Dark mode inputs */
+html.macos.dark [data-tucu='input'] {
+  background-color: var(--macos-control-bg);
+  border-color: var(--macos-separator);
+}
+
+html.macos.dark [data-tucu='input'][data-variant='solid'] {
+  background-color: var(--macos-gray6);
+  border-color: var(--macos-separator);
+}
+
+/* ── Input Label ─────────────────────────────────────────────── */
+html.macos [data-tucu='input-label'] {
+  font-size: var(--macos-font-size-callout);
+  font-weight: var(--macos-font-weight-medium);
+  color: var(--macos-secondary-label);
+  margin-bottom: var(--macos-space-1);
+}
+
+/* ── TextArea ────────────────────────────────────────────────── */
+html.macos [data-tucu='textarea'] {
+  border-radius: var(--macos-radius-md);
+  border: 1px solid var(--macos-separator);
+  background-color: var(--macos-control-bg);
+  font-family: var(--macos-font-family);
+  font-size: var(--macos-font-size-body);
+  padding: var(--macos-space-2);
+  transition: border-color var(--macos-transition-fast),
+    box-shadow var(--macos-transition-fast);
+}
+
+html.macos [data-tucu='textarea']:focus {
+  border-color: var(--macos-control-accent);
+  box-shadow: var(--macos-shadow-focus);
+  outline: none;
+}
+
+html.macos.dark [data-tucu='textarea'] {
+  background-color: var(--macos-control-bg);
+  border-color: var(--macos-separator);
+}
+
+/* ── Select / Dropdown ───────────────────────────────────────── */
+html.macos [data-tucu='select'] {
+  min-height: var(--macos-control-height);
+  border-radius: var(--macos-radius-md);
+  border: 1px solid var(--macos-separator);
+  background-color: var(--macos-control-bg);
+  font-family: var(--macos-font-family);
+  font-size: var(--macos-font-size-body);
+  padding: var(--macos-space-1) var(--macos-space-2);
+}
+
+html.macos [data-tucu='select']:focus-within {
+  border-color: var(--macos-control-accent);
+  box-shadow: var(--macos-shadow-focus);
+}
+
+html.macos.dark [data-tucu='select'] {
+  background-color: var(--macos-control-bg);
+  border-color: var(--macos-separator);
+}
+
+/* Select dropdown menu */
+html.macos [data-tucu='select-menu'] {
+  border-radius: var(--macos-radius-lg);
+  border: 1px solid var(--macos-separator);
+  background-color: var(--macos-material-popover);
+  backdrop-filter: blur(var(--macos-material-popover-blur));
+  box-shadow: var(--macos-shadow-window);
+  padding: var(--macos-space-1) 0;
+}
+
+html.macos [data-tucu='select-option'] {
+  padding: var(--macos-space-1) var(--macos-space-3);
+  border-radius: var(--macos-radius-sm);
+  margin: 0 var(--macos-space-1);
+  font-size: var(--macos-font-size-body);
+}
+
+html.macos [data-tucu='select-option']:hover,
+html.macos [data-tucu='select-option'][data-selected] {
+  background-color: var(--macos-control-accent);
+  color: #ffffff;
+}
+
+/* ── Checkbox ────────────────────────────────────────────────── */
+html.macos [data-tucu='checkbox'] {
+  width: var(--macos-checkbox-size);
+  height: var(--macos-checkbox-size);
+  border-radius: var(--macos-radius-xs);
+  border: 1px solid var(--macos-separator);
+  background-color: var(--macos-control-bg);
+  transition: all var(--macos-transition-fast);
+}
+
+html.macos [data-tucu='checkbox']:checked,
+html.macos [data-tucu='checkbox'][data-checked='true'] {
+  background-color: var(--macos-control-accent);
+  border-color: var(--macos-control-accent);
+}
+
+html.macos [data-tucu='checkbox']:focus-visible {
+  box-shadow: var(--macos-shadow-focus);
+}
+
+/* ── Radio ───────────────────────────────────────────────────── */
+html.macos [data-tucu='radio'] {
+  width: var(--macos-radio-size);
+  height: var(--macos-radio-size);
+  border-radius: 50%;
+  border: 1px solid var(--macos-separator);
+  background-color: var(--macos-control-bg);
+  transition: all var(--macos-transition-fast);
+}
+
+html.macos [data-tucu='radio']:checked,
+html.macos [data-tucu='radio'][data-checked='true'] {
+  background-color: var(--macos-control-accent);
+  border-color: var(--macos-control-accent);
+}
+
+html.macos [data-tucu='radio']:focus-visible {
+  box-shadow: var(--macos-shadow-focus);
+}
+
+/* ── Switch / Toggle ─────────────────────────────────────────── */
+html.macos [data-tucu='switch'] {
+  width: var(--macos-switch-width);
+  height: var(--macos-switch-height);
+  border-radius: var(--macos-radius-full);
+  background-color: var(--macos-gray4);
+  border: none;
+  transition: background-color var(--macos-transition-fast);
+  position: relative;
+}
+
+html.macos [data-tucu='switch'][data-checked='true'],
+html.macos [data-tucu='switch']:checked {
+  background-color: var(--macos-system-green);
+}
+
+html.macos.dark [data-tucu='switch'] {
+  background-color: var(--macos-gray3);
+}
+
+html.macos.dark [data-tucu='switch'][data-checked='true'],
+html.macos.dark [data-tucu='switch']:checked {
+  background-color: var(--macos-system-green);
+}
+
+html.macos [data-tucu='switch']:focus-visible {
+  box-shadow: var(--macos-shadow-focus);
+}
+
+/* ── InputSearcher ───────────────────────────────────────────── */
+html.macos [data-tucu='input-searcher'] {
+  border-radius: var(--macos-radius-md);
+  border: 1px solid var(--macos-separator);
+  background-color: var(--macos-control-bg);
+  font-family: var(--macos-font-family);
+  font-size: var(--macos-font-size-body);
+}
+
+html.macos [data-tucu='input-searcher']:focus-within {
+  border-color: var(--macos-control-accent);
+  box-shadow: var(--macos-shadow-focus);
+}
+
+html.macos.dark [data-tucu='input-searcher'] {
+  background-color: var(--macos-control-bg);
+  border-color: var(--macos-separator);
+}

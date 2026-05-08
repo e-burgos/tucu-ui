@@ -45,7 +45,7 @@ export const Switch: React.FC<SwitchProps> = ({
   disabled,
 }) => {
   return (
-    <div className="flex flex-col">
+    <div data-tucu="switch" className="flex flex-col">
       <label
         className={cn(
           'flex items-center relative w-max cursor-pointer select-none',

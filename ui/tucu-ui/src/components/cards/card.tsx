@@ -25,6 +25,7 @@ export function Card({
 }: CardProps) {
   return (
     <div
+      data-tucu="card"
       className={cn(
         'rounded-xl border border-gray-200/50 dark:border-gray-700/50 bg-light-dark',
         onClick &&

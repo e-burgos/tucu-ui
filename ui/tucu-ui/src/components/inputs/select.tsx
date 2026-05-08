@@ -475,7 +475,7 @@ export function Select({
     );
 
   return (
-    <div className={cn('relative text-sm sm:text-sm', className)}>
+    <div data-tucu="select" data-variant={variant} className={cn('relative text-sm sm:text-sm', className)}>
       {hiddenInput}
       {label && (
         <span

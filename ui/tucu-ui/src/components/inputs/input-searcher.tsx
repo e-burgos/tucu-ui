@@ -463,7 +463,7 @@ export function InputSearcher({
     );
 
   return (
-    <div className="relative" ref={containerRef}>
+    <div data-tucu="input-searcher" className="relative" ref={containerRef}>
       <Input
         ref={inputRef}
         label={label}

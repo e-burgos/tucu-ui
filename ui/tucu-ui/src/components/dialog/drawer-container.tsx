@@ -112,7 +112,7 @@ export function DrawerContainer({
         />
       )}
       {/* Drawer - rendered second, higher z-index to be above backdrop */}
-      <div className={drawerClasses} style={{ zIndex: 51 }}>
+      <div data-tucu="drawer" className={drawerClasses} style={{ zIndex: 51 }}>
         {children}
       </div>
     </>

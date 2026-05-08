@@ -413,7 +413,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     };
 
     return (
-      <div className={cn('text-sm sm:text-sm', className)}>
+      <div data-tucu="input" data-variant={variant} className={cn('text-sm sm:text-sm', className)}>
         <div className={cn('relative', labelClassName)}>
           {label && (
             <label

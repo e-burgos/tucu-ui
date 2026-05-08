@@ -182,7 +182,7 @@ export const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>(
     };
 
     return (
-      <div ref={ref} className={cn('flex flex-col', className)} {...rest}>
+      <div ref={ref} data-tucu="radio-group" className={cn('flex flex-col', className)} {...rest}>
         {label && (
           <label
             className={cn('block text-sm font-medium mb-[6px]', labelClassName)}

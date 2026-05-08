@@ -1,0 +1,116 @@
+/* ============================================================
+   macOS Sonoma 14 — Table & Pagination Overrides
+
+   Targets: BasicTable, Pagination
+   Selectors: html.macos [data-tucu="table"], etc.
+
+   References:
+   - macOS Finder list view: alternating row bg, 24pt row height
+   - Table header: separator bottom, semibold 11pt
+   - Selection: systemBlue background, white text
+   ============================================================ */
+
+/* ── Table container ─────────────────────────────────────────── */
+html.macos [data-tucu='table'] {
+  border-radius: var(--macos-radius-xl);
+  border: 1px solid var(--macos-separator);
+  overflow: hidden;
+  font-family: var(--macos-font-family);
+  font-size: var(--macos-font-size-body);
+}
+
+/* ── Table header ────────────────────────────────────────────── */
+html.macos [data-tucu='table-header'] {
+  background-color: var(--macos-gray6);
+  border-bottom: 1px solid var(--macos-separator);
+}
+
+html.macos.dark [data-tucu='table-header'] {
+  background-color: var(--macos-gray5);
+}
+
+html.macos [data-tucu='table-header'] th,
+html.macos [data-tucu='table-header-cell'] {
+  font-size: var(--macos-font-size-subheadline);
+  font-weight: var(--macos-font-weight-semibold);
+  color: var(--macos-secondary-label);
+  text-transform: none;
+  letter-spacing: normal;
+  padding: var(--macos-space-1) var(--macos-space-3);
+  border-right: 1px solid var(--macos-separator);
+}
+
+html.macos [data-tucu='table-header'] th:last-child,
+html.macos [data-tucu='table-header-cell']:last-child {
+  border-right: none;
+}
+
+/* ── Table rows ──────────────────────────────────────────────── */
+html.macos [data-tucu='table-row'] {
+  height: var(--macos-sidebar-row-height);
+  border-bottom: 1px solid var(--macos-separator);
+  transition: background-color var(--macos-transition-fast);
+}
+
+/* Alternating row colors (Finder style) */
+html.macos [data-tucu='table-row']:nth-child(even) {
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+html.macos.dark [data-tucu='table-row']:nth-child(even) {
+  background-color: rgba(255, 255, 255, 0.02);
+}
+
+/* Hover */
+html.macos [data-tucu='table-row']:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+html.macos.dark [data-tucu='table-row']:hover {
+  background-color: rgba(255, 255, 255, 0.04);
+}
+
+/* Selected row */
+html.macos [data-tucu='table-row'][data-selected='true'] {
+  background-color: var(--macos-selected-content-bg);
+  color: #ffffff;
+}
+
+/* Table cells */
+html.macos [data-tucu='table-cell'] {
+  padding: var(--macos-space-1) var(--macos-space-3);
+  font-size: var(--macos-font-size-body);
+}
+
+/* ── Pagination ──────────────────────────────────────────────── */
+html.macos [data-tucu='pagination'] {
+  display: flex;
+  align-items: center;
+  gap: var(--macos-space-1);
+  font-family: var(--macos-font-family);
+  font-size: var(--macos-font-size-callout);
+}
+
+html.macos [data-tucu='pagination-button'] {
+  min-width: var(--macos-control-height);
+  min-height: var(--macos-control-height);
+  border-radius: var(--macos-radius-md);
+  border: 1px solid var(--macos-separator);
+  background-color: var(--macos-control-bg);
+  font-size: var(--macos-font-size-callout);
+  transition: all var(--macos-transition-fast);
+}
+
+html.macos [data-tucu='pagination-button']:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+html.macos.dark [data-tucu='pagination-button']:hover {
+  background-color: rgba(255, 255, 255, 0.06);
+}
+
+html.macos [data-tucu='pagination-button'][data-active='true'] {
+  background-color: var(--macos-control-accent);
+  color: #ffffff;
+  border-color: var(--macos-control-accent);
+}

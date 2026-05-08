@@ -1,0 +1,87 @@
+/* ============================================================
+   SF Pro — @font-face declarations
+   macOS Sonoma 14 Theme Style
+
+   Strategy: local() + url() fallback
+   - On macOS: local() finds the installed font → 0 bytes downloaded
+   - On other OS: local() fails → downloads .woff2 from server
+   - The browser only downloads when the font is actually used in DOM
+   - Since --macos-font-family only applies with html.macos,
+     Default theme = 0 font downloads
+
+   Source: https://developer.apple.com/fonts/
+   ============================================================ */
+
+/* ── SF Pro Display (≥20pt: titles, large headings) ────────── */
+
+@font-face {
+  font-family: 'SF Pro Display';
+  src: local('SF Pro Display'), local('.SFNSDisplay-Regular'),
+    local('SFProDisplay-Regular'),
+    url('../../fonts/sf-pro/SF-Pro-Display-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SF Pro Display';
+  src: local('SF Pro Display Medium'), local('.SFNSDisplay-Medium'),
+    local('SFProDisplay-Medium'),
+    url('../../fonts/sf-pro/SF-Pro-Display-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SF Pro Display';
+  src: local('SF Pro Display Semibold'), local('.SFNSDisplay-Semibold'),
+    local('SFProDisplay-Semibold'),
+    url('../../fonts/sf-pro/SF-Pro-Display-Semibold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SF Pro Display';
+  src: local('SF Pro Display Bold'), local('.SFNSDisplay-Bold'),
+    local('SFProDisplay-Bold'),
+    url('../../fonts/sf-pro/SF-Pro-Display-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ── SF Pro Text (<20pt: body, UI controls, labels) ────────── */
+
+@font-face {
+  font-family: 'SF Pro Text';
+  src: local('SF Pro Text'), local('.SFNSText-Regular'),
+    local('SFProText-Regular'),
+    url('../../fonts/sf-pro/SF-Pro-Text-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SF Pro Text';
+  src: local('SF Pro Text Medium'), local('.SFNSText-Medium'),
+    local('SFProText-Medium'),
+    url('../../fonts/sf-pro/SF-Pro-Text-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SF Pro Text';
+  src: local('SF Pro Text Semibold'), local('.SFNSText-Semibold'),
+    local('SFProText-Semibold'),
+    url('../../fonts/sf-pro/SF-Pro-Text-Semibold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}

@@ -1,0 +1,78 @@
+/* ============================================================
+   macOS Sonoma 14 — Card Overrides
+   
+   Targets: Card, CardContainer, InfoCard, PanelCard, StatsCard,
+            WalletCard, TransactionCard
+   Selector: html.macos [data-tucu="card"]
+   
+   References:
+   - macOS Sonoma native window / panel style
+   - Radius: 10pt (window-like cards)
+   - Shadow: diffuse multi-layer (light), heavier (dark)
+   - Border: 1px separator color
+   ============================================================ */
+
+/* ── Base card ───────────────────────────────────────────────── */
+html.macos [data-tucu='card'] {
+  border-radius: var(--macos-radius-xl);
+  border: 1px solid var(--macos-separator);
+  background-color: var(--macos-control-bg);
+  box-shadow: var(--macos-shadow-card);
+  transition: box-shadow var(--macos-transition-normal),
+    border-color var(--macos-transition-normal);
+}
+
+html.macos [data-tucu='card']:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06), 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+/* ── Dark mode ───────────────────────────────────────────────── */
+html.macos.dark [data-tucu='card'] {
+  background-color: var(--macos-control-bg);
+  border-color: var(--macos-separator);
+  box-shadow: var(--macos-shadow-card);
+}
+
+html.macos.dark [data-tucu='card']:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3), 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+
+/* ── Card header (internal) ──────────────────────────────────── */
+html.macos [data-tucu='card-header'] {
+  border-bottom: 1px solid var(--macos-separator);
+  padding: var(--macos-space-3) var(--macos-space-4);
+  font-weight: var(--macos-font-weight-semibold);
+  font-size: var(--macos-font-size-body);
+}
+
+/* ── Card body ───────────────────────────────────────────────── */
+html.macos [data-tucu='card-body'] {
+  padding: var(--macos-space-4);
+}
+
+/* ── Stats / Info cards: tighter padding ─────────────────────── */
+html.macos [data-tucu='stats-card'] {
+  border-radius: var(--macos-radius-xl);
+  border: 1px solid var(--macos-separator);
+  background-color: var(--macos-control-bg);
+  box-shadow: var(--macos-shadow-card);
+  padding: var(--macos-space-3) var(--macos-space-4);
+}
+
+html.macos.dark [data-tucu='stats-card'] {
+  background-color: var(--macos-control-bg);
+  border-color: var(--macos-separator);
+}
+
+/* ── Panel card (section containers) ─────────────────────────── */
+html.macos [data-tucu='panel-card'] {
+  border-radius: var(--macos-radius-xl);
+  border: 1px solid var(--macos-separator);
+  background-color: var(--macos-gray6);
+  box-shadow: none;
+}
+
+html.macos.dark [data-tucu='panel-card'] {
+  background-color: var(--macos-gray5);
+  border-color: var(--macos-separator);
+}

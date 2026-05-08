@@ -1,0 +1,169 @@
+/* ============================================================
+   macOS Sonoma 14 — Typography Overrides
+   
+   Targets: All text elements under html.macos
+   
+   References:
+   - Apple HIG > Typography > macOS text styles
+   - SF Pro Display for ≥20pt, SF Pro Text for <20pt
+   - Tracking (letter-spacing) per size from Apple HIG
+   ============================================================ */
+
+/* ── Headings: SF Pro Display ────────────────────────────────── */
+html.macos h1,
+html.macos [data-tucu='heading-1'] {
+  font-family: var(--macos-font-display);
+  font-size: var(--macos-font-size-large-title);
+  line-height: var(--macos-leading-large-title);
+  font-weight: var(--macos-font-weight-bold);
+  letter-spacing: var(--macos-tracking-26);
+  color: var(--macos-label);
+}
+
+html.macos h2,
+html.macos [data-tucu='heading-2'] {
+  font-family: var(--macos-font-display);
+  font-size: var(--macos-font-size-title1);
+  line-height: var(--macos-leading-title1);
+  font-weight: var(--macos-font-weight-bold);
+  letter-spacing: var(--macos-tracking-22);
+  color: var(--macos-label);
+}
+
+html.macos h3,
+html.macos [data-tucu='heading-3'] {
+  font-family: var(--macos-font-display);
+  font-size: var(--macos-font-size-title2);
+  line-height: var(--macos-leading-title2);
+  font-weight: var(--macos-font-weight-semibold);
+  letter-spacing: var(--macos-tracking-17);
+  color: var(--macos-label);
+}
+
+html.macos h4,
+html.macos [data-tucu='heading-4'] {
+  font-family: var(--macos-font-family);
+  font-size: var(--macos-font-size-title3);
+  line-height: var(--macos-leading-title3);
+  font-weight: var(--macos-font-weight-semibold);
+  letter-spacing: var(--macos-tracking-15);
+  color: var(--macos-label);
+}
+
+html.macos h5,
+html.macos [data-tucu='heading-5'] {
+  font-family: var(--macos-font-family);
+  font-size: var(--macos-font-size-body);
+  line-height: var(--macos-leading-body);
+  font-weight: var(--macos-font-weight-semibold);
+  letter-spacing: var(--macos-tracking-13);
+  color: var(--macos-label);
+}
+
+html.macos h6,
+html.macos [data-tucu='heading-6'] {
+  font-family: var(--macos-font-family);
+  font-size: var(--macos-font-size-callout);
+  line-height: var(--macos-leading-callout);
+  font-weight: var(--macos-font-weight-semibold);
+  letter-spacing: var(--macos-tracking-12);
+  color: var(--macos-label);
+}
+
+/* ── Body text ───────────────────────────────────────────────── */
+html.macos p,
+html.macos [data-tucu='text'] {
+  font-family: var(--macos-font-family);
+  font-size: var(--macos-font-size-body);
+  line-height: var(--macos-leading-body);
+  letter-spacing: var(--macos-tracking-13);
+  color: var(--macos-label);
+}
+
+/* ── Small / Caption text ────────────────────────────────────── */
+html.macos small,
+html.macos [data-tucu='caption'] {
+  font-family: var(--macos-font-family);
+  font-size: var(--macos-font-size-caption);
+  line-height: var(--macos-leading-caption);
+  letter-spacing: var(--macos-tracking-10);
+  color: var(--macos-secondary-label);
+}
+
+/* ── Footnote ────────────────────────────────────────────────── */
+html.macos [data-tucu='footnote'] {
+  font-family: var(--macos-font-family);
+  font-size: var(--macos-font-size-footnote);
+  line-height: var(--macos-leading-footnote);
+  letter-spacing: var(--macos-tracking-10);
+  color: var(--macos-tertiary-label);
+}
+
+/* ── Links ───────────────────────────────────────────────────── */
+html.macos a,
+html.macos [data-tucu='link'] {
+  color: var(--macos-link);
+  text-decoration: none;
+  transition: color var(--macos-transition-fast);
+}
+
+html.macos a:hover,
+html.macos [data-tucu='link']:hover {
+  text-decoration: underline;
+}
+
+html.macos a:active,
+html.macos [data-tucu='link']:active {
+  opacity: 0.8;
+}
+
+/* ── Code / Mono ─────────────────────────────────────────────── */
+html.macos code,
+html.macos pre,
+html.macos [data-tucu='code'] {
+  font-family: var(--macos-font-mono);
+  font-size: var(--macos-font-size-callout);
+  line-height: var(--macos-leading-callout);
+}
+
+html.macos code:not(pre code),
+html.macos [data-tucu='inline-code'] {
+  background-color: var(--macos-gray6);
+  padding: 1px 4px;
+  border-radius: var(--macos-radius-xs);
+  font-size: 0.9em;
+}
+
+html.macos.dark code:not(pre code),
+html.macos.dark [data-tucu='inline-code'] {
+  background-color: var(--macos-gray5);
+}
+
+/* ── Label ───────────────────────────────────────────────────── */
+html.macos label,
+html.macos [data-tucu='label'] {
+  font-family: var(--macos-font-family);
+  font-size: var(--macos-font-size-callout);
+  font-weight: var(--macos-font-weight-medium);
+  color: var(--macos-secondary-label);
+}
+
+/* ── Emphasis helpers ────────────────────────────────────────── */
+html.macos strong,
+html.macos b {
+  font-weight: var(--macos-font-weight-semibold);
+}
+
+html.macos em,
+html.macos i {
+  font-style: italic;
+}
+
+/* ── Selection color ─────────────────────────────────────────── */
+html.macos ::selection {
+  background-color: color-mix(
+    in srgb,
+    var(--macos-control-accent) 30%,
+    transparent
+  );
+}
