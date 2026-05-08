@@ -717,8 +717,8 @@
   --color-semantic-bg-warning-wash: var(--color-tucu-ui-orange-0);
 
   /* Line */
-  --color-semantic-line-primary: var(--color-tucu-ui-blue-60);
-  --color-semantic-line-primary-subtle: var(--color-tucu-ui-blue-20);
+  --color-semantic-line-primary: var(--color-tucu-ui-gray-20);
+  --color-semantic-line-primary-subtle: var(--color-tucu-ui-gray-15);
   --color-semantic-line-inverse: var(--color-tucu-ui-gray-0);
 
   /* Elevation */
@@ -769,8 +769,8 @@
   --color-semantic-dark-bg-warning-wash: var(--color-tucu-ui-dark-orange-0);
 
   /* Line Dark */
-  --color-semantic-dark-line-primary: var(--color-tucu-ui-dark-blue-70);
-  --color-semantic-dark-line-primary-subtle: var(--color-tucu-ui-dark-blue-20);
+  --color-semantic-dark-line-primary: var(--color-tucu-ui-dark-gray-20);
+  --color-semantic-dark-line-primary-subtle: var(--color-tucu-ui-dark-gray-15);
   --color-semantic-dark-line-inverse: var(--color-tucu-ui-dark-gray-0);
 
   /* Elevation Dark */
@@ -1104,8 +1104,8 @@
     --color-semantic-bg-warning-wash: var(--color-tucu-ui-orange-0);
 
     /* Line */
-    --color-semantic-line-primary: var(--color-tucu-ui-blue-60);
-    --color-semantic-line-primary-subtle: var(--color-tucu-ui-blue-20);
+    --color-semantic-line-primary: var(--color-tucu-ui-gray-20);
+    --color-semantic-line-primary-subtle: var(--color-tucu-ui-gray-10);
     --color-semantic-line-inverse: var(--color-tucu-ui-gray-0);
 
     /* Elevation */
@@ -1590,30 +1590,31 @@
 
     /* ── Shadows (diffuse, dual-layer, macOS Sonoma style) ── */
     --shadow-main: 0px 4px 24px rgba(0, 0, 0, 0.07);
-    --shadow-card: 0px 1px 6px rgba(0, 0, 0, 0.04), 0px 4px 16px rgba(0, 0, 0, 0.04);
-    --drop-shadow-main: 0px 2px 12px rgba(0, 0, 0, 0.10);
+    --shadow-card: 0px 1px 6px rgba(0, 0, 0, 0.04),
+      0px 4px 16px rgba(0, 0, 0, 0.04);
+    --drop-shadow-main: 0px 2px 12px rgba(0, 0, 0, 0.1);
 
     /* ── Vibrancy materials (backdrop-blur + translucent bg) ── */
-    --macos-material-sidebar:  rgba(246, 246, 248, 0.82);
-    --macos-material-toolbar:  rgba(255, 255, 255, 0.72);
-    --macos-material-popover:  rgba(255, 255, 255, 0.90);
-    --macos-material-sheet:    rgba(255, 255, 255, 0.94);
-    --macos-material-overlay:  rgba(0, 0, 0, 0.40);
+    --macos-material-sidebar: rgba(246, 246, 248, 0.82);
+    --macos-material-toolbar: rgba(255, 255, 255, 0.72);
+    --macos-material-popover: rgba(255, 255, 255, 0.9);
+    --macos-material-sheet: rgba(255, 255, 255, 0.94);
+    --macos-material-overlay: rgba(0, 0, 0, 0.4);
 
     /* ── Traffic lights ── */
-    --macos-traffic-close:    #ff5f57;
+    --macos-traffic-close: #ff5f57;
     --macos-traffic-minimize: #febc2e;
     --macos-traffic-maximize: #28c840;
 
     /* ── Focus ring (systemBlue at 50% opacity) ── */
-    --macos-focus-ring:        rgba(0, 122, 255, 0.50);
-    --macos-focus-ring-width:  3px;
+    --macos-focus-ring: rgba(0, 122, 255, 0.5);
+    --macos-focus-ring-width: 3px;
     --macos-focus-ring-offset: 2px;
 
     /* ── Dimensions ── */
-    --macos-sidebar-width:   220px;
+    --macos-sidebar-width: 220px;
     --macos-titlebar-height: 52px;
-    --macos-toolbar-height:  44px;
+    --macos-toolbar-height: 44px;
   }
 
   /* macOS Sonoma — Dark Mode */
@@ -1628,19 +1629,20 @@
     --color-semantic-line-primary: #0a84ff;
 
     /* ── Shadows (heavier on dark for depth) ── */
-    --shadow-main: 0px 4px 24px rgba(0, 0, 0, 0.40);
-    --shadow-card: 0px 1px 6px rgba(0, 0, 0, 0.25), 0px 4px 16px rgba(0, 0, 0, 0.30);
+    --shadow-main: 0px 4px 24px rgba(0, 0, 0, 0.4);
+    --shadow-card: 0px 1px 6px rgba(0, 0, 0, 0.25),
+      0px 4px 16px rgba(0, 0, 0, 0.3);
     --drop-shadow-main: 0px 2px 12px rgba(0, 0, 0, 0.45);
 
     /* ── Vibrancy materials — dark ── */
-    --macos-material-sidebar:  rgba(28, 28, 30, 0.85);
-    --macos-material-toolbar:  rgba(40, 40, 42, 0.80);
-    --macos-material-popover:  rgba(44, 44, 46, 0.92);
-    --macos-material-sheet:    rgba(44, 44, 46, 0.96);
-    --macos-material-overlay:  rgba(0, 0, 0, 0.60);
+    --macos-material-sidebar: rgba(28, 28, 30, 0.85);
+    --macos-material-toolbar: rgba(40, 40, 42, 0.8);
+    --macos-material-popover: rgba(44, 44, 46, 0.92);
+    --macos-material-sheet: rgba(44, 44, 46, 0.96);
+    --macos-material-overlay: rgba(0, 0, 0, 0.6);
 
     /* ── Focus ring dark (systemBlue dark) ── */
-    --macos-focus-ring: rgba(10, 132, 255, 0.50);
+    --macos-focus-ring: rgba(10, 132, 255, 0.5);
   }
 
   .dynamic-html h6 {
