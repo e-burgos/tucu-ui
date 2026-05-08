@@ -9,6 +9,7 @@ import {
   ComponentsIntroduction,
   InputsComponents,
   UiComponents,
+  MacOSShowcase,
 } from '@tucu-ui';
 
 // Design System
@@ -86,6 +87,13 @@ export const useMenuItems = () => {
             path: APP_PATHS.DESIGN_SYSTEM.path + '/theming-guide',
             icon: <LucideIcons.Paintbrush />,
             component: <ThemingGuide />,
+            enableNestedRoutes: true,
+          },
+          {
+            name: 'MacOS Showcase',
+            path: APP_PATHS.DESIGN_SYSTEM.path + '/macos-showcase',
+            icon: <LucideIcons.MonitorSmartphone />,
+            component: <MacOSShowcase />,
             enableNestedRoutes: true,
           },
         ],
