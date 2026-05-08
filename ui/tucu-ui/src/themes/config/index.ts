@@ -157,19 +157,20 @@ export enum PRESET_COLORS {
   CHARTREUSE = '#56b340', // --color-tucu-ui-chartreuse-50
   DARK_CHARTREUSE = '#7bc869', // --color-tucu-ui-dark-chartreuse-50
 
-  // macOS / Apple design system colors
-  MACOS_PRIMARY = '#0071e3',     // Apple blue (light)
-  MACOS_DARK_PRIMARY = '#0a84ff', // Apple blue (dark)
-  MACOS_SECONDARY = '#ffffff',   // white cards on gray surface (light)
-  MACOS_DARK_SECONDARY = '#2c2c2e', // Apple elevated surface (dark)
-  MACOS_ACCENT = '#ff9f0a',      // Apple orange
-  MACOS_DARK_ACCENT = '#ff9f0a',
-  MACOS_MUTED = '#6e6e73',       // Apple gray text (light)
-  MACOS_DARK_MUTED = '#98989d',  // Apple gray text (dark)
-  MACOS_LIGHT_BG = '#f5f5f7',    // Apple background gray (light)
-  MACOS_DARK_BG = '#1c1c1e',     // Apple background (dark)
-  MACOS_LIGHT_DARK = '#e8e8ed',  // Apple tertiary bg (light)
-  MACOS_DARK_LIGHT_DARK = '#3a3a3c', // Apple tertiary bg (dark)
+  // macOS Sonoma / Apple system colors
+  // Source: UIColor/NSColor semantic values, sampled from macOS Sonoma 14
+  MACOS_PRIMARY = '#007aff',        // systemBlue (light)
+  MACOS_DARK_PRIMARY = '#0a84ff',   // systemBlue (dark)
+  MACOS_SECONDARY = '#ffffff',      // contentBackground — cards float on gray bg
+  MACOS_DARK_SECONDARY = '#2c2c2e', // systemGray4 (dark) — elevated surface
+  MACOS_ACCENT = '#ff9500',         // systemOrange (light)
+  MACOS_DARK_ACCENT = '#ff9f0a',    // systemOrange (dark)
+  MACOS_MUTED = '#6c6c70',          // secondaryLabel blended (light)
+  MACOS_DARK_MUTED = '#aeaeb2',     // systemGray2 (dark)
+  MACOS_LIGHT_BG = '#f2f2f7',       // systemGray6 — primary app background
+  MACOS_DARK_BG = '#1c1c1e',        // systemGray5 (dark) — primary bg
+  MACOS_LIGHT_DARK = '#e5e5ea',     // systemGray5 (light) — secondary bg wash
+  MACOS_DARK_LIGHT_DARK = '#3a3a3c', // systemGray3 (dark) — tertiary bg
 }
 
 export const colorPreset: IThemeItem[] = [
