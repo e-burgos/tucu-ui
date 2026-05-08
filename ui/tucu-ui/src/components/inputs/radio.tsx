@@ -14,7 +14,7 @@ const inputClasses = {
   },
   variant: {
     ghost: {
-      base: 'border-[2px] bg-white dark:bg-gray-800 hover:enabled:bg-gray-50 dark:hover:enabled:bg-gray-700 transition-colors',
+      base: 'border-[2px] bg-white dark:bg-gray-800 hover:enabled:bg-gray-100 dark:hover:enabled:bg-gray-700 transition-colors',
       color: {
         primary:
           'border-brand focus:ring-[2px] focus:ring-brand/30 checked:border-brand checked:bg-brand checked:hover:enabled:bg-brand/90 checked:hover:enabled:border-brand/90 checked:hover:enabled:scale-105',

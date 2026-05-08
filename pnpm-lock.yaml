@@ -159,8 +159,8 @@ importers:
   apps/demo:
     dependencies:
       '@e-burgos/tucu-ui':
-        specifier: ^2.0.4
-        version: 2.0.4(@types/react@19.2.14)(immer@11.1.7)(react-dom@19.2.5(react@19.2.5))(react-is@18.3.1)(react@19.2.5)(tailwindcss@4.1.18)(use-sync-external-store@1.6.0(react@19.2.5))
+        specifier: ^2.0.8
+        version: 2.0.8(@types/react@19.2.14)(immer@11.1.7)(react-dom@19.2.5(react@19.2.5))(react-is@18.3.1)(react@19.2.5)(tailwindcss@4.1.18)(use-sync-external-store@1.6.0(react@19.2.5))
       react:
         specifier: ^19.2.5
         version: 19.2.5
@@ -171,6 +171,9 @@ importers:
       '@eslint/js':
         specifier: ^9.25.0
         version: 9.39.2
+      '@tailwindcss/vite':
+        specifier: ^4.1.18
+        version: 4.1.18(vite@6.4.1(@types/node@18.16.9)(jiti@2.6.1)(lightningcss@1.30.2)(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.2))
       '@types/react':
         specifier: ^19.2.14
         version: 19.2.14
@@ -192,6 +195,9 @@ importers:
       globals:
         specifier: ^16.0.0
         version: 16.5.0
+      tailwindcss:
+        specifier: ^4.1.18
+        version: 4.1.18
       typescript:
         specifier: ~5.8.3
         version: 5.8.3
@@ -214,6 +220,9 @@ importers:
       '@eslint/js':
         specifier: ^9.25.0
         version: 9.39.2
+      '@tailwindcss/vite':
+        specifier: ^4.1.18
+        version: 4.1.18(vite@6.4.1(@types/node@18.16.9)(jiti@2.6.1)(lightningcss@1.30.2)(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.2))
       '@types/react':
         specifier: ^19.2.14
         version: 19.2.14
@@ -235,6 +244,9 @@ importers:
       globals:
         specifier: ^16.0.0
         version: 16.5.0
+      tailwindcss:
+        specifier: ^4.1.18
+        version: 4.1.18
       typescript:
         specifier: ~5.8.3
         version: 5.8.3
@@ -909,8 +921,8 @@ packages:
     resolution: {integrity: sha512-IchNf6dN4tHoMFIn/7OE8LWZ19Y6q/67Bmf6vnGREv8RSbBVb9LPJxEcnwrcwX6ixSvaiGoomAUvu4YSxXrVgw==}
     engines: {node: '>=12'}
 
-  '@e-burgos/tucu-ui@2.0.4':
-    resolution: {integrity: sha512-0VFleZoq4dTG1lSZqlgILuJthzPRJsHtkQe12DigiH9QE0KSCe3RqgZl0TPFpPxM86NVDqS4uQUBmiA8feuNwA==}
+  '@e-burgos/tucu-ui@2.0.8':
+    resolution: {integrity: sha512-LAbrb1gchB6ZCUO68sGVuw40rJQBO3SU0IIE1CIPLkyz+pqS+o+Jlwa6zTPh+5sZBxVXYMQCI7pmiVPD0yl5UA==}
     peerDependencies:
       react: '>=18.0.0'
       react-dom: '>=18.0.0'
@@ -7881,7 +7893,7 @@ snapshots:
     dependencies:
       '@jridgewell/trace-mapping': 0.3.9
 
-  '@e-burgos/tucu-ui@2.0.4(@types/react@19.2.14)(immer@11.1.7)(react-dom@19.2.5(react@19.2.5))(react-is@18.3.1)(react@19.2.5)(tailwindcss@4.1.18)(use-sync-external-store@1.6.0(react@19.2.5))':
+  '@e-burgos/tucu-ui@2.0.8(@types/react@19.2.14)(immer@11.1.7)(react-dom@19.2.5(react@19.2.5))(react-is@18.3.1)(react@19.2.5)(tailwindcss@4.1.18)(use-sync-external-store@1.6.0(react@19.2.5))':
     dependencies:
       '@tailwindcss/typography': 0.0.0-insiders.0339c42(tailwindcss@4.1.18)
       classnames: 2.5.1
@@ -9668,6 +9680,13 @@ snapshots:
       lodash.merge: 4.6.2
       postcss-selector-parser: 6.0.10
       tailwindcss: 4.1.18
+
+  '@tailwindcss/vite@4.1.18(vite@6.4.1(@types/node@18.16.9)(jiti@2.6.1)(lightningcss@1.30.2)(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.2))':
+    dependencies:
+      '@tailwindcss/node': 4.1.18
+      '@tailwindcss/oxide': 4.1.18
+      tailwindcss: 4.1.18
+      vite: 6.4.1(@types/node@18.16.9)(jiti@2.6.1)(lightningcss@1.30.2)(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.2)
 
   '@tailwindcss/vite@4.1.18(vite@7.1.9(@types/node@18.16.9)(jiti@2.6.1)(lightningcss@1.30.2)(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.2))':
     dependencies:

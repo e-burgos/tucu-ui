@@ -146,7 +146,7 @@ export function TabModal({
 
         {/* ── Tabs bar (only when tabs provided and no direct content) ── */}
         {useTabs && (
-          <div className="flex shrink-0 border-b border-gray-200 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-800/20">
+          <div className="flex shrink-0 border-b border-gray-200 dark:border-gray-700 bg-gray-100 dark:bg-gray-800/20">
             {tabs?.map(({ icon: TabIcon, name }, index) => (
               <button
                 key={name}
@@ -172,7 +172,7 @@ export function TabModal({
         </div>
 
         {/* ── Footer ── */}
-        <div className="shrink-0 border-t border-gray-200 dark:border-gray-700 px-4 py-3 flex items-center justify-between bg-gray-50/50 dark:bg-gray-800/10">
+        <div className="shrink-0 border-t border-gray-200 dark:border-gray-700 px-4 py-3 flex items-center justify-between bg-gray-100 dark:bg-gray-800/10">
           {closeButton || successButton ? (
             // Normal layout: footerLabel left, buttons right
             <>

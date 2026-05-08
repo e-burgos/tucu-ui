@@ -84,7 +84,7 @@ export function DrawerContainer({
   );
 
   const drawerClasses = cn(
-    'fixed inset-y-0 h-screen w-full max-w-full xs:w-auto transition-transform duration-300 ease-out',
+    'fixed inset-y-0 h-screen w-full max-w-full min-[500px]:w-auto transition-transform duration-300 ease-out',
     position === 'left'
       ? cn(
           'ltr:left-0 rtl:right-0',

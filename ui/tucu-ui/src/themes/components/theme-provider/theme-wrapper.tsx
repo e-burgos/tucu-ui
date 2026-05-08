@@ -96,7 +96,7 @@ export function ThemeWrapper({
   children,
   setCurrentPathname,
 }: ThemeWrapperProps) {
-  const { mode, layout } = useTheme();
+  const { mode, layout, colorScheme } = useTheme();
 
   const { pathname } = useLocation();
   const menuList = useMemo(
@@ -160,6 +160,11 @@ export function ThemeWrapper({
     html.classList.toggle('dark', mode === 'dark');
     html.classList.toggle('light', mode !== 'dark');
   }, [mode]);
+
+  // ─── macOS theme variant class on <html> ─────────────────────
+  useEffect(() => {
+    document.documentElement.classList.toggle('macos', colorScheme === 'macos');
+  }, [colorScheme]);
 
   return (
     <div

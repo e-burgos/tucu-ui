@@ -6,6 +6,10 @@ export interface IThemeItem {
 
 export type MODE = 'light' | 'dark';
 
+export type THEME_VARIANT = 'default' | 'macos';
+
+export const defaultThemeVariant: THEME_VARIANT = 'default';
+
 export type DIRECTION = 'ltr' | 'rtl';
 
 export type LogoType = LogoPropTypes;
@@ -14,23 +18,16 @@ export enum LAYOUT_OPTIONS {
   CLEAN = 'clean',
   ADMIN = 'admin',
   HORIZONTAL = 'horizontal',
+  MACOS = 'macos',
 }
 
-export type LayoutOptionType = 'clean' | 'admin' | 'horizontal';
+export type LayoutOptionType = 'clean' | 'admin' | 'horizontal' | 'macos';
 
 export const layoutOptions: IThemeItem[] = [
-  {
-    label: 'Clean',
-    value: LAYOUT_OPTIONS.CLEAN,
-  },
-  {
-    label: 'Admin',
-    value: LAYOUT_OPTIONS.ADMIN,
-  },
-  {
-    label: 'Horizontal',
-    value: LAYOUT_OPTIONS.HORIZONTAL,
-  },
+  { label: 'Clean',      value: LAYOUT_OPTIONS.CLEAN      },
+  { label: 'Admin',      value: LAYOUT_OPTIONS.ADMIN      },
+  { label: 'Horizontal', value: LAYOUT_OPTIONS.HORIZONTAL },
+  { label: 'macOS',      value: LAYOUT_OPTIONS.MACOS      },
 ];
 
 export type PresetColorType =
@@ -51,9 +48,7 @@ export type PresetColorType =
   | 'Green'
   | 'Lime'
   | 'Black'
-  | 'Gray'
-  | 'MacOS'
-  | 'MacOSDark';
+  | 'Gray';
 
 export enum PRESET_LABEL_COLORS {
   DEFAULT_PRIMARY = 'DefaultPrimary',
@@ -90,6 +85,8 @@ export enum PRESET_LABEL_COLORS {
   DARK_YELLOW = 'DarkYellow',
   CHARTREUSE = 'Chartreuse',
   DARK_CHARTREUSE = 'DarkChartreuse',
+
+  // macOS / Apple preset labels
   MACOS_PRIMARY = 'MacOSPrimary',
   MACOS_DARK_PRIMARY = 'MacOSDarkPrimary',
   MACOS_SECONDARY = 'MacOSSecondary',
@@ -110,24 +107,24 @@ export enum PRESET_COLORS {
   DEFAULT_DARK_PRIMARY = '#578bfa', // --color-tucu-ui-dark-blue-70 (dark mode)
 
   // Secondary colors - mapped from --color-semantic-bg-secondary
-  DEFAULT_SECONDARY = '#eef0f3', // --color-tucu-ui-gray-10 (light mode)
-  DEFAULT_DARK_SECONDARY = '#282b31', // --color-tucu-ui-dark-gray-15 (dark mode)
+  DEFAULT_SECONDARY = '#f3f4f6', // --color-tucu-ui-gray-10 (light mode)
+  DEFAULT_DARK_SECONDARY = '#172131', // --color-tucu-ui-dark-gray-15 (dark mode)
 
   // Accent colors - mapped from --color-semantic-accent-bold-yellow
   DEFAULT_ACCENT = '#f7d21a', // --color-tucu-ui-yellow-30 (light mode)
   DEFAULT_DARK_ACCENT = '#936000', // --color-tucu-ui-dark-yellow-30 (dark mode)
 
   // Muted colors - mapped from --color-semantic-fg-muted
-  DEFAULT_MUTED = '#5b616e', // --color-tucu-ui-gray-60 (light mode)
-  DEFAULT_DARK_MUTED = '#8a919e', // --color-tucu-ui-dark-gray-60 (dark mode)
+  DEFAULT_MUTED = '#4a5565', // --color-tucu-ui-gray-60 (light mode)
+  DEFAULT_DARK_MUTED = '#828a99', // --color-tucu-ui-dark-gray-60 (dark mode)
 
   // Background colors - mapped from --color-semantic-bg
   DEFAULT_LIGHT_BG = '#ffffff', // --color-tucu-ui-gray-0 (light mode)
-  DEFAULT_DARK_BG = '#0a0b0d', // --color-tucu-ui-dark-gray-0 (dark mode)
+  DEFAULT_DARK_BG = '#030712', // --color-tucu-ui-dark-gray-0 (dark mode)
 
   // Light Dark colors - mapped from --color-semantic-bg-secondary-wash
-  DEFAULT_LIGHT_DARK = '#f7f8f9', // --color-tucu-ui-gray-5 (light mode)
-  DEFAULT_DARK_LIGHT_DARK = '#141519', // --color-tucu-ui-dark-gray-5 (dark mode)
+  DEFAULT_LIGHT_DARK = '#f9fafb', // --color-tucu-ui-gray-5 (light mode)
+  DEFAULT_DARK_LIGHT_DARK = '#0a101d', // --color-tucu-ui-dark-gray-5 (dark mode)
 
   // Color presets - mapped from --color-tucu-ui-*-50 (light mode)
   BLUE = '#105eff', // --color-tucu-ui-blue-50
@@ -136,8 +133,8 @@ export enum PRESET_COLORS {
   DARK_GREEN = '#159962', // --color-tucu-ui-dark-green-50
   ORANGE = '#e1591b', // --color-tucu-ui-orange-50
   DARK_ORANGE = '#e66020', // --color-tucu-ui-dark-orange-50
-  GRAY = '#717886', // --color-tucu-ui-gray-50
-  DARK_GRAY = '#727886', // --color-tucu-ui-dark-gray-50
+  GRAY = '#6a7282', // --color-tucu-ui-gray-50
+  DARK_GRAY = '#6a7282', // --color-tucu-ui-dark-gray-50
   INDIGO = '#596ff2', // --color-tucu-ui-indigo-50
   DARK_INDIGO = '#5c71ee', // --color-tucu-ui-dark-indigo-50
   PINK = '#cb51bb', // --color-tucu-ui-pink-50
@@ -153,19 +150,20 @@ export enum PRESET_COLORS {
   CHARTREUSE = '#56b340', // --color-tucu-ui-chartreuse-50
   DARK_CHARTREUSE = '#7bc869', // --color-tucu-ui-dark-chartreuse-50
 
-  // macOS / Apple design system presets
-  MACOS_PRIMARY = '#0071e3',
-  MACOS_DARK_PRIMARY = '#0a84ff',
-  MACOS_SECONDARY = '#f5f5f7',
-  MACOS_DARK_SECONDARY = '#2c2c2e',
-  MACOS_ACCENT = '#ff9f0a',
-  MACOS_DARK_ACCENT = '#ff9f0a',
-  MACOS_MUTED = '#6e6e73',
-  MACOS_DARK_MUTED = '#98989d',
-  MACOS_LIGHT_BG = '#f5f5f7',
-  MACOS_DARK_BG = '#1c1c1e',
-  MACOS_LIGHT_DARK = '#e8e8ed',
-  MACOS_DARK_LIGHT_DARK = '#3a3a3c',
+  // macOS Sonoma / Apple system colors
+  // Source: UIColor/NSColor semantic values, sampled from macOS Sonoma 14
+  MACOS_PRIMARY = '#007aff',        // systemBlue (light)
+  MACOS_DARK_PRIMARY = '#0a84ff',   // systemBlue (dark)
+  MACOS_SECONDARY = '#ffffff',      // contentBackground — cards float on gray bg
+  MACOS_DARK_SECONDARY = '#2c2c2e', // systemGray4 (dark) — elevated surface
+  MACOS_ACCENT = '#ff9500',         // systemOrange (light)
+  MACOS_DARK_ACCENT = '#ff9f0a',    // systemOrange (dark)
+  MACOS_MUTED = '#6c6c70',          // secondaryLabel blended (light)
+  MACOS_DARK_MUTED = '#aeaeb2',     // systemGray2 (dark)
+  MACOS_LIGHT_BG = '#f2f2f7',       // systemGray6 — primary app background
+  MACOS_DARK_BG = '#1c1c1e',        // systemGray5 (dark) — primary bg
+  MACOS_LIGHT_DARK = '#e5e5ea',     // systemGray5 (light) — secondary bg wash
+  MACOS_DARK_LIGHT_DARK = '#3a3a3c', // systemGray3 (dark) — tertiary bg
 }
 
 export const colorPreset: IThemeItem[] = [
@@ -305,54 +303,6 @@ export const colorPreset: IThemeItem[] = [
     label: PRESET_LABEL_COLORS.DARK_CHARTREUSE,
     value: PRESET_COLORS.DARK_CHARTREUSE,
   },
-  {
-    label: PRESET_LABEL_COLORS.MACOS_PRIMARY,
-    value: PRESET_COLORS.MACOS_PRIMARY,
-  },
-  {
-    label: PRESET_LABEL_COLORS.MACOS_DARK_PRIMARY,
-    value: PRESET_COLORS.MACOS_DARK_PRIMARY,
-  },
-  {
-    label: PRESET_LABEL_COLORS.MACOS_SECONDARY,
-    value: PRESET_COLORS.MACOS_SECONDARY,
-  },
-  {
-    label: PRESET_LABEL_COLORS.MACOS_DARK_SECONDARY,
-    value: PRESET_COLORS.MACOS_DARK_SECONDARY,
-  },
-  {
-    label: PRESET_LABEL_COLORS.MACOS_ACCENT,
-    value: PRESET_COLORS.MACOS_ACCENT,
-  },
-  {
-    label: PRESET_LABEL_COLORS.MACOS_DARK_ACCENT,
-    value: PRESET_COLORS.MACOS_DARK_ACCENT,
-  },
-  {
-    label: PRESET_LABEL_COLORS.MACOS_MUTED,
-    value: PRESET_COLORS.MACOS_MUTED,
-  },
-  {
-    label: PRESET_LABEL_COLORS.MACOS_DARK_MUTED,
-    value: PRESET_COLORS.MACOS_DARK_MUTED,
-  },
-  {
-    label: PRESET_LABEL_COLORS.MACOS_LIGHT_BG,
-    value: PRESET_COLORS.MACOS_LIGHT_BG,
-  },
-  {
-    label: PRESET_LABEL_COLORS.MACOS_DARK_BG,
-    value: PRESET_COLORS.MACOS_DARK_BG,
-  },
-  {
-    label: PRESET_LABEL_COLORS.MACOS_LIGHT_DARK,
-    value: PRESET_COLORS.MACOS_LIGHT_DARK,
-  },
-  {
-    label: PRESET_LABEL_COLORS.MACOS_DARK_LIGHT_DARK,
-    value: PRESET_COLORS.MACOS_DARK_LIGHT_DARK,
-  },
 ];
 
 export const Direction: IThemeItem[] = [
@@ -444,3 +394,21 @@ export const defaultDarkLightDarkPreset = colorPreset.find(
 export const defaultDirection = 'ltr';
 
 export const defaultMode = 'dark';
+
+// ─── macOS Preset Bundles ─────────────────────────────────────────────────
+// Ready-to-use preset objects for applyMacOSTheme() store action.
+
+export const macosLightPresets = {
+  primaryPreset:      { label: PRESET_LABEL_COLORS.MACOS_PRIMARY,        value: PRESET_COLORS.MACOS_PRIMARY },
+  darkPrimaryPreset:  { label: PRESET_LABEL_COLORS.MACOS_DARK_PRIMARY,   value: PRESET_COLORS.MACOS_DARK_PRIMARY },
+  secondaryPreset:    { label: PRESET_LABEL_COLORS.MACOS_SECONDARY,      value: PRESET_COLORS.MACOS_SECONDARY },
+  darkSecondaryPreset:{ label: PRESET_LABEL_COLORS.MACOS_DARK_SECONDARY, value: PRESET_COLORS.MACOS_DARK_SECONDARY },
+  accentPreset:       { label: PRESET_LABEL_COLORS.MACOS_ACCENT,         value: PRESET_COLORS.MACOS_ACCENT },
+  darkAccentPreset:   { label: PRESET_LABEL_COLORS.MACOS_DARK_ACCENT,    value: PRESET_COLORS.MACOS_DARK_ACCENT },
+  mutedPreset:        { label: PRESET_LABEL_COLORS.MACOS_MUTED,          value: PRESET_COLORS.MACOS_MUTED },
+  darkMutedPreset:    { label: PRESET_LABEL_COLORS.MACOS_DARK_MUTED,     value: PRESET_COLORS.MACOS_DARK_MUTED },
+  lightBgPreset:      { label: PRESET_LABEL_COLORS.MACOS_LIGHT_BG,       value: PRESET_COLORS.MACOS_LIGHT_BG },
+  darkBgPreset:       { label: PRESET_LABEL_COLORS.MACOS_DARK_BG,        value: PRESET_COLORS.MACOS_DARK_BG },
+  lightDarkPreset:    { label: PRESET_LABEL_COLORS.MACOS_LIGHT_DARK,     value: PRESET_COLORS.MACOS_LIGHT_DARK },
+  darkLightDarkPreset:{ label: PRESET_LABEL_COLORS.MACOS_DARK_LIGHT_DARK,value: PRESET_COLORS.MACOS_DARK_LIGHT_DARK },
+} as const;

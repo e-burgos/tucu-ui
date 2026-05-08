@@ -150,8 +150,8 @@ const InitialPage = () => {
               tag="p"
               className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
             >
-              Everything you need to build and deploy standalone applications with
-              Tucu-UI
+              Everything you need to build and deploy standalone applications
+              with Tucu-UI
             </Typography>
           </div>
 
@@ -185,7 +185,7 @@ const InitialPage = () => {
       </section>
 
       {/* Architecture Overview Section */}
-      <section className="py-20 lg:py-24 bg-gray-50 bg-light-dark">
+      <section className="py-20 lg:py-24 bg-gray-100 bg-light-dark">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <Typography
@@ -227,7 +227,8 @@ const InitialPage = () => {
                         tag="p"
                         className="text-gray-600 dark:text-gray-400 text-sm"
                       >
-                        Routes automatically generated from menu items configuration
+                        Routes automatically generated from menu items
+                        configuration
                       </Typography>
                     </div>
                   </li>
@@ -246,7 +247,8 @@ const InitialPage = () => {
                         tag="p"
                         className="text-gray-600 dark:text-gray-400 text-sm"
                       >
-                        Direct integration with ThemeProvider for consistent theming and navigation
+                        Direct integration with ThemeProvider for consistent
+                        theming and navigation
                       </Typography>
                     </div>
                   </li>
@@ -265,8 +267,8 @@ const InitialPage = () => {
                         tag="p"
                         className="text-gray-600 dark:text-gray-400 text-sm"
                       >
-                        Built-in standalone mode in ThemeProvider (default) via discriminated
-                        unions
+                        Built-in standalone mode in ThemeProvider (default) via
+                        discriminated unions
                       </Typography>
                     </div>
                   </li>
@@ -285,7 +287,8 @@ const InitialPage = () => {
                         tag="p"
                         className="text-gray-600 dark:text-gray-400 text-sm"
                       >
-                        Seamless React Router navigation within the same application
+                        Seamless React Router navigation within the same
+                        application
                       </Typography>
                     </div>
                   </li>
@@ -433,7 +436,8 @@ const InitialPage = () => {
               tag="p"
               className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
             >
-              Comprehensive guides to help you build with Standalone Applications
+              Comprehensive guides to help you build with Standalone
+              Applications
             </Typography>
           </div>
 

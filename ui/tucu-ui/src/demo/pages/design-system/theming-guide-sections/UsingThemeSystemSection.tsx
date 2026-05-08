@@ -1,5 +1,11 @@
 import React from 'react';
-import { CardContainer, CardTitle, Typography, LucideIcons, CodeBlock } from '../../../../index';
+import {
+  CardContainer,
+  CardTitle,
+  Typography,
+  LucideIcons,
+  CodeBlock,
+} from '../../../../index';
 
 const UsingThemeSystemSection: React.FC = () => {
   return (
@@ -37,16 +43,16 @@ function App() {
       customPaletteColor={{
         primary: '#0052ff',          // Hex color or preset name
         darkPrimary: '#578bfa',
-        secondary: '#eef0f3',
-        darkSecondary: '#282b31',
+        secondary: '#f3f4f6',
+        darkSecondary: '#172131',
         accent: '#f7d21a',
         darkAccent: '#936000',
-        muted: '#5b616e',
-        darkMuted: '#8a919e',
-        darkBg: '#0a0b0d',
+        muted: '#4a5565',
+        darkMuted: '#828a99',
+        darkBg: '#030712',
         lightBg: '#ffffff',
-        lightDark: '#f7f8f9',
-        darkLightDark: '#141519',
+        lightDark: '#f9fafb',
+        darkLightDark: '#0a101d',
       }}
 
       // Theme Settings
@@ -156,7 +162,7 @@ function ThemeControls() {
         Set Primary Color
       </button>
 
-      <button onClick={() => setSecondaryPreset({ label: 'DEFAULT_SECONDARY', value: '#eef0f3' })}>
+      <button onClick={() => setSecondaryPreset({ label: 'DEFAULT_SECONDARY', value: '#f3f4f6' })}>
         Set Secondary Color
       </button>
 
@@ -181,4 +187,3 @@ function ThemeControls() {
 };
 
 export default UsingThemeSystemSection;
-

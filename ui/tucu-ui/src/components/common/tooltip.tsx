@@ -270,7 +270,9 @@ export function Tooltip({
 
   const actualPlacement = position?.actualPlacement ?? placement;
 
-  const child = React.Children.only(children);
+  const child = React.Children.only(children) as React.ReactElement<
+    React.HTMLAttributes<HTMLElement>
+  >;
   const triggerElement = React.cloneElement(child, {
     ref: (node: HTMLElement | null) => {
       anchorRef.current = node;
@@ -284,19 +286,19 @@ export function Tooltip({
         (childRef as React.MutableRefObject<HTMLElement | null>).current = node;
       }
     },
-    onMouseEnter: (e: React.MouseEvent) => {
+    onMouseEnter: (e: React.MouseEvent<HTMLElement>) => {
       handleShow();
       child.props.onMouseEnter?.(e);
     },
-    onMouseLeave: (e: React.MouseEvent) => {
+    onMouseLeave: (e: React.MouseEvent<HTMLElement>) => {
       handleHide();
       child.props.onMouseLeave?.(e);
     },
-    onFocus: (e: React.FocusEvent) => {
+    onFocus: (e: React.FocusEvent<HTMLElement>) => {
       handleShow();
       child.props.onFocus?.(e);
     },
-    onBlur: (e: React.FocusEvent) => {
+    onBlur: (e: React.FocusEvent<HTMLElement>) => {
       handleHide();
       child.props.onBlur?.(e);
     },

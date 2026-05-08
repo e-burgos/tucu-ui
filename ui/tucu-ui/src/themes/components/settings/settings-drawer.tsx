@@ -208,6 +208,60 @@ function ThemeSwitcher() {
   );
 }
 
+// ─── ThemeVariantSwitcher ──────────────────────────────────────
+
+// Minimal SVG icon representing a generic default layout
+function DefaultThemeIcon() {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="3" y="3" width="7" height="7" rx="1" />
+      <rect x="14" y="3" width="7" height="7" rx="1" />
+      <rect x="3" y="14" width="7" height="7" rx="1" />
+      <rect x="14" y="14" width="7" height="7" rx="1" />
+    </svg>
+  );
+}
+
+// Minimal SVG icon representing a macOS-style window (three dots + bar)
+function MacOSThemeIcon() {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="2" y="4" width="20" height="16" rx="3" />
+      <line x1="2" y1="9" x2="22" y2="9" />
+      <circle cx="6" cy="6.5" r="1" fill="currentColor" stroke="none" />
+      <circle cx="10" cy="6.5" r="1" fill="currentColor" stroke="none" />
+      <circle cx="14" cy="6.5" r="1" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
+
+function ThemeVariantSwitcher() {
+  const { colorScheme, applyMacOSTheme, applyDefaultTheme } = useTheme();
+  return (
+    <div className="px-6 pt-8">
+      <h4 className="mb-4 text-sm font-medium text-gray-900 dark:text-white">
+        Theme Style
+      </h4>
+      <div role="radiogroup" className="grid grid-cols-2 gap-5">
+        <SwitcherButton
+          onClick={applyDefaultTheme}
+          title="Default"
+          checked={colorScheme === 'default'}
+        >
+          <DefaultThemeIcon />
+        </SwitcherButton>
+        <SwitcherButton
+          onClick={applyMacOSTheme}
+          title="macOS"
+          checked={colorScheme === 'macos'}
+        >
+          <MacOSThemeIcon />
+        </SwitcherButton>
+      </div>
+    </div>
+  );
+}
+
 // ─── DirectionSwitcher ─────────────────────────────────────────
 
 function DirectionSwitcher() {
@@ -375,6 +429,7 @@ export function SettingsDrawer() {
     >
       <div className="h-full pb-16">
         <ThemeSwitcher />
+        <ThemeVariantSwitcher />
         <DirectionSwitcher />
         <LayoutSwitcher />
         {COLOR_TYPES.map((type) => (

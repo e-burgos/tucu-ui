@@ -2,6 +2,7 @@ import { useState } from 'react';
 import HorizontalLayout from './horizontal';
 import AdminLayout from './admin-layout';
 import CleanLayout from './clean-layout';
+import MacOSLayout from './macos-layout';
 import Toast from '../notifications/toast';
 import { LogoPropTypes } from '../logos/logo';
 import { LAYOUT_OPTIONS, LayoutOptionType } from '../../themes/config/index';
@@ -77,6 +78,22 @@ const LayoutType = ({
         {children}
         <Toast />
       </AdminLayout>
+    );
+  }
+
+  if (layout === LAYOUT_OPTIONS.MACOS) {
+    return (
+      <MacOSLayout
+        logo={logo}
+        rightButton={rightButton}
+        menuItems={menuItems}
+        className={className}
+        headerClassName={headerClassName}
+        contentClassName={contentClassName}
+        fullWidth={fullWidth}
+      >
+        {children}
+      </MacOSLayout>
     );
   }
 

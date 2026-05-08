@@ -34,7 +34,7 @@ export const Home = (): JSX.Element => {
     'https://e7.pngegg.com/pngimages/799/987/png-clipart-computer-icons-avatar-icon-design-avatar-heroes-computer-wallpaper-thumbnail.png';
 
   return (
-    <div className="min-h-full px-4 pb-16 pt-16 sm:px-6 sm:pb-20 lg:px-8 xl:pb-24 xl:pt-24 3xl:px-10">
+    <div className="min-h-full px-4 pb-16 pt-16 sm:px-6 sm:pb-20 lg:px-8 xl:pb-24 xl:pt-24 min-[1780px]:px-10">
       <CardContainer className="flex flex-col items-center justify-center p-6 gap-4">
         <Avatar image={avatarImg} alt="Demo User" size="md" />
         <div className="flex flex-col">
@@ -76,7 +76,7 @@ export const Home = (): JSX.Element => {
 export const About = (): JSX.Element => {
   const navigate = ReactRouter.useNavigate();
   return (
-    <div className="min-h-full px-4 pb-16 pt-16 sm:px-6 sm:pb-20 lg:px-8 xl:pb-24 xl:pt-24 3xl:px-10">
+    <div className="min-h-full px-4 pb-16 pt-16 sm:px-6 sm:pb-20 lg:px-8 xl:pb-24 xl:pt-24 min-[1780px]:px-10">
       <CardContainer className="flex flex-col items-center justify-center p-6">
         <div className="flex flex-col justify-center items-center gap-8 w-full px-4">
           <Typography tag="h3" className="font-semibold mb-4 text-center">

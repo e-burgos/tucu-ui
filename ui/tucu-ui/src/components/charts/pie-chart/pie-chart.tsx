@@ -77,7 +77,8 @@ export function PieChart({
           strokeWidth={0}
           label={
             showLabels && !donut
-              ? ({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`
+              ? ({ name, percent }: { name?: string; percent?: number }) =>
+                  `${name} ${((percent ?? 0) * 100).toFixed(0)}%`
               : undefined
           }
           labelLine={showLabels && !donut}

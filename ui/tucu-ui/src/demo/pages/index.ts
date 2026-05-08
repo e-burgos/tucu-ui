@@ -1,4 +1,5 @@
 export * from './blockchain/BlockchainComponents';
+export * from './macos/MacOSShowcase';
 export * from './components/ComponentsIntroduction';
 export * from './components/ChartsComponents';
 export * from './components/InputsComponents';

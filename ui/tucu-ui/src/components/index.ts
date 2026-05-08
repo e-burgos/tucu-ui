@@ -1,5 +1,6 @@
 export * from './auth';
 export * from './blockchain';
+export * from './macos';
 export * from './buttons';
 export * from './cards';
 export * from './carousel';

@@ -5,7 +5,7 @@ import {
   Typography,
   CodeBlock,
 } from '../../../../index';
-import { LineChart } from '../../../../components/charts';
+import { LineChart } from '../../../../components/charts/line-chart/line-chart';
 import { PropPlayground } from '../../../components/prop-playground';
 import { AutoPropsTable } from '../../../components/auto-props-table';
 

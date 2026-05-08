@@ -42,13 +42,13 @@ export function useChartTheme(): ChartTheme {
   return {
     mode,
     colors: isDark ? DARK_PALETTE : LIGHT_PALETTE,
-    grid: isDark ? '#282b31' : '#e5e7eb',
-    text: isDark ? '#8a919e' : '#5b616e',
-    background: isDark ? '#0a0b0d' : '#ffffff',
-    border: isDark ? '#282b31' : '#eef0f3',
-    tooltipBg: isDark ? '#141519' : '#ffffff',
-    tooltipText: isDark ? '#f7f8f9' : '#0a0b0d',
-    tooltipBorder: isDark ? '#282b31' : '#eef0f3',
+    grid: isDark ? '#172131' : '#e5e7eb',
+    text: isDark ? '#828a99' : '#4a5565',
+    background: isDark ? '#030712' : '#ffffff',
+    border: isDark ? '#172131' : '#f3f4f6',
+    tooltipBg: isDark ? '#0a101d' : '#ffffff',
+    tooltipText: isDark ? '#f9fafb' : '#030712',
+    tooltipBorder: isDark ? '#172131' : '#f3f4f6',
     cursorFill: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.04)',
   };
 }

@@ -33,10 +33,10 @@ export function CoinCard({
       <h4 className="mb-8 text-sm font-medium uppercase tracking-wider text-gray-900">
         {name}
       </h4>
-      <div className="relative h-20 lg:h-24 xl:h-28 3xl:h-36">
+      <div className="relative h-20 lg:h-24 xl:h-28 min-[1780px]:h-36">
         <Image src={logo} alt={name} height={112} priority="auto" />
       </div>
-      <div className="mb-2 mt-8 text-sm font-medium tracking-wider text-gray-900 lg:text-lg 2xl:text-xl 3xl:text-2xl">
+      <div className="mb-2 mt-8 text-sm font-medium tracking-wider text-gray-900 lg:text-lg 2xl:text-xl min-[1780px]:text-2xl">
         {balance}
         <span className="uppercase"> {symbol}</span>
       </div>
