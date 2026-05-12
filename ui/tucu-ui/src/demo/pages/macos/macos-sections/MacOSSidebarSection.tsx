@@ -79,7 +79,7 @@ const MacOSSidebarSection: React.FC = () => {
                   },
                 ]}
                 activeId="home"
-                onSelect={() => {}}
+                onSelect={() => { return; }}
               />
               <div className="flex flex-1 items-center justify-center bg-[var(--color-semantic-bg)] text-sm text-gray-400">
                 Main content area

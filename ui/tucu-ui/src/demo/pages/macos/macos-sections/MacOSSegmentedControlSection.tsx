@@ -110,7 +110,7 @@ const MacOSSegmentedControlSection: React.FC = () => {
                 { value: 'admin', label: 'Admin', disabled: true },
               ]}
               value="read"
-              onChange={() => {}}
+              onChange={() => { return; }}
             />
           </div>
         </CardTitle>
