@@ -12,7 +12,7 @@ Complete API reference for all components, hooks, utilities, and types in `@e-bu
 | Field            | Value                                                                                                                                                       |
 | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Name**         | `@e-burgos/tucu-ui`                                                                                                                                         |
-| **Version**      | 2.0.4+                                                                                                                                                      |
+| **Version**      | 2.0.8                                                                                                                                                      |
 | **Author**       | Esteban Burgos                                                                                                                                              |
 | **License**      | MIT                                                                                                                                                         |
 | **Peer Deps**    | `react >=18`, `react-dom >=18`, `tailwindcss >=4`                                                                                                           |
@@ -163,18 +163,20 @@ const ButtonShowcase = () => (
 
 ### 2.4 Cards
 
-| Component           | Key Props                                                                  | Description                                |
-| ------------------- | -------------------------------------------------------------------------- | ------------------------------------------ |
-| **CardContainer**   | `{className?, children?}`                                                  | Wrapper with border, shadow, rounded, dark |
-| **CardTitle**       | `{border?(true), title?, children?, className?}`                           | Container with floating title              |
-| **AuthorCard**      | `{image, name?, authorRole?}`                                              | Author card with avatar                    |
-| **PanelCard**       | `{title, children, className?}`                                            | Card with header and scrollable content    |
-| **PanelActionCard** | `{title, actions?: {label, variant?, color?, size?, onClick}[], children}` | PanelCard with action buttons              |
+| Component           | Key Props                                                                  | Description                                        |
+| ------------------- | -------------------------------------------------------------------------- | -------------------------------------------------- |
+| **Card**            | `{title?, description?, icon?, header?, footer?, actions?, onClick?, className?}` | Versatile card with header, footer, actions slots  |
+| **CardContainer**   | `{className?, children?}`                                                  | Wrapper with border, shadow, rounded, dark         |
+| **CardTitle**       | `{border?(true), title?, children?, className?}`                           | Container with floating title                      |
+| **AuthorCard**      | `{image, name?, authorRole?}`                                              | Author card with avatar                            |
+| **InfoCard**        | `{title?, subtitle?, icon?, headerRight?, columns?: InfoCardColumn[], gridCols?, footerTags?, footerLabel?, footer?, className?}` | Structured multi-column info card with footer tags |
+| **PanelCard**       | `{title, children, className?}`                                            | Card with header and scrollable content            |
+| **PanelActionCard** | `{title, actions?: {label, variant?, color?, size?, onClick}[], children}` | PanelCard with action buttons                      |
 
 **Example:**
 
 ```tsx
-import { CardContainer, CardTitle, PanelActionCard } from '@e-burgos/tucu-ui';
+import { Card, CardContainer, CardTitle, InfoCard, PanelActionCard } from '@e-burgos/tucu-ui';
 
 const DashboardPanel = () => (
   <CardContainer className="p-6">
@@ -241,6 +243,7 @@ const ProductGallery = () => (
 | **Collapse**     | `{label, initialOpen?, className?}`                                                                                                                          | Animated accordion              |
 | **KeyValueRow**  | `{label, value: ReactNode, mono?, accent?, className?}`                                                                                                      | Label-value row for detail views |
 | **Pagination**   | `{currentPage, totalPages, onPageChange, windowSize?(2), className?}`                                                                                        | Page navigation with ellipsis   |
+| **ScrollbarNative** | `{autoHide?: 'never'\|'scroll'\|'leave'\|'move', className?, style?}`                                                                                     | Native scrollbar replacement    |
 | **Scrollbar**    | `{autoHide?: 'never'\|'scroll'\|'leave'\|'move', direction?, scrollbarStyle?}`                                                                               | Custom scrollbar                |
 | **Skeleton**     | `{animation?: 'pulse'\|'wave'\|'shimmer'\|'none', shape?: 'rectangle'\|'circle'\|'text'\|'rounded', size?, width?, height?, count?}`                         | Skeleton loader                 |
 | **Stepper**      | `{steps: {id, label, icon?}[], currentStep, onStepChange?, className?}`                                                                                      | Step navigation indicator        |
@@ -285,6 +288,7 @@ const UserProfileLoading = () => (
 | **DrawerContainer** | `{isOpen, setIsOpen, position?, backdrop?(true)}`                                                                                    | Sliding portal container           |
 | **Sidebar**         | `{children, title?, actionContent?, logo?, onClose?}`                                                                                | Generic sidebar with scroll        |
 | **SidebarMenu**     | `{menuItems: IMenuItem[], title?, actionContent?, onClose, logo?}`                                                                   | Sidebar with navigation menu       |
+| **TabModal**        | `{icon?, title?, subtitle?, badgeHeader?, badgeHeaderClassName?, tabs?: TabModalTab[], content?, footerLabel?, successButton?, closeButton?, closeLabel?, onClose, className?}` | Portal modal with tab bar, footer actions |
 
 **Example:**
 
@@ -553,10 +557,11 @@ const ArticlePage = () => (
 
 | Component            | Key Props                                                                                            | Description                        |
 | -------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------- |
-| **RootLayout**       | `{layout?: 'clean'\|'admin'\|'horizontal', menuItems: IMenuItem[], logo?, rightButton?, fullWidth?}` | Main layout orchestrator           |
+| **RootLayout**       | `{layout?: 'clean'\|'admin'\|'horizontal'\|'macos'\|'macos-tahoe', menuItems: IMenuItem[], logo?, rightButton?, fullWidth?}` | Main layout orchestrator           |
 | **AdminLayout**      | `{menuItems, rightButton?, logo?, isOpen, setIsOpen, fullWidth?}`                                    | Collapsible sidebar + fixed header |
 | **CleanLayout**      | `{children, className?}`                                                                             | Minimal layout without nav         |
 | **HorizontalLayout** | `{menuItems, rightButton?, logo?, isOpen, setIsOpen, fullWidth?}`                                    | Top horizontal navigation          |
+| **MacOSLayout**      | `{menuItems, rightButton?, logo?, isOpen, setIsOpen, fullWidth?}`                                    | macOS-style sidebar + toolbar      |
 | **MenuItem**         | `{name, icon?, path, href?, dropdownItems?, isActive?, hide?, onClick?}`                             | Menu item with sub-menu            |
 
 ---

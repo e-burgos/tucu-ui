@@ -120,3 +120,32 @@ html.macos [data-tucu='sidebar-icon'] {
   height: var(--macos-sidebar-icon-size);
   margin-right: var(--macos-space-2);
 }
+
+/* ============================================================
+   macOS Tahoe 26 — Dialogs & Overlays (Liquid Glass)
+   ============================================================ */
+
+/* ── Modals / Dialogs ────────────────────────────────────────── */
+html.macos-tahoe [data-tucu='modal-content'],
+html.macos-tahoe [data-tucu='drawer-content'],
+html.macos-tahoe [data-tucu='sidebar-content'],
+html.macos-tahoe [data-tucu='popover-content'] {
+  background: var(--macos-glass-regular-bg);
+  backdrop-filter: blur(var(--macos-glass-regular-blur)) saturate(150%);
+  -webkit-backdrop-filter: blur(var(--macos-glass-regular-blur)) saturate(150%);
+  border: 1px solid var(--macos-glass-regular-border);
+  box-shadow: var(--macos-shadow-window), var(--macos-glass-highlight);
+  border-radius: var(--macos-radius-xl);
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  html.macos-tahoe [data-tucu='modal-content'],
+  html.macos-tahoe [data-tucu='drawer-content'],
+  html.macos-tahoe [data-tucu='sidebar-content'],
+  html.macos-tahoe [data-tucu='popover-content'] {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: var(--color-semantic-elevation-1);
+    box-shadow: var(--macos-shadow-window);
+  }
+}

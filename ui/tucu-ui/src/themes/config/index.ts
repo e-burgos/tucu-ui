@@ -33,8 +33,6 @@ export const layoutOptions: IThemeItem[] = [
   { label: 'Clean', value: LAYOUT_OPTIONS.CLEAN },
   { label: 'Admin', value: LAYOUT_OPTIONS.ADMIN },
   { label: 'Horizontal', value: LAYOUT_OPTIONS.HORIZONTAL },
-  { label: 'macOS Classic', value: LAYOUT_OPTIONS.MACOS },
-  { label: 'macOS Tahoe', value: LAYOUT_OPTIONS.MACOS_TAHOE },
 ];
 
 export type PresetColorType =

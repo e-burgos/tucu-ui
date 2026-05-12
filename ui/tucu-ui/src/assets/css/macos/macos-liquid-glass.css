@@ -1,0 +1,110 @@
+/* ============================================================
+   macOS Tahoe 26 — Liquid Glass Materials
+   Applies glassmorphism effects and visual depth for macOS theme.
+   ============================================================ */
+
+html.macos {
+  /* Liquid Glass Tokens */
+  --macos-glass-regular-bg: rgba(255, 255, 255, 0.4);
+  --macos-glass-regular-blur: min(60px, 10vw);
+  --macos-glass-regular-border: rgba(255, 255, 255, 0.5);
+
+  --macos-glass-clear-bg: rgba(255, 255, 255, 0.2);
+  --macos-glass-clear-blur: min(30px, 5vw);
+  --macos-glass-clear-border: rgba(255, 255, 255, 0.3);
+
+  --macos-glass-prominent-bg: rgba(255, 255, 255, 0.7);
+  --macos-glass-prominent-blur: min(80px, 15vw);
+  --macos-glass-prominent-border: rgba(255, 255, 255, 0.8);
+
+  --macos-glass-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  --macos-glass-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  --macos-glass-dim-layer: rgba(0, 0, 0, 0.05);
+
+  --macos-scroll-edge-bg: rgba(255, 255, 255, 0.85);
+  --macos-scroll-edge-blur: 20px;
+}
+
+html.macos.dark {
+  --macos-glass-regular-bg: rgba(40, 40, 40, 0.4);
+  --macos-glass-regular-blur: min(60px, 10vw);
+  --macos-glass-regular-border: rgba(255, 255, 255, 0.15);
+
+  --macos-glass-clear-bg: rgba(30, 30, 30, 0.2);
+  --macos-glass-clear-blur: min(30px, 5vw);
+  --macos-glass-clear-border: rgba(255, 255, 255, 0.1);
+
+  --macos-glass-prominent-bg: rgba(50, 50, 50, 0.6);
+  --macos-glass-prominent-blur: min(80px, 15vw);
+  --macos-glass-prominent-border: rgba(255, 255, 255, 0.25);
+
+  --macos-glass-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+  --macos-glass-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  --macos-glass-dim-layer: rgba(0, 0, 0, 0.4);
+
+  --macos-scroll-edge-bg: rgba(30, 30, 30, 0.85);
+  --macos-scroll-edge-blur: 20px;
+}
+
+/* Material Utility Classes */
+
+.macos-material-regular {
+  background: var(--macos-glass-regular-bg);
+  backdrop-filter: blur(var(--macos-glass-regular-blur)) saturate(150%);
+  -webkit-backdrop-filter: blur(var(--macos-glass-regular-blur)) saturate(150%);
+  border: 1px solid var(--macos-glass-regular-border);
+  box-shadow: var(--macos-glass-shadow), var(--macos-glass-highlight);
+}
+
+.macos-material-clear {
+  background: var(--macos-glass-clear-bg);
+  backdrop-filter: blur(var(--macos-glass-clear-blur));
+  -webkit-backdrop-filter: blur(var(--macos-glass-clear-blur));
+  border: 1px solid var(--macos-glass-clear-border);
+}
+
+.macos-material-prominent {
+  background: var(--macos-glass-prominent-bg);
+  backdrop-filter: blur(var(--macos-glass-prominent-blur)) saturate(200%);
+  -webkit-backdrop-filter: blur(var(--macos-glass-prominent-blur))
+    saturate(200%);
+  border: 1px solid var(--macos-glass-prominent-border);
+  box-shadow: var(--macos-glass-shadow), var(--macos-glass-highlight);
+}
+
+.macos-dim-layer {
+  background: var(--macos-glass-dim-layer);
+}
+
+/* Prefers Reduced Transparency */
+@media (prefers-reduced-transparency: reduce) {
+  html.macos {
+    --macos-glass-regular-bg: #ececec;
+    --macos-glass-clear-bg: #e5e5e5;
+    --macos-glass-prominent-bg: #f5f5f5;
+    --macos-scroll-edge-bg: #f5f5f5;
+  }
+  html.macos.dark {
+    --macos-glass-regular-bg: #2d2d2d;
+    --macos-glass-clear-bg: #252525;
+    --macos-glass-prominent-bg: #3a3a3a;
+    --macos-scroll-edge-bg: #2d2d2d;
+  }
+
+  .macos-material-regular,
+  .macos-material-clear,
+  .macos-material-prominent {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+}
+
+/* Prefers Contrast */
+@media (prefers-contrast: more) {
+  .macos-material-regular,
+  .macos-material-clear,
+  .macos-material-prominent {
+    border-width: 2px !important;
+    border-color: currentColor !important;
+  }
+}

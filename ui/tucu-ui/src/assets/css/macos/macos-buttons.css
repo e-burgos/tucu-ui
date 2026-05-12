@@ -106,3 +106,57 @@ html.macos [data-tucu='button']:disabled {
     min-height: 44px;
   }
 }
+
+/* ============================================================
+   macOS Tahoe 26 — Button Overrides (Liquid Glass)
+   ============================================================ */
+
+/* ── Tahoe Solid (Prominent Material) ───────────────────────── */
+html.macos-tahoe [data-tucu='button'][data-variant='solid'] {
+  background: var(--macos-glass-prominent-bg);
+  backdrop-filter: blur(var(--macos-glass-prominent-blur)) saturate(200%);
+  -webkit-backdrop-filter: blur(var(--macos-glass-prominent-blur)) saturate(200%);
+  border: 1px solid var(--macos-glass-prominent-border);
+  box-shadow: var(--macos-glass-shadow), var(--macos-glass-highlight);
+  color: var(--macos-label);
+}
+html.macos-tahoe [data-tucu='button'][data-variant='solid']:hover {
+  background: var(--macos-glass-regular-bg);
+  filter: brightness(1.1);
+}
+html.macos-tahoe [data-tucu='button'][data-variant='solid']:active {
+  background: var(--macos-glass-dim-layer);
+  filter: brightness(0.9);
+}
+
+/* ── Tahoe Ghost (Clear/Regular Material) ───────────────────── */
+html.macos-tahoe [data-tucu='button'][data-variant='ghost'] {
+  background: var(--macos-glass-clear-bg);
+  backdrop-filter: blur(var(--macos-glass-clear-blur));
+  -webkit-backdrop-filter: blur(var(--macos-glass-clear-blur));
+  border: 1px solid var(--macos-glass-clear-border);
+}
+html.macos-tahoe [data-tucu='button'][data-variant='ghost']:hover {
+  background: var(--macos-glass-regular-bg);
+  backdrop-filter: blur(var(--macos-glass-regular-blur)) saturate(150%);
+  -webkit-backdrop-filter: blur(var(--macos-glass-regular-blur)) saturate(150%);
+  border: 1px solid var(--macos-glass-regular-border);
+  box-shadow: var(--macos-glass-shadow), var(--macos-glass-highlight);
+}
+
+/* ── Tahoe Transparent (Plain) ──────────────────────────────── */
+html.macos-tahoe [data-tucu='button'][data-variant='transparent']:hover {
+  background: var(--macos-glass-clear-bg);
+  backdrop-filter: blur(var(--macos-glass-clear-blur));
+  -webkit-backdrop-filter: blur(var(--macos-glass-clear-blur));
+  border-radius: var(--macos-radius-md);
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  html.macos-tahoe [data-tucu='button'][data-variant='solid'],
+  html.macos-tahoe [data-tucu='button'][data-variant='ghost'],
+  html.macos-tahoe [data-tucu='button'][data-variant='transparent']:hover {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+}

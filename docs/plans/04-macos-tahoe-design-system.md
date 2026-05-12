@@ -337,26 +337,26 @@ NODE
 
 ## Criterios de aceptación
 
-- [ ] La implementación parte de la lectura de `docs/specs/04-macos-tahoe-design-system.md` y este plan.
-- [ ] Branch usado y rationale documentados: preferido `feat/macos-tahoe-design-system`; aceptable `feat/macos-design-system` si el equipo mantiene continuidad con Spec 03.
-- [ ] Inventario real de exports publicos/componentes documentados completado antes de restyling.
+- [x] La implementación parte de la lectura de `docs/specs/04-macos-tahoe-design-system.md` y este plan.
+- [x] Branch usado y rationale documentados: preferido `feat/macos-tahoe-design-system`; aceptable `feat/macos-design-system` si el equipo mantiene continuidad con Spec 03.
+- [x] Inventario real de exports publicos/componentes documentados completado antes de restyling.
 - [ ] Todo componente visible exportado o documentado queda cubierto por tokens, clases y/o `data-tucu` del theme/layout Tahoe.
-- [ ] No se duplican APIs publicas incompatibles ni se crean wrappers Tahoe paralelos para componentes existentes sin aprobacion explicita.
-- [ ] `colorScheme: 'macos'` y `html.macos` siguen siendo el contrato principal del theme macOS.
-- [ ] `applyMacOSTheme()` activa una experiencia Tahoe coherente y `applyDefaultTheme()` revierte sin residuos visuales.
-- [ ] Liquid Glass se usa en navegación, toolbars, sidebars, menus, popovers, sheets y controles flotantes, no como decoracion masiva de contenido.
-- [ ] Cards de datos, tablas, formularios y lectura mantienen legibilidad con material standard u opaco.
-- [ ] Fondos espaciales son originales del proyecto, no assets Apple, y solo se usan en root/window background, hero/demo surface o wallpaper-like app background.
-- [ ] Light, dark, increased contrast, reduced transparency y reduced motion tienen soporte explicito.
-- [ ] Iconografia usa `LucideIcons` por defecto y SVG propios originales solo para brechas Tahoe.
-- [ ] Todo icon-only button tiene tooltip o `aria-label`.
-- [ ] Charts consumen tokens Tahoe y wrappers Tucu UI.
-- [ ] Componentes blockchain/docs-specific exportados o documentados se reinterpretan con el mismo sistema visual.
-- [ ] Props metadata se regenera con `pnpm tsx scripts/generate-props.ts` cuando se agregan/modifican componentes publicos o props.
-- [ ] `pnpm nx build tucu-ui` pasa.
-- [ ] `pnpm nx lint tucu-ui` pasa.
-- [ ] `pnpm nx build demo` pasa si se toca demo/docs.
-- [ ] No se distribuyen fuentes SF Pro ni se copian SF Symbols, wallpapers, screenshots o assets propietarios Apple.
+- [x] No se duplican APIs publicas incompatibles ni se crean wrappers Tahoe paralelos para componentes existentes sin aprobacion explicita.
+- [x] `colorScheme: 'macos'` y `html.macos` siguen siendo el contrato principal del theme macOS.
+- [x] `applyMacOSTheme()` activa una experiencia Tahoe coherente y `applyDefaultTheme()` revierte sin residuos visuales.
+- [x] Liquid Glass se usa en navegación, toolbars, sidebars, menus, popovers, sheets y controles flotantes, no como decoracion masiva de contenido.
+- [x] Cards de datos, tablas, formularios y lectura mantienen legibilidad con material standard u opaco.
+- [x] Fondos espaciales son originales del proyecto, no assets Apple, y solo se usan en root/window background, hero/demo surface o wallpaper-like app background.
+- [x] Light, dark, increased contrast, reduced transparency y reduced motion tienen soporte explicito.
+- [x] Iconografia usa `LucideIcons` por defecto y SVG propios originales solo para brechas Tahoe.
+- [x] Todo icon-only button tiene tooltip o `aria-label`.
+- [x] Charts consumen tokens Tahoe y wrappers Tucu UI.
+- [x] Componentes blockchain/docs-specific exportados o documentados se reinterpretan con el mismo sistema visual.
+- [x] Props metadata se regenera con `pnpm tsx scripts/generate-props.ts` cuando se agregan/modifican componentes publicos o props.
+- [x] `pnpm nx build tucu-ui` pasa.
+- [x] `pnpm nx lint tucu-ui` pasa.
+- [x] `pnpm nx build demo` pasa si se toca demo/docs.
+- [x] No se distribuyen fuentes SF Pro ni se copian SF Symbols, wallpapers, screenshots o assets propietarios Apple.
 
 ---
 

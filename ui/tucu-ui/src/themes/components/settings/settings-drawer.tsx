@@ -340,7 +340,11 @@ const LayoutIcons: Record<string, JSX.Element> = {
 };
 
 function LayoutSwitcher() {
-  const { layout, setLayout } = useTheme();
+  const { layout, setLayout, colorScheme } = useTheme();
+
+  // Hide layout switcher if macOS theme is active, since layout is forced
+  if (colorScheme === 'macos') return null;
+
   return (
     <div className="px-6 pt-8">
       <SettingsSectionHeading>Layout</SettingsSectionHeading>

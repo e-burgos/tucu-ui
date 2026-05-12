@@ -134,3 +134,51 @@ html.macos [data-tucu='nav-link']:hover {
 html.macos [data-tucu='nav-link'][data-active='true'] {
   font-weight: var(--macos-font-weight-medium);
 }
+
+/* ============================================================
+   macOS Tahoe 26 — Navigation & Toolbar (Liquid Glass)
+   ============================================================ */
+
+/* Toolbars & Sidebars */
+html.macos-tahoe [data-tucu='macos-toolbar'],
+html.macos-tahoe [data-tucu='macos-sidebar'] {
+  background: var(--macos-glass-regular-bg);
+  backdrop-filter: blur(var(--macos-glass-regular-blur)) saturate(150%);
+  -webkit-backdrop-filter: blur(var(--macos-glass-regular-blur)) saturate(150%);
+  border-bottom: 1px solid var(--macos-glass-regular-border);
+}
+
+html.macos-tahoe [data-tucu='macos-sidebar'] {
+  border-bottom: none;
+  border-right: 1px solid var(--macos-glass-regular-border);
+}
+
+/* Tabs & Segmented Controls */
+html.macos-tahoe [data-tucu='segmented-control'] {
+  background: var(--macos-glass-dim-layer);
+  border: 1px solid var(--macos-glass-clear-border);
+  border-radius: var(--macos-radius-md);
+  padding: 2px;
+}
+
+html.macos-tahoe [data-tucu='segmented-control-item'][data-state='active'] {
+  background: var(--macos-glass-prominent-bg);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1), var(--macos-glass-highlight);
+  border-radius: calc(var(--macos-radius-md) - 2px);
+  color: var(--macos-label);
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  html.macos-tahoe [data-tucu='macos-toolbar'],
+  html.macos-tahoe [data-tucu='macos-sidebar'],
+  html.macos-tahoe [data-tucu='segmented-control'],
+  html.macos-tahoe [data-tucu='segmented-control-item'][data-state='active'] {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+  
+  html.macos-tahoe [data-tucu='macos-toolbar'],
+  html.macos-tahoe [data-tucu='macos-sidebar'] {
+    background: var(--color-semantic-elevation-2);
+  }
+}

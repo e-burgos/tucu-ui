@@ -1,0 +1,104 @@
+/* ============================================================
+   macOS Tahoe 26 — Spatial Backgrounds
+   Original custom spatial backgrounds for the Tahoe design system.
+   DO NOT USE proprietary apple images.
+   ============================================================ */
+
+html.macos {
+  --macos-bg-aurora-1: rgba(142, 237, 245, 0.4);
+  --macos-bg-aurora-2: rgba(97, 187, 255, 0.35);
+  --macos-bg-aurora-3: rgba(183, 148, 255, 0.3);
+  --macos-bg-aurora-4: rgba(255, 172, 241, 0.25);
+  --macos-window-bg: #fafafa;
+}
+
+html.macos.dark {
+  --macos-bg-aurora-1: rgba(18, 64, 86, 0.8);
+  --macos-bg-aurora-2: rgba(30, 52, 100, 0.7);
+  --macos-bg-aurora-3: rgba(60, 36, 114, 0.6);
+  --macos-bg-aurora-4: rgba(94, 33, 85, 0.5);
+  --macos-window-bg: #1c1c1e;
+}
+
+/* Base Window Background */
+html.macos .macos-window-surface {
+  background-color: var(--macos-window-bg);
+}
+
+/* Custom Spatial Aurora (Only for root/window/hero/demo features) */
+html.macos .macos-bg-spatial-aurora {
+  position: relative;
+  background-color: var(--macos-window-bg);
+  overflow: hidden;
+  z-index: 0;
+}
+
+html.macos .macos-bg-spatial-aurora::before,
+html.macos .macos-bg-spatial-aurora::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  z-index: -1;
+  pointer-events: none;
+  border-radius: 40%;
+  filter: blur(80px);
+  -webkit-filter: blur(80px);
+  opacity: 0.8;
+}
+
+html.macos .macos-bg-spatial-aurora::before {
+  background: radial-gradient(
+      circle at 30% 30%,
+      var(--macos-bg-aurora-1) 0%,
+      transparent 40%
+    ),
+    radial-gradient(
+      circle at 70% 70%,
+      var(--macos-bg-aurora-3) 0%,
+      transparent 40%
+    );
+  animation: macos-aurora-drift 20s infinite linear reverse;
+}
+
+html.macos .macos-bg-spatial-aurora::after {
+  background: radial-gradient(
+      circle at 70% 30%,
+      var(--macos-bg-aurora-2) 0%,
+      transparent 40%
+    ),
+    radial-gradient(
+      circle at 30% 70%,
+      var(--macos-bg-aurora-4) 0%,
+      transparent 40%
+    );
+  animation: macos-aurora-drift 25s infinite linear;
+}
+
+@keyframes macos-aurora-drift {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  html.macos .macos-bg-spatial-aurora::before,
+  html.macos .macos-bg-spatial-aurora::after {
+    animation: none !important;
+  }
+}
+
+/* Prefers Contrast */
+@media (prefers-contrast: more) {
+  html.macos .macos-bg-spatial-aurora::before,
+  html.macos .macos-bg-spatial-aurora::after {
+    opacity: 0.2;
+    filter: blur(120px);
+  }
+}

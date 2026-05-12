@@ -298,3 +298,35 @@ html.macos [data-tucu] {
     background-color var(--macos-transition-normal),
     border-color var(--macos-transition-normal);
 }
+
+/* ============================================================
+   Accessibility Overrides for Foundations (Tahoe)
+   ============================================================ */
+
+/* Reduced Transparency Fallbacks */
+@media (prefers-reduced-transparency: reduce) {
+  html.macos {
+    --color-semantic-elevation-1: #ffffff;
+    --color-semantic-elevation-2: #f2f2f7;
+    --color-semantic-elevation-3: #e5e5ea;
+  }
+  html.macos.dark {
+    --color-semantic-elevation-1: #1e1e1e;
+    --color-semantic-elevation-2: #2c2c2e;
+    --color-semantic-elevation-3: #3a3a3c;
+  }
+}
+
+/* More Contrast Fallbacks */
+@media (prefers-contrast: more) {
+  html.macos {
+    --color-semantic-line-primary-subtle: #8e8e93;
+    --color-semantic-text-disabled: #666666;
+    --macos-focus-ring: 0 0 0 2px #000000;
+  }
+  html.macos.dark {
+    --color-semantic-line-primary-subtle: #aeaeb2;
+    --color-semantic-text-disabled: #999999;
+    --macos-focus-ring: 0 0 0 2px #ffffff;
+  }
+}
