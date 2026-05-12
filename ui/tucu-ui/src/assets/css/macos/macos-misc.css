@@ -28,6 +28,67 @@ html.macos.dark [data-tucu='tooltip'] {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
 }
 
+/* ── Collapse / Disclosure ───────────────────────────────────── */
+html.macos [data-tucu='collapse'] {
+  border-radius: var(--macos-radius-lg) !important;
+  background-color: var(--macos-control-bg) !important;
+  border: none !important;
+  outline: 1px solid var(--macos-separator);
+  outline-offset: -1px;
+  box-shadow: none !important;
+  transition: height 0.35s cubic-bezier(0.33, 1, 0.68, 1),
+    background-color var(--macos-transition-fast);
+}
+
+html.macos [data-tucu='collapse']:hover {
+  box-shadow: none !important;
+  background-color: var(--macos-gray6) !important;
+}
+
+html.macos [data-tucu='collapse'][data-open='true'] {
+  background-color: var(--macos-control-bg) !important;
+}
+
+html.macos [data-tucu='collapse-trigger'] {
+  font-family: var(--macos-font-family) !important;
+  font-size: var(--macos-font-size-body) !important;
+  font-weight: var(--macos-font-weight-semibold) !important;
+  text-transform: none !important;
+  letter-spacing: normal !important;
+  color: var(--macos-label) !important;
+  height: 54px !important;
+  padding: 0 var(--macos-space-4) !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+html.macos [data-tucu='collapse-content'] {
+  border-style: solid !important;
+  border-color: var(--macos-separator) !important;
+  font-family: var(--macos-font-family);
+  font-size: var(--macos-font-size-body);
+  color: var(--macos-secondary-label);
+  padding: var(--macos-space-3) var(--macos-space-4) !important;
+}
+
+/* Dark mode */
+html.macos.dark [data-tucu='collapse'] {
+  background-color: var(--macos-control-bg) !important;
+  border-color: var(--macos-separator);
+}
+
+html.macos.dark [data-tucu='collapse']:hover {
+  background-color: var(--macos-gray5) !important;
+}
+
+html.macos.dark [data-tucu='collapse'][data-open='true'] {
+  background-color: var(--macos-control-bg) !important;
+}
+
+html.macos.dark [data-tucu='collapse-content'] {
+  border-color: var(--macos-separator) !important;
+}
+
 /* ── Popover ─────────────────────────────────────────────────── */
 html.macos [data-tucu='popover'] {
   border-radius: var(--macos-radius-lg);
@@ -74,6 +135,69 @@ html.macos [data-tucu='menu-separator'] {
   height: 1px;
   background-color: var(--macos-separator);
   margin: var(--macos-space-1) var(--macos-space-3);
+}
+
+/* ── ListContainer (Options dropdown) ────────────────────────── */
+html.macos [data-tucu='list-trigger'] {
+  border-radius: var(--macos-radius-full);
+  border: 1px solid var(--macos-separator);
+  background-color: var(--macos-control-bg);
+  font-family: var(--macos-font-family);
+  font-size: var(--macos-font-size-body);
+  font-weight: var(--macos-font-weight-medium);
+  color: var(--macos-label);
+  transition: background-color var(--macos-transition-fast),
+    border-color var(--macos-transition-fast);
+}
+
+html.macos [data-tucu='list-trigger']:hover {
+  background-color: var(--macos-gray6);
+  border-color: var(--macos-gray4);
+}
+
+html.macos.dark [data-tucu='list-trigger'] {
+  background-color: var(--macos-control-bg);
+  border-color: var(--macos-separator);
+  color: var(--macos-label);
+}
+
+html.macos.dark [data-tucu='list-trigger']:hover {
+  background-color: var(--macos-gray5);
+}
+
+html.macos [data-tucu='list-dropdown'] {
+  border-radius: var(--macos-radius-lg);
+  background-color: var(--macos-control-bg);
+  backdrop-filter: blur(var(--macos-material-popover-blur));
+  -webkit-backdrop-filter: blur(var(--macos-material-popover-blur));
+  box-shadow: var(--macos-shadow-window);
+  border: 1px solid var(--macos-separator);
+  padding: var(--macos-space-2);
+  overflow: hidden;
+}
+
+html.macos.dark [data-tucu='list-dropdown'] {
+  background-color: var(--macos-control-bg);
+  border-color: var(--macos-separator);
+}
+
+html.macos [data-tucu='list-item'] > div,
+html.macos [data-tucu='list-item'] > button {
+  border-radius: var(--macos-radius-sm);
+  font-family: var(--macos-font-family);
+  font-size: var(--macos-font-size-body);
+  padding: var(--macos-space-2) var(--macos-space-3);
+  transition: background-color var(--macos-transition-fast);
+}
+
+html.macos [data-tucu='list-item'] > div:hover,
+html.macos [data-tucu='list-item'] > button:hover {
+  background-color: var(--macos-gray6);
+}
+
+html.macos.dark [data-tucu='list-item'] > div:hover,
+html.macos.dark [data-tucu='list-item'] > button:hover {
+  background-color: var(--macos-gray5);
 }
 
 /* ── Tag / Chip ──────────────────────────────────────────────── */
@@ -180,4 +304,35 @@ html.macos [data-tucu='breadcrumb'] a:hover {
 html.macos [data-tucu='breadcrumb-separator'] {
   margin: 0 var(--macos-space-1);
   color: var(--macos-tertiary-label);
+}
+
+/* ── Charts ──────────────────────────────────────────────────── */
+html.macos [data-tucu='chart'] {
+  border-radius: var(--macos-radius-xl);
+  font-family: var(--macos-font-family);
+}
+
+html.macos [data-tucu='chart-tooltip'] {
+  border-radius: var(--macos-radius-lg) !important;
+  background-color: rgba(255, 255, 255, 0.92) !important;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-color: var(--macos-separator) !important;
+  box-shadow: var(--macos-shadow-card) !important;
+  font-family: var(--macos-font-family);
+  color: var(--macos-label);
+}
+
+html.macos.dark [data-tucu='chart-tooltip'] {
+  background-color: rgba(40, 40, 40, 0.92) !important;
+  border-color: var(--macos-separator) !important;
+  color: var(--macos-label);
+}
+
+html.macos [data-tucu='chart-empty'] {
+  border-radius: var(--macos-radius-xl);
+  border-color: var(--macos-separator);
+  font-family: var(--macos-font-family);
+  font-size: var(--macos-font-size-body);
+  color: var(--macos-secondary-label);
 }

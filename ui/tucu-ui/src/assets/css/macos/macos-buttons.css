@@ -99,3 +99,10 @@ html.macos [data-tucu='button']:disabled {
   opacity: 0.4;
   cursor: default;
 }
+
+/* ── Responsive: larger touch targets on mobile ──────────────── */
+@media (max-width: 767px) {
+  html.macos [data-tucu='button'] {
+    min-height: 44px;
+  }
+}

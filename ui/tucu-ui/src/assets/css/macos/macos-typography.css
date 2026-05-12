@@ -10,92 +10,186 @@
    ============================================================ */
 
 /* ── Headings: SF Pro Display ────────────────────────────────── */
+html.macos {
+  /* Keep macOS overrides aligned with the shared Typography utility scale so
+     semantic tags preserve the same hierarchy across themes. */
+  --macos-type-display-hero-size: 36px;
+  --macos-type-display-hero-leading: 40px;
+  --macos-type-display-hero-tracking: -0.025em;
+  --macos-type-display-xl-size: 30px;
+  --macos-type-display-xl-leading: 36px;
+  --macos-type-display-xl-tracking: -0.025em;
+  --macos-type-display-lg-size: 24px;
+  --macos-type-display-lg-leading: 32px;
+  --macos-type-display-lg-tracking: 0;
+  --macos-type-display-md-size: 20px;
+  --macos-type-display-md-leading: 28px;
+  --macos-type-display-md-tracking: 0;
+  --macos-type-heading-lg-size: 18px;
+  --macos-type-heading-lg-leading: 28px;
+  --macos-type-heading-lg-tracking: 0;
+  --macos-type-heading-md-size: 16px;
+  --macos-type-heading-md-leading: 24px;
+  --macos-type-heading-md-tracking: 0.025em;
+  --macos-type-body-lg-size: 16px;
+  --macos-type-body-lg-leading: 24px;
+  --macos-type-body-lg-tracking: 0;
+  --macos-type-body-md-size: 14px;
+  --macos-type-body-md-leading: 20px;
+  --macos-type-body-md-tracking: 0;
+  --macos-type-caption-size: 12px;
+  --macos-type-caption-leading: 16px;
+  --macos-type-caption-tracking: 0.025em;
+  --macos-type-label-sm-tracking: 0;
+}
+
 html.macos h1,
-html.macos [data-tucu='heading-1'] {
+html.macos [data-tucu='heading-1'],
+html.macos [data-tucu='typography'][data-typography-tag='h1'] {
   font-family: var(--macos-font-display);
-  font-size: var(--macos-font-size-large-title);
-  line-height: var(--macos-leading-large-title);
+  font-size: var(--macos-type-display-hero-size);
+  line-height: var(--macos-type-display-hero-leading);
   font-weight: var(--macos-font-weight-bold);
-  letter-spacing: var(--macos-tracking-26);
+  letter-spacing: var(--macos-type-display-hero-tracking);
+  color: var(--macos-label);
+}
+
+html.macos [data-tucu='typography'][data-typography-tag='headline'] {
+  font-family: var(--macos-font-display);
+  font-size: var(--macos-type-display-lg-size);
+  line-height: var(--macos-type-display-lg-leading);
+  font-weight: var(--macos-font-weight-bold);
+  letter-spacing: var(--macos-type-display-hero-tracking);
   color: var(--macos-label);
 }
 
 html.macos h2,
-html.macos [data-tucu='heading-2'] {
+html.macos [data-tucu='heading-2'],
+html.macos [data-tucu='typography'][data-typography-tag='h2'] {
   font-family: var(--macos-font-display);
-  font-size: var(--macos-font-size-title1);
-  line-height: var(--macos-leading-title1);
+  font-size: var(--macos-type-display-xl-size);
+  line-height: var(--macos-type-display-xl-leading);
   font-weight: var(--macos-font-weight-bold);
-  letter-spacing: var(--macos-tracking-22);
+  letter-spacing: var(--macos-type-display-xl-tracking);
   color: var(--macos-label);
 }
 
 html.macos h3,
-html.macos [data-tucu='heading-3'] {
+html.macos [data-tucu='heading-3'],
+html.macos [data-tucu='typography'][data-typography-tag='h3'] {
   font-family: var(--macos-font-display);
-  font-size: var(--macos-font-size-title2);
-  line-height: var(--macos-leading-title2);
+  font-size: var(--macos-type-display-lg-size);
+  line-height: var(--macos-type-display-lg-leading);
   font-weight: var(--macos-font-weight-semibold);
-  letter-spacing: var(--macos-tracking-17);
+  letter-spacing: var(--macos-type-display-lg-tracking);
   color: var(--macos-label);
 }
 
 html.macos h4,
-html.macos [data-tucu='heading-4'] {
-  font-family: var(--macos-font-family);
-  font-size: var(--macos-font-size-title3);
-  line-height: var(--macos-leading-title3);
+html.macos [data-tucu='heading-4'],
+html.macos [data-tucu='typography'][data-typography-tag='h4'] {
+  font-family: var(--macos-font-display);
+  font-size: var(--macos-type-display-md-size);
+  line-height: var(--macos-type-display-md-leading);
   font-weight: var(--macos-font-weight-semibold);
-  letter-spacing: var(--macos-tracking-15);
+  letter-spacing: var(--macos-type-display-md-tracking);
   color: var(--macos-label);
 }
 
 html.macos h5,
-html.macos [data-tucu='heading-5'] {
+html.macos [data-tucu='heading-5'],
+html.macos [data-tucu='typography'][data-typography-tag='h5'] {
   font-family: var(--macos-font-family);
-  font-size: var(--macos-font-size-body);
-  line-height: var(--macos-leading-body);
-  font-weight: var(--macos-font-weight-semibold);
-  letter-spacing: var(--macos-tracking-13);
+  font-size: var(--macos-type-heading-lg-size);
+  line-height: var(--macos-type-heading-lg-leading);
+  font-weight: var(--macos-font-weight-medium);
+  letter-spacing: var(--macos-type-heading-lg-tracking);
   color: var(--macos-label);
 }
 
 html.macos h6,
-html.macos [data-tucu='heading-6'] {
+html.macos [data-tucu='heading-6'],
+html.macos [data-tucu='typography'][data-typography-tag='h6'] {
   font-family: var(--macos-font-family);
-  font-size: var(--macos-font-size-callout);
-  line-height: var(--macos-leading-callout);
-  font-weight: var(--macos-font-weight-semibold);
-  letter-spacing: var(--macos-tracking-12);
+  font-size: var(--macos-type-heading-md-size);
+  line-height: var(--macos-type-heading-md-leading);
+  font-weight: var(--macos-font-weight-medium);
+  letter-spacing: var(--macos-type-heading-md-tracking);
+  text-transform: uppercase;
   color: var(--macos-label);
 }
 
 /* ── Body text ───────────────────────────────────────────────── */
 html.macos p,
-html.macos [data-tucu='text'] {
+html.macos [data-tucu='text'],
+html.macos [data-tucu='typography'][data-typography-tag='p'] {
   font-family: var(--macos-font-family);
-  font-size: var(--macos-font-size-body);
-  line-height: var(--macos-leading-body);
-  letter-spacing: var(--macos-tracking-13);
+  font-size: var(--macos-type-body-lg-size);
+  line-height: var(--macos-type-body-lg-leading);
+  letter-spacing: var(--macos-type-body-lg-tracking);
   color: var(--macos-label);
 }
 
-/* ── Small / Caption text ────────────────────────────────────── */
-html.macos small,
-html.macos [data-tucu='caption'] {
+html.macos [data-tucu='typography'][data-typography-tag='body'] {
   font-family: var(--macos-font-family);
-  font-size: var(--macos-font-size-caption);
-  line-height: var(--macos-leading-caption);
-  letter-spacing: var(--macos-tracking-10);
+  font-size: var(--macos-type-body-lg-size);
+  line-height: var(--macos-type-body-lg-leading);
+  letter-spacing: var(--macos-type-body-lg-tracking);
+  color: var(--macos-label);
+}
+
+/* ── Small / Label / Caption text ────────────────────────────── */
+html.macos small,
+html.macos [data-tucu='typography'][data-typography-tag='small'] {
+  font-family: var(--macos-font-family);
+  font-size: var(--macos-type-caption-size);
+  line-height: var(--macos-type-caption-leading);
+  letter-spacing: var(--macos-type-label-sm-tracking);
   color: var(--macos-secondary-label);
+}
+
+html.macos [data-tucu='typography'][data-typography-tag='label-1'] {
+  font-family: var(--macos-font-family);
+  font-size: var(--macos-type-body-md-size);
+  line-height: var(--macos-type-body-md-leading);
+  font-weight: var(--macos-font-weight-medium);
+  letter-spacing: var(--macos-type-body-md-tracking);
+  color: var(--macos-secondary-label);
+}
+
+html.macos [data-tucu='typography'][data-typography-tag='label-2'] {
+  font-family: var(--macos-font-family);
+  font-size: var(--macos-type-caption-size);
+  line-height: var(--macos-type-caption-leading);
+  font-weight: var(--macos-font-weight-medium);
+  letter-spacing: var(--macos-type-label-sm-tracking);
+  color: var(--macos-secondary-label);
+}
+
+html.macos [data-tucu='caption'],
+html.macos [data-tucu='typography'][data-typography-tag='caption'] {
+  font-family: var(--macos-font-family);
+  font-size: var(--macos-type-caption-size);
+  line-height: var(--macos-type-caption-leading);
+  letter-spacing: var(--macos-type-caption-tracking);
+  text-transform: uppercase;
+  color: var(--macos-secondary-label);
+}
+
+html.macos [data-tucu='typography'][data-typography-tag='legal'] {
+  font-family: var(--macos-font-family);
+  font-size: var(--macos-type-caption-size);
+  line-height: var(--macos-type-caption-leading);
+  letter-spacing: var(--macos-type-caption-tracking);
+  color: var(--macos-tertiary-label);
 }
 
 /* ── Footnote ────────────────────────────────────────────────── */
 html.macos [data-tucu='footnote'] {
   font-family: var(--macos-font-family);
-  font-size: var(--macos-font-size-footnote);
-  line-height: var(--macos-leading-footnote);
-  letter-spacing: var(--macos-tracking-10);
+  font-size: var(--macos-type-caption-size);
+  line-height: var(--macos-type-caption-leading);
+  letter-spacing: var(--macos-type-caption-tracking);
   color: var(--macos-tertiary-label);
 }
 
@@ -109,25 +203,39 @@ html.macos [data-tucu='link'] {
 
 html.macos a:hover,
 html.macos [data-tucu='link']:hover {
-  text-decoration: underline;
+  color: var(--macos-control-accent);
+  text-decoration: none;
 }
 
 html.macos a:active,
 html.macos [data-tucu='link']:active {
-  opacity: 0.8;
+  opacity: 0.7;
+}
+
+/* Links inside buttons inherit button text color */
+html.macos [data-tucu='button'] a {
+  color: inherit;
+  text-decoration: none;
+}
+
+html.macos [data-tucu='button'] a:hover {
+  color: inherit;
 }
 
 /* ── Code / Mono ─────────────────────────────────────────────── */
 html.macos code,
 html.macos pre,
-html.macos [data-tucu='code'] {
+html.macos [data-tucu='code'],
+html.macos [data-tucu='typography'][data-typography-tag='code'],
+html.macos [data-tucu='typography'][data-typography-tag='pre'] {
   font-family: var(--macos-font-mono);
-  font-size: var(--macos-font-size-callout);
-  line-height: var(--macos-leading-callout);
+  font-size: var(--macos-type-body-md-size);
+  line-height: var(--macos-type-body-md-leading);
 }
 
 html.macos code:not(pre code),
-html.macos [data-tucu='inline-code'] {
+html.macos [data-tucu='inline-code'],
+html.macos [data-tucu='typography'][data-typography-tag='code'] {
   background-color: var(--macos-gray6);
   padding: 1px 4px;
   border-radius: var(--macos-radius-xs);

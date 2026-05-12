@@ -76,3 +76,29 @@ html.macos.dark [data-tucu='panel-card'] {
   background-color: var(--macos-gray5);
   border-color: var(--macos-separator);
 }
+
+/* ── CardTitle (section with floating label) ─────────────────── */
+html.macos [data-tucu='card-title'] {
+  border-radius: var(--macos-radius-xl);
+  border-color: var(--macos-separator);
+}
+
+html.macos.dark [data-tucu='card-title'] {
+  border-color: var(--macos-separator);
+}
+
+/* Floating label inherits card bg so it blends with the parent */
+html.macos [data-tucu='card-title-label'] {
+  background-color: var(--macos-control-bg);
+  border-radius: var(--macos-radius-md);
+  font-size: var(--macos-type-heading-lg-size);
+  line-height: var(--macos-type-heading-lg-leading);
+  font-weight: var(--macos-font-weight-semibold);
+  letter-spacing: var(--macos-type-heading-lg-tracking);
+  color: var(--macos-label);
+}
+
+html.macos.dark [data-tucu='card-title-label'] {
+  background-color: var(--macos-control-bg);
+  color: var(--macos-label);
+}

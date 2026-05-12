@@ -46,16 +46,17 @@ html.macos {
   --macos-leading-title1: 26px;
   --macos-leading-large-title: 32px;
 
-  /* SF Pro tracking values (Apple HIG macOS tracking table)
-     Negative = tighter (12–20pt), Positive = looser (≤11pt, ≥23pt) */
-  --macos-tracking-10: 0.12em;
-  --macos-tracking-11: 0.06em;
-  --macos-tracking-12: 0;
-  --macos-tracking-13: -0.08em; /* body default */
-  --macos-tracking-15: -0.23em;
-  --macos-tracking-17: -0.43em;
-  --macos-tracking-22: -0.26em;
-  --macos-tracking-26: 0.22em;
+  /* SF Pro tracking values (Apple HIG macOS tracking table, in CSS em)
+     Apple's internal tracking unit = 1/1000 em.
+     Most macOS text styles use 0 or very small values. */
+  --macos-tracking-10: 0.012em; /* caption: Apple +12 */
+  --macos-tracking-11: 0.006em; /* caption2: Apple +6 */
+  --macos-tracking-12: 0; /* callout: 0 */
+  --macos-tracking-13: 0; /* body: 0 */
+  --macos-tracking-15: 0; /* title3: 0 */
+  --macos-tracking-17: 0; /* title2: 0 */
+  --macos-tracking-22: 0; /* title1: 0 */
+  --macos-tracking-26: 0; /* large title: 0 */
 
   /* Font weights (Apple HIG: prefer Regular, Medium, Semibold) */
   --macos-font-weight-regular: 400;

@@ -70,14 +70,14 @@ html.macos.dark [data-tucu='drawer'] {
 /* ── Sidebar ─────────────────────────────────────────────────── */
 html.macos [data-tucu='sidebar'] {
   width: var(--macos-sidebar-width);
-  background-color: var(--macos-material-sidebar);
+  background-color: var(--macos-material-toolbar);
   backdrop-filter: blur(var(--macos-material-sidebar-blur));
   -webkit-backdrop-filter: blur(var(--macos-material-sidebar-blur));
   border-right: 1px solid var(--macos-separator);
 }
 
 html.macos.dark [data-tucu='sidebar'] {
-  background-color: var(--macos-material-sidebar);
+  background-color: var(--macos-material-toolbar);
   border-right-color: var(--macos-separator);
 }
 

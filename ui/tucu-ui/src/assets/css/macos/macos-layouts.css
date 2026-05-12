@@ -85,6 +85,20 @@ html.macos.dark body {
   background-color: var(--macos-window-bg);
 }
 
+/* ── Documentation content width in macOS ───────────────────── */
+html.macos
+  [data-tucu='macos-layout-content-inner']
+  > div[class*='space-y-8'][class*='pt-8'][class*='max-w-6xl'] {
+  max-width: 96rem !important;
+}
+
+html.macos
+  [data-tucu='macos-layout-content-inner']
+  > div.relative.scroll-smooth
+  div[class*='space-y-8'][class*='pt-8'][class*='max-w-7xl'] {
+  max-width: 96rem !important;
+}
+
 /* ── Divider / Separator ─────────────────────────────────────── */
 html.macos hr,
 html.macos [data-tucu='divider'] {
@@ -101,4 +115,132 @@ html.macos [data-tucu='container'] {
   margin-right: auto;
   padding-left: var(--macos-content-padding);
   padding-right: var(--macos-content-padding);
+}
+
+/* ── macOS Tahoe layout surface tokens ───────────────────────── */
+html.light.macos-tahoe {
+  --macos-tahoe-root-bg: radial-gradient(
+      circle at 0% 0%,
+      rgba(122, 194, 244, 0.34),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 100% 100%,
+      rgba(198, 224, 241, 0.42),
+      transparent 36%
+    ),
+    linear-gradient(180deg, #d9eef9 0%, #c7deeb 100%);
+  --macos-tahoe-sidebar-bg: rgba(227, 241, 249, 0.72);
+  --macos-tahoe-panel-bg: rgba(255, 255, 255, 0.58);
+  --macos-tahoe-toolbar-bg: rgba(255, 255, 255, 0.32);
+  --macos-tahoe-border: rgba(130, 161, 183, 0.28);
+  --macos-tahoe-text: #273642;
+  --macos-tahoe-text-muted: rgba(39, 54, 66, 0.66);
+  --macos-tahoe-accent: #0b84ff;
+  --macos-tahoe-selection: rgba(11, 132, 255, 0.15);
+  --macos-tahoe-hover: rgba(255, 255, 255, 0.3);
+  --macos-tahoe-sidebar-item-text: rgba(41, 54, 65, 0.9);
+  --macos-tahoe-sidebar-item-icon: rgba(67, 82, 95, 0.82);
+  --macos-tahoe-sidebar-item-active-bg: rgba(231, 237, 243, 0.88);
+  --macos-tahoe-sidebar-item-active-text: #004fa9;
+  --macos-tahoe-sidebar-item-active-icon: #004fa9;
+  --macos-tahoe-sidebar-item-active-stroke: rgba(162, 178, 192, 0.6);
+  --macos-tahoe-sidebar-item-hover-bg: rgba(255, 255, 255, 0.14);
+  --macos-tahoe-sidebar-shadow: 0 28px 60px rgba(89, 120, 141, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.55);
+  --macos-tahoe-shell-shadow: 0 32px 72px rgba(84, 109, 130, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.48);
+}
+
+html.dark.macos-tahoe {
+  --macos-tahoe-root-bg: radial-gradient(
+      circle at 0% 0%,
+      rgba(57, 112, 163, 0.26),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 100% 100%,
+      rgba(88, 119, 146, 0.18),
+      transparent 34%
+    ),
+    linear-gradient(180deg, #263038 0%, #1b232a 100%);
+  --macos-tahoe-sidebar-bg: rgba(20, 28, 36, 0.62);
+  --macos-tahoe-panel-bg: rgba(34, 40, 47, 0.74);
+  --macos-tahoe-toolbar-bg: rgba(19, 24, 30, 0.48);
+  --macos-tahoe-border: rgba(152, 175, 194, 0.13);
+  --macos-tahoe-text: rgba(242, 247, 250, 0.92);
+  --macos-tahoe-text-muted: rgba(179, 193, 205, 0.72);
+  --macos-tahoe-accent: #3aa5ff;
+  --macos-tahoe-selection: rgba(58, 165, 255, 0.18);
+  --macos-tahoe-hover: rgba(255, 255, 255, 0.06);
+  --macos-tahoe-sidebar-item-text: rgba(241, 246, 250, 0.94);
+  --macos-tahoe-sidebar-item-icon: rgba(205, 218, 229, 0.84);
+  --macos-tahoe-sidebar-item-active-bg: rgba(54, 62, 70, 0.82);
+  --macos-tahoe-sidebar-item-active-text: #1bb0ff;
+  --macos-tahoe-sidebar-item-active-icon: #1bb0ff;
+  --macos-tahoe-sidebar-item-active-stroke: rgba(255, 255, 255, 0.08);
+  --macos-tahoe-sidebar-item-hover-bg: rgba(255, 255, 255, 0.05);
+  --macos-tahoe-sidebar-shadow: 0 28px 60px rgba(0, 0, 0, 0.34),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  --macos-tahoe-shell-shadow: 0 36px 84px rgba(0, 0, 0, 0.34),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+html.macos-tahoe [data-tucu='macos-tahoe-root'] {
+  background: var(--macos-tahoe-root-bg);
+}
+
+html.macos-tahoe [data-tucu='macos-tahoe-sidebar'] {
+  box-shadow: var(--macos-tahoe-sidebar-shadow);
+}
+
+html.macos-tahoe [data-tucu='macos-tahoe-shell'] {
+  box-shadow: var(--macos-tahoe-shell-shadow);
+}
+
+html.macos-tahoe [data-tucu='macos-tahoe-sidebar-top'] {
+  border-bottom: 1px solid var(--macos-tahoe-border);
+}
+
+html.macos-tahoe [data-tucu='macos-tahoe-content'] {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.08),
+    transparent 22%
+  );
+}
+
+html.dark.macos-tahoe [data-tucu='macos-tahoe-content'] {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.03),
+    transparent 22%
+  );
+}
+
+html.macos-tahoe [data-tucu='macos-tahoe-toolbar-center'] {
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+html.macos-tahoe [data-tucu='macos-tahoe-drawer'] {
+  box-shadow: var(--macos-tahoe-sidebar-shadow);
+}
+
+html.macos.macos-tahoe [data-tucu='drawer'] {
+  background: transparent;
+  background-color: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
+  border-left: 0;
+}
+
+html.macos.dark.macos-tahoe [data-tucu='drawer'] {
+  background: transparent;
+  background-color: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
+  border-left: 0;
+  border-left-color: transparent;
 }
