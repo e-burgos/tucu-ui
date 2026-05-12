@@ -6,6 +6,7 @@ import {
   Input,
   Switch,
   Select,
+  BasicTable,
   type SelectOption,
   Badge,
 } from '../../components';
@@ -29,15 +30,45 @@ export interface PropPlaygroundProps {
   className?: string;
   /** Title override */
   title?: string;
+  /** Manual controls to supplement or override metadata-derived controls */
+  controlOverrides?: PropPlaygroundControlOverride[];
 }
 
 // ─── Prop Type Analysis ────────────────────────────────────────
 
 type ControlType = 'boolean' | 'select' | 'text' | 'number' | 'none';
+export type PlaygroundControlType = Exclude<ControlType, 'none'>;
 
 interface ControlConfig {
   type: ControlType;
   options?: string[];
+}
+
+export interface PropPlaygroundControlOverride {
+  name: string;
+  type: PlaygroundControlType;
+  options?: string[];
+  propType?: string;
+  required?: boolean;
+  description?: string;
+}
+
+function getOverridePropType(override: PropPlaygroundControlOverride): string {
+  if (override.propType) return override.propType;
+
+  switch (override.type) {
+    case 'boolean':
+      return 'false | true';
+    case 'number':
+      return 'number';
+    case 'select':
+      return (override.options || [])
+        .map((option) => `"${option}"`)
+        .join(' | ');
+    case 'text':
+    default:
+      return 'string';
+  }
 }
 
 function analyzeControl(prop: PropInfo): ControlConfig {
@@ -101,6 +132,15 @@ interface ControlProps {
   onChange: (name: string, value: any) => void;
 }
 
+type PropPlaygroundTableRow = Record<string, unknown> & {
+  id: string;
+  propName: string;
+  propType: string;
+  propDescription: string;
+  propRequired: boolean;
+  controlElement: React.ReactNode;
+};
+
 const BooleanControl: React.FC<ControlProps> = ({ prop, value, onChange }) => (
   <Switch
     checked={Boolean(value)}
@@ -129,8 +169,9 @@ const SelectControl: React.FC<ControlProps> = ({
       onSelect={(val: string) => onChange(prop.name, val)}
       options={options}
       label=""
-      variant="ghost"
+      variant="solid"
       className="text-xs w-full"
+      size="sm"
     />
   );
 };
@@ -141,8 +182,9 @@ const TextControl: React.FC<ControlProps> = ({ prop, value, onChange }) => (
     placeholder={prop.name}
     value={value ?? ''}
     onChange={(e) => onChange(prop.name, e.target.value)}
-    variant="ghost"
+    variant="solid"
     className="text-xs w-full"
+    size="sm"
   />
 );
 
@@ -153,8 +195,9 @@ const NumberControl: React.FC<ControlProps> = ({ prop, value, onChange }) => (
     type="number"
     value={value ?? ''}
     onChange={(e) => onChange(prop.name, Number(e.target.value))}
-    variant="ghost"
+    variant="solid"
     className="text-xs w-full"
+    size="sm"
   />
 );
 
@@ -168,8 +211,33 @@ export const PropPlayground: React.FC<PropPlaygroundProps> = ({
   includeProps,
   className,
   title,
+  controlOverrides = [],
 }) => {
   const meta = propsRegistry[componentName];
+  const controlOverrideMap = useMemo(
+    () =>
+      new Map(controlOverrides.map((override) => [override.name, override])),
+    [controlOverrides]
+  );
+  const availableProps = useMemo(() => {
+    if (!meta) return [];
+
+    const propsByName = new Map(meta.props.map((prop) => [prop.name, prop]));
+
+    for (const override of controlOverrides) {
+      if (!propsByName.has(override.name)) {
+        propsByName.set(override.name, {
+          name: override.name,
+          type: getOverridePropType(override),
+          defaultValue: null,
+          required: override.required ?? false,
+          description: override.description ?? '',
+        });
+      }
+    }
+
+    return Array.from(propsByName.values());
+  }, [meta, controlOverrides]);
 
   // Build controllable props list
   const controllableProps = useMemo(() => {
@@ -184,11 +252,14 @@ export const PropPlayground: React.FC<PropPlaygroundProps> = ({
       'key',
     ]);
 
-    return meta.props
+    const mappedProps = availableProps
       .filter((p) => {
         if (excluded.has(p.name)) return false;
         if (includeProps && !includeProps.includes(p.name)) return false;
-        const control = analyzeControl(p);
+        const override = controlOverrideMap.get(p.name);
+        const control = override
+          ? { type: override.type, options: override.options }
+          : analyzeControl(p);
         // Allow props with explicit defaultValues even if analyzeControl returns 'none'
         if (control.type === 'none' && p.name in defaultValues) {
           return true;
@@ -196,7 +267,10 @@ export const PropPlayground: React.FC<PropPlaygroundProps> = ({
         return control.type !== 'none';
       })
       .map((p) => {
-        const control = analyzeControl(p);
+        const override = controlOverrideMap.get(p.name);
+        const control = override
+          ? { type: override.type, options: override.options }
+          : analyzeControl(p);
         // Override 'none' controls when a defaultValue is provided — treat as text
         if (control.type === 'none' && p.name in defaultValues) {
           const dv = defaultValues[p.name];
@@ -208,85 +282,154 @@ export const PropPlayground: React.FC<PropPlaygroundProps> = ({
         }
         return { prop: p, control };
       });
-  }, [meta, excludeProps, includeProps, defaultValues]);
 
-  // State for prop values — initialize ALL controllable props to avoid
-  // "uncontrolled to controlled" React warnings (value undefined → defined).
-  const [values, setValues] = useState<Record<string, any>>(() => {
+    if (!includeProps?.length) {
+      return mappedProps;
+    }
+
+    const includeOrder = new Map(
+      includeProps.map((propName, index) => [propName, index])
+    );
+
+    return mappedProps.sort(
+      (a, b) =>
+        (includeOrder.get(a.prop.name) ?? Number.MAX_SAFE_INTEGER) -
+        (includeOrder.get(b.prop.name) ?? Number.MAX_SAFE_INTEGER)
+    );
+  }, [
+    meta,
+    availableProps,
+    excludeProps,
+    includeProps,
+    defaultValues,
+    controlOverrideMap,
+  ]);
+
+  const buildInitialValues = useCallback(() => {
     const initial: Record<string, any> = { ...defaultValues };
-    if (meta) {
-      for (const p of meta.props) {
-        if (p.name in initial) continue;
-        const control = analyzeControl(p);
-        if (control.type === 'none') continue;
 
-        if (p.defaultValue !== null) {
-          // Use metadata default
-          initial[p.name] =
-            control.type === 'boolean'
-              ? p.defaultValue === 'true'
-              : p.defaultValue;
-        } else {
-          // Assign a type-appropriate zero-value so the control is always "controlled"
-          switch (control.type) {
-            case 'boolean':
-              initial[p.name] = false;
-              break;
-            case 'select':
-              initial[p.name] = control.options?.[0] ?? '';
-              break;
-            case 'number':
-              initial[p.name] = '';
-              break;
-            case 'text':
-            default:
-              initial[p.name] = '';
-              break;
-          }
+    for (const { prop, control } of controllableProps) {
+      if (prop.name in initial) continue;
+
+      if (prop.defaultValue !== null) {
+        initial[prop.name] =
+          control.type === 'boolean'
+            ? prop.defaultValue === 'true'
+            : prop.defaultValue;
+      } else {
+        switch (control.type) {
+          case 'boolean':
+            initial[prop.name] = false;
+            break;
+          case 'select':
+            initial[prop.name] = control.options?.[0] ?? '';
+            break;
+          case 'number':
+            initial[prop.name] = '';
+            break;
+          case 'text':
+          default:
+            initial[prop.name] = '';
+            break;
         }
       }
     }
+
     return initial;
-  });
+  }, [controllableProps, defaultValues]);
+
+  // State for prop values — initialize ALL controllable props to avoid
+  // "uncontrolled to controlled" React warnings (value undefined → defined).
+  const [values, setValues] = useState<Record<string, any>>(() =>
+    buildInitialValues()
+  );
 
   const handleChange = useCallback((name: string, value: any) => {
     setValues((prev) => ({ ...prev, [name]: value }));
   }, []);
 
   const handleReset = useCallback(() => {
-    const initial: Record<string, any> = { ...defaultValues };
-    if (meta) {
-      for (const p of meta.props) {
-        if (p.name in initial) continue;
-        const control = analyzeControl(p);
-        if (control.type === 'none') continue;
+    setValues(buildInitialValues());
+  }, [buildInitialValues]);
 
-        if (p.defaultValue !== null) {
-          initial[p.name] =
-            control.type === 'boolean'
-              ? p.defaultValue === 'true'
-              : p.defaultValue;
-        } else {
-          switch (control.type) {
-            case 'boolean':
-              initial[p.name] = false;
-              break;
-            case 'select':
-              initial[p.name] = control.options?.[0] ?? '';
-              break;
-            case 'number':
-              initial[p.name] = '';
-              break;
-            case 'text':
-            default:
-              initial[p.name] = '';
-              break;
-          }
-        }
+  const controlTableRows = useMemo<PropPlaygroundTableRow[]>(() => {
+    return controllableProps.map(({ prop, control }) => {
+      const controlProps: ControlProps = {
+        prop,
+        control,
+        value: values[prop.name],
+        onChange: handleChange,
+      };
+
+      let controlElement: React.ReactNode = null;
+      switch (control.type) {
+        case 'boolean':
+          controlElement = <BooleanControl {...controlProps} />;
+          break;
+        case 'select':
+          controlElement = <SelectControl {...controlProps} />;
+          break;
+        case 'number':
+          controlElement = <NumberControl {...controlProps} />;
+          break;
+        case 'text':
+          controlElement = <TextControl {...controlProps} />;
+          break;
       }
-    }
-    setValues(initial);
-  }, [defaultValues, meta]);
+
+      return {
+        id: prop.name,
+        propName: prop.name,
+        propType: prop.type,
+        propDescription: prop.description,
+        propRequired: prop.required,
+        controlElement,
+      };
+    });
+  }, [controllableProps, values, handleChange]);
+
+  const controlTableColumns = useMemo(
+    () => [
+      {
+        key: 'propName',
+        label: 'Prop',
+        headerClassName:
+          'w-1/2 max-w-[50%] px-4 py-2.5 text-[11px] font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider',
+        className: 'w-1/2 max-w-[50%] px-4 py-3 align-middle',
+        render: (_value: unknown, row: PropPlaygroundTableRow) => (
+          <div className="flex min-w-0 max-w-full flex-col gap-0.5">
+            <span className="text-xs font-mono font-medium text-gray-900 dark:text-gray-100">
+              {row.propName}
+              {row.propRequired && (
+                <span className="text-red-500 ml-0.5">*</span>
+              )}
+            </span>
+            <span className="text-[10px] font-mono text-gray-400 dark:text-gray-500">
+              {row.propType}
+            </span>
+            {row.propDescription && (
+              <span className="text-[11px] text-gray-500 dark:text-gray-400 mt-0.5 line-clamp-2">
+                {row.propDescription}
+              </span>
+            )}
+          </div>
+        ),
+      },
+      {
+        key: 'controlElement',
+        label: 'Control',
+        headerClassName:
+          'w-1/2 max-w-[50%] px-4 py-2.5 text-[11px] font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider',
+        className: 'w-1/2 max-w-[50%] px-4 py-3 align-middle',
+        render: (value: unknown) => (
+          <div className="min-w-0 max-w-full w-full">
+            {value as React.ReactNode}
+          </div>
+        ),
+      },
+    ],
+    []
+  );
 
   if (!meta) {
     return (
@@ -336,76 +479,15 @@ export const PropPlayground: React.FC<PropPlaygroundProps> = ({
               </button>
             </div>
 
-            {/* Storybook-style table */}
-            <div className="border border-gray-15 dark:border-gray-700 rounded-lg overflow-hidden">
-              <table className="w-full text-left">
-                <thead>
-                  <tr className="bg-gray-10 dark:bg-gray-800/80 border-b border-gray-15 dark:border-gray-700">
-                    <th className="px-4 py-2.5 text-[11px] font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider w-1/2">
-                      Prop
-                    </th>
-                    <th className="px-4 py-2.5 text-[11px] font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider w-1/2">
-                      Control
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-15 dark:divide-gray-700/50">
-                  {controllableProps.map(({ prop, control }) => {
-                    const controlProps: ControlProps = {
-                      prop,
-                      control,
-                      value: values[prop.name],
-                      onChange: handleChange,
-                    };
-
-                    let controlEl: React.ReactNode = null;
-                    switch (control.type) {
-                      case 'boolean':
-                        controlEl = <BooleanControl {...controlProps} />;
-                        break;
-                      case 'select':
-                        controlEl = <SelectControl {...controlProps} />;
-                        break;
-                      case 'number':
-                        controlEl = <NumberControl {...controlProps} />;
-                        break;
-                      case 'text':
-                        controlEl = <TextControl {...controlProps} />;
-                        break;
-                    }
-
-                    return (
-                      <tr
-                        key={prop.name}
-                        className="hover:bg-gray-100 dark:hover:bg-gray-800/30 transition-colors"
-                      >
-                        {/* Prop column */}
-                        <td className="px-4 py-3 align-middle">
-                          <div className="flex flex-col gap-0.5">
-                            <span className="text-xs font-mono font-medium text-gray-900 dark:text-gray-100">
-                              {prop.name}
-                              {prop.required && (
-                                <span className="text-red-500 ml-0.5">*</span>
-                              )}
-                            </span>
-                            <span className="text-[10px] font-mono text-gray-400 dark:text-gray-500">
-                              {prop.type}
-                            </span>
-                            {prop.description && (
-                              <span className="text-[11px] text-gray-500 dark:text-gray-400 mt-0.5 line-clamp-2">
-                                {prop.description}
-                              </span>
-                            )}
-                          </div>
-                        </td>
-                        {/* Control column */}
-                        <td className="px-4 py-3 align-middle">{controlEl}</td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-            </div>
+            <BasicTable
+              columns={controlTableColumns as any}
+              data={controlTableRows}
+              tableClassName="table-fixed"
+              hoverable={false}
+              striped={false}
+              maxRows={Math.max(controlTableRows.length, 10)}
+              rowClassName="hover:bg-gray-100 dark:hover:bg-gray-800/30"
+            />
 
             {/* Current Values Display */}
             <div className="mt-4 p-3 bg-gray-900 dark:bg-gray-950 rounded-lg">

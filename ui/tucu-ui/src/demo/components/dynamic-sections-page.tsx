@@ -195,7 +195,7 @@ export const DynamicSectionsPage: React.FC<DynamicSectionsPageProps> = ({
         activeSectionId={sectionId}
         onItemClick={(item) => navigateToSection(item.id)}
       >
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 sm:space-y-12 pt-8 lg:pt-0">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 sm:space-y-12 pt-8 lg:pt-0">
           {/* Hero Section - always visible */}
           {hero}
 

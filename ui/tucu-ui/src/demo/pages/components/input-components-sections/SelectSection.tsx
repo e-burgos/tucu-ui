@@ -7,6 +7,7 @@ import {
   Select,
 } from '../../../../index';
 import { AutoPropsTable } from '../../../components/auto-props-table';
+import { PropPlayground } from '../../../components/prop-playground';
 import { Globe, Zap, Shield, Star } from 'lucide-react';
 
 const SelectSection: React.FC = () => {
@@ -51,6 +52,22 @@ const SelectSection: React.FC = () => {
       disabled: true,
     },
   ];
+  const selectColors = [
+    { label: 'Primary', color: 'primary' as const },
+    { label: 'Secondary', color: 'secondary' as const },
+    { label: 'Danger', color: 'danger' as const },
+    { label: 'Info', color: 'info' as const },
+    { label: 'Success', color: 'success' as const },
+    { label: 'Warning', color: 'warning' as const },
+  ];
+  const selectSizes = [
+    { label: 'Small', size: 'sm' as const },
+    { label: 'Medium', size: 'md' as const },
+    { label: 'Large', size: 'lg' as const },
+  ];
+  const [playgroundSelectedOption, setPlaygroundSelectedOption] = useState<
+    { name: string; value: string } | undefined
+  >(countryOptions[0]);
 
   return (
     <>
@@ -208,6 +225,112 @@ const SelectSection: React.FC = () => {
           </div>
         </CardTitle>
       </CardContainer>
+
+      <CardContainer className="overflow-hidden">
+        <CardTitle title="Colors" className="mt-2 mb-2">
+          <div className="w-full p-4 sm:p-6">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
+              {selectColors.map(({ label, color }) => (
+                <CardContainer key={color} className="p-4">
+                  <Typography tag="h5" className="mb-3">
+                    {label}
+                  </Typography>
+                  <Select
+                    label={`${label} Select`}
+                    placeholder="Select option"
+                    color={color}
+                    options={countryOptions}
+                  />
+                </CardContainer>
+              ))}
+            </div>
+          </div>
+        </CardTitle>
+      </CardContainer>
+
+      <CardContainer className="overflow-hidden">
+        <CardTitle title="Sizes" className="mt-2 mb-2">
+          <div className="w-full p-4 sm:p-6">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+              {selectSizes.map(({ label, size }) => (
+                <CardContainer key={size} className="p-4">
+                  <Typography tag="h5" className="mb-3">
+                    {label}
+                  </Typography>
+                  <Select
+                    label={`${label} Select`}
+                    placeholder="Select option"
+                    size={size}
+                    options={countryOptions}
+                  />
+                </CardContainer>
+              ))}
+            </div>
+          </div>
+        </CardTitle>
+      </CardContainer>
+
+      <PropPlayground
+        componentName="Select"
+        defaultValues={{
+          label: 'Preview Select',
+          placeholder: 'Select a country',
+          variant: 'ghost',
+          color: 'primary',
+          size: 'md',
+          helperText: '',
+          errorMessage: '',
+          searchable: false,
+          searchPlaceholder: 'Search...',
+          showCheck: true,
+          disabled: false,
+        }}
+        controlOverrides={[
+          {
+            name: 'placeholder',
+            type: 'text',
+            description: 'Placeholder text rendered before selecting an option',
+          },
+        ]}
+        includeProps={[
+          'label',
+          'placeholder',
+          'variant',
+          'color',
+          'size',
+          'helperText',
+          'errorMessage',
+          'searchable',
+          'searchPlaceholder',
+          'showCheck',
+          'disabled',
+        ]}
+        excludeProps={[
+          'options',
+          'selectedOption',
+          'onChange',
+          'onSelect',
+          'value',
+          'name',
+          'buttonClassName',
+          'children',
+        ]}
+      >
+        {(props) => (
+          <div className="w-full max-w-lg">
+            <Select
+              {...props}
+              placeholder={props.placeholder || 'Select a country'}
+              options={countryOptions}
+              selectedOption={playgroundSelectedOption}
+              onChange={(option: { name: string; value: string } | undefined) =>
+                setPlaygroundSelectedOption(option)
+              }
+            />
+          </div>
+        )}
+      </PropPlayground>
+
       <AutoPropsTable componentName="Select" />
 
       <CardContainer className="overflow-hidden">
@@ -253,7 +376,20 @@ const plans = [
 // Variants
 <Select variant="ghost" options={options} />
 <Select variant="solid" options={options} />
-<Select variant="transparent" options={options} />`}
+<Select variant="transparent" options={options} />
+
+// Colors
+<Select color="primary" options={options} />
+<Select color="secondary" options={options} />
+<Select color="danger" options={options} />
+<Select color="info" options={options} />
+<Select color="success" options={options} />
+<Select color="warning" options={options} />
+
+// Sizes
+<Select size="sm" options={options} />
+<Select size="md" options={options} />
+<Select size="lg" options={options} />`}
             />
           </div>
         </CardTitle>

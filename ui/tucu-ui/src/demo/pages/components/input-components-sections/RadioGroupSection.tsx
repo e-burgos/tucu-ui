@@ -7,9 +7,26 @@ import {
   RadioGroup,
 } from '../../../../index';
 import { AutoPropsTable } from '../../../components/auto-props-table';
+import { PropPlayground } from '../../../components/prop-playground';
 
 const RadioGroupSection: React.FC = () => {
   const [radioValue, setRadioValue] = useState<string>('');
+  const [playgroundRadioGroupValue, setPlaygroundRadioGroupValue] =
+    useState<string>('starter');
+  const radioGroupColors = [
+    { label: 'Primary', color: 'primary' as const },
+    { label: 'Secondary', color: 'secondary' as const },
+    { label: 'Danger', color: 'danger' as const },
+    { label: 'Info', color: 'info' as const },
+    { label: 'Success', color: 'success' as const },
+    { label: 'Warning', color: 'warning' as const },
+  ];
+  const radioGroupSizes = [
+    { label: 'Small', size: 'sm' as const },
+    { label: 'Medium', size: 'md' as const },
+    { label: 'Large', size: 'lg' as const },
+    { label: 'Extra Large', size: 'xl' as const },
+  ];
 
   const genderOptions = [
     { value: 'male', label: 'Male' },
@@ -102,19 +119,6 @@ const RadioGroupSection: React.FC = () => {
                   ]}
                 />
               </CardContainer>
-              <CardContainer className="p-4">
-                <Typography tag="h5" className="mb-3">
-                  Different Colors
-                </Typography>
-                <RadioGroup
-                  label="Color"
-                  color="danger"
-                  options={[
-                    { value: 'red', label: 'Red' },
-                    { value: 'blue', label: 'Blue' },
-                  ]}
-                />
-              </CardContainer>
             </div>
           </div>
         </CardTitle>
@@ -167,6 +171,99 @@ const RadioGroupSection: React.FC = () => {
           </div>
         </CardTitle>
       </CardContainer>
+
+      <CardContainer className="overflow-hidden">
+        <CardTitle title="Colors" className="mt-2 mb-2">
+          <div className="w-full p-4 sm:p-6">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
+              {radioGroupColors.map(({ label, color }) => (
+                <CardContainer key={color} className="p-4">
+                  <Typography tag="h5" className="mb-3">
+                    {label}
+                  </Typography>
+                  <RadioGroup
+                    label={`${label} Group`}
+                    color={color}
+                    options={genderOptions}
+                  />
+                </CardContainer>
+              ))}
+            </div>
+          </div>
+        </CardTitle>
+      </CardContainer>
+
+      <CardContainer className="overflow-hidden">
+        <CardTitle title="Sizes" className="mt-2 mb-2">
+          <div className="w-full p-4 sm:p-6">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
+              {radioGroupSizes.map(({ label, size }) => (
+                <CardContainer key={size} className="p-4">
+                  <Typography tag="h5" className="mb-3">
+                    {label}
+                  </Typography>
+                  <RadioGroup
+                    label={`${label} Group`}
+                    size={size}
+                    options={genderOptions}
+                  />
+                </CardContainer>
+              ))}
+            </div>
+          </div>
+        </CardTitle>
+      </CardContainer>
+
+      <PropPlayground
+        componentName="RadioGroup"
+        defaultValues={{
+          label: 'Preview RadioGroup',
+          variant: 'ghost',
+          color: 'primary',
+          size: 'md',
+          labelPlacement: 'end',
+          disabled: false,
+          helperText: '',
+          error: '',
+          direction: 'vertical',
+          gap: 'md',
+        }}
+        includeProps={[
+          'label',
+          'variant',
+          'color',
+          'size',
+          'labelPlacement',
+          'disabled',
+          'helperText',
+          'error',
+          'direction',
+          'gap',
+        ]}
+        excludeProps={[
+          'options',
+          'value',
+          'defaultValue',
+          'children',
+          'onChange',
+        ]}
+      >
+        {(props) => (
+          <div className="w-full max-w-lg">
+            <RadioGroup
+              {...props}
+              options={[
+                { value: 'starter', label: 'Starter' },
+                { value: 'growth', label: 'Growth' },
+                { value: 'scale', label: 'Scale' },
+              ]}
+              value={playgroundRadioGroupValue}
+              onChange={(value) => setPlaygroundRadioGroupValue(String(value))}
+            />
+          </div>
+        )}
+      </PropPlayground>
+
       <AutoPropsTable componentName="RadioGroup" />
 
       <CardContainer className="overflow-hidden">
@@ -196,7 +293,17 @@ const options = [
 
 // Colors
 <RadioGroup label="Primary" color="primary" options={options} />
+<RadioGroup label="Secondary" color="secondary" options={options} />
 <RadioGroup label="Danger" color="danger" options={options} />
+<RadioGroup label="Info" color="info" options={options} />
+<RadioGroup label="Success" color="success" options={options} />
+<RadioGroup label="Warning" color="warning" options={options} />
+
+// Sizes
+<RadioGroup label="Small" size="sm" options={options} />
+<RadioGroup label="Medium" size="md" options={options} />
+<RadioGroup label="Large" size="lg" options={options} />
+<RadioGroup label="Extra Large" size="xl" options={options} />
 
 // Layout
 <RadioGroup label="Horizontal" direction="horizontal" options={options} />

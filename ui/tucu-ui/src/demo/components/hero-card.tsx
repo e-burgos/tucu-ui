@@ -86,14 +86,14 @@ export const HeroCard: React.FC<HeroCardProps> = ({
           className="absolute inset-0 overflow-hidden"
         >
           {/* Grid pattern */}
-          <div className="absolute inset-0">
+          <div className="absolute inset-0 opacity-40">
             <div
               className="absolute inset-0"
               style={{
                 backgroundImage:
                   mode === 'dark'
                     ? 'linear-gradient(var(--color-gray-800) 1px, transparent 1px), linear-gradient(90deg, var(--color-gray-800) 1px, transparent 1px)'
-                    : 'linear-gradient(var(--color-gray-100) 1px, transparent 1px), linear-gradient(90deg, var(--color-gray-200) 1px, transparent 1px)',
+                    : 'linear-gradient(var(--color-gray-200) 1px, transparent 1px), linear-gradient(90deg, var(--color-gray-200) 1px, transparent 1px)',
                 backgroundSize: '32px 32px',
               }}
             ></div>
@@ -132,17 +132,14 @@ export const HeroCard: React.FC<HeroCardProps> = ({
                 size="large"
                 className="backdrop-blur-sm shadow-xl transition-all duration-300 transform"
               >
-                <div className="flex justify-center items-center">
-                  <AnchorLink
-                    to={customButton.link}
-                    target={customButton.target}
-                  >
-                    <div className="flex justify-center items-center">
-                      {customButton?.icon && customButton.icon}
-                      {customButton.label}
-                    </div>
-                  </AnchorLink>
-                </div>
+                <AnchorLink
+                  to={customButton.link}
+                  target={customButton.target}
+                  className="flex items-center text-inherit no-underline"
+                >
+                  {customButton?.icon && customButton.icon}
+                  {customButton.label}
+                </AnchorLink>
               </Button>
             )}
             {getStartedButton && (
@@ -151,17 +148,14 @@ export const HeroCard: React.FC<HeroCardProps> = ({
                 size="large"
                 className="backdrop-blur-sm shadow-xl transition-all duration-300 transform"
               >
-                <div className="flex justify-center items-center">
-                  <AnchorLink
-                    to={INTRODUCTION_DOCS_URL}
-                    target="_blank"
-                  >
-                    <div className="flex justify-center items-center">
-                      <LucideIcons.Rocket className="w-5 h-5 mr-2 animate-pulse" />
-                      Get Started
-                    </div>
-                  </AnchorLink>
-                </div>
+                <AnchorLink
+                  to={INTRODUCTION_DOCS_URL}
+                  target="_blank"
+                  className="flex items-center no-underline"
+                >
+                  <LucideIcons.Rocket className="w-5 h-5 mr-2 animate-pulse" />
+                  Get Started
+                </AnchorLink>
               </Button>
             )}
             {githubButton && (
@@ -170,14 +164,14 @@ export const HeroCard: React.FC<HeroCardProps> = ({
                 size="large"
                 className="backdrop-blur-sm shadow-xl transition-all duration-300 transform"
               >
-                <div className="flex justify-center items-center">
-                  <AnchorLink to={GITHUB_URL} target="_blank">
-                    <div className="flex justify-center items-center">
-                      <LucideIcons.Github className="w-5 h-5 mr-2" />
-                      View on GitHub
-                    </div>
-                  </AnchorLink>
-                </div>
+                <AnchorLink
+                  to={GITHUB_URL}
+                  target="_blank"
+                  className="flex items-center text-inherit no-underline"
+                >
+                  <LucideIcons.Github className="w-5 h-5 mr-2" />
+                  View on GitHub
+                </AnchorLink>
               </Button>
             )}
           </div>
