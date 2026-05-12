@@ -44,6 +44,8 @@ export function Alert({
 
   return (
     <div
+      data-tucu="alert"
+      data-variant={variant}
       role="alert"
       aria-live="assertive"
       aria-atomic="true"

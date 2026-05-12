@@ -7,11 +7,25 @@ import {
   InputSearcher,
 } from '../../../../index';
 import { AutoPropsTable } from '../../../components/auto-props-table';
+import { PropPlayground } from '../../../components/prop-playground';
 
 const InputSearcherSection: React.FC = () => {
   const [selectedSearchOption, setSelectedSearchOption] = useState<
     { name: string; value: string } | undefined
   >(undefined);
+  const searcherColors = [
+    { label: 'Primary', color: 'primary' as const },
+    { label: 'Secondary', color: 'secondary' as const },
+    { label: 'Danger', color: 'danger' as const },
+    { label: 'Info', color: 'info' as const },
+    { label: 'Success', color: 'success' as const },
+    { label: 'Warning', color: 'warning' as const },
+  ];
+  const searcherSizes = [
+    { label: 'Small', size: 'sm' as const },
+    { label: 'Medium', size: 'md' as const },
+    { label: 'Large', size: 'lg' as const },
+  ];
 
   const searchOptions = [
     { name: 'React', value: 'react' },
@@ -154,6 +168,93 @@ const InputSearcherSection: React.FC = () => {
           </div>
         </CardTitle>
       </CardContainer>
+
+      <CardContainer className="overflow-hidden">
+        <CardTitle title="Colors" className="mt-2 mb-2">
+          <div className="w-full p-4 sm:p-6">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
+              {searcherColors.map(({ label, color }) => (
+                <CardContainer key={color} className="p-4">
+                  <Typography tag="h5" className="mb-3">
+                    {label}
+                  </Typography>
+                  <InputSearcher
+                    label={`${label} Search`}
+                    placeholder="Search..."
+                    color={color}
+                    options={searchOptions}
+                  />
+                </CardContainer>
+              ))}
+            </div>
+          </div>
+        </CardTitle>
+      </CardContainer>
+
+      <CardContainer className="overflow-hidden">
+        <CardTitle title="Sizes" className="mt-2 mb-2">
+          <div className="w-full p-4 sm:p-6">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+              {searcherSizes.map(({ label, size }) => (
+                <CardContainer key={size} className="p-4">
+                  <Typography tag="h5" className="mb-3">
+                    {label}
+                  </Typography>
+                  <InputSearcher
+                    label={`${label} Search`}
+                    placeholder="Search frameworks"
+                    size={size}
+                    options={searchOptions}
+                  />
+                </CardContainer>
+              ))}
+            </div>
+          </div>
+        </CardTitle>
+      </CardContainer>
+
+      <PropPlayground
+        componentName="InputSearcher"
+        defaultValues={{
+          label: 'Preview Search',
+          placeholder: 'Search frameworks',
+          variant: 'ghost',
+          color: 'primary',
+          size: 'md',
+          multiple: false,
+          noMatchesMessage: 'No results found',
+          disabled: false,
+        }}
+        controlOverrides={[
+          {
+            name: 'placeholder',
+            type: 'text',
+            description: 'Placeholder text rendered inside the search input',
+          },
+        ]}
+        includeProps={[
+          'label',
+          'placeholder',
+          'variant',
+          'color',
+          'size',
+          'multiple',
+          'noMatchesMessage',
+          'disabled',
+        ]}
+        excludeProps={['options', 'initialValue', 'onOptionSelect']}
+      >
+        {(props) => (
+          <div className="w-full max-w-lg">
+            <InputSearcher
+              {...props}
+              placeholder={props.placeholder || 'Search frameworks'}
+              options={searchOptions}
+            />
+          </div>
+        )}
+      </PropPlayground>
+
       <AutoPropsTable componentName="InputSearcher" />
 
       <CardContainer className="overflow-hidden">
@@ -192,7 +293,20 @@ const options = [
 // Variants
 <InputSearcher label="Ghost" variant="ghost" options={options} />
 <InputSearcher label="Solid" variant="solid" options={options} />
-<InputSearcher label="Transparent" variant="transparent" options={options} />`}
+<InputSearcher label="Transparent" variant="transparent" options={options} />
+
+// Colors
+<InputSearcher label="Primary" color="primary" options={options} />
+<InputSearcher label="Secondary" color="secondary" options={options} />
+<InputSearcher label="Danger" color="danger" options={options} />
+<InputSearcher label="Info" color="info" options={options} />
+<InputSearcher label="Success" color="success" options={options} />
+<InputSearcher label="Warning" color="warning" options={options} />
+
+// Sizes
+<InputSearcher label="Small" size="sm" options={options} />
+<InputSearcher label="Medium" size="md" options={options} />
+<InputSearcher label="Large" size="lg" options={options} />`}
             />
           </div>
         </CardTitle>

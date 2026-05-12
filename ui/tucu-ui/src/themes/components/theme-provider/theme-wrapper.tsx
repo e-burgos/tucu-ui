@@ -96,7 +96,7 @@ export function ThemeWrapper({
   children,
   setCurrentPathname,
 }: ThemeWrapperProps) {
-  const { mode, layout } = useTheme();
+  const { mode, layout, colorScheme } = useTheme();
 
   const { pathname } = useLocation();
   const menuList = useMemo(
@@ -160,6 +160,23 @@ export function ThemeWrapper({
     html.classList.toggle('dark', mode === 'dark');
     html.classList.toggle('light', mode !== 'dark');
   }, [mode]);
+
+  // ─── macOS theme/layout classes on <html> ────────────────────
+  useEffect(() => {
+    document.documentElement.classList.toggle(
+      'macos',
+      colorScheme === 'macos' ||
+        layout === LAYOUT_OPTIONS.MACOS ||
+        layout === LAYOUT_OPTIONS.MACOS_TAHOE
+    );
+  }, [colorScheme, layout]);
+
+  useEffect(() => {
+    document.documentElement.classList.toggle(
+      'macos-tahoe',
+      layout === LAYOUT_OPTIONS.MACOS_TAHOE
+    );
+  }, [layout]);
 
   return (
     <div

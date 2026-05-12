@@ -32,7 +32,7 @@ export const ListItem: React.FC<ListItemProps> = ({
   };
 
   return (
-    <li key={id} {...restProps}>
+    <li key={id} data-tucu="list-item" {...restProps}>
       {content ? (
         <div
           className={cn(

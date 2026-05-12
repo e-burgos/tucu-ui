@@ -171,6 +171,7 @@ export const Modal: React.FC<ModalProps> = ({
         style={{ zIndex: 51 }}
       >
         <CardContainer
+          data-tucu="modal"
           className={cn(
             'relative w-full sm:max-w-[800px] h-fit! min-h-[400px] rounded-xl shadow-card pointer-events-auto',
             className

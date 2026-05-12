@@ -20,6 +20,7 @@
    IMPORTS & CONFIGURATION
    =================================================================== */
 @import 'tailwindcss';
+@import './macos/index.css';
 
 /* ===================================================================
    THEME CONFIGURATION (CSS Variables)
@@ -717,8 +718,8 @@
   --color-semantic-bg-warning-wash: var(--color-tucu-ui-orange-0);
 
   /* Line */
-  --color-semantic-line-primary: var(--color-tucu-ui-blue-60);
-  --color-semantic-line-primary-subtle: var(--color-tucu-ui-blue-20);
+  --color-semantic-line-primary: var(--color-tucu-ui-gray-20);
+  --color-semantic-line-primary-subtle: var(--color-tucu-ui-gray-15);
   --color-semantic-line-inverse: var(--color-tucu-ui-gray-0);
 
   /* Elevation */
@@ -769,8 +770,8 @@
   --color-semantic-dark-bg-warning-wash: var(--color-tucu-ui-dark-orange-0);
 
   /* Line Dark */
-  --color-semantic-dark-line-primary: var(--color-tucu-ui-dark-blue-70);
-  --color-semantic-dark-line-primary-subtle: var(--color-tucu-ui-dark-blue-20);
+  --color-semantic-dark-line-primary: var(--color-tucu-ui-dark-gray-20);
+  --color-semantic-dark-line-primary-subtle: var(--color-tucu-ui-dark-gray-15);
   --color-semantic-dark-line-inverse: var(--color-tucu-ui-dark-gray-0);
 
   /* Elevation Dark */
@@ -1104,8 +1105,8 @@
     --color-semantic-bg-warning-wash: var(--color-tucu-ui-orange-0);
 
     /* Line */
-    --color-semantic-line-primary: var(--color-tucu-ui-blue-60);
-    --color-semantic-line-primary-subtle: var(--color-tucu-ui-blue-20);
+    --color-semantic-line-primary: var(--color-tucu-ui-gray-20);
+    --color-semantic-line-primary-subtle: var(--color-tucu-ui-gray-10);
     --color-semantic-line-inverse: var(--color-tucu-ui-gray-0);
 
     /* Elevation */

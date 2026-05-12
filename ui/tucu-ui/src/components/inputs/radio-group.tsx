@@ -86,7 +86,7 @@ export const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>(
       defaultValue,
       variant = 'ghost',
       size = 'md',
-      color = 'primary',
+      color,
       labelPlacement = 'end',
       disabled = false,
       label,
@@ -174,7 +174,7 @@ export const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>(
           disabled: disabled || child.props.disabled,
           variant: child.props.variant || variant,
           size: child.props.size || size,
-          color: child.props.color || color,
+          color: child.props.color ?? color,
           labelPlacement: child.props.labelPlacement || labelPlacement,
           activeClassName: isChecked ? 'active' : '',
         } as Partial<RadioProps>);
@@ -182,7 +182,12 @@ export const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>(
     };
 
     return (
-      <div ref={ref} className={cn('flex flex-col', className)} {...rest}>
+      <div
+        ref={ref}
+        data-tucu="radio-group"
+        className={cn('flex flex-col', className)}
+        {...rest}
+      >
         {label && (
           <label
             className={cn('block text-sm font-medium mb-[6px]', labelClassName)}

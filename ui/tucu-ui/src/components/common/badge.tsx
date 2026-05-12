@@ -96,6 +96,8 @@ export const Badge = ({
 
   return (
     <span
+      data-tucu="badge"
+      data-variant={variant}
       className={cn(
         'inline-flex items-center justify-center font-medium transition-all duration-200',
         shapes[shape],

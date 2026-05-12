@@ -3,19 +3,54 @@ import cn from 'classnames';
 import { FieldError } from './helpers/field-error-text';
 import { FieldHelperText } from './helpers/field-helper-text';
 
+type SwitchColor =
+  | 'primary'
+  | 'secondary'
+  | 'danger'
+  | 'info'
+  | 'success'
+  | 'warning';
+
 const switchVariantClasses = {
   ghost: {
     unchecked:
       'border border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800',
-    checked: 'bg-brand',
   },
   solid: {
     unchecked: 'bg-gray-200/70 dark:bg-gray-800',
-    checked: 'bg-brand',
   },
   transparent: {
     unchecked: 'bg-transparent border border-gray-200 dark:border-gray-700',
+  },
+};
+
+const switchColorClasses: Record<
+  SwitchColor,
+  { checked: string; focus: string }
+> = {
+  primary: {
     checked: 'bg-brand',
+    focus: 'focus:ring-brand/50',
+  },
+  secondary: {
+    checked: 'bg-gray-500',
+    focus: 'focus:ring-gray-500/40',
+  },
+  danger: {
+    checked: 'bg-red-500',
+    focus: 'focus:ring-red-500/40',
+  },
+  info: {
+    checked: 'bg-blue-500',
+    focus: 'focus:ring-blue-500/40',
+  },
+  success: {
+    checked: 'bg-green-500',
+    focus: 'focus:ring-green-500/40',
+  },
+  warning: {
+    checked: 'bg-orange-500',
+    focus: 'focus:ring-orange-500/40',
   },
 };
 
@@ -26,6 +61,7 @@ export interface SwitchProps {
   checked: boolean;
   onChange: (checked: boolean) => void;
   variant?: 'ghost' | 'solid' | 'transparent';
+  color?: SwitchColor;
   className?: string;
   errorMessage?: string;
   helperText?: string;
@@ -39,13 +75,23 @@ export const Switch: React.FC<SwitchProps> = ({
   checked,
   onChange,
   variant = 'ghost',
+  color,
   className,
   errorMessage,
   helperText,
   disabled,
 }) => {
+  const colorClasses = color
+    ? switchColorClasses[color]
+    : switchColorClasses.primary;
+
   return (
-    <div className="flex flex-col">
+    <div
+      data-tucu="switch"
+      data-variant={variant}
+      data-color={color}
+      className="flex flex-col"
+    >
       <label
         className={cn(
           'flex items-center relative w-max cursor-pointer select-none',
@@ -72,16 +118,18 @@ export const Switch: React.FC<SwitchProps> = ({
           style={{
             backgroundImage: `url(${checked ? '' : ''})`,
           }}
+          data-tucu="switch-control"
           type="checkbox"
           checked={checked}
           onChange={(e) => onChange(e.target.checked)}
           disabled={disabled}
           className={cn(
-            'appearance-none transition-colors cursor-pointer w-[56px] h-[28px] rounded-full focus:outline-hidden focus:ring-[2px] focus:ring-offset-[2px] focus:ring-offset-black focus:ring-brand/50',
+            'appearance-none transition-colors cursor-pointer w-[56px] h-[28px] rounded-full focus:outline-hidden focus:ring-[2px] focus:ring-offset-[2px] focus:ring-offset-black',
+            colorClasses.focus,
             disabled &&
               'cursor-not-allowed! bg-muted/10! border-gray-200! dark:border-gray-700!',
             checked
-              ? switchVariantClasses[variant].checked
+              ? colorClasses.checked
               : switchVariantClasses[variant].unchecked
           )}
         />

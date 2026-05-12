@@ -1,0 +1,28 @@
+/* ============================================================
+   macOS Sonoma 14 — Theme CSS Barrel Import
+   
+   Import this single file to load ALL macOS theme overrides.
+   Order matters: fonts → foundations → typography → components
+   ============================================================ */
+
+/* Fonts: @font-face for SF Pro (local + woff2 fallback) */
+@import './macos-fonts.css';
+
+/* Foundation tokens: colors, radii, spacing, shadows, materials */
+@import './macos-foundations.css';
+
+/* Typography: headings, body, links, code */
+@import './macos-typography.css';
+
+/* Layout: header, sidebar, scrollbar, window bg */
+@import './macos-layouts.css';
+
+/* Component overrides (order doesn't matter) */
+@import './macos-buttons.css';
+@import './macos-cards.css';
+@import './macos-inputs.css';
+@import './macos-dialogs.css';
+@import './macos-tables.css';
+@import './macos-navigation.css';
+@import './macos-feedback.css';
+@import './macos-misc.css';

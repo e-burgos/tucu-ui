@@ -156,6 +156,10 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         <button
           ref={buttonRef}
           onClick={clickHandler}
+          data-tucu="button"
+          data-variant={variant}
+          data-shape={shape}
+          data-size={size}
           aria-label={ariaLabel}
           aria-describedby={ariaDescribedBy || undefined}
           aria-busy={isLoading ? 'true' : 'false'}

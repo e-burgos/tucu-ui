@@ -4,7 +4,7 @@ import react from '@vitejs/plugin-react';
 import dts from 'vite-plugin-dts';
 import * as path from 'path';
 import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin';
-import { copyFileSync } from 'fs';
+import { copyFileSync, mkdirSync } from 'fs';
 import tailwindcss from '@tailwindcss/vite';
 
 const copyReadmePlugin = () => {
@@ -12,8 +12,9 @@ const copyReadmePlugin = () => {
     name: 'copy-readme',
     closeBundle: () => {
       const readmePath = path.join(__dirname, '../../README.md');
-      const destPath = path.join(__dirname, '../../dist/ui/tucu-ui/README.md');
-      copyFileSync(readmePath, destPath);
+      const destDir = path.join(__dirname, '../../dist/ui/tucu-ui');
+      mkdirSync(destDir, { recursive: true });
+      copyFileSync(readmePath, path.join(destDir, 'README.md'));
       console.log('README.md copied to distribution directory');
     },
   };
@@ -24,11 +25,9 @@ const copyChangelogPlugin = () => {
     name: 'copy-changelog',
     closeBundle: () => {
       const changelogPath = path.join(__dirname, 'CHANGELOG.md');
-      const destPath = path.join(
-        __dirname,
-        '../../dist/ui/tucu-ui/CHANGELOG.md'
-      );
-      copyFileSync(changelogPath, destPath);
+      const destDir = path.join(__dirname, '../../dist/ui/tucu-ui');
+      mkdirSync(destDir, { recursive: true });
+      copyFileSync(changelogPath, path.join(destDir, 'CHANGELOG.md'));
       console.log('CHANGELOG.md copied to distribution directory');
     },
   };

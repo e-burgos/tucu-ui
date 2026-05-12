@@ -7,9 +7,24 @@ import {
   Input,
 } from '../../../../index';
 import { AutoPropsTable } from '../../../components/auto-props-table';
+import { PropPlayground } from '../../../components/prop-playground';
 
 const InputSection: React.FC = () => {
   const [inputValue, setInputValue] = useState('');
+  const [playgroundInputValue, setPlaygroundInputValue] = useState('');
+  const inputColors = [
+    { label: 'Primary', color: 'primary' as const },
+    { label: 'Secondary', color: 'secondary' as const },
+    { label: 'Danger', color: 'danger' as const },
+    { label: 'Info', color: 'info' as const },
+    { label: 'Success', color: 'success' as const },
+    { label: 'Warning', color: 'warning' as const },
+  ];
+  const inputSizes = [
+    { label: 'Small', size: 'sm' as const },
+    { label: 'Medium', size: 'md' as const },
+    { label: 'Large', size: 'lg' as const },
+  ];
 
   return (
     <>
@@ -27,7 +42,7 @@ const InputSection: React.FC = () => {
       </div>
 
       <CardContainer className="overflow-hidden">
-        <CardTitle title="Basic Examples" className="mt-2 mb-2">
+        <CardTitle title="Examples" className="mt-2 mb-2">
           <div className="w-full p-4 sm:p-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <CardContainer className="p-4">
@@ -83,12 +98,13 @@ const InputSection: React.FC = () => {
               </CardContainer>
             </div>
           </div>
+        </CardTitle>
+      </CardContainer>
 
-          <div>
-            <Typography tag="headline" className="mb-4">
-              Variants
-            </Typography>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+      <CardContainer className="overflow-hidden">
+        <CardTitle title="Variants" className="mt-2 mb-2">
+          <div className="w-full p-4 sm:p-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <CardContainer className="p-4">
                 <Typography tag="h5" className="mb-3">
                   Ghost (default)
@@ -123,6 +139,131 @@ const InputSection: React.FC = () => {
           </div>
         </CardTitle>
       </CardContainer>
+
+      <CardContainer className="overflow-hidden">
+        <CardTitle title="Colors" className="mt-2 mb-2">
+          <div className="w-full p-4 sm:p-6">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
+              {inputColors.map(({ label, color }) => (
+                <CardContainer key={color} className="p-4">
+                  <Typography tag="h5" className="mb-3">
+                    {label}
+                  </Typography>
+                  <Input
+                    label={`${label} Input`}
+                    placeholder="Enter text"
+                    color={color}
+                  />
+                </CardContainer>
+              ))}
+            </div>
+          </div>
+        </CardTitle>
+      </CardContainer>
+
+      <CardContainer className="overflow-hidden">
+        <CardTitle title="Sizes" className="mt-2 mb-2">
+          <div className="w-full p-4 sm:p-6">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+              {inputSizes.map(({ label, size }) => (
+                <CardContainer key={size} className="p-4">
+                  <Typography tag="h5" className="mb-3">
+                    {label}
+                  </Typography>
+                  <Input
+                    label={`${label} Input`}
+                    placeholder="Enter text"
+                    size={size}
+                  />
+                </CardContainer>
+              ))}
+            </div>
+          </div>
+        </CardTitle>
+      </CardContainer>
+
+      <PropPlayground
+        componentName="Input"
+        defaultValues={{
+          label: 'Preview Input',
+          placeholder: 'Enter text',
+          variant: 'ghost',
+          color: 'primary',
+          size: 'md',
+          type: 'text',
+          dateFormat: 'DD/MM/YYYY',
+          locale: 'en-US',
+          helperText: '',
+          error: '',
+          useUppercaseLabel: false,
+          disabled: false,
+        }}
+        controlOverrides={[
+          {
+            name: 'placeholder',
+            type: 'text',
+            description: 'Placeholder text rendered inside the input',
+          },
+          {
+            name: 'color',
+            type: 'select',
+            options: [
+              'primary',
+              'secondary',
+              'danger',
+              'info',
+              'success',
+              'warning',
+            ],
+            description: 'Color treatment applied to the control',
+          },
+          {
+            name: 'type',
+            type: 'select',
+            options: ['text', 'email', 'password', 'number', 'date'],
+            description: 'Native input type used for the preview',
+          },
+          {
+            name: 'disabled',
+            type: 'boolean',
+            description: 'Disables the input and prevents interaction',
+          },
+        ]}
+        includeProps={[
+          'label',
+          'placeholder',
+          'variant',
+          'color',
+          'size',
+          'type',
+          'dateFormat',
+          'locale',
+          'helperText',
+          'error',
+          'useUppercaseLabel',
+          'disabled',
+        ]}
+        excludeProps={[
+          'inputClassName',
+          'labelClassName',
+          'suffix',
+          'suffixClassName',
+          'icon',
+          'dateFormat',
+          'locale',
+        ]}
+      >
+        {(props) => (
+          <div className="w-full max-w-lg">
+            <Input
+              {...props}
+              placeholder={props.placeholder || 'Enter text'}
+              value={playgroundInputValue}
+              onChange={(e) => setPlaygroundInputValue(e.target.value)}
+            />
+          </div>
+        )}
+      </PropPlayground>
 
       <AutoPropsTable componentName="Input" />
 
@@ -161,6 +302,19 @@ const InputSection: React.FC = () => {
 <Input label="Ghost" variant="ghost" />
 <Input label="Solid" variant="solid" />
 <Input label="Transparent" variant="transparent" />
+
+// Colors
+<Input label="Primary" color="primary" />
+<Input label="Secondary" color="secondary" />
+<Input label="Danger" color="danger" />
+<Input label="Info" color="info" />
+<Input label="Success" color="success" />
+<Input label="Warning" color="warning" />
+
+// Sizes
+<Input label="Small" size="sm" />
+<Input label="Medium" size="md" />
+<Input label="Large" size="lg" />
 
 // Date input
 <Input

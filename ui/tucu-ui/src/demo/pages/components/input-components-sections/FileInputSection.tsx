@@ -4,117 +4,19 @@ import {
   CardTitle,
   Typography,
   CodeBlock,
-  BasicTable,
   FileInput,
 } from '../../../../index';
+import { AutoPropsTable } from '../../../components/auto-props-table';
+import { PropPlayground } from '../../../components/prop-playground';
 
 const FileInputSection: React.FC = () => {
-  const propsTableColumns = [
-    {
-      key: 'prop',
-      label: 'Prop',
-      render: (value: unknown) => (
-        <code className="text-xs text-brand">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'type',
-      label: 'Type',
-      render: (value: unknown) => (
-        <code className="text-xs">{String(value)}</code>
-      ),
-    },
-    {
-      key: 'default',
-      label: 'Default',
-      render: (value: unknown) => {
-        const val = String(value);
-        if (val === 'required') {
-          return <span className="text-xs text-red-500">required</span>;
-        }
-        return <code className="text-xs">{val}</code>;
-      },
-    },
-    {
-      key: 'description',
-      label: 'Description',
-    },
-  ];
-
-  const fileInputPropsData = [
-    {
-      prop: 'accept',
-      type: "'img' | 'pdf' | 'csvAndExcel' | 'imgAndPdf' | 'all'",
-      default: 'undefined (accepts all)',
-      description:
-        'File types to accept. If not provided or set to "all", accepts any file type',
-    },
-    {
-      prop: 'multiple',
-      type: 'boolean',
-      default: 'false',
-      description: 'Allow multiple file selection',
-    },
-    {
-      prop: 'disabled',
-      type: 'boolean',
-      default: 'false',
-      description: 'Disables the upload component',
-    },
-    {
-      prop: 'label',
-      type: 'React.ReactNode',
-      default: "'CHOOSE FILE'",
-      description: 'Button label text',
-    },
-    {
-      prop: 'placeholderText',
-      type: 'React.ReactNode',
-      default: "'PNG, GIF, WEBP, MP4 or MP3. Max 100mb.'",
-      description: 'Placeholder text displayed in the upload area',
-    },
-    {
-      prop: 'children',
-      type: 'React.ReactNode',
-      default: '-',
-      description: 'Custom content to display in the upload area',
-    },
-    {
-      prop: 'wrapperClassName',
-      type: 'string',
-      default: '-',
-      description: 'Custom CSS classes for the wrapper container',
-    },
-    {
-      prop: 'className',
-      type: 'string',
-      default: '-',
-      description: 'Custom CSS classes for the input element',
-    },
-    {
-      prop: 'labelClassName',
-      type: 'string',
-      default: '-',
-      description: 'Custom CSS classes for the label/button',
-    },
-    {
-      prop: 'containerClassName',
-      type: 'string',
-      default: '-',
-      description: 'Custom CSS classes for the container element',
-    },
-    {
-      prop: 'containerProps',
-      type: 'React.HTMLAttributes<HTMLDivElement>',
-      default: '-',
-      description: 'Additional props to pass to the container element',
-    },
-    {
-      prop: 'additionalInputProps',
-      type: 'React.InputHTMLAttributes<HTMLInputElement>',
-      default: '-',
-      description: 'Additional props to pass to the input element',
-    },
+  const fileInputColors = [
+    { label: 'Primary', color: 'primary' as const },
+    { label: 'Secondary', color: 'secondary' as const },
+    { label: 'Danger', color: 'danger' as const },
+    { label: 'Info', color: 'info' as const },
+    { label: 'Success', color: 'success' as const },
+    { label: 'Warning', color: 'warning' as const },
   ];
 
   return (
@@ -224,12 +126,63 @@ const FileInputSection: React.FC = () => {
       </CardContainer>
 
       <CardContainer className="overflow-hidden">
-        <CardTitle title="Props" className="mt-2 mb-2">
+        <CardTitle title="Colors" className="mt-2 mb-2">
           <div className="w-full p-4 sm:p-6">
-            <BasicTable columns={propsTableColumns} data={fileInputPropsData} />
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+              {fileInputColors.map(({ label, color }) => (
+                <CardContainer key={color} className="p-4">
+                  <Typography tag="h5" className="mb-3">
+                    {label}
+                  </Typography>
+                  <FileInput
+                    label={`Upload ${label}`}
+                    color={color}
+                    accept="img"
+                    placeholderText="PNG, JPG, GIF, WEBP. Max 100mb."
+                  />
+                </CardContainer>
+              ))}
+            </div>
           </div>
         </CardTitle>
       </CardContainer>
+
+      <PropPlayground
+        componentName="FileInput"
+        defaultValues={{
+          label: 'Upload Assets',
+          accept: 'img',
+          multiple: false,
+          disabled: false,
+          color: 'primary',
+          placeholderText: 'PNG, JPG, GIF or PDF. Max 100mb.',
+        }}
+        includeProps={[
+          'label',
+          'accept',
+          'multiple',
+          'disabled',
+          'color',
+          'placeholderText',
+        ]}
+        excludeProps={[
+          'children',
+          'containerProps',
+          'additionalInputProps',
+          'wrapperClassName',
+          'className',
+          'labelClassName',
+          'containerClassName',
+        ]}
+      >
+        {(props) => (
+          <div className="w-full max-w-2xl">
+            <FileInput {...props} />
+          </div>
+        )}
+      </PropPlayground>
+
+      <AutoPropsTable componentName="FileInput" />
 
       <CardContainer className="overflow-hidden">
         <CardTitle title="Code Example" className="mt-2 mb-2">
@@ -293,6 +246,14 @@ const FileInputSection: React.FC = () => {
 
 // Disabled
 <FileInput accept="img" disabled />
+
+// Colors
+<FileInput accept="img" color="primary" />
+<FileInput accept="img" color="secondary" />
+<FileInput accept="img" color="danger" />
+<FileInput accept="img" color="info" />
+<FileInput accept="img" color="success" />
+<FileInput accept="img" color="warning" />
 
 // Custom styling
 <FileInput

@@ -1,0 +1,122 @@
+/* ============================================================
+   macOS Sonoma 14 — Dialog Overrides
+
+   Targets: Modal, Drawer, Sidebar, SettingsDrawer
+   Selectors: html.macos [data-tucu="modal"], etc.
+
+   References:
+   - Apple HIG > Sheets: 12pt radius, blur 30px, 0.94 opacity
+   - Apple HIG > Sidebars: 220pt width, blur 20px, 0.82 opacity
+   - Apple HIG > Dialogs: centered, 10pt radius
+   ============================================================ */
+
+/* ── Modal / Sheet ───────────────────────────────────────────── */
+html.macos [data-tucu='modal'] {
+  border-radius: var(--macos-radius-2xl);
+  background-color: var(--macos-material-sheet);
+  backdrop-filter: blur(var(--macos-material-sheet-blur));
+  -webkit-backdrop-filter: blur(var(--macos-material-sheet-blur));
+  box-shadow: var(--macos-shadow-window);
+  border: 1px solid var(--macos-separator);
+  overflow: hidden;
+}
+
+html.macos.dark [data-tucu='modal'] {
+  background-color: var(--macos-material-sheet);
+  border-color: var(--macos-separator);
+}
+
+/* Modal overlay */
+html.macos [data-tucu='modal-overlay'] {
+  background-color: var(--macos-material-overlay);
+}
+
+/* Modal header */
+html.macos [data-tucu='modal-header'] {
+  padding: var(--macos-space-4);
+  border-bottom: 1px solid var(--macos-separator);
+  font-weight: var(--macos-font-weight-semibold);
+  font-size: var(--macos-font-size-body);
+}
+
+/* Modal body */
+html.macos [data-tucu='modal-body'] {
+  padding: var(--macos-space-4) var(--macos-space-5);
+}
+
+/* Modal footer */
+html.macos [data-tucu='modal-footer'] {
+  padding: var(--macos-space-3) var(--macos-space-4);
+  border-top: 1px solid var(--macos-separator);
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--macos-space-2);
+}
+
+/* ── Drawer ──────────────────────────────────────────────────── */
+html.macos [data-tucu='drawer'] {
+  background-color: var(--macos-material-sheet);
+  backdrop-filter: blur(var(--macos-material-sheet-blur));
+  -webkit-backdrop-filter: blur(var(--macos-material-sheet-blur));
+  box-shadow: var(--macos-shadow-window);
+  border-left: 1px solid var(--macos-separator);
+}
+
+html.macos.dark [data-tucu='drawer'] {
+  background-color: var(--macos-material-sheet);
+  border-left-color: var(--macos-separator);
+}
+
+/* ── Sidebar ─────────────────────────────────────────────────── */
+html.macos [data-tucu='sidebar'] {
+  width: var(--macos-sidebar-width);
+  background-color: var(--macos-material-toolbar);
+  backdrop-filter: blur(var(--macos-material-sidebar-blur));
+  -webkit-backdrop-filter: blur(var(--macos-material-sidebar-blur));
+  border-right: 1px solid var(--macos-separator);
+}
+
+html.macos.dark [data-tucu='sidebar'] {
+  background-color: var(--macos-material-toolbar);
+  border-right-color: var(--macos-separator);
+}
+
+/* Sidebar item */
+html.macos [data-tucu='sidebar-item'] {
+  height: var(--macos-sidebar-row-height);
+  padding: 0 var(--macos-space-3);
+  border-radius: var(--macos-radius-md);
+  font-size: var(--macos-font-size-body);
+  color: var(--macos-label);
+  transition: background-color var(--macos-transition-fast);
+}
+
+html.macos [data-tucu='sidebar-item']:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+html.macos.dark [data-tucu='sidebar-item']:hover {
+  background-color: rgba(255, 255, 255, 0.06);
+}
+
+html.macos [data-tucu='sidebar-item'][data-active='true'] {
+  background-color: var(--macos-selected-content-bg);
+  color: #ffffff;
+}
+
+/* Sidebar section title */
+html.macos [data-tucu='sidebar-section'] {
+  font-size: var(--macos-font-size-subheadline);
+  font-weight: var(--macos-font-weight-semibold);
+  color: var(--macos-secondary-label);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: var(--macos-space-3) var(--macos-space-3) var(--macos-space-1);
+}
+
+/* Sidebar icon */
+html.macos [data-tucu='sidebar-icon'] {
+  width: var(--macos-sidebar-icon-size);
+  height: var(--macos-sidebar-icon-size);
+  margin-right: var(--macos-space-2);
+}

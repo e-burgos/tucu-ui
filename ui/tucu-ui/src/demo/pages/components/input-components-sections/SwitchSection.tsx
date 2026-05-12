@@ -7,9 +7,39 @@ import {
   Switch,
 } from '../../../../index';
 import { AutoPropsTable } from '../../../components/auto-props-table';
+import { PropPlayground } from '../../../components/prop-playground';
+
+const switchColors = [
+  { label: 'Primary', color: 'primary' as const },
+  { label: 'Secondary', color: 'secondary' as const },
+  { label: 'Danger', color: 'danger' as const },
+  { label: 'Info', color: 'info' as const },
+  { label: 'Success', color: 'success' as const },
+  { label: 'Warning', color: 'warning' as const },
+];
+
+type SwitchColor = (typeof switchColors)[number]['color'];
 
 const SwitchSection: React.FC = () => {
   const [switchChecked, setSwitchChecked] = useState(false);
+  const [playgroundSwitchChecked, setPlaygroundSwitchChecked] = useState(true);
+  const [switchColorsState, setSwitchColorsState] = useState<
+    Record<SwitchColor, boolean>
+  >({
+    primary: true,
+    secondary: true,
+    danger: true,
+    info: true,
+    success: true,
+    warning: true,
+  });
+
+  const handleColorChange = (color: SwitchColor) => (checked: boolean) => {
+    setSwitchColorsState((currentState) => ({
+      ...currentState,
+      [color]: checked,
+    }));
+  };
 
   return (
     <>
@@ -130,6 +160,62 @@ const SwitchSection: React.FC = () => {
           </div>
         </CardTitle>
       </CardContainer>
+
+      <CardContainer className="overflow-hidden">
+        <CardTitle title="Colors" className="mt-2 mb-2">
+          <div className="w-full p-4 sm:p-6">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
+              {switchColors.map(({ label, color }) => (
+                <CardContainer key={color} className="p-4">
+                  <Typography tag="h5" className="mb-3">
+                    {label}
+                  </Typography>
+                  <Switch
+                    label={`${label} Switch`}
+                    color={color}
+                    checked={switchColorsState[color]}
+                    onChange={handleColorChange(color)}
+                  />
+                </CardContainer>
+              ))}
+            </div>
+          </div>
+        </CardTitle>
+      </CardContainer>
+
+      <PropPlayground
+        componentName="Switch"
+        defaultValues={{
+          label: 'Preview Switch',
+          onLabel: 'ON',
+          offLabel: 'OFF',
+          variant: 'ghost',
+          color: 'primary',
+          helperText: '',
+          errorMessage: '',
+          disabled: false,
+        }}
+        includeProps={[
+          'label',
+          'onLabel',
+          'offLabel',
+          'variant',
+          'color',
+          'helperText',
+          'errorMessage',
+          'disabled',
+        ]}
+        excludeProps={['checked', 'onChange']}
+      >
+        {(props) => (
+          <Switch
+            {...props}
+            checked={playgroundSwitchChecked}
+            onChange={setPlaygroundSwitchChecked}
+          />
+        )}
+      </PropPlayground>
+
       <AutoPropsTable componentName="Switch" />
 
       <CardContainer className="overflow-hidden">
@@ -156,7 +242,15 @@ const SwitchSection: React.FC = () => {
 // Variants
 <Switch label="Ghost" variant="ghost" checked={checked} onChange={setChecked} />
 <Switch label="Solid" variant="solid" checked={checked} onChange={setChecked} />
-<Switch label="Transparent" variant="transparent" checked={checked} onChange={setChecked} />`}
+<Switch label="Transparent" variant="transparent" checked={checked} onChange={setChecked} />
+
+// Colors
+<Switch label="Primary" color="primary" checked={checked} onChange={setChecked} />
+<Switch label="Secondary" color="secondary" checked={checked} onChange={setChecked} />
+<Switch label="Danger" color="danger" checked={checked} onChange={setChecked} />
+<Switch label="Info" color="info" checked={checked} onChange={setChecked} />
+<Switch label="Success" color="success" checked={checked} onChange={setChecked} />
+<Switch label="Warning" color="warning" checked={checked} onChange={setChecked} />`}
             />
           </div>
         </CardTitle>

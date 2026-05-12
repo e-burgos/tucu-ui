@@ -131,6 +131,8 @@ export function Typography({
   }
   const element = (
     <Component
+      data-tucu="typography"
+      data-typography-tag={tag}
       {...(title && { title })}
       className={cn(classes[tag], fontFamilyClass, textColorClass, className)}
     >

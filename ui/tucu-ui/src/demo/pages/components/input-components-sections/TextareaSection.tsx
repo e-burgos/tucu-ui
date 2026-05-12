@@ -7,9 +7,24 @@ import {
   Textarea,
 } from '../../../../index';
 import { AutoPropsTable } from '../../../components/auto-props-table';
+import { PropPlayground } from '../../../components/prop-playground';
 
 const TextareaSection: React.FC = () => {
   const [textareaValue, setTextareaValue] = useState('');
+  const [playgroundTextareaValue, setPlaygroundTextareaValue] = useState('');
+  const textareaColors = [
+    { label: 'Primary', color: 'primary' as const },
+    { label: 'Secondary', color: 'secondary' as const },
+    { label: 'Danger', color: 'danger' as const },
+    { label: 'Info', color: 'info' as const },
+    { label: 'Success', color: 'success' as const },
+    { label: 'Warning', color: 'warning' as const },
+  ];
+  const textareaSizes = [
+    { label: 'Small', size: 'sm' as const },
+    { label: 'Medium', size: 'md' as const },
+    { label: 'Large', size: 'lg' as const },
+  ];
 
   return (
     <>
@@ -120,6 +135,122 @@ const TextareaSection: React.FC = () => {
           </div>
         </CardTitle>
       </CardContainer>
+
+      <CardContainer className="overflow-hidden">
+        <CardTitle title="Colors" className="mt-2 mb-2">
+          <div className="w-full p-4 sm:p-6">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
+              {textareaColors.map(({ label, color }) => (
+                <CardContainer key={color} className="p-4">
+                  <Typography tag="h5" className="mb-3">
+                    {label}
+                  </Typography>
+                  <Textarea
+                    label={`${label} Textarea`}
+                    placeholder="Enter text"
+                    rows={3}
+                    color={color}
+                  />
+                </CardContainer>
+              ))}
+            </div>
+          </div>
+        </CardTitle>
+      </CardContainer>
+
+      <CardContainer className="overflow-hidden">
+        <CardTitle title="Sizes" className="mt-2 mb-2">
+          <div className="w-full p-4 sm:p-6">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+              {textareaSizes.map(({ label, size }) => (
+                <CardContainer key={size} className="p-4">
+                  <Typography tag="h5" className="mb-3">
+                    {label}
+                  </Typography>
+                  <Textarea
+                    label={`${label} Textarea`}
+                    placeholder="Enter text"
+                    rows={3}
+                    size={size}
+                  />
+                </CardContainer>
+              ))}
+            </div>
+          </div>
+        </CardTitle>
+      </CardContainer>
+
+      <PropPlayground
+        componentName="Textarea"
+        defaultValues={{
+          label: 'Preview Textarea',
+          placeholder: 'Enter text',
+          variant: 'ghost',
+          color: 'primary',
+          size: 'md',
+          rows: 4,
+          helperText: '',
+          error: '',
+          useUppercaseLabel: false,
+          disabled: false,
+        }}
+        controlOverrides={[
+          {
+            name: 'placeholder',
+            type: 'text',
+            description: 'Placeholder text rendered inside the textarea',
+          },
+          {
+            name: 'color',
+            type: 'select',
+            options: [
+              'primary',
+              'secondary',
+              'danger',
+              'info',
+              'success',
+              'warning',
+            ],
+            description: 'Color treatment applied to the control',
+          },
+          {
+            name: 'rows',
+            type: 'number',
+            description: 'Visible row count for the textarea preview',
+          },
+          {
+            name: 'disabled',
+            type: 'boolean',
+            description: 'Disables the textarea and prevents interaction',
+          },
+        ]}
+        includeProps={[
+          'label',
+          'placeholder',
+          'variant',
+          'color',
+          'size',
+          'rows',
+          'helperText',
+          'error',
+          'useUppercaseLabel',
+          'disabled',
+        ]}
+        excludeProps={['inputClassName']}
+      >
+        {(props) => (
+          <div className="w-full max-w-lg">
+            <Textarea
+              {...props}
+              rows={typeof props.rows === 'number' ? props.rows : 4}
+              placeholder={props.placeholder || 'Enter text'}
+              value={playgroundTextareaValue}
+              onChange={(e) => setPlaygroundTextareaValue(e.target.value)}
+            />
+          </div>
+        )}
+      </PropPlayground>
+
       <AutoPropsTable componentName="Textarea" />
 
       <CardContainer className="overflow-hidden">
@@ -147,7 +278,20 @@ const TextareaSection: React.FC = () => {
 // Variants
 <Textarea label="Ghost" variant="ghost" rows={4} />
 <Textarea label="Solid" variant="solid" rows={4} />
-<Textarea label="Transparent" variant="transparent" rows={4} />`}
+<Textarea label="Transparent" variant="transparent" rows={4} />
+
+// Colors
+<Textarea label="Primary" color="primary" rows={4} />
+<Textarea label="Secondary" color="secondary" rows={4} />
+<Textarea label="Danger" color="danger" rows={4} />
+<Textarea label="Info" color="info" rows={4} />
+<Textarea label="Success" color="success" rows={4} />
+<Textarea label="Warning" color="warning" rows={4} />
+
+// Sizes
+<Textarea label="Small" size="sm" rows={3} />
+<Textarea label="Medium" size="md" rows={4} />
+<Textarea label="Large" size="lg" rows={5} />`}
             />
           </div>
         </CardTitle>

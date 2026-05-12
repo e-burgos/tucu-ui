@@ -1,0 +1,80 @@
+/* ============================================================
+   SF Pro — @font-face declarations
+   macOS Sonoma 14 Theme Style
+
+   Strategy: local() only
+   - On macOS: local() finds SF Pro already installed by the OS → 0 bytes downloaded
+   - On other OS: local() fails gracefully → font stack falls back to
+     system-ui / -apple-system / Helvetica Neue (defined in macos-foundations.css)
+   - We cannot bundle Apple's proprietary fonts in the repo.
+     If .woff2 files are added later to assets/fonts/sf-pro/, uncomment the url() fallback.
+
+   Source: https://developer.apple.com/fonts/
+   ============================================================ */
+
+/* ── SF Pro Display (≥20pt: titles, large headings) ────────── */
+
+@font-face {
+  font-family: 'SF Pro Display';
+  src: local('SF Pro Display'), local('.SFNSDisplay-Regular'),
+    local('SFProDisplay-Regular');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SF Pro Display';
+  src: local('SF Pro Display Medium'), local('.SFNSDisplay-Medium'),
+    local('SFProDisplay-Medium');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SF Pro Display';
+  src: local('SF Pro Display Semibold'), local('.SFNSDisplay-Semibold'),
+    local('SFProDisplay-Semibold');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SF Pro Display';
+  src: local('SF Pro Display Bold'), local('.SFNSDisplay-Bold'),
+    local('SFProDisplay-Bold');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ── SF Pro Text (<20pt: body, UI controls, labels) ────────── */
+
+@font-face {
+  font-family: 'SF Pro Text';
+  src: local('SF Pro Text'), local('.SFNSText-Regular'),
+    local('SFProText-Regular');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SF Pro Text';
+  src: local('SF Pro Text Medium'), local('.SFNSText-Medium'),
+    local('SFProText-Medium');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SF Pro Text';
+  src: local('SF Pro Text Semibold'), local('.SFNSText-Semibold'),
+    local('SFProText-Semibold');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}

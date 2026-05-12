@@ -49,7 +49,7 @@ const TypographySection: React.FC = () => {
                   <Typography tag="headline">Headline Text</Typography>
                   <Typography tag="body">Body Text</Typography>
                   <Typography tag="label-1">Label 1</Typography>
-                  <Typography tag="h5">Label 2</Typography>
+                  <Typography tag="label-2">Label 2</Typography>
                   <Typography tag="caption">Caption Text</Typography>
                   <Typography tag="legal">Legal Text</Typography>
                 </div>
@@ -135,7 +135,7 @@ const TypographySection: React.FC = () => {
 <Typography tag="headline">Headline Text</Typography>
 <Typography tag="body">Body Text</Typography>
 <Typography tag="label-1">Label 1</Typography>
-<Typography tag="h5">Label 2</Typography>
+<Typography tag="label-2">Label 2</Typography>
 <Typography tag="caption">Caption Text</Typography>
 
 // Semantic elements

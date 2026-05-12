@@ -2,6 +2,14 @@ import { forwardRef } from 'react';
 import cn from 'classnames';
 import { FieldError } from './helpers/field-error-text';
 import { FieldHelperText } from './helpers/field-helper-text';
+import {
+  type ControlColor,
+  textControlColorClasses,
+} from './helpers/control-colors';
+import {
+  type TextControlSize,
+  textControlSizeClasses,
+} from './helpers/control-sizes';
 
 export const textareaVariantClasses = {
   ghost:
@@ -22,6 +30,8 @@ export type TextareaProps = React.DetailedHTMLProps<
   inputClassName?: string;
   useUppercaseLabel?: boolean;
   helperText?: string;
+  color?: ControlColor;
+  size?: TextControlSize;
 };
 
 export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
@@ -35,6 +45,8 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
       inputClassName,
       useUppercaseLabel,
       helperText,
+      color,
+      size = 'md',
       ...props
     },
     ref
@@ -60,10 +72,16 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
         )}
         <textarea
           ref={ref}
+          data-tucu="textarea"
+          data-variant={variant}
+          data-color={color}
+          data-size={size}
           {...props}
           className={cn(
-            'block h-[96px] w-full px-[16px] py-[12px] text-sm placeholder-gray-400 transition-shadow duration-200 invalid:border-red-500 invalid:text-red-600 focus:border-gray-300 focus:outline-hidden focus:ring-1 focus:ring-gray-300 focus:invalid:border-red-500 focus:invalid:ring-red-500 disabled:border-gray-200 disabled:bg-muted/10 disabled:text-gray-500 disabled:cursor-not-allowed dark:border-gray-700 dark:text-gray-100 dark:focus:border-gray-600 dark:focus:ring-gray-600 sm:h-[112px] rounded-xl',
+            'block w-full placeholder-gray-400 transition-shadow duration-200 invalid:border-red-500 invalid:text-red-600 focus:border-gray-300 focus:outline-hidden focus:ring-1 focus:ring-gray-300 focus:invalid:border-red-500 focus:invalid:ring-red-500 disabled:border-gray-200 disabled:bg-muted/10 disabled:text-gray-500 disabled:cursor-not-allowed dark:border-gray-700 dark:text-gray-100 dark:focus:border-gray-600 dark:focus:ring-gray-600 rounded-xl',
+            textControlSizeClasses.textarea[size],
             textareaVariantClasses[variant],
+            color && textControlColorClasses[variant][color],
             props.disabled ? 'bg-muted/10! cursor-not-allowed' : '',
             inputClassName
           )}

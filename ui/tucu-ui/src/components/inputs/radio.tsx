@@ -15,6 +15,8 @@ const inputClasses = {
   variant: {
     ghost: {
       base: 'border-[2px] bg-white dark:bg-gray-800 hover:enabled:bg-gray-100 dark:hover:enabled:bg-gray-700 transition-colors',
+      defaultColor:
+        'border-gray-300 dark:border-gray-600 focus:ring-[2px] focus:ring-brand/30 checked:border-brand checked:bg-brand checked:hover:enabled:bg-brand/90 checked:hover:enabled:border-brand/90 checked:hover:enabled:scale-105',
       color: {
         primary:
           'border-brand focus:ring-[2px] focus:ring-brand/30 checked:border-brand checked:bg-brand checked:hover:enabled:bg-brand/90 checked:hover:enabled:border-brand/90 checked:hover:enabled:scale-105',
@@ -31,6 +33,8 @@ const inputClasses = {
     },
     solid: {
       base: 'border-[2px] bg-gray-200/70 dark:bg-gray-800 hover:enabled:bg-gray-300 dark:hover:enabled:bg-gray-700 transition-colors',
+      defaultColor:
+        'border-transparent focus:ring-[2px] focus:ring-brand/30 checked:border-brand checked:bg-brand checked:hover:enabled:bg-brand/90 checked:hover:enabled:border-brand/90 checked:hover:enabled:scale-105',
       color: {
         primary:
           'border-transparent focus:ring-[2px] focus:ring-brand/30 checked:border-brand checked:bg-brand checked:hover:enabled:bg-brand/90 checked:hover:enabled:border-brand/90 checked:hover:enabled:scale-105',
@@ -47,6 +51,8 @@ const inputClasses = {
     },
     transparent: {
       base: '',
+      defaultColor:
+        'border-[2px] border-transparent focus:ring-[2px] focus:ring-brand/30 checked:border-brand checked:bg-brand checked:hover:enabled:bg-brand/90 checked:hover:enabled:border-brand/90 checked:hover:enabled:scale-105',
       color: {
         primary:
           'border-[2px] border-transparent focus:ring-[2px] focus:ring-brand/30 checked:border-brand checked:bg-brand checked:hover:enabled:bg-brand/90 checked:hover:enabled:border-brand/90 checked:hover:enabled:scale-105',
@@ -134,7 +140,7 @@ export const Radio = forwardRef<HTMLInputElement, RadioProps>(
     {
       variant = 'ghost',
       size = 'md',
-      color = 'primary',
+      color,
       labelPlacement = 'end',
       label,
       disabled,
@@ -150,70 +156,79 @@ export const Radio = forwardRef<HTMLInputElement, RadioProps>(
       ...radioProps
     },
     ref
-  ) => (
-    <div className={cn('flex flex-col', className, activeClassName)}>
-      <label
-        className={cn(
-          'flex flex-row items-center',
-          disabled && 'cursor-not-allowed',
-          containerClassName
-        )}
-      >
-        <div className="relative inline-flex items-center justify-center">
-          <input
-            type="radio"
-            ref={ref}
-            disabled={disabled}
-            className={cn(
-              inputClasses.base,
-              inputClasses.size[size],
-              inputClasses.variant[variant].base,
-              inputClasses.variant[variant].color[color],
-              disabled &&
-                'cursor-not-allowed bg-muted/10! border-gray-200! dark:border-gray-700!',
-              'peer',
-              inputClassName
-            )}
-            {...radioProps}
-          />
-          <span
-            className={cn(
-              'absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full pointer-events-none',
-              'peer-checked:block peer-checked:bg-white',
-              'peer-checked:transition-all',
-              size === 'sm' && 'w-[6px] h-[6px]',
-              size === 'md' && 'w-[8px] h-[8px]',
-              size === 'lg' && 'w-[10px] h-[10px]',
-              size === 'xl' && 'w-[12px] h-[12px]',
-              'hidden'
-            )}
-          />
-        </div>
+  ) => {
+    const colorClasses = color
+      ? inputClasses.variant[variant].color[color]
+      : inputClasses.variant[variant].defaultColor;
 
-        {label && (
-          <span
-            className={cn(
-              labelClasses.size.text[size],
-              labelClasses.size.margin[labelPlacement][size],
-              labelPlacement === 'start' && 'order-first',
-              labelClassName
-            )}
-          >
-            {label}
-          </span>
-        )}
-      </label>
+    return (
+      <div className={cn('flex flex-col', className, activeClassName)}>
+        <label
+          className={cn(
+            'flex flex-row items-center',
+            disabled && 'cursor-not-allowed',
+            containerClassName
+          )}
+        >
+          <div className="relative inline-flex items-center justify-center">
+            <input
+              type="radio"
+              ref={ref}
+              data-tucu="radio"
+              data-variant={variant}
+              data-size={size}
+              data-color={color}
+              disabled={disabled}
+              className={cn(
+                inputClasses.base,
+                inputClasses.size[size],
+                inputClasses.variant[variant].base,
+                colorClasses,
+                disabled &&
+                  'cursor-not-allowed bg-muted/10! border-gray-200! dark:border-gray-700!',
+                'peer',
+                inputClassName
+              )}
+              {...radioProps}
+            />
+            <span
+              className={cn(
+                'absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full pointer-events-none',
+                'peer-checked:block peer-checked:bg-white',
+                'peer-checked:transition-all',
+                size === 'sm' && 'w-[6px] h-[6px]',
+                size === 'md' && 'w-[8px] h-[8px]',
+                size === 'lg' && 'w-[10px] h-[10px]',
+                size === 'xl' && 'w-[12px] h-[12px]',
+                'hidden'
+              )}
+            />
+          </div>
+          {label && (
+            <span
+              className={cn(
+                labelClasses.size.text[size],
+                labelClasses.size.margin[labelPlacement][size],
+                labelPlacement === 'start' && 'order-first',
+                labelClassName
+              )}
+            >
+              {label}
+            </span>
+          )}
+        </label>
 
-      {!error && helperText && (
-        <FieldHelperText size="md" className={helperClassName}>
-          {helperText}
-        </FieldHelperText>
-      )}
-      {error && (
-        <FieldError size="md" error={error} className={errorClassName} />
-      )}
-    </div>
-  )
+        {!error && helperText && (
+          <FieldHelperText size="md" className={helperClassName}>
+            {helperText}
+          </FieldHelperText>
+        )}
+        {error && (
+          <FieldError size="md" error={error} className={errorClassName} />
+        )}
+      </div>
+    );
+  }
 );
 
 export default Radio;

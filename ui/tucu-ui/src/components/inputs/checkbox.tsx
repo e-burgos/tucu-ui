@@ -29,7 +29,7 @@ const checkboxVariantClasses = {
 };
 
 const checkboxShapeClasses = {
-  rounded: 'rounded-xl',
+  rounded: 'rounded-full',
   square: 'rounded-md',
 };
 
@@ -226,6 +226,10 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
               type="checkbox"
               ref={ref}
               id={finalId}
+              data-tucu="checkbox"
+              data-variant={variant}
+              data-size={size}
+              data-shape={shape}
               disabled={disabled}
               aria-describedby={describedBy}
               aria-invalid={error ? 'true' : 'false'}
@@ -250,8 +254,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
             />
             <CheckmarkIcon
               className={cn(
-                `peer-checked:opacity-100 ${checkboxShapeClasses[shape]} absolute opacity-0 text-white top-0 left-0 pointer-events-none`,
-                sizeClasses[size],
+                `peer-checked:opacity-100 ${checkboxShapeClasses[shape]} absolute inset-0 h-full w-full opacity-0 text-white pointer-events-none`,
                 disabled
                   ? 'bg-muted/10! border-gray-200! dark:border-gray-700!'
                   : colorClasses.icon,

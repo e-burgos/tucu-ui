@@ -82,24 +82,24 @@ export const ListContainer: React.FC<ListContainerProps> = ({
     const baseClasses = 'absolute';
     const positionMap = {
       bottom: {
-        start: 'top-full left-0 mt-[8px]',
-        end: 'top-full right-0 mt-[8px]',
-        center: 'top-full left-1/2 -translate-x-1/2 mt-[8px]',
+        start: 'top-full left-0 mt-[2px]',
+        end: 'top-full right-0 mt-[2px]',
+        center: 'top-full left-1/2 -translate-x-1/2 mt-[2px]',
       },
       top: {
-        start: 'bottom-full left-0 mb-[8px]',
-        end: 'bottom-full right-0 mb-[8px]',
-        center: 'bottom-full left-1/2 -translate-x-1/2 mb-[8px]',
+        start: 'bottom-full left-0 mb-[2px]',
+        end: 'bottom-full right-0 mb-[2px]',
+        center: 'bottom-full left-1/2 -translate-x-1/2 mb-[2px]',
       },
       left: {
-        start: 'right-full top-0 mr-[8px]',
-        end: 'right-full bottom-0 mr-[8px]',
-        center: 'right-full top-1/2 -translate-y-1/2 mr-[8px]',
+        start: 'right-full top-0 mr-[2px]',
+        end: 'right-full bottom-0 mr-[2px]',
+        center: 'right-full top-1/2 -translate-y-1/2 mr-[2px]',
       },
       right: {
-        start: 'left-full top-0 ml-[8px]',
-        end: 'left-full bottom-0 ml-[8px]',
-        center: 'left-full top-1/2 -translate-y-1/2 ml-[8px]',
+        start: 'left-full top-0 ml-[2px]',
+        end: 'left-full bottom-0 ml-[2px]',
+        center: 'left-full top-1/2 -translate-y-1/2 ml-[2px]',
       },
     };
 
@@ -116,6 +116,7 @@ export const ListContainer: React.FC<ListContainerProps> = ({
     >
       <button
         type="button"
+        data-tucu="list-trigger"
         onClick={handleClick}
         className="flex items-center justify-center w-full h-[32px] border border-gray-200 dark:border-gray-700 rounded-full transition-colors hover:bg-gray-200 dark:hover:bg-gray-800 focus:outline-none focus:ring-[2px] focus:ring-offset-[2px] focus:ring-brand/50"
         aria-label="Options menu"
@@ -137,8 +138,9 @@ export const ListContainer: React.FC<ListContainerProps> = ({
       </button>
 
       <ul
+        data-tucu="list-dropdown"
         className={cn(
-          'absolute w-[256px] rounded-lg bg-light-dark p-[12px] shadow-large transition-all z-50',
+          'absolute w-auto min-w-[200px] max-w-[280px] overflow-hidden rounded-lg bg-light-dark p-[8px] shadow-large transition-all z-50',
           getPositionClasses(),
           isOpen ? 'visible opacity-100' : 'invisible opacity-0',
           dropdownClassName

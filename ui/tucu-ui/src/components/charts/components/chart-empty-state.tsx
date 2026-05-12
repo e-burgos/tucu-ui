@@ -13,6 +13,7 @@ export function ChartEmptyState({
 
   return (
     <div
+      data-tucu="chart-empty"
       className="flex items-center justify-center rounded-lg border border-dashed"
       style={{
         height,
