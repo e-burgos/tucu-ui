@@ -4,6 +4,12 @@ import Button from '../buttons';
 import Image from '../utils/image';
 import { Close } from '../icons/close';
 import { DocumentIcon } from '../icons/document';
+import {
+  type ControlColor,
+  buttonColorByControlColor,
+  buttonHoverClassByControlColor,
+  fileInputColorClasses,
+} from './helpers/control-colors';
 
 export const acceptedFileType = {
   img: 'image/*',
@@ -29,6 +35,8 @@ export interface FileInputProps
   children?: React.ReactNode;
   /** Pass field label */
   label?: React.ReactNode;
+  /** Change input color */
+  color?: ControlColor;
   /** Set your custom text to show in upload field */
   placeholderText?: React.ReactNode;
   /** To pass additional props to the container element */
@@ -56,6 +64,7 @@ function FileInput(
     accept,
     children,
     label,
+    color,
     containerProps,
     additionalInputProps,
     placeholderText,
@@ -212,14 +221,19 @@ function FileInput(
 
   return (
     <div
+      data-tucu="file-input"
+      data-color={color}
       className={cn(
         'rounded-lg border border-solid border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-light-dark sm:p-6',
+        color && fileInputColorClasses[color].wrapper,
         wrapperClassName
       )}
     >
       <div
+        data-tucu="file-input-dropzone"
         className={cn(
           'hover:bg-gray-100  dark:hover:bg-gray-900/50 border border-dashed dark:hover:border-brand hover:border-brand transition-all duration-300 relative border-gray-200 dark:border-gray-700 h-48 flex items-center justify-center rounded-lg',
+          color && fileInputColorClasses[color].dropzone,
           containerClassName
         )}
         {...containerProps}
@@ -242,14 +256,23 @@ function FileInput(
           {...additionalInputProps}
         />
 
-        <div className="text-center">
-          <p className="mb-6 text-sm tracking-tighter text-gray-600 dark:text-gray-400">
+        <div data-tucu="file-input-content" className="text-center">
+          <p
+            data-tucu="file-input-placeholder"
+            className="mb-6 text-sm tracking-tighter text-gray-600 dark:text-gray-400"
+          >
             {placeholderText || 'PNG, GIF, WEBP, MP4 or MP3. Max 100mb.'}
           </p>
 
           <Button
+            color={color ? buttonColorByControlColor[color] : undefined}
             disabled={props.disabled}
-            className={cn('hover:bg-primary-500', labelClassName)}
+            className={cn(
+              color
+                ? buttonHoverClassByControlColor[color]
+                : 'hover:bg-primary-500',
+              labelClassName
+            )}
           >
             {label || 'CHOOSE FILE'}
           </Button>
@@ -267,7 +290,10 @@ function FileInput(
                 key={`${file.name}-${index}`}
               >
                 {isImage ? (
-                  <figure className="relative mx-auto aspect-square w-20 overflow-hidden rounded-xl border border-gray-300 @2xl:w-32">
+                  <figure
+                    data-tucu="file-input-image-preview"
+                    className="relative mx-auto aspect-square w-20 overflow-hidden rounded-xl border border-gray-300 @2xl:w-32"
+                  >
                     <Image
                       src={URL.createObjectURL(file)}
                       alt={file.name}
@@ -276,7 +302,10 @@ function FileInput(
                     />
                   </figure>
                 ) : (
-                  <div className="relative mx-auto w-20 @2xl:w-32 flex flex-col items-center justify-center p-3 rounded-xl border border-gray-300 dark:border-gray-700 bg-gray-200 dark:bg-gray-800">
+                  <div
+                    data-tucu="file-input-preview"
+                    className="relative mx-auto w-20 @2xl:w-32 flex flex-col items-center justify-center p-3 rounded-xl border border-gray-300 dark:border-gray-700 bg-gray-200 dark:bg-gray-800"
+                  >
                     <DocumentIcon className="w-8 h-8 text-gray-600 dark:text-gray-400 mb-2" />
                     <span className="text-xs font-semibold text-gray-700 dark:text-gray-300 text-center">
                       {getFileTypeLabel(file)}

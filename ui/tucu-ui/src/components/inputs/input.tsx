@@ -7,6 +7,7 @@ import {
   useEffect,
   useCallback,
 } from 'react';
+import { createPortal } from 'react-dom';
 import {
   EyeIcon,
   EyeSlashIcon,
@@ -17,6 +18,14 @@ import {
 import cn from 'classnames';
 import { FieldError } from './helpers/field-error-text';
 import { FieldHelperText } from './helpers/field-helper-text';
+import {
+  type ControlColor,
+  textControlColorClasses,
+} from './helpers/control-colors';
+import {
+  type TextControlSize,
+  textControlSizeClasses,
+} from './helpers/control-sizes';
 
 export type DateFormat =
   | 'DD-MM-YYYY'
@@ -28,9 +37,12 @@ export type DateFormat =
 
 export type Locale = 'en-US' | 'es-ES' | 'fr-FR' | 'de-DE' | 'pt-BR';
 
-export type InputProps = React.DetailedHTMLProps<
-  React.InputHTMLAttributes<HTMLInputElement>,
-  HTMLInputElement
+export type InputProps = Omit<
+  React.DetailedHTMLProps<
+    React.InputHTMLAttributes<HTMLInputElement>,
+    HTMLInputElement
+  >,
+  'size'
 > & {
   label?: string;
   error?: string;
@@ -40,11 +52,14 @@ export type InputProps = React.DetailedHTMLProps<
   labelClassName?: string;
   useUppercaseLabel?: boolean;
   helperText?: string;
+  /** Change input color */
+  color?: ControlColor;
   suffix?: React.ReactNode;
   suffixClassName?: string;
   icon?: React.ReactNode;
   dateFormat?: DateFormat;
   locale?: Locale;
+  size?: TextControlSize;
 };
 
 export const inputVariantClasses = {
@@ -111,10 +126,12 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       inputClassName,
       labelClassName,
       helperText,
+      color,
       suffix,
       suffixClassName,
       useUppercaseLabel = false,
       icon,
+      size = 'md',
       id,
       value,
       onChange,
@@ -129,12 +146,15 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
 
     // Date picker states
     const [isCalendarOpen, setIsCalendarOpen] = useState(false);
+    const [isCalendarClosing, setIsCalendarClosing] = useState(false);
     const [selectedDate, setSelectedDate] = useState<Date | null>(null);
     const [currentMonth, setCurrentMonth] = useState(new Date());
     const [showYearPicker, setShowYearPicker] = useState(false);
 
     // Refs
     const calendarRef = useRef<HTMLDivElement>(null);
+    const calendarTriggerRef = useRef<HTMLDivElement>(null);
+    const [calendarStyle, setCalendarStyle] = useState<React.CSSProperties>({});
 
     // Generate unique IDs for accessibility
     const inputId = useId();
@@ -298,31 +318,120 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       }
     }, [value, type, dateFormat, parseDate]);
 
+    const updateCalendarPosition = useCallback(() => {
+      if (!calendarTriggerRef.current) return;
+
+      const rect = calendarTriggerRef.current.getBoundingClientRect();
+      const calendarHeight = showYearPicker ? 320 : 380;
+      const spaceBelow = window.innerHeight - rect.bottom;
+      const spaceAbove = rect.top;
+      const shouldDropUp =
+        spaceBelow < calendarHeight && spaceAbove > spaceBelow;
+
+      setCalendarStyle({
+        position: 'fixed',
+        ...(shouldDropUp
+          ? { bottom: window.innerHeight - rect.top + 4 }
+          : { top: rect.bottom + 4 }),
+        left: rect.left,
+        width: Math.max(rect.width, 320),
+        zIndex: 9999,
+      });
+    }, [showYearPicker]);
+
+    const closeCalendar = useCallback(() => {
+      setIsCalendarClosing(true);
+      const timer = setTimeout(() => {
+        setIsCalendarOpen(false);
+        setIsCalendarClosing(false);
+        setShowYearPicker(false);
+      }, 100);
+
+      return () => clearTimeout(timer);
+    }, []);
+
+    const openCalendar = useCallback(() => {
+      if (props.disabled || type !== 'date') return;
+
+      updateCalendarPosition();
+      setIsCalendarClosing(false);
+      setIsCalendarOpen(true);
+      setShowYearPicker(false);
+
+      if (value && typeof value === 'string') {
+        const parsedDate = parseDate(value, dateFormat);
+        if (parsedDate && !isNaN(parsedDate.getTime())) {
+          setSelectedDate(parsedDate);
+          setCurrentMonth(parsedDate);
+        }
+      }
+    }, [
+      props.disabled,
+      type,
+      updateCalendarPosition,
+      value,
+      parseDate,
+      dateFormat,
+    ]);
+
     // Close calendar when clicking outside
     useEffect(() => {
+      if (!isCalendarOpen) return;
+
       const handleClickOutside = (event: MouseEvent) => {
         if (
+          calendarTriggerRef.current &&
+          !calendarTriggerRef.current.contains(event.target as Node) &&
           calendarRef.current &&
           !calendarRef.current.contains(event.target as Node)
         ) {
-          setIsCalendarOpen(false);
+          closeCalendar();
         }
       };
 
-      if (isCalendarOpen) {
-        document.addEventListener('mousedown', handleClickOutside);
-      }
+      document.addEventListener('mousedown', handleClickOutside);
+      return () =>
+        document.removeEventListener('mousedown', handleClickOutside);
+    }, [isCalendarOpen, closeCalendar]);
+
+    useEffect(() => {
+      if (!isCalendarOpen) return;
+
+      const handleEscape = (event: KeyboardEvent) => {
+        if (event.key === 'Escape') {
+          closeCalendar();
+          handleFocusInput();
+        }
+      };
+
+      document.addEventListener('keydown', handleEscape);
+      return () => document.removeEventListener('keydown', handleEscape);
+    }, [isCalendarOpen, closeCalendar]);
+
+    useEffect(() => {
+      if (!isCalendarOpen) return;
+
+      const reposition = () => updateCalendarPosition();
+      window.addEventListener('scroll', reposition, true);
+      window.addEventListener('resize', reposition);
 
       return () => {
-        document.removeEventListener('mousedown', handleClickOutside);
+        window.removeEventListener('scroll', reposition, true);
+        window.removeEventListener('resize', reposition);
       };
-    }, [isCalendarOpen]);
+    }, [isCalendarOpen, updateCalendarPosition]);
+
+    useEffect(() => {
+      if (isCalendarOpen) {
+        updateCalendarPosition();
+      }
+    }, [isCalendarOpen, showYearPicker, updateCalendarPosition]);
 
     // Handle date selection
     const handleDateSelect = (date: Date) => {
       setSelectedDate(date);
       setCurrentMonth(date);
-      setIsCalendarOpen(false);
+      closeCalendar();
 
       // Create synthetic event for onChange
       // Always send date in ISO format (YYYY-MM-DD) for proper validation
@@ -366,21 +475,11 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       });
     };
 
-    // Toggle calendar
     const toggleCalendar = () => {
-      if (!props.disabled) {
-        const willOpen = !isCalendarOpen;
-        setIsCalendarOpen(willOpen);
-        setShowYearPicker(false); // Reset year picker when opening calendar
-
-        // When opening calendar, parse current value if exists
-        if (willOpen && type === 'date' && value && typeof value === 'string') {
-          const parsedDate = parseDate(value, dateFormat);
-          if (parsedDate && !isNaN(parsedDate.getTime())) {
-            setSelectedDate(parsedDate);
-            setCurrentMonth(parsedDate);
-          }
-        }
+      if (isCalendarOpen) {
+        closeCalendar();
+      } else {
+        openCalendar();
       }
     };
 
@@ -413,13 +512,19 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     };
 
     return (
-      <div data-tucu="input" data-variant={variant} className={cn('text-sm sm:text-sm', className)}>
+      <div
+        data-tucu="input"
+        data-variant={variant}
+        data-color={color}
+        data-size={size}
+        className={cn('text-sm sm:text-sm', className)}
+      >
         <div className={cn('relative', labelClassName)}>
           {label && (
             <label
               htmlFor={finalId}
               className={cn(
-                'block font-medium tracking-widest dark:text-gray-100',
+                'block font-medium tracking-widest text-gray-700 dark:text-gray-100',
                 useUppercaseLabel
                   ? 'mb-[8px] uppercase sm:mb-[12px]'
                   : 'mb-[6px] ml-[6px]'
@@ -433,8 +538,9 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
               )}
             </label>
           )}
-          <div className="relative">
+          <div ref={calendarTriggerRef} className="relative">
             <input
+              data-tucu="input-control"
               type={type === 'date' ? 'text' : actualType}
               ref={ref}
               id={finalId}
@@ -457,10 +563,12 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
                     onChange: undefined,
                   })}
               className={cn(
-                'block h-[40px] w-full px-[16px] py-[8px] text-sm placeholder-gray-400 transition-shadow duration-200 rounded-xl text-gray-900 dark:invalid:border-red-500 dark:invalid:text-red-600 invalid:border-red-500 invalid:text-red-600 focus:border-gray-300 focus:outline-hidden focus:ring-1 focus:ring-gray-300 focus:invalid:border-red-500 focus:invalid:ring-red-500 disabled:border-gray-200 disabled:bg-muted/10 disabled:text-gray-500 disabled:cursor-not-allowed dark:text-gray-100 dark:focus:border-gray-600 dark:focus:ring-gray-600 sm:h-[48px] cursor-pointer',
+                'block w-full placeholder-gray-400 transition-shadow duration-200 rounded-xl text-gray-900 dark:invalid:border-red-500 dark:invalid:text-red-600 invalid:border-red-500 invalid:text-red-600 focus:border-gray-300 focus:outline-hidden focus:ring-1 focus:ring-gray-300 focus:invalid:border-red-500 focus:invalid:ring-red-500 disabled:border-gray-200 disabled:bg-muted/10 disabled:text-gray-500 disabled:cursor-not-allowed dark:text-gray-100 dark:focus:border-gray-600 dark:focus:ring-gray-600 cursor-pointer',
+                textControlSizeClasses.input[size],
                 Boolean(icon) && 'pl-[40px]',
                 type === 'date' ? 'pr-[48px] cursor-pointer' : '',
                 type === 'password' ? 'pr-[40px]' : '',
+                color && textControlColorClasses[variant][color],
                 props.disabled ? 'bg-muted/10! cursor-not-allowed' : '',
                 inputClassName,
                 Boolean(suffix || icon) && 'pl-[40px]',
@@ -512,137 +620,146 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           </div>
 
           {/* Custom Date Picker */}
-          {type === 'date' && isCalendarOpen && (
-            <div
-              ref={calendarRef}
-              className="absolute top-full left-0 z-50 mt-[4px] w-[320px] bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-xl p-[16px]"
-            >
-              {/* Header */}
-              <div className="flex items-center justify-between mb-[16px]">
-                <button
-                  type="button"
-                  onClick={() => navigateMonth('prev')}
-                  onTouchStart={() => navigateMonth('prev')}
-                  className="p-[4px] hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md transition-colors"
-                >
-                  <ChevronLeft className="w-[16px] h-[16px] text-gray-600 dark:text-gray-400" />
-                </button>
+          {type === 'date' &&
+            isCalendarOpen &&
+            createPortal(
+              <div
+                ref={calendarRef}
+                data-tucu="input-calendar"
+                style={calendarStyle}
+                className={cn(
+                  'overflow-hidden rounded-xl border border-gray-200 bg-white p-[16px] shadow-large outline-hidden dark:border-gray-700 dark:bg-gray-800',
+                  'transition ease-in duration-100',
+                  isCalendarClosing ? 'opacity-0' : 'opacity-100'
+                )}
+              >
+                {/* Header */}
+                <div className="flex items-center justify-between mb-[16px]">
+                  <button
+                    type="button"
+                    onClick={() => navigateMonth('prev')}
+                    onTouchStart={() => navigateMonth('prev')}
+                    className="p-[4px] hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md transition-colors"
+                  >
+                    <ChevronLeft className="w-[16px] h-[16px] text-gray-600 dark:text-gray-400" />
+                  </button>
 
-                <button
-                  type="button"
-                  onClick={toggleYearPicker}
-                  onTouchStart={toggleYearPicker}
-                  className="text-sm font-semibold text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700 px-[8px] py-[4px] rounded-md transition-colors"
-                >
-                  {currentMonth.toLocaleDateString(locale, {
-                    month: 'long',
-                    year: 'numeric',
-                  })}
-                </button>
+                  <button
+                    type="button"
+                    onClick={toggleYearPicker}
+                    onTouchStart={toggleYearPicker}
+                    className="text-sm font-semibold text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700 px-[8px] py-[4px] rounded-md transition-colors"
+                  >
+                    {currentMonth.toLocaleDateString(locale, {
+                      month: 'long',
+                      year: 'numeric',
+                    })}
+                  </button>
 
-                <button
-                  type="button"
-                  onClick={() => navigateMonth('next')}
-                  onTouchStart={() => navigateMonth('next')}
-                  className="p-[4px] hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md transition-colors"
-                >
-                  <ChevronRight className="w-[16px] h-[16px] text-gray-600 dark:text-gray-400" />
-                </button>
-              </div>
-
-              {/* Year Picker */}
-              {showYearPicker && (
-                <div className="mb-[16px]">
-                  <div className="grid grid-cols-4 gap-[8px] max-h-[160px] overflow-y-auto">
-                    {generateYears().map((year) => (
-                      <button
-                        key={year}
-                        type="button"
-                        onClick={() => handleYearSelect(year)}
-                        onTouchStart={() => handleYearSelect(year)}
-                        className={cn(
-                          'text-xs p-[8px] rounded-md transition-colors',
-                          {
-                            'bg-blue-500 text-white hover:bg-blue-600':
-                              year === currentMonth.getFullYear(),
-                            'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700':
-                              year !== currentMonth.getFullYear(),
-                          }
-                        )}
-                      >
-                        {year}
-                      </button>
-                    ))}
-                  </div>
+                  <button
+                    type="button"
+                    onClick={() => navigateMonth('next')}
+                    onTouchStart={() => navigateMonth('next')}
+                    className="p-[4px] hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md transition-colors"
+                  >
+                    <ChevronRight className="w-[16px] h-[16px] text-gray-600 dark:text-gray-400" />
+                  </button>
                 </div>
-              )}
 
-              {/* Days of week - Only show when not in year picker mode */}
-              {!showYearPicker && (
-                <>
-                  <div className="grid grid-cols-7 gap-[4px] mb-[8px]">
-                    {getWeekDayLabels(locale).map((day) => (
-                      <div
-                        key={day}
-                        className="text-xs font-medium text-gray-500 dark:text-gray-400 text-center py-[4px]"
-                      >
-                        {day}
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Calendar days */}
-                  <div className="grid grid-cols-7 gap-[4px]">
-                    {generateCalendarDays().map((date, index) => {
-                      const isCurrentMonth =
-                        date.getMonth() === currentMonth.getMonth();
-                      const isSelected =
-                        selectedDate &&
-                        date.toDateString() === selectedDate.toDateString();
-                      const isToday =
-                        date.toDateString() === new Date().toDateString();
-
-                      return (
+                {/* Year Picker */}
+                {showYearPicker && (
+                  <div className="mb-[16px]">
+                    <div className="grid grid-cols-4 gap-[8px] max-h-[160px] overflow-y-auto">
+                      {generateYears().map((year) => (
                         <button
-                          key={index}
+                          key={year}
                           type="button"
-                          onClick={() => handleDateSelect(date)}
-                          onTouchStart={() => handleDateSelect(date)}
+                          onClick={() => handleYearSelect(year)}
+                          onTouchStart={() => handleYearSelect(year)}
                           className={cn(
-                            'text-xs p-[8px] rounded-md transition-colors hover:bg-gray-100 dark:hover:bg-gray-700',
+                            'text-xs p-[8px] rounded-md transition-colors',
                             {
-                              'text-gray-400 dark:text-gray-500':
-                                !isCurrentMonth,
-                              'text-gray-900 dark:text-gray-100':
-                                isCurrentMonth && !isSelected,
                               'bg-blue-500 text-white hover:bg-blue-600':
-                                isSelected,
-                              'ring-2 ring-blue-500 ring-offset-1':
-                                isToday && !isSelected,
+                                year === currentMonth.getFullYear(),
+                              'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700':
+                                year !== currentMonth.getFullYear(),
                             }
                           )}
                         >
-                          {date.getDate()}
+                          {year}
                         </button>
-                      );
-                    })}
+                      ))}
+                    </div>
                   </div>
+                )}
 
-                  {/* Today button */}
-                  <div className="mt-[16px] pt-[12px] border-t border-gray-200 dark:border-gray-700">
-                    <button
-                      type="button"
-                      onClick={() => handleDateSelect(new Date())}
-                      onTouchStart={() => handleDateSelect(new Date())}
-                      className="w-full text-xs text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium py-[4px] transition-colors"
-                    >
-                      {getTodayText(locale)}
-                    </button>
-                  </div>
-                </>
-              )}
-            </div>
-          )}
+                {/* Days of week - Only show when not in year picker mode */}
+                {!showYearPicker && (
+                  <>
+                    <div className="grid grid-cols-7 gap-[4px] mb-[8px]">
+                      {getWeekDayLabels(locale).map((day) => (
+                        <div
+                          key={day}
+                          className="text-xs font-medium text-gray-500 dark:text-gray-400 text-center py-[4px]"
+                        >
+                          {day}
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Calendar days */}
+                    <div className="grid grid-cols-7 gap-[4px]">
+                      {generateCalendarDays().map((date, index) => {
+                        const isCurrentMonth =
+                          date.getMonth() === currentMonth.getMonth();
+                        const isSelected =
+                          selectedDate &&
+                          date.toDateString() === selectedDate.toDateString();
+                        const isToday =
+                          date.toDateString() === new Date().toDateString();
+
+                        return (
+                          <button
+                            key={index}
+                            type="button"
+                            onClick={() => handleDateSelect(date)}
+                            onTouchStart={() => handleDateSelect(date)}
+                            className={cn(
+                              'text-xs p-[8px] rounded-md transition-colors hover:bg-gray-100 dark:hover:bg-gray-700',
+                              {
+                                'text-gray-400 dark:text-gray-500':
+                                  !isCurrentMonth,
+                                'text-gray-900 dark:text-gray-100':
+                                  isCurrentMonth && !isSelected,
+                                'bg-blue-500 text-white hover:bg-blue-600':
+                                  isSelected,
+                                'ring-2 ring-blue-500 ring-offset-1':
+                                  isToday && !isSelected,
+                              }
+                            )}
+                          >
+                            {date.getDate()}
+                          </button>
+                        );
+                      })}
+                    </div>
+
+                    {/* Today button */}
+                    <div className="mt-[16px] pt-[12px] border-t border-gray-200 dark:border-gray-700">
+                      <button
+                        type="button"
+                        onClick={() => handleDateSelect(new Date())}
+                        onTouchStart={() => handleDateSelect(new Date())}
+                        className="w-full text-xs text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium py-[4px] transition-colors"
+                      >
+                        {getTodayText(locale)}
+                      </button>
+                    </div>
+                  </>
+                )}
+              </div>,
+              document.body
+            )}
         </div>
         {error && <FieldError id={errorId} error={error} size="md" />}
         {!error && helperText && (

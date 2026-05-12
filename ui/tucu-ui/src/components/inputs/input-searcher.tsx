@@ -11,11 +11,17 @@ import Input from './input';
 import { SearchIcon, Check, Close } from '../icons';
 import { SelectOption } from './select';
 import cn from 'classnames';
+import {
+  type ControlColor,
+  controlAccentChipClasses,
+  controlAccentTextClasses,
+} from './helpers/control-colors';
+import { type TextControlSize } from './helpers/control-sizes';
 
 export interface InputSearcherProps
   extends Omit<
     React.InputHTMLAttributes<HTMLInputElement>,
-    'onChange' | 'value'
+    'onChange' | 'value' | 'size'
   > {
   label?: string;
   initialValue?: string | number;
@@ -24,6 +30,8 @@ export interface InputSearcherProps
   noMatchesMessage?: string;
   multiple?: boolean;
   variant?: 'ghost' | 'solid' | 'transparent';
+  color?: ControlColor;
+  size?: TextControlSize;
   disabled?: boolean;
 }
 
@@ -35,6 +43,8 @@ export function InputSearcher({
   noMatchesMessage,
   multiple = false,
   variant = 'ghost',
+  color,
+  size = 'md',
   disabled = false,
   ...props
 }: InputSearcherProps) {
@@ -57,6 +67,12 @@ export function InputSearcher({
 
   // Dropdown position state (for portal)
   const [dropdownStyle, setDropdownStyle] = useState<React.CSSProperties>({});
+  const accentTextClass = color
+    ? controlAccentTextClasses[color]
+    : 'text-brand';
+  const accentChipClass = color
+    ? controlAccentChipClasses[color]
+    : 'bg-brand/10 text-brand hover:bg-brand/20';
 
   // Update value when initialValue changes (only if it actually changed)
   useEffect(() => {
@@ -358,7 +374,7 @@ export function InputSearcher({
         <span>
           {parts.map((part, idx) =>
             part.isMatch ? (
-              <span key={idx} className="font-semibold text-brand">
+              <span key={idx} className={cn('font-semibold', accentTextClass)}>
                 {part.text}
               </span>
             ) : (
@@ -388,6 +404,7 @@ export function InputSearcher({
     filteredOptions.length > 0 &&
     createPortal(
       <div
+        data-tucu="select-menu"
         ref={dropdownRef}
         role="listbox"
         tabIndex={-1}
@@ -410,6 +427,9 @@ export function InputSearcher({
             const isDisabled = option.disabled;
             return (
               <div
+                data-tucu="select-option"
+                data-selected={isSelected ? 'true' : undefined}
+                data-highlighted={isHighlighted ? 'true' : undefined}
                 key={`${option.value}-${index}`}
                 id={`searcher-option-${index}`}
                 ref={(el) => {
@@ -452,7 +472,9 @@ export function InputSearcher({
                   )}
                 </div>
                 {isSelected && (
-                  <Check className="h-4 w-4 shrink-0 ml-2 text-brand" />
+                  <Check
+                    className={cn('h-4 w-4 shrink-0 ml-2', accentTextClass)}
+                  />
                 )}
               </div>
             );
@@ -463,11 +485,18 @@ export function InputSearcher({
     );
 
   return (
-    <div data-tucu="input-searcher" className="relative" ref={containerRef}>
+    <div
+      data-tucu="input-searcher"
+      data-color={color}
+      className="relative"
+      ref={containerRef}
+    >
       <Input
         ref={inputRef}
         label={label}
         variant={variant}
+        color={color}
+        size={size}
         disabled={disabled}
         icon={<SearchIcon className="h-4 w-4 dark:text-white text-current" />}
         value={value}
@@ -492,14 +521,17 @@ export function InputSearcher({
           {selectedOptions.map((option) => (
             <span
               key={option.value}
-              className="inline-flex items-center gap-1 px-2 py-0.5 text-xs font-medium bg-brand/10 text-brand rounded-md"
+              className={cn(
+                'inline-flex items-center gap-1 px-2 py-0.5 text-xs font-medium rounded-md',
+                accentChipClass
+              )}
             >
               {option.icon && <span className="shrink-0">{option.icon}</span>}
               {option.name}
               <button
                 type="button"
                 onClick={(e) => handleRemoveOption(e, option)}
-                className="hover:bg-brand/20 rounded-full p-0.5 transition-colors"
+                className="rounded-full p-0.5 transition-opacity hover:opacity-80"
                 aria-label={`Remove ${option.name}`}
               >
                 <Close className="h-3 w-3" />

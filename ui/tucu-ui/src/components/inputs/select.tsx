@@ -12,6 +12,15 @@ import { ChevronDown } from '../icons/chevron-down';
 import { Check, Search, X } from 'lucide-react';
 import { FieldError } from './helpers/field-error-text';
 import { FieldHelperText } from './helpers/field-helper-text';
+import {
+  type ControlColor,
+  controlAccentTextClasses,
+  textControlColorClasses,
+} from './helpers/control-colors';
+import {
+  type TextControlSize,
+  textControlSizeClasses,
+} from './helpers/control-sizes';
 
 export type SelectOption = {
   name: string;
@@ -35,12 +44,14 @@ export interface SelectTypes {
   label?: string;
   useUppercaseLabel?: boolean;
   required?: boolean;
+  color?: ControlColor;
   value?: string;
   name?: string;
   errorMessage?: string;
   helperText?: string;
   placeholder?: string;
   buttonClassName?: string;
+  size?: TextControlSize;
   /** Enable search/filter input inside the dropdown */
   searchable?: boolean;
   /** Placeholder for the search input */
@@ -69,12 +80,14 @@ export function Select({
   label,
   useUppercaseLabel,
   required,
+  color,
   value,
   name,
   errorMessage,
   helperText,
   placeholder,
   buttonClassName,
+  size = 'md',
   searchable = false,
   searchPlaceholder = 'Search...',
   showCheck = false,
@@ -106,6 +119,9 @@ export function Select({
 
   // Dropdown position state (for portal)
   const [dropdownStyle, setDropdownStyle] = useState<React.CSSProperties>({});
+  const accentTextClass = color
+    ? controlAccentTextClasses[color]
+    : 'text-brand';
 
   // Keep internal state in sync when `value` changes externally
   useEffect(() => {
@@ -333,6 +349,7 @@ export function Select({
     isOpen &&
     createPortal(
       <div
+        data-tucu="select-menu"
         ref={dropdownRef}
         role="listbox"
         tabIndex={-1}
@@ -353,6 +370,7 @@ export function Select({
           <div className="flex items-center gap-2 border-b border-gray-200 dark:border-gray-700 px-3 py-2">
             <Search className="h-3.5 w-3.5 shrink-0 text-gray-400 dark:text-gray-500" />
             <input
+              data-tucu="select-search"
               ref={searchRef}
               type="text"
               value={search}
@@ -420,6 +438,9 @@ export function Select({
               const isDisabled = option.disabled;
               return (
                 <div
+                  data-tucu="select-option"
+                  data-selected={isSelected ? 'true' : undefined}
+                  data-highlighted={isHighlighted ? 'true' : undefined}
                   key={`${option.value}-${index}`}
                   id={`select-option-${index}`}
                   ref={(el) => {
@@ -461,7 +482,9 @@ export function Select({
                     )}
                   </div>
                   {showCheck && isSelected && (
-                    <Check className="h-4 w-4 shrink-0 ml-2 text-brand" />
+                    <Check
+                      className={cn('h-4 w-4 shrink-0 ml-2', accentTextClass)}
+                    />
                   )}
                 </div>
               );
@@ -475,7 +498,13 @@ export function Select({
     );
 
   return (
-    <div data-tucu="select" data-variant={variant} className={cn('relative text-sm sm:text-sm', className)}>
+    <div
+      data-tucu="select"
+      data-variant={variant}
+      data-color={color}
+      data-size={size}
+      className={cn('relative text-sm sm:text-sm', className)}
+    >
       {hiddenInput}
       {label && (
         <span
@@ -494,6 +523,7 @@ export function Select({
         </span>
       )}
       <button
+        data-tucu="select-trigger"
         ref={buttonRef}
         type="button"
         role="combobox"
@@ -505,8 +535,10 @@ export function Select({
         onClick={toggleDropdown}
         onKeyDown={handleButtonKeyDown}
         className={cn(
-          'text-case-inherit letter-space-inherit flex h-[40px] w-full items-center justify-between px-4 text-sm font-medium outline-hidden duration-200 sm:h-[48px] sm:px-5',
+          'text-case-inherit letter-space-inherit flex w-full items-center justify-between font-medium outline-hidden duration-200',
+          textControlSizeClasses.select[size],
           selectVariantClasses[variant],
+          color && textControlColorClasses[variant][color],
           disabled && 'cursor-not-allowed bg-muted/10!',
           buttonClassName
         )}

@@ -2,6 +2,10 @@ import React, { useRef, useEffect } from 'react';
 import cn from 'classnames';
 import { FieldError } from './helpers/field-error-text';
 import { FieldHelperText } from './helpers/field-helper-text';
+import {
+  ControlColor,
+  textControlColorClasses,
+} from './helpers/control-colors';
 // import FieldError from '../field-error-text';
 
 const containerClasses = {
@@ -31,48 +35,20 @@ const inputClasses = {
   variant: {
     ghost: {
       base: 'transition-shadow border border-gray-200 bg-white text-gray-900 hover:border-gray-300 hover:ring-1 hover:ring-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 dark:hover:border-gray-600 dark:hover:ring-gray-600',
-      color: {
-        primary:
-          'hover:enabled:border-brand focus:enabled:border-brand focus:ring-brand',
-        secondary:
-          'hover:enabled:border-gray-500 focus:enabled:border-gray-500 focus:ring-gray-500',
-        danger:
-          'hover:enabled:border-red-500 focus:enabled:border-red-500 focus:ring-red-500',
-        info: 'hover:enabled:border-blue focus:enabled:border-blue focus:ring-blue',
-        success:
-          'hover:enabled:border-green-500 focus:enabled:border-green-500 focus:ring-green-500',
-        warning:
-          'hover:enabled:border-orange-500 focus:enabled:border-orange-500 focus:ring-orange-500',
-      },
     },
     solid: {
       base: 'transition-colors bg-gray-200/70 hover:bg-gray-300 dark:bg-gray-800 dark:hover:bg-gray-700',
-      color: {
-        primary: 'hover:enabled:bg-brand/70 focus:ring-brand/30',
-        secondary: 'hover:enabled:bg-gray-500/70 focus:ring-gray-500/30',
-        danger: 'hover:enabled:bg-red-500/70 focus:ring-red-500/30',
-        info: 'hover:enabled:bg-blue-500/70 focus:ring-blue-500/30',
-        success: 'hover:enabled:bg-green-500/70 focus:ring-green-500/30',
-        warning: 'hover:enabled:bg-orange-500/70 focus:ring-orange-500/30',
-      },
     },
     transparent: {
       base: 'bg-transparent',
-      color: {
-        primary:
-          'border border-transparent hover:enabled:border-brand focus:enabled:border-brand focus:ring-brand',
-        secondary:
-          'border border-transparent hover:enabled:border-gray-500 focus:enabled:border-gray-500 focus:ring-gray-500',
-        danger:
-          'border border-transparent hover:enabled:border-red-500 focus:enabled:border-red-500 focus:ring-red-500',
-        info: 'border border-transparent hover:enabled:border-blue focus:enabled:border-blue focus:ring-blue',
-        success:
-          'border border-transparent hover:enabled:border-green-500 focus:enabled:border-green-500 focus:ring-green-500',
-        warning:
-          'border border-transparent hover:enabled:border-orange-500 focus:enabled:border-orange-500 focus:ring-orange-500',
-      },
     },
   },
+};
+
+const ghostColorOverrides: Partial<Record<ControlColor, string>> = {
+  primary:
+    '!border-brand/70 hover:!border-brand/80 focus:!border-brand dark:!border-brand/75 dark:!bg-brand/20',
+  info: '!border-blue-500/70 hover:!border-blue-500/80 focus:!border-blue-500 dark:!border-blue-500/75 dark:!bg-blue-500/20',
 };
 
 export interface PinCodeProps
@@ -101,7 +77,7 @@ export interface PinCodeProps
   /** The variants of the component are: */
   variant?: keyof typeof inputClasses.variant;
   /** Change input color */
-  color?: keyof (typeof inputClasses.variant)['ghost']['color'];
+  color?: ControlColor;
   /** Show error message using this prop */
   error?: string;
   /** Add custom classes for the input filed extra style */
@@ -221,6 +197,9 @@ export function PinCode({
 
   return (
     <div
+      data-tucu="pin-code"
+      data-variant={variant}
+      data-color={color}
       className={cn(
         'flex flex-col items-center justify-center',
         fullWidth && 'w-full'
@@ -240,6 +219,7 @@ export function PinCode({
             <input
               key={index}
               ref={addInputRefs(index)}
+              data-tucu="pin-code-input"
               type={type}
               inputMode={type === 'text' ? type : 'numeric'}
               value={currentValue}
@@ -256,7 +236,8 @@ export function PinCode({
                 inputClasses.size[size],
                 inputClasses.rounded[rounded],
                 inputClasses.variant[variant].base,
-                color && inputClasses.variant[variant].color[color],
+                color && textControlColorClasses[variant][color],
+                variant === 'ghost' && color && ghostColorOverrides[color],
                 error && inputClasses.error,
                 mask && 'password-dot',
                 props.disabled &&
