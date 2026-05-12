@@ -16,6 +16,7 @@ export const CardTitle: React.FC<CardTitleProps> = ({
 }) => {
   return (
     <div
+      data-tucu="card-title"
       className={cn(
         'w-full relative rounded-lg flex flex-col justify-start sm:p-6 p-2 sm:pt-[32px] pt-[24px]',
         border && 'border border-gray-200 dark:border-gray-700',
@@ -24,6 +25,7 @@ export const CardTitle: React.FC<CardTitleProps> = ({
     >
       {title && (
         <h3
+          data-tucu="card-title-label"
           className={`absolute -top-4 left-4 m-0 bg-light-dark  font-bold sm:text-2xl text-lg dark:text-white text-current px-2 rounded-lg`}
         >
           {title}

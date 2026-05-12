@@ -28,11 +28,12 @@ export function MacOSToolbar({
   return (
     <header
       className={cn(
-        'flex h-[var(--macos-toolbar-height,44px)] shrink-0 items-center gap-3 px-4',
+        'relative z-20 flex h-[var(--macos-toolbar-height,44px)] shrink-0 items-center gap-3 px-4',
         !transparent && [
           'bg-[var(--macos-material-toolbar,rgba(255,255,255,0.72))] backdrop-blur-xl',
         ],
-        bordered && 'border-b border-[var(--color-semantic-line-primary-subtle)]',
+        bordered &&
+          'border-b border-[var(--color-semantic-line-primary-subtle)]',
         className
       )}
     >
@@ -43,13 +44,12 @@ export function MacOSToolbar({
 
       {/* Center / title */}
       <div className="flex flex-1 items-center justify-center">
-        {center ?? (
-          title && (
+        {center ??
+          (title && (
             <span className="select-none text-[13px] font-semibold text-gray-800 dark:text-gray-100">
               {title}
             </span>
-          )
-        )}
+          ))}
         {children}
       </div>
 

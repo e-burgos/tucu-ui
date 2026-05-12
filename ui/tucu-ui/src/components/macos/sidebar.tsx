@@ -40,14 +40,12 @@ export function MacOSSidebar({
       className={cn(
         'flex h-full flex-col',
         'w-[var(--macos-sidebar-width,220px)] shrink-0',
-        'bg-[var(--macos-material-sidebar,rgba(246,246,248,0.82))] backdrop-blur-xl',
+        'bg-[var(--macos-material-toolbar,rgba(255,255,255,0.72))] backdrop-blur-xl',
         'border-r border-[var(--color-semantic-line-primary-subtle)]',
         className
       )}
     >
-      {header && (
-        <div className="shrink-0 px-3 pb-2 pt-4">{header}</div>
-      )}
+      {header && <div className="shrink-0 px-3 pb-2 pt-4">{header}</div>}
 
       <nav className="flex-1 overflow-y-auto px-2 py-2">
         {sections.map((section, si) => (
@@ -91,7 +89,9 @@ export function MacOSSidebar({
                         </span>
                       )}
 
-                      <span className="flex-1 truncate text-left">{item.label}</span>
+                      <span className="flex-1 truncate text-left">
+                        {item.label}
+                      </span>
 
                       {item.badge !== undefined && (
                         <span

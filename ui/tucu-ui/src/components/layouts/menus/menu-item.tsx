@@ -81,6 +81,23 @@ export function MenuItem({
     onClick && onClick();
   };
 
+  const handleParentItemToggle = () => {
+    setIsOpen((prev) => !prev);
+  };
+
+  const handleParentItemActivate = (
+    event?: React.MouseEvent<HTMLElement> | React.TouchEvent<HTMLElement>
+  ) => {
+    if (dropdownItems?.length && isMobile.isMobile) {
+      event?.preventDefault();
+      event?.stopPropagation();
+      handleParentItemToggle();
+      return;
+    }
+
+    handleNavigation(hrefToUse, onClick);
+  };
+
   const hrefToUse = href ? href : path;
 
   return (
@@ -131,12 +148,15 @@ export function MenuItem({
       {dropdownItems?.length && !hide && (
         <div
           onMouseEnter={() => {
-            setIsOpen(true);
+            if (!isMobile.isMobile) {
+              setIsOpen(true);
+            }
           }}
           onMouseLeave={() => {
-            setIsOpen(isChildrenActive ? true : false);
+            if (!isMobile.isMobile) {
+              setIsOpen(isChildrenActive ? true : false);
+            }
           }}
-          onTouchStart={() => setIsOpen(!isOpen)}
         >
           <ActiveLink
             activeClassName="bg-brand text-white"
@@ -149,8 +169,8 @@ export function MenuItem({
             path={path}
             href={href}
             to={hrefToUse}
-            onClick={() => {
-              handleNavigation(hrefToUse, onClick);
+            onClick={(event) => {
+              handleParentItemActivate(event);
             }}
           >
             <span className="z-1 flex items-center ltr:mr-[12px] rtl:ml-[12px]">

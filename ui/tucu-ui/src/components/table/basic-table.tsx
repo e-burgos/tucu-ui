@@ -59,6 +59,10 @@ export const BasicTable = <
     return row[column.key];
   };
 
+  const isRowSelected = (row: T): boolean => {
+    return row['selected'] === true || row['isSelected'] === true;
+  };
+
   // Calculate max height: approximately 40px per row (p-3 = 12px top + 12px bottom = 24px + content ~16px)
   const maxHeight = maxRows * 40; // 40px per row
 
@@ -95,6 +99,7 @@ export const BasicTable = <
         }}
       />
       <div
+        data-tucu="table-scroll"
         className={cn(
           'overflow-x-auto basic-table-scroll',
           containerClassName,
@@ -102,11 +107,18 @@ export const BasicTable = <
         )}
         style={{
           scrollbarWidth: 'thin',
-          scrollbarColor: 'rgba(0, 0, 0, 0.2) rgba(0, 0, 0, 0.05)',
+          scrollbarColor:
+            'var(--basic-table-scrollbar-thumb, rgba(0, 0, 0, 0.2)) var(--basic-table-scrollbar-track, rgba(0, 0, 0, 0.05))',
         }}
       >
         {rounded ? (
           <div
+            data-tucu="table"
+            data-rounded={rounded ? 'true' : 'false'}
+            data-border={border ? 'true' : 'false'}
+            data-striped={striped ? 'true' : 'false'}
+            data-hoverable={hoverable ? 'true' : 'false'}
+            data-show-header={showHeader ? 'true' : 'false'}
             className={cn(
               'overflow-x-auto overflow-y-auto rounded-xl',
               border && 'border border-gray-15 dark:border-gray-700'
@@ -114,13 +126,14 @@ export const BasicTable = <
             style={{ maxHeight: `${maxHeight}px` }}
           >
             <table
+              data-tucu="table-element"
               className={cn(
                 'min-w-max w-full border-separate border-spacing-0',
                 tableClassName
               )}
             >
               {showHeader && (
-                <thead className="sticky top-0 z-10">
+                <thead data-tucu="table-header" className="sticky top-0 z-10">
                   <tr
                     className={cn(
                       'bg-gray-10 dark:bg-gray-800 shadow-sm',
@@ -132,6 +145,7 @@ export const BasicTable = <
                       return (
                         <th
                           key={column.key}
+                          data-tucu="table-header-cell"
                           className={cn(
                             'p-3 text-left text-sm font-semibold',
                             border &&
@@ -163,6 +177,8 @@ export const BasicTable = <
                   return (
                     <tr
                       key={rowIndex}
+                      data-tucu="table-row"
+                      data-selected={isRowSelected(row) ? 'true' : undefined}
                       className={getRowClassName(row, rowIndex)}
                     >
                       {columns.map((column, colIndex) => {
@@ -177,6 +193,7 @@ export const BasicTable = <
                         return (
                           <td
                             key={column.key}
+                            data-tucu="table-cell"
                             className={cn(
                               'p-3 text-xs text-gray-600 dark:text-gray-400',
                               border &&
@@ -220,10 +237,17 @@ export const BasicTable = <
           </div>
         ) : (
           <div
+            data-tucu="table"
+            data-rounded={rounded ? 'true' : 'false'}
+            data-border={border ? 'true' : 'false'}
+            data-striped={striped ? 'true' : 'false'}
+            data-hoverable={hoverable ? 'true' : 'false'}
+            data-show-header={showHeader ? 'true' : 'false'}
             className={cn('overflow-x-auto overflow-y-auto')}
             style={{ maxHeight: `${maxHeight}px` }}
           >
             <table
+              data-tucu="table-element"
               className={cn(
                 'min-w-max w-full border-collapse',
                 border && 'border border-gray-15 dark:border-gray-700',
@@ -231,7 +255,7 @@ export const BasicTable = <
               )}
             >
               {showHeader && (
-                <thead className="sticky top-0 z-10">
+                <thead data-tucu="table-header" className="sticky top-0 z-10">
                   <tr
                     className={cn(
                       'bg-gray-10 dark:bg-gray-800 shadow-sm',
@@ -241,6 +265,7 @@ export const BasicTable = <
                     {columns.map((column, colIndex) => (
                       <th
                         key={column.key}
+                        data-tucu="table-header-cell"
                         className={cn(
                           'p-3 text-left text-sm font-semibold',
                           border &&
@@ -263,6 +288,8 @@ export const BasicTable = <
                   return (
                     <tr
                       key={rowIndex}
+                      data-tucu="table-row"
+                      data-selected={isRowSelected(row) ? 'true' : undefined}
                       className={getRowClassName(row, rowIndex)}
                     >
                       {columns.map((column, colIndex) => {
@@ -276,6 +303,7 @@ export const BasicTable = <
                         return (
                           <td
                             key={column.key}
+                            data-tucu="table-cell"
                             className={cn(
                               'p-3 text-xs text-gray-600 dark:text-gray-400',
                               border &&

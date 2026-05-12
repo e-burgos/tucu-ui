@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import cn from 'classnames';
 
@@ -19,6 +19,14 @@ export function DrawerContainer({
 }: DrawerContainerProps) {
   const [isVisible, setIsVisible] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
+  const drawerRef = useRef<HTMLDivElement>(null);
+  const previousFocusRef = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    if (isOpen) {
+      previousFocusRef.current = document.activeElement as HTMLElement;
+    }
+  }, [isOpen]);
 
   useEffect(() => {
     if (isOpen) {
@@ -29,6 +37,17 @@ export function DrawerContainer({
       // Trigger animation after DOM update
       const timer = setTimeout(() => {
         setIsAnimating(true);
+
+        const focusableElements =
+          drawerRef.current?.querySelectorAll<HTMLElement>(
+            'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+          );
+
+        if (focusableElements?.length) {
+          focusableElements[0].focus();
+        } else {
+          drawerRef.current?.focus();
+        }
       }, 0);
       return () => clearTimeout(timer);
     } else {
@@ -38,6 +57,7 @@ export function DrawerContainer({
       const timer = setTimeout(() => {
         setIsVisible(false);
         document.body.style.overflow = '';
+        previousFocusRef.current?.focus();
       }, 300); // Match transition duration
       return () => clearTimeout(timer);
     }
@@ -63,6 +83,43 @@ export function DrawerContainer({
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && isOpen) {
         setIsOpen(false);
+        return;
+      }
+
+      if (e.key === 'Tab' && isOpen && drawerRef.current) {
+        const focusableElements = Array.from(
+          drawerRef.current.querySelectorAll<HTMLElement>(
+            'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+          )
+        ).filter((element) => {
+          return (
+            !element.hasAttribute('disabled') &&
+            element.getAttribute('aria-hidden') !== 'true'
+          );
+        });
+
+        if (!focusableElements.length) {
+          e.preventDefault();
+          drawerRef.current.focus();
+          return;
+        }
+
+        const firstFocusable = focusableElements[0];
+        const lastFocusable = focusableElements[focusableElements.length - 1];
+        const activeElement = document.activeElement as HTMLElement | null;
+
+        if (e.shiftKey) {
+          if (!activeElement || activeElement === firstFocusable) {
+            e.preventDefault();
+            lastFocusable.focus();
+          }
+          return;
+        }
+
+        if (activeElement === lastFocusable) {
+          e.preventDefault();
+          firstFocusable.focus();
+        }
       }
     };
 
@@ -84,7 +141,7 @@ export function DrawerContainer({
   );
 
   const drawerClasses = cn(
-    'fixed inset-y-0 h-screen w-full max-w-full min-[500px]:w-auto transition-transform duration-300 ease-out',
+    'fixed inset-y-0 h-screen w-full max-w-full min-[500px]:w-auto pointer-events-none transition-transform duration-300 ease-out',
     position === 'left'
       ? cn(
           'ltr:left-0 rtl:right-0',
@@ -112,7 +169,16 @@ export function DrawerContainer({
         />
       )}
       {/* Drawer - rendered second, higher z-index to be above backdrop */}
-      <div data-tucu="drawer" className={drawerClasses} style={{ zIndex: 51 }}>
+      <div
+        ref={drawerRef}
+        data-tucu="drawer"
+        className={drawerClasses}
+        style={{ zIndex: 51 }}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Sidebar"
+        tabIndex={-1}
+      >
         {children}
       </div>
     </>

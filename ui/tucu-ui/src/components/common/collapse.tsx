@@ -1,6 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from 'react';
 import { useMeasure } from '../../hooks/use-measure';
+import { useTheme } from '../../themes/hooks/use-theme';
+import { LAYOUT_OPTIONS } from '../../themes/config';
 import { Plus } from '../icons/plus';
 
 export interface CollapseProps {
@@ -17,6 +19,11 @@ export function Collapse({
 }: React.PropsWithChildren<CollapseProps>) {
   const [isOpen, setIsOpen] = useState(false);
   const [ref, { height }] = useMeasure<HTMLDivElement>();
+  const { layout } = useTheme();
+  const isMacOS =
+    layout === LAYOUT_OPTIONS.MACOS || layout === LAYOUT_OPTIONS.MACOS_TAHOE;
+  // macOS CSS adds padding (24px) to collapse-content that isn't in the measurement
+  const extraPadding = isMacOS ? 24 : 0;
 
   useEffect(() => {
     initialOpen && setIsOpen(true);
@@ -24,12 +31,15 @@ export function Collapse({
 
   return (
     <div
+      data-tucu="collapse"
+      data-open={isOpen ? 'true' : 'false'}
       className={`ease-[cubic-bezier(0.33, 1, 0.68, 1)] relative mb-5 overflow-hidden rounded-lg bg-white shadow-card transition-all duration-350 last:mb-0 hover:shadow-transaction dark:bg-light-dark ${className} ${
         isOpen ? 'shadow-transaction' : 'shadow-card'
       }`}
-      style={{ height: isOpen ? 54 + height : 54 }}
+      style={{ height: isOpen ? 54 + height + extraPadding : 54 }}
     >
       <button
+        data-tucu="collapse-trigger"
         className="flex h-13 w-full items-center justify-between px-5 py-2 text-sm font-medium uppercase tracking-wider text-gray-900 dark:text-white"
         onClick={() => setIsOpen(!isOpen)}
       >
@@ -45,6 +55,7 @@ export function Collapse({
       </button>
 
       <div
+        data-tucu="collapse-content"
         className={`border-t border-dashed ${
           isOpen ? 'border-gray-200 dark:border-gray-700' : 'border-transparent'
         }`}

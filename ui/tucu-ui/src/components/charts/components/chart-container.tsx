@@ -16,6 +16,7 @@ export function ChartContainer({
 }: ChartContainerProps) {
   return (
     <div
+      data-tucu="chart"
       className={cn(
         'w-full outline-none ring-0 [&_*]:outline-none [&_*]:ring-0',
         className
