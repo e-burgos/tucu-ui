@@ -159,8 +159,8 @@ importers:
   apps/demo:
     dependencies:
       '@e-burgos/tucu-ui':
-        specifier: ^2.0.8
-        version: 2.0.8(@types/react@19.2.14)(immer@11.1.7)(react-dom@19.2.5(react@19.2.5))(react-is@18.3.1)(react@19.2.5)(tailwindcss@4.1.18)(use-sync-external-store@1.6.0(react@19.2.5))
+        specifier: workspace:^2.0.8
+        version: link:../../ui/tucu-ui
       react:
         specifier: ^19.2.5
         version: 19.2.5
@@ -920,13 +920,6 @@ packages:
   '@cspotcode/source-map-support@0.8.1':
     resolution: {integrity: sha512-IchNf6dN4tHoMFIn/7OE8LWZ19Y6q/67Bmf6vnGREv8RSbBVb9LPJxEcnwrcwX6ixSvaiGoomAUvu4YSxXrVgw==}
     engines: {node: '>=12'}
-
-  '@e-burgos/tucu-ui@2.0.8':
-    resolution: {integrity: sha512-LAbrb1gchB6ZCUO68sGVuw40rJQBO3SU0IIE1CIPLkyz+pqS+o+Jlwa6zTPh+5sZBxVXYMQCI7pmiVPD0yl5UA==}
-    peerDependencies:
-      react: '>=18.0.0'
-      react-dom: '>=18.0.0'
-      tailwindcss: '>=4.0.0'
 
   '@emnapi/core@1.8.1':
     resolution: {integrity: sha512-AvT9QFpxK0Zd8J0jopedNm+w/2fIzvtPKPjqyw9jwvBaReTTqPBk9Hixaz7KbjimP+QNz605/XnjFcDAL2pqBg==}
@@ -2938,6 +2931,7 @@ packages:
 
   '@ungap/structured-clone@1.3.0':
     resolution: {integrity: sha512-WmoN8qaIAo7WTYWbAZuG8PYEhn5fkz7dZrqTBZ7dtt//lL2Gwms1IcnQ5yHqjDfX8Ft5j4YzDM23f87zBfDe9g==}
+    deprecated: Potential CWE-502 - Update to 1.3.1 or higher
 
   '@vitejs/plugin-react-refresh@1.3.6':
     resolution: {integrity: sha512-iNR/UqhUOmFFxiezt0em9CgmiJBdWR+5jGxB2FihaoJfqGt76kiwaKoVOJVU5NYcDWMdN06LbyN2VIGIoYdsEA==}
@@ -7892,30 +7886,6 @@ snapshots:
   '@cspotcode/source-map-support@0.8.1':
     dependencies:
       '@jridgewell/trace-mapping': 0.3.9
-
-  '@e-burgos/tucu-ui@2.0.8(@types/react@19.2.14)(immer@11.1.7)(react-dom@19.2.5(react@19.2.5))(react-is@18.3.1)(react@19.2.5)(tailwindcss@4.1.18)(use-sync-external-store@1.6.0(react@19.2.5))':
-    dependencies:
-      '@tailwindcss/typography': 0.0.0-insiders.0339c42(tailwindcss@4.1.18)
-      classnames: 2.5.1
-      framer-motion: 12.23.3(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
-      lucide-react: 0.460.0(react@19.2.5)
-      react: 19.2.5
-      react-dom: 19.2.5(react@19.2.5)
-      react-hook-form: 7.60.0(react@19.2.5)
-      react-router: 7.9.1(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
-      react-router-dom: 7.9.1(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
-      react-use: 17.6.0(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
-      recharts: 3.8.1(@types/react@19.2.14)(react-dom@19.2.5(react@19.2.5))(react-is@18.3.1)(react@19.2.5)(redux@5.0.1)
-      swiper: 11.2.8
-      tailwindcss: 4.1.18
-      zustand: 5.0.9(@types/react@19.2.14)(immer@11.1.7)(react@19.2.5)(use-sync-external-store@1.6.0(react@19.2.5))
-    transitivePeerDependencies:
-      - '@emotion/is-prop-valid'
-      - '@types/react'
-      - immer
-      - react-is
-      - redux
-      - use-sync-external-store
 
   '@emnapi/core@1.8.1':
     dependencies:
