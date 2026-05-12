@@ -179,15 +179,39 @@ function SwitcherButton({
   );
 }
 
+function SettingsSectionHeading({ children }: { children: React.ReactNode }) {
+  const { colorScheme, layout } = useTheme();
+  const isMacOS =
+    colorScheme === 'macos' ||
+    layout === LAYOUT_OPTIONS.MACOS ||
+    layout === LAYOUT_OPTIONS.MACOS_TAHOE;
+
+  if (isMacOS) {
+    return (
+      <div
+        role="heading"
+        aria-level={3}
+        className="mb-4 text-[11px] font-semibold uppercase tracking-[0.06em] text-(--macos-secondary-label)"
+      >
+        {children}
+      </div>
+    );
+  }
+
+  return (
+    <h4 className="mb-4 text-sm font-medium text-gray-900 dark:text-white">
+      {children}
+    </h4>
+  );
+}
+
 // ─── ThemeSwitcher ─────────────────────────────────────────────
 
 function ThemeSwitcher() {
   const { mode, setMode } = useTheme();
   return (
     <div className="px-6 pt-8">
-      <h4 className="mb-4 text-sm font-medium text-gray-900 dark:text-white">
-        Mode
-      </h4>
+      <SettingsSectionHeading>Mode</SettingsSectionHeading>
       <div role="radiogroup" className="grid grid-cols-2 gap-5">
         <SwitcherButton
           onClick={() => setMode('light')}
@@ -213,7 +237,16 @@ function ThemeSwitcher() {
 // Minimal SVG icon representing a generic default layout
 function DefaultThemeIcon() {
   return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <rect x="3" y="3" width="7" height="7" rx="1" />
       <rect x="14" y="3" width="7" height="7" rx="1" />
       <rect x="3" y="14" width="7" height="7" rx="1" />
@@ -225,7 +258,16 @@ function DefaultThemeIcon() {
 // Minimal SVG icon representing a macOS-style window (three dots + bar)
 function MacOSThemeIcon() {
   return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <rect x="2" y="4" width="20" height="16" rx="3" />
       <line x1="2" y1="9" x2="22" y2="9" />
       <circle cx="6" cy="6.5" r="1" fill="currentColor" stroke="none" />
@@ -239,9 +281,7 @@ function ThemeVariantSwitcher() {
   const { colorScheme, applyMacOSTheme, applyDefaultTheme } = useTheme();
   return (
     <div className="px-6 pt-8">
-      <h4 className="mb-4 text-sm font-medium text-gray-900 dark:text-white">
-        Theme Style
-      </h4>
+      <SettingsSectionHeading>Theme Style</SettingsSectionHeading>
       <div role="radiogroup" className="grid grid-cols-2 gap-5">
         <SwitcherButton
           onClick={applyDefaultTheme}
@@ -268,9 +308,7 @@ function DirectionSwitcher() {
   const { direction, setDirection } = useTheme();
   return (
     <div className="px-6 pt-8">
-      <h4 className="mb-4 text-sm font-medium text-gray-900 dark:text-white">
-        Direction
-      </h4>
+      <SettingsSectionHeading>Direction</SettingsSectionHeading>
       <div role="radiogroup" className="grid grid-cols-2 gap-5">
         <SwitcherButton
           onClick={() => setDirection('ltr')}
@@ -297,15 +335,15 @@ const LayoutIcons: Record<string, JSX.Element> = {
   [LAYOUT_OPTIONS.HORIZONTAL]: <MinimalLayoutIcon />,
   [LAYOUT_OPTIONS.ADMIN]: <ClassicLayoutIcon />,
   [LAYOUT_OPTIONS.CLEAN]: <MinimalLayoutIcon />,
+  [LAYOUT_OPTIONS.MACOS]: <MacOSThemeIcon />,
+  [LAYOUT_OPTIONS.MACOS_TAHOE]: <MacOSThemeIcon />,
 };
 
 function LayoutSwitcher() {
   const { layout, setLayout } = useTheme();
   return (
     <div className="px-6 pt-8">
-      <h4 className="mb-4 text-sm font-medium text-gray-900 dark:text-white">
-        Layout
-      </h4>
+      <SettingsSectionHeading>Layout</SettingsSectionHeading>
       <div role="radiogroup" className="grid grid-cols-2 gap-5">
         {layoutOptions.map((option) => (
           <SwitcherButton

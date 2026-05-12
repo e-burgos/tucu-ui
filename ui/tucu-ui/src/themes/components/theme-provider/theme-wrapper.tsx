@@ -161,10 +161,22 @@ export function ThemeWrapper({
     html.classList.toggle('light', mode !== 'dark');
   }, [mode]);
 
-  // ─── macOS theme variant class on <html> ─────────────────────
+  // ─── macOS theme/layout classes on <html> ────────────────────
   useEffect(() => {
-    document.documentElement.classList.toggle('macos', colorScheme === 'macos');
-  }, [colorScheme]);
+    document.documentElement.classList.toggle(
+      'macos',
+      colorScheme === 'macos' ||
+        layout === LAYOUT_OPTIONS.MACOS ||
+        layout === LAYOUT_OPTIONS.MACOS_TAHOE
+    );
+  }, [colorScheme, layout]);
+
+  useEffect(() => {
+    document.documentElement.classList.toggle(
+      'macos-tahoe',
+      layout === LAYOUT_OPTIONS.MACOS_TAHOE
+    );
+  }, [layout]);
 
   return (
     <div

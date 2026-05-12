@@ -139,10 +139,18 @@ export const useTheme = create<ITheme>()(
         }),
 
       applyMacOSTheme: () =>
-        set({ ...macosLightPresets, colorScheme: 'macos', layout: LAYOUT_OPTIONS.MACOS }),
+        set({
+          ...macosLightPresets,
+          colorScheme: 'macos',
+          layout: LAYOUT_OPTIONS.MACOS_TAHOE,
+        }),
 
       applyDefaultTheme: () =>
-        set({ ...defaultPresets, colorScheme: 'default', layout: defaultLayout }),
+        set({
+          ...defaultPresets,
+          colorScheme: 'default',
+          layout: defaultLayout,
+        }),
     }),
     {
       name: 'theme-storage',
