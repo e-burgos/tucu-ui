@@ -21,9 +21,13 @@ export interface MacOSSegmentedControlProps<T extends string = string> {
 // ─── Size map ──────────────────────────────────────────────────
 
 const SIZE = {
-  sm: { wrap: 'h-7 p-[3px]',  seg: 'px-2.5 text-xs gap-1',   icon: 'w-3 h-3'   },
-  md: { wrap: 'h-8 p-[3px]',  seg: 'px-3.5 text-[13px] gap-1.5', icon: 'w-3.5 h-3.5' },
-  lg: { wrap: 'h-9 p-[3px]',  seg: 'px-4   text-sm gap-1.5', icon: 'w-4 h-4'   },
+  sm: { wrap: 'h-7 p-[3px]', seg: 'px-2.5 text-xs gap-1', icon: 'w-3 h-3' },
+  md: {
+    wrap: 'h-8 p-[3px]',
+    seg: 'px-3.5 text-[13px] gap-1.5',
+    icon: 'w-3.5 h-3.5',
+  },
+  lg: { wrap: 'h-9 p-[3px]', seg: 'px-4   text-sm gap-1.5', icon: 'w-4 h-4' },
 };
 
 // ─── MacOSSegmentedControl ─────────────────────────────────────
@@ -42,6 +46,8 @@ export function MacOSSegmentedControl<T extends string = string>({
     <div
       role="group"
       aria-label="Segmented control"
+      data-tucu="segmented-control"
+      data-size={size}
       className={cn(
         'inline-flex rounded-[9px]',
         'bg-black/5 dark:bg-white/10',
@@ -59,6 +65,8 @@ export function MacOSSegmentedControl<T extends string = string>({
             role="radio"
             aria-checked={active}
             disabled={opt.disabled}
+            data-tucu="segmented-item"
+            data-active={active}
             onClick={() => !opt.disabled && onChange(opt.value)}
             className={cn(
               'flex flex-1 items-center justify-center rounded-[7px] font-medium',

@@ -15,8 +15,10 @@ function TrafficLights({
   onMaximize,
 }: TrafficLightsProps) {
   return (
-    <div className="group flex items-center gap-2">
+    <div data-tucu="traffic-lights" className="group flex items-center gap-2">
       <button
+        data-tucu="traffic-light"
+        data-type="close"
         onClick={onClose}
         aria-label="Close"
         className={cn(
@@ -39,6 +41,8 @@ function TrafficLights({
       </button>
 
       <button
+        data-tucu="traffic-light"
+        data-type="minimize"
         onClick={onMinimize}
         aria-label="Minimize"
         className={cn(
@@ -61,6 +65,8 @@ function TrafficLights({
       </button>
 
       <button
+        data-tucu="traffic-light"
+        data-type="maximize"
         onClick={onMaximize}
         aria-label="Maximize"
         className={cn(
@@ -400,6 +406,7 @@ export function MacOSWindow({
     >
       <div
         ref={windowRef}
+        data-tucu="window"
         style={windowStyle}
         className={cn(
           'flex flex-col',
@@ -417,6 +424,7 @@ export function MacOSWindow({
 
         {/* Title bar */}
         <div
+          data-tucu="title-bar"
           onMouseDown={onDragStart}
           onDoubleClick={handleMaximize}
           className={cn(
@@ -457,7 +465,9 @@ export function MacOSWindow({
         </div>
 
         {/* Content */}
-        <div className="flex-1 overflow-auto">{children}</div>
+        <div data-tucu="window-content" className="flex-1 overflow-auto">
+          {children}
+        </div>
       </div>
     </div>
   );

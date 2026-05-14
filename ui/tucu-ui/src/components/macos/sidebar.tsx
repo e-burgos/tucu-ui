@@ -11,13 +11,13 @@ export interface MacOSSidebarItem {
   onClick?: () => void;
 }
 
-export interface MacOSSidebarSection {
+export interface MacOSSidebarSectionConfig {
   label?: string;
   items: MacOSSidebarItem[];
 }
 
 export interface MacOSSidebarProps {
-  sections: MacOSSidebarSection[];
+  sections: MacOSSidebarSectionConfig[];
   activeId?: string;
   header?: React.ReactNode;
   footer?: React.ReactNode;
@@ -37,6 +37,7 @@ export function MacOSSidebar({
 }: MacOSSidebarProps) {
   return (
     <aside
+      data-tucu="sidebar"
       className={cn(
         'flex h-full flex-col',
         'w-[var(--macos-sidebar-width,220px)] shrink-0',
