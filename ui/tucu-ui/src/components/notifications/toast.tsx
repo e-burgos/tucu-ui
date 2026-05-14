@@ -66,6 +66,7 @@ export const Toast: React.FC = () => {
     <div
       role="region"
       aria-label="Notifications"
+      data-tucu="toast-container"
       className="fixed bottom-4 right-4 flex flex-col gap-2 w-auto z-20"
     >
       {visibleToasts.map((toast, index) => (
@@ -74,6 +75,8 @@ export const Toast: React.FC = () => {
           role="alert"
           aria-live="assertive"
           aria-atomic="true"
+          data-tucu="toast"
+          data-variant={toast.variant}
           className={`relative flex items-center justify-between space-x-2 border-gray-300 p-4 pr-6 rounded-md shadow-lg transform transition-all duration-500 ease-in-out 
             ${toast.dismissing ? 'translate-x-full -mr-6' : 'translate-x-0'} 
             ${handleVariant(toast.variant)}`}

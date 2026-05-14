@@ -43,6 +43,7 @@ export function CoinInfoCard({
   const { name, logo, balance, coinType } = item ?? {};
   return (
     <div
+      data-tucu="coin-info-card"
       className={cn(
         'flex items-center justify-between bg-white text-sm font-medium shadow-card dark:bg-light-dark p-3 tracking-wider rounded-lg sm:p-4',
         className

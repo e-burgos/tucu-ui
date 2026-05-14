@@ -8,6 +8,7 @@ export interface DrawerContainerProps {
   children: React.ReactNode;
   position?: 'left' | 'right';
   backdrop?: boolean;
+  backdropClassName?: string;
 }
 
 export function DrawerContainer({
@@ -16,6 +17,7 @@ export function DrawerContainer({
   children,
   position = 'left',
   backdrop = true,
+  backdropClassName,
 }: DrawerContainerProps) {
   const [isVisible, setIsVisible] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
@@ -137,7 +139,7 @@ export function DrawerContainer({
   const backdropClasses = cn(
     'fixed inset-0 w-screen h-screen transition-opacity duration-300 ease-out',
     isAnimating ? 'opacity-100' : 'opacity-0',
-    backdrop ? 'bg-gray-700/10 backdrop-blur-xs' : ''
+    backdropClassName ?? (backdrop ? 'bg-gray-700/10 backdrop-blur-xs' : '')
   );
 
   const drawerClasses = cn(
@@ -160,7 +162,7 @@ export function DrawerContainer({
   const drawerContent = (
     <>
       {/* Backdrop - rendered first, lower z-index */}
-      {backdrop && (
+      {(backdrop || backdropClassName) && (
         <div
           className={backdropClasses}
           onClick={handleBackdropClick}

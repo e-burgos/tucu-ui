@@ -12,6 +12,7 @@ export interface SidebarProps {
   actionContent?: React.ReactNode;
   logo?: LogoPropTypes;
   onClose?: () => void;
+  position?: 'left' | 'right';
 }
 
 export function Sidebar({
@@ -21,19 +22,63 @@ export function Sidebar({
   actionContent,
   logo,
   onClose,
+  position = 'left',
 }: SidebarProps) {
   const { colorScheme, layout } = useTheme();
+  const isTahoe = layout === LAYOUT_OPTIONS.MACOS_TAHOE;
   const isMacOS =
     colorScheme === 'macos' ||
     layout === LAYOUT_OPTIONS.MACOS ||
     layout === LAYOUT_OPTIONS.MACOS_TAHOE;
+
+  if (isTahoe) {
+    return (
+      <div
+        className={cn(
+          'pointer-events-none relative flex h-full w-full items-stretch p-3 min-[500px]:p-4',
+          position === 'right' ? 'justify-end' : 'justify-start'
+        )}
+      >
+        <aside
+          data-tucu="macos-tahoe-drawer"
+          className={cn(
+            'pointer-events-auto flex h-full w-80 max-w-[calc(100vw-24px)] flex-col overflow-hidden rounded-[30px] border border-(--macos-tahoe-border) bg-(--macos-tahoe-sidebar-bg) backdrop-blur-[30px]',
+            className
+          )}
+        >
+          <div className="shrink-0 px-5 pb-3 pt-5 flex items-center justify-between gap-3">
+            {logo && <Logo {...(logo as LogoPropTypes)} size="small" />}
+            {title && (
+              <span className="text-[16px] font-semibold text-(--macos-tahoe-text) dark:text-white/90">
+                {title}
+              </span>
+            )}
+            <button
+              type="button"
+              onClick={onClose}
+              aria-label="Close"
+              className="ml-auto flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-white/10 bg-black/8 text-(--macos-tahoe-text-muted) transition-colors hover:bg-black/12 hover:text-(--macos-tahoe-text) dark:bg-white/6 dark:hover:bg-white/10"
+            >
+              <Close className="h-3.5 w-3.5" width={14} height={14} />
+            </button>
+          </div>
+          <div className="overflow-y-auto h-full px-3 py-2">{children}</div>
+          {actionContent && (
+            <div className="absolute bottom-4 left-0 z-10 w-full flex gap-2 px-3">
+              {actionContent}
+            </div>
+          )}
+        </aside>
+      </div>
+    );
+  }
 
   return (
     <aside
       className={cn(
         'top-0 z-40 h-full w-full max-w-full pointer-events-auto',
         isMacOS
-          ? 'min-[500px]:w-72 bg-[var(--macos-material-toolbar,rgba(255,255,255,0.72))] backdrop-blur-xl border-r border-[var(--color-semantic-line-primary-subtle)]'
+          ? 'min-[500px]:w-80 bg-[var(--macos-material-toolbar,rgba(255,255,255,0.72))] backdrop-blur-xl border-r border-[var(--color-semantic-line-primary-subtle)]'
           : 'border-dashed border-gray-200 dark:border-gray-700 bg-light-dark min-[500px]:w-80 lg:w-96 xl:w-96 2xl:w-96',
         className
       )}

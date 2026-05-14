@@ -384,7 +384,7 @@ export function InputSearcher({
         </span>
       );
     },
-    [value]
+    [value, accentTextClass]
   );
 
   // Check if option is selected
@@ -508,7 +508,7 @@ export function InputSearcher({
           }
         }}
         onKeyDown={handleKeyDown}
-        aria-role="combobox"
+        role="combobox"
         aria-expanded={showDropdown}
         aria-haspopup="listbox"
         aria-autocomplete="list"

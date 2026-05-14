@@ -149,7 +149,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     const buttonElement = (
       <div
         className={cn(
-          'relative backdrop-blur-xl transition-all duration-300 transform',
+          'relative transition-all duration-300 transform',
           fullWidth && 'w-full'
         )}
       >

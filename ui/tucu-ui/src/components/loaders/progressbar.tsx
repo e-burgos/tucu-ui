@@ -77,6 +77,7 @@ export const Progressbar = ({
   labelClassName,
 }: ProgressbarProps) => (
   <div
+    data-tucu="progressbar"
     className={cn(
       'relative w-full bg-gray-200',
       classes.size[size],
@@ -85,6 +86,7 @@ export const Progressbar = ({
     )}
   >
     <div
+      data-tucu="progressbar-fill"
       role="progressbar"
       aria-valuemax={100}
       aria-valuemin={0}

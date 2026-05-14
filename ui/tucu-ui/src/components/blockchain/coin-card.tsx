@@ -27,6 +27,7 @@ export function CoinCard({
 }: CoinCardProps) {
   return (
     <div
+      data-tucu="coin-card"
       className="relative rounded-lg p-6 xl:p-8"
       style={{ backgroundColor: color }}
     >

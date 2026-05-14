@@ -59,6 +59,7 @@ export function Loader({
   const Component = tag;
   return (
     <Component
+      data-tucu="loader"
       className={cn(
         'flex items-center gap-2',
         variant === 'moveUp' && handleLoaderPosition(size),

@@ -52,7 +52,7 @@ export interface RadioGroupProps {
     label: React.ReactNode;
     value: string | number;
     disabled?: boolean;
-    [key: string]: any;
+    [key: string]: unknown;
   }>;
   /** Children radio components */
   children?: React.ReactNode;
@@ -190,7 +190,10 @@ export const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>(
       >
         {label && (
           <label
-            className={cn('block text-sm font-medium mb-[6px]', labelClassName)}
+            className={cn(
+              'block text-sm font-medium mb-[6px] text-gray-800 dark:text-gray-100',
+              labelClassName
+            )}
           >
             {label}
           </label>

@@ -102,7 +102,7 @@ export const Switch: React.FC<SwitchProps> = ({
         {label && (
           <span
             className={cn(
-              'text-sm mr-[12px]',
+              'text-sm text-gray-800 dark:text-gray-100 mr-[12px]',
               disabled && 'text-gray-500 cursor-not-allowed'
             )}
           >
@@ -110,7 +110,10 @@ export const Switch: React.FC<SwitchProps> = ({
               ? label
               : React.cloneElement(
                   label as React.ReactElement<{ className: string }>,
-                  { className: 'text-sm mr-[12px]' }
+                  {
+                    className:
+                      'text-sm text-gray-800 dark:text-gray-100 mr-[12px]',
+                  }
                 )}
           </span>
         )}

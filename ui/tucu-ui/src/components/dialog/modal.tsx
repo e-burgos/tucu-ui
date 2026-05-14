@@ -156,6 +156,7 @@ export const Modal: React.FC<ModalProps> = ({
     <>
       {/* Backdrop */}
       <div
+        data-tucu="modal-overlay"
         className={backdropClasses}
         onClick={handleBackdropClick}
         aria-hidden="true"
@@ -173,7 +174,7 @@ export const Modal: React.FC<ModalProps> = ({
         <CardContainer
           data-tucu="modal"
           className={cn(
-            'relative w-full sm:max-w-[800px] h-fit! min-h-[400px] rounded-xl shadow-card pointer-events-auto',
+            'relative w-full sm:max-w-[800px] h-fit! rounded-xl shadow-card pointer-events-auto',
             className
           )}
         >
@@ -230,8 +231,11 @@ export const Modal: React.FC<ModalProps> = ({
           {buttonContainer && (
             <div className="mt-[24px]">{buttonContainer}</div>
           )}
-          {!hideButtons && (
-            <div className="absolute bottom-8 right-8 flex w-full justify-end gap-[8px]">
+          {!hideButtons && !buttonContainer && (
+            <div
+              data-tucu="modal-buttons"
+              className="mt-auto pt-6 flex w-full justify-end gap-[8px]"
+            >
               <Button
                 size="medium"
                 shape="rounded"

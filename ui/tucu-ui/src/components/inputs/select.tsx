@@ -509,7 +509,7 @@ export function Select({
       {label && (
         <span
           className={cn(
-            'block font-medium tracking-widest dark:text-gray-100',
+            'block font-medium tracking-widest text-gray-800 dark:text-gray-100',
             useUppercaseLabel ? 'mb-2 uppercase sm:mb-3' : 'mb-1.5 ml-1.5'
           )}
         >

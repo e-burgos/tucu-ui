@@ -1,5 +1,7 @@
 import { ReactNode } from 'react';
 import cn from 'classnames';
+import { useTheme } from '../../themes';
+import { LAYOUT_OPTIONS } from '../../themes/config';
 
 export interface TableColumn<T = Record<string, unknown>> {
   key: string;
@@ -42,10 +44,13 @@ export const BasicTable = <
   striped = false,
   maxRows = 10,
 }: BasicTableProps<T>) => {
+  const { layout } = useTheme();
+  const isTahoe = layout === LAYOUT_OPTIONS.MACOS_TAHOE;
+
   const getRowClassName = (row: T, index: number): string => {
     const baseClasses = cn('transition-colors', {
       'hover:bg-gray-5 dark:hover:bg-gray-900/50 hover:shadow-sm': hoverable,
-      'bg-gray-5 dark:bg-gray-900/50': striped && index % 2 === 0,
+      'bg-gray-50/50 dark:bg-gray-800/20': striped && index % 2 === 0,
     });
 
     if (typeof rowClassName === 'function') {
@@ -101,7 +106,9 @@ export const BasicTable = <
       <div
         data-tucu="table-scroll"
         className={cn(
-          'overflow-x-auto basic-table-scroll',
+          'overflow-x-auto basic-table-scroll min-w-0',
+          rounded &&
+            (isTahoe ? 'min-w-full rounded-3xl' : 'min-w-full rounded-xl'),
           containerClassName,
           className
         )}
@@ -120,26 +127,22 @@ export const BasicTable = <
             data-hoverable={hoverable ? 'true' : 'false'}
             data-show-header={showHeader ? 'true' : 'false'}
             className={cn(
-              'overflow-x-auto overflow-y-auto rounded-xl',
-              border && 'border border-gray-15 dark:border-gray-700'
+              'overflow-x-auto overflow-y-auto overflow-hidden relative z-0 isolate',
+              isTahoe ? 'rounded-2xl' : 'rounded-lg',
+              border && 'border border-gray-200/50 dark:border-gray-700/50'
             )}
             style={{ maxHeight: `${maxHeight}px` }}
           >
             <table
               data-tucu="table-element"
               className={cn(
-                'min-w-max w-full border-separate border-spacing-0',
+                'min-w-max w-full border-separate border-spacing-0 rounded-lg overflow-hidden',
                 tableClassName
               )}
             >
               {showHeader && (
                 <thead data-tucu="table-header" className="sticky top-0 z-10">
-                  <tr
-                    className={cn(
-                      'bg-gray-10 dark:bg-gray-800 shadow-sm',
-                      headerClassName
-                    )}
-                  >
+                  <tr className={cn('bg-transparent', headerClassName)}>
                     {columns.map((column, colIndex) => {
                       const isLastCol = colIndex === columns.length - 1;
                       return (
@@ -147,20 +150,17 @@ export const BasicTable = <
                           key={column.key}
                           data-tucu="table-header-cell"
                           className={cn(
-                            'p-3 text-left text-sm font-semibold',
+                            'px-3 py-1 text-left text-[11px] font-medium text-gray-500 dark:text-gray-400 capitalize tracking-wider',
                             border &&
-                              'border-b border-gray-15 dark:border-gray-700',
+                              'border-b border-gray-200/50 dark:border-gray-700/50',
                             border &&
                               !isLastCol &&
-                              'border-r border-r-gray-15 dark:border-r-gray-700',
-                            rounded &&
-                              showHeader &&
-                              colIndex === 0 &&
-                              'rounded-tl-xl',
+                              'border-r border-r-gray-200/50 dark:border-r-gray-700/50',
+                            rounded && showHeader && colIndex === 0 && '',
                             rounded &&
                               showHeader &&
                               colIndex === columns.length - 1 &&
-                              'rounded-tr-xl',
+                              '',
                             column.headerClassName
                           )}
                         >
@@ -195,33 +195,33 @@ export const BasicTable = <
                             key={column.key}
                             data-tucu="table-cell"
                             className={cn(
-                              'p-3 text-xs text-gray-600 dark:text-gray-400',
+                              'px-3 py-1.5 text-xs text-gray-700 dark:text-gray-300',
                               border &&
-                                'border-b border-gray-15 dark:border-gray-700',
+                                'border-b border-gray-200/50 dark:border-gray-700/50',
                               border &&
                                 !isLastCol &&
-                                'border-r border-gray-15 dark:border-gray-700',
+                                'border-r border-gray-200/50 dark:border-gray-700/50',
                               border && isLastRow && 'border-b-0',
                               rounded &&
                                 isLastRow &&
                                 isFirstCol &&
                                 !showHeader &&
-                                'rounded-bl-xl',
+                                '',
                               rounded &&
                                 isLastRow &&
                                 isLastCol &&
                                 !showHeader &&
-                                'rounded-br-xl',
+                                '',
                               rounded &&
                                 isLastRow &&
                                 isFirstCol &&
                                 showHeader &&
-                                'rounded-bl-xl',
+                                '',
                               rounded &&
                                 isLastRow &&
                                 isLastCol &&
                                 showHeader &&
-                                'rounded-br-xl',
+                                '',
                               column.className
                             )}
                           >
@@ -250,26 +250,21 @@ export const BasicTable = <
               data-tucu="table-element"
               className={cn(
                 'min-w-max w-full border-collapse',
-                border && 'border border-gray-15 dark:border-gray-700',
+                border && 'border border-gray-200/50 dark:border-gray-700/50',
                 tableClassName
               )}
             >
               {showHeader && (
                 <thead data-tucu="table-header" className="sticky top-0 z-10">
-                  <tr
-                    className={cn(
-                      'bg-gray-10 dark:bg-gray-800 shadow-sm',
-                      headerClassName
-                    )}
-                  >
+                  <tr className={cn('bg-transparent', headerClassName)}>
                     {columns.map((column, colIndex) => (
                       <th
                         key={column.key}
                         data-tucu="table-header-cell"
                         className={cn(
-                          'p-3 text-left text-sm font-semibold',
+                          'px-3 py-1 text-left text-[11px] font-medium text-gray-500 dark:text-gray-400 capitalize tracking-wider',
                           border &&
-                            'border-r border-b border-gray-15 dark:border-gray-700',
+                            'border-r border-b border-gray-200/50 dark:border-gray-700/50',
                           border &&
                             colIndex === columns.length - 1 &&
                             'border-r-0',
@@ -305,9 +300,9 @@ export const BasicTable = <
                             key={column.key}
                             data-tucu="table-cell"
                             className={cn(
-                              'p-3 text-xs text-gray-600 dark:text-gray-400',
+                              'px-3 py-1.5 text-xs text-gray-700 dark:text-gray-300',
                               border &&
-                                'border-r border-b border-gray-15 dark:border-gray-700',
+                                'border-r border-b border-gray-200/50 dark:border-gray-700/50',
                               border && isLastCol && 'border-r-0',
                               border && isLastRow && 'border-b-0',
                               column.className
