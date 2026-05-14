@@ -97,13 +97,6 @@ export const useMenuItems = () => {
             component: <ThemingGuide />,
             enableNestedRoutes: true,
           },
-          {
-            name: 'MacOS Showcase',
-            path: APP_PATHS.DESIGN_SYSTEM.path + '/macos-showcase',
-            icon: <LucideIcons.MonitorSmartphone />,
-            component: <MacOSShowcase />,
-            enableNestedRoutes: true,
-          },
         ],
       },
       {
