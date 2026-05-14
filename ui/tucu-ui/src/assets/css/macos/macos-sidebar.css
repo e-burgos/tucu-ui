@@ -1,0 +1,420 @@
+/* ============================================================
+   macOS Tahoe 26 — Sidebar, ContentPane, ScrollView, SplitView
+
+   Scoped to html.macos — no leakage to default theme.
+   References: Apple HIG > Sidebars > macOS Tahoe 26
+   Components: MacOSSidebar, MacOSSidebarSection, MacOSSidebarItem,
+               MacOSContentPane, MacOSScrollView, MacOSSplitView,
+               MacOSInspector
+   ============================================================ */
+
+/* ── MacOSSidebar container ──────────────────────────────────── */
+
+html.macos [data-tucu='sidebar'] {
+  width: var(--macos-sidebar-width);
+  min-width: var(--macos-sidebar-width);
+  max-width: var(--macos-sidebar-width);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  position: relative;
+
+  /* Liquid Glass regular material */
+  background-color: var(--macos-glass-regular-bg);
+  backdrop-filter: blur(var(--macos-glass-blur, 28px)) saturate(1.6);
+  -webkit-backdrop-filter: blur(var(--macos-glass-blur, 28px)) saturate(1.6);
+  border-right: 0.5px solid var(--macos-glass-border);
+  overflow: hidden;
+}
+
+html.macos.dark [data-tucu='sidebar'] {
+  background-color: var(--macos-glass-regular-bg);
+  border-right-color: var(--macos-glass-border);
+}
+
+/* Fallback: no backdrop-filter support */
+@supports not (backdrop-filter: blur(1px)) {
+  html.macos [data-tucu='sidebar'] {
+    background-color: var(--macos-glass-regular-bg-opaque);
+  }
+}
+
+/* Reduced transparency */
+@media (prefers-reduced-transparency: reduce) {
+  html.macos [data-tucu='sidebar'] {
+    background-color: var(--macos-glass-regular-bg-opaque);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}
+
+/* Sidebar header (avatar, search, etc.) */
+html.macos [data-tucu='sidebar-header'] {
+  flex-shrink: 0;
+  padding: var(--macos-space-3) var(--macos-space-3) var(--macos-space-2);
+  border-bottom: 0.5px solid var(--macos-separator);
+}
+
+/* Sidebar scrollable navigation area */
+html.macos [data-tucu='sidebar-nav'] {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: var(--macos-space-2) var(--macos-space-2);
+  /* Custom thin scrollbar */
+  scrollbar-width: thin;
+  scrollbar-color: var(--macos-gray3) transparent;
+}
+
+html.macos [data-tucu='sidebar-nav']::-webkit-scrollbar {
+  width: 4px;
+}
+
+html.macos [data-tucu='sidebar-nav']::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+html.macos [data-tucu='sidebar-nav']::-webkit-scrollbar-thumb {
+  background-color: var(--macos-gray3);
+  border-radius: var(--macos-radius-pill);
+}
+
+html.macos.dark [data-tucu='sidebar-nav']::-webkit-scrollbar-thumb {
+  background-color: var(--macos-gray4);
+}
+
+/* Sidebar footer */
+html.macos [data-tucu='sidebar-footer'] {
+  flex-shrink: 0;
+  padding: var(--macos-space-2) var(--macos-space-3) var(--macos-space-3);
+  border-top: 0.5px solid var(--macos-separator);
+}
+
+/* ── MacOSSidebarSection ─────────────────────────────────────── */
+
+html.macos [data-tucu='sidebar-section'] {
+  margin-bottom: var(--macos-space-4);
+}
+
+html.macos [data-tucu='sidebar-section']:last-child {
+  margin-bottom: 0;
+}
+
+html.macos [data-tucu='sidebar-section-label'] {
+  font-family: var(--macos-font-family);
+  font-size: var(--macos-ts-subheadline-size);
+  font-weight: var(--macos-font-weight-semibold);
+  line-height: var(--macos-ts-subheadline-leading);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--macos-tertiary-label);
+  padding: var(--macos-space-1) var(--macos-space-2) var(--macos-space-1);
+  margin-bottom: var(--macos-space-1);
+  user-select: none;
+}
+
+html.macos [data-tucu='sidebar-section-items'] {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* ── MacOSSidebarItem ────────────────────────────────────────── */
+
+html.macos [data-tucu='sidebar-item'] {
+  height: 28px; /* Apple HIG: sidebar row 28px */
+  display: flex;
+  align-items: center;
+  gap: var(--macos-space-2);
+  padding: 0 var(--macos-space-2);
+  border-radius: var(--macos-radius-small-control);
+  width: 100%;
+  border: none;
+  background-color: transparent;
+  cursor: default;
+  text-align: left;
+  transition: background-color 0.1s ease;
+  position: relative;
+  text-decoration: none;
+}
+
+html.macos [data-tucu='sidebar-item']:hover {
+  background-color: rgba(0, 0, 0, 0.06);
+}
+
+html.macos.dark [data-tucu='sidebar-item']:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+/* Active / selected state */
+html.macos [data-tucu='sidebar-item'][data-active='true'],
+html.macos [data-tucu='sidebar-item'][aria-current='page'],
+html.macos [data-tucu='sidebar-item'][aria-selected='true'] {
+  background-color: var(
+    --macos-tahoe-sidebar-item-active-bg,
+    color-mix(in srgb, var(--color-brand, #0088ff) 14%, transparent)
+  );
+  color: var(
+    --macos-tahoe-sidebar-item-active-text,
+    var(--macos-control-accent)
+  );
+  font-weight: var(--macos-font-weight-medium);
+}
+
+html.macos.dark [data-tucu='sidebar-item'][data-active='true'],
+html.macos.dark [data-tucu='sidebar-item'][aria-current='page'],
+html.macos.dark [data-tucu='sidebar-item'][aria-selected='true'] {
+  background-color: var(
+    --macos-tahoe-sidebar-item-active-bg,
+    color-mix(in srgb, var(--color-brand, #0091ff) 18%, transparent)
+  );
+  color: var(
+    --macos-tahoe-sidebar-item-active-text,
+    var(--color-brand, #3da3ff)
+  );
+}
+
+/* Pressed / active press state */
+html.macos [data-tucu='sidebar-item']:active {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+html.macos.dark [data-tucu='sidebar-item']:active {
+  background-color: rgba(255, 255, 255, 0.12);
+}
+
+/* Disabled */
+html.macos [data-tucu='sidebar-item'][disabled],
+html.macos [data-tucu='sidebar-item']:disabled,
+html.macos [data-tucu='sidebar-item'][data-disabled='true'] {
+  opacity: 0.38;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Focus */
+html.macos [data-tucu='sidebar-item']:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 var(--macos-focus-ring-width) var(--macos-focus-ring);
+}
+
+/* Item icon */
+html.macos [data-tucu='sidebar-item-icon'] {
+  width: var(--macos-sidebar-icon-size);
+  height: var(--macos-sidebar-icon-size);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--macos-secondary-label);
+}
+
+html.macos
+  [data-tucu='sidebar-item'][data-active='true']
+  [data-tucu='sidebar-item-icon'],
+html.macos
+  [data-tucu='sidebar-item'][aria-current='page']
+  [data-tucu='sidebar-item-icon'] {
+  color: var(--macos-control-accent);
+}
+
+/* Item label */
+html.macos [data-tucu='sidebar-item-label'] {
+  flex: 1;
+  font-family: var(--macos-font-family);
+  font-size: var(--macos-ts-body-size);
+  font-weight: inherit;
+  line-height: var(--macos-ts-body-leading);
+  letter-spacing: var(--macos-ts-body-tracking);
+  color: var(--macos-label);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  user-select: none;
+}
+
+html.macos
+  [data-tucu='sidebar-item'][data-active='true']
+  [data-tucu='sidebar-item-label'],
+html.macos
+  [data-tucu='sidebar-item'][aria-current='page']
+  [data-tucu='sidebar-item-label'] {
+  color: inherit;
+}
+
+/* Item badge */
+html.macos [data-tucu='sidebar-item-badge'] {
+  flex-shrink: 0;
+  min-width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 5px;
+  border-radius: var(--macos-radius-pill);
+  font-family: var(--macos-font-family);
+  font-size: var(--macos-ts-caption2-size);
+  font-weight: var(--macos-font-weight-medium);
+  background-color: var(--macos-secondary-label);
+  color: var(--macos-window-bg);
+}
+
+html.macos
+  [data-tucu='sidebar-item'][data-active='true']
+  [data-tucu='sidebar-item-badge'] {
+  background-color: var(--macos-control-accent);
+  color: #ffffff;
+}
+
+html.macos.dark [data-tucu='sidebar-item-badge'] {
+  background-color: rgba(235, 235, 245, 0.3);
+  color: rgba(235, 235, 245, 0.88);
+}
+
+/* ── MacOSContentPane ────────────────────────────────────────── */
+/* SOLID background — no glass in content areas */
+
+html.macos [data-tucu='content-pane'] {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background-color: var(--macos-content-bg);
+  position: relative;
+}
+
+html.macos.dark [data-tucu='content-pane'] {
+  background-color: var(--macos-content-bg);
+}
+
+html.macos [data-tucu='content-pane-body'] {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: var(--macos-content-padding);
+}
+
+/* ── MacOSScrollView ─────────────────────────────────────────── */
+
+html.macos [data-tucu='scroll-view'] {
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
+  /* Thin scrollbar */
+  scrollbar-width: thin;
+  scrollbar-color: var(--macos-gray3) transparent;
+}
+
+html.macos [data-tucu='scroll-view']::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+html.macos [data-tucu='scroll-view']::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+html.macos [data-tucu='scroll-view']::-webkit-scrollbar-thumb {
+  background-color: var(--macos-gray3);
+  border-radius: var(--macos-radius-pill);
+}
+
+html.macos.dark [data-tucu='scroll-view']::-webkit-scrollbar-thumb {
+  background-color: var(--macos-gray4);
+}
+
+/* Scroll edge overlays */
+html.macos [data-tucu='scroll-view'] > [data-tucu='scroll-edge-top'] {
+  background: linear-gradient(to bottom, var(--macos-content-bg), transparent);
+}
+
+html.macos [data-tucu='scroll-view'] > [data-tucu='scroll-edge-bottom'] {
+  background: linear-gradient(to top, var(--macos-content-bg), transparent);
+}
+
+/* ── MacOSSplitView ──────────────────────────────────────────── */
+
+html.macos [data-tucu='split-view'] {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+html.macos [data-tucu='split-divider'] {
+  width: 1px;
+  min-width: 1px;
+  background-color: var(--macos-separator);
+  cursor: col-resize;
+  position: relative;
+  flex-shrink: 0;
+  transition: background-color 0.15s ease;
+}
+
+html.macos [data-tucu='split-divider']:hover,
+html.macos [data-tucu='split-divider'][data-dragging='true'] {
+  background-color: var(--macos-control-accent);
+}
+
+html.macos [data-tucu='split-divider']::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -4px;
+  right: -4px;
+}
+
+/* ── MacOSInspector ──────────────────────────────────────────── */
+
+html.macos [data-tucu='inspector'] {
+  width: var(--macos-inspector-width);
+  min-width: var(--macos-inspector-width);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  background-color: var(--macos-grouped-bg);
+  border-left: 0.5px solid var(--macos-separator);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+html.macos.dark [data-tucu='inspector'] {
+  background-color: var(--macos-grouped-bg);
+  border-left-color: var(--macos-separator);
+}
+
+html.macos [data-tucu='inspector-section'] {
+  padding: var(--macos-space-4);
+  border-bottom: 0.5px solid var(--macos-separator);
+}
+
+html.macos [data-tucu='inspector-section']:last-child {
+  border-bottom: none;
+}
+
+html.macos [data-tucu='inspector-section-title'] {
+  font-family: var(--macos-font-family);
+  font-size: var(--macos-ts-subheadline-size);
+  font-weight: var(--macos-font-weight-semibold);
+  line-height: var(--macos-ts-subheadline-leading);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--macos-tertiary-label);
+  margin-bottom: var(--macos-space-2);
+  user-select: none;
+}
+
+/* ── Reduced motion ──────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  html.macos [data-tucu='sidebar-item'],
+  html.macos [data-tucu='split-divider'] {
+    transition: none;
+  }
+}

@@ -1,13 +1,14 @@
 /* ============================================================
-   macOS Sonoma 14 — Feedback Component Overrides
+   macOS Tahoe 26 — Feedback Component Overrides
 
-   Targets: Alert, Badge, Spinner, Toast, Progressbar, Skeleton
+   Targets: Alert, Badge, Spinner, Toast, Progressbar, Skeleton,
+            Loader, NotificationCard
    Selectors: html.macos [data-tucu="alert"], etc.
 
    References:
-   - macOS system notifications: 12pt radius, vibrancy material
-   - Badges: pill shape, system colors
-   - Native NSAlert style
+   - Apple HIG Tahoe > Alerts: radius-2xl, system colors
+   - Badges: pill shape, 12pt, system colors
+   - Toast: glass regular material, compact
    ============================================================ */
 
 /* ── Alert ───────────────────────────────────────────────────── */
@@ -104,11 +105,8 @@ html.macos [data-tucu='badge'] {
   line-height: 1.2;
 }
 
-/* Badge solid: system accent color */
-html.macos [data-tucu='badge'][data-variant='solid'] {
-  background-color: var(--macos-system-red);
-  color: #ffffff;
-}
+/* Badge solid: keep component color, just enforce macOS shape/font */
+/* Do NOT override background-color — the React component sets per-color classes */
 
 /* Badge ghost/outline: border style */
 html.macos [data-tucu='badge'][data-variant='ghost'],
@@ -201,6 +199,28 @@ html.macos.dark [data-tucu='skeleton'] {
   }
 }
 
+/* ── Loader (three-dots) ─────────────────────────────────────── */
+
+html.macos [data-tucu='loader'] > span {
+  background-color: var(--macos-secondary-label);
+  border-radius: var(--macos-radius-full);
+}
+
+/* ── Notification Card ───────────────────────────────────────── */
+
+html.macos [data-tucu='notification-card'] {
+  background-color: var(--macos-content-bg);
+  border-radius: var(--macos-radius-xl);
+  border: 0.5px solid var(--macos-separator);
+  box-shadow: var(--macos-shadow-card);
+  transition: box-shadow var(--macos-transition-fast),
+    transform var(--macos-transition-fast);
+}
+
+html.macos [data-tucu='notification-card']:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+
 /* ============================================================
    macOS Tahoe 26 — Feedback & Loaders
    ============================================================ */
@@ -210,7 +230,8 @@ html.macos-tahoe [data-tucu='toast'],
 html.macos-tahoe [data-tucu='notification'] {
   background: var(--macos-glass-prominent-bg);
   backdrop-filter: blur(var(--macos-glass-prominent-blur)) saturate(150%);
-  -webkit-backdrop-filter: blur(var(--macos-glass-prominent-blur)) saturate(150%);
+  -webkit-backdrop-filter: blur(var(--macos-glass-prominent-blur))
+    saturate(150%);
   border: 1px solid var(--macos-glass-prominent-border);
   box-shadow: var(--macos-glass-shadow), var(--macos-glass-highlight);
   border-radius: var(--macos-radius-lg);

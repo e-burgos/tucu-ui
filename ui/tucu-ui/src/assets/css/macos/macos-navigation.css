@@ -1,13 +1,13 @@
 /* ============================================================
-   macOS Sonoma 14 — Navigation Overrides
+   macOS Tahoe 26 — Navigation Overrides
 
    Targets: Tabs, ParamTab, CollapsibleMenu, NavLink
    Selectors: html.macos [data-tucu="tabs"], etc.
 
    References:
-   - macOS Sonoma segmented control: 24pt height, 5pt radius
+   - macOS Tahoe segmented control: 24pt height, 8-10pt radius
    - Tab bar: bottom border, semibold active tab
-   - macOS Finder sidebar groups
+   - macOS Finder sidebar groups, glass materials
    ============================================================ */
 
 /* ── Tabs container ──────────────────────────────────────────── */
@@ -46,42 +46,49 @@ html.macos [data-tucu='tab'][data-active='true'] {
 
 html.macos [data-tucu='tab']:focus-visible {
   outline: none;
-  box-shadow: var(--macos-shadow-focus);
+  box-shadow: 0 0 0 var(--macos-focus-ring-width) var(--macos-focus-ring);
 }
 
 /* ── Segmented Control style (ParamTab) ──────────────────────── */
 html.macos [data-tucu='segmented-control'] {
   display: inline-flex;
-  background-color: var(--macos-gray6);
-  border-radius: var(--macos-radius-md);
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: var(--macos-radius-small-control);
   padding: 2px;
   gap: 1px;
 }
 
 html.macos.dark [data-tucu='segmented-control'] {
-  background-color: var(--macos-gray5);
+  background-color: rgba(255, 255, 255, 0.08);
 }
 
 html.macos [data-tucu='segmented-item'] {
   height: calc(var(--macos-segmented-height) - 4px);
   padding: 0 var(--macos-space-3);
-  border-radius: calc(var(--macos-radius-md) - 2px);
-  font-size: var(--macos-font-size-body);
-  font-weight: var(--macos-font-weight-regular);
-  color: var(--macos-label);
+  border-radius: 7px;
+  font-size: var(--macos-font-size-callout);
+  font-weight: var(--macos-font-weight-medium);
+  color: var(--macos-secondary-label);
   background: transparent;
-  transition: all var(--macos-transition-fast);
+  transition: background-color 0.1s ease, color 0.1s ease, box-shadow 0.1s ease;
 }
 
 html.macos [data-tucu='segmented-item'][data-active='true'] {
   background-color: var(--macos-control-bg);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 0.5px 1px rgba(0, 0, 0, 0.06);
+  color: var(--macos-label);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 0.5px 1px rgba(0, 0, 0, 0.08);
   font-weight: var(--macos-font-weight-medium);
 }
 
 html.macos.dark [data-tucu='segmented-item'][data-active='true'] {
-  background-color: var(--macos-gray4);
+  background-color: rgba(99, 99, 102, 0.7);
+  color: var(--macos-label);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+}
+
+html.macos [data-tucu='segmented-item']:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 var(--macos-focus-ring-width) var(--macos-focus-ring);
 }
 
 /* ── Collapsible Menu ────────────────────────────────────────── */
@@ -163,7 +170,7 @@ html.macos-tahoe [data-tucu='segmented-control'] {
 
 html.macos-tahoe [data-tucu='segmented-control-item'][data-state='active'] {
   background: var(--macos-glass-prominent-bg);
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1), var(--macos-glass-highlight);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), var(--macos-glass-highlight);
   border-radius: calc(var(--macos-radius-md) - 2px);
   color: var(--macos-label);
 }
@@ -176,7 +183,7 @@ html.macos-tahoe [data-tucu='segmented-control-item'][data-state='active'] {
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
   }
-  
+
   html.macos-tahoe [data-tucu='macos-toolbar'],
   html.macos-tahoe [data-tucu='macos-sidebar'] {
     background: var(--color-semantic-elevation-2);

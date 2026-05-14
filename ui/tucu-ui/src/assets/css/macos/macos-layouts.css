@@ -1,30 +1,135 @@
 /* ============================================================
-   macOS Sonoma 14 — Layout Overrides
+   macOS Tahoe 26 — Layout Overrides (updated Fase 6)
 
-   Targets: Header, Sidebar, Scrollbar, Main content
-   Selectors: html.macos [data-tucu="header"], etc.
+   Targets: Header, AdminLayout, HorizontalLayout, Sidebar,
+            Menus, Scrollbar, Main content
+   Selectors: html.macos [data-tucu="..."]
 
    References:
-   - Apple HIG > Sidebars: 220pt width, translucent material
-   - macOS titlebar: 28pt, toolbar: 52pt
-   - macOS scrollbar: thin, auto-hide, overlay style
+   - Apple HIG > Sidebars: 240pt width, translucent material
+   - Apple HIG > Toolbars: 52pt height, glass regular
+   - macOS titlebar: 28pt, scrollbar: thin auto-hide overlay
    ============================================================ */
 
 /* ── Header / Toolbar area ───────────────────────────────────── */
 html.macos [data-tucu='header'] {
   height: var(--macos-toolbar-height);
-  background-color: var(--macos-material-toolbar);
-  backdrop-filter: blur(var(--macos-material-toolbar-blur));
-  -webkit-backdrop-filter: blur(var(--macos-material-toolbar-blur));
-  border-bottom: 1px solid var(--macos-separator);
+  background-color: var(--macos-glass-regular-bg);
+  backdrop-filter: blur(var(--macos-glass-blur, 28px)) saturate(1.6);
+  -webkit-backdrop-filter: blur(var(--macos-glass-blur, 28px)) saturate(1.6);
+  border-bottom: 0.5px solid var(--macos-glass-border);
   padding: 0 var(--macos-space-4);
   display: flex;
   align-items: center;
 }
 
 html.macos.dark [data-tucu='header'] {
-  background-color: var(--macos-material-toolbar);
-  border-bottom-color: var(--macos-separator);
+  background-color: var(--macos-glass-regular-bg);
+  border-bottom-color: var(--macos-glass-border);
+}
+
+/* ── Admin Header ────────────────────────────────────────────── */
+html.macos [data-tucu='admin-header'] {
+  height: var(--macos-toolbar-height) !important;
+  min-height: var(--macos-toolbar-height) !important;
+  background-color: var(--macos-glass-regular-bg) !important;
+  backdrop-filter: blur(var(--macos-glass-blur, 28px)) saturate(1.6) !important;
+  -webkit-backdrop-filter: blur(var(--macos-glass-blur, 28px)) saturate(1.6) !important;
+  border-bottom: 0.5px solid var(--macos-glass-border) !important;
+  box-shadow: none !important;
+  padding: 0 var(--macos-space-4) !important;
+}
+
+html.macos.dark [data-tucu='admin-header'] {
+  background-color: var(--macos-glass-regular-bg) !important;
+  border-bottom-color: var(--macos-glass-border) !important;
+}
+
+/* ── Horizontal Header ───────────────────────────────────────── */
+html.macos [data-tucu='horizontal-header'] {
+  height: var(--macos-toolbar-height) !important;
+  min-height: var(--macos-toolbar-height) !important;
+  background-color: var(--macos-glass-regular-bg) !important;
+  backdrop-filter: blur(var(--macos-glass-blur, 28px)) saturate(1.6) !important;
+  -webkit-backdrop-filter: blur(var(--macos-glass-blur, 28px)) saturate(1.6) !important;
+  border-bottom: 0.5px solid var(--macos-glass-border) !important;
+  box-shadow: none !important;
+  font-family: var(--macos-font-family) !important;
+}
+
+html.macos.dark [data-tucu='horizontal-header'] {
+  background-color: var(--macos-glass-regular-bg) !important;
+  border-bottom-color: var(--macos-glass-border) !important;
+}
+
+/* ── Admin Layout ────────────────────────────────────────────── */
+html.macos [data-tucu='admin-layout'] {
+  background-color: var(--macos-window-bg);
+  font-family: var(--macos-font-family);
+}
+
+html.macos.dark [data-tucu='admin-layout'] {
+  background-color: var(--macos-window-bg);
+}
+
+html.macos [data-tucu='admin-content'] {
+  background-color: var(--macos-window-bg);
+}
+
+html.macos.dark [data-tucu='admin-content'] {
+  background-color: var(--macos-window-bg);
+}
+
+/* ── Horizontal Layout ───────────────────────────────────────── */
+html.macos [data-tucu='horizontal-layout'] {
+  background-color: var(--macos-window-bg);
+  font-family: var(--macos-font-family);
+}
+
+html.macos.dark [data-tucu='horizontal-layout'] {
+  background-color: var(--macos-window-bg);
+}
+
+html.macos [data-tucu='horizontal-content'] {
+  background-color: var(--macos-window-bg);
+}
+
+html.macos.dark [data-tucu='horizontal-content'] {
+  background-color: var(--macos-window-bg);
+}
+
+/* ── Expandable Sidebar ──────────────────────────────────────── */
+html.macos [data-tucu='expandable-sidebar'] {
+  background-color: var(--macos-glass-regular-bg) !important;
+  backdrop-filter: blur(var(--macos-glass-blur, 28px)) saturate(1.6) !important;
+  -webkit-backdrop-filter: blur(var(--macos-glass-blur, 28px)) saturate(1.6) !important;
+  border-right: 0.5px solid var(--macos-glass-border) !important;
+  border-left: none !important;
+  font-family: var(--macos-font-family) !important;
+}
+
+html.macos.dark [data-tucu='expandable-sidebar'] {
+  background-color: var(--macos-glass-regular-bg) !important;
+  border-right-color: var(--macos-glass-border) !important;
+}
+
+/* Fallback for no backdrop-filter */
+@supports not (backdrop-filter: blur(1px)) {
+  html.macos [data-tucu='admin-header'],
+  html.macos [data-tucu='horizontal-header'],
+  html.macos [data-tucu='expandable-sidebar'] {
+    background-color: var(--macos-glass-regular-bg-opaque) !important;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  html.macos [data-tucu='admin-header'],
+  html.macos [data-tucu='horizontal-header'],
+  html.macos [data-tucu='expandable-sidebar'] {
+    background-color: var(--macos-glass-regular-bg-opaque) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
 }
 
 /* ── Main content area ───────────────────────────────────────── */
@@ -85,6 +190,40 @@ html.macos.dark body {
   background-color: var(--macos-window-bg);
 }
 
+/* In Tahoe mode, body gets the aurora gradient (visible in padding areas) */
+html.dark.macos-tahoe body {
+  background: radial-gradient(
+      ellipse at 15% 20%,
+      rgba(30, 100, 255, 0.85),
+      transparent 42%
+    ),
+    radial-gradient(
+      ellipse at 82% 72%,
+      rgba(120, 60, 240, 0.72),
+      transparent 46%
+    ),
+    radial-gradient(
+      ellipse at 50% 100%,
+      rgba(60, 40, 160, 0.45),
+      transparent 36%
+    ),
+    linear-gradient(170deg, #0c1428 0%, #090e1e 60%, #060b16 100%);
+}
+
+html.light.macos-tahoe body {
+  background: radial-gradient(
+      ellipse at 10% 15%,
+      rgba(90, 170, 255, 0.44),
+      transparent 38%
+    ),
+    radial-gradient(
+      ellipse at 85% 80%,
+      rgba(160, 210, 255, 0.46),
+      transparent 42%
+    ),
+    linear-gradient(170deg, #c8e6ff 0%, #d4edff 50%, #bcd8f0 100%);
+}
+
 /* ── Documentation content width in macOS ───────────────────── */
 html.macos
   [data-tucu='macos-layout-content-inner']
@@ -120,30 +259,47 @@ html.macos [data-tucu='container'] {
 /* ── macOS Tahoe layout surface tokens ───────────────────────── */
 html.light.macos-tahoe {
   --macos-tahoe-root-bg: radial-gradient(
-      circle at 0% 0%,
-      rgba(122, 194, 244, 0.34),
-      transparent 30%
+      ellipse at 10% 15%,
+      rgba(90, 170, 255, 0.46),
+      transparent 38%
     ),
     radial-gradient(
-      circle at 100% 100%,
-      rgba(198, 224, 241, 0.42),
-      transparent 36%
+      ellipse at 85% 80%,
+      rgba(160, 210, 255, 0.5),
+      transparent 42%
     ),
-    linear-gradient(180deg, #d9eef9 0%, #c7deeb 100%);
+    radial-gradient(
+      ellipse at 50% 0%,
+      rgba(120, 190, 250, 0.34),
+      transparent 28%
+    ),
+    linear-gradient(170deg, #c8e6ff 0%, #d4edff 50%, #bcd8f0 100%);
   --macos-tahoe-sidebar-bg: rgba(227, 241, 249, 0.72);
   --macos-tahoe-panel-bg: rgba(255, 255, 255, 0.58);
   --macos-tahoe-toolbar-bg: rgba(255, 255, 255, 0.32);
   --macos-tahoe-border: rgba(130, 161, 183, 0.28);
   --macos-tahoe-text: #273642;
   --macos-tahoe-text-muted: rgba(39, 54, 66, 0.66);
-  --macos-tahoe-accent: #0b84ff;
-  --macos-tahoe-selection: rgba(11, 132, 255, 0.15);
+  --macos-tahoe-accent: var(--color-brand, #0b84ff);
+  --macos-tahoe-selection: color-mix(
+    in srgb,
+    var(--color-brand, #0b84ff) 15%,
+    transparent
+  );
   --macos-tahoe-hover: rgba(255, 255, 255, 0.3);
   --macos-tahoe-sidebar-item-text: rgba(41, 54, 65, 0.9);
   --macos-tahoe-sidebar-item-icon: rgba(67, 82, 95, 0.82);
   --macos-tahoe-sidebar-item-active-bg: rgba(231, 237, 243, 0.88);
-  --macos-tahoe-sidebar-item-active-text: #004fa9;
-  --macos-tahoe-sidebar-item-active-icon: #004fa9;
+  --macos-tahoe-sidebar-item-active-text: color-mix(
+    in srgb,
+    var(--color-brand, #0b84ff) 70%,
+    #000
+  );
+  --macos-tahoe-sidebar-item-active-icon: color-mix(
+    in srgb,
+    var(--color-brand, #0b84ff) 70%,
+    #000
+  );
   --macos-tahoe-sidebar-item-active-stroke: rgba(162, 178, 192, 0.6);
   --macos-tahoe-sidebar-item-hover-bg: rgba(255, 255, 255, 0.14);
   --macos-tahoe-sidebar-shadow: 0 28px 60px rgba(89, 120, 141, 0.18),
@@ -154,32 +310,50 @@ html.light.macos-tahoe {
 
 html.dark.macos-tahoe {
   --macos-tahoe-root-bg: radial-gradient(
-      circle at 0% 0%,
-      rgba(57, 112, 163, 0.26),
-      transparent 30%
+      ellipse at 15% 20%,
+      rgba(30, 100, 255, 0.88),
+      transparent 42%
     ),
     radial-gradient(
-      circle at 100% 100%,
-      rgba(88, 119, 146, 0.18),
-      transparent 34%
+      ellipse at 80% 75%,
+      rgba(120, 60, 240, 0.75),
+      transparent 46%
     ),
-    linear-gradient(180deg, #263038 0%, #1b232a 100%);
-  --macos-tahoe-sidebar-bg: rgba(20, 28, 36, 0.62);
+    radial-gradient(ellipse at 55% 5%, rgba(20, 70, 200, 0.55), transparent 30%),
+    radial-gradient(
+      ellipse at 50% 100%,
+      rgba(60, 30, 150, 0.42),
+      transparent 36%
+    ),
+    linear-gradient(170deg, #0c1428 0%, #090e1e 60%, #060b16 100%);
+  --macos-tahoe-sidebar-bg: rgba(14, 20, 30, 0.76);
   --macos-tahoe-panel-bg: rgba(34, 40, 47, 0.74);
   --macos-tahoe-toolbar-bg: rgba(19, 24, 30, 0.48);
   --macos-tahoe-border: rgba(152, 175, 194, 0.13);
-  --macos-tahoe-text: rgba(242, 247, 250, 0.92);
-  --macos-tahoe-text-muted: rgba(179, 193, 205, 0.72);
-  --macos-tahoe-accent: #3aa5ff;
-  --macos-tahoe-selection: rgba(58, 165, 255, 0.18);
+  --macos-tahoe-text: rgba(255, 255, 255, 0.92);
+  --macos-tahoe-text-muted: rgba(255, 255, 255, 0.5);
+  --macos-tahoe-accent: var(--color-brand, #3aa5ff);
+  --macos-tahoe-selection: color-mix(
+    in srgb,
+    var(--color-brand, #3aa5ff) 18%,
+    transparent
+  );
   --macos-tahoe-hover: rgba(255, 255, 255, 0.06);
-  --macos-tahoe-sidebar-item-text: rgba(241, 246, 250, 0.94);
-  --macos-tahoe-sidebar-item-icon: rgba(205, 218, 229, 0.84);
-  --macos-tahoe-sidebar-item-active-bg: rgba(54, 62, 70, 0.82);
-  --macos-tahoe-sidebar-item-active-text: #1bb0ff;
-  --macos-tahoe-sidebar-item-active-icon: #1bb0ff;
-  --macos-tahoe-sidebar-item-active-stroke: rgba(255, 255, 255, 0.08);
-  --macos-tahoe-sidebar-item-hover-bg: rgba(255, 255, 255, 0.05);
+  --macos-tahoe-sidebar-item-text: rgba(255, 255, 255, 0.88);
+  --macos-tahoe-sidebar-item-icon: rgba(255, 255, 255, 0.5);
+  --macos-tahoe-sidebar-item-active-bg: color-mix(
+    in srgb,
+    var(--color-brand, #3aa5ff) 15%,
+    transparent
+  );
+  --macos-tahoe-sidebar-item-active-text: rgba(255, 255, 255, 0.96);
+  --macos-tahoe-sidebar-item-active-icon: var(--color-brand, #3aa5ff);
+  --macos-tahoe-sidebar-item-active-stroke: color-mix(
+    in srgb,
+    var(--color-brand, #3aa5ff) 30%,
+    transparent
+  );
+  --macos-tahoe-sidebar-item-hover-bg: rgba(255, 255, 255, 0.08);
   --macos-tahoe-sidebar-shadow: 0 28px 60px rgba(0, 0, 0, 0.34),
     inset 0 1px 0 rgba(255, 255, 255, 0.06);
   --macos-tahoe-shell-shadow: 0 36px 84px rgba(0, 0, 0, 0.34),
@@ -188,6 +362,12 @@ html.dark.macos-tahoe {
 
 html.macos-tahoe [data-tucu='macos-tahoe-root'] {
   background: var(--macos-tahoe-root-bg);
+}
+
+/* Override --color-body so the fixed theme-wrapper becomes transparent in Tahoe,
+   allowing the body aurora gradient to show through */
+html.macos-tahoe {
+  --color-body: transparent;
 }
 
 html.macos-tahoe [data-tucu='macos-tahoe-sidebar'] {
@@ -224,6 +404,16 @@ html.macos-tahoe [data-tucu='macos-tahoe-toolbar-center'] {
 
 html.macos-tahoe [data-tucu='macos-tahoe-drawer'] {
   box-shadow: var(--macos-tahoe-sidebar-shadow);
+}
+
+/* Reset link color inside Tahoe sidebar & TOC — items use Tailwind text classes */
+html.macos.macos-tahoe [data-tucu='macos-tahoe-sidebar'] a,
+html.macos.macos-tahoe [data-tucu='macos-tahoe-drawer'] a,
+html.macos.macos-tahoe [data-tucu='macos-tahoe-toc'] a,
+html.macos.macos-tahoe [data-tucu='macos-tahoe-sidebar'] a:hover,
+html.macos.macos-tahoe [data-tucu='macos-tahoe-drawer'] a:hover,
+html.macos.macos-tahoe [data-tucu='macos-tahoe-toc'] a:hover {
+  color: inherit;
 }
 
 html.macos.macos-tahoe [data-tucu='drawer'] {

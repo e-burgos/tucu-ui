@@ -1,34 +1,55 @@
 /* ============================================================
-   macOS Sonoma 14 — Dialog Overrides
+   macOS Tahoe 26 — Dialog Overrides
 
    Targets: Modal, Drawer, Sidebar, SettingsDrawer
    Selectors: html.macos [data-tucu="modal"], etc.
 
    References:
-   - Apple HIG > Sheets: 12pt radius, blur 30px, 0.94 opacity
-   - Apple HIG > Sidebars: 220pt width, blur 20px, 0.82 opacity
-   - Apple HIG > Dialogs: centered, 10pt radius
+   - Apple HIG Tahoe > Sheets: glass regular, 24pt radius
+   - Apple HIG Tahoe > Sidebars: 220pt width, glass thin
+   - Apple HIG Tahoe > Dialogs: centered, radius-popover
    ============================================================ */
 
 /* ── Modal / Sheet ───────────────────────────────────────────── */
 html.macos [data-tucu='modal'] {
-  border-radius: var(--macos-radius-2xl);
-  background-color: var(--macos-material-sheet);
-  backdrop-filter: blur(var(--macos-material-sheet-blur));
-  -webkit-backdrop-filter: blur(var(--macos-material-sheet-blur));
-  box-shadow: var(--macos-shadow-window);
-  border: 1px solid var(--macos-separator);
+  border-radius: var(--macos-radius-popover);
+  background-color: var(--macos-glass-regular-bg-opaque);
+  border: 0.5px solid var(--macos-glass-border);
+  box-shadow: var(--macos-shadow-window), 0 0 0 0.5px rgba(0, 0, 0, 0.06) inset;
   overflow: hidden;
 }
 
+@supports (backdrop-filter: blur(1px)) {
+  html.macos [data-tucu='modal'] {
+    background-color: var(--macos-glass-regular-bg);
+    backdrop-filter: blur(var(--macos-glass-regular-blur)) saturate(150%);
+    -webkit-backdrop-filter: blur(var(--macos-glass-regular-blur))
+      saturate(150%);
+  }
+}
+
 html.macos.dark [data-tucu='modal'] {
-  background-color: var(--macos-material-sheet);
   border-color: var(--macos-separator);
 }
 
 /* Modal overlay */
 html.macos [data-tucu='modal-overlay'] {
-  background-color: var(--macos-material-overlay);
+  background-color: rgba(0, 0, 0, 0.32) !important;
+}
+
+html.macos.dark [data-tucu='modal-overlay'] {
+  background-color: rgba(0, 0, 0, 0.48) !important;
+}
+
+/* Modal overlay Tahoe */
+html.macos-tahoe [data-tucu='modal-overlay'] {
+  background-color: rgba(0, 0, 0, 0.2) !important;
+  backdrop-filter: blur(2px) !important;
+  -webkit-backdrop-filter: blur(2px) !important;
+}
+
+html.macos-tahoe.dark [data-tucu='modal-overlay'] {
+  background-color: rgba(0, 0, 0, 0.4) !important;
 }
 
 /* Modal header */
@@ -55,15 +76,21 @@ html.macos [data-tucu='modal-footer'] {
 
 /* ── Drawer ──────────────────────────────────────────────────── */
 html.macos [data-tucu='drawer'] {
-  background-color: var(--macos-material-sheet);
-  backdrop-filter: blur(var(--macos-material-sheet-blur));
-  -webkit-backdrop-filter: blur(var(--macos-material-sheet-blur));
-  box-shadow: var(--macos-shadow-window);
-  border-left: 1px solid var(--macos-separator);
+  background-color: var(--macos-glass-regular-bg-opaque);
+  border-left: 0.5px solid var(--macos-separator);
+  box-shadow: -4px 0 24px rgba(0, 0, 0, 0.16);
+}
+
+@supports (backdrop-filter: blur(1px)) {
+  html.macos [data-tucu='drawer'] {
+    background-color: var(--macos-glass-regular-bg);
+    backdrop-filter: blur(var(--macos-glass-regular-blur)) saturate(140%);
+    -webkit-backdrop-filter: blur(var(--macos-glass-regular-blur))
+      saturate(140%);
+  }
 }
 
 html.macos.dark [data-tucu='drawer'] {
-  background-color: var(--macos-material-sheet);
   border-left-color: var(--macos-separator);
 }
 
@@ -126,26 +153,43 @@ html.macos [data-tucu='sidebar-icon'] {
    ============================================================ */
 
 /* ── Modals / Dialogs ────────────────────────────────────────── */
-html.macos-tahoe [data-tucu='modal-content'],
-html.macos-tahoe [data-tucu='drawer-content'],
-html.macos-tahoe [data-tucu='sidebar-content'],
-html.macos-tahoe [data-tucu='popover-content'] {
-  background: var(--macos-glass-regular-bg);
-  backdrop-filter: blur(var(--macos-glass-regular-blur)) saturate(150%);
-  -webkit-backdrop-filter: blur(var(--macos-glass-regular-blur)) saturate(150%);
-  border: 1px solid var(--macos-glass-regular-border);
-  box-shadow: var(--macos-shadow-window), var(--macos-glass-highlight);
-  border-radius: var(--macos-radius-xl);
+/* Note: [data-tucu='drawer'] is intentionally excluded from Tahoe glass rules.
+   It is the full-screen positioning wrapper inside DrawerContainer — it must stay
+   transparent. In Tahoe, the actual glass panel is [data-tucu='macos-tahoe-drawer']. */
+html.macos-tahoe [data-tucu='modal'],
+html.macos-tahoe [data-tucu='sidebar'],
+html.macos-tahoe [data-tucu='popover'] {
+  background: var(--macos-glass-regular-bg) !important;
+  backdrop-filter: blur(var(--macos-glass-regular-blur)) saturate(150%) !important;
+  -webkit-backdrop-filter: blur(var(--macos-glass-regular-blur)) saturate(150%) !important;
+  border: 1px solid var(--macos-glass-border) !important;
+  box-shadow: var(--macos-shadow-window), var(--macos-glass-highlight) !important;
+  border-radius: var(--macos-radius-2xl) !important;
+}
+
+/* In Tahoe, the DrawerContainer wrapper must be fully transparent.
+   The glass panel is the macos-tahoe-drawer aside — not this wrapper. */
+html.macos-tahoe [data-tucu='drawer'] {
+  background: transparent !important;
+  background-color: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  box-shadow: none !important;
+  border: none !important;
 }
 
 @media (prefers-reduced-transparency: reduce) {
-  html.macos-tahoe [data-tucu='modal-content'],
-  html.macos-tahoe [data-tucu='drawer-content'],
-  html.macos-tahoe [data-tucu='sidebar-content'],
-  html.macos-tahoe [data-tucu='popover-content'] {
+  html.macos-tahoe [data-tucu='modal'],
+  html.macos-tahoe [data-tucu='sidebar'],
+  html.macos-tahoe [data-tucu='popover'] {
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
-    background: var(--color-semantic-elevation-1);
-    box-shadow: var(--macos-shadow-window);
+    background: var(--color-semantic-elevation-1) !important;
+    box-shadow: var(--macos-shadow-window) !important;
   }
+}
+
+html.macos-tahoe [data-tucu='modal'] h3 {
+  border-bottom: none !important;
+  margin-bottom: var(--macos-space-2);
 }

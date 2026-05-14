@@ -8,8 +8,14 @@
 @import './macos-liquid-glass.css';
 @import './macos-backgrounds.css';
 
+/* Fase 5 — Shell: Window, Toolbar, Sidebar */
+@import './macos-window.css';
+@import './macos-toolbar.css';
+@import './macos-sidebar.css';
+
 /* Fase B — High-visibility components */
 @import './macos-buttons.css';
+@import './macos-selection.css';
 @import './macos-cards.css';
 @import './macos-inputs.css';
 @import './macos-dialogs.css';
@@ -17,9 +23,12 @@
 /* Fase C — Data & navigation */
 @import './macos-tables.css';
 @import './macos-navigation.css';
+@import './macos-menus.css';
+@import './macos-content.css';
 @import './macos-feedback.css';
 
 /* Fase D — Typography, layouts, misc */
 @import './macos-typography.css';
 @import './macos-layouts.css';
+@import './macos-auth.css';
 @import './macos-misc.css';

@@ -1,13 +1,14 @@
 /* ============================================================
-   macOS Sonoma 14 — Table & Pagination Overrides
+   macOS Tahoe 26 — Table & Pagination Overrides
 
    Targets: BasicTable, Pagination
    Selectors: html.macos [data-tucu="table"], etc.
 
    References:
-   - macOS Finder list view: alternating row bg, 24pt row height
-   - Table header: separator bottom, semibold 11pt
-   - Selection: systemBlue background, white text
+   - macOS Tahoe Finder list view: hairline separators, 24pt row
+   - Table header: separator bottom, medium 11pt (callout size)
+   - Selection: controlAccent background, white text
+   - Focus: 3px ring, rgba(0,136,255,0.48)
    ============================================================ */
 
 /* ── Table container ─────────────────────────────────────────── */

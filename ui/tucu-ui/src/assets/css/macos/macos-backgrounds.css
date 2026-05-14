@@ -1,92 +1,265 @@
 /* ============================================================
    macOS Tahoe 26 — Spatial Backgrounds
-   Original custom spatial backgrounds for the Tahoe design system.
-   DO NOT USE proprietary apple images.
+
+   Original CSS-generated spatial backgrounds inspired by macOS Tahoe.
+   DO NOT include, copy or derive proprietary Apple assets:
+   no Apple wallpapers, screenshots, SF Symbols, UI Kit images or
+   promotional materials.
+
+   All gradients are original project assets.
+
+   Usage rules:
+   - Apply to root/window background, hero/demo surfaces or
+     wallpaper-like app backgrounds ONLY.
+   - Never apply inside cards, tables, buttons, forms or per-row elements.
+   - Content surfaces (Card, BasicTable, Form) must use solid or standard
+     material backgrounds for legibility.
+   - Text over spatial backgrounds must maintain WCAG AA contrast.
+     Add --macos-wallpaper-overlay or a dim layer if contrast fails.
+   - prefers-reduced-transparency: replace with opaque tokenised bg.
+   - prefers-contrast: more → reduce aurora opacity.
+   - prefers-reduced-motion: disable aurora animations.
    ============================================================ */
 
 html.macos {
-  --macos-bg-aurora-1: rgba(142, 237, 245, 0.4);
-  --macos-bg-aurora-2: rgba(97, 187, 255, 0.35);
-  --macos-bg-aurora-3: rgba(183, 148, 255, 0.3);
-  --macos-bg-aurora-4: rgba(255, 172, 241, 0.25);
-  --macos-window-bg: #fafafa;
+  /* ── Spatial Background Tokens — Light ──────────────────── */
+
+  /* Root/window base (uses window-bg from foundations) */
+  --macos-spatial-bg: #f0f2f7;
+  --macos-spatial-bg-muted: #f5f5f7; /* Low-saturation, docs/demos */
+  --macos-wallpaper-overlay: rgba(
+    255,
+    255,
+    255,
+    0.62
+  ); /* Holds contrast over bright surfaces */
+  --macos-spatial-halo: radial-gradient(
+    ellipse 70% 50% at 50% 0%,
+    rgba(180, 210, 255, 0.55) 0%,
+    transparent 70%
+  );
+  --macos-spatial-blur: 80px;
+
+  /* Aurora color stops — light (original, not Apple assets) */
+  --macos-aurora-1: rgba(142, 200, 255, 0.45); /* soft blue */
+  --macos-aurora-2: rgba(100, 200, 240, 0.35); /* cyan-blue */
+  --macos-aurora-3: rgba(170, 150, 255, 0.28); /* soft indigo */
+  --macos-aurora-4: rgba(200, 160, 255, 0.22); /* soft violet */
 }
 
 html.macos.dark {
-  --macos-bg-aurora-1: rgba(18, 64, 86, 0.8);
-  --macos-bg-aurora-2: rgba(30, 52, 100, 0.7);
-  --macos-bg-aurora-3: rgba(60, 36, 114, 0.6);
-  --macos-bg-aurora-4: rgba(94, 33, 85, 0.5);
-  --macos-window-bg: #1c1c1e;
+  /* ── Spatial Background Tokens — Dark ───────────────────── */
+  --macos-spatial-bg: #131318;
+  --macos-spatial-bg-muted: #1a1a20;
+  --macos-wallpaper-overlay: rgba(0, 0, 0, 0.52);
+  --macos-spatial-halo: radial-gradient(
+    ellipse 70% 50% at 50% 0%,
+    rgba(0, 80, 180, 0.3) 0%,
+    transparent 70%
+  );
+  --macos-spatial-blur: 80px;
+
+  /* Aurora color stops — dark */
+  --macos-aurora-1: rgba(18, 60, 100, 0.8); /* deep blue */
+  --macos-aurora-2: rgba(30, 50, 110, 0.7); /* indigo-navy */
+  --macos-aurora-3: rgba(55, 30, 100, 0.6); /* deep violet */
+  --macos-aurora-4: rgba(80, 20, 80, 0.45); /* deep purple */
 }
 
-/* Base Window Background */
+/* ============================================================
+   .macos-window-surface
+   Plain surface using the window background token.
+   Use for standard window/panel areas without aurora.
+   ============================================================ */
 html.macos .macos-window-surface {
-  background-color: var(--macos-window-bg);
+  background-color: var(--macos-spatial-bg);
 }
 
-/* Custom Spatial Aurora (Only for root/window/hero/demo features) */
+/* ============================================================
+   .macos-bg-spatial-aurora
+   Primary spatial background: blue/cyan/indigo aurora gradients.
+   For root/window/hero — NOT inside components.
+   Light: soft blue aurora. Dark: deep navy/violet aurora.
+   ============================================================ */
 html.macos .macos-bg-spatial-aurora {
   position: relative;
-  background-color: var(--macos-window-bg);
+  background-color: var(--macos-spatial-bg);
   overflow: hidden;
-  z-index: 0;
+  isolation: isolate;
 }
 
 html.macos .macos-bg-spatial-aurora::before,
 html.macos .macos-bg-spatial-aurora::after {
   content: '';
   position: absolute;
-  top: -50%;
-  left: -50%;
+  inset: -50%;
   width: 200%;
   height: 200%;
   z-index: -1;
   pointer-events: none;
-  border-radius: 40%;
-  filter: blur(80px);
-  -webkit-filter: blur(80px);
-  opacity: 0.8;
+  border-radius: 50%;
+  filter: blur(var(--macos-spatial-blur));
+  opacity: 1;
+  will-change: transform;
 }
 
 html.macos .macos-bg-spatial-aurora::before {
   background: radial-gradient(
-      circle at 30% 30%,
-      var(--macos-bg-aurora-1) 0%,
-      transparent 40%
+      circle at 28% 32%,
+      var(--macos-aurora-1) 0%,
+      transparent 42%
     ),
     radial-gradient(
-      circle at 70% 70%,
-      var(--macos-bg-aurora-3) 0%,
-      transparent 40%
+      circle at 72% 68%,
+      var(--macos-aurora-3) 0%,
+      transparent 42%
     );
-  animation: macos-aurora-drift 20s infinite linear reverse;
+  animation: macos-aurora-drift 22s ease-in-out infinite alternate;
 }
 
 html.macos .macos-bg-spatial-aurora::after {
   background: radial-gradient(
-      circle at 70% 30%,
-      var(--macos-bg-aurora-2) 0%,
-      transparent 40%
+      circle at 68% 28%,
+      var(--macos-aurora-2) 0%,
+      transparent 42%
     ),
     radial-gradient(
-      circle at 30% 70%,
-      var(--macos-bg-aurora-4) 0%,
-      transparent 40%
+      circle at 32% 72%,
+      var(--macos-aurora-4) 0%,
+      transparent 42%
     );
-  animation: macos-aurora-drift 25s infinite linear;
+  animation: macos-aurora-drift 28s ease-in-out infinite alternate-reverse;
 }
 
 @keyframes macos-aurora-drift {
   0% {
-    transform: rotate(0deg);
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(3%, -2%) scale(1.04);
+  }
+  66% {
+    transform: translate(-2%, 3%) scale(0.97);
   }
   100% {
-    transform: rotate(360deg);
+    transform: translate(2%, 1%) scale(1.02);
   }
 }
 
-/* Reduced Motion */
+/* ============================================================
+   .macos-bg-spatial-depth
+   Sober/data-focused spatial background.
+   Light: warm neutral. Dark: graphite with subtle depth.
+   ============================================================ */
+html.macos .macos-bg-spatial-depth {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+html.macos:not(.dark) .macos-bg-spatial-depth {
+  background: linear-gradient(
+    160deg,
+    #f0f2f6 0%,
+    #eaedf4 40%,
+    #f2f0f8 70%,
+    #eef2f6 100%
+  );
+}
+
+html.macos.dark .macos-bg-spatial-depth {
+  background: linear-gradient(
+    160deg,
+    #141418 0%,
+    #18181e 40%,
+    #191520 70%,
+    #141418 100%
+  );
+}
+
+/* Subtle halo using the token */
+html.macos .macos-bg-spatial-depth::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--macos-spatial-halo);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ============================================================
+   .macos-bg-spatial-demo
+   Expressive spatial background for hero sections and showcases.
+   Includes a dim layer by default for text legibility.
+   Use only in documentation, landing, or showcase contexts.
+   ============================================================ */
+html.macos .macos-bg-spatial-demo {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+html.macos:not(.dark) .macos-bg-spatial-demo {
+  background: radial-gradient(
+      ellipse 80% 60% at 20% 10%,
+      rgba(100, 180, 255, 0.4) 0%,
+      transparent 55%
+    ),
+    radial-gradient(
+      ellipse 60% 50% at 80% 80%,
+      rgba(160, 120, 255, 0.3) 0%,
+      transparent 55%
+    ),
+    radial-gradient(
+      ellipse 50% 40% at 60% 30%,
+      rgba(80, 210, 220, 0.22) 0%,
+      transparent 50%
+    ),
+    #f0f2f7;
+}
+
+html.macos.dark .macos-bg-spatial-demo {
+  background: radial-gradient(
+      ellipse 80% 60% at 20% 10%,
+      rgba(0, 60, 160, 0.55) 0%,
+      transparent 55%
+    ),
+    radial-gradient(
+      ellipse 60% 50% at 80% 80%,
+      rgba(80, 0, 160, 0.4) 0%,
+      transparent 55%
+    ),
+    radial-gradient(
+      ellipse 50% 40% at 60% 30%,
+      rgba(0, 100, 140, 0.3) 0%,
+      transparent 50%
+    ),
+    #101014;
+}
+
+/* Default dim layer on demo — keeps text legible */
+html.macos .macos-bg-spatial-demo::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--macos-wallpaper-overlay);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ============================================================
+   .macos-wallpaper-overlay
+   Standalone overlay class for holding contrast over any
+   spatial background. Apply as a sibling/child element.
+   ============================================================ */
+html.macos .macos-wallpaper-overlay {
+  background: var(--macos-wallpaper-overlay);
+}
+
+/* ============================================================
+   Accessibility: Reduced Motion
+   Disable aurora animations — keep static gradients.
+   ============================================================ */
 @media (prefers-reduced-motion: reduce) {
   html.macos .macos-bg-spatial-aurora::before,
   html.macos .macos-bg-spatial-aurora::after {
@@ -94,11 +267,48 @@ html.macos .macos-bg-spatial-aurora::after {
   }
 }
 
-/* Prefers Contrast */
+/* ============================================================
+   Accessibility: Increased Contrast
+   Reduce aurora opacity to prevent interference with text contrast.
+   ============================================================ */
 @media (prefers-contrast: more) {
   html.macos .macos-bg-spatial-aurora::before,
   html.macos .macos-bg-spatial-aurora::after {
-    opacity: 0.2;
-    filter: blur(120px);
+    opacity: 0.15 !important;
+    filter: blur(120px) !important;
+  }
+
+  html.macos:not(.dark) .macos-bg-spatial-demo {
+    background: #f5f5f7;
+  }
+
+  html.macos.dark .macos-bg-spatial-demo {
+    background: #141418;
+  }
+}
+
+/* ============================================================
+   Accessibility: Reduced Transparency
+   Replace translucid overlay with opaque background.
+   ============================================================ */
+@media (prefers-reduced-transparency: reduce) {
+  html.macos {
+    --macos-wallpaper-overlay: #f5f5f7;
+  }
+  html.macos.dark {
+    --macos-wallpaper-overlay: #1a1a20;
+  }
+
+  html.macos .macos-bg-spatial-aurora::before,
+  html.macos .macos-bg-spatial-aurora::after {
+    display: none !important;
+  }
+
+  html.macos .macos-bg-spatial-aurora {
+    background-color: var(--macos-spatial-bg-muted) !important;
+  }
+
+  html.macos .macos-bg-spatial-demo::before {
+    background: var(--macos-wallpaper-overlay) !important;
   }
 }

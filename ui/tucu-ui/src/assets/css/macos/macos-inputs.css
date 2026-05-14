@@ -1,13 +1,14 @@
 /* ============================================================
-   macOS Sonoma 14 — Input/Form Control Overrides
+   macOS Tahoe 26 — Input/Form Control Overrides
 
    Targets: Input, Select, Checkbox, Radio, Switch, InputSearcher,
             TextArea, DatePicker, TimePicker, PasswordInput
 
    References:
-   - Apple HIG > Text Fields: 22pt height, 5pt radius, 1px border
+   - Apple HIG > Text Fields: 22pt height, 10pt radius (Tahoe), 0.5px border
    - Apple HIG > Toggles: Switch 38×22pt, Checkbox 14×14pt(r3), Radio 16×16pt
    - Apple HIG > Color: controlAccentColor = systemBlue
+   - Focus ring: 3px systemBlue at 48% opacity
    ============================================================ */
 
 /* ── Text Input ──────────────────────────────────────────────── */
@@ -37,7 +38,7 @@ html.macos [data-tucu='input-control']::placeholder {
 
 html.macos [data-tucu='input-control']:focus,
 html.macos [data-tucu='input']:focus-within {
-  box-shadow: none !important;
+  box-shadow: 0 0 0 var(--macos-focus-ring-width) var(--macos-focus-ring) !important;
   outline: none;
   border-color: var(--macos-control-accent) !important;
 }
@@ -268,8 +269,9 @@ html.macos [data-tucu='textarea']::placeholder {
 }
 
 html.macos [data-tucu='textarea']:focus {
-  box-shadow: none !important;
+  box-shadow: 0 0 0 var(--macos-focus-ring-width) var(--macos-focus-ring) !important;
   outline: none;
+  border-color: var(--macos-control-accent) !important;
 }
 
 html.macos.dark [data-tucu='textarea'] {
@@ -441,7 +443,7 @@ html.macos [data-tucu='select'][data-size='lg'] [data-tucu='select-trigger'] {
 
 html.macos [data-tucu='select-trigger']:focus,
 html.macos [data-tucu='select']:focus-within {
-  box-shadow: none !important;
+  box-shadow: 0 0 0 var(--macos-focus-ring-width) var(--macos-focus-ring) !important;
   border-color: var(--macos-control-accent) !important;
 }
 

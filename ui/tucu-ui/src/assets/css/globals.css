@@ -936,6 +936,8 @@
   --color-light-dark: var(--color-semantic-bg-secondary-wash);
   --text-primary-color: var(--font-primary-color);
   --text-secondary-color: var(--font-secondary-color);
+  /* Hero grid line color — changes per theme mode */
+  --hero-grid-color: var(--color-gray-200);
 }
 
 /* ===================================================================
@@ -1317,6 +1319,8 @@
     /* Dark/Light Theme Colors */
     --color-body: var(--color-semantic-dark-bg);
     --color-light-dark: var(--color-semantic-dark-bg-secondary-wash);
+    /* Hero grid line color in dark mode */
+    --hero-grid-color: var(--color-gray-800);
 
     /* Semantic colors */
     /* Foreground */

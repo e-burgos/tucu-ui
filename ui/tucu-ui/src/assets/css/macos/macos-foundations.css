@@ -1,80 +1,83 @@
 /* ============================================================
-   macOS Sonoma 14 — Foundation Tokens
+   macOS Tahoe 26 — Foundation Tokens
 
    Global tokens applied to ALL elements when html.macos is active.
-   Values sourced from Apple HIG official specs.
+   Values sourced from Apple HIG Tahoe / Liquid Glass spec.
 
    Sources:
    - Typography: https://developer.apple.com/design/human-interface-guidelines/typography
-   - Color: https://developer.apple.com/design/human-interface-guidelines/color
-   - Materials: https://developer.apple.com/design/human-interface-guidelines/materials
-   - Layout: https://developer.apple.com/design/human-interface-guidelines/layout
+   - Color:      https://developer.apple.com/design/human-interface-guidelines/color
+   - Materials:  https://developer.apple.com/design/human-interface-guidelines/materials
+   - Layout:     https://developer.apple.com/design/human-interface-guidelines/layout
    ============================================================ */
 
 html.macos {
   /* ── Tucu-UI Semantic Token Overrides ───────────────────────
-     Map macOS system colors to the tucu-ui semantic token system
+     Map macOS Tahoe system colors to the tucu-ui semantic token system.
   */
-  /* Surfaces (systemGray5/6 — macOS Sonoma 14) */
   --color-semantic-bg-tertiary: #e5e5ea;
   --color-semantic-elevation-1: #ffffff;
   --color-semantic-elevation-2: #f2f2f7;
 
-  /* Borders (separatorColor: rgba(60,60,67,0.29)) */
+  /* Borders (Tahoe separator: rgba(60,60,67,0.24)) */
   --color-semantic-line-primary-subtle: rgba(60, 60, 67, 0.18);
-  --color-semantic-line-primary: #007aff;
+  --color-semantic-line-primary: var(--color-brand, #0088ff);
 
-  /* Shadows — tucu-ui shared shadow tokens (diffuse, dual-layer, macOS Sonoma style) */
+  /* Shadows — tucu-ui shared shadow tokens (diffuse, dual-layer, Tahoe style) */
   --shadow-main: 0px 4px 24px rgba(0, 0, 0, 0.07);
   --shadow-card: 0px 1px 6px rgba(0, 0, 0, 0.04),
     0px 4px 16px rgba(0, 0, 0, 0.04);
   --drop-shadow-main: 0px 2px 12px rgba(0, 0, 0, 0.1);
 
   /* ── Typography ──────────────────────────────────────────────
-     SF Pro via @font-face (see macos-fonts.css)
-     macOS default font size: 13pt — Apple HIG Typography
-     SF Pro Display for ≥20pt, SF Pro Text for <20pt
+     Inter Variable via @font-face (see macos-fonts.css) — macOS Tahoe 26
+     JetBrains Mono Variable for code/monospace
+     macOS default font size: 13px — Apple HIG Typography
   */
-  --macos-font-family: 'SF Pro Text', 'SF Pro Display', system-ui, -apple-system,
-    BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
-  --macos-font-display: 'SF Pro Display', system-ui, -apple-system,
-    BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
-  --macos-font-mono: 'SF Mono', SFMono-Regular, ui-monospace, 'Cascadia Code',
-    Menlo, Monaco, monospace;
+  --macos-font-family: 'Inter', -apple-system, BlinkMacSystemFont,
+    'Helvetica Neue', Arial, sans-serif;
+  --macos-font-display: 'Inter', -apple-system, BlinkMacSystemFont,
+    'Helvetica Neue', Arial, sans-serif;
+  --macos-font-mono: 'JetBrains Mono', 'SF Mono', SFMono-Regular, ui-monospace,
+    Menlo, Monaco, Consolas, monospace;
 
-  /* macOS built-in text style sizes (Apple HIG official) */
+  /* Optical sizing & OpenType features */
+  font-optical-sizing: auto;
+  font-feature-settings: 'liga' 1, 'calt' 1, 'kern' 1;
+
+  /* macOS text style sizes (Apple HIG Tahoe official) */
   --macos-font-size-caption: 10px; /* Caption 1/2 */
   --macos-font-size-footnote: 10px; /* Footnote */
   --macos-font-size-subheadline: 11px; /* Subheadline */
   --macos-font-size-callout: 12px; /* Callout */
   --macos-font-size-body: 13px; /* Body — macOS default */
+  --macos-font-size-headline: 13px; /* Headline (bold body) */
   --macos-font-size-title3: 15px; /* Title 3 */
   --macos-font-size-title2: 17px; /* Title 2 */
   --macos-font-size-title1: 22px; /* Title 1 */
   --macos-font-size-large-title: 26px; /* Large Title */
 
-  /* Leading (line-height) from Apple HIG */
+  /* Leading (line-height) from Apple HIG Tahoe */
   --macos-leading-caption: 13px;
   --macos-leading-footnote: 13px;
   --macos-leading-subheadline: 14px;
   --macos-leading-callout: 15px;
   --macos-leading-body: 16px;
+  --macos-leading-headline: 16px;
   --macos-leading-title3: 20px;
   --macos-leading-title2: 22px;
   --macos-leading-title1: 26px;
   --macos-leading-large-title: 32px;
 
-  /* SF Pro tracking values (Apple HIG macOS tracking table, in CSS em)
-     Apple's internal tracking unit = 1/1000 em.
-     Most macOS text styles use 0 or very small values. */
-  --macos-tracking-10: 0.012em; /* caption: Apple +12 */
-  --macos-tracking-11: 0.006em; /* caption2: Apple +6 */
+  /* Inter/SF tracking reference (Apple HIG macOS table, in px) */
+  --macos-tracking-10: 0.12px; /* +12/1000 em at 10px */
+  --macos-tracking-11: 0.06px; /* +6/1000 em at 11px */
   --macos-tracking-12: 0; /* callout: 0 */
-  --macos-tracking-13: 0; /* body: 0 */
-  --macos-tracking-15: 0; /* title3: 0 */
-  --macos-tracking-17: 0; /* title2: 0 */
-  --macos-tracking-22: 0; /* title1: 0 */
-  --macos-tracking-26: 0; /* large title: 0 */
+  --macos-tracking-13: -0.08px; /* body: slightly negative */
+  --macos-tracking-15: -0.23px; /* title3 */
+  --macos-tracking-17: -0.43px; /* title2 */
+  --macos-tracking-22: -0.26px; /* title1 */
+  --macos-tracking-26: 0.22px; /* large title */
 
   /* Font weights (Apple HIG: prefer Regular, Medium, Semibold) */
   --macos-font-weight-regular: 400;
@@ -82,16 +85,25 @@ html.macos {
   --macos-font-weight-semibold: 600;
   --macos-font-weight-bold: 700;
 
-  /* ── Border Radius ──────────────────────────────────────────
-     Measured from macOS Sonoma native controls (AppKit)
+  /* ── Shape — Tahoe Radii ─────────────────────────────────────
+     Tahoe uses more generous, concentric radii than Sonoma.
+     Source: Apple macOS 26 UI Kit + HIG
   */
+  --macos-radius-window: 18px; /* Windows, large sheets */
+  --macos-radius-sheet: 24px; /* Half sheets, modal sheets */
+  --macos-radius-popover: 16px; /* Popovers, floating menus */
+  --macos-radius-control: 10px; /* Text fields, buttons, selects */
+  --macos-radius-small-control: 8px; /* Mini buttons, segmented items */
+  --macos-radius-pill: 999px; /* Search, switches, chips */
+
+  /* Legacy alias tokens for backward compat */
   --macos-radius-xs: 3px; /* checkbox */
   --macos-radius-sm: 4px; /* tooltip */
-  --macos-radius-md: 5px; /* push button, text field, segmented */
-  --macos-radius-lg: 6px; /* menu, popover */
-  --macos-radius-xl: 10px; /* window (NSWindow) */
-  --macos-radius-2xl: 12px; /* alert, sheet, modal */
-  --macos-radius-full: 999px; /* pill, tag, badge, avatar */
+  --macos-radius-md: 10px; /* control (Tahoe) */
+  --macos-radius-lg: 16px; /* popover (Tahoe) */
+  --macos-radius-xl: 18px; /* window (Tahoe) */
+  --macos-radius-2xl: 24px; /* sheet (Tahoe) */
+  --macos-radius-full: 999px;
 
   /* ── Control Sizes (Apple HIG regular size) ────────────────
      Source: Apple HIG > Buttons, Toggles, Text Fields
@@ -105,50 +117,86 @@ html.macos {
   --macos-switch-width: 38px;
   --macos-switch-height: 22px;
 
-  /* ── Spacing (8pt grid) ──────────────────────────────────── */
-  --macos-space-1: 4px;
-  --macos-space-2: 8px;
+  /* ── Spacing — 8pt grid ──────────────────────────────────── */
+  --macos-grid: 8px; /* Base spacing unit */
+  --macos-space-1: 4px; /* grid/2 */
+  --macos-space-2: 8px; /* grid */
   --macos-space-3: 12px;
   --macos-space-4: 16px;
   --macos-space-5: 20px;
   --macos-space-6: 24px;
   --macos-space-8: 32px;
 
-  /* ── Layout dimensions ─────────────────────────────────────
-     Source: Apple HIG > Sidebars, Layout
+  /* ── Layout dimensions — Tahoe ──────────────────────────────
+     Source: Apple HIG > Sidebars, Toolbars, Layout
   */
-  --macos-sidebar-width: 220px;
+  --macos-titlebar-height: 28px; /* Traffic lights / title area */
+  --macos-toolbar-height: 58px; /* Standard desktop toolbar */
+  --macos-sidebar-width: 240px; /* Medium sidebar */
+  --macos-inspector-width: 300px; /* Trailing inspector panel */
   --macos-sidebar-row-height: 24px;
   --macos-sidebar-icon-size: 18px;
-  --macos-titlebar-height: 28px;
-  --macos-toolbar-height: 52px;
   --macos-content-padding: 20px;
 
-  /* ── Semantic Colors — Light (NSColor sampled Sonoma 14) ───
-     Source: Apple HIG > Color > macOS system colors
+  /* ── Semantic Colors — Light (Tahoe / macOS 26 HIG) ────────
+     Source: Apple HIG > Color > macOS 26 system colors
   */
-  --macos-label: rgba(0, 0, 0, 0.85);
-  --macos-secondary-label: rgba(60, 60, 67, 0.6);
-  --macos-tertiary-label: rgba(60, 60, 67, 0.3);
-  --macos-separator: rgba(60, 60, 67, 0.29);
-  --macos-window-bg: #ececec;
-  --macos-control-bg: #ffffff;
-  --macos-selected-content-bg: #0063e1;
-  --macos-control-accent: #007aff;
-  --macos-link: #0068da;
+  --macos-label: rgba(0, 0, 0, 0.88);
+  --macos-secondary-label: rgba(60, 60, 67, 0.68);
+  --macos-tertiary-label: rgba(60, 60, 67, 0.42);
+  --macos-quaternary-label: rgba(60, 60, 67, 0.24);
+  --macos-separator: rgba(60, 60, 67, 0.24);
+  --macos-opaque-separator: #c6c6c8;
+  --macos-window-bg: #f5f5f7;
+  --macos-content-bg: #ffffff;
+  --macos-grouped-bg: #f2f2f7;
+  --macos-control-bg: rgba(255, 255, 255, 0.72);
+  --macos-control-bg-hover: rgba(255, 255, 255, 0.86);
+  --macos-control-bg-active: rgba(0, 0, 0, 0.06);
+  --macos-accent: var(--color-brand, #0088ff);
+  --macos-focus-ring: color-mix(
+    in srgb,
+    var(--color-brand, #0088ff) 48%,
+    transparent
+  );
+  --macos-focus-ring-width: 3px;
+  --macos-focus-ring-offset: 2px;
+  --macos-link: color-mix(in srgb, var(--color-brand, #0088ff) 85%, #000);
+  --macos-selected-content-bg: var(--color-brand, #0088ff);
+  --macos-control-accent: var(--color-brand, #0088ff);
 
-  /* System colors for chart palettes / feedback */
-  --macos-system-blue: #007aff;
-  --macos-system-green: #34c759;
-  --macos-system-orange: #ff9500;
-  --macos-system-red: #ff3b30;
+  /* ── System Colors — Light ─────────────────────────────────
+     Source: Apple HIG > Color > macOS 26 system colors
+  */
+  --macos-system-red: #ff383c;
+  --macos-system-orange: #ff8d28;
   --macos-system-yellow: #ffcc00;
-  --macos-system-purple: #af52de;
+  --macos-system-green: #34c759;
+  --macos-system-mint: #00c8b3;
+  --macos-system-teal: #00c3d0;
+  --macos-system-cyan: #00c0e8;
+  --macos-system-blue: #0088ff;
+  --macos-system-indigo: #6155f5;
+  --macos-system-purple: #cb30e0;
   --macos-system-pink: #ff2d55;
-  --macos-system-teal: #5ac8fa;
-  --macos-system-indigo: #5856d6;
+  --macos-system-brown: #ac7f5e;
 
-  /* Gray scale (Apple HIG) */
+  /* System Colors — Dark variants (used by dark mode below,
+     exposed here for chart tokens and utilities) */
+  --macos-system-red-dark: #ff4245;
+  --macos-system-orange-dark: #ff9230;
+  --macos-system-yellow-dark: #ffd600;
+  --macos-system-green-dark: #30d158;
+  --macos-system-mint-dark: #00dac3;
+  --macos-system-teal-dark: #00d2e0;
+  --macos-system-cyan-dark: #3cd3fe;
+  --macos-system-blue-dark: #0091ff;
+  --macos-system-indigo-dark: #6d7cff;
+  --macos-system-purple-dark: #db34f2;
+  --macos-system-pink-dark: #ff375f;
+  --macos-system-brown-dark: #b78a66;
+
+  /* Gray scale (Apple HIG Tahoe — light) */
   --macos-gray: #8e8e93;
   --macos-gray2: #aeaeb2;
   --macos-gray3: #c7c7cc;
@@ -156,53 +204,50 @@ html.macos {
   --macos-gray5: #e5e5ea;
   --macos-gray6: #f2f2f7;
 
-  /* ── Shadows ───────────────────────────────────────────────
-     macOS Sonoma style: diffuse, multi-layer, subtle in light
+  /* ── Chart Tokens ───────────────────────────────────────────
+     Used by useChartTheme() when colorScheme === 'macos'
   */
-  --macos-shadow-window: 0 10px 40px rgba(0, 0, 0, 0.12),
-    0 2px 10px rgba(0, 0, 0, 0.08);
+  --macos-chart-grid: rgba(60, 60, 67, 0.14);
+  --macos-chart-axis: rgba(60, 60, 67, 0.42);
+  --macos-chart-tooltip-bg: rgba(255, 255, 255, 0.92);
+  --macos-chart-tooltip-border: rgba(60, 60, 67, 0.18);
+  --macos-chart-series-1: #0088ff;
+  --macos-chart-series-2: #34c759;
+  --macos-chart-series-3: #ff8d28;
+  --macos-chart-series-4: #cb30e0;
+  --macos-chart-series-5: #ff383c;
+  --macos-chart-series-6: #00c3d0;
+
+  /* ── Shadows — Tahoe (multi-layer, diffuse) ─────────────────
+     Source: Apple HIG > Windows > Elevation
+  */
+  --macos-shadow-window: 0 18px 60px rgba(0, 0, 0, 0.14),
+    0 4px 16px rgba(0, 0, 0, 0.08);
   --macos-shadow-card: 0 1px 4px rgba(0, 0, 0, 0.04),
     0 4px 16px rgba(0, 0, 0, 0.06);
+  --macos-shadow-popover: 0 8px 32px rgba(0, 0, 0, 0.12),
+    0 2px 8px rgba(0, 0, 0, 0.06);
   --macos-shadow-button-pressed: inset 0 1px 2px rgba(0, 0, 0, 0.1);
-  --macos-shadow-focus: 0 0 0 3px rgba(0, 122, 255, 0.5);
+  --macos-shadow-focus: 0 0 0 3px
+    color-mix(in srgb, var(--color-brand, #0088ff) 48%, transparent);
 
-  /* ── Materials (Vibrancy / Blur) ───────────────────────────
-     Source: Apple HIG > Materials > macOS
-  */
-  --macos-material-sidebar: rgba(246, 246, 248, 0.82);
-  --macos-material-sidebar-blur: 20px;
-  --macos-material-toolbar: rgba(255, 255, 255, 0.72);
-  --macos-material-toolbar-blur: 16px;
-  --macos-material-popover: rgba(255, 255, 255, 0.9);
-  --macos-material-popover-blur: 24px;
-  --macos-material-sheet: rgba(255, 255, 255, 0.94);
-  --macos-material-sheet-blur: 30px;
-  --macos-material-overlay: rgba(0, 0, 0, 0.4);
-
-  /* ── Traffic Lights ────────────────────────────────────────
-     Source: macOS Sonoma native window controls
+  /* ── Traffic Lights ─────────────────────────────────────────
+     Source: macOS Tahoe native window controls
   */
   --macos-traffic-close: #ff5f57;
   --macos-traffic-minimize: #febc2e;
   --macos-traffic-maximize: #28c840;
   --macos-traffic-inactive: #dcdcdc;
 
-  /* ── Focus Ring ────────────────────────────────────────────
-     systemBlue at 50% opacity, 3px width, 2px offset
-  */
-  --macos-focus-ring: rgba(0, 122, 255, 0.5);
-  --macos-focus-ring-width: 3px;
-  --macos-focus-ring-offset: 2px;
-
-  /* ── Transitions ───────────────────────────────────────────
+  /* ── Transitions ─────────────────────────────────────────────
      Apple standard animation curves
   */
   --macos-transition-fast: 150ms ease-out;
   --macos-transition-normal: 250ms cubic-bezier(0.2, 0, 0, 1);
   --macos-transition-slow: 350ms cubic-bezier(0.2, 0, 0, 1);
 
-  /* ── Apply base typography ─────────────────────────────────
-     macOS default: 13pt SF Pro Text, 0 tracking
+  /* ── Apply base typography ───────────────────────────────────
+     macOS default: 13px Inter, negative tracking
   */
   font-family: var(--macos-font-family);
   font-size: var(--macos-font-size-body);
@@ -213,15 +258,15 @@ html.macos {
 }
 
 /* ── Dark Mode Overrides ───────────────────────────────────────
-   Source: Apple HIG > Color > Dark Mode system colors
+   Source: Apple HIG > Color > macOS 26 Dark Mode system colors
 */
 html.macos.dark {
-  /* Semantic token overrides — dark */
+  /* Tucu-UI semantic tokens — dark (Sonoma baseline) */
   --color-semantic-bg-tertiary: #3a3a3c;
   --color-semantic-elevation-1: #2c2c2e;
   --color-semantic-elevation-2: #3a3a3c;
   --color-semantic-line-primary-subtle: rgba(84, 84, 88, 0.65);
-  --color-semantic-line-primary: #0a84ff;
+  --color-semantic-line-primary: var(--color-brand, #0091ff);
 
   /* Shadows — heavier in dark for depth */
   --shadow-main: 0px 4px 24px rgba(0, 0, 0, 0.4);
@@ -229,27 +274,42 @@ html.macos.dark {
     0px 4px 16px rgba(0, 0, 0, 0.3);
   --drop-shadow-main: 0px 2px 12px rgba(0, 0, 0, 0.45);
 
-  /* Semantic colors — dark */
-  --macos-label: rgba(255, 255, 255, 0.85);
-  --macos-secondary-label: rgba(235, 235, 245, 0.6);
-  --macos-tertiary-label: rgba(235, 235, 245, 0.3);
-  --macos-separator: rgba(84, 84, 88, 0.65);
-  --macos-window-bg: #1e1e1e;
-  --macos-control-bg: #1e1e1e;
-  --macos-selected-content-bg: #0058d0;
-  --macos-control-accent: #0a84ff;
-  --macos-link: #419cff;
+  /* Semantic label colors — dark */
+  --macos-label: rgba(255, 255, 255, 0.92);
+  --macos-secondary-label: rgba(235, 235, 245, 0.72);
+  --macos-tertiary-label: rgba(235, 235, 245, 0.44);
+  --macos-quaternary-label: rgba(235, 235, 245, 0.26);
+  --macos-separator: rgba(84, 84, 88, 0.6);
+  --macos-opaque-separator: #38383a;
+  --macos-window-bg: #1c1c1e;
+  --macos-content-bg: #151516;
+  --macos-grouped-bg: #1c1c1e;
+  --macos-control-bg: rgba(255, 255, 255, 0.1);
+  --macos-control-bg-hover: rgba(255, 255, 255, 0.16);
+  --macos-control-bg-active: rgba(255, 255, 255, 0.22);
+  --macos-accent: var(--color-brand, #0091ff);
+  --macos-focus-ring: color-mix(
+    in srgb,
+    var(--color-brand, #0091ff) 56%,
+    transparent
+  );
+  --macos-link: color-mix(in srgb, var(--color-brand, #0091ff) 85%, #fff);
+  --macos-selected-content-bg: var(--color-brand, #0091ff);
+  --macos-control-accent: var(--color-brand, #0091ff);
 
-  /* System colors — dark */
-  --macos-system-blue: #0a84ff;
+  /* System colors — dark (Tahoe) */
+  --macos-system-red: #ff4245;
+  --macos-system-orange: #ff9230;
+  --macos-system-yellow: #ffd600;
   --macos-system-green: #30d158;
-  --macos-system-orange: #ff9f0a;
-  --macos-system-red: #ff453a;
-  --macos-system-yellow: #ffd60a;
-  --macos-system-purple: #bf5af2;
+  --macos-system-mint: #00dac3;
+  --macos-system-teal: #00d2e0;
+  --macos-system-cyan: #3cd3fe;
+  --macos-system-blue: #0091ff;
+  --macos-system-indigo: #6d7cff;
+  --macos-system-purple: #db34f2;
   --macos-system-pink: #ff375f;
-  --macos-system-teal: #64d2ff;
-  --macos-system-indigo: #5e5ce6;
+  --macos-system-brown: #b78a66;
 
   /* Gray scale — dark */
   --macos-gray: #8e8e93;
@@ -259,22 +319,30 @@ html.macos.dark {
   --macos-gray5: #2c2c2e;
   --macos-gray6: #1c1c1e;
 
-  /* Shadows — heavier in dark for depth */
-  --macos-shadow-window: 0 10px 40px rgba(0, 0, 0, 0.45),
-    0 2px 10px rgba(0, 0, 0, 0.3);
+  /* Chart tokens — dark */
+  --macos-chart-grid: rgba(84, 84, 88, 0.3);
+  --macos-chart-axis: rgba(235, 235, 245, 0.44);
+  --macos-chart-tooltip-bg: rgba(44, 44, 46, 0.94);
+  --macos-chart-tooltip-border: rgba(84, 84, 88, 0.5);
+  --macos-chart-series-1: #0091ff;
+  --macos-chart-series-2: #30d158;
+  --macos-chart-series-3: #ff9230;
+  --macos-chart-series-4: #db34f2;
+  --macos-chart-series-5: #ff4245;
+  --macos-chart-series-6: #00d2e0;
+
+  /* Shadows — heavier in dark */
+  --macos-shadow-window: 0 18px 60px rgba(0, 0, 0, 0.5),
+    0 4px 16px rgba(0, 0, 0, 0.3);
   --macos-shadow-card: 0 1px 4px rgba(0, 0, 0, 0.2),
-    0 4px 16px rgba(0, 0, 0, 0.25);
-  --macos-shadow-focus: 0 0 0 3px rgba(10, 132, 255, 0.5);
+    0 4px 16px rgba(0, 0, 0, 0.28);
+  --macos-shadow-popover: 0 8px 32px rgba(0, 0, 0, 0.48),
+    0 2px 8px rgba(0, 0, 0, 0.24);
+  --macos-shadow-focus: 0 0 0 3px
+    color-mix(in srgb, var(--color-brand, #0091ff) 56%, transparent);
 
-  /* Materials — dark */
-  --macos-material-sidebar: rgba(28, 28, 30, 0.85);
-  --macos-material-toolbar: rgba(40, 40, 42, 0.8);
-  --macos-material-popover: rgba(44, 44, 46, 0.92);
-  --macos-material-sheet: rgba(44, 44, 46, 0.96);
-  --macos-material-overlay: rgba(0, 0, 0, 0.6);
-
-  /* Focus ring — dark (systemBlue dark) */
-  --macos-focus-ring: rgba(10, 132, 255, 0.5);
+  /* Traffic lights — inactive in dark */
+  --macos-traffic-inactive: #444444;
 }
 
 /* ── Reduced Motion ────────────────────────────────────────────
@@ -303,30 +371,126 @@ html.macos [data-tucu] {
    Accessibility Overrides for Foundations (Tahoe)
    ============================================================ */
 
-/* Reduced Transparency Fallbacks */
+/* Reduced Transparency — opaque fallbacks */
 @media (prefers-reduced-transparency: reduce) {
   html.macos {
     --color-semantic-elevation-1: #ffffff;
     --color-semantic-elevation-2: #f2f2f7;
     --color-semantic-elevation-3: #e5e5ea;
+    --macos-control-bg: #ffffff;
+    --macos-control-bg-hover: #f5f5f7;
+    --macos-control-bg-active: #e5e5ea;
   }
   html.macos.dark {
-    --color-semantic-elevation-1: #1e1e1e;
+    --color-semantic-elevation-1: #1e1e20;
     --color-semantic-elevation-2: #2c2c2e;
     --color-semantic-elevation-3: #3a3a3c;
+    --macos-control-bg: #2c2c2e;
+    --macos-control-bg-hover: #3a3a3c;
+    --macos-control-bg-active: #48484a;
   }
 }
 
-/* More Contrast Fallbacks */
+/* ──────────────────────────────────────────────────────────────
+   macOS Tahoe (macos-tahoe) Overrides
+   ────────────────────────────────────────────────────────────── */
+
+html.macos-tahoe.dark {
+  /* Tahoe specific dark background & surface colors (AppKit HIG standards) */
+  --color-semantic-bg-tertiary: #282828; /* underPageBackgroundColor */
+  --color-semantic-elevation-1: #1e1e1e; /* windowBackgroundColor */
+  --color-semantic-elevation-2: rgba(
+    255,
+    255,
+    255,
+    0.1
+  ); /* controlBackgroundColor */
+  --color-semantic-elevation-3: rgba(
+    255,
+    255,
+    255,
+    0.15
+  ); /* Alternating content or hover */
+  --color-light-dark: rgba(
+    255,
+    255,
+    255,
+    0.1
+  ); /* Cards matching native macOS controls */
+  --macos-window-bg: #1e1e1e;
+  --macos-content-bg: #1e1e1e;
+  --macos-grouped-bg: #282828;
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  html.macos-tahoe.dark {
+    --color-semantic-elevation-1: #1e1e1e;
+    --color-semantic-elevation-2: #282828;
+    --color-semantic-elevation-3: #323232;
+    --color-light-dark: #282828;
+    --macos-control-bg: #282828;
+    --macos-control-bg-hover: #323232;
+    --macos-control-bg-active: #3a3a3c;
+  }
+}
+
+/* Increased Contrast — sharper borders, stronger labels, solid focus */
 @media (prefers-contrast: more) {
   html.macos {
+    --macos-label: rgba(0, 0, 0, 1);
+    --macos-secondary-label: rgba(0, 0, 0, 0.8);
+    --macos-tertiary-label: rgba(0, 0, 0, 0.6);
+    --macos-separator: rgba(0, 0, 0, 0.48);
     --color-semantic-line-primary-subtle: #8e8e93;
-    --color-semantic-text-disabled: #666666;
-    --macos-focus-ring: 0 0 0 2px #000000;
+    --macos-focus-ring: rgba(0, 0, 0, 1);
+    --macos-shadow-focus: 0 0 0 2px #000000;
+    /* High-contrast system colors — light */
+    --macos-system-red: #e9152d;
+    --macos-system-orange: #c55300;
+    --macos-system-yellow: #a16a00;
+    --macos-system-green: #008932;
+    --macos-system-mint: #008575;
+    --macos-system-teal: #008198;
+    --macos-system-cyan: #007eae;
+    --macos-system-blue: #1e6ef4;
+    --macos-system-indigo: #564ade;
+    --macos-system-purple: #b02fc2;
+    --macos-system-pink: #e7124d;
+    --macos-system-brown: #956d51;
+    /* Chart series inherit HC colors */
+    --macos-chart-series-1: #1e6ef4;
+    --macos-chart-series-2: #008932;
+    --macos-chart-series-3: #c55300;
+    --macos-chart-series-4: #b02fc2;
+    --macos-chart-series-5: #e9152d;
+    --macos-chart-series-6: #008198;
   }
   html.macos.dark {
+    --macos-label: rgba(255, 255, 255, 1);
+    --macos-secondary-label: rgba(255, 255, 255, 0.82);
+    --macos-tertiary-label: rgba(255, 255, 255, 0.64);
+    --macos-separator: rgba(255, 255, 255, 0.48);
     --color-semantic-line-primary-subtle: #aeaeb2;
-    --color-semantic-text-disabled: #999999;
-    --macos-focus-ring: 0 0 0 2px #ffffff;
+    --macos-focus-ring: rgba(255, 255, 255, 1);
+    --macos-shadow-focus: 0 0 0 2px #ffffff;
+    /* High-contrast system colors — dark */
+    --macos-system-red: #ff6165;
+    --macos-system-orange: #ffa056;
+    --macos-system-yellow: #fedf43;
+    --macos-system-green: #4ad968;
+    --macos-system-mint: #54dfcb;
+    --macos-system-teal: #3bddec;
+    --macos-system-cyan: #6dd9ff;
+    --macos-system-blue: #5cb8ff;
+    --macos-system-indigo: #a7aaff;
+    --macos-system-purple: #ea8dff;
+    --macos-system-pink: #ff8ac4;
+    --macos-system-brown: #dba679;
+    --macos-chart-series-1: #5cb8ff;
+    --macos-chart-series-2: #4ad968;
+    --macos-chart-series-3: #ffa056;
+    --macos-chart-series-4: #ea8dff;
+    --macos-chart-series-5: #ff6165;
+    --macos-chart-series-6: #3bddec;
   }
 }

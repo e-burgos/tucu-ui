@@ -1,0 +1,273 @@
+/* ============================================================
+   macOS Tahoe 26 — Window, TitleBar, TrafficLights
+
+   Scoped to html.macos — no leakage to default theme.
+   References: Apple HIG > Windows > macOS Tahoe 26
+   Components: MacOSWindow, MacOSTitleBar, MacOSTrafficLights
+   ============================================================ */
+
+/* ── MacOSWindow ─────────────────────────────────────────────── */
+
+html.macos [data-tucu='window'] {
+  border-radius: var(--macos-radius-window);
+  background-color: var(--macos-window-bg);
+  box-shadow: var(--macos-shadow-window);
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+html.macos.dark [data-tucu='window'] {
+  background-color: var(--macos-window-bg);
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: var(--macos-shadow-window);
+}
+
+/* Window states */
+html.macos [data-tucu='window'][data-window-state='key'] {
+  box-shadow: var(--macos-shadow-window);
+}
+
+html.macos [data-tucu='window'][data-window-state='main'] {
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1), 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+html.macos [data-tucu='window'][data-window-state='inactive'] {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  opacity: 0.95;
+}
+
+/* ── MacOSTitleBar ───────────────────────────────────────────── */
+
+html.macos [data-tucu='title-bar'] {
+  height: var(--macos-titlebar-height);
+  min-height: var(--macos-titlebar-height);
+  display: flex;
+  align-items: center;
+  padding: 0 var(--macos-space-2);
+  position: relative;
+  /* Drag region for window movement */
+  -webkit-app-region: drag;
+  user-select: none;
+  flex-shrink: 0;
+  background-color: transparent;
+  border-bottom: 1px solid var(--macos-separator);
+}
+
+html.macos [data-tucu='title-bar'] > * {
+  /* Buttons inside are not draggable */
+  -webkit-app-region: no-drag;
+}
+
+html.macos [data-tucu='title-bar-title'] {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--macos-font-family);
+  font-size: var(--macos-ts-body-size);
+  font-weight: var(--macos-font-weight-semibold);
+  line-height: var(--macos-ts-body-leading);
+  letter-spacing: var(--macos-ts-body-tracking);
+  color: var(--macos-label);
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+html.macos [data-tucu='title-bar-leading'] {
+  display: flex;
+  align-items: center;
+  gap: var(--macos-space-2);
+  flex-shrink: 0;
+}
+
+html.macos [data-tucu='title-bar-trailing'] {
+  display: flex;
+  align-items: center;
+  gap: var(--macos-space-2);
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+/* ── MacOSTrafficLights ──────────────────────────────────────── */
+
+html.macos [data-tucu='traffic-lights'] {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Apple HIG: 8px gap */
+  flex-shrink: 0;
+}
+
+/* Individual traffic light button */
+html.macos [data-tucu='traffic-light'] {
+  width: 12px;
+  height: 12px;
+  border-radius: var(--macos-radius-pill);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  outline: none;
+  cursor: default;
+  padding: 0;
+  transition: filter 0.1s ease;
+  position: relative;
+  flex-shrink: 0;
+}
+
+html.macos [data-tucu='traffic-light']:focus-visible {
+  box-shadow: 0 0 0 2px var(--macos-focus-ring);
+}
+
+/* Close — red */
+html.macos [data-tucu='traffic-light'][data-type='close'] {
+  background-color: var(--macos-traffic-close, #ff5f57);
+  border: 0.5px solid rgba(0, 0, 0, 0.12);
+}
+
+/* Minimize — yellow */
+html.macos [data-tucu='traffic-light'][data-type='minimize'] {
+  background-color: var(--macos-traffic-minimize, #febc2e);
+  border: 0.5px solid rgba(0, 0, 0, 0.12);
+}
+
+/* Maximize — green */
+html.macos [data-tucu='traffic-light'][data-type='maximize'] {
+  background-color: var(--macos-traffic-maximize, #28c840);
+  border: 0.5px solid rgba(0, 0, 0, 0.12);
+}
+
+/* Hover: show glyph, brighten */
+html.macos [data-tucu='traffic-lights']:hover [data-tucu='traffic-light'] {
+  filter: brightness(0.92);
+}
+
+/* Glyph icons inside each button */
+html.macos [data-tucu='traffic-light-glyph'] {
+  display: none;
+  pointer-events: none;
+}
+
+html.macos
+  [data-tucu='traffic-lights']:hover
+  [data-tucu='traffic-light-glyph'] {
+  display: block;
+}
+
+/* Inactive state: all gray */
+html.macos
+  [data-tucu='traffic-lights'][data-inactive='true']
+  [data-tucu='traffic-light'],
+html.macos
+  [data-tucu='window'][data-window-state='inactive']
+  [data-tucu='traffic-light'] {
+  background-color: var(--macos-gray4);
+  border-color: rgba(0, 0, 0, 0.08);
+}
+
+html.macos.dark
+  [data-tucu='traffic-lights'][data-inactive='true']
+  [data-tucu='traffic-light'],
+html.macos.dark
+  [data-tucu='window'][data-window-state='inactive']
+  [data-tucu='traffic-light'] {
+  background-color: var(--macos-gray4);
+}
+
+/* Dark mode: slightly different tones */
+html.macos.dark [data-tucu='traffic-light'][data-type='close'] {
+  background-color: #ff5f57;
+}
+
+html.macos.dark [data-tucu='traffic-light'][data-type='minimize'] {
+  background-color: #febc2e;
+}
+
+html.macos.dark [data-tucu='traffic-light'][data-type='maximize'] {
+  background-color: #28c840;
+}
+
+/* ── Window Content Area ─────────────────────────────────────── */
+
+html.macos [data-tucu='window-content'] {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+  background-color: var(--macos-content-bg);
+}
+
+/* ── Resize handles ──────────────────────────────────────────── */
+
+html.macos [data-tucu='resize-handle'] {
+  position: absolute;
+  z-index: 10;
+}
+
+html.macos [data-tucu='resize-handle'][data-edge='n'],
+html.macos [data-tucu='resize-handle'][data-edge='s'] {
+  left: var(--macos-radius-window);
+  right: var(--macos-radius-window);
+  height: 6px;
+  cursor: ns-resize;
+}
+
+html.macos [data-tucu='resize-handle'][data-edge='n'] {
+  top: 0;
+}
+html.macos [data-tucu='resize-handle'][data-edge='s'] {
+  bottom: 0;
+}
+
+html.macos [data-tucu='resize-handle'][data-edge='e'],
+html.macos [data-tucu='resize-handle'][data-edge='w'] {
+  top: var(--macos-radius-window);
+  bottom: var(--macos-radius-window);
+  width: 6px;
+  cursor: ew-resize;
+}
+
+html.macos [data-tucu='resize-handle'][data-edge='e'] {
+  right: 0;
+}
+html.macos [data-tucu='resize-handle'][data-edge='w'] {
+  left: 0;
+}
+
+html.macos [data-tucu='resize-handle'][data-edge='ne'],
+html.macos [data-tucu='resize-handle'][data-edge='nw'],
+html.macos [data-tucu='resize-handle'][data-edge='se'],
+html.macos [data-tucu='resize-handle'][data-edge='sw'] {
+  width: 18px;
+  height: 18px;
+}
+
+html.macos [data-tucu='resize-handle'][data-edge='ne'] {
+  top: 0;
+  right: 0;
+  cursor: ne-resize;
+}
+html.macos [data-tucu='resize-handle'][data-edge='nw'] {
+  top: 0;
+  left: 0;
+  cursor: nw-resize;
+}
+html.macos [data-tucu='resize-handle'][data-edge='se'] {
+  bottom: 0;
+  right: 0;
+  cursor: se-resize;
+}
+html.macos [data-tucu='resize-handle'][data-edge='sw'] {
+  bottom: 0;
+  left: 0;
+  cursor: sw-resize;
+}
+
+/* ── Reduced motion ──────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  html.macos [data-tucu='window'],
+  html.macos [data-tucu='traffic-light'] {
+    transition: none;
+  }
+}
