@@ -29,7 +29,7 @@ export function HorizontalLayout({
   setIsOpen,
 }: HorizontalLayoutProps) {
   return (
-    <div className={cn(className)}>
+    <div data-tucu="horizontal-layout" className={cn(className)}>
       <HorizontalHeader
         rightButton={rightButton}
         menuItems={menuItems}
@@ -39,6 +39,7 @@ export function HorizontalLayout({
         className={headerClassName}
       />
       <main
+        data-tucu="horizontal-content"
         className={cn(
           fullWidth
             ? 'min-h-full w-full h-full px-[0px]'
