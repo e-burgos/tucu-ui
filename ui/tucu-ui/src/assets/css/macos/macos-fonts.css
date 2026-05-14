@@ -1,80 +1,61 @@
 /* ============================================================
-   SF Pro — @font-face declarations
-   macOS Sonoma 14 Theme Style
+   macOS Tahoe 26 — @font-face declarations
+   Fase 1: Inter Variable + JetBrains Mono Variable
 
-   Strategy: local() only
-   - On macOS: local() finds SF Pro already installed by the OS → 0 bytes downloaded
-   - On other OS: local() fails gracefully → font stack falls back to
-     system-ui / -apple-system / Helvetica Neue (defined in macos-foundations.css)
-   - We cannot bundle Apple's proprietary fonts in the repo.
-     If .woff2 files are added later to assets/fonts/sf-pro/, uncomment the url() fallback.
+   Estrategia: url() bundled (woff2) + local() fallback
+   - Inter Variable reemplaza SF Pro como fuente base del theme macOS Tahoe
+   - JetBrains Mono Variable reemplaza SF Mono para código/monospace
+   - Licencias SIL OFL incluidas en assets/fonts/LICENSE-*.txt
 
-   Source: https://developer.apple.com/fonts/
+   Fuentes:
+   - Inter v4.1: https://github.com/rsms/inter (SIL OFL 1.1)
+   - JetBrains Mono v2.304: https://github.com/JetBrains/JetBrainsMono (SIL OFL 1.1)
    ============================================================ */
 
-/* ── SF Pro Display (≥20pt: titles, large headings) ────────── */
+/* ── Inter Variable — Normal ────────────────────────────────── */
 
 @font-face {
-  font-family: 'SF Pro Display';
-  src: local('SF Pro Display'), local('.SFNSDisplay-Regular'),
-    local('SFProDisplay-Regular');
-  font-weight: 400;
+  font-family: 'Inter';
+  src:
+    url('../../fonts/Inter-Variable.woff2') format('woff2-variations'),
+    local('Inter');
+  font-weight: 100 900;
   font-style: normal;
   font-display: swap;
 }
 
+/* ── Inter Variable — Italic ────────────────────────────────── */
+
 @font-face {
-  font-family: 'SF Pro Display';
-  src: local('SF Pro Display Medium'), local('.SFNSDisplay-Medium'),
-    local('SFProDisplay-Medium');
-  font-weight: 500;
+  font-family: 'Inter';
+  src:
+    url('../../fonts/Inter-Variable-Italic.woff2') format('woff2-variations'),
+    local('Inter Italic');
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* ── JetBrains Mono Variable — Normal ───────────────────────── */
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  src:
+    url('../../fonts/JetBrainsMono-Variable.woff2') format('woff2-variations'),
+    local('JetBrains Mono');
+  font-weight: 100 800;
   font-style: normal;
   font-display: swap;
 }
 
-@font-face {
-  font-family: 'SF Pro Display';
-  src: local('SF Pro Display Semibold'), local('.SFNSDisplay-Semibold'),
-    local('SFProDisplay-Semibold');
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
+/* ── JetBrains Mono Variable — Italic ───────────────────────── */
 
 @font-face {
-  font-family: 'SF Pro Display';
-  src: local('SF Pro Display Bold'), local('.SFNSDisplay-Bold'),
-    local('SFProDisplay-Bold');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-
-/* ── SF Pro Text (<20pt: body, UI controls, labels) ────────── */
-
-@font-face {
-  font-family: 'SF Pro Text';
-  src: local('SF Pro Text'), local('.SFNSText-Regular'),
-    local('SFProText-Regular');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'SF Pro Text';
-  src: local('SF Pro Text Medium'), local('.SFNSText-Medium'),
-    local('SFProText-Medium');
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'SF Pro Text';
-  src: local('SF Pro Text Semibold'), local('.SFNSText-Semibold'),
-    local('SFProText-Semibold');
-  font-weight: 600;
-  font-style: normal;
+  font-family: 'JetBrains Mono';
+  src:
+    url('../../fonts/JetBrainsMono-Variable-Italic.woff2') format('woff2-variations'),
+    local('JetBrains Mono Italic');
+  font-weight: 100 800;
+  font-style: italic;
   font-display: swap;
 }
