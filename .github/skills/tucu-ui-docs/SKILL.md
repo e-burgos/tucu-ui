@@ -626,6 +626,27 @@ Current state of PropPlayground across UI component sections:
 | ListContainer    |       ❌       | —                | Requires items[] + trigger state                           |
 | Toast            |       ❌       | —                | Uses useToastStore (imperative API)                        |
 | DefiAppLogo      |       ❌       | —                | No controllable props (animated SVG)                       |
+| Card             |       ✅       | Card             | title, description, onClick                                |
+| InfoCard         |       ❌       | —                | Requires columns[] + footerTags[] complex data             |
+| KeyValueRow      |       ✅       | KeyValueRow      | label, value, mono, accent                                 |
+| Pagination       |       ✅       | Pagination       | currentPage, totalPages, windowSize                        |
+| Stepper          |       ✅       | Stepper          | currentStep, steps                                         |
+| TabModal         |       ❌       | —                | Requires tabs[] + onClose callback                         |
+| ScrollbarNative  |       ✅       | ScrollbarNative  | autoHide                                                   |
+| LineChart        |       ❌       | —                | Requires data[] + series[] arrays                          |
+| BarChart         |       ❌       | —                | Requires data[] + series[] arrays                          |
+| AreaChart        |       ❌       | —                | Requires data[] + series[] arrays                          |
+| PieChart         |       ❌       | —                | Requires data[] array                                      |
+| RadarChart       |       ❌       | —                | Requires data[] + series[] arrays                          |
+| ComposedChart    |       ❌       | —                | Requires data[] + series[] arrays                          |
+| MacOSWindow      |       ✅       | MacOSWindow      | title, showTrafficLights                                   |
+| MacOSSegmentedControl | ✅       | MacOSSegmentedControl | size, segments, value                                |
+| MacOSSearchBar   |       ✅       | MacOSSearchBar   | placeholder, value                                         |
+| MacOSNotificationBanner | ✅     | MacOSNotificationBanner | variant, title, message, autoDismiss                |
+| MacOSSidebar     |       ❌       | —                | Requires menuItems[] + complex state                       |
+| MacOSToolbar     |       ❌       | —                | Requires leftContent/rightContent slots                    |
+| MacOSWidget      |       ❌       | —                | Container only (no visual props)                           |
+| MacOSPopover     |       ❌       | —                | Requires trigger + children slots                          |
 
 ### Generating Props Metadata
 

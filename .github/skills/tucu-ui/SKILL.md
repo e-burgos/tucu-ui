@@ -15,7 +15,7 @@ A production-ready React component library built with **TypeScript** and **Tailw
 - **Chart system** wrapping Recharts v3 with 6 themed chart types + 3 shared chart components
 - **Advanced form system** wrapping `react-hook-form` with validation
 - **Theming engine** with 22+ color presets (+ 12 macOS presets), semantic tokens, light/dark mode, RTL support, and **two theme variants** (`default` | `macos`)
-- **5 layout options** (Admin, Horizontal, Clean, **macOS Classic**, **macOS Tahoe**) for enterprise applications
+- **5 layout options** (Admin, Horizontal, Clean, macOS Classic, macOS Tahoe) for enterprise applications
 - **8 macOS-style components** (Window, Sidebar, Toolbar, Widget, SegmentedControl, SearchBar, Popover, NotificationBanner)
 - **Built-in routing** for Standalone SPAs and Micro Frontend architectures
 - **10 error pages**, **97+ SVG icons**, and full **Lucide React** namespace (1500+ icons)
@@ -227,7 +227,7 @@ For specific topics, consult these specialized skills:
 | **tucu-ui** (this file)   | Overview, installation, architecture modes, theme variants, agent guidelines                        |
 | **tucu-ui-catalog**       | Complete API reference: all 95+ components, 14 hooks, utilities, types, and code examples           |
 | **tucu-ui-forms**         | Form system, validation patterns, all input components, `useFormContext`, advanced form patterns    |
-| **tucu-ui-design-system** | Layouts (5), semantic tokens, color presets (34+), `useTheme`, dark/light mode, macOS theme variant, typography, CSS design tokens |
+| **tucu-ui-design-system** | Layouts (4), semantic tokens, color presets (34+), `useTheme`, dark/light mode, macOS theme variant, typography, CSS design tokens |
 | **tucu-ui-routing**       | Standalone routing, MFE routing, nested routes, dynamic routes, permissions, navigation patterns    |
 | **tucu-ui-standalone**    | Standalone architecture, menu-driven routes, auth guards, layout strategy, Vite setup               |
 | **tucu-ui-mfe**           | MFE architecture, shell orchestrator, inter-app navigation, shared auth, Vite config, deployment    |

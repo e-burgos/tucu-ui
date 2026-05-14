@@ -14,7 +14,7 @@ Before answering any question regarding:
 **YOU MUST retrieve the context from these skill files:**
 
 - `.github/skills/tucu-ui/SKILL.md` — Overview, installation, architecture modes, agent guidelines
-- `.github/skills/tucu-ui-catalog/SKILL.md` — Complete API reference: 85+ components, hooks, utils, types & examples
+- `.github/skills/tucu-ui-catalog/SKILL.md` — Complete API reference: 95+ components, hooks, utils, types & examples
 - `.github/skills/tucu-ui-forms/SKILL.md` — Form system, validation, all inputs, useFormContext patterns
 - `.github/skills/tucu-ui-design-system/SKILL.md` — Layouts, tokens, color presets, useTheme, dark/light, typography
 - `.github/skills/tucu-ui-routing/SKILL.md` — Standalone routing, MFE routing, nested/dynamic routes, navigation

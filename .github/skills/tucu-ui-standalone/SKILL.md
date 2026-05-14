@@ -206,11 +206,13 @@ export default function App() {
 
 ## 6. Layout Strategy (by purpose)
 
-| Layout                      | When to use                                              |
-| --------------------------- | -------------------------------------------------------- |
-| `LAYOUT_OPTIONS.ADMIN`      | Data-rich apps with sidebar (admin/backoffice/analytics) |
-| `LAYOUT_OPTIONS.HORIZONTAL` | Content apps, docs, simple public/private portal         |
-| `LAYOUT_OPTIONS.CLEAN`      | Isolated flows: login, onboarding, recovery              |
+| Layout                          | When to use                                                |
+| ------------------------------- | ---------------------------------------------------------- |
+| `LAYOUT_OPTIONS.ADMIN`          | Data-rich apps with sidebar (admin/backoffice/analytics)   |
+| `LAYOUT_OPTIONS.HORIZONTAL`     | Content apps, docs, simple public/private portal           |
+| `LAYOUT_OPTIONS.CLEAN`          | Isolated flows: login, onboarding, recovery                |
+| `LAYOUT_OPTIONS.MACOS`          | macOS-style apps with translucent sidebar + toolbar        |
+| `LAYOUT_OPTIONS.MACOS_TAHOE`    | macOS Tahoe-style apps with rounded corners + vibrancy     |
 
 You can also switch layout based on state:
 

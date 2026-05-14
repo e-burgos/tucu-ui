@@ -21,7 +21,7 @@ All components consume semantic tokens automatically. Developers should never ha
 
 ## 2. Layout System
 
-Tucu-UI provides 3 predefined layouts for enterprise applications. The layout is selected via `ThemeProvider` or the `useTheme` hook.
+Tucu-UI provides 5 predefined layouts for enterprise applications. The layout is selected via `ThemeProvider` or the `useTheme` hook.
 
 ### Admin Layout
 
@@ -71,6 +71,53 @@ Tucu-UI provides 3 predefined layouts for enterprise applications. The layout is
 - No navigation, no header — empty canvas
 - Ideal for: login, sign up, error pages, landing pages
 
+### macOS Classic Layout
+
+```
+┌──────────────────────────────────────────┐
+│  MacOSToolbar (sticky, vibrancy)         │
+├────────────┬─────────────────────────────┤
+│ MacOSSidebar│  Content Area              │
+│ (translucent│                            │
+│  vibrancy)  │                            │
+│             │                            │
+└─────────────┴────────────────────────────┘
+```
+
+- **Constant**: `LAYOUT_OPTIONS.MACOS`
+- Translucent sidebar with vibrancy blur effect
+- macOS-style toolbar with traffic-light buttons
+- Ideal for: macOS-style desktop apps, Finder-like interfaces
+
+### macOS Tahoe Layout
+
+```
+┌──────────────────────────────────────────┐
+│  MacOSToolbar (Tahoe-style, rounded)     │
+├────────────┬─────────────────────────────┤
+│ MacOSSidebar│  Content Area              │
+│ (Tahoe-style│  (rounded corners)         │
+│  rounded)   │                            │
+│             │                            │
+└─────────────┴────────────────────────────┘
+```
+
+- **Constant**: `LAYOUT_OPTIONS.MACOS_TAHOE`
+- Tahoe design language with rounded corners and updated vibrancy
+- Ideal for: modern macOS 26+ Tahoe-style interfaces
+
+### LAYOUT_OPTIONS Enum
+
+```typescript
+enum LAYOUT_OPTIONS {
+  CLEAN = 'clean',
+  ADMIN = 'admin',
+  HORIZONTAL = 'horizontal',
+  MACOS = 'macos',
+  MACOS_TAHOE = 'macos-tahoe',
+}
+```
+
 ### Setting the Layout
 
 ```tsx
@@ -82,16 +129,21 @@ import { ThemeProvider, LAYOUT_OPTIONS } from '@e-burgos/tucu-ui';
 // Via useTheme (runtime change)
 const { layout, setLayout } = useTheme();
 setLayout(LAYOUT_OPTIONS.HORIZONTAL);
+
+// macOS layouts
+setLayout(LAYOUT_OPTIONS.MACOS);
+setLayout(LAYOUT_OPTIONS.MACOS_TAHOE);
 ```
 
 ### Layout Components
 
-| Component            | Props                                                                                                | Description                        |
-| -------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------- |
-| **RootLayout**       | `{layout?: 'clean'\|'admin'\|'horizontal', menuItems: IMenuItem[], logo?, rightButton?, fullWidth?}` | Main layout orchestrator           |
-| **AdminLayout**      | `{menuItems, rightButton?, logo?, isOpen, setIsOpen, fullWidth?}`                                    | Collapsible sidebar + fixed header |
-| **CleanLayout**      | `{children, className?}`                                                                             | Minimal layout without nav         |
-| **HorizontalLayout** | `{menuItems, rightButton?, logo?, isOpen, setIsOpen, fullWidth?}`                                    | Top horizontal navigation          |
+| Component            | Props                                                                                                                            | Description                        |
+| -------------------- | -------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- |
+| **RootLayout**       | `{layout?: 'clean'\|'admin'\|'horizontal'\|'macos'\|'macos-tahoe', menuItems: IMenuItem[], logo?, rightButton?, fullWidth?}` | Main layout orchestrator           |
+| **AdminLayout**      | `{menuItems, rightButton?, logo?, isOpen, setIsOpen, fullWidth?}`                                                                | Collapsible sidebar + fixed header |
+| **CleanLayout**      | `{children, className?}`                                                                                                         | Minimal layout without nav         |
+| **HorizontalLayout** | `{menuItems, rightButton?, logo?, isOpen, setIsOpen, fullWidth?}`                                                                | Top horizontal navigation          |
+| **MacOSLayout**      | `{menuItems, rightButton?, logo?, isOpen, setIsOpen, fullWidth?}`                                                                | macOS-style sidebar + toolbar      |
 
 ---
 
@@ -139,85 +191,122 @@ Use these Tailwind classes across your application. They adapt automatically to 
 
 ### 3.3 Color Presets
 
-22 color presets are available, each redefining the primary, secondary, and accent tokens:
+34 color presets organized in two categories:
 
-**Light Presets**: Blue (default), Green, Orange, Red, Pink, Purple, Indigo, Teal, Yellow, Chartreuse, Gray
+**Standard Light Presets (11)**: Blue (default), Green, Orange, Red, Pink, Purple, Indigo, Teal, Yellow, Chartreuse, Gray
 
-**Dark Presets**: Dark Blue, Dark Green, Dark Orange, Dark Red, Dark Pink, Dark Purple, Dark Indigo, Dark Teal, Dark Yellow, Dark Chartreuse, Dark Gray
+**Standard Dark Presets (11)**: Dark Blue, Dark Green, Dark Orange, Dark Red, Dark Pink, Dark Purple, Dark Indigo, Dark Teal, Dark Yellow, Dark Chartreuse, Dark Gray
+
+**macOS System Color Presets (12)**: Apple-inspired colors sampled from macOS Sonoma, applied automatically by `applyMacOSTheme()`:
+
+| Preset Label        | Value     | Role              |
+| ------------------- | --------- | ----------------- |
+| MacOSPrimary        | `#007aff` | systemBlue light  |
+| MacOSDarkPrimary    | `#0a84ff` | systemBlue dark   |
+| MacOSSecondary      | `#ffffff` | contentBackground |
+| MacOSDarkSecondary  | `#2c2c2e` | elevated surface  |
+| MacOSAccent         | `#ff9500` | systemOrange light|
+| MacOSDarkAccent     | `#ff9f0a` | systemOrange dark |
+| MacOSMuted          | `#6c6c70` | secondaryLabel    |
+| MacOSDarkMuted      | `#aeaeb2` | systemGray2 dark  |
+| MacOSLightBg        | `#f2f2f7` | systemGray6       |
+| MacOSDarkBg         | `#1c1c1e` | systemGray5 dark  |
+| MacOSLightDark      | `#e5e5ea` | systemGray5 light |
+| MacOSDarkLightDark  | `#3a3a3c` | systemGray3 dark  |
 
 ---
 
 ## 4. `useTheme` Hook
 
-The central hook for programmatic access to the theme state. Powered by Zustand.
+The central hook for programmatic access to the theme state. Powered by Zustand with `persist` middleware.
+
+### State Properties
+
+```typescript
+interface IThemeState {
+  mode: 'light' | 'dark';
+  colorScheme: 'default' | 'macos';        // Theme variant
+  layout: LAYOUT_OPTIONS;                    // 'clean' | 'admin' | 'horizontal' | 'macos' | 'macos-tahoe'
+  direction: 'ltr' | 'rtl';
+  lang: 'en' | 'es' | 'fr';
+  primaryPreset: IThemeItem;
+  darkPrimaryPreset: IThemeItem;
+  secondaryPreset: IThemeItem;
+  darkSecondaryPreset: IThemeItem;
+  accentPreset: IThemeItem;
+  darkAccentPreset: IThemeItem;
+  mutedPreset: IThemeItem;
+  darkMutedPreset: IThemeItem;
+  darkBgPreset: IThemeItem;
+  lightBgPreset: IThemeItem;
+  lightDarkPreset: IThemeItem;
+  darkLightDarkPreset: IThemeItem;
+  logo: LogoType;
+  showSettings: boolean;
+  isSettingsOpen: boolean;
+}
+```
+
+### Auto-generated Setters
+
+Every state property has a setter: `setMode`, `setLayout`, `setColorScheme`, `setDirection`, `setLang`, `setPrimaryPreset`, etc.
+
+### Actions
+
+| Method                  | Description                                                               |
+| ----------------------- | ------------------------------------------------------------------------- |
+| `restoreDefaultColors()`| Resets all presets, direction, layout, and mode to defaults                |
+| `applyMacOSTheme()`    | Applies macOS system color presets + sets `colorScheme: 'macos'` + layout to `MACOS_TAHOE` |
+| `applyDefaultTheme()`  | Restores standard presets + sets `colorScheme: 'default'` + default layout|
+
+### Usage
 
 ```tsx
-import { useTheme } from '@e-burgos/tucu-ui';
+import { useTheme, LAYOUT_OPTIONS } from '@e-burgos/tucu-ui';
 
 const ThemeControls = () => {
   const {
-    // Mode
-    mode, // 'light' | 'dark'
-    setMode, // (mode: 'light' | 'dark') => void
-
-    // Direction
-    direction, // 'ltr' | 'rtl'
-    onChangeDirection, // (dir: 'ltr' | 'rtl') => void
-
-    // Color Preset
-    currentPreset, // Current color preset name
-    changeColor, // (preset: string) => void
-
-    // Layout
-    layout, // 'admin' | 'horizontal' | 'clean'
-    setLayout, // (layout: string) => void
+    mode, setMode,
+    layout, setLayout,
+    colorScheme, applyMacOSTheme, applyDefaultTheme,
+    direction, setDirection,
+    lang, setLang,
+    restoreDefaultColors,
   } = useTheme();
 
   return (
     <div className="flex gap-4">
-      <button onClick={() => setMode(mode === 'dark' ? 'light' : 'dark')}>Toggle {mode === 'dark' ? 'Light' : 'Dark'}</button>
-      <button onClick={() => onChangeDirection(direction === 'ltr' ? 'rtl' : 'ltr')}>Toggle RTL</button>
-      <button onClick={() => changeColor('Green')}>Apply Green Preset</button>
-      <button onClick={() => setLayout('admin')}>Switch to Admin Layout</button>
+      <button onClick={() => setMode(mode === 'dark' ? 'light' : 'dark')}>Toggle Mode</button>
+      <button onClick={() => setLayout(LAYOUT_OPTIONS.ADMIN)}>Admin Layout</button>
+      <button onClick={colorScheme === 'macos' ? applyDefaultTheme : applyMacOSTheme}>
+        Switch to {colorScheme === 'macos' ? 'Default' : 'macOS'} theme
+      </button>
+      <button onClick={restoreDefaultColors}>Reset All</button>
     </div>
   );
 };
 ```
 
-### Common Patterns
+### Theme Variants
 
-#### Dark Mode Toggle
+The library supports two visual variants:
 
-```tsx
-import { useTheme, LucideIcons } from '@e-burgos/tucu-ui';
-
-const DarkModeToggle = () => {
-  const { mode, setMode } = useTheme();
-  return (
-    <button onClick={() => setMode(mode === 'dark' ? 'light' : 'dark')} className="p-2 rounded-lg bg-secondary">
-      {mode === 'dark' ? <LucideIcons.Sun /> : <LucideIcons.Moon />}
-    </button>
-  );
-};
-```
-
-#### Preset Selector
+| Variant     | Constant          | Description                                    |
+| ----------- | ----------------- | ---------------------------------------------- |
+| `default`   | `THEME_VARIANT`   | Standard design system                         |
+| `macos`     | `THEME_VARIANT`   | Apple-inspired with vibrancy, blur materials   |
 
 ```tsx
-import { useTheme } from '@e-burgos/tucu-ui';
+// Check current variant
+const { colorScheme } = useTheme(); // 'default' | 'macos'
 
-const PresetSelector = () => {
-  const { currentPreset, changeColor } = useTheme();
-  const presets = ['Blue', 'Green', 'Orange', 'Red', 'Purple', 'Teal'];
+// Switch to macOS theme (applies colors + layout)
+const { applyMacOSTheme } = useTheme();
+applyMacOSTheme();
 
-  return (
-    <div className="flex gap-2">
-      {presets.map((preset) => (
-        <button key={preset} onClick={() => changeColor(preset)} className={`w-8 h-8 rounded-full ${currentPreset === preset ? 'ring-2 ring-primary' : ''}`} />
-      ))}
-    </div>
-  );
-};
+// Switch back to default
+const { applyDefaultTheme } = useTheme();
+applyDefaultTheme();
 ```
 
 ---
@@ -355,7 +444,7 @@ import { NotFoundPage, ServerErrorPage } from '@e-burgos/tucu-ui';
 
 1. **Always use semantic tokens** (`bg-primary`, `text-secondary`, etc.) — never static Tailwind colors.
 2. **Prefer `CardContainer`** over raw `<div>` for themed surfaces with proper borders, shadows, and dark mode.
-3. **Choose layouts thoughtfully**: Admin for complex apps, Horizontal for content, Clean for auth/errors.
+3. **Choose layouts thoughtfully**: Admin for complex apps, Horizontal for content, Clean for auth/errors, macOS Classic/Tahoe for Apple-style desktop apps.
 4. **Use `useTheme` hook** for runtime theme access — don't manipulate CSS variables directly.
 5. **Enable `showSettings`** in `ThemeProvider` during development for easy visual testing.
 6. **Test both modes**: Always verify components look correct in both light and dark mode.
