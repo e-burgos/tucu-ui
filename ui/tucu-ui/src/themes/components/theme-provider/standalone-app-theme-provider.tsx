@@ -1,19 +1,24 @@
 import React, { Suspense } from 'react';
 import { BrowserRouter, Routes } from 'react-router-dom';
-import ThemeWrapper, { ThemeWrapperProps } from './theme-wrapper';
+import ThemeWrapper, {
+  ThemeWrapperProps,
+  DistributiveOmit,
+} from './theme-wrapper';
 import StandaloneAppRoutesProvider, {
   StandaloneAppRoutesProps,
 } from '../../router/components/standalone-app-routes-provider';
 import FallbackPage from '../../pages/fallback-page';
 import { IMenuItem } from '../../../components/layouts/menus/menu-item';
 
-export interface StandaloneAppProviderProps
-  extends Omit<ThemeWrapperProps, 'menuItems' | 'children'> {
+export type StandaloneAppProviderProps = DistributiveOmit<
+  ThemeWrapperProps,
+  'menuItems' | 'children'
+> & {
   menuItems: StandaloneAppRoutesProps['menuItems'];
   customRoutes?: React.ReactElement<typeof Routes>;
   isAuthenticated: boolean;
   loginUrl?: string;
-}
+};
 
 const StandaloneAppProvider: React.FC<StandaloneAppProviderProps> = ({
   menuItems,

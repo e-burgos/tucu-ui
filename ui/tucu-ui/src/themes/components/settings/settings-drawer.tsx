@@ -20,6 +20,10 @@ import {
   IThemeItem,
   LAYOUT_OPTIONS,
   layoutOptions,
+  TAHOE_ACCENT_BUNDLES,
+  buildTahoePresets,
+  SONOMA_ACCENT_BUNDLES,
+  buildSonomaPresets,
 } from '../../config';
 import {
   MinimalLayoutIcon,
@@ -30,6 +34,9 @@ import {
   Moon,
 } from '../../../components/icons';
 import { Drawer } from '../../../components/dialog/drawer';
+import { DrawerContainer } from '../../../components/dialog/drawer-container';
+import { Scrollbar } from '../../../components/common/scrollbar';
+import { Close } from '../../../components/icons/close';
 import { Input } from '../../../components/inputs/input';
 import { Select, SelectOption } from '../../../components/inputs/select';
 
@@ -183,6 +190,7 @@ function SettingsSectionHeading({ children }: { children: React.ReactNode }) {
   const { colorScheme, layout } = useTheme();
   const isMacOS =
     colorScheme === 'macos' ||
+    colorScheme === 'macos-tahoe' ||
     layout === LAYOUT_OPTIONS.MACOS ||
     layout === LAYOUT_OPTIONS.MACOS_TAHOE;
 
@@ -277,12 +285,47 @@ function MacOSThemeIcon() {
   );
 }
 
+// Minimal SVG icon representing macOS Tahoe style (rounded window + floating pill bar)
+function MacOSTahoeThemeIcon() {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <rect x="2" y="3" width="20" height="15" rx="4" />
+      <circle cx="6" cy="6" r="1" fill="currentColor" stroke="none" />
+      <circle cx="9.5" cy="6" r="1" fill="currentColor" stroke="none" />
+      <circle cx="13" cy="6" r="1" fill="currentColor" stroke="none" />
+      <rect
+        x="5"
+        y="20"
+        width="14"
+        height="2.5"
+        rx="1.25"
+        fill="currentColor"
+        stroke="none"
+      />
+    </svg>
+  );
+}
+
 function ThemeVariantSwitcher() {
-  const { colorScheme, applyMacOSTheme, applyDefaultTheme } = useTheme();
+  const {
+    colorScheme,
+    applyMacOSTheme,
+    applyMacOSTahoeTheme,
+    applyDefaultTheme,
+  } = useTheme();
   return (
     <div className="px-6 pt-8">
       <SettingsSectionHeading>Theme Style</SettingsSectionHeading>
-      <div role="radiogroup" className="grid grid-cols-2 gap-5">
+      <div role="radiogroup" className="grid grid-cols-3 gap-5">
         <SwitcherButton
           onClick={applyDefaultTheme}
           title="Default"
@@ -296,6 +339,13 @@ function ThemeVariantSwitcher() {
           checked={colorScheme === 'macos'}
         >
           <MacOSThemeIcon />
+        </SwitcherButton>
+        <SwitcherButton
+          onClick={applyMacOSTahoeTheme}
+          title="Tahoe"
+          checked={colorScheme === 'macos-tahoe'}
+        >
+          <MacOSTahoeThemeIcon />
         </SwitcherButton>
       </div>
     </div>
@@ -343,7 +393,7 @@ function LayoutSwitcher() {
   const { layout, setLayout, colorScheme } = useTheme();
 
   // Hide layout switcher if macOS theme is active, since layout is forced
-  if (colorScheme === 'macos') return null;
+  if (colorScheme === 'macos' || colorScheme === 'macos-tahoe') return null;
 
   return (
     <div className="px-6 pt-8">
@@ -456,10 +506,211 @@ export function RestoreDefaults() {
   );
 }
 
+// ─── TahoeAccentPicker ─────────────────────────────────────────
+
+function TahoeAccentPicker() {
+  const { primaryPreset, accentPreset } = useTheme();
+
+  const handleAccentSelect = (bundleId: string) => {
+    const bundle = TAHOE_ACCENT_BUNDLES.find((b) => b.id === bundleId);
+    if (!bundle) return;
+    const presets = buildTahoePresets(bundle);
+    useTheme.setState(presets);
+  };
+
+  // Detect active accent by comparing primary + accent color values
+  const pv = primaryPreset?.value?.toLowerCase();
+  const av = accentPreset?.value?.toLowerCase();
+  const activeId = TAHOE_ACCENT_BUNDLES.find(
+    (b) =>
+      (b.primaryLight.toLowerCase() === pv ||
+        b.primaryDark.toLowerCase() === pv) &&
+      (b.accentLight.toLowerCase() === av || b.accentDark.toLowerCase() === av)
+  )?.id;
+
+  return (
+    <div className="px-6 pt-8">
+      <SettingsSectionHeading>Accent Color</SettingsSectionHeading>
+      <div className="grid grid-cols-4 gap-3">
+        {TAHOE_ACCENT_BUNDLES.map((bundle) => {
+          const isActive = activeId === bundle.id;
+          const isGlass = bundle.id === 'glass-neutral';
+          return (
+            <button
+              key={bundle.id}
+              type="button"
+              aria-label={`${bundle.label} accent`}
+              onClick={() => handleAccentSelect(bundle.id)}
+              className={cn(
+                'group flex flex-col items-center gap-1.5 rounded-xl p-2 transition-all cursor-pointer',
+                isActive
+                  ? 'bg-white/10 ring-1 ring-white/20'
+                  : 'hover:bg-white/5'
+              )}
+            >
+              <span
+                className={cn(
+                  'h-7 w-7 rounded-full border-2 transition-transform',
+                  isActive
+                    ? 'border-white scale-110 shadow-lg'
+                    : 'border-transparent group-hover:scale-105'
+                )}
+                style={{
+                  background: isGlass
+                    ? 'linear-gradient(135deg, #007AFF 0%, #5AC8FA 50%, #FF9500 100%)'
+                    : bundle.swatch,
+                }}
+              />
+              <span
+                className={cn(
+                  'text-[10px] font-medium transition-colors',
+                  isActive
+                    ? 'text-white'
+                    : 'text-(--macos-tahoe-text-muted) group-hover:text-(--macos-tahoe-text)'
+                )}
+              >
+                {bundle.label}
+              </span>
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+// ─── SonomaAccentPicker ────────────────────────────────────────
+
+function SonomaAccentPicker() {
+  const { primaryPreset, accentPreset } = useTheme();
+
+  const handleAccentSelect = (bundleId: string) => {
+    const bundle = SONOMA_ACCENT_BUNDLES.find((b) => b.id === bundleId);
+    if (!bundle) return;
+    const presets = buildSonomaPresets(bundle);
+    useTheme.setState(presets);
+  };
+
+  const pv = primaryPreset?.value?.toLowerCase();
+  const av = accentPreset?.value?.toLowerCase();
+  const activeId = SONOMA_ACCENT_BUNDLES.find(
+    (b) =>
+      (b.primaryLight.toLowerCase() === pv ||
+        b.primaryDark.toLowerCase() === pv) &&
+      (b.accentLight.toLowerCase() === av || b.accentDark.toLowerCase() === av)
+  )?.id;
+
+  return (
+    <div className="px-6 pt-8">
+      <SettingsSectionHeading>Accent Color</SettingsSectionHeading>
+      <div className="grid grid-cols-4 gap-3">
+        {SONOMA_ACCENT_BUNDLES.map((bundle) => {
+          const isActive = activeId === bundle.id;
+          return (
+            <button
+              key={bundle.id}
+              type="button"
+              aria-label={`${bundle.label} accent`}
+              onClick={() => handleAccentSelect(bundle.id)}
+              className={cn(
+                'group flex flex-col items-center gap-1.5 rounded-xl p-2 transition-all cursor-pointer',
+                isActive
+                  ? 'bg-white/10 ring-1 ring-white/20'
+                  : 'hover:bg-white/5'
+              )}
+            >
+              <span
+                className={cn(
+                  'h-7 w-7 rounded-full border-2 transition-transform',
+                  isActive
+                    ? 'border-white scale-110 shadow-lg'
+                    : 'border-transparent group-hover:scale-105'
+                )}
+                style={{ background: bundle.swatch }}
+              />
+              <span
+                className={cn(
+                  'text-[10px] font-medium transition-colors',
+                  isActive
+                    ? 'text-white'
+                    : 'text-gray-400 group-hover:text-gray-200'
+                )}
+              >
+                {bundle.label}
+              </span>
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
 // ─── SettingsDrawer ────────────────────────────────────────────
 
 export function SettingsDrawer() {
-  const { isSettingsOpen, setIsSettingsOpen } = useTheme();
+  const { isSettingsOpen, setIsSettingsOpen, layout, colorScheme } = useTheme();
+  const isTahoe =
+    colorScheme === 'macos-tahoe' || layout === LAYOUT_OPTIONS.MACOS_TAHOE;
+  const isSonoma = colorScheme === 'macos' || layout === LAYOUT_OPTIONS.MACOS;
+  const isMacOS = isTahoe || isSonoma;
+
+  const settingsContent = (
+    <div className="h-full pb-18">
+      <ThemeSwitcher />
+      <ThemeVariantSwitcher />
+      <DirectionSwitcher />
+      <LayoutSwitcher />
+      {isTahoe ? (
+        <TahoeAccentPicker />
+      ) : isSonoma ? (
+        <SonomaAccentPicker />
+      ) : (
+        COLOR_TYPES.map((type) => <ColorSwitcher key={type} type={type} />)
+      )}
+      <RestoreDefaults />
+    </div>
+  );
+
+  if (isTahoe) {
+    return (
+      <DrawerContainer
+        isOpen={isSettingsOpen}
+        setIsOpen={setIsSettingsOpen}
+        position="right"
+        backdrop={false}
+        backdropClassName="backdrop-blur-[2px] bg-transparent"
+      >
+        <div className="pointer-events-none relative z-10 flex h-full w-full items-stretch justify-end p-3 min-[500px]:p-4">
+          <aside
+            data-tucu="macos-tahoe-sidebar"
+            className="pointer-events-auto flex h-full w-80 max-w-[calc(100vw-24px)] flex-col overflow-hidden rounded-[30px] border border-(--macos-tahoe-border) bg-(--macos-tahoe-sidebar-bg) backdrop-blur-[30px]"
+          >
+            <div className="shrink-0 px-5 pb-3 pt-5 flex items-center justify-between gap-3">
+              <span className="text-[16px] font-semibold text-(--macos-tahoe-text) dark:text-white/90">
+                Settings
+              </span>
+              <button
+                type="button"
+                onClick={() => setIsSettingsOpen(false)}
+                aria-label="Close settings"
+                className="flex h-7 w-7 items-center justify-center rounded-full border border-white/10 bg-black/8 text-(--macos-tahoe-text-muted) transition-colors hover:bg-black/12 hover:text-(--macos-tahoe-text) dark:bg-white/6 dark:hover:bg-white/10"
+              >
+                <Close className="h-3.5 w-3.5" width={14} height={14} />
+              </button>
+            </div>
+            <Scrollbar
+              style={{ height: 'calc(100vh - 80px)' }}
+              className="h-full pb-5"
+            >
+              {settingsContent}
+            </Scrollbar>
+          </aside>
+        </div>
+      </DrawerContainer>
+    );
+  }
+
   return (
     <Drawer
       type="sidebar"
@@ -467,18 +718,9 @@ export function SettingsDrawer() {
       isOpen={isSettingsOpen}
       setIsOpen={setIsSettingsOpen}
       title="Settings"
-      className="relative"
+      className={cn('relative', isMacOS && 'min-[500px]:w-80!')}
     >
-      <div className="h-full pb-16">
-        <ThemeSwitcher />
-        <ThemeVariantSwitcher />
-        <DirectionSwitcher />
-        <LayoutSwitcher />
-        {COLOR_TYPES.map((type) => (
-          <ColorSwitcher key={type} type={type} />
-        ))}
-        <RestoreDefaults />
-      </div>
+      {settingsContent}
     </Drawer>
   );
 }

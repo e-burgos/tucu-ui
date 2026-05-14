@@ -27,6 +27,7 @@ import {
   macosLightPresets,
   LangType,
   defaultLang,
+  THEME_STYLE_LAYOUTS,
 } from '../config/index';
 
 // ─── Default State ─────────────────────────────────────────────
@@ -95,7 +96,9 @@ interface IThemeState {
 export interface ITheme extends IThemeState, Setters<IThemeState> {
   restoreDefaultColors: () => void;
   applyMacOSTheme: () => void;
+  applyMacOSTahoeTheme: () => void;
   applyDefaultTheme: () => void;
+  applyThemeStyle: (themeStyle: THEME_VARIANT) => void;
 }
 
 // ─── Store ─────────────────────────────────────────────────────
@@ -142,6 +145,13 @@ export const useTheme = create<ITheme>()(
         set({
           ...macosLightPresets,
           colorScheme: 'macos',
+          layout: LAYOUT_OPTIONS.MACOS,
+        }),
+
+      applyMacOSTahoeTheme: () =>
+        set({
+          ...macosLightPresets,
+          colorScheme: 'macos-tahoe',
           layout: LAYOUT_OPTIONS.MACOS_TAHOE,
         }),
 
@@ -151,6 +161,17 @@ export const useTheme = create<ITheme>()(
           colorScheme: 'default',
           layout: defaultLayout,
         }),
+
+      applyThemeStyle: (themeStyle: THEME_VARIANT) => {
+        const config = THEME_STYLE_LAYOUTS[themeStyle];
+        const presets =
+          themeStyle === 'default' ? defaultPresets : macosLightPresets;
+        set({
+          ...presets,
+          colorScheme: themeStyle,
+          layout: config.defaultLayout,
+        });
+      },
     }),
     {
       name: 'theme-storage',
