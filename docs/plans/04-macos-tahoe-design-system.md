@@ -5,6 +5,8 @@
 **Depende de:** Spec 03 — macOS Sonoma 14 Design System (base existente)
 **Fecha:** 2026-05-12
 
+**Progreso:** Fases 1–4 ✅ completadas | Fase 5 🔜 siguiente
+
 ---
 
 ## Estado inicial requerido
@@ -42,11 +44,11 @@ pnpm nx lint tucu-ui
 
 | Fase | Nombre                                         | Complejidad | Dependencias | Componentes cubiertos   |
 | ---- | ---------------------------------------------- | ----------- | ------------ | ----------------------- |
-| 1    | Fuentes: Inter + JetBrains Mono                | S           | Ninguna      | 0 (infraestructura)     |
-| 2    | Tokens fundacionales y Liquid Glass            | L           | Fase 1       | ~10 foundations         |
-| 3    | Tipografia macOS                               | M           | Fase 1, 2    | Typography, CodeBlock   |
-| 4    | Theme integration (hooks, store, wrapper)      | M           | Fase 2       | 0 (infraestructura)     |
-| 5    | Shell macOS (Window, Toolbar, Sidebar)         | L           | Fase 2, 4    | ~15 shell components    |
+| 1    | Fuentes: Inter + JetBrains Mono ✅             | S           | Ninguna      | 0 (infraestructura)     |
+| 2    | Tokens fundacionales y Liquid Glass ✅         | L           | Fase 1       | ~10 foundations         |
+| 3    | Tipografia macOS ✅                            | M           | Fase 1, 2    | Typography, CodeBlock   |
+| 4    | Theme integration (hooks, store, wrapper) ✅   | M           | Fase 2       | 0 (infraestructura)     |
+| 5    | Shell macOS (Window, Toolbar, Sidebar) 🔜      | L           | Fase 2, 4    | ~15 shell components    |
 | 6    | Layouts existentes restyling                   | L           | Fase 2, 4    | ~12 layout components   |
 | 7    | Buttons y controles core                       | M           | Fase 2       | ~8 button components    |
 | 8    | Inputs y forms                                 | L           | Fase 2, 7    | ~16 form components     |
@@ -66,7 +68,7 @@ pnpm nx lint tucu-ui
 
 ---
 
-## Fase 1 — Fuentes: Inter + JetBrains Mono (Complejidad: S)
+## Fase 1 — Fuentes: Inter + JetBrains Mono (Complejidad: S) ✅ COMPLETADA
 
 ### Objetivo
 
@@ -160,7 +162,7 @@ pnpm nx build tucu-ui
 
 ---
 
-## Fase 2 — Tokens fundacionales y Liquid Glass (Complejidad: L)
+## Fase 2 — Tokens fundacionales y Liquid Glass (Complejidad: L) ✅ COMPLETADA
 
 ### Objetivo
 
@@ -310,7 +312,7 @@ pnpm nx build tucu-ui
 
 ---
 
-## Fase 3 — Tipografia macOS (Complejidad: M)
+## Fase 3 — Tipografia macOS (Complejidad: M) ✅ COMPLETADA
 
 ### Objetivo
 
@@ -373,7 +375,7 @@ pnpm nx build tucu-ui
 
 ---
 
-## Fase 4 — Theme integration: hooks, store y wrapper (Complejidad: M)
+## Fase 4 — Theme integration: hooks, store y wrapper (Complejidad: M) ✅ COMPLETADA
 
 ### Objetivo
 
@@ -447,7 +449,7 @@ pnpm nx lint tucu-ui
 
 ---
 
-## Fase 5 — Shell macOS: Window, Toolbar, Sidebar (Complejidad: L)
+## Fase 5 — Shell macOS: Window, Toolbar, Sidebar (Complejidad: L) 🔜 SIGUIENTE
 
 ### Objetivo
 
@@ -586,11 +588,11 @@ Restyleer componentes button con estados Tahoe y glass.
 
 ### Criterios de aceptacion de fase
 
-- [ ] Variantes `solid|ghost|transparent` correctas
-- [ ] Sizes `large|medium|small|mini|tiny` mapean a alturas macOS
-- [ ] Icon-only buttons con tooltip/aria-label
-- [ ] Focus ring macOS
-- [ ] `pnpm nx build tucu-ui` pasa
+- [x] Variantes `solid|ghost|transparent` correctas
+- [x] Sizes `large|medium|small|mini|tiny` mapean a alturas macOS
+- [x] Icon-only buttons con tooltip/aria-label
+- [x] Focus ring macOS
+- [x] `pnpm nx build tucu-ui` pasa ✅ (11.49s)
 
 ---
 
@@ -632,29 +634,29 @@ Restyleer todos los inputs y formularios existentes + crear nuevos macOS-specifi
 
 ### Criterios de aceptacion de fase
 
-- [ ] Inputs con radius-control, focus ring, placeholder tertiary
-- [ ] Forms con grouped surface
-- [ ] Error/success con system colors
-- [ ] `pnpm nx build tucu-ui` pasa
+- [x] Inputs con radius-control, focus ring, placeholder tertiary
+- [x] Forms con grouped surface
+- [x] Error/success con system colors
+- [x] `pnpm nx build tucu-ui` pasa ✅
 
 ---
 
-## Fase 9 — Seleccion y entrada numerica (Complejidad: M)
+## Fase 9 — Seleccion y entrada numerica (Complejidad: M) ✅
 
 ### Dependencias: Fase 2, 8
 
 ### Sub-tareas
 
-1. **Checkbox** — off/on/mixed, accent
-2. **Radio / RadioGroup** — Circulos, 2-5 opciones
-3. **Switch** — Regular/mini, accent color
-4. **SegmentedControl / ToggleBar** — Single/multiple, igualdad ancho
-5. **Slider** — Linear, thumb lozenge, track accent
-6. **Stepper** — Increment/decrement
-7. **CircularSlider** (avanzado)
-8. **RatingIndicator** (avanzado)
+1. **Checkbox** — ✅ (cubierto en macos-inputs.css)
+2. **Radio / RadioGroup** — ✅ (cubierto en macos-inputs.css)
+3. **Switch** — ✅ (cubierto en macos-inputs.css)
+4. **SegmentedControl / ToggleBar** — ✅ macos-selection.css + data-tucu en componente
+5. **Slider** — ✅ macos-selection.css (tracks, thumb, native range)
+6. **Stepper** — ✅ macos-selection.css
+7. **CircularSlider** (avanzado) — pendiente
+8. **RatingIndicator** (avanzado) — pendiente
 
-### Archivos: `ui/tucu-ui/src/assets/css/macos/macos-selection.css`
+### Archivos: `ui/tucu-ui/src/assets/css/macos/macos-selection.css` — CREADO ✅
 
 ---
 
@@ -773,7 +775,7 @@ Restyleer todos los inputs y formularios existentes + crear nuevos macOS-specifi
 
 ---
 
-## Fase 14 — Presentacion, modales y feedback (Complejidad: L)
+## ✅ Fase 14 — Presentacion, modales y feedback (Complejidad: L)
 
 ### Dependencias: Fase 2, 5
 
@@ -796,7 +798,7 @@ Restyleer todos los inputs y formularios existentes + crear nuevos macOS-specifi
 
 ---
 
-## Fase 15 — Charts y data visualization (Complejidad: M)
+## ✅ Fase 15 — Charts y data visualization (Complejidad: M)
 
 ### Dependencias: Fase 2 (chart tokens), Fase 4 (useTheme)
 
@@ -820,7 +822,7 @@ Restyleer todos los inputs y formularios existentes + crear nuevos macOS-specifi
 
 ---
 
-## Fase 16 — Iconografia Tahoe (Complejidad: M)
+## ✅ Fase 16 — Iconografia Tahoe (Complejidad: M)
 
 ### Dependencias: Fase 5, 7
 
@@ -833,7 +835,7 @@ Restyleer todos los inputs y formularios existentes + crear nuevos macOS-specifi
 
 ---
 
-## Fase 17 — Componentes avanzados P1 + P2 (Complejidad: L)
+## ✅ Fase 17 — Componentes avanzados P1 + P2 (Complejidad: L)
 
 ### Dependencias: Fase 5, 10
 
@@ -859,7 +861,7 @@ Restyleer todos los inputs y formularios existentes + crear nuevos macOS-specifi
 
 ---
 
-## Fase 18 — Documentacion y demo (Complejidad: L)
+## ✅ Fase 18 — Documentacion y demo (Complejidad: L)
 
 ### Dependencias: Todas las fases previas
 
@@ -885,7 +887,7 @@ pnpm tsx scripts/generate-props.ts
 
 ---
 
-## Fase 19 — QA visual, accesibilidad y performance (Complejidad: M)
+## ✅ Fase 19 — QA visual, accesibilidad y performance (Complejidad: M)
 
 ### Dependencias: Todas
 
