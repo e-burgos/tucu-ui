@@ -5,7 +5,6 @@ import {
   Typography,
   CodeBlock,
   PanelActionCard,
-  Button,
 } from '../../../../index';
 import { AutoPropsTable } from '../../../components/auto-props-table';
 import { PropPlayground } from '../../../components/prop-playground';
@@ -81,7 +80,7 @@ const PanelActionCardSection: React.FC = () => {
         {(props) => (
           <PanelActionCard
             {...props}
-            actions={[{ label: 'Action', onClick: () => {} }]}
+            actions={[{ label: 'Action', onClick: () => undefined }]}
           />
         )}
       </PropPlayground>

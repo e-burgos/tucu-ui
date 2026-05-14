@@ -1,33 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   CardContainer,
   CardTitle,
   Typography,
   CodeBlock,
-  SidebarMenu,
-  LucideIcons,
 } from '../../../../index';
 import { AutoPropsTable } from '../../../components/auto-props-table';
 
 const SidebarMenuSection: React.FC = () => {
-  const menuItems = [
-    {
-      name: 'Home',
-      icon: <LucideIcons.Home className="w-5 h-5" />,
-      path: '/home',
-    },
-    {
-      name: 'Settings',
-      icon: <LucideIcons.Settings className="w-5 h-5" />,
-      path: '/settings',
-    },
-    {
-      name: 'Profile',
-      icon: <LucideIcons.User className="w-5 h-5" />,
-      path: '/profile',
-    },
-  ];
-
   return (
     <>
       <div className="text-center space-y-4">

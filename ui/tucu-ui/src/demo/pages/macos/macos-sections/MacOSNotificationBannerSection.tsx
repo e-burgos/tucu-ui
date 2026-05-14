@@ -1,11 +1,24 @@
 import React, { useState } from 'react';
-import { CardContainer, CardTitle, Typography, CodeBlock, Button, LucideIcons } from '../../../../index';
+import {
+  CardContainer,
+  CardTitle,
+  Typography,
+  CodeBlock,
+  Button,
+  LucideIcons,
+} from '../../../../index';
 import { MacOSNotificationBanner } from '../../../../components/macos/notification-banner';
 
-const MacOSNotificationBannerSection: React.FC = () => {
-  const [visible, setVisible] = useState({ info: true, success: true, warning: true, error: true });
+export const MacOSNotificationBannerSection: React.FC = () => {
+  const [visible, setVisible] = useState({
+    info: true,
+    success: true,
+    warning: true,
+    error: true,
+  });
 
-  const reset = () => setVisible({ info: true, success: true, warning: true, error: true });
+  const reset = () =>
+    setVisible({ info: true, success: true, warning: true, error: true });
 
   return (
     <>
@@ -13,9 +26,12 @@ const MacOSNotificationBannerSection: React.FC = () => {
         <Typography tag="h2" className="text-3xl md:text-4xl font-bold">
           MacOSNotificationBanner
         </Typography>
-        <Typography tag="p" className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-          A macOS-style notification banner with a color-coded left accent stripe, optional icon,
-          action buttons, and dismissible functionality.
+        <Typography
+          tag="p"
+          className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
+        >
+          A macOS-style notification banner with a color-coded left accent
+          stripe, optional icon, action buttons, and dismissible functionality.
         </Typography>
       </div>
 
@@ -30,7 +46,10 @@ const MacOSNotificationBannerSection: React.FC = () => {
                 icon={<LucideIcons.Info className="w-5 h-5" />}
                 actions={[
                   { label: 'Update Now', onClick: () => alert('updating…') },
-                  { label: 'Later', onClick: () => setVisible((v) => ({ ...v, info: false })) },
+                  {
+                    label: 'Later',
+                    onClick: () => setVisible((v) => ({ ...v, info: false })),
+                  },
                 ]}
                 onDismiss={() => setVisible((v) => ({ ...v, info: false }))}
               />
@@ -52,7 +71,9 @@ const MacOSNotificationBannerSection: React.FC = () => {
                 title="Low disk space"
                 message="Your startup disk is almost full. Free up at least 10 GB to keep your Mac running smoothly."
                 icon={<LucideIcons.AlertTriangle className="w-5 h-5" />}
-                actions={[{ label: 'Manage Storage', onClick: () => {} }]}
+                actions={[
+                  { label: 'Manage Storage', onClick: () => undefined },
+                ]}
                 onDismiss={() => setVisible((v) => ({ ...v, warning: false }))}
               />
             )}
@@ -63,7 +84,7 @@ const MacOSNotificationBannerSection: React.FC = () => {
                 title="Network error"
                 message="Unable to connect to the server. Check your internet connection and try again."
                 icon={<LucideIcons.WifiOff className="w-5 h-5" />}
-                actions={[{ label: 'Try Again', onClick: () => {} }]}
+                actions={[{ label: 'Try Again', onClick: () => undefined }]}
                 onDismiss={() => setVisible((v) => ({ ...v, error: false }))}
               />
             )}
@@ -89,7 +110,7 @@ const MacOSNotificationBannerSection: React.FC = () => {
               title="Attention required"
               message="This notification cannot be dismissed and requires action."
               dismissible={false}
-              actions={[{ label: 'Take Action', onClick: () => {} }]}
+              actions={[{ label: 'Take Action', onClick: () => undefined }]}
             />
           </div>
         </CardTitle>

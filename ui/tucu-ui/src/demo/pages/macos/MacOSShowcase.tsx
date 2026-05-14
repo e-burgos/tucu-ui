@@ -1,8 +1,33 @@
-import React, { lazy } from 'react';
+import React, { lazy, useEffect } from 'react';
 import { LucideIcons, HeroCard } from '../../../index';
 import { DynamicSectionsPage, type SectionConfig } from '../../components';
+import { useTheme } from '../../../themes';
 
 const sections: SectionConfig[] = [
+  {
+    id: 'macos-colors',
+    label: 'Colors',
+    category: 'Foundations',
+    component: lazy(() => import('./macos-sections/MacOSColorsSection')),
+  },
+  {
+    id: 'macos-materials',
+    label: 'Materials',
+    category: 'Foundations',
+    component: lazy(() => import('./macos-sections/MacOSMaterialsSection')),
+  },
+  {
+    id: 'macos-text-styles',
+    label: 'Text Styles',
+    category: 'Foundations',
+    component: lazy(() => import('./macos-sections/MacOSTextStylesSection')),
+  },
+  {
+    id: 'macos-backgrounds',
+    label: 'Backgrounds',
+    category: 'Foundations',
+    component: lazy(() => import('./macos-sections/MacOSBackgroundsSection')),
+  },
   {
     id: 'macos-tahoe',
     label: 'Tahoe Liquid Glass',
@@ -56,6 +81,14 @@ const sections: SectionConfig[] = [
     ),
   },
   {
+    id: 'macos-command-palette',
+    label: 'Command Palette',
+    category: 'Controls',
+    component: lazy(
+      () => import('./macos-sections/MacOSCommandPaletteSection')
+    ),
+  },
+  {
     id: 'macos-popover',
     label: 'Popover',
     category: 'Feedback',
@@ -64,13 +97,21 @@ const sections: SectionConfig[] = [
 ];
 
 export function MacOSShowcase() {
+  const { applyMacOSTheme, layout } = useTheme();
+
+  // Auto-apply macOS theme when entering this page
+  useEffect(() => {
+    if (layout !== 'macos') applyMacOSTheme();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [layout]);
+
   return (
     <DynamicSectionsPage
       sections={sections}
       hero={
         <HeroCard
           title="macOS Design System"
-          description="Apple HIG-compliant components for Sonoma 14. Vibrancy materials, traffic lights, segmented controls, widgets, and more — all powered by CSS custom properties and Tailwind v4."
+          description="Apple HIG-compliant components for macOS Tahoe 26. Liquid Glass materials, Command Palette, Segmented Controls, traffic-light windows, widgets, and more — all powered by CSS custom properties and Tailwind v4."
           githubButton
           getStartedButton
           icon={

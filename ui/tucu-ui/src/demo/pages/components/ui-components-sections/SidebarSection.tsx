@@ -1,17 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   CardContainer,
   CardTitle,
   Typography,
   CodeBlock,
-  Sidebar,
-  Button,
 } from '../../../../index';
 import { AutoPropsTable } from '../../../components/auto-props-table';
 
 const SidebarSection: React.FC = () => {
-  const [isOpen, setIsOpen] = useState(false);
-
   return (
     <>
       <div className="text-center space-y-4">

@@ -5,7 +5,6 @@ import {
   Typography,
   CodeBlock,
   ListContainer,
-  ListItem,
   LucideIcons,
 } from '../../../../index';
 import { AutoPropsTable } from '../../../components/auto-props-table';

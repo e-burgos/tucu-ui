@@ -4610,7 +4610,7 @@ export const propsRegistry: Record<string, ComponentMeta> = {
     props: [
       {
         name: 'sections',
-        type: 'MacOSSidebarSection[]',
+        type: 'MacOSSidebarSectionConfig[]',
         defaultValue: null,
         required: true,
         description: '',

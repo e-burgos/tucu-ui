@@ -154,7 +154,10 @@ export const AutoPropsTable: React.FC<AutoPropsTableProps> = ({
         <CardTitle title={`${componentName} Props`}>
           <div className="w-full p-4 sm:p-6">
             <p className="text-sm text-yellow-600 dark:text-yellow-400">
-              ⚠️ No props metadata found for &quot;{componentName}&quot;. Run{' '}
+              <span role="img" aria-label="warning">
+                ⚠️
+              </span>{' '}
+              No props metadata found for &quot;{componentName}&quot;. Run{' '}
               <code className="text-xs">
                 pnpm tsx scripts/generate-props.ts
               </code>{' '}
@@ -172,7 +175,10 @@ export const AutoPropsTable: React.FC<AutoPropsTableProps> = ({
         <div className="w-full p-4 sm:p-6">
           {showFilePath && (
             <p className="text-xs text-gray-400 dark:text-gray-500 mb-3 font-mono">
-              📁 {meta.filePath}
+              <span role="img" aria-label="folder">
+                📁
+              </span>{' '}
+              {meta.filePath}
             </p>
           )}
           {meta.description && (
@@ -180,6 +186,7 @@ export const AutoPropsTable: React.FC<AutoPropsTableProps> = ({
               {meta.description}
             </p>
           )}
+          {/* eslint-disable @typescript-eslint/no-explicit-any */}
           <BasicTable
             columns={columns as any}
             data={tableData}

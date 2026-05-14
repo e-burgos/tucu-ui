@@ -12,9 +12,8 @@ import { PropPlayground } from '../../../components/prop-playground';
 
 const DrawerSection: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [drawerType, setDrawerType] = useState<'sidebar' | 'sidebar-menu'>(
-    'sidebar'
-  );
+  const [isOpen2, setIsOpen2] = useState(false);
+  const [, setDrawerType] = useState<'sidebar' | 'sidebar-menu'>('sidebar');
 
   return (
     <>
@@ -37,7 +36,7 @@ const DrawerSection: React.FC = () => {
             <div className="space-y-4">
               <CardContainer className="p-4">
                 <Typography tag="h5" className="mb-3">
-                  Sidebar Drawer
+                  Left Position
                 </Typography>
                 <Button
                   onClick={() => {
@@ -45,13 +44,14 @@ const DrawerSection: React.FC = () => {
                     setIsOpen(true);
                   }}
                 >
-                  Open Sidebar
+                  Open Left Drawer
                 </Button>
                 <Drawer
                   isOpen={isOpen}
                   setIsOpen={setIsOpen}
                   type="sidebar"
                   title="Sidebar Title"
+                  position="left"
                 >
                   <Typography tag="p">Sidebar content goes here</Typography>
                 </Drawer>
@@ -63,14 +63,14 @@ const DrawerSection: React.FC = () => {
                 <Button
                   onClick={() => {
                     setDrawerType('sidebar');
-                    setIsOpen(true);
+                    setIsOpen2(true);
                   }}
                 >
                   Open Right Drawer
                 </Button>
                 <Drawer
-                  isOpen={isOpen}
-                  setIsOpen={setIsOpen}
+                  isOpen={isOpen2}
+                  setIsOpen={setIsOpen2}
                   type="sidebar"
                   position="right"
                   title="Right Drawer"

@@ -9,7 +9,7 @@ import {
   LucideIcons,
 } from '../../../../index';
 
-const TahoeDemoContent = () => {
+export const TahoeDemoContent = () => {
   return (
     <div className="flex flex-col gap-6 w-full max-w-4xl mx-auto h-[400px]">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 h-full">
@@ -31,7 +31,7 @@ const TahoeDemoContent = () => {
             <span className="text-sm font-medium text-[var(--macos-label)]">
               Enable Notifications
             </span>
-            <Switch checked={true} onChange={() => {}} />
+            <Switch checked={true} onChange={() => undefined} />
           </div>
 
           <div className="flex items-center justify-between">
@@ -111,7 +111,12 @@ export default function MacOSTahoeSection() {
         </p>
       </div>
 
-      <div className="relative w-full h-[600px] border border-gray-200 dark:border-gray-800 rounded-2xl overflow-hidden bg-gray-50 dark:bg-gray-900 group">
+      <div
+        className="relative w-full h-[600px] border border-[var(--macos-tahoe-border,rgba(130,161,183,0.28))] rounded-2xl overflow-hidden bg-[var(--macos-spatial-bg)] group"
+        style={{
+          background: 'var(--macos-tahoe-root-bg, var(--macos-spatial-bg))',
+        }}
+      >
         {!showDemo ? (
           <div className="absolute inset-0 flex items-center justify-center">
             <Button onClick={() => setShowDemo(true)} variant="solid">

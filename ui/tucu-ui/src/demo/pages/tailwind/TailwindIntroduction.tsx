@@ -186,7 +186,10 @@ export function TailwindIntroduction() {
                   tag="p"
                   className="text-sm font-medium text-green-800 dark:text-green-200 mb-2"
                 >
-                  ✅ Layout & Positioning
+                  <span role="img" aria-label="checkmark">
+                    ✅
+                  </span>{' '}
+                  Layout & Positioning
                 </Typography>
                 <Typography
                   tag="p"
@@ -201,7 +204,10 @@ export function TailwindIntroduction() {
                   tag="p"
                   className="text-sm font-medium text-blue-800 dark:text-blue-200 mb-2"
                 >
-                  ✅ Flexbox & Grid
+                  <span role="img" aria-label="checkmark">
+                    ✅
+                  </span>{' '}
+                  Flexbox & Grid
                 </Typography>
                 <Typography
                   tag="p"
@@ -216,7 +222,10 @@ export function TailwindIntroduction() {
                   tag="p"
                   className="text-sm font-medium text-purple-800 dark:text-purple-200 mb-2"
                 >
-                  ✅ Typography
+                  <span role="img" aria-label="checkmark">
+                    ✅
+                  </span>{' '}
+                  Typography
                 </Typography>
                 <Typography
                   tag="p"

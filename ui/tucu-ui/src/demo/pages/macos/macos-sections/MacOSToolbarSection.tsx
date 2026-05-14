@@ -1,9 +1,15 @@
 import React, { useState } from 'react';
-import { CardContainer, CardTitle, Typography, CodeBlock, LucideIcons } from '../../../../index';
+import {
+  CardContainer,
+  CardTitle,
+  Typography,
+  CodeBlock,
+  LucideIcons,
+} from '../../../../index';
 import { MacOSToolbar } from '../../../../components/macos/toolbar';
 import { MacOSSearchBar } from '../../../../components/macos/search-bar';
 
-const MacOSToolbarSection: React.FC = () => {
+export const MacOSToolbarSection: React.FC = () => {
   const [search, setSearch] = useState('');
 
   return (
@@ -12,9 +18,13 @@ const MacOSToolbarSection: React.FC = () => {
         <Typography tag="h2" className="text-3xl md:text-4xl font-bold">
           MacOSToolbar
         </Typography>
-        <Typography tag="p" className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-          A macOS-style toolbar with leading, center, and trailing slots. Supports vibrancy
-          backdrop blur, a transparent mode, and an optional bottom border.
+        <Typography
+          tag="p"
+          className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
+        >
+          A macOS-style toolbar with leading, center, and trailing slots.
+          Supports vibrancy backdrop blur, a transparent mode, and an optional
+          bottom border.
         </Typography>
       </div>
 
@@ -54,9 +64,7 @@ const MacOSToolbarSection: React.FC = () => {
           <div className="w-full p-4 sm:p-6">
             <div className="rounded-xl overflow-hidden border border-[var(--color-semantic-line-primary-subtle)] shadow-[var(--shadow-card)]">
               <MacOSToolbar
-                leading={
-                  <LucideIcons.Mail className="w-4 h-4 text-gray-500" />
-                }
+                leading={<LucideIcons.Mail className="w-4 h-4 text-gray-500" />}
                 center={
                   <MacOSSearchBar
                     value={search}

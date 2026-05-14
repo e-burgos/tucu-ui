@@ -1,25 +1,58 @@
 import React, { useState } from 'react';
-import { CardContainer, CardTitle, Typography, CodeBlock, LucideIcons } from '../../../../index';
+import {
+  CardContainer,
+  CardTitle,
+  Typography,
+  CodeBlock,
+  LucideIcons,
+} from '../../../../index';
 import { MacOSSidebar } from '../../../../components/macos/sidebar';
 
-const MacOSSidebarSection: React.FC = () => {
+export const MacOSSidebarSection: React.FC = () => {
   const [activeId, setActiveId] = useState('inbox');
 
   const sections = [
     {
       label: 'Favorites',
       items: [
-        { id: 'inbox', label: 'Inbox', icon: <LucideIcons.Inbox className="w-4 h-4" />, badge: 12 },
-        { id: 'starred', label: 'Starred', icon: <LucideIcons.Star className="w-4 h-4" /> },
-        { id: 'sent', label: 'Sent', icon: <LucideIcons.Send className="w-4 h-4" /> },
+        {
+          id: 'inbox',
+          label: 'Inbox',
+          icon: <LucideIcons.Inbox className="w-4 h-4" />,
+          badge: 12,
+        },
+        {
+          id: 'starred',
+          label: 'Starred',
+          icon: <LucideIcons.Star className="w-4 h-4" />,
+        },
+        {
+          id: 'sent',
+          label: 'Sent',
+          icon: <LucideIcons.Send className="w-4 h-4" />,
+        },
       ],
     },
     {
       label: 'Folders',
       items: [
-        { id: 'work', label: 'Work', icon: <LucideIcons.Briefcase className="w-4 h-4" />, badge: 3 },
-        { id: 'personal', label: 'Personal', icon: <LucideIcons.User className="w-4 h-4" /> },
-        { id: 'archive', label: 'Archive', icon: <LucideIcons.Archive className="w-4 h-4" />, disabled: true },
+        {
+          id: 'work',
+          label: 'Work',
+          icon: <LucideIcons.Briefcase className="w-4 h-4" />,
+          badge: 3,
+        },
+        {
+          id: 'personal',
+          label: 'Personal',
+          icon: <LucideIcons.User className="w-4 h-4" />,
+        },
+        {
+          id: 'archive',
+          label: 'Archive',
+          icon: <LucideIcons.Archive className="w-4 h-4" />,
+          disabled: true,
+        },
       ],
     },
   ];
@@ -30,9 +63,12 @@ const MacOSSidebarSection: React.FC = () => {
         <Typography tag="h2" className="text-3xl md:text-4xl font-bold">
           MacOSSidebar
         </Typography>
-        <Typography tag="p" className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-          A macOS-style navigation sidebar with backdrop blur, section labels, badge counts,
-          and active-item tinting.
+        <Typography
+          tag="p"
+          className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
+        >
+          A macOS-style navigation sidebar with backdrop blur, section labels,
+          badge counts, and active-item tinting.
         </Typography>
       </div>
 
@@ -57,7 +93,10 @@ const MacOSSidebarSection: React.FC = () => {
                 }
               />
               <div className="flex flex-1 items-center justify-center bg-[var(--color-semantic-bg)] text-sm text-gray-500">
-                Active: <span className="ml-1 font-medium text-gray-800 dark:text-gray-200">{activeId}</span>
+                Active:{' '}
+                <span className="ml-1 font-medium text-gray-800 dark:text-gray-200">
+                  {activeId}
+                </span>
               </div>
             </div>
           </div>
@@ -72,14 +111,28 @@ const MacOSSidebarSection: React.FC = () => {
                 sections={[
                   {
                     items: [
-                      { id: 'home', label: 'Home', icon: <LucideIcons.Home className="w-4 h-4" /> },
-                      { id: 'search', label: 'Search', icon: <LucideIcons.Search className="w-4 h-4" /> },
-                      { id: 'settings', label: 'Settings', icon: <LucideIcons.Settings className="w-4 h-4" /> },
+                      {
+                        id: 'home',
+                        label: 'Home',
+                        icon: <LucideIcons.Home className="w-4 h-4" />,
+                      },
+                      {
+                        id: 'search',
+                        label: 'Search',
+                        icon: <LucideIcons.Search className="w-4 h-4" />,
+                      },
+                      {
+                        id: 'settings',
+                        label: 'Settings',
+                        icon: <LucideIcons.Settings className="w-4 h-4" />,
+                      },
                     ],
                   },
                 ]}
                 activeId="home"
-                onSelect={() => { return; }}
+                onSelect={() => {
+                  return;
+                }}
               />
               <div className="flex flex-1 items-center justify-center bg-[var(--color-semantic-bg)] text-sm text-gray-400">
                 Main content area

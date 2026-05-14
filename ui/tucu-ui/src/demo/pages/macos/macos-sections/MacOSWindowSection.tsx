@@ -8,7 +8,7 @@ import {
 } from '../../../../index';
 import { MacOSWindow } from '../../../../components/macos/window';
 
-const MacOSWindowSection: React.FC = () => {
+export const MacOSWindowSection: React.FC = () => {
   const [open, setOpen] = useState(true);
 
   return (

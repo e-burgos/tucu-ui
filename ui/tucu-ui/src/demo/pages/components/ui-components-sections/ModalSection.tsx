@@ -11,6 +11,8 @@ import { AutoPropsTable } from '../../../components/auto-props-table';
 import { PropPlayground } from '../../../components/prop-playground';
 
 const ModalSection: React.FC = () => {
+  const [isOpen1, setIsOpen1] = useState(false);
+  const [isOpen2, setIsOpen2] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -36,10 +38,10 @@ const ModalSection: React.FC = () => {
                 <Typography tag="h5" className="mb-3">
                   Basic Modal
                 </Typography>
-                <Button onClick={() => setIsOpen(true)}>Open Modal</Button>
+                <Button onClick={() => setIsOpen1(true)}>Open Modal</Button>
                 <Modal
-                  isOpen={isOpen}
-                  setIsOpen={setIsOpen}
+                  isOpen={isOpen1}
+                  setIsOpen={setIsOpen1}
                   text={{
                     title: 'Modal Title',
                     content: 'This is the modal content.',
@@ -51,12 +53,12 @@ const ModalSection: React.FC = () => {
                 <Typography tag="h5" className="mb-3">
                   Modal with Custom Content
                 </Typography>
-                <Button onClick={() => setIsOpen(true)}>
+                <Button onClick={() => setIsOpen2(true)}>
                   Open Custom Modal
                 </Button>
                 <Modal
-                  isOpen={isOpen}
-                  setIsOpen={setIsOpen}
+                  isOpen={isOpen2}
+                  setIsOpen={setIsOpen2}
                   text={{ title: 'Custom Modal' }}
                 >
                   <Typography tag="p">Custom content goes here</Typography>

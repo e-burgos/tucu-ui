@@ -1,6 +1,13 @@
 import React, { Suspense, useMemo, useCallback } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
-import { Skeleton, Typography, LucideIcons, CardContainer } from '../../index';
+import {
+  Skeleton,
+  Typography,
+  LucideIcons,
+  CardContainer,
+  useTheme,
+  LAYOUT_OPTIONS,
+} from '../../index';
 import { TableOfContents, type TableOfContentsItem } from './table-of-contents';
 
 // ─── Types ─────────────────────────────────────────────────────
@@ -181,6 +188,10 @@ export const DynamicSectionsPage: React.FC<DynamicSectionsPageProps> = ({
     [sections]
   );
 
+  const { layout } = useTheme();
+  const isMacOS =
+    layout === LAYOUT_OPTIONS.MACOS || layout === LAYOUT_OPTIONS.MACOS_TAHOE;
+
   const SectionComponent = useMemo(() => {
     if (!sectionId) return null;
     return sections.find((s) => s.id === sectionId)?.component ?? null;
@@ -195,7 +206,11 @@ export const DynamicSectionsPage: React.FC<DynamicSectionsPageProps> = ({
         activeSectionId={sectionId}
         onItemClick={(item) => navigateToSection(item.id)}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 sm:space-y-12 pt-8 lg:pt-0">
+        <div
+          className={`w-full mx-auto px-2 sm:px-4 lg:px-4 xl:px-6 space-y-8 sm:space-y-12 pt-8 lg:pt-0 ${
+            isMacOS ? 'max-w-none' : 'max-w-6xl'
+          }`}
+        >
           {/* Hero Section - always visible */}
           {hero}
 
