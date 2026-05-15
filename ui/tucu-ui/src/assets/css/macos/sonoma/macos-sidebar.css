@@ -1,8 +1,8 @@
 /* ============================================================
-   macOS Tahoe 26 — Sidebar, ContentPane, ScrollView, SplitView
+   macOS Sonoma 14 — Sidebar, ContentPane, ScrollView, SplitView
 
    Scoped to html.macos — no leakage to default theme.
-   References: Apple HIG > Sidebars > macOS Tahoe 26
+   References: Apple HIG > Sidebars > macOS Sonoma 14
    Components: MacOSSidebar, MacOSSidebarSection, MacOSSidebarItem,
                MacOSContentPane, MacOSScrollView, MacOSSplitView,
                MacOSInspector
@@ -154,28 +154,24 @@ html.macos.dark [data-tucu='sidebar-item']:hover {
 html.macos [data-tucu='sidebar-item'][data-active='true'],
 html.macos [data-tucu='sidebar-item'][aria-current='page'],
 html.macos [data-tucu='sidebar-item'][aria-selected='true'] {
-  background-color: var(
-    --macos-tahoe-sidebar-item-active-bg,
-    color-mix(in srgb, var(--color-brand, #0088ff) 14%, transparent)
+  background-color: color-mix(
+    in srgb,
+    var(--color-brand, #0088ff) 14%,
+    transparent
   );
-  color: var(
-    --macos-tahoe-sidebar-item-active-text,
-    var(--macos-control-accent)
-  );
+  color: var(--macos-control-accent);
   font-weight: var(--macos-font-weight-medium);
 }
 
 html.macos.dark [data-tucu='sidebar-item'][data-active='true'],
 html.macos.dark [data-tucu='sidebar-item'][aria-current='page'],
 html.macos.dark [data-tucu='sidebar-item'][aria-selected='true'] {
-  background-color: var(
-    --macos-tahoe-sidebar-item-active-bg,
-    color-mix(in srgb, var(--color-brand, #0091ff) 18%, transparent)
+  background-color: color-mix(
+    in srgb,
+    var(--color-brand, #0091ff) 18%,
+    transparent
   );
-  color: var(
-    --macos-tahoe-sidebar-item-active-text,
-    var(--color-brand, #3da3ff)
-  );
+  color: var(--color-brand, #3da3ff);
 }
 
 /* Pressed / active press state */

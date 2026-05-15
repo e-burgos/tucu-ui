@@ -1,12 +1,12 @@
 /* ============================================================
-   macOS Tahoe 26 — Feedback Component Overrides
+   macOS Sonoma 14 — Feedback Component Overrides
 
    Targets: Alert, Badge, Spinner, Toast, Progressbar, Skeleton,
             Loader, NotificationCard
    Selectors: html.macos [data-tucu="alert"], etc.
 
    References:
-   - Apple HIG Tahoe > Alerts: radius-2xl, system colors
+   - Apple HIG Sonoma > Alerts: radius-2xl, system colors
    - Badges: pill shape, 12pt, system colors
    - Toast: glass regular material, compact
    ============================================================ */
@@ -221,38 +221,3 @@ html.macos [data-tucu='notification-card']:hover {
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
 }
 
-/* ============================================================
-   macOS Tahoe 26 — Feedback & Loaders
-   ============================================================ */
-
-html.macos-tahoe [data-tucu='alert'],
-html.macos-tahoe [data-tucu='toast'],
-html.macos-tahoe [data-tucu='notification'] {
-  background: var(--macos-glass-prominent-bg);
-  backdrop-filter: blur(var(--macos-glass-prominent-blur)) saturate(150%);
-  -webkit-backdrop-filter: blur(var(--macos-glass-prominent-blur))
-    saturate(150%);
-  border: 1px solid var(--macos-glass-prominent-border);
-  box-shadow: var(--macos-glass-shadow), var(--macos-glass-highlight);
-  border-radius: var(--macos-radius-lg);
-}
-
-/* Reduced Motion */
-@media (prefers-reduced-motion: reduce) {
-  html.macos-tahoe [data-tucu='spinner'] svg {
-    animation-duration: 2s; /* Slower spin */
-  }
-  html.macos-tahoe [data-tucu='progressbar'] div {
-    transition: none !important;
-  }
-}
-
-@media (prefers-reduced-transparency: reduce) {
-  html.macos-tahoe [data-tucu='alert'],
-  html.macos-tahoe [data-tucu='toast'],
-  html.macos-tahoe [data-tucu='notification'] {
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-    background: var(--color-semantic-elevation-2);
-  }
-}

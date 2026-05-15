@@ -2,7 +2,7 @@
    macOS Tahoe 26 — Menu & Contextual Overrides
 
    Targets: Dropdown menus, context menus, popovers, select dropdowns
-   Selector: html.macos [data-tucu="menu|menu-item|context-menu|popover"]
+   Selector: html.macos-tahoe [data-tucu="menu|menu-item|context-menu|popover"]
 
    References:
    - Apple HIG > Menus: Glass regular, 6pt radius items, 1pt separator
@@ -13,9 +13,9 @@
 
 /* ── Menu Container ──────────────────────────────────────────── */
 
-html.macos [data-tucu='menu'],
-html.macos [data-tucu='dropdown-menu'],
-html.macos [data-tucu='context-menu'] {
+html.macos-tahoe [data-tucu='menu'],
+html.macos-tahoe [data-tucu='dropdown-menu'],
+html.macos-tahoe [data-tucu='context-menu'] {
   background-color: var(--macos-glass-regular-bg-opaque);
   border: 0.5px solid var(--macos-glass-border);
   border-radius: var(--macos-radius-popover);
@@ -28,9 +28,9 @@ html.macos [data-tucu='context-menu'] {
 }
 
 @supports (backdrop-filter: blur(1px)) {
-  html.macos [data-tucu='menu'],
-  html.macos [data-tucu='dropdown-menu'],
-  html.macos [data-tucu='context-menu'] {
+  html.macos-tahoe [data-tucu='menu'],
+  html.macos-tahoe [data-tucu='dropdown-menu'],
+  html.macos-tahoe [data-tucu='context-menu'] {
     background-color: var(--macos-glass-regular-bg);
     backdrop-filter: blur(var(--macos-glass-regular-blur)) saturate(160%);
     -webkit-backdrop-filter: blur(var(--macos-glass-regular-blur))
@@ -38,15 +38,15 @@ html.macos [data-tucu='context-menu'] {
   }
 }
 
-html.macos.dark [data-tucu='menu'],
-html.macos.dark [data-tucu='dropdown-menu'],
-html.macos.dark [data-tucu='context-menu'] {
+html.macos-tahoe.dark [data-tucu='menu'],
+html.macos-tahoe.dark [data-tucu='dropdown-menu'],
+html.macos-tahoe.dark [data-tucu='context-menu'] {
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4), 0 1px 4px rgba(0, 0, 0, 0.2);
 }
 
 /* ── Menu Item ───────────────────────────────────────────────── */
 
-html.macos [data-tucu='menu-item'] {
+html.macos-tahoe [data-tucu='menu-item'] {
   height: 22px;
   padding: 0 12px 0 24px; /* leave space for checkmark */
   display: flex;
@@ -62,20 +62,20 @@ html.macos [data-tucu='menu-item'] {
   transition: background-color 0.05s ease, color 0.05s ease;
 }
 
-html.macos [data-tucu='menu-item']:hover,
-html.macos [data-tucu='menu-item'][data-highlighted='true'] {
+html.macos-tahoe [data-tucu='menu-item']:hover,
+html.macos-tahoe [data-tucu='menu-item'][data-highlighted='true'] {
   background-color: var(--macos-control-accent);
   color: white;
 }
 
-html.macos [data-tucu='menu-item'][data-disabled='true'],
-html.macos [data-tucu='menu-item']:disabled {
+html.macos-tahoe [data-tucu='menu-item'][data-disabled='true'],
+html.macos-tahoe [data-tucu='menu-item']:disabled {
   color: var(--macos-tertiary-label);
   cursor: default;
   pointer-events: none;
 }
 
-html.macos [data-tucu='menu-item'][data-checked='true']::before {
+html.macos-tahoe [data-tucu='menu-item'][data-checked='true']::before {
   content: '✓';
   position: absolute;
   left: 8px;
@@ -83,13 +83,13 @@ html.macos [data-tucu='menu-item'][data-checked='true']::before {
   color: var(--macos-label);
 }
 
-html.macos [data-tucu='menu-item']:hover[data-checked='true']::before {
+html.macos-tahoe [data-tucu='menu-item']:hover[data-checked='true']::before {
   color: white;
 }
 
 /* ── Menu Separator ──────────────────────────────────────────── */
 
-html.macos [data-tucu='menu-separator'] {
+html.macos-tahoe [data-tucu='menu-separator'] {
   height: 1px;
   background-color: var(--macos-separator);
   margin: 4px 0;
@@ -97,7 +97,7 @@ html.macos [data-tucu='menu-separator'] {
 
 /* ── Menu Section Label ──────────────────────────────────────── */
 
-html.macos [data-tucu='menu-section-label'] {
+html.macos-tahoe [data-tucu='menu-section-label'] {
   font-size: var(--macos-font-size-subheadline);
   font-weight: var(--macos-font-weight-semibold);
   color: var(--macos-secondary-label);
@@ -110,15 +110,15 @@ html.macos [data-tucu='menu-section-label'] {
 
 /* ── Menu Shortcut ───────────────────────────────────────────── */
 
-html.macos [data-tucu='menu-shortcut'] {
+html.macos-tahoe [data-tucu='menu-shortcut'] {
   font-size: var(--macos-font-size-callout);
   color: var(--macos-secondary-label);
   margin-left: auto;
   font-weight: var(--macos-font-weight-regular);
 }
 
-html.macos [data-tucu='menu-item']:hover [data-tucu='menu-shortcut'],
-html.macos
+html.macos-tahoe [data-tucu='menu-item']:hover [data-tucu='menu-shortcut'],
+html.macos-tahoe
   [data-tucu='menu-item'][data-highlighted='true']
   [data-tucu='menu-shortcut'] {
   color: rgba(255, 255, 255, 0.72);
@@ -126,7 +126,7 @@ html.macos
 
 /* ── Popover ─────────────────────────────────────────────────── */
 
-html.macos [data-tucu='popover'] {
+html.macos-tahoe [data-tucu='popover'] {
   background-color: var(--macos-glass-regular-bg-opaque);
   border: 0.5px solid var(--macos-glass-border);
   border-radius: var(--macos-radius-popover);
@@ -137,7 +137,7 @@ html.macos [data-tucu='popover'] {
 }
 
 @supports (backdrop-filter: blur(1px)) {
-  html.macos [data-tucu='popover'] {
+  html.macos-tahoe [data-tucu='popover'] {
     background-color: var(--macos-glass-regular-bg);
     backdrop-filter: blur(var(--macos-glass-regular-blur)) saturate(150%);
     -webkit-backdrop-filter: blur(var(--macos-glass-regular-blur))
@@ -147,7 +147,7 @@ html.macos [data-tucu='popover'] {
 
 /* ── Tooltip ─────────────────────────────────────────────────── */
 
-html.macos [data-tucu='tooltip'] {
+html.macos-tahoe [data-tucu='tooltip'] {
   background-color: var(--macos-glass-regular-bg-opaque);
   border: 0.5px solid var(--macos-glass-border);
   border-radius: var(--macos-radius-control);
@@ -162,7 +162,7 @@ html.macos [data-tucu='tooltip'] {
 }
 
 @supports (backdrop-filter: blur(1px)) {
-  html.macos [data-tucu='tooltip'] {
+  html.macos-tahoe [data-tucu='tooltip'] {
     background-color: var(--macos-glass-regular-bg);
     backdrop-filter: blur(20px) saturate(150%);
     -webkit-backdrop-filter: blur(20px) saturate(150%);
@@ -172,11 +172,11 @@ html.macos [data-tucu='tooltip'] {
 /* ── Reduced transparency fallbacks ─────────────────────────── */
 
 @media (prefers-reduced-transparency: reduce) {
-  html.macos [data-tucu='menu'],
-  html.macos [data-tucu='dropdown-menu'],
-  html.macos [data-tucu='context-menu'],
-  html.macos [data-tucu='popover'],
-  html.macos [data-tucu='tooltip'] {
+  html.macos-tahoe [data-tucu='menu'],
+  html.macos-tahoe [data-tucu='dropdown-menu'],
+  html.macos-tahoe [data-tucu='context-menu'],
+  html.macos-tahoe [data-tucu='popover'],
+  html.macos-tahoe [data-tucu='tooltip'] {
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
     background-color: var(--macos-window-bg) !important;

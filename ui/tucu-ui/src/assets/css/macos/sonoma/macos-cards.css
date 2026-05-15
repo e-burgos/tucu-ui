@@ -1,12 +1,12 @@
 /* ============================================================
-   macOS Tahoe 26 — Card Overrides
+   macOS Sonoma 14 — Card Overrides
 
    Targets: Card, CardContainer, InfoCard, PanelCard, StatsCard,
             WalletCard, TransactionCard
    Selector: html.macos [data-tucu="card"]
 
    References:
-   - Apple HIG Tahoe > Grouped content: solid surface, radius-xl
+   - Apple HIG Sonoma > Grouped content: solid surface, radius-xl
    - Radius: var(--macos-radius-xl) = 12pt
    - Shadow: diffuse multi-layer (light), heavier (dark)
    - Border: 0.5px separator color
@@ -103,23 +103,3 @@ html.macos.dark [data-tucu='card-title-label'] {
   color: var(--macos-label);
 }
 
-/* ============================================================
-   macOS Tahoe 26 — Cards & Data (Standard material)
-   ============================================================ */
-
-/* Data Display cards should keep readability using standard or opaque materials */
-html.macos-tahoe [data-tucu='card'],
-html.macos-tahoe [data-tucu='panel-card'],
-html.macos-tahoe [data-tucu='info-card'] {
-  background: var(--color-semantic-elevation-1);
-  border: 1px solid var(--color-semantic-line-primary-subtle);
-  border-radius: var(--macos-radius-lg);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-}
-
-html.macos-tahoe.dark [data-tucu='card'],
-html.macos-tahoe.dark [data-tucu='panel-card'],
-html.macos-tahoe.dark [data-tucu='info-card'] {
-  background: var(--color-semantic-elevation-2);
-  border-color: rgba(255, 255, 255, 0.1);
-}

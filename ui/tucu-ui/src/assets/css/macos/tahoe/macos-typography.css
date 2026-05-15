@@ -1,7 +1,7 @@
 /* ============================================================
    macOS Tahoe 26 — Typography
 
-   Targets: All text elements under html.macos
+   Targets: All text elements under html.macos-tahoe
 
    References:
    - Apple HIG > Typography > macOS Tahoe text styles
@@ -15,7 +15,7 @@
    ============================================================ */
 
 /* ── 3.1 Text Style Tokens ───────────────────────────────────── */
-html.macos {
+html.macos-tahoe {
   /* Large Title */
   --macos-ts-large-title-size: 26px;
   --macos-ts-large-title-weight: 400;
@@ -84,7 +84,7 @@ html.macos {
 }
 
 /* ── 3.5 Base font ───────────────────────────────────────────── */
-html.macos {
+html.macos-tahoe {
   font-family: var(--macos-font-family);
   font-size: 13px;
   line-height: 16px;
@@ -95,7 +95,7 @@ html.macos {
 
 /* ── 3.2 Utility Classes ─────────────────────────────────────── */
 
-html.macos .macos-large-title {
+html.macos-tahoe .macos-large-title {
   font-family: var(--macos-font-display);
   font-size: var(--macos-ts-large-title-size);
   font-weight: var(--macos-ts-large-title-weight);
@@ -103,7 +103,7 @@ html.macos .macos-large-title {
   letter-spacing: var(--macos-ts-large-title-tracking);
 }
 
-html.macos .macos-title-1 {
+html.macos-tahoe .macos-title-1 {
   font-family: var(--macos-font-display);
   font-size: var(--macos-ts-title1-size);
   font-weight: var(--macos-ts-title1-weight);
@@ -111,7 +111,7 @@ html.macos .macos-title-1 {
   letter-spacing: var(--macos-ts-title1-tracking);
 }
 
-html.macos .macos-title-2 {
+html.macos-tahoe .macos-title-2 {
   font-family: var(--macos-font-display);
   font-size: var(--macos-ts-title2-size);
   font-weight: var(--macos-ts-title2-weight);
@@ -119,7 +119,7 @@ html.macos .macos-title-2 {
   letter-spacing: var(--macos-ts-title2-tracking);
 }
 
-html.macos .macos-title-3 {
+html.macos-tahoe .macos-title-3 {
   font-family: var(--macos-font-family);
   font-size: var(--macos-ts-title3-size);
   font-weight: var(--macos-ts-title3-weight);
@@ -127,7 +127,7 @@ html.macos .macos-title-3 {
   letter-spacing: var(--macos-ts-title3-tracking);
 }
 
-html.macos .macos-headline {
+html.macos-tahoe .macos-headline {
   font-family: var(--macos-font-family);
   font-size: var(--macos-ts-headline-size);
   font-weight: var(--macos-ts-headline-weight);
@@ -135,7 +135,7 @@ html.macos .macos-headline {
   letter-spacing: var(--macos-ts-headline-tracking);
 }
 
-html.macos .macos-body {
+html.macos-tahoe .macos-body {
   font-family: var(--macos-font-family);
   font-size: var(--macos-ts-body-size);
   font-weight: var(--macos-ts-body-weight);
@@ -143,7 +143,7 @@ html.macos .macos-body {
   letter-spacing: var(--macos-ts-body-tracking);
 }
 
-html.macos .macos-callout {
+html.macos-tahoe .macos-callout {
   font-family: var(--macos-font-family);
   font-size: var(--macos-ts-callout-size);
   font-weight: var(--macos-ts-callout-weight);
@@ -151,7 +151,7 @@ html.macos .macos-callout {
   letter-spacing: var(--macos-ts-callout-tracking);
 }
 
-html.macos .macos-subheadline {
+html.macos-tahoe .macos-subheadline {
   font-family: var(--macos-font-family);
   font-size: var(--macos-ts-subheadline-size);
   font-weight: var(--macos-ts-subheadline-weight);
@@ -159,7 +159,7 @@ html.macos .macos-subheadline {
   letter-spacing: var(--macos-ts-subheadline-tracking);
 }
 
-html.macos .macos-footnote {
+html.macos-tahoe .macos-footnote {
   font-family: var(--macos-font-family);
   font-size: var(--macos-ts-footnote-size);
   font-weight: var(--macos-ts-footnote-weight);
@@ -167,7 +167,7 @@ html.macos .macos-footnote {
   letter-spacing: var(--macos-ts-footnote-tracking);
 }
 
-html.macos .macos-caption-1 {
+html.macos-tahoe .macos-caption-1 {
   font-family: var(--macos-font-family);
   font-size: var(--macos-ts-caption1-size);
   font-weight: var(--macos-ts-caption1-weight);
@@ -175,7 +175,7 @@ html.macos .macos-caption-1 {
   letter-spacing: var(--macos-ts-caption1-tracking);
 }
 
-html.macos .macos-caption-2 {
+html.macos-tahoe .macos-caption-2 {
   font-family: var(--macos-font-family);
   font-size: var(--macos-ts-caption2-size);
   font-weight: var(--macos-ts-caption2-weight);
@@ -185,7 +185,7 @@ html.macos .macos-caption-2 {
 
 /* ── 3.3 Emphasized Variants ─────────────────────────────────── */
 
-html.macos .macos-large-title-emphasized {
+html.macos-tahoe .macos-large-title-emphasized {
   font-family: var(--macos-font-display);
   font-size: var(--macos-ts-large-title-size);
   font-weight: 700;
@@ -193,7 +193,7 @@ html.macos .macos-large-title-emphasized {
   letter-spacing: var(--macos-ts-large-title-tracking);
 }
 
-html.macos .macos-title-1-emphasized {
+html.macos-tahoe .macos-title-1-emphasized {
   font-family: var(--macos-font-display);
   font-size: var(--macos-ts-title1-size);
   font-weight: 700;
@@ -201,7 +201,7 @@ html.macos .macos-title-1-emphasized {
   letter-spacing: var(--macos-ts-title1-tracking);
 }
 
-html.macos .macos-title-2-emphasized {
+html.macos-tahoe .macos-title-2-emphasized {
   font-family: var(--macos-font-display);
   font-size: var(--macos-ts-title2-size);
   font-weight: 700;
@@ -209,7 +209,7 @@ html.macos .macos-title-2-emphasized {
   letter-spacing: var(--macos-ts-title2-tracking);
 }
 
-html.macos .macos-title-3-emphasized {
+html.macos-tahoe .macos-title-3-emphasized {
   font-family: var(--macos-font-family);
   font-size: var(--macos-ts-title3-size);
   font-weight: 600;
@@ -217,7 +217,7 @@ html.macos .macos-title-3-emphasized {
   letter-spacing: var(--macos-ts-title3-tracking);
 }
 
-html.macos .macos-headline-emphasized {
+html.macos-tahoe .macos-headline-emphasized {
   font-family: var(--macos-font-family);
   font-size: var(--macos-ts-headline-size);
   font-weight: 800;
@@ -225,7 +225,7 @@ html.macos .macos-headline-emphasized {
   letter-spacing: var(--macos-ts-headline-tracking);
 }
 
-html.macos .macos-body-emphasized {
+html.macos-tahoe .macos-body-emphasized {
   font-family: var(--macos-font-family);
   font-size: var(--macos-ts-body-size);
   font-weight: 600;
@@ -233,7 +233,7 @@ html.macos .macos-body-emphasized {
   letter-spacing: var(--macos-ts-body-tracking);
 }
 
-html.macos .macos-callout-emphasized {
+html.macos-tahoe .macos-callout-emphasized {
   font-family: var(--macos-font-family);
   font-size: var(--macos-ts-callout-size);
   font-weight: 600;
@@ -241,7 +241,7 @@ html.macos .macos-callout-emphasized {
   letter-spacing: var(--macos-ts-callout-tracking);
 }
 
-html.macos .macos-subheadline-emphasized {
+html.macos-tahoe .macos-subheadline-emphasized {
   font-family: var(--macos-font-family);
   font-size: var(--macos-ts-subheadline-size);
   font-weight: 600;
@@ -249,7 +249,7 @@ html.macos .macos-subheadline-emphasized {
   letter-spacing: var(--macos-ts-subheadline-tracking);
 }
 
-html.macos .macos-footnote-emphasized {
+html.macos-tahoe .macos-footnote-emphasized {
   font-family: var(--macos-font-family);
   font-size: var(--macos-ts-footnote-size);
   font-weight: 600;
@@ -257,7 +257,7 @@ html.macos .macos-footnote-emphasized {
   letter-spacing: var(--macos-ts-footnote-tracking);
 }
 
-html.macos .macos-caption-1-emphasized {
+html.macos-tahoe .macos-caption-1-emphasized {
   font-family: var(--macos-font-family);
   font-size: var(--macos-ts-caption1-size);
   font-weight: 500;
@@ -265,7 +265,7 @@ html.macos .macos-caption-1-emphasized {
   letter-spacing: var(--macos-ts-caption1-tracking);
 }
 
-html.macos .macos-caption-2-emphasized {
+html.macos-tahoe .macos-caption-2-emphasized {
   font-family: var(--macos-font-family);
   font-size: var(--macos-ts-caption2-size);
   font-weight: 600;
@@ -276,9 +276,9 @@ html.macos .macos-caption-2-emphasized {
 /* ── 3.4 HTML Element Mapping ─────────────────────────────────── */
 
 /* h1 → Large Title */
-html.macos h1,
-html.macos [data-tucu='heading-1'],
-html.macos [data-tucu='typography'][data-typography-tag='h1'] {
+html.macos-tahoe h1,
+html.macos-tahoe [data-tucu='heading-1'],
+html.macos-tahoe [data-tucu='typography'][data-typography-tag='h1'] {
   font-family: var(--macos-font-display);
   font-size: var(--macos-ts-large-title-size);
   font-weight: var(--macos-ts-large-title-weight);
@@ -288,9 +288,9 @@ html.macos [data-tucu='typography'][data-typography-tag='h1'] {
 }
 
 /* h2 → Title 1 */
-html.macos h2,
-html.macos [data-tucu='heading-2'],
-html.macos [data-tucu='typography'][data-typography-tag='h2'] {
+html.macos-tahoe h2,
+html.macos-tahoe [data-tucu='heading-2'],
+html.macos-tahoe [data-tucu='typography'][data-typography-tag='h2'] {
   font-family: var(--macos-font-display);
   font-size: var(--macos-ts-title1-size);
   font-weight: var(--macos-ts-title1-weight);
@@ -300,9 +300,9 @@ html.macos [data-tucu='typography'][data-typography-tag='h2'] {
 }
 
 /* h3 → Title 2 */
-html.macos h3,
-html.macos [data-tucu='heading-3'],
-html.macos [data-tucu='typography'][data-typography-tag='h3'] {
+html.macos-tahoe h3,
+html.macos-tahoe [data-tucu='heading-3'],
+html.macos-tahoe [data-tucu='typography'][data-typography-tag='h3'] {
   font-family: var(--macos-font-display);
   font-size: var(--macos-ts-title2-size);
   font-weight: var(--macos-ts-title2-weight);
@@ -312,9 +312,9 @@ html.macos [data-tucu='typography'][data-typography-tag='h3'] {
 }
 
 /* h4 → Title 3 */
-html.macos h4,
-html.macos [data-tucu='heading-4'],
-html.macos [data-tucu='typography'][data-typography-tag='h4'] {
+html.macos-tahoe h4,
+html.macos-tahoe [data-tucu='heading-4'],
+html.macos-tahoe [data-tucu='typography'][data-typography-tag='h4'] {
   font-family: var(--macos-font-family);
   font-size: var(--macos-ts-title3-size);
   font-weight: var(--macos-ts-title3-weight);
@@ -324,9 +324,9 @@ html.macos [data-tucu='typography'][data-typography-tag='h4'] {
 }
 
 /* h5 → Headline */
-html.macos h5,
-html.macos [data-tucu='heading-5'],
-html.macos [data-tucu='typography'][data-typography-tag='h5'] {
+html.macos-tahoe h5,
+html.macos-tahoe [data-tucu='heading-5'],
+html.macos-tahoe [data-tucu='typography'][data-typography-tag='h5'] {
   font-family: var(--macos-font-family);
   font-size: var(--macos-ts-headline-size);
   font-weight: var(--macos-ts-headline-weight);
@@ -336,9 +336,9 @@ html.macos [data-tucu='typography'][data-typography-tag='h5'] {
 }
 
 /* h6 → Subheadline */
-html.macos h6,
-html.macos [data-tucu='heading-6'],
-html.macos [data-tucu='typography'][data-typography-tag='h6'] {
+html.macos-tahoe h6,
+html.macos-tahoe [data-tucu='heading-6'],
+html.macos-tahoe [data-tucu='typography'][data-typography-tag='h6'] {
   font-family: var(--macos-font-family);
   font-size: var(--macos-ts-subheadline-size);
   font-weight: var(--macos-ts-subheadline-weight);
@@ -348,10 +348,10 @@ html.macos [data-tucu='typography'][data-typography-tag='h6'] {
 }
 
 /* body, p → Body */
-html.macos p,
-html.macos [data-tucu='text'],
-html.macos [data-tucu='typography'][data-typography-tag='p'],
-html.macos [data-tucu='typography'][data-typography-tag='body'] {
+html.macos-tahoe p,
+html.macos-tahoe [data-tucu='text'],
+html.macos-tahoe [data-tucu='typography'][data-typography-tag='p'],
+html.macos-tahoe [data-tucu='typography'][data-typography-tag='body'] {
   font-family: var(--macos-font-family);
   font-size: var(--macos-ts-body-size);
   font-weight: var(--macos-ts-body-weight);
@@ -361,7 +361,7 @@ html.macos [data-tucu='typography'][data-typography-tag='body'] {
 }
 
 /* headline data-tucu tag */
-html.macos [data-tucu='typography'][data-typography-tag='headline'] {
+html.macos-tahoe [data-tucu='typography'][data-typography-tag='headline'] {
   font-family: var(--macos-font-family);
   font-size: var(--macos-ts-headline-size);
   font-weight: var(--macos-ts-headline-weight);
@@ -371,8 +371,8 @@ html.macos [data-tucu='typography'][data-typography-tag='headline'] {
 }
 
 /* small → Footnote */
-html.macos small,
-html.macos [data-tucu='typography'][data-typography-tag='small'] {
+html.macos-tahoe small,
+html.macos-tahoe [data-tucu='typography'][data-typography-tag='small'] {
   font-family: var(--macos-font-family);
   font-size: var(--macos-ts-footnote-size);
   font-weight: var(--macos-ts-footnote-weight);
@@ -382,8 +382,8 @@ html.macos [data-tucu='typography'][data-typography-tag='small'] {
 }
 
 /* label, form label → Callout medium */
-html.macos label,
-html.macos [data-tucu='label'] {
+html.macos-tahoe label,
+html.macos-tahoe [data-tucu='label'] {
   font-family: var(--macos-font-family);
   font-size: var(--macos-ts-callout-size);
   font-weight: var(--macos-font-weight-medium);
@@ -393,11 +393,11 @@ html.macos [data-tucu='label'] {
 }
 
 /* code, pre → JetBrains Mono */
-html.macos code,
-html.macos pre,
-html.macos [data-tucu='code'],
-html.macos [data-tucu='typography'][data-typography-tag='code'],
-html.macos [data-tucu='typography'][data-typography-tag='pre'] {
+html.macos-tahoe code,
+html.macos-tahoe pre,
+html.macos-tahoe [data-tucu='code'],
+html.macos-tahoe [data-tucu='typography'][data-typography-tag='code'],
+html.macos-tahoe [data-tucu='typography'][data-typography-tag='pre'] {
   font-family: var(--macos-font-mono);
   font-size: var(--macos-ts-body-size);
   line-height: var(--macos-ts-body-leading);
@@ -405,23 +405,23 @@ html.macos [data-tucu='typography'][data-typography-tag='pre'] {
 }
 
 /* inline code chip */
-html.macos code:not(pre code),
-html.macos [data-tucu='inline-code'],
-html.macos [data-tucu='typography'][data-typography-tag='code'] {
+html.macos-tahoe code:not(pre code),
+html.macos-tahoe [data-tucu='inline-code'],
+html.macos-tahoe [data-tucu='typography'][data-typography-tag='code'] {
   background-color: var(--macos-gray6);
   padding: 1px 4px;
   border-radius: var(--macos-radius-small-control);
   font-size: 0.9em;
 }
 
-html.macos.dark code:not(pre code),
-html.macos.dark [data-tucu='inline-code'] {
+html.macos-tahoe.dark code:not(pre code),
+html.macos-tahoe.dark [data-tucu='inline-code'] {
   background-color: var(--macos-gray5);
 }
 
 /* caption / footnote data-tucu aliases */
-html.macos [data-tucu='caption'],
-html.macos [data-tucu='typography'][data-typography-tag='caption'] {
+html.macos-tahoe [data-tucu='caption'],
+html.macos-tahoe [data-tucu='typography'][data-typography-tag='caption'] {
   font-family: var(--macos-font-family);
   font-size: var(--macos-ts-caption1-size);
   font-weight: var(--macos-ts-caption1-weight);
@@ -430,8 +430,8 @@ html.macos [data-tucu='typography'][data-typography-tag='caption'] {
   color: var(--macos-secondary-label);
 }
 
-html.macos [data-tucu='footnote'],
-html.macos [data-tucu='typography'][data-typography-tag='legal'] {
+html.macos-tahoe [data-tucu='footnote'],
+html.macos-tahoe [data-tucu='typography'][data-typography-tag='legal'] {
   font-family: var(--macos-font-family);
   font-size: var(--macos-ts-footnote-size);
   font-weight: var(--macos-ts-footnote-weight);
@@ -441,7 +441,7 @@ html.macos [data-tucu='typography'][data-typography-tag='legal'] {
 }
 
 /* label-1 / label-2 data-tucu aliases */
-html.macos [data-tucu='typography'][data-typography-tag='label-1'] {
+html.macos-tahoe [data-tucu='typography'][data-typography-tag='label-1'] {
   font-family: var(--macos-font-family);
   font-size: var(--macos-ts-body-size);
   font-weight: var(--macos-font-weight-medium);
@@ -450,7 +450,7 @@ html.macos [data-tucu='typography'][data-typography-tag='label-1'] {
   color: var(--macos-secondary-label);
 }
 
-html.macos [data-tucu='typography'][data-typography-tag='label-2'] {
+html.macos-tahoe [data-tucu='typography'][data-typography-tag='label-2'] {
   font-family: var(--macos-font-family);
   font-size: var(--macos-ts-caption1-size);
   font-weight: var(--macos-font-weight-medium);
@@ -460,26 +460,26 @@ html.macos [data-tucu='typography'][data-typography-tag='label-2'] {
 }
 
 /* ── Links ───────────────────────────────────────────────────── */
-html.macos a,
-html.macos [data-tucu='link'] {
+html.macos-tahoe a,
+html.macos-tahoe [data-tucu='link'] {
   color: var(--macos-link);
   text-decoration: none;
   transition: color var(--macos-transition-fast);
 }
 
-html.macos a:hover,
-html.macos [data-tucu='link']:hover {
+html.macos-tahoe a:hover,
+html.macos-tahoe [data-tucu='link']:hover {
   color: var(--macos-control-accent);
 }
 
-html.macos a:active,
-html.macos [data-tucu='link']:active {
+html.macos-tahoe a:active,
+html.macos-tahoe [data-tucu='link']:active {
   opacity: 0.7;
 }
 
 /* Links inside buttons inherit button text color */
-html.macos [data-tucu='button'] a,
-html.macos [data-tucu='button'] a:hover {
+html.macos-tahoe [data-tucu='button'] a,
+html.macos-tahoe [data-tucu='button'] a:hover {
   color: inherit;
   text-decoration: none;
 }

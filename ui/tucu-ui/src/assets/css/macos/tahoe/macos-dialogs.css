@@ -2,7 +2,7 @@
    macOS Tahoe 26 — Dialog Overrides
 
    Targets: Modal, Drawer, Sidebar, SettingsDrawer
-   Selectors: html.macos [data-tucu="modal"], etc.
+   Selectors: html.macos-tahoe [data-tucu="modal"], etc.
 
    References:
    - Apple HIG Tahoe > Sheets: glass regular, 24pt radius
@@ -11,7 +11,7 @@
    ============================================================ */
 
 /* ── Modal / Sheet ───────────────────────────────────────────── */
-html.macos [data-tucu='modal'] {
+html.macos-tahoe [data-tucu='modal'] {
   border-radius: var(--macos-radius-popover);
   background-color: var(--macos-glass-regular-bg-opaque);
   border: 0.5px solid var(--macos-glass-border);
@@ -20,7 +20,7 @@ html.macos [data-tucu='modal'] {
 }
 
 @supports (backdrop-filter: blur(1px)) {
-  html.macos [data-tucu='modal'] {
+  html.macos-tahoe [data-tucu='modal'] {
     background-color: var(--macos-glass-regular-bg);
     backdrop-filter: blur(var(--macos-glass-regular-blur)) saturate(150%);
     -webkit-backdrop-filter: blur(var(--macos-glass-regular-blur))
@@ -28,16 +28,16 @@ html.macos [data-tucu='modal'] {
   }
 }
 
-html.macos.dark [data-tucu='modal'] {
+html.macos-tahoe.dark [data-tucu='modal'] {
   border-color: var(--macos-separator);
 }
 
 /* Modal overlay */
-html.macos [data-tucu='modal-overlay'] {
+html.macos-tahoe [data-tucu='modal-overlay'] {
   background-color: rgba(0, 0, 0, 0.32) !important;
 }
 
-html.macos.dark [data-tucu='modal-overlay'] {
+html.macos-tahoe.dark [data-tucu='modal-overlay'] {
   background-color: rgba(0, 0, 0, 0.48) !important;
 }
 
@@ -53,7 +53,7 @@ html.macos-tahoe.dark [data-tucu='modal-overlay'] {
 }
 
 /* Modal header */
-html.macos [data-tucu='modal-header'] {
+html.macos-tahoe [data-tucu='modal-header'] {
   padding: var(--macos-space-4);
   border-bottom: 1px solid var(--macos-separator);
   font-weight: var(--macos-font-weight-semibold);
@@ -61,12 +61,12 @@ html.macos [data-tucu='modal-header'] {
 }
 
 /* Modal body */
-html.macos [data-tucu='modal-body'] {
+html.macos-tahoe [data-tucu='modal-body'] {
   padding: var(--macos-space-4) var(--macos-space-5);
 }
 
 /* Modal footer */
-html.macos [data-tucu='modal-footer'] {
+html.macos-tahoe [data-tucu='modal-footer'] {
   padding: var(--macos-space-3) var(--macos-space-4);
   border-top: 1px solid var(--macos-separator);
   display: flex;
@@ -75,14 +75,14 @@ html.macos [data-tucu='modal-footer'] {
 }
 
 /* ── Drawer ──────────────────────────────────────────────────── */
-html.macos [data-tucu='drawer'] {
+html.macos-tahoe [data-tucu='drawer'] {
   background-color: var(--macos-glass-regular-bg-opaque);
   border-left: 0.5px solid var(--macos-separator);
   box-shadow: -4px 0 24px rgba(0, 0, 0, 0.16);
 }
 
 @supports (backdrop-filter: blur(1px)) {
-  html.macos [data-tucu='drawer'] {
+  html.macos-tahoe [data-tucu='drawer'] {
     background-color: var(--macos-glass-regular-bg);
     backdrop-filter: blur(var(--macos-glass-regular-blur)) saturate(140%);
     -webkit-backdrop-filter: blur(var(--macos-glass-regular-blur))
@@ -90,12 +90,12 @@ html.macos [data-tucu='drawer'] {
   }
 }
 
-html.macos.dark [data-tucu='drawer'] {
+html.macos-tahoe.dark [data-tucu='drawer'] {
   border-left-color: var(--macos-separator);
 }
 
 /* ── Sidebar ─────────────────────────────────────────────────── */
-html.macos [data-tucu='sidebar'] {
+html.macos-tahoe [data-tucu='sidebar'] {
   width: var(--macos-sidebar-width);
   background-color: var(--macos-material-toolbar);
   backdrop-filter: blur(var(--macos-material-sidebar-blur));
@@ -103,13 +103,13 @@ html.macos [data-tucu='sidebar'] {
   border-right: 1px solid var(--macos-separator);
 }
 
-html.macos.dark [data-tucu='sidebar'] {
+html.macos-tahoe.dark [data-tucu='sidebar'] {
   background-color: var(--macos-material-toolbar);
   border-right-color: var(--macos-separator);
 }
 
 /* Sidebar item */
-html.macos [data-tucu='sidebar-item'] {
+html.macos-tahoe [data-tucu='sidebar-item'] {
   height: var(--macos-sidebar-row-height);
   padding: 0 var(--macos-space-3);
   border-radius: var(--macos-radius-md);
@@ -118,21 +118,21 @@ html.macos [data-tucu='sidebar-item'] {
   transition: background-color var(--macos-transition-fast);
 }
 
-html.macos [data-tucu='sidebar-item']:hover {
+html.macos-tahoe [data-tucu='sidebar-item']:hover {
   background-color: rgba(0, 0, 0, 0.04);
 }
 
-html.macos.dark [data-tucu='sidebar-item']:hover {
+html.macos-tahoe.dark [data-tucu='sidebar-item']:hover {
   background-color: rgba(255, 255, 255, 0.06);
 }
 
-html.macos [data-tucu='sidebar-item'][data-active='true'] {
+html.macos-tahoe [data-tucu='sidebar-item'][data-active='true'] {
   background-color: var(--macos-selected-content-bg);
   color: #ffffff;
 }
 
 /* Sidebar section title */
-html.macos [data-tucu='sidebar-section'] {
+html.macos-tahoe [data-tucu='sidebar-section'] {
   font-size: var(--macos-font-size-subheadline);
   font-weight: var(--macos-font-weight-semibold);
   color: var(--macos-secondary-label);
@@ -142,7 +142,7 @@ html.macos [data-tucu='sidebar-section'] {
 }
 
 /* Sidebar icon */
-html.macos [data-tucu='sidebar-icon'] {
+html.macos-tahoe [data-tucu='sidebar-icon'] {
   width: var(--macos-sidebar-icon-size);
   height: var(--macos-sidebar-icon-size);
   margin-right: var(--macos-space-2);

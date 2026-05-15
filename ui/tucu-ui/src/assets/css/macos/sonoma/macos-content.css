@@ -1,0 +1,156 @@
+/* ============================================================
+   macOS Sonoma 14 — Content Organization Overrides
+
+   Targets: ListContainer, ListItem, Collapse, Pagination
+   Selectors: html.macos [data-tucu="list-item"], etc.
+
+   References:
+   - Apple HIG Sonoma > Lists: 44pt touch / 24pt desktop row height
+   - Disclosure: chevron 6pt, rotate 90° on expand
+   - Pagination: segmented-like compact control
+   ============================================================ */
+
+/* ══ LIST CONTAINER ══════════════════════════════════════════ */
+
+html.macos [data-tucu='list-trigger'] {
+  display: flex;
+  align-items: center;
+  gap: var(--macos-space-2);
+  height: 28px;
+  padding: 0 var(--macos-space-2);
+  border-radius: var(--macos-radius-control);
+  font-family: var(--macos-font-family);
+  font-size: var(--macos-font-size-body);
+  font-weight: var(--macos-font-weight-regular);
+  color: var(--macos-label);
+  background: transparent;
+  cursor: default;
+  transition: background-color 0.1s ease;
+}
+
+html.macos [data-tucu='list-trigger']:hover {
+  background-color: var(--macos-gray5);
+}
+
+html.macos.dark [data-tucu='list-trigger']:hover {
+  background-color: var(--macos-gray4);
+}
+
+html.macos [data-tucu='list-trigger']:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 var(--macos-focus-ring-width) var(--macos-focus-ring);
+}
+
+html.macos [data-tucu='list-dropdown'] {
+  background-color: var(--macos-content-bg);
+  border: 0.5px solid var(--macos-separator);
+  border-radius: var(--macos-radius-control);
+  box-shadow: var(--macos-shadow-card);
+  padding: var(--macos-space-1) 0;
+  overflow: hidden;
+}
+
+/* ── List Item ───────────────────────────────────────────────── */
+
+html.macos [data-tucu='list-item'] {
+  display: flex;
+  align-items: center;
+  min-height: 24px;
+  padding: 2px var(--macos-space-3);
+  font-family: var(--macos-font-family);
+  font-size: var(--macos-font-size-body);
+  font-weight: var(--macos-font-weight-regular);
+  color: var(--macos-label);
+  border-bottom: 0.5px solid var(--macos-separator);
+  transition: background-color 0.08s ease;
+}
+
+html.macos [data-tucu='list-item']:last-child {
+  border-bottom: none;
+}
+
+html.macos [data-tucu='list-item']:hover {
+  background-color: color-mix(
+    in srgb,
+    var(--macos-control-accent) 10%,
+    transparent
+  );
+}
+
+/* ══ PAGINATION ══════════════════════════════════════════════ */
+
+html.macos [data-tucu='pagination'] {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  font-family: var(--macos-font-family);
+}
+
+html.macos [data-tucu='pagination-btn'],
+html.macos [data-tucu='pagination-page'] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 24px;
+  min-width: 24px;
+  padding: 0 6px;
+  border-radius: var(--macos-radius-small-control);
+  font-size: var(--macos-font-size-callout);
+  font-weight: var(--macos-font-weight-regular);
+  color: var(--macos-secondary-label);
+  background: transparent;
+  border: none;
+  cursor: default;
+  transition: background-color 0.1s ease, color 0.1s ease;
+}
+
+html.macos [data-tucu='pagination-btn']:hover,
+html.macos [data-tucu='pagination-page']:hover {
+  background-color: var(--macos-gray5);
+  color: var(--macos-label);
+}
+
+html.macos.dark [data-tucu='pagination-btn']:hover,
+html.macos.dark [data-tucu='pagination-page']:hover {
+  background-color: var(--macos-gray4);
+}
+
+html.macos [data-tucu='pagination-page'][data-active='true'] {
+  background-color: var(--macos-control-accent);
+  color: white;
+  font-weight: var(--macos-font-weight-medium);
+}
+
+html.macos [data-tucu='pagination-btn']:disabled,
+html.macos [data-tucu='pagination-btn'][disabled] {
+  color: var(--macos-quaternary-label);
+  pointer-events: none;
+  background: transparent;
+}
+
+html.macos [data-tucu='pagination-btn']:focus-visible,
+html.macos [data-tucu='pagination-page']:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 var(--macos-focus-ring-width) var(--macos-focus-ring);
+}
+
+html.macos [data-tucu='pagination-ellipsis'] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 24px;
+  min-width: 16px;
+  font-size: var(--macos-font-size-callout);
+  color: var(--macos-tertiary-label);
+}
+
+/* ── Reduced motion ──────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  html.macos [data-tucu='list-trigger'],
+  html.macos [data-tucu='collapse-trigger'],
+  html.macos [data-tucu='pagination-btn'],
+  html.macos [data-tucu='pagination-page'] {
+    transition: none;
+  }
+}

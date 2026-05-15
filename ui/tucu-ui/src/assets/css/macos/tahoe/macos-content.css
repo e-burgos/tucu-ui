@@ -2,7 +2,7 @@
    macOS Tahoe 26 — Content Organization Overrides
 
    Targets: ListContainer, ListItem, Collapse, Pagination
-   Selectors: html.macos [data-tucu="list-item"], etc.
+   Selectors: html.macos-tahoe [data-tucu="list-item"], etc.
 
    References:
    - Apple HIG Tahoe > Lists: 44pt touch / 24pt desktop row height
@@ -12,7 +12,7 @@
 
 /* ══ LIST CONTAINER ══════════════════════════════════════════ */
 
-html.macos [data-tucu='list-trigger'] {
+html.macos-tahoe [data-tucu='list-trigger'] {
   display: flex;
   align-items: center;
   gap: var(--macos-space-2);
@@ -28,20 +28,20 @@ html.macos [data-tucu='list-trigger'] {
   transition: background-color 0.1s ease;
 }
 
-html.macos [data-tucu='list-trigger']:hover {
+html.macos-tahoe [data-tucu='list-trigger']:hover {
   background-color: var(--macos-gray5);
 }
 
-html.macos.dark [data-tucu='list-trigger']:hover {
+html.macos-tahoe.dark [data-tucu='list-trigger']:hover {
   background-color: var(--macos-gray4);
 }
 
-html.macos [data-tucu='list-trigger']:focus-visible {
+html.macos-tahoe [data-tucu='list-trigger']:focus-visible {
   outline: none;
   box-shadow: 0 0 0 var(--macos-focus-ring-width) var(--macos-focus-ring);
 }
 
-html.macos [data-tucu='list-dropdown'] {
+html.macos-tahoe [data-tucu='list-dropdown'] {
   background-color: var(--macos-content-bg);
   border: 0.5px solid var(--macos-separator);
   border-radius: var(--macos-radius-control);
@@ -52,7 +52,7 @@ html.macos [data-tucu='list-dropdown'] {
 
 /* ── List Item ───────────────────────────────────────────────── */
 
-html.macos [data-tucu='list-item'] {
+html.macos-tahoe [data-tucu='list-item'] {
   display: flex;
   align-items: center;
   min-height: 24px;
@@ -65,11 +65,11 @@ html.macos [data-tucu='list-item'] {
   transition: background-color 0.08s ease;
 }
 
-html.macos [data-tucu='list-item']:last-child {
+html.macos-tahoe [data-tucu='list-item']:last-child {
   border-bottom: none;
 }
 
-html.macos [data-tucu='list-item']:hover {
+html.macos-tahoe [data-tucu='list-item']:hover {
   background-color: color-mix(
     in srgb,
     var(--macos-control-accent) 10%,
@@ -79,15 +79,15 @@ html.macos [data-tucu='list-item']:hover {
 
 /* ══ PAGINATION ══════════════════════════════════════════════ */
 
-html.macos [data-tucu='pagination'] {
+html.macos-tahoe [data-tucu='pagination'] {
   display: flex;
   align-items: center;
   gap: 2px;
   font-family: var(--macos-font-family);
 }
 
-html.macos [data-tucu='pagination-btn'],
-html.macos [data-tucu='pagination-page'] {
+html.macos-tahoe [data-tucu='pagination-btn'],
+html.macos-tahoe [data-tucu='pagination-page'] {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -104,37 +104,37 @@ html.macos [data-tucu='pagination-page'] {
   transition: background-color 0.1s ease, color 0.1s ease;
 }
 
-html.macos [data-tucu='pagination-btn']:hover,
-html.macos [data-tucu='pagination-page']:hover {
+html.macos-tahoe [data-tucu='pagination-btn']:hover,
+html.macos-tahoe [data-tucu='pagination-page']:hover {
   background-color: var(--macos-gray5);
   color: var(--macos-label);
 }
 
-html.macos.dark [data-tucu='pagination-btn']:hover,
-html.macos.dark [data-tucu='pagination-page']:hover {
+html.macos-tahoe.dark [data-tucu='pagination-btn']:hover,
+html.macos-tahoe.dark [data-tucu='pagination-page']:hover {
   background-color: var(--macos-gray4);
 }
 
-html.macos [data-tucu='pagination-page'][data-active='true'] {
+html.macos-tahoe [data-tucu='pagination-page'][data-active='true'] {
   background-color: var(--macos-control-accent);
   color: white;
   font-weight: var(--macos-font-weight-medium);
 }
 
-html.macos [data-tucu='pagination-btn']:disabled,
-html.macos [data-tucu='pagination-btn'][disabled] {
+html.macos-tahoe [data-tucu='pagination-btn']:disabled,
+html.macos-tahoe [data-tucu='pagination-btn'][disabled] {
   color: var(--macos-quaternary-label);
   pointer-events: none;
   background: transparent;
 }
 
-html.macos [data-tucu='pagination-btn']:focus-visible,
-html.macos [data-tucu='pagination-page']:focus-visible {
+html.macos-tahoe [data-tucu='pagination-btn']:focus-visible,
+html.macos-tahoe [data-tucu='pagination-page']:focus-visible {
   outline: none;
   box-shadow: 0 0 0 var(--macos-focus-ring-width) var(--macos-focus-ring);
 }
 
-html.macos [data-tucu='pagination-ellipsis'] {
+html.macos-tahoe [data-tucu='pagination-ellipsis'] {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -147,10 +147,10 @@ html.macos [data-tucu='pagination-ellipsis'] {
 /* ── Reduced motion ──────────────────────────────────────────── */
 
 @media (prefers-reduced-motion: reduce) {
-  html.macos [data-tucu='list-trigger'],
-  html.macos [data-tucu='collapse-trigger'],
-  html.macos [data-tucu='pagination-btn'],
-  html.macos [data-tucu='pagination-page'] {
+  html.macos-tahoe [data-tucu='list-trigger'],
+  html.macos-tahoe [data-tucu='collapse-trigger'],
+  html.macos-tahoe [data-tucu='pagination-btn'],
+  html.macos-tahoe [data-tucu='pagination-page'] {
     transition: none;
   }
 }

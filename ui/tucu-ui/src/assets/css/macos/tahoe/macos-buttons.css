@@ -2,7 +2,7 @@
    macOS Tahoe 26 — Button Overrides
 
    Targets: Button (solid|ghost|transparent), Hamburger, TopupButton
-   Selector: html.macos [data-tucu="button"]
+   Selector: html.macos-tahoe [data-tucu="button"]
 
    References:
    - Apple HIG > Buttons > macOS Tahoe 26 > Push Buttons
@@ -13,7 +13,7 @@
    ============================================================ */
 
 /* ── Base button ─────────────────────────────────────────────── */
-html.macos [data-tucu='button'] {
+html.macos-tahoe [data-tucu='button'] {
   border-radius: var(--macos-radius-control);
   font-family: var(--macos-font-family);
   font-size: var(--macos-font-size-body);
@@ -24,115 +24,115 @@ html.macos [data-tucu='button'] {
 }
 
 /* Suppress the generic hover translate that conflicts with our overrides */
-html.macos [data-tucu='button']:not(:disabled):not([aria-busy='true']) {
+html.macos-tahoe [data-tucu='button']:not(:disabled):not([aria-busy='true']) {
   transform: none !important;
 }
 
 /* ── Solid variant: subtle shadow like native push button ──── */
-html.macos [data-tucu='button'][data-variant='solid'] {
+html.macos-tahoe [data-tucu='button'][data-variant='solid'] {
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.14), 0 0.5px 0.5px rgba(0, 0, 0, 0.08),
     inset 0 0.5px 0 rgba(255, 255, 255, 0.4);
 }
-html.macos [data-tucu='button'][data-variant='solid']:hover {
+html.macos-tahoe [data-tucu='button'][data-variant='solid']:hover {
   filter: brightness(1.06);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.16), 0 0.5px 0.5px rgba(0, 0, 0, 0.1),
     inset 0 0.5px 0 rgba(255, 255, 255, 0.4);
 }
-html.macos [data-tucu='button'][data-variant='solid']:active {
+html.macos-tahoe [data-tucu='button'][data-variant='solid']:active {
   filter: brightness(0.94);
   box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.12);
 }
-html.macos.dark [data-tucu='button'][data-variant='solid'] {
+html.macos-tahoe.dark [data-tucu='button'][data-variant='solid'] {
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3),
     inset 0 0.5px 0 rgba(255, 255, 255, 0.1);
 }
-html.macos.dark [data-tucu='button'][data-variant='solid']:hover {
+html.macos-tahoe.dark [data-tucu='button'][data-variant='solid']:hover {
   filter: brightness(1.08);
 }
 
 /* ── Ghost variant: subtle border ──────────────────────────── */
-html.macos [data-tucu='button'][data-variant='ghost'] {
+html.macos-tahoe [data-tucu='button'][data-variant='ghost'] {
   background-color: var(--macos-control-bg) !important;
   border: 0.5px solid var(--macos-separator) !important;
   color: var(--macos-label) !important;
   box-shadow: 0 0.5px 1px rgba(0, 0, 0, 0.1),
     inset 0 0.5px 0 rgba(255, 255, 255, 0.6);
 }
-html.macos [data-tucu='button'][data-variant='ghost']:hover {
+html.macos-tahoe [data-tucu='button'][data-variant='ghost']:hover {
   background-color: var(--macos-control-bg-hover) !important;
   filter: none;
 }
-html.macos [data-tucu='button'][data-variant='ghost']:active {
+html.macos-tahoe [data-tucu='button'][data-variant='ghost']:active {
   background-color: var(--macos-control-bg-active) !important;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.08);
 }
-html.macos.dark [data-tucu='button'][data-variant='ghost'] {
+html.macos-tahoe.dark [data-tucu='button'][data-variant='ghost'] {
   background-color: rgba(255, 255, 255, 0.1) !important;
   border-color: rgba(255, 255, 255, 0.12) !important;
   box-shadow: 0 0.5px 1px rgba(0, 0, 0, 0.25);
 }
-html.macos.dark [data-tucu='button'][data-variant='ghost']:hover {
+html.macos-tahoe.dark [data-tucu='button'][data-variant='ghost']:hover {
   background-color: rgba(255, 255, 255, 0.14) !important;
 }
-html.macos.dark [data-tucu='button'][data-variant='ghost']:active {
+html.macos-tahoe.dark [data-tucu='button'][data-variant='ghost']:active {
   background-color: rgba(255, 255, 255, 0.06) !important;
 }
 
 /* ── Transparent variant ───────────────────────────────────── */
-html.macos [data-tucu='button'][data-variant='transparent'] {
+html.macos-tahoe [data-tucu='button'][data-variant='transparent'] {
   background-color: transparent !important;
   border: none !important;
   box-shadow: none !important;
   color: var(--macos-control-accent) !important;
 }
-html.macos [data-tucu='button'][data-variant='transparent']:hover {
+html.macos-tahoe [data-tucu='button'][data-variant='transparent']:hover {
   background-color: rgba(0, 0, 0, 0.04) !important;
 }
-html.macos [data-tucu='button'][data-variant='transparent']:active {
+html.macos-tahoe [data-tucu='button'][data-variant='transparent']:active {
   background-color: rgba(0, 0, 0, 0.08) !important;
 }
-html.macos.dark [data-tucu='button'][data-variant='transparent'] {
+html.macos-tahoe.dark [data-tucu='button'][data-variant='transparent'] {
   color: var(--macos-control-accent) !important;
 }
-html.macos.dark [data-tucu='button'][data-variant='transparent']:hover {
+html.macos-tahoe.dark [data-tucu='button'][data-variant='transparent']:hover {
   background-color: rgba(255, 255, 255, 0.06) !important;
 }
-html.macos.dark [data-tucu='button'][data-variant='transparent']:active {
+html.macos-tahoe.dark [data-tucu='button'][data-variant='transparent']:active {
   background-color: rgba(255, 255, 255, 0.1) !important;
 }
 
 /* ── Shape overrides ───────────────────────────────────────── */
-html.macos [data-tucu='button'][data-shape='pill'],
-html.macos [data-tucu='button'][data-shape='circle'] {
+html.macos-tahoe [data-tucu='button'][data-shape='pill'],
+html.macos-tahoe [data-tucu='button'][data-shape='circle'] {
   border-radius: var(--macos-radius-full);
 }
 
 /* ── Size overrides: match macOS native control sizes ──────── */
-html.macos [data-tucu='button'][data-size='large'] {
+html.macos-tahoe [data-tucu='button'][data-size='large'] {
   min-height: 28px;
   padding-left: 20px;
   padding-right: 20px;
   font-size: var(--macos-font-size-title3);
 }
-html.macos [data-tucu='button'][data-size='medium'] {
+html.macos-tahoe [data-tucu='button'][data-size='medium'] {
   min-height: var(--macos-control-height);
   padding-left: 16px;
   padding-right: 16px;
   font-size: var(--macos-font-size-body);
 }
-html.macos [data-tucu='button'][data-size='small'] {
+html.macos-tahoe [data-tucu='button'][data-size='small'] {
   min-height: var(--macos-control-height);
   padding-left: 12px;
   padding-right: 12px;
   font-size: var(--macos-font-size-body);
 }
-html.macos [data-tucu='button'][data-size='mini'] {
+html.macos-tahoe [data-tucu='button'][data-size='mini'] {
   min-height: var(--macos-control-height-sm);
   padding-left: 10px;
   padding-right: 10px;
   font-size: var(--macos-font-size-callout);
 }
-html.macos [data-tucu='button'][data-size='tiny'] {
+html.macos-tahoe [data-tucu='button'][data-size='tiny'] {
   min-height: var(--macos-control-height-mini);
   padding-left: 8px;
   padding-right: 8px;
@@ -140,20 +140,20 @@ html.macos [data-tucu='button'][data-size='tiny'] {
 }
 
 /* ── Focus ring ────────────────────────────────────────────── */
-html.macos [data-tucu='button']:focus-visible {
+html.macos-tahoe [data-tucu='button']:focus-visible {
   outline: none;
   box-shadow: 0 0 0 var(--macos-focus-ring-width) var(--macos-focus-ring);
 }
 
 /* ── Disabled state ────────────────────────────────────────── */
-html.macos [data-tucu='button']:disabled {
+html.macos-tahoe [data-tucu='button']:disabled {
   opacity: 0.4;
   cursor: default;
 }
 
 /* ── Responsive: larger touch targets on mobile ──────────────── */
 @media (max-width: 767px) {
-  html.macos [data-tucu='button'] {
+  html.macos-tahoe [data-tucu='button'] {
     min-height: 44px;
   }
 }
@@ -215,37 +215,37 @@ html.macos-tahoe [data-tucu='button'][data-variant='transparent']:hover {
 
 /* ── Hamburger button ────────────────────────────────────────── */
 
-html.macos [data-tucu='hamburger'] {
+html.macos-tahoe [data-tucu='hamburger'] {
   border-radius: var(--macos-radius-control);
   background-color: transparent;
   border: none;
   transition: background-color 0.1s ease;
 }
 
-html.macos [data-tucu='hamburger']:hover {
+html.macos-tahoe [data-tucu='hamburger']:hover {
   background-color: rgba(0, 0, 0, 0.06);
 }
 
-html.macos [data-tucu='hamburger']:active {
+html.macos-tahoe [data-tucu='hamburger']:active {
   background-color: rgba(0, 0, 0, 0.1);
 }
 
-html.macos [data-tucu='hamburger']:focus-visible {
+html.macos-tahoe [data-tucu='hamburger']:focus-visible {
   outline: none;
   box-shadow: 0 0 0 var(--macos-focus-ring-width) var(--macos-focus-ring);
 }
 
-html.macos.dark [data-tucu='hamburger']:hover {
+html.macos-tahoe.dark [data-tucu='hamburger']:hover {
   background-color: rgba(255, 255, 255, 0.08);
 }
 
-html.macos.dark [data-tucu='hamburger']:active {
+html.macos-tahoe.dark [data-tucu='hamburger']:active {
   background-color: rgba(255, 255, 255, 0.12);
 }
 
 /* ── TopupButton ─────────────────────────────────────────────── */
 
-html.macos [data-tucu='topup-button'] {
+html.macos-tahoe [data-tucu='topup-button'] {
   border-radius: var(--macos-radius-control);
   font-family: var(--macos-font-family);
   font-size: var(--macos-font-size-body);
@@ -254,22 +254,22 @@ html.macos [data-tucu='topup-button'] {
   transition: filter 0.1s ease, box-shadow 0.1s ease;
 }
 
-html.macos [data-tucu='topup-button']:hover {
+html.macos-tahoe [data-tucu='topup-button']:hover {
   filter: brightness(1.05);
 }
 
-html.macos [data-tucu='topup-button']:active {
+html.macos-tahoe [data-tucu='topup-button']:active {
   filter: brightness(0.95);
 }
 
-html.macos [data-tucu='topup-button']:focus-visible {
+html.macos-tahoe [data-tucu='topup-button']:focus-visible {
   outline: none;
   box-shadow: 0 0 0 var(--macos-focus-ring-width) var(--macos-focus-ring);
 }
 
 /* ── Loading state ───────────────────────────────────────────── */
 
-html.macos [data-tucu='button'][aria-busy='true'] {
+html.macos-tahoe [data-tucu='button'][aria-busy='true'] {
   opacity: 0.7;
   cursor: wait;
   pointer-events: none;
@@ -278,9 +278,9 @@ html.macos [data-tucu='button'][aria-busy='true'] {
 /* ── Reduced motion ──────────────────────────────────────────── */
 
 @media (prefers-reduced-motion: reduce) {
-  html.macos [data-tucu='button'],
-  html.macos [data-tucu='hamburger'],
-  html.macos [data-tucu='topup-button'] {
+  html.macos-tahoe [data-tucu='button'],
+  html.macos-tahoe [data-tucu='hamburger'],
+  html.macos-tahoe [data-tucu='topup-button'] {
     transition: none;
   }
 }

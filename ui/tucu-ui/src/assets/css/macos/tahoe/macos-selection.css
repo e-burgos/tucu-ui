@@ -1,0 +1,237 @@
+/* ============================================================
+   macOS Tahoe 26 — Selection & Numeric Input Overrides
+
+   Targets: SegmentedControl, Slider, Stepper, RangeInput
+   Selector: html.macos-tahoe [data-tucu="..."]
+
+   References:
+   - Apple HIG > Segmented Controls: 8pt radius, 22pt height
+   - Apple HIG > Sliders: thumb 22pt, track 4pt, accent color
+   - Apple HIG > Steppers: 19pt height, paired +/- buttons
+   ============================================================ */
+
+/* ── Segmented Control ───────────────────────────────────────── */
+
+html.macos-tahoe [data-tucu='segmented-control'] {
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: var(--macos-radius-small-control);
+  font-family: var(--macos-font-family);
+  padding: 2px;
+}
+
+html.macos-tahoe.dark [data-tucu='segmented-control'] {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+html.macos-tahoe [data-tucu='segmented-item'] {
+  font-family: var(--macos-font-family);
+  font-size: var(--macos-font-size-callout);
+  font-weight: var(--macos-font-weight-medium);
+  letter-spacing: var(--macos-tracking-12);
+  border-radius: 7px;
+  transition: background-color 0.1s ease, box-shadow 0.1s ease, color 0.1s ease;
+  color: var(--macos-secondary-label);
+}
+
+html.macos-tahoe [data-tucu='segmented-item'][data-active='true'],
+html.macos-tahoe [data-tucu='segmented-item'][aria-checked='true'] {
+  background-color: var(--macos-control-bg);
+  color: var(--macos-label);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 1px rgba(0, 0, 0, 0.08);
+}
+
+html.macos-tahoe.dark [data-tucu='segmented-item'][data-active='true'],
+html.macos-tahoe.dark [data-tucu='segmented-item'][aria-checked='true'] {
+  background-color: rgba(99, 99, 102, 0.7);
+  color: var(--macos-label);
+}
+
+html.macos-tahoe
+  [data-tucu='segmented-item']:not([data-active='true']):not(
+    [aria-checked='true']
+  ):hover {
+  color: var(--macos-label);
+  background-color: rgba(0, 0, 0, 0.03);
+}
+
+html.macos-tahoe.dark
+  [data-tucu='segmented-item']:not([data-active='true']):not(
+    [aria-checked='true']
+  ):hover {
+  background-color: rgba(255, 255, 255, 0.04);
+}
+
+html.macos-tahoe [data-tucu='segmented-item']:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 var(--macos-focus-ring-width) var(--macos-focus-ring);
+}
+
+/* ── Slider ──────────────────────────────────────────────────── */
+
+html.macos-tahoe [data-tucu='slider'] {
+  font-family: var(--macos-font-family);
+}
+
+html.macos-tahoe [data-tucu='slider-track'] {
+  height: 4px;
+  border-radius: 2px;
+  background-color: var(--macos-separator);
+}
+
+html.macos-tahoe [data-tucu='slider-fill'] {
+  background-color: var(--macos-control-accent);
+  border-radius: 2px;
+}
+
+html.macos-tahoe [data-tucu='slider-thumb'] {
+  width: 20px;
+  height: 20px;
+  border-radius: var(--macos-radius-pill);
+  background-color: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2), 0 0.5px 1px rgba(0, 0, 0, 0.12);
+  transition: box-shadow 0.1s ease, transform 0.1s ease;
+  cursor: pointer;
+}
+
+html.macos-tahoe [data-tucu='slider-thumb']:hover {
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.22), 0 0.5px 1px rgba(0, 0, 0, 0.12);
+}
+
+html.macos-tahoe [data-tucu='slider-thumb']:active {
+  transform: scale(1.1);
+}
+
+html.macos-tahoe [data-tucu='slider-thumb']:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 var(--macos-focus-ring-width) var(--macos-focus-ring);
+}
+
+html.macos-tahoe.dark [data-tucu='slider-track'] {
+  background-color: rgba(255, 255, 255, 0.16);
+}
+
+/* ── Native range input (if used) ───────────────────────────── */
+
+html.macos-tahoe input[type='range'] {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  background: var(--macos-separator);
+  border-radius: 2px;
+  outline: none;
+  cursor: pointer;
+}
+
+html.macos-tahoe input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2), 0 0.5px 1px rgba(0, 0, 0, 0.12);
+  cursor: pointer;
+  transition: box-shadow 0.1s ease;
+}
+
+html.macos-tahoe input[type='range']::-webkit-slider-thumb:hover {
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.22), 0 0.5px 1px rgba(0, 0, 0, 0.12);
+}
+
+html.macos-tahoe input[type='range']:focus-visible::-webkit-slider-thumb {
+  box-shadow: 0 0 0 var(--macos-focus-ring-width) var(--macos-focus-ring);
+}
+
+html.macos-tahoe input[type='range']::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border: none;
+  border-radius: 50%;
+  background: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2), 0 0.5px 1px rgba(0, 0, 0, 0.12);
+  cursor: pointer;
+}
+
+/* ── Stepper ─────────────────────────────────────────────────── */
+
+html.macos-tahoe [data-tucu='stepper'] {
+  font-family: var(--macos-font-family);
+  display: inline-flex;
+  align-items: stretch;
+  border-radius: var(--macos-radius-control);
+  border: 0.5px solid var(--macos-separator);
+  overflow: hidden;
+  box-shadow: 0 0.5px 1px rgba(0, 0, 0, 0.1);
+}
+
+html.macos-tahoe [data-tucu='stepper-button'] {
+  background-color: var(--macos-control-bg);
+  color: var(--macos-label);
+  border: none;
+  width: 22px;
+  min-height: var(--macos-control-height);
+  font-size: 14px;
+  font-weight: var(--macos-font-weight-medium);
+  cursor: pointer;
+  transition: background-color 0.1s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+html.macos-tahoe [data-tucu='stepper-button']:hover {
+  background-color: var(--macos-control-bg-hover);
+}
+
+html.macos-tahoe [data-tucu='stepper-button']:active {
+  background-color: var(--macos-control-bg-active);
+}
+
+html.macos-tahoe [data-tucu='stepper-button']:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+html.macos-tahoe [data-tucu='stepper-button']:focus-visible {
+  outline: none;
+  box-shadow: inset 0 0 0 var(--macos-focus-ring-width) var(--macos-focus-ring);
+}
+
+html.macos-tahoe [data-tucu='stepper-value'] {
+  font-size: var(--macos-font-size-body);
+  font-family: var(--macos-font-family);
+  color: var(--macos-label);
+  border-left: 0.5px solid var(--macos-separator);
+  border-right: 0.5px solid var(--macos-separator);
+  padding: 0 10px;
+  min-width: 44px;
+  text-align: center;
+  background-color: var(--macos-control-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+html.macos-tahoe.dark [data-tucu='stepper'],
+html.macos-tahoe.dark [data-tucu='stepper-button'],
+html.macos-tahoe.dark [data-tucu='stepper-value'] {
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+html.macos-tahoe.dark [data-tucu='stepper-button'],
+html.macos-tahoe.dark [data-tucu='stepper-value'] {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+html.macos-tahoe.dark [data-tucu='stepper-button']:hover {
+  background-color: rgba(255, 255, 255, 0.14);
+}
+
+/* ── Reduced motion ──────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  html.macos-tahoe [data-tucu='segmented-item'],
+  html.macos-tahoe [data-tucu='slider-thumb'],
+  html.macos-tahoe [data-tucu='stepper-button'] {
+    transition: none;
+  }
+}

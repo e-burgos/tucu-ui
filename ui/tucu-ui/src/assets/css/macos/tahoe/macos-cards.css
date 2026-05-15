@@ -1,0 +1,125 @@
+/* ============================================================
+   macOS Tahoe 26 — Card Overrides
+
+   Targets: Card, CardContainer, InfoCard, PanelCard, StatsCard,
+            WalletCard, TransactionCard
+   Selector: html.macos-tahoe [data-tucu="card"]
+
+   References:
+   - Apple HIG Tahoe > Grouped content: solid surface, radius-xl
+   - Radius: var(--macos-radius-xl) = 12pt
+   - Shadow: diffuse multi-layer (light), heavier (dark)
+   - Border: 0.5px separator color
+   ============================================================ */
+
+/* ── Base card ───────────────────────────────────────────────── */
+html.macos-tahoe [data-tucu='card'] {
+  border-radius: var(--macos-radius-xl);
+  border: 0.5px solid var(--macos-separator);
+  background-color: var(--macos-content-bg);
+  box-shadow: var(--macos-shadow-card);
+  transition: box-shadow var(--macos-transition-normal),
+    border-color var(--macos-transition-normal);
+}
+
+html.macos-tahoe [data-tucu='card']:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06), 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+/* ── Dark mode ───────────────────────────────────────────────── */
+html.macos-tahoe.dark [data-tucu='card'] {
+  background-color: var(--macos-content-bg);
+  border-color: var(--macos-separator);
+  box-shadow: var(--macos-shadow-card);
+}
+
+html.macos-tahoe.dark [data-tucu='card']:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3), 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+
+/* ── Card header (internal) ──────────────────────────────────── */
+html.macos-tahoe [data-tucu='card-header'] {
+  border-bottom: 1px solid var(--macos-separator);
+  padding: var(--macos-space-3) var(--macos-space-4);
+  font-weight: var(--macos-font-weight-semibold);
+  font-size: var(--macos-font-size-body);
+}
+
+/* ── Card body ───────────────────────────────────────────────── */
+html.macos-tahoe [data-tucu='card-body'] {
+  padding: var(--macos-space-4);
+}
+
+/* ── Stats / Info cards: tighter padding ─────────────────────── */
+html.macos-tahoe [data-tucu='stats-card'] {
+  border-radius: var(--macos-radius-xl);
+  border: 0.5px solid var(--macos-separator);
+  background-color: var(--macos-content-bg);
+  box-shadow: var(--macos-shadow-card);
+  padding: var(--macos-space-3) var(--macos-space-4);
+}
+
+html.macos-tahoe.dark [data-tucu='stats-card'] {
+  background-color: var(--macos-content-bg);
+  border-color: var(--macos-separator);
+}
+
+/* ── Panel card (section containers) ─────────────────────────── */
+html.macos-tahoe [data-tucu='panel-card'] {
+  border-radius: var(--macos-radius-xl);
+  border: 1px solid var(--macos-separator);
+  background-color: var(--macos-gray6);
+  box-shadow: none;
+}
+
+html.macos-tahoe.dark [data-tucu='panel-card'] {
+  background-color: var(--macos-gray5);
+  border-color: var(--macos-separator);
+}
+
+/* ── CardTitle (section with floating label) ─────────────────── */
+html.macos-tahoe [data-tucu='card-title'] {
+  border-radius: var(--macos-radius-xl);
+  border-color: var(--macos-separator);
+}
+
+html.macos-tahoe.dark [data-tucu='card-title'] {
+  border-color: var(--macos-separator);
+}
+
+/* Floating label inherits card bg so it blends with the parent */
+html.macos-tahoe [data-tucu='card-title-label'] {
+  background-color: var(--macos-control-bg);
+  border-radius: var(--macos-radius-md);
+  font-size: var(--macos-type-heading-lg-size);
+  line-height: var(--macos-type-heading-lg-leading);
+  font-weight: var(--macos-font-weight-semibold);
+  letter-spacing: var(--macos-type-heading-lg-tracking);
+  color: var(--macos-label);
+}
+
+html.macos-tahoe.dark [data-tucu='card-title-label'] {
+  background-color: var(--macos-control-bg);
+  color: var(--macos-label);
+}
+
+/* ============================================================
+   macOS Tahoe 26 — Cards & Data (Standard material)
+   ============================================================ */
+
+/* Data Display cards should keep readability using standard or opaque materials */
+html.macos-tahoe [data-tucu='card'],
+html.macos-tahoe [data-tucu='panel-card'],
+html.macos-tahoe [data-tucu='info-card'] {
+  background: var(--color-semantic-elevation-1);
+  border: 1px solid var(--color-semantic-line-primary-subtle);
+  border-radius: var(--macos-radius-lg);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+html.macos-tahoe.dark [data-tucu='card'],
+html.macos-tahoe.dark [data-tucu='panel-card'],
+html.macos-tahoe.dark [data-tucu='info-card'] {
+  background: var(--color-semantic-elevation-2);
+  border-color: rgba(255, 255, 255, 0.1);
+}

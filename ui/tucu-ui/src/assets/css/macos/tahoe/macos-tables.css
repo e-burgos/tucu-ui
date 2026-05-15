@@ -2,7 +2,7 @@
    macOS Tahoe 26 — Table & Pagination Overrides
 
    Targets: BasicTable, Pagination
-   Selectors: html.macos [data-tucu="table"], etc.
+   Selectors: html.macos-tahoe [data-tucu="table"], etc.
 
    References:
    - macOS Tahoe Finder list view: hairline separators, 24pt row
@@ -12,7 +12,7 @@
    ============================================================ */
 
 /* ── Table container ─────────────────────────────────────────── */
-html.macos [data-tucu='table-scroll'] {
+html.macos-tahoe [data-tucu='table-scroll'] {
   --basic-table-scrollbar-track: transparent;
   --basic-table-scrollbar-thumb: color-mix(
     in srgb,
@@ -21,16 +21,16 @@ html.macos [data-tucu='table-scroll'] {
   );
 }
 
-html.macos [data-tucu='table-scroll']::-webkit-scrollbar {
+html.macos-tahoe [data-tucu='table-scroll']::-webkit-scrollbar {
   height: 10px;
   width: 10px;
 }
 
-html.macos [data-tucu='table-scroll']::-webkit-scrollbar-track {
+html.macos-tahoe [data-tucu='table-scroll']::-webkit-scrollbar-track {
   background: transparent;
 }
 
-html.macos [data-tucu='table-scroll']::-webkit-scrollbar-thumb {
+html.macos-tahoe [data-tucu='table-scroll']::-webkit-scrollbar-thumb {
   background-color: color-mix(
     in srgb,
     var(--macos-secondary-label) 28%,
@@ -41,7 +41,7 @@ html.macos [data-tucu='table-scroll']::-webkit-scrollbar-thumb {
   background-clip: padding-box;
 }
 
-html.macos [data-tucu='table-scroll']::-webkit-scrollbar-thumb:hover {
+html.macos-tahoe [data-tucu='table-scroll']::-webkit-scrollbar-thumb:hover {
   background-color: color-mix(
     in srgb,
     var(--macos-secondary-label) 42%,
@@ -49,7 +49,7 @@ html.macos [data-tucu='table-scroll']::-webkit-scrollbar-thumb:hover {
   );
 }
 
-html.macos [data-tucu='table'] {
+html.macos-tahoe [data-tucu='table'] {
   border-radius: calc(var(--macos-radius-xl) + 2px);
   border: 1px solid color-mix(in srgb, var(--macos-separator) 92%, transparent);
   overflow: auto;
@@ -71,23 +71,23 @@ html.macos [data-tucu='table'] {
   overscroll-behavior: contain;
 }
 
-html.macos [data-tucu='table']::-webkit-scrollbar {
+html.macos-tahoe [data-tucu='table']::-webkit-scrollbar {
   height: 10px;
   width: 10px;
 }
 
-html.macos [data-tucu='table']::-webkit-scrollbar-track {
+html.macos-tahoe [data-tucu='table']::-webkit-scrollbar-track {
   background: transparent;
 }
 
-html.macos [data-tucu='table']::-webkit-scrollbar-thumb {
+html.macos-tahoe [data-tucu='table']::-webkit-scrollbar-thumb {
   background-color: var(--basic-table-scrollbar-thumb, rgba(0, 0, 0, 0.2));
   border: 2px solid transparent;
   border-radius: 999px;
   background-clip: padding-box;
 }
 
-html.macos [data-tucu='table']::-webkit-scrollbar-thumb:hover {
+html.macos-tahoe [data-tucu='table']::-webkit-scrollbar-thumb:hover {
   background-color: color-mix(
     in srgb,
     var(--basic-table-scrollbar-thumb, rgba(0, 0, 0, 0.2)) 140%,
@@ -95,7 +95,7 @@ html.macos [data-tucu='table']::-webkit-scrollbar-thumb:hover {
   );
 }
 
-html.macos.dark [data-tucu='table'] {
+html.macos-tahoe.dark [data-tucu='table'] {
   background: color-mix(
     in srgb,
     var(--macos-material-sheet) 88%,
@@ -105,13 +105,13 @@ html.macos.dark [data-tucu='table'] {
     0 12px 32px rgba(0, 0, 0, 0.28);
 }
 
-html.macos [data-tucu='table'][data-border='false'] {
+html.macos-tahoe [data-tucu='table'][data-border='false'] {
   border-color: transparent;
   box-shadow: none;
 }
 
 /* ── Table header ────────────────────────────────────────────── */
-html.macos [data-tucu='table-header'] {
+html.macos-tahoe [data-tucu='table-header'] {
   background: linear-gradient(
     180deg,
     color-mix(
@@ -132,7 +132,7 @@ html.macos [data-tucu='table-header'] {
     inset 0 -1px 0 rgba(24, 32, 48, 0.08), 0 1px 0 rgba(255, 255, 255, 0.12);
 }
 
-html.macos.dark [data-tucu='table-header'] {
+html.macos-tahoe.dark [data-tucu='table-header'] {
   background: linear-gradient(
     180deg,
     color-mix(
@@ -152,8 +152,8 @@ html.macos.dark [data-tucu='table-header'] {
     inset 0 -1px 0 rgba(0, 0, 0, 0.42), 0 1px 0 rgba(0, 0, 0, 0.16);
 }
 
-html.macos [data-tucu='table-header'] th,
-html.macos [data-tucu='table-header-cell'] {
+html.macos-tahoe [data-tucu='table-header'] th,
+html.macos-tahoe [data-tucu='table-header-cell'] {
   font-size: var(--macos-font-size-subheadline);
   line-height: var(--macos-leading-subheadline);
   font-weight: var(--macos-font-weight-semibold);
@@ -173,8 +173,8 @@ html.macos [data-tucu='table-header-cell'] {
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.24);
 }
 
-html.macos.dark [data-tucu='table-header'] th,
-html.macos.dark [data-tucu='table-header-cell'] {
+html.macos-tahoe.dark [data-tucu='table-header'] th,
+html.macos-tahoe.dark [data-tucu='table-header-cell'] {
   color: rgba(255, 255, 255, 0.9);
   border-right-color: color-mix(
     in srgb,
@@ -184,13 +184,13 @@ html.macos.dark [data-tucu='table-header-cell'] {
   text-shadow: 0 1px 0 rgba(0, 0, 0, 0.42);
 }
 
-html.macos [data-tucu='table-header'] th:last-child,
-html.macos [data-tucu='table-header-cell']:last-child {
+html.macos-tahoe [data-tucu='table-header'] th:last-child,
+html.macos-tahoe [data-tucu='table-header-cell']:last-child {
   border-right: none;
 }
 
 /* ── Table rows ──────────────────────────────────────────────── */
-html.macos [data-tucu='table-row'] {
+html.macos-tahoe [data-tucu='table-row'] {
   height: 30px;
   background: transparent;
   transition: background-color var(--macos-transition-fast),
@@ -198,33 +198,33 @@ html.macos [data-tucu='table-row'] {
 }
 
 /* Alternating row colors (Finder style) */
-html.macos
+html.macos-tahoe
   [data-tucu='table'][data-striped='true']
   [data-tucu='table-row']:nth-child(even) {
   background-color: rgba(0, 0, 0, 0.03);
 }
 
-html.macos.dark
+html.macos-tahoe.dark
   [data-tucu='table'][data-striped='true']
   [data-tucu='table-row']:nth-child(even) {
   background-color: rgba(255, 255, 255, 0.025);
 }
 
 /* Hover */
-html.macos
+html.macos-tahoe
   [data-tucu='table'][data-hoverable='true']
   [data-tucu='table-row']:hover {
   background-color: rgba(0, 0, 0, 0.045);
 }
 
-html.macos.dark
+html.macos-tahoe.dark
   [data-tucu='table'][data-hoverable='true']
   [data-tucu='table-row']:hover {
   background-color: rgba(255, 255, 255, 0.05);
 }
 
 /* Selected row */
-html.macos [data-tucu='table-row'][data-selected='true'] {
+html.macos-tahoe [data-tucu='table-row'][data-selected='true'] {
   background: linear-gradient(
     180deg,
     color-mix(in srgb, var(--macos-selected-content-bg) 94%, #4da3ff 6%) 0%,
@@ -235,7 +235,7 @@ html.macos [data-tucu='table-row'][data-selected='true'] {
 }
 
 /* Table cells */
-html.macos [data-tucu='table-cell'] {
+html.macos-tahoe [data-tucu='table-cell'] {
   padding: 7px var(--macos-space-3);
   font-size: var(--macos-font-size-body);
   line-height: var(--macos-leading-body);
@@ -248,7 +248,7 @@ html.macos [data-tucu='table-cell'] {
     color-mix(in srgb, var(--macos-separator) 62%, transparent) !important;
 }
 
-html.macos.dark [data-tucu='table-cell'] {
+html.macos-tahoe.dark [data-tucu='table-cell'] {
   border-bottom-color: color-mix(
     in srgb,
     var(--macos-separator) 72%,
@@ -256,15 +256,15 @@ html.macos.dark [data-tucu='table-cell'] {
   ) !important;
 }
 
-html.macos [data-tucu='table-row']:last-child [data-tucu='table-cell'] {
+html.macos-tahoe [data-tucu='table-row']:last-child [data-tucu='table-cell'] {
   border-bottom-color: transparent !important;
 }
 
-html.macos [data-tucu='table'][data-border='false'] [data-tucu='table-cell'] {
+html.macos-tahoe [data-tucu='table'][data-border='false'] [data-tucu='table-cell'] {
   border-bottom-color: transparent !important;
 }
 
-html.macos
+html.macos-tahoe
   [data-tucu='table-row'][data-selected='true']
   [data-tucu='table-cell'] {
   color: #ffffff !important;
@@ -272,7 +272,7 @@ html.macos
 }
 
 /* ── Pagination ──────────────────────────────────────────────── */
-html.macos [data-tucu='pagination'] {
+html.macos-tahoe [data-tucu='pagination'] {
   display: flex;
   align-items: center;
   gap: var(--macos-space-1);
@@ -280,7 +280,7 @@ html.macos [data-tucu='pagination'] {
   font-size: var(--macos-font-size-callout);
 }
 
-html.macos [data-tucu='pagination-button'] {
+html.macos-tahoe [data-tucu='pagination-button'] {
   min-width: var(--macos-control-height);
   min-height: var(--macos-control-height);
   border-radius: var(--macos-radius-md);
@@ -290,15 +290,15 @@ html.macos [data-tucu='pagination-button'] {
   transition: all var(--macos-transition-fast);
 }
 
-html.macos [data-tucu='pagination-button']:hover {
+html.macos-tahoe [data-tucu='pagination-button']:hover {
   background-color: rgba(0, 0, 0, 0.04);
 }
 
-html.macos.dark [data-tucu='pagination-button']:hover {
+html.macos-tahoe.dark [data-tucu='pagination-button']:hover {
   background-color: rgba(255, 255, 255, 0.06);
 }
 
-html.macos [data-tucu='pagination-button'][data-active='true'] {
+html.macos-tahoe [data-tucu='pagination-button'][data-active='true'] {
   background-color: var(--macos-control-accent);
   color: #ffffff;
   border-color: var(--macos-control-accent);

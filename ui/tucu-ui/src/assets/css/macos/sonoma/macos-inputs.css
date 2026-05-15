@@ -1,11 +1,11 @@
 /* ============================================================
-   macOS Tahoe 26 — Input/Form Control Overrides
+   macOS Sonoma 14 — Input/Form Control Overrides
 
    Targets: Input, Select, Checkbox, Radio, Switch, InputSearcher,
             TextArea, DatePicker, TimePicker, PasswordInput
 
    References:
-   - Apple HIG > Text Fields: 22pt height, 10pt radius (Tahoe), 0.5px border
+   - Apple HIG > Text Fields: 22pt height, 10pt radius (Sonoma), 0.5px border
    - Apple HIG > Toggles: Switch 38×22pt, Checkbox 14×14pt(r3), Radio 16×16pt
    - Apple HIG > Color: controlAccentColor = systemBlue
    - Focus ring: 3px systemBlue at 48% opacity
@@ -1579,46 +1579,3 @@ html.macos.dark [data-tucu='file-input-preview'] {
   }
 }
 
-/* ============================================================
-   macOS Tahoe 26 — Inputs Overrides (Liquid Glass)
-   ============================================================ */
-
-/* ── Base Input/Select/Textarea Tahoe ───────────────────────── */
-html.macos-tahoe [data-tucu='input-control'],
-html.macos-tahoe [data-tucu='textarea'],
-html.macos-tahoe [data-tucu='select-trigger'] {
-  background: var(--macos-glass-clear-bg);
-  backdrop-filter: blur(var(--macos-glass-clear-blur));
-  -webkit-backdrop-filter: blur(var(--macos-glass-clear-blur));
-  border: 1px solid var(--macos-glass-clear-border);
-  color: var(--macos-label);
-  transition: all var(--macos-transition-fast);
-}
-
-html.macos-tahoe [data-tucu='input-control']:focus,
-html.macos-tahoe [data-tucu='textarea']:focus,
-html.macos-tahoe [data-tucu='select-trigger']:focus {
-  background: var(--macos-glass-regular-bg);
-  backdrop-filter: blur(var(--macos-glass-regular-blur)) saturate(150%);
-  -webkit-backdrop-filter: blur(var(--macos-glass-regular-blur)) saturate(150%);
-  border: 1px solid var(--macos-glass-regular-border);
-  box-shadow: var(--macos-glass-shadow), var(--macos-focus-ring);
-  outline: none;
-}
-
-html.macos-tahoe [data-tucu='input-control'][aria-invalid='true'],
-html.macos-tahoe [data-tucu='textarea'][aria-invalid='true'],
-html.macos-tahoe [data-tucu='select-trigger'][aria-invalid='true'] {
-  border-color: var(--color-semantic-text-error);
-  box-shadow: 0 0 0 2px var(--color-semantic-text-error-subtle);
-}
-
-@media (prefers-reduced-transparency: reduce) {
-  html.macos-tahoe [data-tucu='input-control'],
-  html.macos-tahoe [data-tucu='textarea'],
-  html.macos-tahoe [data-tucu='select-trigger'] {
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-    background: var(--color-semantic-elevation-2);
-  }
-}

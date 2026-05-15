@@ -1,5 +1,5 @@
 /* ============================================================
-   macOS Tahoe 26 — Liquid Glass Materials
+   macOS Sonoma 14 — Liquid Glass Materials
 
    Token definitions and utility classes for the three Liquid Glass
    material variants: regular, clear and prominent.
@@ -77,7 +77,7 @@ html.macos {
 
   /* ── Legacy material aliases (Sonoma compat) ───────────────
      Some components reference --macos-material-* from older builds.
-     Alias them to Tahoe glass tokens to avoid transparent fallbacks.
+     Alias them to Sonoma glass tokens to avoid transparent fallbacks.
   */
   --macos-material-toolbar: var(--macos-glass-regular-bg);
   --macos-material-sidebar: var(--macos-glass-regular-bg);

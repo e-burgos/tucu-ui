@@ -1,0 +1,1624 @@
+/* ============================================================
+   macOS Tahoe 26 — Input/Form Control Overrides
+
+   Targets: Input, Select, Checkbox, Radio, Switch, InputSearcher,
+            TextArea, DatePicker, TimePicker, PasswordInput
+
+   References:
+   - Apple HIG > Text Fields: 22pt height, 10pt radius (Tahoe), 0.5px border
+   - Apple HIG > Toggles: Switch 38×22pt, Checkbox 14×14pt(r3), Radio 16×16pt
+   - Apple HIG > Color: controlAccentColor = systemBlue
+   - Focus ring: 3px systemBlue at 48% opacity
+   ============================================================ */
+
+/* ── Text Input ──────────────────────────────────────────────── */
+html.macos-tahoe [data-tucu='input'] {
+  min-height: var(--macos-control-height);
+  font-family: var(--macos-font-family);
+  font-size: var(--macos-font-size-body);
+  letter-spacing: var(--macos-tracking-13);
+}
+
+html.macos-tahoe [data-tucu='input-control'] {
+  border-radius: var(--macos-radius-md);
+  border: 1px solid var(--macos-separator) !important;
+  background-color: var(--macos-control-bg) !important;
+  color: var(--macos-label) !important;
+  font-family: var(--macos-font-family);
+  font-size: var(--macos-font-size-body);
+  letter-spacing: var(--macos-tracking-13);
+  transition: box-shadow var(--macos-transition-fast),
+    border-color var(--macos-transition-fast),
+    background-color var(--macos-transition-fast);
+}
+
+html.macos-tahoe [data-tucu='input-control']::placeholder {
+  color: var(--macos-secondary-label) !important;
+}
+
+html.macos-tahoe [data-tucu='input-control']:focus,
+html.macos-tahoe [data-tucu='input']:focus-within {
+  box-shadow: 0 0 0 var(--macos-focus-ring-width) var(--macos-focus-ring) !important;
+  outline: none;
+  border-color: var(--macos-control-accent) !important;
+}
+
+html.macos-tahoe [data-tucu='input-control']:disabled,
+html.macos-tahoe [data-tucu='input']:disabled {
+  background-color: var(--macos-control-bg) !important;
+  opacity: 0.55;
+  cursor: default;
+}
+
+html.macos-tahoe [data-tucu='input'][data-size='sm'] {
+  min-height: 32px;
+}
+
+html.macos-tahoe [data-tucu='input'][data-size='sm'] [data-tucu='input-control'] {
+  min-height: 32px !important;
+  padding-inline: 12px !important;
+  font-size: var(--macos-font-size-callout);
+}
+
+html.macos-tahoe [data-tucu='input'][data-size='md'] {
+  min-height: var(--macos-control-height);
+}
+
+html.macos-tahoe [data-tucu='input'][data-size='md'] [data-tucu='input-control'] {
+  min-height: var(--macos-control-height) !important;
+  padding-inline: 16px !important;
+}
+
+html.macos-tahoe [data-tucu='input'][data-size='lg'] {
+  min-height: 48px;
+}
+
+html.macos-tahoe [data-tucu='input'][data-size='lg'] [data-tucu='input-control'] {
+  min-height: 48px !important;
+  padding-inline: 16px !important;
+}
+
+/* Input variants */
+html.macos-tahoe
+  [data-tucu='input'][data-variant='ghost']
+  [data-tucu='input-control'] {
+  background-color: var(--macos-control-bg) !important;
+  border: 1px solid var(--macos-separator) !important;
+}
+
+html.macos-tahoe
+  [data-tucu='input'][data-variant='solid']
+  [data-tucu='input-control'] {
+  background-color: var(--macos-gray6) !important;
+  border: 1px solid var(--macos-separator) !important;
+}
+
+html.macos-tahoe
+  [data-tucu='input'][data-variant='transparent']
+  [data-tucu='input-control'] {
+  border: none !important;
+  background-color: color-mix(
+    in srgb,
+    var(--macos-gray6) 82%,
+    var(--macos-control-bg)
+  ) !important;
+}
+
+/* Dark mode inputs */
+html.macos-tahoe.dark [data-tucu='input-control'] {
+  background-color: var(--macos-control-bg) !important;
+  border-color: var(--macos-separator) !important;
+}
+
+html.macos-tahoe.dark
+  [data-tucu='input'][data-variant='solid']
+  [data-tucu='input-control'] {
+  background-color: var(--macos-gray5) !important;
+}
+
+html.macos-tahoe.dark
+  [data-tucu='input'][data-variant='transparent']
+  [data-tucu='input-control'] {
+  background-color: color-mix(
+    in srgb,
+    var(--macos-gray5) 82%,
+    var(--macos-control-bg)
+  ) !important;
+  border: none !important;
+}
+
+html.macos-tahoe [data-tucu='input'][data-color='primary'] {
+  --macos-input-color: var(--macos-system-blue);
+}
+
+html.macos-tahoe [data-tucu='input'][data-color='secondary'] {
+  --macos-input-color: var(--macos-secondary-label);
+}
+
+html.macos-tahoe [data-tucu='input'][data-color='danger'] {
+  --macos-input-color: var(--macos-system-red);
+}
+
+html.macos-tahoe [data-tucu='input'][data-color='info'] {
+  --macos-input-color: var(--macos-system-blue);
+}
+
+html.macos-tahoe [data-tucu='input'][data-color='success'] {
+  --macos-input-color: var(--macos-system-green);
+}
+
+html.macos-tahoe [data-tucu='input'][data-color='warning'] {
+  --macos-input-color: var(--macos-system-orange);
+}
+
+html.macos-tahoe [data-tucu='input'][data-color] [data-tucu='input-control'] {
+  border-color: color-mix(
+    in srgb,
+    var(--macos-input-color) 42%,
+    var(--macos-separator)
+  ) !important;
+  caret-color: var(--macos-input-color);
+}
+
+html.macos-tahoe
+  [data-tucu='input'][data-color][data-variant='ghost']
+  [data-tucu='input-control'] {
+  background-color: color-mix(
+    in srgb,
+    var(--macos-input-color) 10%,
+    var(--macos-control-bg)
+  ) !important;
+}
+
+html.macos-tahoe
+  [data-tucu='input'][data-color][data-variant='solid']
+  [data-tucu='input-control'] {
+  background-color: color-mix(
+    in srgb,
+    var(--macos-input-color) 12%,
+    var(--macos-gray6)
+  ) !important;
+}
+
+html.macos-tahoe
+  [data-tucu='input'][data-color][data-variant='transparent']
+  [data-tucu='input-control'] {
+  background-color: color-mix(
+    in srgb,
+    var(--macos-input-color) 12%,
+    color-mix(in srgb, var(--macos-gray6) 82%, var(--macos-control-bg))
+  ) !important;
+}
+
+html.macos-tahoe.dark [data-tucu='input'][data-color] [data-tucu='input-control'] {
+  border-color: color-mix(
+    in srgb,
+    var(--macos-input-color) 48%,
+    var(--macos-separator)
+  ) !important;
+}
+
+html.macos-tahoe.dark
+  [data-tucu='input'][data-color][data-variant='ghost']
+  [data-tucu='input-control'] {
+  background-color: color-mix(
+    in srgb,
+    var(--macos-input-color) 14%,
+    var(--macos-control-bg)
+  ) !important;
+}
+
+html.macos-tahoe.dark
+  [data-tucu='input'][data-color][data-variant='solid']
+  [data-tucu='input-control'] {
+  background-color: color-mix(
+    in srgb,
+    var(--macos-input-color) 16%,
+    var(--macos-gray5)
+  ) !important;
+}
+
+html.macos-tahoe.dark
+  [data-tucu='input'][data-color][data-variant='transparent']
+  [data-tucu='input-control'] {
+  background-color: color-mix(
+    in srgb,
+    var(--macos-input-color) 16%,
+    color-mix(in srgb, var(--macos-gray5) 82%, var(--macos-control-bg))
+  ) !important;
+}
+
+/* ── Input Label ─────────────────────────────────────────────── */
+html.macos-tahoe [data-tucu='input-label'] {
+  font-size: var(--macos-font-size-callout);
+  font-weight: var(--macos-font-weight-medium);
+  color: var(--macos-secondary-label);
+  margin-bottom: var(--macos-space-1);
+}
+
+/* ── TextArea ────────────────────────────────────────────────── */
+html.macos-tahoe [data-tucu='textarea'] {
+  border-radius: var(--macos-radius-md);
+  border: 1px solid var(--macos-separator) !important;
+  background-color: var(--macos-control-bg) !important;
+  color: var(--macos-label) !important;
+  font-family: var(--macos-font-family);
+  font-size: var(--macos-font-size-body);
+  padding: var(--macos-space-2);
+  transition: box-shadow var(--macos-transition-fast);
+}
+
+html.macos-tahoe [data-tucu='textarea'][data-size='sm'] {
+  min-height: 80px !important;
+  padding: 10px 12px !important;
+  font-size: var(--macos-font-size-callout);
+}
+
+html.macos-tahoe [data-tucu='textarea'][data-size='md'] {
+  min-height: 96px !important;
+  padding: var(--macos-space-2) !important;
+}
+
+html.macos-tahoe [data-tucu='textarea'][data-size='lg'] {
+  min-height: 128px !important;
+  padding: 14px 16px !important;
+}
+
+html.macos-tahoe [data-tucu='textarea']::placeholder {
+  color: var(--macos-secondary-label) !important;
+}
+
+html.macos-tahoe [data-tucu='textarea']:focus {
+  box-shadow: 0 0 0 var(--macos-focus-ring-width) var(--macos-focus-ring) !important;
+  outline: none;
+  border-color: var(--macos-control-accent) !important;
+}
+
+html.macos-tahoe.dark [data-tucu='textarea'] {
+  background-color: var(--macos-control-bg);
+  border-color: var(--macos-separator) !important;
+}
+
+html.macos-tahoe [data-tucu='textarea'][data-color='primary'] {
+  --macos-textarea-color: var(--macos-system-blue);
+}
+
+html.macos-tahoe [data-tucu='textarea'][data-color='secondary'] {
+  --macos-textarea-color: var(--macos-secondary-label);
+}
+
+html.macos-tahoe [data-tucu='textarea'][data-color='danger'] {
+  --macos-textarea-color: var(--macos-system-red);
+}
+
+html.macos-tahoe [data-tucu='textarea'][data-color='info'] {
+  --macos-textarea-color: var(--macos-system-blue);
+}
+
+html.macos-tahoe [data-tucu='textarea'][data-color='success'] {
+  --macos-textarea-color: var(--macos-system-green);
+}
+
+html.macos-tahoe [data-tucu='textarea'][data-color='warning'] {
+  --macos-textarea-color: var(--macos-system-orange);
+}
+
+html.macos-tahoe [data-tucu='textarea'][data-color] {
+  border-color: color-mix(
+    in srgb,
+    var(--macos-textarea-color) 42%,
+    var(--macos-separator)
+  ) !important;
+  caret-color: var(--macos-textarea-color);
+}
+
+html.macos-tahoe [data-tucu='textarea'][data-color][data-variant='ghost'] {
+  background-color: color-mix(
+    in srgb,
+    var(--macos-textarea-color) 10%,
+    var(--macos-control-bg)
+  ) !important;
+}
+
+html.macos-tahoe [data-tucu='textarea'][data-variant='transparent'] {
+  border: none !important;
+  background-color: color-mix(
+    in srgb,
+    var(--macos-gray6) 82%,
+    var(--macos-control-bg)
+  ) !important;
+}
+
+html.macos-tahoe [data-tucu='textarea'][data-color][data-variant='transparent'] {
+  background-color: color-mix(
+    in srgb,
+    var(--macos-textarea-color) 12%,
+    color-mix(in srgb, var(--macos-gray6) 82%, var(--macos-control-bg))
+  ) !important;
+}
+
+html.macos-tahoe [data-tucu='textarea'][data-variant='solid'] {
+  background-color: var(--macos-gray6) !important;
+}
+
+html.macos-tahoe [data-tucu='textarea'][data-color][data-variant='solid'] {
+  background-color: color-mix(
+    in srgb,
+    var(--macos-textarea-color) 12%,
+    var(--macos-gray6)
+  ) !important;
+}
+
+html.macos-tahoe.dark [data-tucu='textarea'][data-variant='transparent'] {
+  border: none !important;
+  background-color: color-mix(
+    in srgb,
+    var(--macos-gray5) 82%,
+    var(--macos-control-bg)
+  ) !important;
+}
+
+html.macos-tahoe.dark [data-tucu='textarea'][data-color] {
+  border-color: color-mix(
+    in srgb,
+    var(--macos-textarea-color) 48%,
+    var(--macos-separator)
+  ) !important;
+}
+
+html.macos-tahoe.dark [data-tucu='textarea'][data-color][data-variant='ghost'] {
+  background-color: color-mix(
+    in srgb,
+    var(--macos-textarea-color) 14%,
+    var(--macos-control-bg)
+  ) !important;
+}
+
+html.macos-tahoe.dark [data-tucu='textarea'][data-color][data-variant='transparent'] {
+  background-color: color-mix(
+    in srgb,
+    var(--macos-textarea-color) 16%,
+    color-mix(in srgb, var(--macos-gray5) 82%, var(--macos-control-bg))
+  ) !important;
+}
+
+html.macos-tahoe.dark [data-tucu='textarea'][data-variant='solid'] {
+  background-color: var(--macos-gray5) !important;
+}
+
+html.macos-tahoe.dark [data-tucu='textarea'][data-color][data-variant='solid'] {
+  background-color: color-mix(
+    in srgb,
+    var(--macos-textarea-color) 16%,
+    var(--macos-gray5)
+  ) !important;
+}
+
+/* ── Select / Dropdown ───────────────────────────────────────── */
+html.macos-tahoe [data-tucu='select'] {
+  min-height: var(--macos-control-height);
+  font-family: var(--macos-font-family);
+  font-size: var(--macos-font-size-body);
+}
+
+html.macos-tahoe [data-tucu='select-trigger'] {
+  border-radius: var(--macos-radius-md);
+  border: 1px solid var(--macos-separator) !important;
+  background-color: var(--macos-control-bg) !important;
+  color: var(--macos-label) !important;
+  font-family: var(--macos-font-family);
+  font-size: var(--macos-font-size-body);
+  transition: box-shadow var(--macos-transition-fast),
+    border-color var(--macos-transition-fast),
+    background-color var(--macos-transition-fast);
+}
+
+html.macos-tahoe [data-tucu='select'][data-size='sm'] {
+  min-height: 32px;
+}
+
+html.macos-tahoe [data-tucu='select'][data-size='sm'] [data-tucu='select-trigger'] {
+  min-height: 32px !important;
+  padding-inline: 12px !important;
+  font-size: var(--macos-font-size-callout);
+}
+
+html.macos-tahoe [data-tucu='select'][data-size='md'] {
+  min-height: var(--macos-control-height);
+}
+
+html.macos-tahoe [data-tucu='select'][data-size='md'] [data-tucu='select-trigger'] {
+  min-height: var(--macos-control-height) !important;
+  padding-inline: 16px !important;
+}
+
+html.macos-tahoe [data-tucu='select'][data-size='lg'] {
+  min-height: 48px;
+}
+
+html.macos-tahoe [data-tucu='select'][data-size='lg'] [data-tucu='select-trigger'] {
+  min-height: 48px !important;
+  padding-inline: 16px !important;
+}
+
+html.macos-tahoe [data-tucu='select-trigger']:focus,
+html.macos-tahoe [data-tucu='select']:focus-within {
+  box-shadow: 0 0 0 var(--macos-focus-ring-width) var(--macos-focus-ring) !important;
+  border-color: var(--macos-control-accent) !important;
+}
+
+html.macos-tahoe
+  [data-tucu='select'][data-variant='transparent']
+  [data-tucu='select-trigger'] {
+  border: none !important;
+  background-color: color-mix(
+    in srgb,
+    var(--macos-gray6) 82%,
+    var(--macos-control-bg)
+  ) !important;
+}
+
+html.macos-tahoe
+  [data-tucu='select'][data-variant='solid']
+  [data-tucu='select-trigger'] {
+  background-color: var(--macos-gray6) !important;
+}
+
+html.macos-tahoe.dark [data-tucu='select-trigger'] {
+  background-color: var(--macos-control-bg) !important;
+  border-color: var(--macos-separator) !important;
+}
+
+html.macos-tahoe.dark
+  [data-tucu='select'][data-variant='solid']
+  [data-tucu='select-trigger'] {
+  background-color: var(--macos-gray5) !important;
+}
+
+html.macos-tahoe.dark
+  [data-tucu='select'][data-variant='transparent']
+  [data-tucu='select-trigger'] {
+  border: none !important;
+  background-color: color-mix(
+    in srgb,
+    var(--macos-gray5) 82%,
+    var(--macos-control-bg)
+  ) !important;
+}
+
+html.macos-tahoe [data-tucu='select'][data-color='primary'] {
+  --macos-select-color: var(--macos-system-blue);
+}
+
+html.macos-tahoe [data-tucu='select'][data-color='secondary'] {
+  --macos-select-color: var(--macos-secondary-label);
+}
+
+html.macos-tahoe [data-tucu='select'][data-color='danger'] {
+  --macos-select-color: var(--macos-system-red);
+}
+
+html.macos-tahoe [data-tucu='select'][data-color='info'] {
+  --macos-select-color: var(--macos-system-blue);
+}
+
+html.macos-tahoe [data-tucu='select'][data-color='success'] {
+  --macos-select-color: var(--macos-system-green);
+}
+
+html.macos-tahoe [data-tucu='select'][data-color='warning'] {
+  --macos-select-color: var(--macos-system-orange);
+}
+
+html.macos-tahoe [data-tucu='select'][data-color] [data-tucu='select-trigger'] {
+  border-color: color-mix(
+    in srgb,
+    var(--macos-select-color) 42%,
+    var(--macos-separator)
+  ) !important;
+}
+
+html.macos-tahoe
+  [data-tucu='select'][data-color][data-variant='ghost']
+  [data-tucu='select-trigger'] {
+  background-color: color-mix(
+    in srgb,
+    var(--macos-select-color) 10%,
+    var(--macos-control-bg)
+  ) !important;
+}
+
+html.macos-tahoe
+  [data-tucu='select'][data-color][data-variant='solid']
+  [data-tucu='select-trigger'] {
+  background-color: color-mix(
+    in srgb,
+    var(--macos-select-color) 12%,
+    var(--macos-gray6)
+  ) !important;
+}
+
+html.macos-tahoe
+  [data-tucu='select'][data-color][data-variant='transparent']
+  [data-tucu='select-trigger'] {
+  background-color: color-mix(
+    in srgb,
+    var(--macos-select-color) 12%,
+    color-mix(in srgb, var(--macos-gray6) 82%, var(--macos-control-bg))
+  ) !important;
+}
+
+html.macos-tahoe.dark [data-tucu='select'][data-color] [data-tucu='select-trigger'] {
+  border-color: color-mix(
+    in srgb,
+    var(--macos-select-color) 48%,
+    var(--macos-separator)
+  ) !important;
+}
+
+html.macos-tahoe.dark
+  [data-tucu='select'][data-color][data-variant='ghost']
+  [data-tucu='select-trigger'] {
+  background-color: color-mix(
+    in srgb,
+    var(--macos-select-color) 14%,
+    var(--macos-control-bg)
+  ) !important;
+}
+
+html.macos-tahoe.dark
+  [data-tucu='select'][data-color][data-variant='solid']
+  [data-tucu='select-trigger'] {
+  background-color: color-mix(
+    in srgb,
+    var(--macos-select-color) 16%,
+    var(--macos-gray5)
+  ) !important;
+}
+
+html.macos-tahoe.dark
+  [data-tucu='select'][data-color][data-variant='transparent']
+  [data-tucu='select-trigger'] {
+  background-color: color-mix(
+    in srgb,
+    var(--macos-select-color) 16%,
+    color-mix(in srgb, var(--macos-gray5) 82%, var(--macos-control-bg))
+  ) !important;
+}
+
+/* ── PinCode ─────────────────────────────────────────────────── */
+html.macos-tahoe [data-tucu='pin-code-input'] {
+  border-radius: var(--macos-radius-md);
+  border: 1px solid var(--macos-separator) !important;
+  background-color: var(--macos-control-bg) !important;
+  color: var(--macos-label) !important;
+  font-family: var(--macos-font-family);
+  font-size: var(--macos-font-size-body);
+  transition: box-shadow var(--macos-transition-fast),
+    border-color var(--macos-transition-fast),
+    background-color var(--macos-transition-fast);
+}
+
+html.macos-tahoe [data-tucu='pin-code-input']::placeholder {
+  color: var(--macos-secondary-label) !important;
+}
+
+html.macos-tahoe [data-tucu='pin-code-input']:focus {
+  box-shadow: none !important;
+  outline: none;
+  border-color: var(--macos-control-accent) !important;
+}
+
+html.macos-tahoe
+  [data-tucu='pin-code'][data-variant='ghost']
+  [data-tucu='pin-code-input'] {
+  background-color: var(--macos-control-bg) !important;
+}
+
+html.macos-tahoe
+  [data-tucu='pin-code'][data-variant='solid']
+  [data-tucu='pin-code-input'] {
+  background-color: var(--macos-gray6) !important;
+}
+
+html.macos-tahoe
+  [data-tucu='pin-code'][data-variant='transparent']
+  [data-tucu='pin-code-input'] {
+  background-color: color-mix(
+    in srgb,
+    var(--macos-gray6) 82%,
+    var(--macos-control-bg)
+  ) !important;
+  border: none !important;
+}
+
+html.macos-tahoe.dark [data-tucu='pin-code-input'] {
+  background-color: var(--macos-control-bg) !important;
+  border-color: var(--macos-separator) !important;
+}
+
+html.macos-tahoe.dark
+  [data-tucu='pin-code'][data-variant='solid']
+  [data-tucu='pin-code-input'] {
+  background-color: var(--macos-gray5) !important;
+}
+
+html.macos-tahoe.dark
+  [data-tucu='pin-code'][data-variant='transparent']
+  [data-tucu='pin-code-input'] {
+  background-color: color-mix(
+    in srgb,
+    var(--macos-gray5) 82%,
+    var(--macos-control-bg)
+  ) !important;
+  border: none !important;
+}
+
+html.macos-tahoe [data-tucu='pin-code'][data-color='primary'] {
+  --macos-pin-code-color: var(--macos-system-blue);
+}
+
+html.macos-tahoe [data-tucu='pin-code'][data-color='secondary'] {
+  --macos-pin-code-color: var(--macos-secondary-label);
+}
+
+html.macos-tahoe [data-tucu='pin-code'][data-color='danger'] {
+  --macos-pin-code-color: var(--macos-system-red);
+}
+
+html.macos-tahoe [data-tucu='pin-code'][data-color='info'] {
+  --macos-pin-code-color: var(--macos-system-blue);
+}
+
+html.macos-tahoe [data-tucu='pin-code'][data-color='success'] {
+  --macos-pin-code-color: var(--macos-system-green);
+}
+
+html.macos-tahoe [data-tucu='pin-code'][data-color='warning'] {
+  --macos-pin-code-color: var(--macos-system-orange);
+}
+
+html.macos-tahoe [data-tucu='pin-code'][data-color] [data-tucu='pin-code-input'] {
+  border-color: color-mix(
+    in srgb,
+    var(--macos-pin-code-color) 42%,
+    var(--macos-separator)
+  ) !important;
+  caret-color: var(--macos-pin-code-color);
+}
+
+html.macos-tahoe
+  [data-tucu='pin-code'][data-color][data-variant='ghost']
+  [data-tucu='pin-code-input'] {
+  background-color: color-mix(
+    in srgb,
+    var(--macos-pin-code-color) 10%,
+    var(--macos-control-bg)
+  ) !important;
+}
+
+html.macos-tahoe
+  [data-tucu='pin-code'][data-color][data-variant='solid']
+  [data-tucu='pin-code-input'] {
+  background-color: color-mix(
+    in srgb,
+    var(--macos-pin-code-color) 12%,
+    var(--macos-gray6)
+  ) !important;
+}
+
+html.macos-tahoe
+  [data-tucu='pin-code'][data-color][data-variant='transparent']
+  [data-tucu='pin-code-input'] {
+  background-color: color-mix(
+    in srgb,
+    var(--macos-pin-code-color) 12%,
+    color-mix(in srgb, var(--macos-gray6) 82%, var(--macos-control-bg))
+  ) !important;
+}
+
+html.macos-tahoe.dark
+  [data-tucu='pin-code'][data-color]
+  [data-tucu='pin-code-input'] {
+  border-color: color-mix(
+    in srgb,
+    var(--macos-pin-code-color) 48%,
+    var(--macos-separator)
+  ) !important;
+}
+
+html.macos-tahoe.dark
+  [data-tucu='pin-code'][data-color][data-variant='ghost']
+  [data-tucu='pin-code-input'] {
+  background-color: color-mix(
+    in srgb,
+    var(--macos-pin-code-color) 14%,
+    var(--macos-control-bg)
+  ) !important;
+}
+
+html.macos-tahoe.dark
+  [data-tucu='pin-code'][data-color][data-variant='solid']
+  [data-tucu='pin-code-input'] {
+  background-color: color-mix(
+    in srgb,
+    var(--macos-pin-code-color) 16%,
+    var(--macos-gray5)
+  ) !important;
+}
+
+html.macos-tahoe.dark
+  [data-tucu='pin-code'][data-color][data-variant='transparent']
+  [data-tucu='pin-code-input'] {
+  background-color: color-mix(
+    in srgb,
+    var(--macos-pin-code-color) 16%,
+    color-mix(in srgb, var(--macos-gray5) 82%, var(--macos-control-bg))
+  ) !important;
+}
+
+/* Select dropdown menu */
+html.macos-tahoe [data-tucu='select-menu'] {
+  border-radius: var(--macos-radius-lg);
+  border: 1px solid var(--macos-separator);
+  background-color: var(--macos-material-popover) !important;
+  backdrop-filter: blur(var(--macos-material-popover-blur));
+  -webkit-backdrop-filter: blur(var(--macos-material-popover-blur));
+  box-shadow: var(--macos-shadow-window);
+  padding: var(--macos-space-1) 0;
+}
+
+html.macos-tahoe.dark [data-tucu='select-menu'] {
+  background-color: var(--macos-material-popover) !important;
+  border-color: var(--macos-separator);
+}
+
+html.macos-tahoe [data-tucu='select-search'] {
+  color: var(--macos-label) !important;
+}
+
+html.macos-tahoe [data-tucu='select-search']::placeholder {
+  color: var(--macos-secondary-label) !important;
+}
+
+html.macos-tahoe [data-tucu='select-option'] {
+  padding: var(--macos-space-1) var(--macos-space-3);
+  border-radius: var(--macos-radius-sm);
+  margin: 0 var(--macos-space-1);
+  font-size: var(--macos-font-size-body);
+}
+
+html.macos-tahoe [data-tucu='select-option']:hover,
+html.macos-tahoe [data-tucu='select-option'][data-highlighted='true'] {
+  background-color: rgba(0, 122, 255, 0.12);
+  color: var(--macos-label);
+}
+
+html.macos-tahoe [data-tucu='select-option'][data-selected='true'] {
+  background-color: var(--macos-control-accent);
+  color: #ffffff;
+}
+
+/* ── Checkbox ────────────────────────────────────────────────── */
+html.macos-tahoe [data-tucu='checkbox'] {
+  border: 1px solid var(--macos-separator);
+  background-color: var(--macos-control-bg);
+  transition: all var(--macos-transition-fast);
+}
+
+html.macos-tahoe [data-tucu='checkbox'][data-shape='square'] {
+  border-radius: var(--macos-radius-xs);
+}
+
+html.macos-tahoe [data-tucu='checkbox'][data-shape='rounded'] {
+  border-radius: 9999px;
+}
+
+html.macos-tahoe [data-tucu='checkbox'][data-size='sm'] {
+  width: 16px;
+  height: 16px;
+}
+
+html.macos-tahoe [data-tucu='checkbox'][data-size='md'] {
+  width: 20px;
+  height: 20px;
+}
+
+html.macos-tahoe [data-tucu='checkbox'][data-size='lg'] {
+  width: 24px;
+  height: 24px;
+}
+
+html.macos-tahoe [data-tucu='checkbox'][data-variant='ghost']:not(:checked) {
+  background-color: var(--macos-control-bg) !important;
+}
+
+html.macos-tahoe [data-tucu='checkbox'][data-variant='solid']:not(:checked) {
+  background-color: var(--macos-gray6) !important;
+}
+
+html.macos-tahoe [data-tucu='checkbox'][data-variant='transparent']:not(:checked) {
+  background-color: color-mix(
+    in srgb,
+    var(--macos-gray6) 82%,
+    var(--macos-control-bg)
+  ) !important;
+  border: none !important;
+}
+
+html.macos-tahoe.dark [data-tucu='checkbox'][data-variant='ghost']:not(:checked) {
+  background-color: var(--macos-control-bg) !important;
+}
+
+html.macos-tahoe.dark [data-tucu='checkbox'][data-variant='solid']:not(:checked) {
+  background-color: var(--macos-gray5) !important;
+}
+
+html.macos-tahoe.dark
+  [data-tucu='checkbox'][data-variant='transparent']:not(:checked) {
+  background-color: color-mix(
+    in srgb,
+    var(--macos-gray5) 82%,
+    var(--macos-control-bg)
+  ) !important;
+  border: none !important;
+}
+
+html.macos-tahoe [data-tucu='checkbox'][data-variant='transparent']:checked,
+html.macos-tahoe
+  [data-tucu='checkbox'][data-variant='transparent'][data-checked='true'] {
+  border: none !important;
+}
+
+html.macos-tahoe [data-tucu='checkbox']:checked,
+html.macos-tahoe [data-tucu='checkbox'][data-checked='true'] {
+  background-color: var(--macos-control-accent);
+  border-color: var(--macos-control-accent);
+}
+
+html.macos-tahoe [data-tucu='checkbox']:focus-visible {
+  box-shadow: var(--macos-shadow-focus);
+}
+
+/* ── Radio ───────────────────────────────────────────────────── */
+html.macos-tahoe [data-tucu='radio'] {
+  border-radius: 50%;
+  border: 1px solid var(--macos-separator);
+  background-color: var(--macos-control-bg);
+  transition: all var(--macos-transition-fast);
+}
+
+html.macos-tahoe [data-tucu='radio'][data-size='sm'] {
+  width: 16px;
+  height: 16px;
+}
+
+html.macos-tahoe [data-tucu='radio'][data-size='md'] {
+  width: 20px;
+  height: 20px;
+}
+
+html.macos-tahoe [data-tucu='radio'][data-size='lg'] {
+  width: 24px;
+  height: 24px;
+}
+
+html.macos-tahoe [data-tucu='radio'][data-size='xl'] {
+  width: 28px;
+  height: 28px;
+}
+
+html.macos-tahoe [data-tucu='radio'][data-variant='ghost']:not(:checked) {
+  background-color: var(--macos-control-bg) !important;
+}
+
+html.macos-tahoe [data-tucu='radio'][data-variant='solid']:not(:checked) {
+  background-color: var(--macos-gray6) !important;
+}
+
+html.macos-tahoe [data-tucu='radio'][data-variant='transparent']:not(:checked) {
+  background-color: color-mix(
+    in srgb,
+    var(--macos-gray6) 82%,
+    var(--macos-control-bg)
+  ) !important;
+  border: none !important;
+}
+
+html.macos-tahoe.dark [data-tucu='radio'][data-variant='ghost']:not(:checked) {
+  background-color: var(--macos-control-bg) !important;
+}
+
+html.macos-tahoe.dark [data-tucu='radio'][data-variant='solid']:not(:checked) {
+  background-color: var(--macos-gray5) !important;
+}
+
+html.macos-tahoe.dark [data-tucu='radio'][data-variant='transparent']:not(:checked) {
+  background-color: color-mix(
+    in srgb,
+    var(--macos-gray5) 82%,
+    var(--macos-control-bg)
+  ) !important;
+  border: none !important;
+}
+
+html.macos-tahoe [data-tucu='radio'][data-color='primary'] {
+  --macos-radio-color: var(--macos-system-blue);
+}
+
+html.macos-tahoe [data-tucu='radio'][data-color='secondary'] {
+  --macos-radio-color: var(--macos-secondary-label);
+}
+
+html.macos-tahoe [data-tucu='radio'][data-color='danger'] {
+  --macos-radio-color: var(--macos-system-red);
+}
+
+html.macos-tahoe [data-tucu='radio'][data-color='info'] {
+  --macos-radio-color: var(--macos-system-blue);
+}
+
+html.macos-tahoe [data-tucu='radio'][data-color='success'] {
+  --macos-radio-color: var(--macos-system-green);
+}
+
+html.macos-tahoe [data-tucu='radio'][data-color='warning'] {
+  --macos-radio-color: var(--macos-system-orange);
+}
+
+html.macos-tahoe [data-tucu='radio'][data-color] {
+  border-color: color-mix(
+    in srgb,
+    var(--macos-radio-color) 42%,
+    var(--macos-separator)
+  ) !important;
+}
+
+html.macos-tahoe [data-tucu='radio'][data-color][data-variant='ghost']:not(:checked) {
+  background-color: color-mix(
+    in srgb,
+    var(--macos-radio-color) 10%,
+    var(--macos-control-bg)
+  ) !important;
+}
+
+html.macos-tahoe [data-tucu='radio'][data-color][data-variant='solid']:not(:checked) {
+  background-color: color-mix(
+    in srgb,
+    var(--macos-radio-color) 12%,
+    var(--macos-gray6)
+  ) !important;
+}
+
+html.macos-tahoe
+  [data-tucu='radio'][data-color][data-variant='transparent']:not(:checked) {
+  background-color: color-mix(
+    in srgb,
+    var(--macos-gray6) 82%,
+    var(--macos-control-bg)
+  ) !important;
+  border: none !important;
+}
+
+html.macos-tahoe.dark [data-tucu='radio'][data-color] {
+  border-color: color-mix(
+    in srgb,
+    var(--macos-radio-color) 48%,
+    var(--macos-separator)
+  ) !important;
+}
+
+html.macos-tahoe.dark
+  [data-tucu='radio'][data-color][data-variant='ghost']:not(:checked) {
+  background-color: color-mix(
+    in srgb,
+    var(--macos-radio-color) 14%,
+    var(--macos-control-bg)
+  ) !important;
+}
+
+html.macos-tahoe.dark
+  [data-tucu='radio'][data-color][data-variant='solid']:not(:checked) {
+  background-color: color-mix(
+    in srgb,
+    var(--macos-radio-color) 16%,
+    var(--macos-gray5)
+  ) !important;
+}
+
+html.macos-tahoe.dark
+  [data-tucu='radio'][data-color][data-variant='transparent']:not(:checked) {
+  background-color: color-mix(
+    in srgb,
+    var(--macos-gray5) 82%,
+    var(--macos-control-bg)
+  ) !important;
+  border: none !important;
+}
+
+html.macos-tahoe [data-tucu='radio']:checked,
+html.macos-tahoe [data-tucu='radio'][data-checked='true'] {
+  background-color: var(--macos-control-accent);
+  border-color: var(--macos-control-accent);
+}
+
+html.macos-tahoe [data-tucu='radio'][data-color]:checked,
+html.macos-tahoe [data-tucu='radio'][data-color][data-checked='true'] {
+  background-color: var(--macos-radio-color) !important;
+  border-color: var(--macos-radio-color) !important;
+}
+
+html.macos-tahoe [data-tucu='radio'][data-variant='transparent']:checked,
+html.macos-tahoe
+  [data-tucu='radio'][data-variant='transparent'][data-checked='true'] {
+  border: none !important;
+}
+
+html.macos-tahoe [data-tucu='radio']:focus-visible {
+  box-shadow: var(--macos-shadow-focus);
+}
+
+/* ── Switch / Toggle ─────────────────────────────────────────── */
+/* data-tucu="switch" is on the wrapper <div>, children are:
+   label > [optional text span] + input[checkbox] + span(offLabel) + span(onLabel) + span(knob) */
+
+/* Track (the checkbox input) */
+html.macos-tahoe [data-tucu='switch-control'] {
+  width: var(--macos-switch-width) !important;
+  height: var(--macos-switch-height) !important;
+  border-radius: var(--macos-radius-full);
+  background-color: var(--macos-gray4) !important;
+  border: none !important;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.06);
+  transition: background-color var(--macos-transition-fast);
+}
+
+html.macos-tahoe
+  [data-tucu='switch'][data-variant='ghost']
+  [data-tucu='switch-control']:not(:checked) {
+  background-color: var(--macos-control-bg) !important;
+  border: 1px solid var(--macos-separator) !important;
+}
+
+html.macos-tahoe
+  [data-tucu='switch'][data-variant='solid']
+  [data-tucu='switch-control']:not(:checked) {
+  background-color: var(--macos-gray6) !important;
+  border: 1px solid var(--macos-separator) !important;
+}
+
+html.macos-tahoe
+  [data-tucu='switch'][data-variant='transparent']
+  [data-tucu='switch-control']:not(:checked) {
+  background-color: color-mix(
+    in srgb,
+    var(--macos-gray6) 82%,
+    var(--macos-control-bg)
+  ) !important;
+}
+
+html.macos-tahoe [data-tucu='switch'][data-color='primary'] {
+  --macos-switch-color: var(--macos-system-blue);
+}
+
+html.macos-tahoe [data-tucu='switch'][data-color='secondary'] {
+  --macos-switch-color: var(--macos-secondary-label);
+}
+
+html.macos-tahoe [data-tucu='switch'][data-color='danger'] {
+  --macos-switch-color: var(--macos-system-red);
+}
+
+html.macos-tahoe [data-tucu='switch'][data-color='info'] {
+  --macos-switch-color: var(--macos-system-blue);
+}
+
+html.macos-tahoe [data-tucu='switch'][data-color='success'] {
+  --macos-switch-color: var(--macos-system-green);
+}
+
+html.macos-tahoe [data-tucu='switch'][data-color='warning'] {
+  --macos-switch-color: var(--macos-system-orange);
+}
+
+html.macos-tahoe
+  [data-tucu='switch'][data-color][data-variant='ghost']
+  [data-tucu='switch-control']:not(:checked) {
+  background-color: color-mix(
+    in srgb,
+    var(--macos-switch-color) 10%,
+    var(--macos-control-bg)
+  ) !important;
+  border: 1px solid
+    color-mix(in srgb, var(--macos-switch-color) 42%, var(--macos-separator)) !important;
+}
+
+html.macos-tahoe
+  [data-tucu='switch'][data-color][data-variant='solid']
+  [data-tucu='switch-control']:not(:checked) {
+  background-color: color-mix(
+    in srgb,
+    var(--macos-switch-color) 12%,
+    var(--macos-gray6)
+  ) !important;
+  border: 1px solid
+    color-mix(in srgb, var(--macos-switch-color) 42%, var(--macos-separator)) !important;
+}
+
+html.macos-tahoe [data-tucu='switch-control']:checked {
+  background-color: var(--macos-system-green) !important;
+}
+
+html.macos-tahoe
+  [data-tucu='switch'][data-color]
+  [data-tucu='switch-control']:checked {
+  background-color: var(--macos-switch-color) !important;
+}
+
+html.macos-tahoe [data-tucu='switch-control']:focus-visible {
+  box-shadow: var(--macos-shadow-focus);
+}
+
+html.macos-tahoe.dark [data-tucu='switch-control'] {
+  background-color: var(--macos-gray3) !important;
+}
+
+html.macos-tahoe.dark
+  [data-tucu='switch'][data-variant='ghost']
+  [data-tucu='switch-control']:not(:checked) {
+  background-color: var(--macos-control-bg) !important;
+  border: 1px solid var(--macos-separator) !important;
+}
+
+html.macos-tahoe.dark
+  [data-tucu='switch'][data-variant='solid']
+  [data-tucu='switch-control']:not(:checked) {
+  background-color: var(--macos-gray5) !important;
+  border: 1px solid var(--macos-separator) !important;
+}
+
+html.macos-tahoe.dark
+  [data-tucu='switch'][data-variant='transparent']
+  [data-tucu='switch-control']:not(:checked) {
+  background-color: color-mix(
+    in srgb,
+    var(--macos-gray5) 82%,
+    var(--macos-control-bg)
+  ) !important;
+}
+
+html.macos-tahoe.dark
+  [data-tucu='switch'][data-color][data-variant='ghost']
+  [data-tucu='switch-control']:not(:checked) {
+  background-color: color-mix(
+    in srgb,
+    var(--macos-switch-color) 14%,
+    var(--macos-control-bg)
+  ) !important;
+  border: 1px solid
+    color-mix(in srgb, var(--macos-switch-color) 48%, var(--macos-separator)) !important;
+}
+
+html.macos-tahoe.dark
+  [data-tucu='switch'][data-color][data-variant='solid']
+  [data-tucu='switch-control']:not(:checked) {
+  background-color: color-mix(
+    in srgb,
+    var(--macos-switch-color) 16%,
+    var(--macos-gray5)
+  ) !important;
+  border: 1px solid
+    color-mix(in srgb, var(--macos-switch-color) 48%, var(--macos-separator)) !important;
+}
+
+html.macos-tahoe.dark [data-tucu='switch-control']:checked {
+  background-color: var(--macos-system-green) !important;
+}
+
+html.macos-tahoe.dark
+  [data-tucu='switch'][data-color]
+  [data-tucu='switch-control']:checked {
+  background-color: var(--macos-switch-color) !important;
+}
+
+/* Hide ON/OFF text/icon labels — macOS switches are clean */
+html.macos-tahoe [data-tucu='switch'] input[type='checkbox'] ~ span:not(:last-child) {
+  display: none !important;
+}
+
+/* Knob (last span sibling after the input) */
+html.macos-tahoe [data-tucu='switch'] input[type='checkbox'] ~ span:last-child {
+  width: 18px !important;
+  height: 18px !important;
+  right: 18px !important;
+  background-color: #ffffff !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15), 0 0 0 0.5px rgba(0, 0, 0, 0.04);
+}
+
+/* Override Tailwind translate-x for macOS knob travel (38 - 18 - 2 = 18px → ~16px travel) */
+html.macos-tahoe
+  [data-tucu='switch']
+  input[type='checkbox']:checked
+  ~ span:last-child {
+  --tw-translate-x: 16px !important;
+}
+
+html.macos-tahoe
+  [data-tucu='switch']
+  input[type='checkbox']:not(:checked)
+  ~ span:last-child {
+  --tw-translate-x: 0px !important;
+}
+
+html.macos-tahoe.dark [data-tucu='switch'] input[type='checkbox'] ~ span:last-child {
+  background-color: #ffffff !important;
+}
+
+/* ── InputSearcher ───────────────────────────────────────────── */
+html.macos-tahoe [data-tucu='input-searcher'] {
+  border-radius: var(--macos-radius-md);
+  font-family: var(--macos-font-family);
+  font-size: var(--macos-font-size-body);
+}
+
+html.macos-tahoe [data-tucu='input-searcher']:focus-within {
+  box-shadow: none !important;
+}
+
+html.macos-tahoe.dark [data-tucu='input-searcher'] {
+  background-color: transparent;
+}
+
+/* ── Date Picker / Calendar Popover ─────────────────────────── */
+html.macos-tahoe [data-tucu='input-calendar'] {
+  border-radius: var(--macos-radius-lg);
+  border: 1px solid var(--macos-separator) !important;
+  background-color: var(--macos-material-popover) !important;
+  backdrop-filter: blur(var(--macos-material-popover-blur));
+  -webkit-backdrop-filter: blur(var(--macos-material-popover-blur));
+  box-shadow: var(--macos-shadow-window);
+}
+
+html.macos-tahoe.dark [data-tucu='input-calendar'] {
+  background-color: var(--macos-material-popover) !important;
+  border-color: var(--macos-separator) !important;
+}
+
+/* ── FileInput ──────────────────────────────────────────────── */
+html.macos-tahoe [data-tucu='file-input'] {
+  border-radius: var(--macos-radius-xl);
+  border: 1px solid var(--macos-separator) !important;
+  background-color: color-mix(
+    in srgb,
+    var(--macos-gray6) 72%,
+    var(--macos-control-bg)
+  ) !important;
+}
+
+html.macos-tahoe [data-tucu='file-input-dropzone'] {
+  border-radius: var(--macos-radius-xl);
+  border-color: color-mix(
+    in srgb,
+    var(--macos-control-accent) 20%,
+    var(--macos-separator)
+  ) !important;
+  background-color: color-mix(
+    in srgb,
+    var(--macos-gray6) 82%,
+    var(--macos-control-bg)
+  ) !important;
+  transition: background-color var(--macos-transition-fast),
+    border-color var(--macos-transition-fast),
+    box-shadow var(--macos-transition-fast);
+}
+
+html.macos-tahoe [data-tucu='file-input-dropzone']:hover,
+html.macos-tahoe [data-tucu='file-input-dropzone']:focus-within {
+  border-color: color-mix(
+    in srgb,
+    var(--macos-control-accent) 48%,
+    var(--macos-separator)
+  ) !important;
+  background-color: color-mix(
+    in srgb,
+    var(--macos-gray6) 92%,
+    var(--macos-control-bg)
+  ) !important;
+}
+
+html.macos-tahoe [data-tucu='file-input-content'] {
+  width: min(100%, 18rem);
+  padding-inline: var(--macos-space-4);
+  margin-inline: auto;
+}
+
+html.macos-tahoe [data-tucu='file-input-placeholder'] {
+  max-width: 100%;
+  margin-inline: auto;
+  margin-bottom: var(--macos-space-4) !important;
+  padding-inline: var(--macos-space-2);
+  font-size: var(--macos-font-size-callout) !important;
+  line-height: var(--macos-leading-callout);
+  letter-spacing: var(--macos-tracking-12);
+  color: var(--macos-secondary-label) !important;
+}
+
+html.macos-tahoe [data-tucu='file-input-image-preview'],
+html.macos-tahoe [data-tucu='file-input-preview'] {
+  border-color: var(--macos-separator) !important;
+  background-color: color-mix(
+    in srgb,
+    var(--macos-gray6) 88%,
+    var(--macos-control-bg)
+  ) !important;
+}
+
+html.macos-tahoe.dark [data-tucu='file-input'] {
+  border-color: var(--macos-separator) !important;
+  background-color: color-mix(
+    in srgb,
+    var(--macos-gray5) 78%,
+    var(--macos-control-bg)
+  ) !important;
+}
+
+html.macos-tahoe [data-tucu='file-input'][data-color='primary'] {
+  --macos-file-input-color: var(--macos-system-blue);
+}
+
+html.macos-tahoe [data-tucu='file-input'][data-color='secondary'] {
+  --macos-file-input-color: var(--macos-secondary-label);
+}
+
+html.macos-tahoe [data-tucu='file-input'][data-color='danger'] {
+  --macos-file-input-color: var(--macos-system-red);
+}
+
+html.macos-tahoe [data-tucu='file-input'][data-color='info'] {
+  --macos-file-input-color: var(--macos-system-blue);
+}
+
+html.macos-tahoe [data-tucu='file-input'][data-color='success'] {
+  --macos-file-input-color: var(--macos-system-green);
+}
+
+html.macos-tahoe [data-tucu='file-input'][data-color='warning'] {
+  --macos-file-input-color: var(--macos-system-orange);
+}
+
+html.macos-tahoe [data-tucu='file-input'][data-color] {
+  border-color: color-mix(
+    in srgb,
+    var(--macos-file-input-color) 32%,
+    var(--macos-separator)
+  ) !important;
+  background-color: color-mix(
+    in srgb,
+    var(--macos-file-input-color) 8%,
+    color-mix(in srgb, var(--macos-gray6) 72%, var(--macos-control-bg))
+  ) !important;
+}
+
+html.macos-tahoe
+  [data-tucu='file-input'][data-color]
+  [data-tucu='file-input-dropzone'] {
+  border-color: color-mix(
+    in srgb,
+    var(--macos-file-input-color) 28%,
+    var(--macos-separator)
+  ) !important;
+  background-color: color-mix(
+    in srgb,
+    var(--macos-file-input-color) 10%,
+    color-mix(in srgb, var(--macos-gray6) 82%, var(--macos-control-bg))
+  ) !important;
+}
+
+html.macos-tahoe
+  [data-tucu='file-input'][data-color]
+  [data-tucu='file-input-dropzone']:hover,
+html.macos-tahoe
+  [data-tucu='file-input'][data-color]
+  [data-tucu='file-input-dropzone']:focus-within {
+  border-color: color-mix(
+    in srgb,
+    var(--macos-file-input-color) 48%,
+    var(--macos-separator)
+  ) !important;
+  background-color: color-mix(
+    in srgb,
+    var(--macos-file-input-color) 14%,
+    color-mix(in srgb, var(--macos-gray6) 92%, var(--macos-control-bg))
+  ) !important;
+}
+
+html.macos-tahoe
+  [data-tucu='file-input'][data-color]
+  [data-tucu='file-input-image-preview'],
+html.macos-tahoe
+  [data-tucu='file-input'][data-color]
+  [data-tucu='file-input-preview'] {
+  border-color: color-mix(
+    in srgb,
+    var(--macos-file-input-color) 28%,
+    var(--macos-separator)
+  ) !important;
+  background-color: color-mix(
+    in srgb,
+    var(--macos-file-input-color) 10%,
+    color-mix(in srgb, var(--macos-gray6) 88%, var(--macos-control-bg))
+  ) !important;
+}
+
+html.macos-tahoe.dark [data-tucu='file-input'][data-color] {
+  border-color: color-mix(
+    in srgb,
+    var(--macos-file-input-color) 36%,
+    var(--macos-separator)
+  ) !important;
+  background-color: color-mix(
+    in srgb,
+    var(--macos-file-input-color) 10%,
+    color-mix(in srgb, var(--macos-gray5) 78%, var(--macos-control-bg))
+  ) !important;
+}
+
+html.macos-tahoe.dark
+  [data-tucu='file-input'][data-color]
+  [data-tucu='file-input-dropzone'] {
+  border-color: color-mix(
+    in srgb,
+    var(--macos-file-input-color) 32%,
+    var(--macos-separator)
+  ) !important;
+  background-color: color-mix(
+    in srgb,
+    var(--macos-file-input-color) 12%,
+    color-mix(in srgb, var(--macos-gray5) 86%, var(--macos-control-bg))
+  ) !important;
+}
+
+html.macos-tahoe.dark
+  [data-tucu='file-input'][data-color]
+  [data-tucu='file-input-dropzone']:hover,
+html.macos-tahoe.dark
+  [data-tucu='file-input'][data-color]
+  [data-tucu='file-input-dropzone']:focus-within {
+  border-color: color-mix(
+    in srgb,
+    var(--macos-file-input-color) 52%,
+    var(--macos-separator)
+  ) !important;
+  background-color: color-mix(
+    in srgb,
+    var(--macos-file-input-color) 16%,
+    color-mix(in srgb, var(--macos-gray5) 94%, var(--macos-control-bg))
+  ) !important;
+}
+
+html.macos-tahoe.dark
+  [data-tucu='file-input'][data-color]
+  [data-tucu='file-input-image-preview'],
+html.macos-tahoe.dark
+  [data-tucu='file-input'][data-color]
+  [data-tucu='file-input-preview'] {
+  border-color: color-mix(
+    in srgb,
+    var(--macos-file-input-color) 32%,
+    var(--macos-separator)
+  ) !important;
+  background-color: color-mix(
+    in srgb,
+    var(--macos-file-input-color) 12%,
+    color-mix(in srgb, var(--macos-gray5) 90%, var(--macos-control-bg))
+  ) !important;
+}
+
+html.macos-tahoe.dark [data-tucu='file-input-dropzone'] {
+  border-color: color-mix(
+    in srgb,
+    var(--macos-control-accent) 24%,
+    var(--macos-separator)
+  ) !important;
+  background-color: color-mix(
+    in srgb,
+    var(--macos-gray5) 86%,
+    var(--macos-control-bg)
+  ) !important;
+}
+
+html.macos-tahoe.dark [data-tucu='file-input-dropzone']:hover,
+html.macos-tahoe.dark [data-tucu='file-input-dropzone']:focus-within {
+  border-color: color-mix(
+    in srgb,
+    var(--macos-control-accent) 52%,
+    var(--macos-separator)
+  ) !important;
+  background-color: color-mix(
+    in srgb,
+    var(--macos-gray5) 94%,
+    var(--macos-control-bg)
+  ) !important;
+}
+
+html.macos-tahoe.dark [data-tucu='file-input-placeholder'] {
+  color: var(--macos-secondary-label) !important;
+}
+
+html.macos-tahoe.dark [data-tucu='file-input-image-preview'],
+html.macos-tahoe.dark [data-tucu='file-input-preview'] {
+  border-color: var(--macos-separator) !important;
+  background-color: color-mix(
+    in srgb,
+    var(--macos-gray5) 90%,
+    var(--macos-control-bg)
+  ) !important;
+}
+
+/* ── Responsive: larger touch targets on mobile ──────────────── */
+@media (max-width: 767px) {
+  html.macos-tahoe [data-tucu='input'],
+  html.macos-tahoe [data-tucu='select'],
+  html.macos-tahoe [data-tucu='input-searcher'] {
+    min-height: 44px;
+    font-size: 16px; /* prevents iOS zoom on focus */
+  }
+
+  html.macos-tahoe [data-tucu='checkbox'] {
+    min-width: 20px;
+    min-height: 20px;
+  }
+
+  html.macos-tahoe [data-tucu='radio-group'] input[type='radio'] {
+    min-width: 22px;
+    min-height: 22px;
+  }
+
+  html.macos-tahoe [data-tucu='switch'] {
+    min-height: 28px;
+  }
+}
+
+/* ============================================================
+   macOS Tahoe 26 — Inputs Overrides (Liquid Glass)
+   ============================================================ */
+
+/* ── Base Input/Select/Textarea Tahoe ───────────────────────── */
+html.macos-tahoe [data-tucu='input-control'],
+html.macos-tahoe [data-tucu='textarea'],
+html.macos-tahoe [data-tucu='select-trigger'] {
+  background: var(--macos-glass-clear-bg);
+  backdrop-filter: blur(var(--macos-glass-clear-blur));
+  -webkit-backdrop-filter: blur(var(--macos-glass-clear-blur));
+  border: 1px solid var(--macos-glass-clear-border);
+  color: var(--macos-label);
+  transition: all var(--macos-transition-fast);
+}
+
+html.macos-tahoe [data-tucu='input-control']:focus,
+html.macos-tahoe [data-tucu='textarea']:focus,
+html.macos-tahoe [data-tucu='select-trigger']:focus {
+  background: var(--macos-glass-regular-bg);
+  backdrop-filter: blur(var(--macos-glass-regular-blur)) saturate(150%);
+  -webkit-backdrop-filter: blur(var(--macos-glass-regular-blur)) saturate(150%);
+  border: 1px solid var(--macos-glass-regular-border);
+  box-shadow: var(--macos-glass-shadow), var(--macos-focus-ring);
+  outline: none;
+}
+
+html.macos-tahoe [data-tucu='input-control'][aria-invalid='true'],
+html.macos-tahoe [data-tucu='textarea'][aria-invalid='true'],
+html.macos-tahoe [data-tucu='select-trigger'][aria-invalid='true'] {
+  border-color: var(--color-semantic-text-error);
+  box-shadow: 0 0 0 2px var(--color-semantic-text-error-subtle);
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  html.macos-tahoe [data-tucu='input-control'],
+  html.macos-tahoe [data-tucu='textarea'],
+  html.macos-tahoe [data-tucu='select-trigger'] {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: var(--color-semantic-elevation-2);
+  }
+}
