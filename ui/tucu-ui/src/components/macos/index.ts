@@ -8,3 +8,4 @@ export * from './widget';
 export * from './notification-banner';
 export * from './popover';
 export * from './command-palette';
+export * from './tahoe';
