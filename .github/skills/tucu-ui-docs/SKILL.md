@@ -86,7 +86,7 @@ import { HeroCard, CardContainer, Typography, LucideIcons } from '@e-burgos/tucu
 
 export function MyIntroductionPage() {
   return (
-    <div className="space-y-8 sm:space-y-12 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative pt-8 lg:pt-12">
+    <div className="space-y-8 sm:space-y-12 w-full mx-auto px-4 sm:px-6 lg:px-8 relative pt-8 lg:pt-12">
       {/* Hero */}
       <HeroCard
         title="My Documentation"
@@ -137,7 +137,7 @@ export function MyIntroductionPage() {
 
 ### Pattern Rules
 
-- Root container: `max-w-6xl mx-auto px-4 sm:px-6 lg:px-8`
+- Root container: `w-full mx-auto px-4 sm:px-6 lg:px-8`
 - Vertical spacing: `space-y-8 sm:space-y-12`
 - `HeroCard` is always the first element
 - Sections use centered headers (`text-center`) + responsive grids of `CardContainer`
@@ -174,7 +174,7 @@ export function MyGuidePage() {
   return (
     <div className="relative scroll-smooth">
       <TableOfContents items={tocItems}>
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 sm:space-y-12 pt-8 lg:pt-0">
+        <div className="w-full mx-auto px-4 sm:px-6 lg:px-8 space-y-8 sm:space-y-12 pt-8 lg:pt-0">
           <HeroCard
             title="My Guide"
             description="In-depth reference and examples."
@@ -201,7 +201,7 @@ export function MyGuidePage() {
 
 - Outer wrapper: `<div className="relative scroll-smooth">`
 - `TableOfContents` wraps all content and renders the sidebar
-- Content wrapper inside TOC: `max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 sm:space-y-12 pt-8 lg:pt-0`
+- Content wrapper inside TOC: `w-full mx-auto px-4 sm:px-6 lg:px-8 space-y-8 sm:space-y-12 pt-8 lg:pt-0`
 - `HeroCard` always first inside the content wrapper
 - Each section is a `LazyComponentSection` whose `id` matches a `tocItems[].id`
 - Always call `useAnchorScroll()` at the top of the component
@@ -581,72 +581,72 @@ For components requiring state management (Modal, Drawer), you CAN add PropPlayg
 
 Current state of PropPlayground across UI component sections:
 
-| Section          | Has Playground | componentName    | Key controllable props                                     |
-| ---------------- | :------------: | ---------------- | ---------------------------------------------------------- |
-| ButtonDrip       |       ✅       | Button           | variant, color, size, shape, tooltip, tooltipPlacement     |
-| ButtonLoader     |       ✅       | Button           | variant, color, size, isLoading, loaderSize, loaderVariant |
-| Hamburger        |       ✅       | Hamburger        | isOpen, color, size, variant                               |
-| TopupButton      |       ✅       | TopupButton      | label                                                      |
-| AuthorCard       |       ✅       | AuthorCard       | name, authorRole, image                                    |
-| CardTitle        |       ✅       | CardTitle        | title, border                                              |
-| PanelActionCard  |       ✅       | PanelActionCard  | title                                                      |
-| PanelCard        |       ✅       | PanelCard        | title                                                      |
-| Avatar           |       ✅       | Avatar           | size, shape, border, image, alt                            |
-| Badge            |       ✅       | Badge            | variant, size, shape, color, withDot                       |
-| Collapse         |       ✅       | Collapse         | label, initialOpen                                         |
-| Scrollbar        |       ✅       | Scrollbar        | autoHide, direction                                        |
-| Skeleton         |       ✅       | Skeleton         | shape, animation, size, count                              |
-| Tooltip          |       ✅       | Tooltip          | placement, color, arrow, disabled, enterDelay, leaveDelay  |
-| Modal            |       ✅       | Modal            | isOpen, closeable, hideButtons                             |
-| Drawer           |       ✅       | Drawer           | isOpen, position, backdrop                                 |
-| ActiveLink       |       ✅       | ActiveLink       | path, activeClassName                                      |
-| AnchorLink       |       ✅       | AnchorLink       | (auto-detected from registry)                              |
-| ListItem         |       ✅       | ListItem         | label, active, disabled                                    |
-| Loader           |       ✅       | Loader           | variant, size, color, showOnlyThreeDots, tag               |
-| Progressbar      |       ✅       | Progressbar      | value, variant, size, color, rounded                       |
-| Spinner          |       ✅       | Spinner          | size, color                                                |
-| Logo             |       ✅       | Logo             | name, secondName, size, isoType                            |
-| TucuUiLogo       |       ✅       | TucuUiLogo       | size                                                       |
-| Alert            |       ✅       | Alert            | variant, dismissible                                       |
-| NotificationCard |       ✅       | NotificationCard | notifier, type, time, url                                  |
-| Typography       |       ✅       | Typography       | tag, color, fontFamily                                     |
-| RevealContent    |       ✅       | RevealContent    | defaultHeight                                              |
-| ScrollToTop      |       ✅       | ScrollToTop      | size, showAfter, bottom, right                             |
-| Image            |       ✅       | Image            | src, alt, objectFit, loading, placeholder, fill, priority  |
-| CardContainer    |       ❌       | —                | Only has className (no visual props)                       |
-| Sidebar          |       ❌       | —                | Requires complex logo/menuItems objects                    |
-| SidebarMenu      |       ❌       | —                | Requires menuItems[] + callbacks                           |
-| BasicTable       |       ❌       | —                | Requires columns[] + data[]                                |
-| Tab/TabGroup     |       ❌       | —                | Compound component (TabGroup+TabList+TabItem+TabPanels)    |
-| TabSelect        |       ❌       | —                | Requires tabMenu[]                                         |
-| ParamTab         |       ❌       | —                | Requires tabMenu[] with URL sync                           |
-| Carousel         |       ❌       | —                | Requires children slides                                   |
-| CarouselCards    |       ❌       | —                | Requires cards[] data                                      |
-| CarouselImage    |       ❌       | —                | Requires images[] data                                     |
-| ListContainer    |       ❌       | —                | Requires items[] + trigger state                           |
-| Toast            |       ❌       | —                | Uses useToastStore (imperative API)                        |
-| DefiAppLogo      |       ❌       | —                | No controllable props (animated SVG)                       |
-| Card             |       ✅       | Card             | title, description, onClick                                |
-| InfoCard         |       ❌       | —                | Requires columns[] + footerTags[] complex data             |
-| KeyValueRow      |       ✅       | KeyValueRow      | label, value, mono, accent                                 |
-| Pagination       |       ✅       | Pagination       | currentPage, totalPages, windowSize                        |
-| Stepper          |       ✅       | Stepper          | currentStep, steps                                         |
-| TabModal         |       ❌       | —                | Requires tabs[] + onClose callback                         |
-| ScrollbarNative  |       ✅       | ScrollbarNative  | autoHide                                                   |
-| LineChart        |       ❌       | —                | Requires data[] + series[] arrays                          |
-| BarChart         |       ❌       | —                | Requires data[] + series[] arrays                          |
-| AreaChart        |       ❌       | —                | Requires data[] + series[] arrays                          |
-| PieChart         |       ❌       | —                | Requires data[] array                                      |
-| RadarChart       |       ❌       | —                | Requires data[] + series[] arrays                          |
-| ComposedChart    |       ❌       | —                | Requires data[] + series[] arrays                          |
-| MacOSWindow      |       ✅       | MacOSWindow      | title, showTrafficLights                                   |
-| MacOSSegmentedControl | ✅       | MacOSSegmentedControl | size, segments, value                                |
-| MacOSSearchBar   |       ✅       | MacOSSearchBar   | placeholder, value                                         |
-| MacOSNotificationBanner | ✅     | MacOSNotificationBanner | variant, title, message, autoDismiss                |
-| MacOSSidebar     |       ❌       | —                | Requires menuItems[] + complex state                       |
-| MacOSToolbar     |       ❌       | —                | Requires leftContent/rightContent slots                    |
-| MacOSWidget      |       ❌       | —                | Container only (no visual props)                           |
-| MacOSPopover     |       ❌       | —                | Requires trigger + children slots                          |
+| Section                 | Has Playground | componentName           | Key controllable props                                     |
+| ----------------------- | :------------: | ----------------------- | ---------------------------------------------------------- |
+| ButtonDrip              |       ✅       | Button                  | variant, color, size, shape, tooltip, tooltipPlacement     |
+| ButtonLoader            |       ✅       | Button                  | variant, color, size, isLoading, loaderSize, loaderVariant |
+| Hamburger               |       ✅       | Hamburger               | isOpen, color, size, variant                               |
+| TopupButton             |       ✅       | TopupButton             | label                                                      |
+| AuthorCard              |       ✅       | AuthorCard              | name, authorRole, image                                    |
+| CardTitle               |       ✅       | CardTitle               | title, border                                              |
+| PanelActionCard         |       ✅       | PanelActionCard         | title                                                      |
+| PanelCard               |       ✅       | PanelCard               | title                                                      |
+| Avatar                  |       ✅       | Avatar                  | size, shape, border, image, alt                            |
+| Badge                   |       ✅       | Badge                   | variant, size, shape, color, withDot                       |
+| Collapse                |       ✅       | Collapse                | label, initialOpen                                         |
+| Scrollbar               |       ✅       | Scrollbar               | autoHide, direction                                        |
+| Skeleton                |       ✅       | Skeleton                | shape, animation, size, count                              |
+| Tooltip                 |       ✅       | Tooltip                 | placement, color, arrow, disabled, enterDelay, leaveDelay  |
+| Modal                   |       ✅       | Modal                   | isOpen, closeable, hideButtons                             |
+| Drawer                  |       ✅       | Drawer                  | isOpen, position, backdrop                                 |
+| ActiveLink              |       ✅       | ActiveLink              | path, activeClassName                                      |
+| AnchorLink              |       ✅       | AnchorLink              | (auto-detected from registry)                              |
+| ListItem                |       ✅       | ListItem                | label, active, disabled                                    |
+| Loader                  |       ✅       | Loader                  | variant, size, color, showOnlyThreeDots, tag               |
+| Progressbar             |       ✅       | Progressbar             | value, variant, size, color, rounded                       |
+| Spinner                 |       ✅       | Spinner                 | size, color                                                |
+| Logo                    |       ✅       | Logo                    | name, secondName, size, isoType                            |
+| TucuUiLogo              |       ✅       | TucuUiLogo              | size                                                       |
+| Alert                   |       ✅       | Alert                   | variant, dismissible                                       |
+| NotificationCard        |       ✅       | NotificationCard        | notifier, type, time, url                                  |
+| Typography              |       ✅       | Typography              | tag, color, fontFamily                                     |
+| RevealContent           |       ✅       | RevealContent           | defaultHeight                                              |
+| ScrollToTop             |       ✅       | ScrollToTop             | size, showAfter, bottom, right                             |
+| Image                   |       ✅       | Image                   | src, alt, objectFit, loading, placeholder, fill, priority  |
+| CardContainer           |       ❌       | —                       | Only has className (no visual props)                       |
+| Sidebar                 |       ❌       | —                       | Requires complex logo/menuItems objects                    |
+| SidebarMenu             |       ❌       | —                       | Requires menuItems[] + callbacks                           |
+| BasicTable              |       ❌       | —                       | Requires columns[] + data[]                                |
+| Tab/TabGroup            |       ❌       | —                       | Compound component (TabGroup+TabList+TabItem+TabPanels)    |
+| TabSelect               |       ❌       | —                       | Requires tabMenu[]                                         |
+| ParamTab                |       ❌       | —                       | Requires tabMenu[] with URL sync                           |
+| Carousel                |       ❌       | —                       | Requires children slides                                   |
+| CarouselCards           |       ❌       | —                       | Requires cards[] data                                      |
+| CarouselImage           |       ❌       | —                       | Requires images[] data                                     |
+| ListContainer           |       ❌       | —                       | Requires items[] + trigger state                           |
+| Toast                   |       ❌       | —                       | Uses useToastStore (imperative API)                        |
+| DefiAppLogo             |       ❌       | —                       | No controllable props (animated SVG)                       |
+| Card                    |       ✅       | Card                    | title, description, onClick                                |
+| InfoCard                |       ❌       | —                       | Requires columns[] + footerTags[] complex data             |
+| KeyValueRow             |       ✅       | KeyValueRow             | label, value, mono, accent                                 |
+| Pagination              |       ✅       | Pagination              | currentPage, totalPages, windowSize                        |
+| Stepper                 |       ✅       | Stepper                 | currentStep, steps                                         |
+| TabModal                |       ❌       | —                       | Requires tabs[] + onClose callback                         |
+| ScrollbarNative         |       ✅       | ScrollbarNative         | autoHide                                                   |
+| LineChart               |       ❌       | —                       | Requires data[] + series[] arrays                          |
+| BarChart                |       ❌       | —                       | Requires data[] + series[] arrays                          |
+| AreaChart               |       ❌       | —                       | Requires data[] + series[] arrays                          |
+| PieChart                |       ❌       | —                       | Requires data[] array                                      |
+| RadarChart              |       ❌       | —                       | Requires data[] + series[] arrays                          |
+| ComposedChart           |       ❌       | —                       | Requires data[] + series[] arrays                          |
+| MacOSWindow             |       ✅       | MacOSWindow             | title, showTrafficLights                                   |
+| MacOSSegmentedControl   |       ✅       | MacOSSegmentedControl   | size, segments, value                                      |
+| MacOSSearchBar          |       ✅       | MacOSSearchBar          | placeholder, value                                         |
+| MacOSNotificationBanner |       ✅       | MacOSNotificationBanner | variant, title, message, autoDismiss                       |
+| MacOSSidebar            |       ❌       | —                       | Requires menuItems[] + complex state                       |
+| MacOSToolbar            |       ❌       | —                       | Requires leftContent/rightContent slots                    |
+| MacOSWidget             |       ❌       | —                       | Container only (no visual props)                           |
+| MacOSPopover            |       ❌       | —                       | Requires trigger + children slots                          |
 
 ### Generating Props Metadata
 

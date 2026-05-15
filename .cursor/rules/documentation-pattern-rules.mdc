@@ -12,7 +12,7 @@ These rules ensure consistent patterns across documentation pages in the Tucu UI
 
 ### Main Category Pages
 
-- **Container**: Use `max-w-6xl mx-auto px-4 sm:px-6 lg:px-8` for main container
+- **Container**: Use `w-full mx-auto px-4 sm:px-6 lg:px-8` for main container
 - **Spacing**: Use `space-y-8 sm:space-y-12` for main sections
 - **Padding Top**: Use `pt-8 lg:pt-12`
 - **HeroCard**: Always at the top with icon, title, description, and action buttons
@@ -50,7 +50,7 @@ These rules ensure consistent patterns across documentation pages in the Tucu UI
 
 ### Container Classes
 
-- Main page container: `space-y-8 sm:space-y-12 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative pt-8 lg:pt-12`
+- Main page container: `space-y-8 sm:space-y-12 w-full mx-auto px-4 sm:px-6 lg:px-8 relative pt-8 lg:pt-12`
 - Card container wrapper: `overflow-hidden`
 - Card title wrapper: `mt-2 mb-2`
 - Content wrapper inside CardTitle: `w-full p-4 sm:p-6`

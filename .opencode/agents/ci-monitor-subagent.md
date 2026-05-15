@@ -1,7 +1,6 @@
 ---
-name: ci-monitor-subagent
 description: CI helper for /monitor-ci. Fetches CI status, retrieves fix details, or updates self-healing fixes. Executes one MCP tool call and returns the result.
-model: fast
+mode: subagent
 ---
 
 # CI Monitor Subagent

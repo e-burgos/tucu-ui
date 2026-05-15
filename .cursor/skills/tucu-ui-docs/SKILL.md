@@ -86,7 +86,7 @@ import { HeroCard, CardContainer, Typography, LucideIcons } from '@e-burgos/tucu
 
 export function MyIntroductionPage() {
   return (
-    <div className="space-y-8 sm:space-y-12 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative pt-8 lg:pt-12">
+    <div className="space-y-8 sm:space-y-12 w-full mx-auto px-4 sm:px-6 lg:px-8 relative pt-8 lg:pt-12">
       {/* Hero */}
       <HeroCard
         title="My Documentation"
@@ -137,7 +137,7 @@ export function MyIntroductionPage() {
 
 ### Pattern Rules
 
-- Root container: `max-w-6xl mx-auto px-4 sm:px-6 lg:px-8`
+- Root container: `w-full mx-auto px-4 sm:px-6 lg:px-8`
 - Vertical spacing: `space-y-8 sm:space-y-12`
 - `HeroCard` is always the first element
 - Sections use centered headers (`text-center`) + responsive grids of `CardContainer`
@@ -174,7 +174,7 @@ export function MyGuidePage() {
   return (
     <div className="relative scroll-smooth">
       <TableOfContents items={tocItems}>
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 sm:space-y-12 pt-8 lg:pt-0">
+        <div className="w-full mx-auto px-4 sm:px-6 lg:px-8 space-y-8 sm:space-y-12 pt-8 lg:pt-0">
           <HeroCard
             title="My Guide"
             description="In-depth reference and examples."
@@ -201,7 +201,7 @@ export function MyGuidePage() {
 
 - Outer wrapper: `<div className="relative scroll-smooth">`
 - `TableOfContents` wraps all content and renders the sidebar
-- Content wrapper inside TOC: `max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 sm:space-y-12 pt-8 lg:pt-0`
+- Content wrapper inside TOC: `w-full mx-auto px-4 sm:px-6 lg:px-8 space-y-8 sm:space-y-12 pt-8 lg:pt-0`
 - `HeroCard` always first inside the content wrapper
 - Each section is a `LazyComponentSection` whose `id` matches a `tocItems[].id`
 - Always call `useAnchorScroll()` at the top of the component
@@ -527,13 +527,9 @@ Interactive prop-by-prop controls with live preview:
 ```tsx
 import { PropPlayground } from '../../../components/prop-playground';
 
-<PropPlayground
-  componentName="Button"
-  defaultValues={{ color: 'primary', variant: 'solid', size: 'medium' }}
-  excludeProps={['onClick']}
->
+<PropPlayground componentName="Button" defaultValues={{ color: 'primary', variant: 'solid', size: 'medium' }} excludeProps={['onClick']}>
   {(props) => <Button {...props}>Click me</Button>}
-</PropPlayground>
+</PropPlayground>;
 ```
 
 **Auto-detected control types**: boolean → Switch, enum → Select, string → Input, number → Input[number].
