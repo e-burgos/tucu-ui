@@ -222,8 +222,12 @@ export function useToc({
   const isMobile = typeof window !== 'undefined' && window.innerWidth < 1024;
 
   const isMacOS =
-    layout === LAYOUT_OPTIONS.MACOS || layout === LAYOUT_OPTIONS.MACOS_TAHOE;
-  const isTahoe = layout === LAYOUT_OPTIONS.MACOS_TAHOE;
+    layout === LAYOUT_OPTIONS.MACOS ||
+    layout === LAYOUT_OPTIONS.MACOS_TAHOE ||
+    layout === LAYOUT_OPTIONS.MACOS_TAHOE_DOCK;
+  const isTahoe =
+    layout === LAYOUT_OPTIONS.MACOS_TAHOE ||
+    layout === LAYOUT_OPTIONS.MACOS_TAHOE_DOCK;
   const isSonoma = layout === LAYOUT_OPTIONS.MACOS;
 
   return {

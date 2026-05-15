@@ -10,7 +10,10 @@ export type { TableOfContentsItem, TableOfContentsProps };
 export const TableOfContents: React.FC<TableOfContentsProps> = (props) => {
   const { layout } = useTheme();
 
-  if (layout === LAYOUT_OPTIONS.MACOS_TAHOE) {
+  if (
+    layout === LAYOUT_OPTIONS.MACOS_TAHOE ||
+    layout === LAYOUT_OPTIONS.MACOS_TAHOE_DOCK
+  ) {
     return <TocTahoe {...props} />;
   }
 

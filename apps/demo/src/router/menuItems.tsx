@@ -13,6 +13,8 @@ import {
   InputsComponents,
   UiComponents,
   MacOSShowcase,
+  MacOSSonomaShowcase,
+  MacOSTahoeShowcase,
 } from '@e-burgos/tucu-ui';
 
 // Design System
@@ -100,6 +102,22 @@ export const APP_PATHS = {
   MACOS: {
     path: '/macos',
     name: 'macOS',
+    dropdownItems: [
+      {
+        name: 'Sonoma',
+        path: '/macos/sonoma',
+        icon: <LucideIcons.Monitor />,
+        component: <MacOSSonomaShowcase />,
+        enableNestedRoutes: true,
+      },
+      {
+        name: 'Tahoe',
+        path: '/macos/tahoe',
+        icon: <LucideIcons.Layers />,
+        component: <MacOSTahoeShowcase />,
+        enableNestedRoutes: true,
+      },
+    ],
   },
   COMPONENTS: {
     path: '/components',
@@ -296,6 +314,7 @@ export const useMenuItems = () => {
         icon: <LucideIcons.Monitor />,
         component: <MacOSShowcase />,
         enableNestedRoutes: true,
+        dropdownItems: [...APP_PATHS.MACOS.dropdownItems],
       },
       {
         name: APP_PATHS.FORMS.name,

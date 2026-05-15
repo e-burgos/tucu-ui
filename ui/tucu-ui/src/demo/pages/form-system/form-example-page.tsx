@@ -3,7 +3,7 @@ import { HeroCard, LucideIcons } from '../../../index';
 
 export function FormExamplePage() {
   return (
-    <div className="space-y-8 sm:space-y-12 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative pt-8 lg:pt-12">
+    <div className="space-y-8 sm:space-y-12 w-full mx-auto px-4 sm:px-6 lg:px-8 relative pt-8 lg:pt-12">
       <HeroCard
         title="Form System In Action"
         description="This is a simple form example that demonstrates the use of the Tucu UI form system."

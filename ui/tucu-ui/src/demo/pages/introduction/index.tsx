@@ -28,7 +28,7 @@ pnpm install @e-burgos/tucu-ui
 `;
 
   return (
-    <div className="space-y-8 sm:space-y-12 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative pt-8 lg:pt-12">
+    <div className="space-y-8 sm:space-y-12 w-full mx-auto px-4 sm:px-6 lg:px-8 relative pt-8 lg:pt-12">
       {/* Hero Section */}
       <HeroCard
         description="A modern, comprehensive React component library built with TypeScript and Tailwind CSS v4. Features an advanced theming system with 34+ color presets, multi-layered color architecture, three layout systems, integrated routing, powerful form system with React Hook Form, and granular theme control. Designed for production-ready applications with sophisticated theming and full accessibility support."

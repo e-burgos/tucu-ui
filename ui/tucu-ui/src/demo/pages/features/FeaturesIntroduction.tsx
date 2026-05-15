@@ -14,7 +14,7 @@ export function FeaturesIntroduction() {
       description:
         'Complete Lucide React icons integration with theme-aware colors and consistent sizing. Access to 98+ custom icons and 5000+ Lucide icons through a unified API.',
       icon: <LucideIcons.Sparkles className="w-8 h-8" />,
-      href: '/icons-system',
+      href: '/features/icons-system',
       status: 'Available',
       statusColor: 'bg-green-500',
     },
@@ -23,7 +23,7 @@ export function FeaturesIntroduction() {
       description:
         'WCAG 2.1 AA compliant components with ARIA support, keyboard navigation, and screen reader compatibility. Built with inclusivity in mind.',
       icon: <LucideIcons.Accessibility className="w-8 h-8" />,
-      href: '/accessibility',
+      href: '/features/accessibility',
       status: 'Available',
       statusColor: 'bg-green-500',
     },
@@ -32,7 +32,7 @@ export function FeaturesIntroduction() {
       description:
         'Powerful custom hooks for state management, API calls, local storage, and common React patterns. Enhance your development experience with reusable logic.',
       icon: <LucideIcons.Settings className="w-8 h-8" />,
-      href: '/hooks-utilities',
+      href: '/features/hooks-utilities',
       status: 'Available',
       statusColor: 'bg-green-500',
     },
@@ -41,14 +41,14 @@ export function FeaturesIntroduction() {
       description:
         'Powerful and flexible routing system built on React Router with automatic navigation generation, nested routes support, and micro frontends (MFE) support.',
       icon: <LucideIcons.Route className="w-8 h-8" />,
-      href: '/routing-system',
+      href: '/features/routing-system',
       status: 'Available',
       statusColor: 'bg-green-500',
     },
   ];
 
   return (
-    <div className="space-y-8 sm:space-y-12 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative pt-8 lg:pt-12">
+    <div className="space-y-8 sm:space-y-12 w-full mx-auto px-4 sm:px-6 lg:px-8 relative pt-8 lg:pt-12">
       {/* Hero Section */}
       <HeroCard
         title="Features"

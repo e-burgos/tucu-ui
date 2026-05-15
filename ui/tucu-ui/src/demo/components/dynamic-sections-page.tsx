@@ -190,7 +190,9 @@ export const DynamicSectionsPage: React.FC<DynamicSectionsPageProps> = ({
 
   const { layout } = useTheme();
   const isMacOS =
-    layout === LAYOUT_OPTIONS.MACOS || layout === LAYOUT_OPTIONS.MACOS_TAHOE;
+    layout === LAYOUT_OPTIONS.MACOS ||
+    layout === LAYOUT_OPTIONS.MACOS_TAHOE ||
+    layout === LAYOUT_OPTIONS.MACOS_TAHOE_DOCK;
 
   const SectionComponent = useMemo(() => {
     if (!sectionId) return null;
@@ -208,7 +210,7 @@ export const DynamicSectionsPage: React.FC<DynamicSectionsPageProps> = ({
       >
         <div
           className={`w-full mx-auto px-2 sm:px-4 lg:px-4 xl:px-6 space-y-8 sm:space-y-12 pt-8 lg:pt-0 ${
-            isMacOS ? 'max-w-none' : 'max-w-6xl'
+            isMacOS ? 'max-w-none' : 'max-w-7xl'
           }`}
         >
           {/* Hero Section - always visible */}

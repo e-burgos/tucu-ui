@@ -8,7 +8,7 @@ import {
 
 export function InteractivityUtilities() {
   return (
-    <div className="space-y-8 sm:space-y-12 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative pt-8 lg:pt-12">
+    <div className="space-y-8 sm:space-y-12 w-full mx-auto px-4 sm:px-6 lg:px-8 relative pt-8 lg:pt-12">
       <HeroCard
         title="Interactivity Utilities"
         description="Complete guide to interactive utilities in Tailwind CSS v4. Master cursors, scroll behavior, touch actions, and user interactions."

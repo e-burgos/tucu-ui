@@ -8,7 +8,7 @@ import {
 
 export function LayoutUtilities() {
   return (
-    <div className="space-y-8 sm:space-y-12 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative pt-8 lg:pt-12">
+    <div className="space-y-8 sm:space-y-12 w-full mx-auto px-4 sm:px-6 lg:px-8 relative pt-8 lg:pt-12">
       {/* Hero Section */}
       <HeroCard
         title="Tailwind v4 Layout Utilities"

@@ -195,7 +195,7 @@ export const TocTahoe: React.FC<TableOfContentsProps> = ({
         <aside
           data-tucu="macos-tahoe-toc"
           className={cn(
-            'fixed top-18.5 right-4 bottom-4 w-67.5 rounded-3xl border border-gray-200 dark:border-gray-700/50 bg-white dark:bg-light-dark shadow-card z-10',
+            'fixed top-[70px] right-4 bottom-4 w-[240px] xl:w-[var(--macos-tahoe-sidebar-width,280px)] rounded-3xl border border-gray-200 dark:border-gray-700/50 bg-white dark:bg-light-dark shadow-card z-10',
             'transition-all duration-300 ease-in-out overflow-y-hidden',
             className
           )}
@@ -226,7 +226,9 @@ export const TocTahoe: React.FC<TableOfContentsProps> = ({
         <div
           className={cn(
             'transition-all duration-300 min-h-screen',
-            isSidebarOpen ? 'lg:mr-71.5' : 'lg:mr-0'
+            isSidebarOpen
+              ? 'mr-[255px] xl:mr-[var(--macos-tahoe-sidebar-width,295px)]'
+              : 'lg:mr-0'
           )}
         >
           {children}
