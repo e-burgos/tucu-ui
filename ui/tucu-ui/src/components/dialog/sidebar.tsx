@@ -25,11 +25,14 @@ export function Sidebar({
   position = 'left',
 }: SidebarProps) {
   const { colorScheme, layout } = useTheme();
-  const isTahoe = layout === LAYOUT_OPTIONS.MACOS_TAHOE;
+  const isTahoe =
+    layout === LAYOUT_OPTIONS.MACOS_TAHOE ||
+    layout === LAYOUT_OPTIONS.MACOS_TAHOE_DOCK;
   const isMacOS =
     colorScheme === 'macos' ||
     layout === LAYOUT_OPTIONS.MACOS ||
-    layout === LAYOUT_OPTIONS.MACOS_TAHOE;
+    layout === LAYOUT_OPTIONS.MACOS_TAHOE ||
+    layout === LAYOUT_OPTIONS.MACOS_TAHOE_DOCK;
 
   if (isTahoe) {
     return (

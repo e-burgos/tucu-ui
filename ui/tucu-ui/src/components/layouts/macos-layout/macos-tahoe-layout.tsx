@@ -126,7 +126,7 @@ export function MacOSTahoeLayout({
         'flex h-full flex-col rounded-[30px] border border-(--macos-tahoe-border) bg-(--macos-tahoe-sidebar-bg) backdrop-blur-[30px]',
         mobile
           ? 'pointer-events-auto w-80 max-w-[calc(100vw-24px)]'
-          : 'mr-4 w-62 shrink-0'
+          : 'mr-4 w-[240px] xl:w-[var(--macos-tahoe-sidebar-width,280px)] shrink-0'
       )}
     >
       <div
@@ -345,7 +345,7 @@ export function MacOSTahoeLayout({
         >
           <div
             data-tucu="macos-tahoe-content-inner"
-            className="px-5 pb-5 pt-4 min-[500px]:px-7 min-[500px]:pb-7"
+            className="px-5 pb-5 pt-4 min-[500px]:px-7 min-[500px]:pb-7 [&>*]:max-w-none"
           >
             {children}
           </div>

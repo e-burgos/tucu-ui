@@ -37,7 +37,9 @@ export function Drawer({
   setIsOpen,
 }: DrawerProps) {
   const { layout } = useTheme();
-  const isTahoe = layout === LAYOUT_OPTIONS.MACOS_TAHOE;
+  const isTahoe =
+    layout === LAYOUT_OPTIONS.MACOS_TAHOE ||
+    layout === LAYOUT_OPTIONS.MACOS_TAHOE_DOCK;
 
   const closeDrawer = () => {
     setIsOpen(false);

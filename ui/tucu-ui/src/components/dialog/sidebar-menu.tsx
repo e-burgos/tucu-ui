@@ -27,9 +27,13 @@ export function SidebarMenu({
   position?: 'left' | 'right';
 }) {
   const { layout } = useTheme();
-  const isTahoe = layout === LAYOUT_OPTIONS.MACOS_TAHOE;
+  const isTahoe =
+    layout === LAYOUT_OPTIONS.MACOS_TAHOE ||
+    layout === LAYOUT_OPTIONS.MACOS_TAHOE_DOCK;
   const isMacOS =
-    layout === LAYOUT_OPTIONS.MACOS || layout === LAYOUT_OPTIONS.MACOS_TAHOE;
+    layout === LAYOUT_OPTIONS.MACOS ||
+    layout === LAYOUT_OPTIONS.MACOS_TAHOE ||
+    layout === LAYOUT_OPTIONS.MACOS_TAHOE_DOCK;
 
   const sidebarMenu =
     menuItems &&

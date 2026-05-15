@@ -3,10 +3,14 @@ import {
   MacOSSonomaLayoutProps,
 } from './macos-sonoma-layout';
 import { MacOSTahoeLayout, MacOSTahoeLayoutProps } from './macos-tahoe-layout';
+import {
+  MacOSTahoeDockLayout,
+  MacOSTahoeDockLayoutProps,
+} from './macos-tahoe-dock-layout';
 
 // ─── Types ─────────────────────────────────────────────────────
 
-type MacOSLayoutVariant = 'sonoma' | 'tahoe';
+type MacOSLayoutVariant = 'sonoma' | 'tahoe' | 'tahoe-dock';
 
 export interface MacOSLayoutProps {
   children: React.ReactNode;
@@ -26,6 +30,9 @@ export function MacOSLayout({
   variant = 'sonoma',
   ...props
 }: MacOSLayoutProps) {
+  if (variant === 'tahoe-dock') {
+    return <MacOSTahoeDockLayout {...props} />;
+  }
   if (variant === 'tahoe') {
     return <MacOSTahoeLayout {...props} />;
   }
@@ -33,9 +40,10 @@ export function MacOSLayout({
 }
 
 export default MacOSLayout;
-export { MacOSSonomaLayout, MacOSTahoeLayout };
+export { MacOSSonomaLayout, MacOSTahoeLayout, MacOSTahoeDockLayout };
 export type {
   MacOSSonomaLayoutProps,
   MacOSTahoeLayoutProps,
+  MacOSTahoeDockLayoutProps,
   MacOSLayoutVariant,
 };

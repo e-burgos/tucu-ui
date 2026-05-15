@@ -45,7 +45,9 @@ export const BasicTable = <
   maxRows = 10,
 }: BasicTableProps<T>) => {
   const { layout } = useTheme();
-  const isTahoe = layout === LAYOUT_OPTIONS.MACOS_TAHOE;
+  const isTahoe =
+    layout === LAYOUT_OPTIONS.MACOS_TAHOE ||
+    layout === LAYOUT_OPTIONS.MACOS_TAHOE_DOCK;
 
   const getRowClassName = (row: T, index: number): string => {
     const baseClasses = cn('transition-colors', {

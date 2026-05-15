@@ -84,7 +84,7 @@ interface ThemeWrapperBaseProps extends Omit<LayoutTypeProps, 'layout'> {
 // ─── Conditional layout types per theme style ───────────────────
 type DefaultLayoutType = 'clean' | 'admin' | 'horizontal';
 type MacOSLayoutType = 'macos';
-type MacOSTahoeLayoutType = 'macos-tahoe';
+type MacOSTahoeLayoutType = 'macos-tahoe' | 'macos-tahoe-dock';
 
 interface DefaultThemeWrapperProps extends ThemeWrapperBaseProps {
   themeStyle?: 'default';
@@ -216,22 +216,22 @@ export function ThemeWrapper({
   }, [mode]);
 
   // ─── macOS theme/layout classes on <html> ────────────────────
-  // 'macos' class is applied when colorScheme is 'macos' or 'macos-tahoe'
-  // OR layout is MACOS / MACOS_TAHOE (backward compat).
+  // 'macos' class is applied ONLY for Sonoma theme.
+  // 'macos-tahoe' class is applied ONLY for Tahoe theme.
+  // The two themes are fully independent — never overlap.
   useEffect(() => {
     document.documentElement.classList.toggle(
       'macos',
-      colorScheme === 'macos' ||
-        colorScheme === 'macos-tahoe' ||
-        layout === LAYOUT_OPTIONS.MACOS ||
-        layout === LAYOUT_OPTIONS.MACOS_TAHOE
+      colorScheme === 'macos' || layout === LAYOUT_OPTIONS.MACOS
     );
   }, [colorScheme, layout]);
 
   useEffect(() => {
     document.documentElement.classList.toggle(
       'macos-tahoe',
-      colorScheme === 'macos-tahoe' || layout === LAYOUT_OPTIONS.MACOS_TAHOE
+      colorScheme === 'macos-tahoe' ||
+        layout === LAYOUT_OPTIONS.MACOS_TAHOE ||
+        layout === LAYOUT_OPTIONS.MACOS_TAHOE_DOCK
     );
   }, [colorScheme, layout]);
 

@@ -16,6 +16,7 @@ export enum LAYOUT_OPTIONS {
   HORIZONTAL = 'horizontal',
   MACOS = 'macos',
   MACOS_TAHOE = 'macos-tahoe',
+  MACOS_TAHOE_DOCK = 'macos-tahoe-dock',
 }
 
 // ─── Theme Style → Layout Mapping ─────────────────────────────────────────
@@ -40,7 +41,7 @@ export const THEME_STYLE_LAYOUTS: Record<THEME_VARIANT, ThemeStyleConfig> = {
     defaultLayout: LAYOUT_OPTIONS.MACOS,
   },
   'macos-tahoe': {
-    validLayouts: [LAYOUT_OPTIONS.MACOS_TAHOE],
+    validLayouts: [LAYOUT_OPTIONS.MACOS_TAHOE, LAYOUT_OPTIONS.MACOS_TAHOE_DOCK],
     defaultLayout: LAYOUT_OPTIONS.MACOS_TAHOE,
   },
 };
@@ -49,13 +50,13 @@ export type DIRECTION = 'ltr' | 'rtl';
 
 export type LogoType = LogoPropTypes;
 
-
 export type LayoutOptionType =
   | 'clean'
   | 'admin'
   | 'horizontal'
   | 'macos'
-  | 'macos-tahoe';
+  | 'macos-tahoe'
+  | 'macos-tahoe-dock';
 
 export const layoutOptions: IThemeItem[] = [
   { label: 'Clean', value: LAYOUT_OPTIONS.CLEAN },

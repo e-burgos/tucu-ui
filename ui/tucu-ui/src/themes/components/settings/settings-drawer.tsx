@@ -192,7 +192,8 @@ function SettingsSectionHeading({ children }: { children: React.ReactNode }) {
     colorScheme === 'macos' ||
     colorScheme === 'macos-tahoe' ||
     layout === LAYOUT_OPTIONS.MACOS ||
-    layout === LAYOUT_OPTIONS.MACOS_TAHOE;
+    layout === LAYOUT_OPTIONS.MACOS_TAHOE ||
+    layout === LAYOUT_OPTIONS.MACOS_TAHOE_DOCK;
 
   if (isMacOS) {
     return (
@@ -387,13 +388,39 @@ const LayoutIcons: Record<string, JSX.Element> = {
   [LAYOUT_OPTIONS.CLEAN]: <MinimalLayoutIcon />,
   [LAYOUT_OPTIONS.MACOS]: <MacOSThemeIcon />,
   [LAYOUT_OPTIONS.MACOS_TAHOE]: <MacOSThemeIcon />,
+  [LAYOUT_OPTIONS.MACOS_TAHOE_DOCK]: <MacOSTahoeThemeIcon />,
 };
 
 function LayoutSwitcher() {
   const { layout, setLayout, colorScheme } = useTheme();
 
-  // Hide layout switcher if macOS theme is active, since layout is forced
-  if (colorScheme === 'macos' || colorScheme === 'macos-tahoe') return null;
+  // Hide layout switcher if macOS Sonoma theme is active, since layout is forced
+  if (colorScheme === 'macos') return null;
+
+  // For Tahoe, show Sidebar vs Dock layout options
+  if (colorScheme === 'macos-tahoe') {
+    return (
+      <div className="px-6 pt-8">
+        <SettingsSectionHeading>Layout</SettingsSectionHeading>
+        <div role="radiogroup" className="grid grid-cols-2 gap-5">
+          <SwitcherButton
+            onClick={() => setLayout(LAYOUT_OPTIONS.MACOS_TAHOE)}
+            title="Sidebar"
+            checked={layout === LAYOUT_OPTIONS.MACOS_TAHOE}
+          >
+            <MacOSThemeIcon />
+          </SwitcherButton>
+          <SwitcherButton
+            onClick={() => setLayout(LAYOUT_OPTIONS.MACOS_TAHOE_DOCK)}
+            title="Dock"
+            checked={layout === LAYOUT_OPTIONS.MACOS_TAHOE_DOCK}
+          >
+            <MacOSTahoeThemeIcon />
+          </SwitcherButton>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="px-6 pt-8">
@@ -651,7 +678,9 @@ function SonomaAccentPicker() {
 export function SettingsDrawer() {
   const { isSettingsOpen, setIsSettingsOpen, layout, colorScheme } = useTheme();
   const isTahoe =
-    colorScheme === 'macos-tahoe' || layout === LAYOUT_OPTIONS.MACOS_TAHOE;
+    colorScheme === 'macos-tahoe' ||
+    layout === LAYOUT_OPTIONS.MACOS_TAHOE ||
+    layout === LAYOUT_OPTIONS.MACOS_TAHOE_DOCK;
   const isSonoma = colorScheme === 'macos' || layout === LAYOUT_OPTIONS.MACOS;
   const isMacOS = isTahoe || isSonoma;
 
