@@ -51,8 +51,11 @@ html.macos [data-tucu='table-scroll']::-webkit-scrollbar-thumb:hover {
 
 html.macos [data-tucu='table'] {
   border-radius: calc(var(--macos-radius-xl) + 2px);
-  border: 1px solid color-mix(in srgb, var(--macos-separator) 92%, transparent);
-  overflow: auto;
+  border: none;
+  box-shadow: inset 0 0 0 1px
+      color-mix(in srgb, var(--macos-separator) 92%, transparent),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 8px 24px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
   font-family: var(--macos-font-family);
   font-size: var(--macos-font-size-body);
   background: color-mix(
@@ -101,12 +104,13 @@ html.macos.dark [data-tucu='table'] {
     var(--macos-material-sheet) 88%,
     rgba(12, 12, 14, 0.3) 12%
   );
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04),
-    0 12px 32px rgba(0, 0, 0, 0.28);
+  box-shadow: inset 0 0 0 1px
+      color-mix(in srgb, var(--macos-separator) 80%, transparent),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04), 0 12px 32px rgba(0, 0, 0, 0.28);
 }
 
 html.macos [data-tucu='table'][data-border='false'] {
-  border-color: transparent;
+  --tw-ring-shadow: 0 0 #0000;
   box-shadow: none;
 }
 
@@ -187,6 +191,15 @@ html.macos.dark [data-tucu='table-header-cell'] {
 html.macos [data-tucu='table-header'] th:last-child,
 html.macos [data-tucu='table-header-cell']:last-child {
   border-right: none;
+}
+
+/* ── Column resize handle ────────────────────────────────────── */
+html.macos .basic-table-resize-handle:hover::after {
+  background: color-mix(in srgb, var(--macos-control-accent) 50%, transparent);
+}
+
+html.macos.dark .basic-table-resize-handle:hover::after {
+  background: color-mix(in srgb, var(--macos-control-accent) 60%, transparent);
 }
 
 /* ── Table rows ──────────────────────────────────────────────── */

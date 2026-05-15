@@ -171,17 +171,17 @@ html.macos.dark [data-tucu='list-trigger']:hover {
 
 html.macos [data-tucu='list-dropdown'] {
   border-radius: var(--macos-radius-lg);
-  background-color: var(--macos-control-bg);
+  background-color: var(--macos-material-popover);
   backdrop-filter: blur(var(--macos-material-popover-blur));
   -webkit-backdrop-filter: blur(var(--macos-material-popover-blur));
-  box-shadow: var(--macos-shadow-window);
+  box-shadow: var(--macos-shadow-popover);
   border: 1px solid var(--macos-separator);
   padding: var(--macos-space-2);
   overflow: hidden;
 }
 
 html.macos.dark [data-tucu='list-dropdown'] {
-  background-color: var(--macos-control-bg);
+  background-color: var(--macos-material-popover);
   border-color: var(--macos-separator);
 }
 
@@ -196,12 +196,12 @@ html.macos [data-tucu='list-item'] > button {
 
 html.macos [data-tucu='list-item'] > div:hover,
 html.macos [data-tucu='list-item'] > button:hover {
-  background-color: var(--macos-gray6);
+  background-color: transparent !important;
 }
 
 html.macos.dark [data-tucu='list-item'] > div:hover,
 html.macos.dark [data-tucu='list-item'] > button:hover {
-  background-color: var(--macos-gray5);
+  background-color: transparent !important;
 }
 
 /* ── Tag / Chip ──────────────────────────────────────────────── */

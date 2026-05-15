@@ -1,0 +1,101 @@
+/* ===================================================================
+   TUCU-UI — CUSTOM UTILITIES
+   ===================================================================
+
+   Custom @utility classes for the Tucu UI library.
+   These extend Tailwind's utility system without conflicting with
+   Tailwind's own generated classes.
+
+   Imported by globals.css — processed by the same Tailwind instance.
+   =================================================================== */
+
+/* ===================================================================
+   GENERAL UTILITIES
+   =================================================================== */
+
+@utility text-case-inherit {
+  text-transform: inherit;
+}
+
+@utility letter-space-inherit {
+  letter-spacing: inherit;
+}
+
+@utility word-break-all {
+  word-break: break-all;
+}
+
+@utility text-vertical {
+  writing-mode: tb;
+  text-orientation: upright;
+}
+
+/* ===================================================================
+   ANIMATION DELAY UTILITIES
+   =================================================================== */
+
+@utility animation-delay-200 {
+  animation-delay: 200ms;
+}
+
+@utility animation-delay-500 {
+  animation-delay: 500ms;
+}
+
+@utility animation-delay-700 {
+  animation-delay: 700ms;
+}
+
+/* ===================================================================
+   TYPOGRAPHY SCALE UTILITIES
+   =================================================================== */
+
+@utility text-h1 {
+  @apply text-4xl font-bold leading-tight tracking-tight;
+}
+
+@utility text-h2 {
+  @apply text-3xl font-bold leading-tight tracking-tight;
+}
+
+@utility text-h3 {
+  @apply text-2xl font-semibold leading-snug tracking-normal;
+}
+
+@utility text-h4 {
+  @apply text-xl font-semibold leading-snug tracking-normal;
+}
+
+@utility text-h5 {
+  @apply text-lg font-medium leading-normal tracking-normal;
+}
+
+@utility text-h6 {
+  @apply text-base font-medium leading-normal tracking-wide uppercase;
+}
+
+@utility text-headline {
+  @apply text-2xl font-bold leading-tight tracking-tight;
+}
+
+@utility text-body {
+  @apply text-base font-normal leading-normal tracking-normal;
+  color: var(--text-body-color) !important;
+  word-wrap: break-word;
+}
+
+@utility text-label-1 {
+  @apply text-sm font-medium leading-normal tracking-normal;
+}
+
+@utility text-label-2 {
+  @apply text-xs font-medium leading-normal tracking-normal;
+}
+
+@utility text-caption {
+  @apply text-xs font-normal leading-normal tracking-wide uppercase;
+}
+
+@utility text-legal {
+  @apply text-xs font-normal leading-normal tracking-wide;
+}

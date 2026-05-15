@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import cn from 'classnames';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { ChevronUp } from 'lucide-react';
+import { ChevronDown, ChevronUp } from 'lucide-react';
 import { IMenuItem } from '../../layouts/menus/menu-item';
 import { matchesPath } from '../../layouts/macos-layout/utils';
 
@@ -24,6 +24,10 @@ export interface MacOSTahoeDockProps {
   autoHide?: boolean;
   /** Render inline instead of fixed positioning (useful for demos) */
   inline?: boolean;
+  /** Show a hide button as the last dock item */
+  showHideButton?: boolean;
+  /** Callback when the hide button is clicked */
+  onHide?: () => void;
   /** Extra class name for the dock container */
   className?: string;
 }
@@ -274,6 +278,8 @@ export function MacOSTahoeDock({
   showTooltips = true,
   autoHide = false,
   inline = false,
+  showHideButton = false,
+  onHide,
   className,
 }: MacOSTahoeDockProps) {
   const { pathname } = useLocation();
@@ -416,6 +422,24 @@ export function MacOSTahoeDock({
         }}
       >
         {renderItems()}
+        {showHideButton && onHide && (
+          <>
+            <DockSeparator isVertical={isVertical} />
+            <button
+              type="button"
+              aria-label="Hide dock"
+              onClick={onHide}
+              className={cn(
+                'group relative flex items-center justify-center rounded-[10px] transition-colors duration-150',
+                'text-(--macos-tahoe-text-muted) hover:text-(--macos-tahoe-text)',
+                'hover:bg-white/8 dark:hover:bg-white/10'
+              )}
+              style={{ width: ICON_SIZE, height: ICON_SIZE }}
+            >
+              <ChevronDown className="h-4 w-4" strokeWidth={2.5} />
+            </button>
+          </>
+        )}
       </div>
     </div>
   );

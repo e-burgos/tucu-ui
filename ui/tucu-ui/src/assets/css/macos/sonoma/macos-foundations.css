@@ -218,6 +218,19 @@ html.macos {
   --macos-chart-series-5: #ff383c;
   --macos-chart-series-6: #00c3d0;
 
+  /* ── Materials (Vibrancy / Blur) ────────────────────────────
+     Source: Apple HIG > Materials > macOS Sonoma
+  */
+  --macos-material-sidebar: rgba(246, 246, 248, 0.82);
+  --macos-material-sidebar-blur: 20px;
+  --macos-material-toolbar: rgba(255, 255, 255, 0.72);
+  --macos-material-toolbar-blur: 16px;
+  --macos-material-popover: rgba(255, 255, 255, 0.9);
+  --macos-material-popover-blur: 24px;
+  --macos-material-sheet: rgba(255, 255, 255, 0.94);
+  --macos-material-sheet-blur: 30px;
+  --macos-material-overlay: rgba(0, 0, 0, 0.4);
+
   /* ── Shadows — Sonoma (multi-layer, diffuse) ─────────────────
      Source: Apple HIG > Windows > Elevation
   */
@@ -330,6 +343,13 @@ html.macos.dark {
   --macos-chart-series-4: #db34f2;
   --macos-chart-series-5: #ff4245;
   --macos-chart-series-6: #00d2e0;
+
+  /* Materials — dark (more opaque for readability) */
+  --macos-material-sidebar: rgba(28, 28, 30, 0.85);
+  --macos-material-toolbar: rgba(40, 40, 42, 0.8);
+  --macos-material-popover: rgba(44, 44, 46, 0.92);
+  --macos-material-sheet: rgba(44, 44, 46, 0.96);
+  --macos-material-overlay: rgba(0, 0, 0, 0.6);
 
   /* Shadows — heavier in dark */
   --macos-shadow-window: 0 18px 60px rgba(0, 0, 0, 0.5),

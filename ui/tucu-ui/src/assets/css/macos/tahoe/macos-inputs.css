@@ -54,7 +54,9 @@ html.macos-tahoe [data-tucu='input'][data-size='sm'] {
   min-height: 32px;
 }
 
-html.macos-tahoe [data-tucu='input'][data-size='sm'] [data-tucu='input-control'] {
+html.macos-tahoe
+  [data-tucu='input'][data-size='sm']
+  [data-tucu='input-control'] {
   min-height: 32px !important;
   padding-inline: 12px !important;
   font-size: var(--macos-font-size-callout);
@@ -64,7 +66,9 @@ html.macos-tahoe [data-tucu='input'][data-size='md'] {
   min-height: var(--macos-control-height);
 }
 
-html.macos-tahoe [data-tucu='input'][data-size='md'] [data-tucu='input-control'] {
+html.macos-tahoe
+  [data-tucu='input'][data-size='md']
+  [data-tucu='input-control'] {
   min-height: var(--macos-control-height) !important;
   padding-inline: 16px !important;
 }
@@ -73,7 +77,9 @@ html.macos-tahoe [data-tucu='input'][data-size='lg'] {
   min-height: 48px;
 }
 
-html.macos-tahoe [data-tucu='input'][data-size='lg'] [data-tucu='input-control'] {
+html.macos-tahoe
+  [data-tucu='input'][data-size='lg']
+  [data-tucu='input-control'] {
   min-height: 48px !important;
   padding-inline: 16px !important;
 }
@@ -190,7 +196,9 @@ html.macos-tahoe
   ) !important;
 }
 
-html.macos-tahoe.dark [data-tucu='input'][data-color] [data-tucu='input-control'] {
+html.macos-tahoe.dark
+  [data-tucu='input'][data-color]
+  [data-tucu='input-control'] {
   border-color: color-mix(
     in srgb,
     var(--macos-input-color) 48%,
@@ -329,7 +337,8 @@ html.macos-tahoe [data-tucu='textarea'][data-variant='transparent'] {
   ) !important;
 }
 
-html.macos-tahoe [data-tucu='textarea'][data-color][data-variant='transparent'] {
+html.macos-tahoe
+  [data-tucu='textarea'][data-color][data-variant='transparent'] {
   background-color: color-mix(
     in srgb,
     var(--macos-textarea-color) 12%,
@@ -374,7 +383,8 @@ html.macos-tahoe.dark [data-tucu='textarea'][data-color][data-variant='ghost'] {
   ) !important;
 }
 
-html.macos-tahoe.dark [data-tucu='textarea'][data-color][data-variant='transparent'] {
+html.macos-tahoe.dark
+  [data-tucu='textarea'][data-color][data-variant='transparent'] {
   background-color: color-mix(
     in srgb,
     var(--macos-textarea-color) 16%,
@@ -417,7 +427,9 @@ html.macos-tahoe [data-tucu='select'][data-size='sm'] {
   min-height: 32px;
 }
 
-html.macos-tahoe [data-tucu='select'][data-size='sm'] [data-tucu='select-trigger'] {
+html.macos-tahoe
+  [data-tucu='select'][data-size='sm']
+  [data-tucu='select-trigger'] {
   min-height: 32px !important;
   padding-inline: 12px !important;
   font-size: var(--macos-font-size-callout);
@@ -427,7 +439,9 @@ html.macos-tahoe [data-tucu='select'][data-size='md'] {
   min-height: var(--macos-control-height);
 }
 
-html.macos-tahoe [data-tucu='select'][data-size='md'] [data-tucu='select-trigger'] {
+html.macos-tahoe
+  [data-tucu='select'][data-size='md']
+  [data-tucu='select-trigger'] {
   min-height: var(--macos-control-height) !important;
   padding-inline: 16px !important;
 }
@@ -436,7 +450,9 @@ html.macos-tahoe [data-tucu='select'][data-size='lg'] {
   min-height: 48px;
 }
 
-html.macos-tahoe [data-tucu='select'][data-size='lg'] [data-tucu='select-trigger'] {
+html.macos-tahoe
+  [data-tucu='select'][data-size='lg']
+  [data-tucu='select-trigger'] {
   min-height: 48px !important;
   padding-inline: 16px !important;
 }
@@ -548,7 +564,9 @@ html.macos-tahoe
   ) !important;
 }
 
-html.macos-tahoe.dark [data-tucu='select'][data-color] [data-tucu='select-trigger'] {
+html.macos-tahoe.dark
+  [data-tucu='select'][data-color]
+  [data-tucu='select-trigger'] {
   border-color: color-mix(
     in srgb,
     var(--macos-select-color) 48%,
@@ -678,7 +696,9 @@ html.macos-tahoe [data-tucu='pin-code'][data-color='warning'] {
   --macos-pin-code-color: var(--macos-system-orange);
 }
 
-html.macos-tahoe [data-tucu='pin-code'][data-color] [data-tucu='pin-code-input'] {
+html.macos-tahoe
+  [data-tucu='pin-code'][data-color]
+  [data-tucu='pin-code-input'] {
   border-color: color-mix(
     in srgb,
     var(--macos-pin-code-color) 42%,
@@ -764,7 +784,7 @@ html.macos-tahoe [data-tucu='select-menu'] {
   background-color: var(--macos-material-popover) !important;
   backdrop-filter: blur(var(--macos-material-popover-blur));
   -webkit-backdrop-filter: blur(var(--macos-material-popover-blur));
-  box-shadow: var(--macos-shadow-window);
+  box-shadow: var(--macos-shadow-popover);
   padding: var(--macos-space-1) 0;
 }
 
@@ -837,7 +857,8 @@ html.macos-tahoe [data-tucu='checkbox'][data-variant='solid']:not(:checked) {
   background-color: var(--macos-gray6) !important;
 }
 
-html.macos-tahoe [data-tucu='checkbox'][data-variant='transparent']:not(:checked) {
+html.macos-tahoe
+  [data-tucu='checkbox'][data-variant='transparent']:not(:checked) {
   background-color: color-mix(
     in srgb,
     var(--macos-gray6) 82%,
@@ -846,11 +867,13 @@ html.macos-tahoe [data-tucu='checkbox'][data-variant='transparent']:not(:checked
   border: none !important;
 }
 
-html.macos-tahoe.dark [data-tucu='checkbox'][data-variant='ghost']:not(:checked) {
+html.macos-tahoe.dark
+  [data-tucu='checkbox'][data-variant='ghost']:not(:checked) {
   background-color: var(--macos-control-bg) !important;
 }
 
-html.macos-tahoe.dark [data-tucu='checkbox'][data-variant='solid']:not(:checked) {
+html.macos-tahoe.dark
+  [data-tucu='checkbox'][data-variant='solid']:not(:checked) {
   background-color: var(--macos-gray5) !important;
 }
 
@@ -933,7 +956,8 @@ html.macos-tahoe.dark [data-tucu='radio'][data-variant='solid']:not(:checked) {
   background-color: var(--macos-gray5) !important;
 }
 
-html.macos-tahoe.dark [data-tucu='radio'][data-variant='transparent']:not(:checked) {
+html.macos-tahoe.dark
+  [data-tucu='radio'][data-variant='transparent']:not(:checked) {
   background-color: color-mix(
     in srgb,
     var(--macos-gray5) 82%,
@@ -974,7 +998,8 @@ html.macos-tahoe [data-tucu='radio'][data-color] {
   ) !important;
 }
 
-html.macos-tahoe [data-tucu='radio'][data-color][data-variant='ghost']:not(:checked) {
+html.macos-tahoe
+  [data-tucu='radio'][data-color][data-variant='ghost']:not(:checked) {
   background-color: color-mix(
     in srgb,
     var(--macos-radio-color) 10%,
@@ -982,7 +1007,8 @@ html.macos-tahoe [data-tucu='radio'][data-color][data-variant='ghost']:not(:chec
   ) !important;
 }
 
-html.macos-tahoe [data-tucu='radio'][data-color][data-variant='solid']:not(:checked) {
+html.macos-tahoe
+  [data-tucu='radio'][data-color][data-variant='solid']:not(:checked) {
   background-color: color-mix(
     in srgb,
     var(--macos-radio-color) 12%,
@@ -1222,7 +1248,10 @@ html.macos-tahoe.dark
 }
 
 /* Hide ON/OFF text/icon labels — macOS switches are clean */
-html.macos-tahoe [data-tucu='switch'] input[type='checkbox'] ~ span:not(:last-child) {
+html.macos-tahoe
+  [data-tucu='switch']
+  input[type='checkbox']
+  ~ span:not(:last-child) {
   display: none !important;
 }
 
@@ -1250,7 +1279,10 @@ html.macos-tahoe
   --tw-translate-x: 0px !important;
 }
 
-html.macos-tahoe.dark [data-tucu='switch'] input[type='checkbox'] ~ span:last-child {
+html.macos-tahoe.dark
+  [data-tucu='switch']
+  input[type='checkbox']
+  ~ span:last-child {
   background-color: #ffffff !important;
 }
 

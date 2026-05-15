@@ -1,60 +1,7 @@
 /* ============================================================
-   macOS Sonoma 14 — @font-face declarations
-   Fase 1: Inter Variable + JetBrains Mono Variable
+   macOS Sonoma 14 — @font-face
 
-   Estrategia: url() bundled (woff2) + local() fallback
-   - Inter Variable reemplaza SF Pro como fuente base del theme macOS Sonoma
-   - JetBrains Mono Variable reemplaza SF Mono para código/monospace
-   - Licencias SIL OFL incluidas en assets/fonts/LICENSE-*.txt
-
-   Fuentes:
-   - Inter v4.1: https://github.com/rsms/inter (SIL OFL 1.1)
-   - JetBrains Mono v2.304: https://github.com/JetBrains/JetBrainsMono (SIL OFL 1.1)
+   Inter Variable and JetBrains Mono Variable are declared in
+   the base: assets/css/fonts.css (loaded first via index.css).
+   No duplicate declarations needed here.
    ============================================================ */
-
-/* ── Inter Variable — Normal ────────────────────────────────── */
-
-@font-face {
-  font-family: 'Inter';
-  src: url('../../../fonts/Inter-Variable.woff2') format('woff2-variations'),
-    local('Inter');
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-}
-
-/* ── Inter Variable — Italic ────────────────────────────────── */
-
-@font-face {
-  font-family: 'Inter';
-  src: url('../../../fonts/Inter-Variable-Italic.woff2')
-      format('woff2-variations'),
-    local('Inter Italic');
-  font-weight: 100 900;
-  font-style: italic;
-  font-display: swap;
-}
-
-/* ── JetBrains Mono Variable — Normal ───────────────────────── */
-
-@font-face {
-  font-family: 'JetBrains Mono';
-  src: url('../../../fonts/JetBrainsMono-Variable.woff2')
-      format('woff2-variations'),
-    local('JetBrains Mono');
-  font-weight: 100 800;
-  font-style: normal;
-  font-display: swap;
-}
-
-/* ── JetBrains Mono Variable — Italic ───────────────────────── */
-
-@font-face {
-  font-family: 'JetBrains Mono';
-  src: url('../../../fonts/JetBrainsMono-Variable-Italic.woff2')
-      format('woff2-variations'),
-    local('JetBrains Mono Italic');
-  font-weight: 100 800;
-  font-style: italic;
-  font-display: swap;
-}

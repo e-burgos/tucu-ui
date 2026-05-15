@@ -764,7 +764,7 @@ html.macos [data-tucu='select-menu'] {
   background-color: var(--macos-material-popover) !important;
   backdrop-filter: blur(var(--macos-material-popover-blur));
   -webkit-backdrop-filter: blur(var(--macos-material-popover-blur));
-  box-shadow: var(--macos-shadow-window);
+  box-shadow: var(--macos-shadow-popover);
   padding: var(--macos-space-1) 0;
 }
 
@@ -1578,4 +1578,3 @@ html.macos.dark [data-tucu='file-input-preview'] {
     min-height: 28px;
   }
 }
-

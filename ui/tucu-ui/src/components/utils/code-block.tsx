@@ -59,8 +59,10 @@ export const CodeBlock = ({
 
   return (
     <div
+      data-tucu="code-block"
       className={cn(
-        'overflow-x-auto relative bg-gray-100 dark:bg-gray-800 rounded-xl border dark:border-gray-700 hover:border-gray-600 mt-4',
+        'overflow-x-auto relative rounded-xl border mt-4',
+        'bg-gray-100 dark:bg-gray-800 border-gray-200 dark:border-gray-700 hover:border-gray-400 dark:hover:border-gray-600',
         isExpanded
           ? 'max-h-[300px] h-[300px] transition-all duration-300'
           : 'h-full transition-all duration-300',
@@ -77,7 +79,7 @@ export const CodeBlock = ({
           onClick={handleCopy}
           aria-label={copied ? 'Copied to clipboard' : 'Copy to clipboard'}
           className={cn(
-            'p-2 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-brand focus:ring-offset-2 dark:focus:ring-offset-gray-800',
+            'code-block-btn p-2 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-brand focus:ring-offset-2 dark:focus:ring-offset-gray-800',
             isMobile && 'p-1 w-8 h-8'
           )}
           title="Copy to clipboard"
@@ -93,7 +95,7 @@ export const CodeBlock = ({
           <button
             onClick={() => setIsExpanded(!isExpanded)}
             className={cn(
-              'p-2 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-brand focus:ring-offset-2 dark:focus:ring-offset-gray-800',
+              'code-block-btn p-2 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-brand focus:ring-offset-2 dark:focus:ring-offset-gray-800',
               isMobile && 'p-1 w-8 h-8'
             )}
             title="Expand/Collapse"
@@ -109,7 +111,7 @@ export const CodeBlock = ({
         {language && (
           <div
             className={cn(
-              'p-2 text-sm font-mono bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 hover:pointer dark:hover:bg-gray-600 rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-brand focus:ring-offset-2 dark:focus:ring-offset-gray-800',
+              'code-block-btn p-2 text-sm font-mono bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 hover:pointer dark:hover:bg-gray-600 rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-brand focus:ring-offset-2 dark:focus:ring-offset-gray-800',
               isMobile && 'w-max max-w-11 h-8'
             )}
           >
