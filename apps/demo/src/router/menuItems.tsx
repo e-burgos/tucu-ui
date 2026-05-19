@@ -301,20 +301,20 @@ export const useMenuItems = () => {
         component: <Introduction />,
       },
       {
-        name: APP_PATHS.DESIGN_SYSTEM.name,
-        path: APP_PATHS.DESIGN_SYSTEM.path,
-        icon: <LucideIcons.LampDesk />,
-        component: <DesignSystem />,
-        enableNestedRoutes: true,
-        dropdownItems: [...APP_PATHS.DESIGN_SYSTEM.dropdownItems],
-      },
-      {
         name: APP_PATHS.MACOS.name,
         path: APP_PATHS.MACOS.path,
         icon: <LucideIcons.Monitor />,
         component: <MacOSShowcase />,
         enableNestedRoutes: true,
         dropdownItems: [...APP_PATHS.MACOS.dropdownItems],
+      },
+      {
+        name: APP_PATHS.DESIGN_SYSTEM.name,
+        path: APP_PATHS.DESIGN_SYSTEM.path,
+        icon: <LucideIcons.LampDesk />,
+        component: <DesignSystem />,
+        enableNestedRoutes: true,
+        dropdownItems: [...APP_PATHS.DESIGN_SYSTEM.dropdownItems],
       },
       {
         name: APP_PATHS.FORMS.name,
