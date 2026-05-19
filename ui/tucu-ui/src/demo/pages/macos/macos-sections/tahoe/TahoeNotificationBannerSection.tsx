@@ -5,24 +5,24 @@ import {
   Typography,
   CodeBlock,
   LucideIcons,
-} from '../../../../index';
-import { MacOSTahoeNotificationBanner } from '../../../../components/macos/tahoe/notification-banner-tahoe';
+  HeroCard,
+} from '../../../../../index';
+import { MacOSTahoeNotificationBanner } from '../../../../../components/macos/tahoe/controls/notification-banner-tahoe';
+import { AutoPropsTable } from '../../../../components/auto-props-table';
+import { PropPlayground } from '../../../../components/prop-playground';
 
 export const TahoeNotificationBannerSection: React.FC = () => {
   return (
     <>
-      <div className="text-center space-y-4">
-        <Typography tag="h2" className="text-3xl md:text-4xl font-bold">
-          Notification Banner
-        </Typography>
-        <Typography
-          tag="p"
-          className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
-        >
-          Glass-material notification banners with colored accent stripes,
-          variant icons, and dismiss functionality.
-        </Typography>
-      </div>
+      <HeroCard
+        title="Notification Banner"
+        description="Glass-material notification banners with colored accent stripes, variant icons, and dismiss functionality."
+        icon={
+          <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 bg-linear-to-br from-amber-500 via-orange-500 to-red-500 rounded-full flex items-center justify-center shadow-lg border border-amber-500/50">
+            <LucideIcons.Bell className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 text-white filter drop-shadow-lg" />
+          </div>
+        }
+      />
 
       <CardContainer>
         <CardTitle title="Variants" className="mt-2 mb-2">
@@ -56,7 +56,23 @@ export const TahoeNotificationBannerSection: React.FC = () => {
       </CardContainer>
 
       <CardContainer>
-        <CardTitle title="With Actions" className="mt-2 mb-2">
+        <CardTitle title="With Actions (Array)" className="mt-2 mb-2">
+          <div className="max-w-lg">
+            <MacOSTahoeNotificationBanner
+              variant="info"
+              title="Update available"
+              message="A new version is ready to download."
+              actions={[
+                { label: 'Update Now', onClick: () => alert('updating…') },
+                { label: 'Later', onClick: () => undefined },
+              ]}
+            />
+          </div>
+        </CardTitle>
+      </CardContainer>
+
+      <CardContainer>
+        <CardTitle title="With Actions (ReactNode)" className="mt-2 mb-2">
           <div className="max-w-lg">
             <MacOSTahoeNotificationBanner
               variant="info"
@@ -103,23 +119,54 @@ export const TahoeNotificationBannerSection: React.FC = () => {
       </CardContainer>
 
       <CardContainer>
-        <CardTitle title="Usage" className="mt-2 mb-2">
+        <CardTitle title="Code Example" className="mt-2 mb-2">
           <CodeBlock
             code={`import { MacOSTahoeNotificationBanner } from '@e-burgos/tucu-ui';
 
+// With typed action array (recommended)
 <MacOSTahoeNotificationBanner
   variant="info"        // 'info' | 'success' | 'warning' | 'error'
   title="Update Available"
   message="A new version is ready."
   dismissible
   onDismiss={() => console.log('dismissed')}
-  actions={<button>Update</button>}
+  actions={[
+    { label: 'Update Now', onClick: handleUpdate },
+    { label: 'Later', onClick: handleDismiss },
+  ]}
   icon={<CustomIcon />}  // optional custom icon
+/>
+
+// With ReactNode actions (flexible)
+<MacOSTahoeNotificationBanner
+  variant="success"
+  title="Saved"
+  actions={<button>Undo</button>}
 />`}
             language="tsx"
           />
         </CardTitle>
       </CardContainer>
+
+      <PropPlayground
+        componentName="MacOSTahoeNotificationBanner"
+        defaultValues={{
+          title: 'Notification title',
+          message: 'This is the notification message.',
+          variant: 'info',
+          dismissible: true,
+        }}
+        includeProps={['title', 'message', 'variant', 'dismissible']}
+        excludeProps={['className', 'actions', 'icon', 'onDismiss']}
+      >
+        {(props) => (
+          <div className="max-w-lg w-full">
+            <MacOSTahoeNotificationBanner {...props} />
+          </div>
+        )}
+      </PropPlayground>
+
+      <AutoPropsTable componentName="MacOSTahoeNotificationBanner" />
     </>
   );
 };

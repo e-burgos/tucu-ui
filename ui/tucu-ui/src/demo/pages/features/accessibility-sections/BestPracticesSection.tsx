@@ -1,54 +1,169 @@
 import React from 'react';
 import {
-  Alert,
+  HeroCard,
+  CardContainer,
   Typography,
   LucideIcons,
 } from '../../../../index';
 
 const BestPracticesSection: React.FC = () => {
+  const doItems = [
+    'Use semantic HTML elements (button, nav, main, aside, header)',
+    'Always provide label prop on Input, Select, and Checkbox',
+    'Use helperText to give additional context to form fields',
+    'Test with keyboard-only navigation before shipping',
+    'Use aria-label when visual label is not possible',
+    'Set dismissible={true} on non-critical alerts',
+    'Use the correct variant on Alert (info/warning/error/success)',
+    'Trust built-in ARIA — components auto-wire roles and attributes',
+  ];
+
+  const dontItems = [
+    'Don\'t use div or span for interactive elements — use Button',
+    'Don\'t rely on color alone to convey information',
+    'Don\'t suppress focus outlines (outline-none without replacement)',
+    'Don\'t use aria-label when a visible label exists (duplicates)',
+    'Don\'t auto-play animations without prefers-reduced-motion check',
+    'Don\'t trap focus in elements that shouldn\'t trap (non-modal)',
+    'Don\'t use placeholder as a substitute for label',
+    'Don\'t disable zoom on mobile viewports',
+  ];
+
+  const tips = [
+    {
+      title: 'Color Contrast',
+      description:
+        'Maintain minimum 4.5:1 ratio for normal text, 3:1 for large text. Use browser DevTools to check.',
+      icon: <LucideIcons.Palette className="w-5 h-5 text-purple-500" />,
+    },
+    {
+      title: 'Focus Order',
+      description:
+        'Ensure Tab order follows visual reading order. Never use positive tabIndex values.',
+      icon: <LucideIcons.ArrowDownUp className="w-5 h-5 text-blue-500" />,
+    },
+    {
+      title: 'Error Messages',
+      description:
+        'Connect errors to fields via aria-describedby. tucu-ui Input/Select/Checkbox do this automatically.',
+      icon: <LucideIcons.AlertCircle className="w-5 h-5 text-red-500" />,
+    },
+    {
+      title: 'Live Regions',
+      description:
+        'Use Alert component for dynamic content — it includes role="alert" and aria-live="assertive" built-in.',
+      icon: <LucideIcons.Bell className="w-5 h-5 text-amber-500" />,
+    },
+  ];
+
   return (
-    <div className="space-y-8">
-      <Alert>
-        <div className="space-y-4">
-          <div className="flex items-center gap-2">
-            <LucideIcons.Lightbulb className="w-5 h-5 text-yellow-500" />
-            <Typography tag="h6" className="font-semibold">
-              Accessibility Best Practices
-            </Typography>
+    <>
+      <HeroCard
+        title="Best Practices"
+        description="Guidelines for maintaining accessibility when building with tucu-ui. Follow these patterns to ensure your application is usable by everyone."
+        icon={
+          <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 bg-linear-to-br from-green-500 via-emerald-500 to-teal-500 rounded-full flex items-center justify-center shadow-lg">
+            <LucideIcons.ShieldCheck className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 text-white filter drop-shadow-lg" />
           </div>
-          <ul className="space-y-2 text-sm">
-            <li className="flex items-start gap-2">
-              <LucideIcons.Check className="w-4 h-4 text-green-500 mt-0.5" />
-              <span>Use semantic HTML elements whenever possible</span>
-            </li>
-            <li className="flex items-start gap-2">
-              <LucideIcons.Check className="w-4 h-4 text-green-500 mt-0.5" />
-              <span>Provide alternative text for all images</span>
-            </li>
-            <li className="flex items-start gap-2">
-              <LucideIcons.Check className="w-4 h-4 text-green-500 mt-0.5" />
-              <span>
-                Ensure sufficient color contrast (4.5:1 for normal text)
-              </span>
-            </li>
-            <li className="flex items-start gap-2">
-              <LucideIcons.Check className="w-4 h-4 text-green-500 mt-0.5" />
-              <span>Make all functionality keyboard accessible</span>
-            </li>
-            <li className="flex items-start gap-2">
-              <LucideIcons.Check className="w-4 h-4 text-green-500 mt-0.5" />
-              <span>Use ARIA labels and descriptions appropriately</span>
-            </li>
-            <li className="flex items-start gap-2">
-              <LucideIcons.Check className="w-4 h-4 text-green-500 mt-0.5" />
-              <span>Test with real users who use assistive technologies</span>
-            </li>
-          </ul>
+        }
+      />
+
+      <section className="space-y-8">
+        <div className="text-center">
+          <Typography tag="h2" className="mb-2">
+            Do&apos;s and Don&apos;ts
+          </Typography>
+          <Typography
+            tag="p"
+            className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto"
+          >
+            Quick reference for accessible patterns
+          </Typography>
         </div>
-      </Alert>
-    </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+          <CardContainer>
+            <div className="w-full p-4 sm:p-6 space-y-3">
+              <div className="flex items-center gap-2 mb-4">
+                <LucideIcons.CheckCircle className="w-5 h-5 text-green-500" />
+                <Typography tag="h3" className="font-semibold text-green-700 dark:text-green-400">
+                  Do
+                </Typography>
+              </div>
+              {doItems.map((item, index) => (
+                <div key={index} className="flex items-start gap-2">
+                  <LucideIcons.Check className="w-4 h-4 text-green-500 shrink-0 mt-0.5" />
+                  <Typography
+                    tag="span"
+                    className="text-sm text-gray-600 dark:text-gray-400"
+                  >
+                    {item}
+                  </Typography>
+                </div>
+              ))}
+            </div>
+          </CardContainer>
+
+          <CardContainer>
+            <div className="w-full p-4 sm:p-6 space-y-3">
+              <div className="flex items-center gap-2 mb-4">
+                <LucideIcons.XCircle className="w-5 h-5 text-red-500" />
+                <Typography tag="h3" className="font-semibold text-red-700 dark:text-red-400">
+                  Don&apos;t
+                </Typography>
+              </div>
+              {dontItems.map((item, index) => (
+                <div key={index} className="flex items-start gap-2">
+                  <LucideIcons.X className="w-4 h-4 text-red-500 shrink-0 mt-0.5" />
+                  <Typography
+                    tag="span"
+                    className="text-sm text-gray-600 dark:text-gray-400"
+                  >
+                    {item}
+                  </Typography>
+                </div>
+              ))}
+            </div>
+          </CardContainer>
+        </div>
+      </section>
+
+      <section className="space-y-8">
+        <div className="text-center">
+          <Typography tag="h2" className="mb-2">
+            Quick Tips
+          </Typography>
+          <Typography
+            tag="p"
+            className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto"
+          >
+            Common accessibility patterns to keep in mind
+          </Typography>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+          {tips.map((tip, index) => (
+            <CardContainer key={index}>
+              <div className="w-full p-4 sm:p-6 space-y-2">
+                <div className="flex items-center gap-3">
+                  {tip.icon}
+                  <Typography tag="h3" className="font-semibold">
+                    {tip.title}
+                  </Typography>
+                </div>
+                <Typography
+                  tag="p"
+                  className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed"
+                >
+                  {tip.description}
+                </Typography>
+              </div>
+            </CardContainer>
+          ))}
+        </div>
+      </section>
+    </>
   );
 };
 
 export default BestPracticesSection;
-

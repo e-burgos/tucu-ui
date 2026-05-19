@@ -2,31 +2,29 @@ import React from 'react';
 import {
   CardContainer,
   CardTitle,
-  Typography,
   CodeBlock,
   LucideIcons,
-} from '../../../../index';
+  HeroCard,
+} from '../../../../../index';
+import { AutoPropsTable } from '../../../../components/auto-props-table';
+import { PropPlayground } from '../../../../components/prop-playground';
 import {
   MacOSTahoeWidget,
   MacOSTahoeWidgetHeader,
-} from '../../../../components/macos/tahoe/widget-tahoe';
+} from '../../../../../components/macos/tahoe/containers/widget-tahoe';
 
 export const TahoeWidgetSection: React.FC = () => {
   return (
     <>
-      <div className="text-center space-y-4">
-        <Typography tag="h2" className="text-3xl md:text-4xl font-bold">
-          Widget
-        </Typography>
-        <Typography
-          tag="p"
-          className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
-        >
-          Glass-material widget cards in four fixed sizes, matching Apple HIG
-          widget dimensions. Includes an optional header with icon, title,
-          subtitle, and actions.
-        </Typography>
-      </div>
+      <HeroCard
+        title="Widget"
+        description="Glass-material widget cards in four fixed sizes, matching Apple HIG widget dimensions. Includes an optional header with icon, title, subtitle, and actions."
+        icon={
+          <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 bg-linear-to-br from-violet-500 via-purple-500 to-fuchsia-600 rounded-full flex items-center justify-center shadow-lg border border-violet-500/50">
+            <LucideIcons.LayoutDashboard className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 text-white filter drop-shadow-lg" />
+          </div>
+        }
+      />
 
       <CardContainer>
         <CardTitle title="Sizes" className="mt-2 mb-2">
@@ -109,7 +107,7 @@ export const TahoeWidgetSection: React.FC = () => {
       </CardContainer>
 
       <CardContainer>
-        <CardTitle title="Usage" className="mt-2 mb-2">
+        <CardTitle title="Code Example" className="mt-2 mb-2">
           <CodeBlock
             code={`import { MacOSTahoeWidget, MacOSTahoeWidgetHeader } from '@e-burgos/tucu-ui';
 
@@ -128,6 +126,31 @@ export const TahoeWidgetSection: React.FC = () => {
           />
         </CardTitle>
       </CardContainer>
+
+      <PropPlayground
+        componentName="MacOSTahoeWidget"
+        defaultValues={{ size: 'md' }}
+        includeProps={['size']}
+        excludeProps={['className']}
+      >
+        {(props) => (
+          <div className="flex justify-center p-4">
+            <MacOSTahoeWidget {...props}>
+              <MacOSTahoeWidgetHeader
+                title="Preview"
+                icon={<LucideIcons.LayoutDashboard className="h-4 w-4" />}
+              />
+              <div className="flex flex-1 items-center justify-center">
+                <span className="text-2xl font-light text-[var(--macos-tahoe-text)]">
+                  Content
+                </span>
+              </div>
+            </MacOSTahoeWidget>
+          </div>
+        )}
+      </PropPlayground>
+
+      <AutoPropsTable componentName="MacOSTahoeWidget" />
     </>
   );
 };

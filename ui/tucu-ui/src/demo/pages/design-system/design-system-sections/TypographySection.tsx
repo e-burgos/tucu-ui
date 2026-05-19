@@ -1,5 +1,12 @@
 import React from 'react';
-import { CardContainer, CardTitle, Typography, Badge } from '../../../../index';
+import {
+  CardContainer,
+  CardTitle,
+  Typography,
+  Badge,
+  HeroCard,
+  LucideIcons,
+} from '../../../../index';
 
 const TypographySection: React.FC = () => {
   const typographyTags = [
@@ -52,19 +59,16 @@ const TypographySection: React.FC = () => {
   ] as const;
 
   return (
-    <>
-      <div className="text-center space-y-4">
-        <Typography tag="h2" className="text-3xl md:text-4xl font-bold">
-          Typography
-        </Typography>
-        <Typography
-          tag="p"
-          className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
-        >
-          Typography component with all available tags, colors, and font
-          families
-        </Typography>
-      </div>
+    <div className="space-y-8 max-w-6xl sm:space-y-12 w-full mx-auto px-4 sm:px-6 lg:px-8 relative pt-8 lg:pt-12">
+      <HeroCard
+        title="Typography"
+        description="Typography component with all available tags, colors, and font families."
+        icon={
+          <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 bg-linear-to-br from-blue-500 via-cyan-500 to-sky-500 rounded-full flex items-center justify-center shadow-lg">
+            <LucideIcons.Type className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 text-white filter drop-shadow-lg" />
+          </div>
+        }
+      />
 
       {/* Tucu UI Tokens */}
       <CardContainer className="overflow-hidden">
@@ -345,7 +349,7 @@ const TypographySection: React.FC = () => {
           </div>
         </CardTitle>
       </CardContainer>
-    </>
+    </div>
   );
 };
 

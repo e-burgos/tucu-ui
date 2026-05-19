@@ -8,7 +8,7 @@ import {
 
 export function BackgroundUtilities() {
   return (
-    <div className="space-y-8 sm:space-y-12 w-full mx-auto px-4 sm:px-6 lg:px-8 relative pt-8 lg:pt-12">
+    <div className="space-y-8 max-w-6xl sm:space-y-12 w-full mx-auto px-4 sm:px-6 lg:px-8 relative pt-8 lg:pt-12">
       {/* Hero Section */}
       <HeroCard
         title="Background Utilities"
@@ -17,7 +17,7 @@ export function BackgroundUtilities() {
         getStartedButton
         docsButton="tailwind-utilities"
         icon={
-          <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 bg-gradient-to-br from-brand via-blue-500 to-purple-500 rounded-full flex items-center justify-center shadow-lg border border-brand/50">
+          <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 bg-linear-to-br from-brand via-blue-500 to-purple-500 rounded-full flex items-center justify-center shadow-lg">
             <LucideIcons.Image className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 text-white filter drop-shadow-lg" />
           </div>
         }
@@ -26,15 +26,12 @@ export function BackgroundUtilities() {
       {/* Background Architecture */}
       <section className="space-y-8">
         <div className="text-center">
-          <Typography
-            tag="h2"
-            className="mb-4 text-2xl sm:text-3xl md:text-4xl font-bold"
-          >
+          <Typography tag="h2" className="mb-2">
             Background Architecture
           </Typography>
           <Typography
             tag="p"
-            className="text-base sm:text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto"
+            className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto"
           >
             Comprehensive background utilities built with Tailwind CSS v4
             @source directives
@@ -43,7 +40,7 @@ export function BackgroundUtilities() {
 
         {/* 1. BACKGROUND ATTACHMENT */}
         <section className="space-y-6">
-          <Typography tag="h3" className="text-xl font-semibold">
+          <Typography tag="h3" className="text-base font-semibold">
             Background Attachment
           </Typography>
 
@@ -58,7 +55,7 @@ export function BackgroundUtilities() {
                 </Typography>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div className="space-y-2">
-                    <div className="h-32 bg-fixed bg-center bg-cover bg-gradient-to-r from-red-500 to-yellow-500 rounded-lg border-2 border-gray-300 dark:border-gray-600 overflow-hidden">
+                    <div className="h-32 bg-fixed bg-center bg-cover bg-linear-to-r from-red-500 to-yellow-500 rounded-lg border-2 border-gray-300 dark:border-gray-600 overflow-hidden">
                       <div className="h-64 p-4 bg-black/50 text-white">
                         <p className="text-sm">Fixed attachment</p>
                         <p className="text-xs opacity-75 mt-1">
@@ -69,7 +66,7 @@ export function BackgroundUtilities() {
                     <div className="text-xs text-center">bg-fixed</div>
                   </div>
                   <div className="space-y-2">
-                    <div className="h-32 bg-local bg-center bg-cover bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg border-2 border-gray-300 dark:border-gray-600 overflow-hidden">
+                    <div className="h-32 bg-local bg-center bg-cover bg-linear-to-r from-blue-500 to-purple-500 rounded-lg border-2 border-gray-300 dark:border-gray-600 overflow-hidden">
                       <div className="h-64 p-4 bg-black/50 text-white">
                         <p className="text-sm">Local attachment</p>
                         <p className="text-xs opacity-75 mt-1">
@@ -80,7 +77,7 @@ export function BackgroundUtilities() {
                     <div className="text-xs text-center">bg-local</div>
                   </div>
                   <div className="space-y-2">
-                    <div className="h-32 bg-scroll bg-center bg-cover bg-gradient-to-r from-green-500 to-teal-500 rounded-lg border-2 border-gray-300 dark:border-gray-600 overflow-hidden">
+                    <div className="h-32 bg-scroll bg-center bg-cover bg-linear-to-r from-green-500 to-teal-500 rounded-lg border-2 border-gray-300 dark:border-gray-600 overflow-hidden">
                       <div className="h-64 p-4 bg-black/50 text-white">
                         <p className="text-sm">Scroll attachment</p>
                         <p className="text-xs opacity-75 mt-1">
@@ -98,7 +95,7 @@ export function BackgroundUtilities() {
 
         {/* 2. BACKGROUND CLIP */}
         <section className="space-y-6">
-          <Typography tag="h3" className="text-xl font-semibold">
+          <Typography tag="h3" className="text-base font-semibold">
             Background Clip
           </Typography>
 
@@ -113,7 +110,7 @@ export function BackgroundUtilities() {
                 </Typography>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <div className="p-4 border-4 border-brand bg-clip-border bg-gradient-to-r from-brand to-blue-500 rounded-lg text-white">
+                    <div className="p-4 border-4 border-brand bg-clip-border bg-linear-to-r from-brand to-blue-500 rounded-lg text-white">
                       <div className="bg-black/80 p-2 rounded">
                         Background extends to border
                       </div>
@@ -121,7 +118,7 @@ export function BackgroundUtilities() {
                     <div className="text-xs text-center">bg-clip-border</div>
                   </div>
                   <div className="space-y-2">
-                    <div className="p-4 border-4 border-brand bg-clip-padding bg-gradient-to-r from-brand to-blue-500 rounded-lg text-white">
+                    <div className="p-4 border-4 border-brand bg-clip-padding bg-linear-to-r from-brand to-blue-500 rounded-lg text-white">
                       <div className="bg-black/80 p-2 rounded">
                         Background stops at padding
                       </div>
@@ -129,7 +126,7 @@ export function BackgroundUtilities() {
                     <div className="text-xs text-center">bg-clip-padding</div>
                   </div>
                   <div className="space-y-2">
-                    <div className="p-4 border-4 border-brand bg-clip-content bg-gradient-to-r from-brand to-blue-500 rounded-lg text-white">
+                    <div className="p-4 border-4 border-brand bg-clip-content bg-linear-to-r from-brand to-blue-500 rounded-lg text-white">
                       <div className="bg-black/80 p-2 rounded">
                         Background only on content
                       </div>
@@ -137,7 +134,7 @@ export function BackgroundUtilities() {
                     <div className="text-xs text-center">bg-clip-content</div>
                   </div>
                   <div className="space-y-2">
-                    <div className="p-4 border-4 border-brand bg-clip-text bg-gradient-to-r from-brand to-blue-500 rounded-lg text-transparent">
+                    <div className="p-4 border-4 border-brand bg-clip-text bg-linear-to-r from-brand to-blue-500 rounded-lg text-transparent">
                       <div className="bg-black/80 p-2 rounded">
                         Text gradient effect
                       </div>
@@ -152,7 +149,7 @@ export function BackgroundUtilities() {
 
         {/* 3. BACKGROUND COLORS */}
         <section className="space-y-6">
-          <Typography tag="h3" className="text-xl font-semibold">
+          <Typography tag="h3" className="text-base font-semibold">
             Background Colors
           </Typography>
 
@@ -198,7 +195,7 @@ export function BackgroundUtilities() {
 
         {/* 4. BACKGROUND GRADIENTS */}
         <section className="space-y-6">
-          <Typography tag="h3" className="text-xl font-semibold">
+          <Typography tag="h3" className="text-base font-semibold">
             Background Gradients
           </Typography>
 
@@ -212,28 +209,28 @@ export function BackgroundUtilities() {
                   Linear gradient directions
                 </Typography>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                  <div className="w-full h-20 bg-gradient-to-t from-brand to-blue-500 rounded flex items-end justify-center pb-2 text-white text-xs font-medium">
+                  <div className="w-full h-20 bg-linear-to-t from-brand to-blue-500 rounded flex items-end justify-center pb-2 text-white text-xs font-medium">
                     to-t
                   </div>
-                  <div className="w-full h-20 bg-gradient-to-r from-brand to-blue-500 rounded flex items-center justify-start pl-2 text-white text-xs font-medium">
+                  <div className="w-full h-20 bg-linear-to-r from-brand to-blue-500 rounded flex items-center justify-start pl-2 text-white text-xs font-medium">
                     to-r
                   </div>
-                  <div className="w-full h-20 bg-gradient-to-b from-brand to-blue-500 rounded flex items-start justify-center pt-2 text-white text-xs font-medium">
+                  <div className="w-full h-20 bg-linear-to-b from-brand to-blue-500 rounded flex items-start justify-center pt-2 text-white text-xs font-medium">
                     to-b
                   </div>
-                  <div className="w-full h-20 bg-gradient-to-l from-brand to-blue-500 rounded flex items-center justify-end pr-2 text-white text-xs font-medium">
+                  <div className="w-full h-20 bg-linear-to-l from-brand to-blue-500 rounded flex items-center justify-end pr-2 text-white text-xs font-medium">
                     to-l
                   </div>
-                  <div className="w-full h-20 bg-gradient-to-tr from-brand to-blue-500 rounded flex items-start justify-start p-2 text-white text-xs font-medium">
+                  <div className="w-full h-20 bg-linear-to-tr from-brand to-blue-500 rounded flex items-start justify-start p-2 text-white text-xs font-medium">
                     to-tr
                   </div>
-                  <div className="w-full h-20 bg-gradient-to-br from-brand to-blue-500 rounded flex items-end justify-start p-2 text-white text-xs font-medium">
+                  <div className="w-full h-20 bg-linear-to-br from-brand to-blue-500 rounded flex items-end justify-start p-2 text-white text-xs font-medium">
                     to-br
                   </div>
-                  <div className="w-full h-20 bg-gradient-to-bl from-brand to-blue-500 rounded flex items-end justify-end p-2 text-white text-xs font-medium">
+                  <div className="w-full h-20 bg-linear-to-bl from-brand to-blue-500 rounded flex items-end justify-end p-2 text-white text-xs font-medium">
                     to-bl
                   </div>
-                  <div className="w-full h-20 bg-gradient-to-tl from-brand to-blue-500 rounded flex items-start justify-end p-2 text-white text-xs font-medium">
+                  <div className="w-full h-20 bg-linear-to-tl from-brand to-blue-500 rounded flex items-start justify-end p-2 text-white text-xs font-medium">
                     to-tl
                   </div>
                 </div>
@@ -251,10 +248,10 @@ export function BackgroundUtilities() {
                   Multi-stop and via gradients
                 </Typography>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="w-full h-20 bg-gradient-to-r from-brand via-purple-500 to-blue-500 rounded flex items-center justify-center text-white text-sm font-medium">
+                  <div className="w-full h-20 bg-linear-to-r from-brand via-purple-500 to-blue-500 rounded flex items-center justify-center text-white text-sm font-medium">
                     from-brand via-purple-500 to-blue-500
                   </div>
-                  <div className="w-full h-20 bg-gradient-to-r from-red-500 via-yellow-500 via-green-500 to-blue-500 rounded flex items-center justify-center text-white text-sm font-medium">
+                  <div className="w-full h-20 bg-linear-to-r from-red-500 via-yellow-500 to-blue-500 rounded flex items-center justify-center text-white text-sm font-medium">
                     Multi-stop gradient
                   </div>
                 </div>
@@ -265,7 +262,7 @@ export function BackgroundUtilities() {
 
         {/* 5. BACKGROUND POSITION */}
         <section className="space-y-6">
-          <Typography tag="h3" className="text-xl font-semibold">
+          <Typography tag="h3" className="text-base font-semibold">
             Background Position
           </Typography>
 
@@ -309,7 +306,7 @@ export function BackgroundUtilities() {
 
         {/* 6. BACKGROUND REPEAT */}
         <section className="space-y-6">
-          <Typography tag="h3" className="text-xl font-semibold">
+          <Typography tag="h3" className="text-base font-semibold">
             Background Repeat
           </Typography>
 
@@ -371,7 +368,7 @@ export function BackgroundUtilities() {
 
         {/* 7. BACKGROUND SIZE */}
         <section className="space-y-6">
-          <Typography tag="h3" className="text-xl font-semibold">
+          <Typography tag="h3" className="text-base font-semibold">
             Background Size
           </Typography>
 

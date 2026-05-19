@@ -60,6 +60,7 @@ const sections: SectionConfig[] = [
 export function IconsSystem() {
   return (
     <DynamicSectionsPage
+      hideHeroInSubSections
       sections={sections}
       hero={
         <HeroCard

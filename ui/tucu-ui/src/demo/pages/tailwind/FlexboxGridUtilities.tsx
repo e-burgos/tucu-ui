@@ -8,7 +8,7 @@ import {
 
 export function FlexboxGridUtilities() {
   return (
-    <div className="space-y-8 sm:space-y-12 w-full mx-auto px-4 sm:px-6 lg:px-8 relative pt-8 lg:pt-12">
+    <div className="space-y-8 max-w-6xl sm:space-y-12 w-full mx-auto px-4 sm:px-6 lg:px-8 relative pt-8 lg:pt-12">
       {/* Hero Section */}
       <HeroCard
         title="Flexbox & Grid Utilities"
@@ -17,7 +17,7 @@ export function FlexboxGridUtilities() {
         getStartedButton
         docsButton="tailwind-utilities"
         icon={
-          <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 bg-brand/70 rounded-full flex items-center justify-center shadow-lg border border-brand/50">
+          <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 bg-linear-to-br from-blue-500 via-indigo-500 to-purple-500 rounded-full flex items-center justify-center shadow-lg">
             <LucideIcons.Grid3X3 className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 text-white filter drop-shadow-lg" />
           </div>
         }
@@ -28,13 +28,13 @@ export function FlexboxGridUtilities() {
         <div className="text-center">
           <Typography
             tag="h2"
-            className="mb-4 text-2xl sm:text-3xl md:text-4xl font-bold"
+            className="mb-2"
           >
             Flexbox & Grid Architecture
           </Typography>
           <Typography
             tag="p"
-            className="text-base sm:text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto"
+            className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto"
           >
             Powerful layout systems built with Tailwind CSS v4 @source
             directives
@@ -43,7 +43,7 @@ export function FlexboxGridUtilities() {
 
         {/* 1. FLEXBOX BASICS */}
         <section className="space-y-6">
-          <Typography tag="h3" className="text-xl font-semibold">
+          <Typography tag="h3" className="text-base font-semibold">
             Flexbox Basics
           </Typography>
 
@@ -209,7 +209,7 @@ export function FlexboxGridUtilities() {
 
         {/* 2. GRID BASICS */}
         <section className="space-y-6">
-          <Typography tag="h3" className="text-xl font-semibold">
+          <Typography tag="h3" className="text-base font-semibold">
             Grid Basics
           </Typography>
 
@@ -349,7 +349,7 @@ export function FlexboxGridUtilities() {
 
         {/* 3. ALIGNMENT & JUSTIFICATION */}
         <section className="space-y-6">
-          <Typography tag="h3" className="text-xl font-semibold">
+          <Typography tag="h3" className="text-base font-semibold">
             Alignment & Justification
           </Typography>
 

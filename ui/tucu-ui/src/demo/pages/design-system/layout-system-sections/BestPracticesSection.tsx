@@ -1,5 +1,10 @@
 import React from 'react';
-import { CardContainer, Typography, LucideIcons } from '../../../../index';
+import {
+  CardContainer,
+  Typography,
+  LucideIcons,
+  HeroCard,
+} from '../../../../index';
 
 const BestPracticesSection: React.FC = () => {
   const bestPractices = [
@@ -43,13 +48,23 @@ const BestPracticesSection: React.FC = () => {
 
   return (
     <>
-      <div className="text-center space-y-4">
-        <Typography tag="h2" className="text-3xl md:text-4xl font-bold">
+      <HeroCard
+        title="Best Practices"
+        description="Guidelines for optimal layout system implementation and common patterns."
+        icon={
+          <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 bg-linear-to-br from-green-500 via-emerald-500 to-teal-500 rounded-full flex items-center justify-center shadow-lg">
+            <LucideIcons.Star className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 text-white filter drop-shadow-lg" />
+          </div>
+        }
+      />
+
+      <div className="text-center">
+        <Typography tag="h2" className="mb-2">
           Best Practices
         </Typography>
         <Typography
           tag="p"
-          className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
+          className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto"
         >
           Guidelines for optimal layout system implementation
         </Typography>
@@ -63,7 +78,7 @@ const BestPracticesSection: React.FC = () => {
           >
             <div className="w-full space-y-4 p-4 sm:p-6">
               <div className="flex items-center gap-3">
-                <div className="p-2 rounded-lg bg-gradient-to-br from-green-500 via-emerald-500 to-teal-500 shadow-md">
+                <div className="p-2 rounded-lg bg-linear-to-br from-green-500 via-emerald-500 to-teal-500 shadow-md">
                   <LucideIcons.CheckCircle className="w-5 h-5 text-white filter drop-shadow-sm" />
                 </div>
                 <Typography tag="h3" className="font-semibold text-lg">
@@ -92,4 +107,3 @@ const BestPracticesSection: React.FC = () => {
 };
 
 export default BestPracticesSection;
-

@@ -81,6 +81,7 @@ const sections: SectionConfig[] = [
 export function RoutingSystem() {
   return (
     <DynamicSectionsPage
+      hideHeroInSubSections
       sections={sections}
       hero={
         <HeroCard

@@ -1,22 +1,24 @@
 import React from 'react';
 import {
+  HeroCard,
   CardContainer,
   CardTitle,
   Typography,
   LucideIcons,
   CodeBlock,
   Alert,
+  FeatureCard,
 } from '../../../../index';
 
 const StandaloneAppSection: React.FC = () => {
   const standaloneRouteConfig = `interface StandaloneAppRoutesMenuItem extends Omit<IMenuItem, 'dropdownItems'> {
-  component: JSX.Element;  // Component to render
-  isPublic?: boolean;      // If true, accessible without authentication
-  dropdownItems?: StandaloneAppRoutesMenuItem[]; // Nested routes
-  hide?: boolean;          // Hide from navigation menu
+  component: React.JSX.Element;    // Component to render
+  isPublic?: boolean;              // If true, accessible without authentication
+  enableNestedRoutes?: boolean;    // Adds /* to path for nested routing
+  dropdownItems?: StandaloneAppRoutesMenuItem[]; // Nested sub-routes
 }`;
 
-  const standaloneBasicUsage = `import { ThemeProvider } from '@e-burgos/tucu-ui';
+  const standaloneBasicUsage = `import { ThemeProvider, StandaloneAppRoutesMenuItem } from '@e-burgos/tucu-ui';
 import '@e-burgos/tucu-ui/styles';
 
 const menuItems: StandaloneAppRoutesMenuItem[] = [
@@ -25,20 +27,20 @@ const menuItems: StandaloneAppRoutesMenuItem[] = [
     path: '/',
     icon: <LucideIcons.Home />,
     component: <HomePage />,
-    isPublic: true, // Public route
+    isPublic: true,
   },
   {
     name: 'Dashboard',
     path: '/dashboard',
     icon: <LucideIcons.LayoutDashboard />,
     component: <DashboardPage />,
-    isPublic: false, // Private route - requires authentication
   },
   {
     name: 'Settings',
     path: '/settings',
     icon: <LucideIcons.Settings />,
     component: <SettingsPage />,
+    enableNestedRoutes: true,
     dropdownItems: [
       {
         name: 'Profile',
@@ -58,15 +60,17 @@ function StandaloneApp() {
   return (
     <ThemeProvider
       // architecturalPatterns="standalone" is the default (optional)
-      menuItems={menuItems}  // Required for Standalone
+      menuItems={menuItems}
       logo={{ name: 'My', secondName: 'App' }}
       showSettings
     />
   );
 }`;
 
-  const customRoutesExample = `import { Routes, Route } from 'react-router-dom';
-import { ThemeProvider } from '@e-burgos/tucu-ui';
+  const customRoutesExample = `import { ThemeProvider } from '@e-burgos/tucu-ui';
+import { ReactRouter } from '@e-burgos/tucu-ui';
+
+const { Routes, Route } = ReactRouter;
 
 function StandaloneApp() {
   return (
@@ -83,204 +87,139 @@ function StandaloneApp() {
   );
 }`;
 
+  const features = [
+    {
+      icon: (
+        <LucideIcons.Wand2 className="w-6 h-6 text-white filter drop-shadow-sm" />
+      ),
+      title: 'Auto Route Generation',
+      description:
+        'Routes created automatically from menuItems. No manual setup required.',
+      iconBgClassName: 'from-blue-500 to-cyan-500',
+    },
+    {
+      icon: (
+        <LucideIcons.Layers3 className="w-6 h-6 text-white filter drop-shadow-sm" />
+      ),
+      title: 'Nested Routes',
+      description:
+        'Unlimited nesting with dropdownItems converted to dropdown menus.',
+      iconBgClassName: 'from-purple-500 to-indigo-500',
+    },
+    {
+      icon: (
+        <LucideIcons.Minimize2 className="w-6 h-6 text-white filter drop-shadow-sm" />
+      ),
+      title: 'Simple Configuration',
+      description:
+        'Minimal setup — define menu items and the system handles the rest.',
+      iconBgClassName: 'from-green-500 to-emerald-500',
+    },
+    {
+      icon: (
+        <LucideIcons.AppWindow className="w-6 h-6 text-white filter drop-shadow-sm" />
+      ),
+      title: 'Perfect for SPAs',
+      description:
+        'Ideal for traditional single-page applications without MFE complexity.',
+      iconBgClassName: 'from-orange-500 to-amber-500',
+    },
+  ];
+
   return (
-    <div className="space-y-8">
-      <CardContainer>
-        <CardTitle title="Standalone App" className="mt-2 mb-6">
-          <div className="space-y-6">
-            <div className="flex items-center gap-3">
-              <div className="p-2 rounded-lg bg-linear-to-br from-blue-500 to-cyan-500 shadow-lg">
-                <LucideIcons.Package className="w-5 h-5 text-white filter drop-shadow-sm" />
-              </div>
-              <Typography tag="h4" className="font-semibold">
-                Standalone App Pattern (Default)
-              </Typography>
-            </div>
-
-            <Typography tag="p" className="text-gray-600 dark:text-gray-400">
-              The <strong>Standalone App Pattern</strong> is the default mode for
-              traditional single-page applications. Routes are automatically
-              generated from{' '}
-              <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
-                menuItems
-              </code>{' '}
-              configuration, making it perfect for monolithic applications that
-              don't require micro frontend architecture.
-            </Typography>
-
-            <Alert variant="info" dismissible={false}>
-              <div className="flex flex-col gap-2">
-                <div className="flex items-center gap-2">
-                  <LucideIcons.Info className="w-4 h-4" />
-                  <Typography tag="span" className="font-semibold">
-                    Default Pattern
-                  </Typography>
-                </div>
-                <Typography tag="p" className="text-sm">
-                  The Standalone pattern is the default. You don't need to specify{' '}
-                  <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
-                    architecturalPatterns
-                  </code>
-                  . Simply provide{' '}
-                  <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
-                    menuItems
-                  </code>{' '}
-                  and routes will be automatically generated.
-                </Typography>
-              </div>
-            </Alert>
-
-            <div className="space-y-6">
-              <div className="space-y-4">
-                <div className="flex items-center gap-3">
-                  <div className="p-2 rounded-lg bg-linear-to-br from-indigo-500 to-purple-500 shadow-lg">
-                    <LucideIcons.Code className="w-5 h-5 text-white filter drop-shadow-sm" />
-                  </div>
-                  <Typography tag="h4" className="font-semibold">
-                    StandaloneAppRoutesMenuItem Interface
-                  </Typography>
-                </div>
-                <Typography
-                  tag="p"
-                  className="text-sm text-gray-600 dark:text-gray-400"
-                >
-                  Define your routes using the{' '}
-                  <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
-                    StandaloneAppRoutesMenuItem
-                  </code>{' '}
-                  interface. Each menu item automatically becomes a route.
-                </Typography>
-                <CodeBlock language="typescript" code={standaloneRouteConfig} />
-              </div>
-
-              <div className="space-y-4">
-                <div className="flex items-center gap-3">
-                  <div className="p-2 rounded-lg bg-linear-to-br from-green-500 to-emerald-500 shadow-lg">
-                    <LucideIcons.Play className="w-5 h-5 text-white filter drop-shadow-sm" />
-                  </div>
-                  <Typography tag="h4" className="font-semibold">
-                    Basic Usage
-                  </Typography>
-                </div>
-                <Typography
-                  tag="p"
-                  className="text-sm text-gray-600 dark:text-gray-400"
-                >
-                  Create a simple standalone application with automatic route
-                  generation from menu items. Supports nested routes through{' '}
-                  <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
-                    dropdownItems
-                  </code>
-                  .
-                </Typography>
-                <CodeBlock language="tsx" code={standaloneBasicUsage} />
-              </div>
-
-              <div className="space-y-4">
-                <div className="flex items-center gap-3">
-                  <div className="p-2 rounded-lg bg-linear-to-br from-orange-500 to-amber-500 shadow-lg">
-                    <LucideIcons.Settings className="w-5 h-5 text-white filter drop-shadow-sm" />
-                  </div>
-                  <Typography tag="h4" className="font-semibold">
-                    Custom Routes Override
-                  </Typography>
-                </div>
-                <Typography
-                  tag="p"
-                  className="text-sm text-gray-600 dark:text-gray-400"
-                >
-                  You can completely override the default routing by providing
-                  your own{' '}
-                  <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
-                    customRoutes
-                  </code>{' '}
-                  prop. This is useful for special routing requirements.
-                </Typography>
-                <CodeBlock language="tsx" code={customRoutesExample} />
-              </div>
-            </div>
-
-            <div className="space-y-4">
-              <Typography tag="h4" className="font-semibold text-lg">
-                Key Features
-              </Typography>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <CardContainer className="p-4">
-                  <div className="flex items-center gap-2 mb-3">
-                    <LucideIcons.CheckCircle className="w-5 h-5 text-green-500" />
-                    <Typography tag="h5" className="font-semibold">
-                      Automatic Route Generation
-                    </Typography>
-                  </div>
-                  <Typography
-                    tag="p"
-                    className="text-sm text-gray-600 dark:text-gray-400"
-                  >
-                    Routes are automatically created from your{' '}
-                    <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
-                      menuItems
-                    </code>{' '}
-                    configuration. No manual route setup required.
-                  </Typography>
-                </CardContainer>
-
-                <CardContainer className="p-4">
-                  <div className="flex items-center gap-2 mb-3">
-                    <LucideIcons.CheckCircle className="w-5 h-5 text-green-500" />
-                    <Typography tag="h5" className="font-semibold">
-                      Nested Routes Support
-                    </Typography>
-                  </div>
-                  <Typography
-                    tag="p"
-                    className="text-sm text-gray-600 dark:text-gray-400"
-                  >
-                    Support for unlimited nesting levels with{' '}
-                    <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
-                      dropdownItems
-                    </code>
-                    . Automatically converted to dropdown menus in navigation.
-                  </Typography>
-                </CardContainer>
-
-                <CardContainer className="p-4">
-                  <div className="flex items-center gap-2 mb-3">
-                    <LucideIcons.CheckCircle className="w-5 h-5 text-green-500" />
-                    <Typography tag="h5" className="font-semibold">
-                      Simple Configuration
-                    </Typography>
-                  </div>
-                  <Typography
-                    tag="p"
-                    className="text-sm text-gray-600 dark:text-gray-400"
-                  >
-                    Minimal setup required. Just define your menu items and the
-                    routing system handles the rest.
-                  </Typography>
-                </CardContainer>
-
-                <CardContainer className="p-4">
-                  <div className="flex items-center gap-2 mb-3">
-                    <LucideIcons.CheckCircle className="w-5 h-5 text-green-500" />
-                    <Typography tag="h5" className="font-semibold">
-                      Perfect for SPAs
-                    </Typography>
-                  </div>
-                  <Typography
-                    tag="p"
-                    className="text-sm text-gray-600 dark:text-gray-400"
-                  >
-                    Ideal for traditional single-page applications that don't
-                    require micro frontend architecture or route isolation.
-                  </Typography>
-                </CardContainer>
-              </div>
-            </div>
+    <>
+      <HeroCard
+        title="Standalone App"
+        description="The default architectural pattern for traditional SPAs. Routes are automatically generated from menuItems configuration with sidebar navigation."
+        icon={
+          <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 bg-linear-to-br from-blue-500 via-cyan-500 to-teal-500 rounded-full flex items-center justify-center shadow-lg">
+            <LucideIcons.Package className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 text-white filter drop-shadow-lg" />
           </div>
-        </CardTitle>
-      </CardContainer>
-    </div>
+        }
+      />
+
+      <section className="space-y-8">
+        <div className="text-center">
+          <Typography tag="h2" className="mb-2">
+            StandaloneAppRoutesMenuItem
+          </Typography>
+          <Typography
+            tag="p"
+            className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto"
+          >
+            Type-safe interface for defining standalone routes
+          </Typography>
+        </div>
+        <CardContainer>
+          <CardTitle title="Interface Definition">
+            <CodeBlock language="typescript" code={standaloneRouteConfig} />
+          </CardTitle>
+        </CardContainer>
+        <Alert variant="info" dismissible={false}>
+          <Typography tag="p" className="text-sm">
+            <LucideIcons.Info className="w-4 h-4 inline mr-2" />
+            The Standalone pattern is the default. You don&apos;t need to specify <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">architecturalPatterns</code>. Simply provide <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">menuItems</code> and routes will be generated.
+          </Typography>
+        </Alert>
+      </section>
+
+      <section className="space-y-8">
+        <div className="text-center">
+          <Typography tag="h2" className="mb-2">
+            Basic Usage
+          </Typography>
+          <Typography
+            tag="p"
+            className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto"
+          >
+            Simple standalone app with nested routes
+          </Typography>
+        </div>
+        <CardContainer>
+          <CardTitle title="ThemeProvider with menuItems">
+            <CodeBlock language="tsx" code={standaloneBasicUsage} />
+          </CardTitle>
+        </CardContainer>
+      </section>
+
+      <section className="space-y-8">
+        <div className="text-center">
+          <Typography tag="h2" className="mb-2">
+            Custom Routes Override
+          </Typography>
+          <Typography
+            tag="p"
+            className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto"
+          >
+            Override default routing with customRoutes prop
+          </Typography>
+        </div>
+        <CardContainer>
+          <CardTitle title="Custom Routing">
+            <CodeBlock language="tsx" code={customRoutesExample} />
+          </CardTitle>
+        </CardContainer>
+      </section>
+
+      <section className="space-y-8">
+        <div className="text-center">
+          <Typography tag="h2" className="mb-2">
+            Key Features
+          </Typography>
+          <Typography
+            tag="p"
+            className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto"
+          >
+            Benefits of the Standalone pattern
+          </Typography>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+          {features.map((feature) => (
+            <FeatureCard key={feature.title} layout="vertical" {...feature} />
+          ))}
+        </div>
+      </section>
+    </>
   );
 };
 

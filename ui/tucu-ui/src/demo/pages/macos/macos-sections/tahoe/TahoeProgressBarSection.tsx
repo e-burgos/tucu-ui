@@ -4,8 +4,12 @@ import {
   CardTitle,
   Typography,
   CodeBlock,
-} from '../../../../index';
-import { MacOSTahoeProgressBar } from '../../../../components/macos/tahoe/progress-bar-tahoe';
+  LucideIcons,
+  HeroCard,
+} from '../../../../../index';
+import { MacOSTahoeProgressBar } from '../../../../../components/macos/tahoe/controls/progress-bar-tahoe';
+import { AutoPropsTable } from '../../../../components/auto-props-table';
+import { PropPlayground } from '../../../../components/prop-playground';
 
 export const TahoeProgressBarSection: React.FC = () => {
   const [progress, setProgress] = useState(0);
@@ -19,18 +23,15 @@ export const TahoeProgressBarSection: React.FC = () => {
 
   return (
     <>
-      <div className="text-center space-y-4">
-        <Typography tag="h2" className="text-3xl md:text-4xl font-bold">
-          Progress Bar
-        </Typography>
-        <Typography
-          tag="p"
-          className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
-        >
-          Determinate and indeterminate progress indicators with glass material
-          track, accent fill, and optional label/value display.
-        </Typography>
-      </div>
+      <HeroCard
+        title="Progress Bar"
+        description="Determinate and indeterminate progress indicators with glass material track, accent fill, and optional label/value display."
+        icon={
+          <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 bg-linear-to-br from-blue-500 via-indigo-500 to-violet-600 rounded-full flex items-center justify-center shadow-lg border border-blue-500/50">
+            <LucideIcons.Activity className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 text-white filter drop-shadow-lg" />
+          </div>
+        }
+      />
 
       <CardContainer>
         <CardTitle title="Sizes" className="mt-2 mb-2">
@@ -97,7 +98,7 @@ export const TahoeProgressBarSection: React.FC = () => {
       </CardContainer>
 
       <CardContainer>
-        <CardTitle title="Usage" className="mt-2 mb-2">
+        <CardTitle title="Code Example" className="mt-2 mb-2">
           <CodeBlock
             code={`import { MacOSTahoeProgressBar } from '@e-burgos/tucu-ui';
 
@@ -119,6 +120,27 @@ export const TahoeProgressBarSection: React.FC = () => {
           />
         </CardTitle>
       </CardContainer>
+
+      <PropPlayground
+        componentName="MacOSTahoeProgressBar"
+        defaultValues={{
+          value: 65,
+          size: 'md',
+          label: 'Loading...',
+          showValue: true,
+          indeterminate: false,
+        }}
+        includeProps={['value', 'size', 'label', 'showValue', 'indeterminate']}
+        excludeProps={['className']}
+      >
+        {(props) => (
+          <div className="max-w-md w-full">
+            <MacOSTahoeProgressBar {...props} />
+          </div>
+        )}
+      </PropPlayground>
+
+      <AutoPropsTable componentName="MacOSTahoeProgressBar" />
     </>
   );
 };

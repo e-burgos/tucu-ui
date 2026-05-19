@@ -1,5 +1,11 @@
 import React from 'react';
-import { CardContainer, CardTitle, Typography } from '../../../../index';
+import {
+  CardContainer,
+  CardTitle,
+  Typography,
+  HeroCard,
+  LucideIcons,
+} from '../../../../index';
 
 // Helper function to get hex color from CSS variable
 const getColorHex = (varName: string): string => {
@@ -11,18 +17,16 @@ const getColorHex = (varName: string): string => {
 
 const ShadowsSection: React.FC = () => {
   return (
-    <>
-      <div className="text-center space-y-4">
-        <Typography tag="h2" className="text-3xl md:text-4xl font-bold">
-          Shadows
-        </Typography>
-        <Typography
-          tag="p"
-          className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
-        >
-          Shadow tokens from Tucu UI Design System for depth and elevation
-        </Typography>
-      </div>
+    <div className="space-y-8 max-w-6xl sm:space-y-12 w-full mx-auto px-4 sm:px-6 lg:px-8 relative pt-8 lg:pt-12">
+      <HeroCard
+        title="Shadows"
+        description="Shadow tokens from Tucu UI Design System for depth and elevation."
+        icon={
+          <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 bg-linear-to-br from-gray-500 via-slate-500 to-zinc-600 rounded-full flex items-center justify-center shadow-lg">
+            <LucideIcons.Layers className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 text-white filter drop-shadow-lg" />
+          </div>
+        }
+      />
 
       <CardContainer className="overflow-hidden">
         <CardTitle title="Shadow Tokens" className="mt-2 mb-2">
@@ -92,11 +96,17 @@ const ShadowsSection: React.FC = () => {
                       </Typography>
                     </div>
                     <div className="space-y-1">
-                      <Typography tag="h4" className="text-muted text-xs break-all font-mono">
+                      <Typography
+                        tag="h4"
+                        className="text-muted text-xs break-all font-mono"
+                      >
                         {shadow.varName}
                       </Typography>
                       {shadowValue && (
-                        <Typography tag="h4" className="text-muted text-[10px] break-all">
+                        <Typography
+                          tag="h4"
+                          className="text-muted text-[10px] break-all"
+                        >
                           {shadowValue}
                         </Typography>
                       )}
@@ -108,9 +118,8 @@ const ShadowsSection: React.FC = () => {
           </div>
         </CardTitle>
       </CardContainer>
-    </>
+    </div>
   );
 };
 
 export default ShadowsSection;
-

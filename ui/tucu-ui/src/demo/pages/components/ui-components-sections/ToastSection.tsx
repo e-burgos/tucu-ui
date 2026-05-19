@@ -7,9 +7,10 @@ import {
   BasicTable,
   Toast,
   Button,
+  HeroCard,
+  LucideIcons,
 } from '../../../../index';
 import { useToastStore } from '../../../../hooks/use-toast-store';
-
 const ToastSection: React.FC = () => {
   const { addToast } = useToastStore();
 
@@ -63,18 +64,16 @@ const ToastSection: React.FC = () => {
 
   return (
     <>
-      <div className="text-center space-y-4">
-        <Typography tag="h2" className="text-3xl md:text-4xl font-bold">
-          Toast
-        </Typography>
-        <Typography
-          tag="p"
-          className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
-        >
-          A toast notification system for displaying temporary messages with
-          multiple variants and auto-dismiss functionality.
-        </Typography>
-      </div>
+      <HeroCard
+        title="Toast"
+        description="A toast notification system for displaying temporary messages with
+          multiple variants and auto-dismiss functionality."
+        icon={
+          <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 bg-linear-to-br from-red-600 to-orange-500 rounded-full flex items-center justify-center shadow-lg">
+            <LucideIcons.BellRing className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-white filter drop-shadow-lg" />
+          </div>
+        }
+      />
 
       <CardContainer className="overflow-hidden">
         <CardTitle title="Basic Examples" className="mt-2 mb-2">
@@ -208,6 +207,8 @@ addToast({ id: Date.now().toString(), variant: 'info', title: 'Info', message: '
           </div>
         </CardTitle>
       </CardContainer>
+
+
     </>
   );
 };

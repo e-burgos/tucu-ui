@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  HeroCard,
   CardContainer,
   CardTitle,
   Typography,
@@ -21,36 +22,30 @@ const ArchitecturalPatternsComparisonSection: React.FC = () => {
         </Typography>
       ),
     },
-    {
-      key: 'standalone',
-      label: 'Standalone App',
-    },
-    {
-      key: 'mfe',
-      label: 'Micro Frontends (MFE)',
-    },
+    { key: 'standalone', label: 'Standalone' },
+    { key: 'mfe', label: 'MFE' },
   ];
 
   const comparisonTableData = [
     {
       feature: 'Route Configuration',
-      standalone: 'menuItems (automatic generation)',
-      mfe: 'appRoutesConfig (explicit configuration)',
+      standalone: 'menuItems (automatic)',
+      mfe: 'appRoutesConfig (explicit)',
     },
     {
       feature: 'Base Path',
-      standalone: 'Not required (uses root /)',
+      standalone: 'Not required (root /)',
       mfe: 'Required (e.g., /my-app)',
     },
     {
-      feature: 'Route Generation',
-      standalone: 'Automatic from menuItems',
-      mfe: 'Manual via appRoutesConfig',
+      feature: 'Authentication',
+      standalone: 'Basic via isPublic',
+      mfe: 'isAuthenticated + loginUrl (required)',
     },
     {
       feature: 'Nested Routes',
-      standalone: 'Supported via dropdownItems',
-      mfe: 'Supported via nested routes in config',
+      standalone: 'dropdownItems + enableNestedRoutes',
+      mfe: 'Via nested route config',
     },
     {
       feature: 'Custom Routes',
@@ -58,50 +53,42 @@ const ArchitecturalPatternsComparisonSection: React.FC = () => {
       mfe: 'Not available',
     },
     {
-      feature: 'Authentication',
-      standalone: 'Basic support via isPublic',
-      mfe: 'Advanced support with isPublic per route',
-    },
-    {
       feature: 'Route Disabling',
-      standalone: 'Not directly supported',
+      standalone: 'Not supported',
       mfe: 'Supported via disabled prop',
     },
     {
       feature: 'Deployment',
       standalone: 'Single deployment',
-      mfe: 'Independent deployments per app',
+      mfe: 'Independent per app',
     },
     {
       feature: 'Use Case',
-      standalone: 'Traditional SPAs, monolithic apps',
-      mfe: 'Distributed architectures, micro frontends',
-    },
-    {
-      feature: 'TypeScript Safety',
-      standalone: 'Enforced via discriminated unions',
-      mfe: 'Enforced via discriminated unions',
+      standalone: 'Traditional SPAs',
+      mfe: 'Distributed architectures',
     },
   ];
 
-  const whenToUseStandalone = `// Use Standalone App Pattern when:
-// ✅ Building a traditional single-page application
-// ✅ All routes are in one codebase
-// ✅ You want automatic route generation
-// ✅ Simple deployment model
-// ✅ No need for route isolation
+  const whenToUseStandalone = `import { ThemeProvider } from '@e-burgos/tucu-ui';
 
-function MyStandaloneApp() {
+// Use Standalone when:
+// ✅ Building a traditional SPA
+// ✅ All routes in one codebase
+// ✅ Want automatic route generation
+// ✅ Simple deployment model
+
+function MyApp() {
   return (
     <ThemeProvider
-      menuItems={menuItems}  // Simple configuration
+      menuItems={menuItems}
       logo={{ name: 'My', secondName: 'App' }}
     />
   );
 }`;
 
-  const whenToUseMFE = `// Use MFE Pattern when:
-// ✅ Building micro frontend architecture
+  const whenToUseMFE = `import { ThemeProvider } from '@e-burgos/tucu-ui';
+
+// Use MFE when:
 // ✅ Multiple teams working independently
 // ✅ Need independent deployments
 // ✅ Require route isolation
@@ -111,261 +98,116 @@ function MyMfeApp() {
   return (
     <ThemeProvider
       architecturalPatterns="mfe"
-      basePath="/my-app"  // Required for MFE
-      appRoutesConfig={appRoutesConfig}  // Explicit routes
-      logo={{ name: 'My', secondName: 'App' }}
+      basePath="/my-app"
+      appRoutesConfig={routes}
+      isAuthenticated={isLoggedIn}
+      loginUrl="/login"
     />
   );
 }`;
 
   return (
-    <div className="space-y-8">
-      <CardContainer>
-        <CardTitle
-          title="Architectural Patterns: Standalone vs MFE"
-          className="mt-2 mb-6"
-        >
-          <div className="space-y-6">
-            <div className="flex items-center gap-3">
-              <div className="p-2 rounded-lg bg-linear-to-br from-indigo-500 to-purple-500 shadow-lg">
-                <LucideIcons.GitCompare className="w-5 h-5 text-white filter drop-shadow-sm" />
-              </div>
-              <Typography tag="h4" className="font-semibold">
-                Pattern Comparison & Selection Guide
+    <>
+      <HeroCard
+        title="Architectural Patterns"
+        description="Compare Standalone and MFE patterns to choose the right architecture. Both use the same ThemeProvider with TypeScript-enforced discriminated unions."
+        icon={
+          <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 bg-linear-to-br from-indigo-500 via-purple-500 to-pink-500 rounded-full flex items-center justify-center shadow-lg">
+            <LucideIcons.GitCompare className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 text-white filter drop-shadow-lg" />
+          </div>
+        }
+      />
+
+      <section className="space-y-8">
+        <div className="text-center">
+          <Typography tag="h2" className="mb-2">
+            Feature Comparison
+          </Typography>
+          <Typography
+            tag="p"
+            className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto"
+          >
+            Side-by-side comparison of routing capabilities
+          </Typography>
+        </div>
+        <CardContainer>
+          <div className="p-4">
+            <BasicTable
+              columns={comparisonTableColumns}
+              data={comparisonTableData}
+            />
+          </div>
+        </CardContainer>
+        <Alert variant="info" dismissible={false}>
+          <Typography tag="p" className="text-sm">
+            <LucideIcons.Lightbulb className="w-4 h-4 inline mr-2" />
+            Both patterns use TypeScript discriminated unions. The <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">architecturalPatterns</code> prop determines which props are available, preventing configuration errors at compile time.
+          </Typography>
+        </Alert>
+      </section>
+
+      <section className="space-y-8">
+        <div className="text-center">
+          <Typography tag="h2" className="mb-2">
+            Pattern Selection
+          </Typography>
+          <Typography
+            tag="p"
+            className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto"
+          >
+            Choose the right architecture for your project
+          </Typography>
+        </div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <CardContainer>
+            <CardTitle title="Standalone App">
+              <CodeBlock language="tsx" code={whenToUseStandalone} />
+            </CardTitle>
+          </CardContainer>
+          <CardContainer>
+            <CardTitle title="Micro Frontends (MFE)">
+              <CodeBlock language="tsx" code={whenToUseMFE} />
+            </CardTitle>
+          </CardContainer>
+        </div>
+      </section>
+
+      <section className="space-y-8">
+        <div className="text-center">
+          <Typography tag="h2" className="mb-2">
+            Decision Guide
+          </Typography>
+          <Typography
+            tag="p"
+            className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto"
+          >
+            Quick guidance for choosing your architecture
+          </Typography>
+        </div>
+        <CardContainer>
+          <div className="p-6 space-y-4">
+            <div className="flex items-start gap-3">
+              <LucideIcons.ArrowRight className="w-5 h-5 text-blue-500 shrink-0 mt-0.5" />
+              <Typography tag="p" className="text-sm">
+                <strong>Start with Standalone</strong> if you&apos;re unsure — it&apos;s simpler and can be migrated to MFE later.
               </Typography>
             </div>
-
-            <Typography tag="p" className="text-gray-600 dark:text-gray-400">
-              Understanding the differences between Standalone and MFE patterns
-              helps you choose the right architecture for your project. Both
-              patterns use the same{' '}
-              <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
-                ThemeProvider
-              </code>{' '}
-              component, but with different configuration approaches and use
-              cases.
-            </Typography>
-
-            <Alert variant="info" dismissible={false}>
-              <div className="flex flex-col gap-2">
-                <div className="flex items-center gap-2">
-                  <LucideIcons.Lightbulb className="w-4 h-4" />
-                  <Typography tag="span" className="font-semibold">
-                    TypeScript Safety
-                  </Typography>
-                </div>
-                <Typography tag="p" className="text-sm">
-                  Both patterns use TypeScript discriminated unions to enforce
-                  the correct props. The{' '}
-                  <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
-                    architecturalPatterns
-                  </code>{' '}
-                  prop determines which props are available, preventing
-                  configuration errors at compile time.
-                </Typography>
-              </div>
-            </Alert>
-
-            <div className="space-y-6">
-              <div className="space-y-4">
-                <Typography tag="h4" className="font-semibold text-lg">
-                  Feature Comparison
-                </Typography>
-                <BasicTable
-                  columns={comparisonTableColumns}
-                  data={comparisonTableData}
-                />
-              </div>
-
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <CardContainer className="p-4">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="p-2 rounded-lg bg-linear-to-br from-blue-500 to-cyan-500 shadow-lg">
-                      <LucideIcons.Package className="w-5 h-5 text-white filter drop-shadow-sm" />
-                    </div>
-                    <Typography tag="h4" className="font-semibold">
-                      Standalone App Pattern
-                    </Typography>
-                  </div>
-                  <div className="space-y-3">
-                    <div>
-                      <Typography
-                        tag="h5"
-                        className="font-semibold text-sm mb-2"
-                      >
-                        When to Use:
-                      </Typography>
-                      <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
-                        <li className="flex items-start gap-2">
-                          <LucideIcons.Check className="w-4 h-4 text-green-500 shrink-0 mt-0.5" />
-                          <span>Traditional single-page applications</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <LucideIcons.Check className="w-4 h-4 text-green-500 shrink-0 mt-0.5" />
-                          <span>All routes in one codebase</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <LucideIcons.Check className="w-4 h-4 text-green-500 shrink-0 mt-0.5" />
-                          <span>Simple deployment model</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <LucideIcons.Check className="w-4 h-4 text-green-500 shrink-0 mt-0.5" />
-                          <span>Want automatic route generation</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <LucideIcons.Check className="w-4 h-4 text-green-500 shrink-0 mt-0.5" />
-                          <span>No need for route isolation</span>
-                        </li>
-                      </ul>
-                    </div>
-                    <div>
-                      <Typography
-                        tag="h5"
-                        className="font-semibold text-sm mb-2"
-                      >
-                        Key Advantages:
-                      </Typography>
-                      <ul className="space-y-1 text-sm text-gray-600 dark:text-gray-400">
-                        <li className="flex items-start gap-2">
-                          <LucideIcons.Circle className="w-3 h-3 mt-1 shrink-0 fill-current" />
-                          <span>Simple configuration with menuItems</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <LucideIcons.Circle className="w-3 h-3 mt-1 shrink-0 fill-current" />
-                          <span>Automatic route generation</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <LucideIcons.Circle className="w-3 h-3 mt-1 shrink-0 fill-current" />
-                          <span>Nested routes via dropdownItems</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <LucideIcons.Circle className="w-3 h-3 mt-1 shrink-0 fill-current" />
-                          <span>Optional customRoutes override</span>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div className="mt-4 p-3 bg-light-dark rounded-lg">
-                    <CodeBlock language="tsx" code={whenToUseStandalone} />
-                  </div>
-                </CardContainer>
-
-                <CardContainer className="p-4">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="p-2 rounded-lg bg-linear-to-br from-purple-500 to-indigo-500 shadow-lg">
-                      <LucideIcons.Box className="w-5 h-5 text-white filter drop-shadow-sm" />
-                    </div>
-                    <Typography tag="h4" className="font-semibold">
-                      Micro Frontends (MFE) Pattern
-                    </Typography>
-                  </div>
-                  <div className="space-y-3">
-                    <div>
-                      <Typography
-                        tag="h5"
-                        className="font-semibold text-sm mb-2"
-                      >
-                        When to Use:
-                      </Typography>
-                      <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
-                        <li className="flex items-start gap-2">
-                          <LucideIcons.Check className="w-4 h-4 text-green-500 shrink-0 mt-0.5" />
-                          <span>Micro frontend architecture</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <LucideIcons.Check className="w-4 h-4 text-green-500 shrink-0 mt-0.5" />
-                          <span>Multiple teams working independently</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <LucideIcons.Check className="w-4 h-4 text-green-500 shrink-0 mt-0.5" />
-                          <span>Need independent deployments</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <LucideIcons.Check className="w-4 h-4 text-green-500 shrink-0 mt-0.5" />
-                          <span>Require route isolation</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <LucideIcons.Check className="w-4 h-4 text-green-500 shrink-0 mt-0.5" />
-                          <span>Need explicit route control</span>
-                        </li>
-                      </ul>
-                    </div>
-                    <div>
-                      <Typography
-                        tag="h5"
-                        className="font-semibold text-sm mb-2"
-                      >
-                        Key Advantages:
-                      </Typography>
-                      <ul className="space-y-1 text-sm text-gray-600 dark:text-gray-400">
-                        <li className="flex items-start gap-2">
-                          <LucideIcons.Circle className="w-3 h-3 mt-1 shrink-0 fill-current" />
-                          <span>Explicit route configuration</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <LucideIcons.Circle className="w-3 h-3 mt-1 shrink-0 fill-current" />
-                          <span>Route isolation with basePath</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <LucideIcons.Circle className="w-3 h-3 mt-1 shrink-0 fill-current" />
-                          <span>Advanced authentication support</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <LucideIcons.Circle className="w-3 h-3 mt-1 shrink-0 fill-current" />
-                          <span>Route disabling capability</span>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div className="mt-4 p-3 bg-light-dark rounded-lg">
-                    <CodeBlock language="tsx" code={whenToUseMFE} />
-                  </div>
-                </CardContainer>
-              </div>
-
-              <CardContainer className="p-4">
-                <div className="flex items-start gap-3">
-                  <LucideIcons.Lightbulb className="w-5 h-5 text-yellow-500 shrink-0 mt-0.5" />
-                  <div>
-                    <Typography tag="p" className="text-sm font-semibold mb-2">
-                      Decision Guide
-                    </Typography>
-                    <Typography
-                      tag="p"
-                      className="text-sm text-gray-600 dark:text-gray-400 mb-3"
-                    >
-                      Choose <strong>Standalone App Pattern</strong> if you're
-                      building a traditional SPA with all routes in one
-                      codebase. Choose <strong>MFE Pattern</strong> if you need
-                      independent deployments, route isolation, or are building
-                      a micro frontend architecture.
-                    </Typography>
-                    <div className="space-y-2 text-sm">
-                      <div className="flex items-start gap-2">
-                        <LucideIcons.ArrowRight className="w-4 h-4 text-blue-500 shrink-0 mt-0.5" />
-                        <span>
-                          <strong>Start with Standalone</strong> if you're
-                          unsure - it's simpler and can be migrated to MFE later
-                          if needed.
-                        </span>
-                      </div>
-                      <div className="flex items-start gap-2">
-                        <LucideIcons.ArrowRight className="w-4 h-4 text-purple-500 shrink-0 mt-0.5" />
-                        <span>
-                          <strong>Use MFE</strong> from the start if you know
-                          you'll need independent deployments or route
-                          isolation.
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </CardContainer>
+            <div className="flex items-start gap-3">
+              <LucideIcons.ArrowRight className="w-5 h-5 text-purple-500 shrink-0 mt-0.5" />
+              <Typography tag="p" className="text-sm">
+                <strong>Use MFE from the start</strong> if you know you&apos;ll need independent deployments or route isolation.
+              </Typography>
+            </div>
+            <div className="flex items-start gap-3">
+              <LucideIcons.ArrowRight className="w-5 h-5 text-green-500 shrink-0 mt-0.5" />
+              <Typography tag="p" className="text-sm">
+                <strong>Both patterns share</strong> the same ThemeProvider, theming, and layout system — only routing differs.
+              </Typography>
             </div>
           </div>
-        </CardTitle>
-      </CardContainer>
-    </div>
+        </CardContainer>
+      </section>
+    </>
   );
 };
 

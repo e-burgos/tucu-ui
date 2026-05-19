@@ -4,74 +4,100 @@ import { DynamicSectionsPage, type SectionConfig } from '../../components';
 import { useTheme } from '../../../themes';
 
 const sections: SectionConfig[] = [
+  // ── Foundations ──────────────────────────────────────────────
   {
-    id: 'macos-colors',
+    id: 'sonoma-colors',
     label: 'Colors',
     category: 'Foundations',
-    component: lazy(() => import('./macos-sections/MacOSColorsSection')),
+    component: lazy(
+      () => import('./macos-sections/sonoma/SonomaColorsSection')
+    ),
   },
   {
-    id: 'macos-materials',
+    id: 'sonoma-materials',
     label: 'Materials',
     category: 'Foundations',
-    component: lazy(() => import('./macos-sections/MacOSMaterialsSection')),
+    component: lazy(
+      () => import('./macos-sections/sonoma/SonomaMaterialsSection')
+    ),
   },
   {
-    id: 'macos-text-styles',
-    label: 'Text Styles',
+    id: 'sonoma-typography',
+    label: 'Typography',
     category: 'Foundations',
-    component: lazy(() => import('./macos-sections/MacOSTextStylesSection')),
+    component: lazy(
+      () => import('./macos-sections/sonoma/SonomaTypographySection')
+    ),
   },
   {
-    id: 'macos-backgrounds',
-    label: 'Backgrounds',
+    id: 'sonoma-shapes',
+    label: 'Shapes & Spacing',
     category: 'Foundations',
-    component: lazy(() => import('./macos-sections/MacOSBackgroundsSection')),
+    component: lazy(
+      () => import('./macos-sections/sonoma/SonomaShapesSection')
+    ),
   },
-  {
-    id: 'macos-window',
-    label: 'Window',
-    category: 'Containers',
-    component: lazy(() => import('./macos-sections/MacOSWindowSection')),
-  },
+  // ── Layouts ───────────────────────────────────────────────────
   {
     id: 'macos-sidebar',
-    label: 'Sidebar',
+    label: 'MacSidebarCard',
     category: 'Containers',
-    component: lazy(() => import('./macos-sections/MacOSSidebarSection')),
+    component: lazy(
+      () => import('./macos-sections/sonoma/MacOSSidebarSection')
+    ),
   },
   {
     id: 'macos-toolbar',
     label: 'Toolbar',
+    category: 'Layouts',
+    component: lazy(
+      () => import('./macos-sections/sonoma/MacOSToolbarSection')
+    ),
+  },
+  {
+    id: 'sonoma-layout-sidebar',
+    label: 'Layout Sidebar',
+    category: 'Layouts',
+    component: lazy(
+      () => import('./macos-sections/sonoma/SonomaLayoutSidebarSection')
+    ),
+  },
+  {
+    id: 'sonoma-layout-content',
+    label: 'Layout Content',
+    category: 'Layouts',
+    component: lazy(
+      () => import('./macos-sections/sonoma/SonomaLayoutContentSection')
+    ),
+  },
+  // ── Containers ───────────────────────────────────────────────
+  {
+    id: 'macos-window',
+    label: 'Window',
     category: 'Containers',
-    component: lazy(() => import('./macos-sections/MacOSToolbarSection')),
+    component: lazy(() => import('./macos-sections/sonoma/MacOSWindowSection')),
   },
   {
     id: 'macos-widget',
     label: 'Widget',
     category: 'Containers',
-    component: lazy(() => import('./macos-sections/MacOSWidgetSection')),
+    component: lazy(() => import('./macos-sections/sonoma/MacOSWidgetSection')),
   },
+  // ── Controls ─────────────────────────────────────────────────
   {
     id: 'macos-segmented-control',
     label: 'Segmented Control',
     category: 'Controls',
     component: lazy(
-      () => import('./macos-sections/MacOSSegmentedControlSection')
+      () => import('./macos-sections/sonoma/MacOSSegmentedControlSection')
     ),
   },
   {
     id: 'macos-search-bar',
     label: 'Search Bar',
     category: 'Controls',
-    component: lazy(() => import('./macos-sections/MacOSSearchBarSection')),
-  },
-  {
-    id: 'macos-notification-banner',
-    label: 'Notification Banner',
-    category: 'Feedback',
     component: lazy(
-      () => import('./macos-sections/MacOSNotificationBannerSection')
+      () => import('./macos-sections/sonoma/MacOSSearchBarSection')
     ),
   },
   {
@@ -79,14 +105,25 @@ const sections: SectionConfig[] = [
     label: 'Command Palette',
     category: 'Controls',
     component: lazy(
-      () => import('./macos-sections/MacOSCommandPaletteSection')
+      () => import('./macos-sections/sonoma/MacOSCommandPaletteSection')
+    ),
+  },
+  // ── Feedback ─────────────────────────────────────────────────
+  {
+    id: 'macos-notification-banner',
+    label: 'Notification Banner',
+    category: 'Feedback',
+    component: lazy(
+      () => import('./macos-sections/sonoma/MacOSNotificationBannerSection')
     ),
   },
   {
     id: 'macos-popover',
     label: 'Popover',
     category: 'Feedback',
-    component: lazy(() => import('./macos-sections/MacOSPopoverSection')),
+    component: lazy(
+      () => import('./macos-sections/sonoma/MacOSPopoverSection')
+    ),
   },
 ];
 
@@ -100,6 +137,7 @@ export function MacOSSonomaShowcase() {
 
   return (
     <DynamicSectionsPage
+      hideHeroInSubSections
       sections={sections}
       hero={
         <HeroCard

@@ -4,11 +4,15 @@ import {
   CardTitle,
   Typography,
   CodeBlock,
+  BasicTable,
+  HeroCard,
+  LucideIcons,
 } from '../../../../index';
 import { TabSelect } from '../../../../components/tabs';
 import { Home, Settings, User } from 'lucide-react';
 import { AutoPropsTable } from '../../../components/auto-props-table';
 
+import { PropPlayground } from '../../../components/prop-playground';
 const TabSelectSection: React.FC = () => {
   const [selectedIndex1, setSelectedIndex1] = useState(0);
   const [selectedIndex2, setSelectedIndex2] = useState(0);
@@ -79,19 +83,17 @@ const TabSelectSection: React.FC = () => {
 
   return (
     <>
-      <div className="text-center space-y-4">
-        <Typography tag="h2" className="text-3xl md:text-4xl font-bold">
-          TabSelect
-        </Typography>
-        <Typography
-          tag="p"
-          className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
-        >
-          A mobile-friendly dropdown tab selector with smooth animations and
+      <HeroCard
+        title="TabSelect"
+        description="A mobile-friendly dropdown tab selector with smooth animations and
           transitions, designed for responsive tab navigation in constrained
-          spaces.
-        </Typography>
-      </div>
+          spaces."
+        icon={
+          <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 bg-linear-to-br from-indigo-500 to-purple-500 rounded-full flex items-center justify-center shadow-lg">
+            <LucideIcons.ChevronDown className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-white filter drop-shadow-lg" />
+          </div>
+        }
+      />
 
       <CardContainer className="overflow-hidden">
         <CardTitle title="Basic Examples" className="mt-2 mb-2">
@@ -317,44 +319,71 @@ const TabSelectSection: React.FC = () => {
       <CardContainer className="overflow-hidden">
         <CardTitle title="TabSelectMenuItem Interface" className="mt-2 mb-2">
           <div className="w-full p-4 sm:p-6">
-            <table className="w-full text-sm text-left">
-              <thead>
-                <tr className="border-b border-gray-200 dark:border-gray-700">
-                  <th className="px-3 py-2 font-semibold">Prop</th>
-                  <th className="px-3 py-2 font-semibold">Type</th>
-                  <th className="px-3 py-2 font-semibold">Default</th>
-                  <th className="px-3 py-2 font-semibold">Description</th>
-                </tr>
-              </thead>
-              <tbody>
-                {interfaceData.map((row) => (
-                  <tr
-                    key={row.prop}
-                    className="border-b border-gray-100 dark:border-gray-800"
-                  >
-                    <td className="px-3 py-2">
-                      <code className="text-xs text-brand">{row.prop}</code>
-                    </td>
-                    <td className="px-3 py-2">
-                      <code className="text-xs">{row.type}</code>
-                    </td>
-                    <td className="px-3 py-2">
-                      {row.default === 'required' ? (
-                        <span className="text-xs text-red-500">required</span>
-                      ) : (
-                        <code className="text-xs">{row.default}</code>
-                      )}
-                    </td>
-                    <td className="px-3 py-2 text-gray-600 dark:text-gray-400">
-                      {row.description}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+            <BasicTable
+              columns={[
+                {
+                  key: 'prop',
+                  label: 'Prop',
+                  render: (value: unknown) => (
+                    <code className="text-xs text-brand">
+                      {String(value ?? '')}
+                    </code>
+                  ),
+                },
+                {
+                  key: 'type',
+                  label: 'Type',
+                  render: (value: unknown) => (
+                    <code className="text-xs">{String(value ?? '')}</code>
+                  ),
+                },
+                {
+                  key: 'default',
+                  label: 'Default',
+                  render: (value: unknown) =>
+                    value === 'required' ? (
+                      <span className="text-xs text-red-500">required</span>
+                    ) : (
+                      <code className="text-xs">{String(value ?? '')}</code>
+                    ),
+                },
+                {
+                  key: 'description',
+                  label: 'Description',
+                  render: (value: unknown) => (
+                    <span className="text-xs text-gray-600 dark:text-gray-400">
+                      {String(value ?? '')}
+                    </span>
+                  ),
+                },
+              ]}
+              data={interfaceData as Array<Record<string, unknown>>}
+            />
           </div>
         </CardTitle>
       </CardContainer>
+      <PropPlayground
+        componentName="TabSelect"
+        title="TabSelect Playground"
+        defaultValues={{
+          'selectedTabIndex': 0
+}}
+        excludeProps={['onChange', 'tabMenu']}
+      >
+        {(props) => (
+          <TabSelect
+            {...props}
+            onChange={() => {}}
+            tabMenu={[
+              { title: 'Option A' },
+              { title: 'Option B' },
+              { title: 'Option C' },
+            ]}
+          />
+        )}
+      </PropPlayground>
+
+
       <AutoPropsTable componentName="TabSelect" />
 
       <CardContainer className="overflow-hidden">

@@ -5,6 +5,8 @@ import {
   Typography,
   CodeBlock,
   PinCode,
+  HeroCard,
+  LucideIcons,
 } from '../../../../index';
 import { AutoPropsTable } from '../../../components/auto-props-table';
 import { PropPlayground } from '../../../components/prop-playground';
@@ -35,17 +37,15 @@ const PinCodeSection: React.FC = () => {
 
   return (
     <>
-      <div className="text-center space-y-4">
-        <Typography tag="h2" className="text-3xl md:text-4xl font-bold">
-          PinCode
-        </Typography>
-        <Typography
-          tag="p"
-          className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
-        >
-          A pin code input component for entering numeric codes digit by digit.
-        </Typography>
-      </div>
+      <HeroCard
+        title="PinCode"
+        description="A pin code input component for entering numeric codes digit by digit."
+        icon={
+          <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 bg-linear-to-br from-amber-500 via-orange-500 to-yellow-500 rounded-full flex items-center justify-center shadow-lg border border-amber-500/50">
+            <LucideIcons.Hash className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 text-white filter drop-shadow-lg" />
+          </div>
+        }
+      />
 
       <CardContainer className="overflow-hidden">
         <CardTitle title="Examples" className="mt-2 mb-2">

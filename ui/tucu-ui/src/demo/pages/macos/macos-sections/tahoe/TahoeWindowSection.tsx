@@ -5,8 +5,11 @@ import {
   Typography,
   CodeBlock,
   LucideIcons,
-} from '../../../../index';
-import { MacOSTahoeWindow } from '../../../../components/macos/tahoe/window-tahoe';
+  HeroCard,
+} from '../../../../../index';
+import { MacOSTahoeWindow } from '../../../../../components/macos/tahoe/containers/window-tahoe';
+import { AutoPropsTable } from '../../../../components/auto-props-table';
+import { PropPlayground } from '../../../../components/prop-playground';
 
 // ─── Helper: restore button ────────────────────────────────────
 
@@ -47,19 +50,15 @@ export const TahoeWindowSection: React.FC = () => {
 
   return (
     <>
-      <div className="text-center space-y-4">
-        <Typography tag="h2" className="text-3xl md:text-4xl font-bold">
-          Window
-        </Typography>
-        <Typography
-          tag="p"
-          className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
-        >
-          Liquid Glass window with translucent title bar, traffic lights, and
-          optional resize handles. Supports close, minimize, fullscreen, and
-          portal rendering.
-        </Typography>
-      </div>
+      <HeroCard
+        title="Window"
+        description="Liquid Glass window with translucent title bar, traffic lights, and optional resize handles. Supports close, minimize, fullscreen, and portal rendering."
+        icon={
+          <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 bg-linear-to-br from-slate-500 via-indigo-500 to-purple-600 rounded-full flex items-center justify-center shadow-lg border border-slate-500/50">
+            <LucideIcons.AppWindow className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 text-white filter drop-shadow-lg" />
+          </div>
+        }
+      />
 
       <CardContainer>
         <CardTitle title="Default Window" className="mt-2 mb-2">
@@ -230,7 +229,7 @@ export const TahoeWindowSection: React.FC = () => {
       </CardContainer>
 
       <CardContainer>
-        <CardTitle title="Usage" className="mt-2 mb-2">
+        <CardTitle title="Code Example" className="mt-2 mb-2">
           <CodeBlock
             code={`import { MacOSTahoeWindow } from '@e-burgos/tucu-ui';
 
@@ -260,6 +259,65 @@ export const TahoeWindowSection: React.FC = () => {
           />
         </CardTitle>
       </CardContainer>
+
+      <PropPlayground
+        componentName="MacOSTahoeWindow"
+        defaultValues={{
+          title: 'My Window',
+          defaultState: 'normal',
+          trafficLightsPosition: 'left',
+          showTrafficLights: true,
+          disableClose: false,
+          disableMinimize: false,
+          disableMaximize: false,
+          draggable: false,
+          fullSize: false,
+          resizable: false,
+          portal: false,
+          width: 380,
+          minWidth: 200,
+          minHeight: 120,
+        }}
+        includeProps={[
+          'title',
+          'defaultState',
+          'trafficLightsPosition',
+          'showTrafficLights',
+          'disableClose',
+          'disableMinimize',
+          'disableMaximize',
+          'draggable',
+          'fullSize',
+          'resizable',
+          'portal',
+          'width',
+          'minWidth',
+          'minHeight',
+        ]}
+        excludeProps={[
+          'className',
+          'height',
+          'titleBarClassName',
+          'onClose',
+          'onMinimize',
+          'onMaximize',
+        ]}
+      >
+        {(props) => (
+          <div
+            className="relative rounded-xl bg-linear-to-br from-slate-500/20 to-indigo-500/20 p-8"
+            style={{ minHeight: 220 }}
+          >
+            <MacOSTahoeWindow {...props}>
+              <div className="p-4 text-[13px] text-(--macos-tahoe-text)">
+                Interactive window — adjust props above.
+              </div>
+            </MacOSTahoeWindow>
+          </div>
+        )}
+      </PropPlayground>
+
+      <AutoPropsTable componentName="MacOSTahoeWindow" />
     </>
   );
 };

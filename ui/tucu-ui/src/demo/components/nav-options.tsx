@@ -1,6 +1,5 @@
-import { SwitchMode } from '../../themes';
+import { SwitchMode, SwitchVariant } from '../../themes';
 import { ListContainer } from '../../components';
-// import { PlaygroundButton } from './playground-button';
 
 export const NavOptions = () => {
   return (
@@ -8,13 +7,13 @@ export const NavOptions = () => {
       label="Options"
       items={[
         {
+          id: 'theme-variant',
+          content: <SwitchVariant />,
+        },
+        {
           id: 'theme',
           content: <SwitchMode />,
         },
-        // {
-        //   id: 'layout',
-        //   content: <PlaygroundButton />,
-        // },
       ]}
     />
   );

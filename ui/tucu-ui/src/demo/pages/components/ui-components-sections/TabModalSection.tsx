@@ -5,11 +5,14 @@ import {
   Typography,
   CodeBlock,
   Button,
+  HeroCard,
+  LucideIcons,
 } from '../../../../index';
 import { TabModal } from '../../../../components/dialog/tab-modal';
 import { AutoPropsTable } from '../../../components/auto-props-table';
 import { Activity, BarChart3, Settings } from 'lucide-react';
 
+import { PropPlayground } from '../../../components/prop-playground';
 const TabModalSection: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenTabs, setIsOpenTabs] = useState(false);
@@ -17,18 +20,16 @@ const TabModalSection: React.FC = () => {
 
   return (
     <>
-      <div className="text-center space-y-4">
-        <Typography tag="h2" className="text-3xl md:text-4xl font-bold">
-          TabModal
-        </Typography>
-        <Typography
-          tag="p"
-          className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
-        >
-          A modal dialog with built-in tab navigation, header with icon/badge,
-          expandable footer, and mobile-first responsive design.
-        </Typography>
-      </div>
+      <HeroCard
+        title="TabModal"
+        description="A modal dialog with built-in tab navigation, header with icon/badge,
+          expandable footer, and mobile-first responsive design."
+        icon={
+          <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 bg-linear-to-br from-orange-500 to-amber-500 rounded-full flex items-center justify-center shadow-lg">
+            <LucideIcons.SquareStack className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-white filter drop-shadow-lg" />
+          </div>
+        }
+      />
 
       <CardContainer className="overflow-hidden">
         <CardTitle title="Basic Examples" className="mt-2 mb-2">
@@ -136,6 +137,30 @@ const TabModalSection: React.FC = () => {
           </div>
         </CardTitle>
       </CardContainer>
+      <PropPlayground
+        componentName="TabModal"
+        title="TabModal Playground"
+        defaultValues={{
+          'title': 'Modal Title',
+          'subtitle': 'Modal subtitle',
+          'footerLabel': 'Footer text',
+          'closeLabel': 'Cancel'
+}}
+        excludeProps={['onClose', 'tabs', 'content', 'icon', 'className', 'closeButton', 'successButton', 'badgeHeader', 'badgeHeaderClassName']}
+      >
+        {(props) => (
+          <TabModal
+            {...props}
+            onClose={() => {}}
+            tabs={[
+              { title: 'Tab 1', content: <Typography tag="p">Content 1</Typography> },
+              { title: 'Tab 2', content: <Typography tag="p">Content 2</Typography> },
+            ]}
+          />
+        )}
+      </PropPlayground>
+
+
 
       <AutoPropsTable componentName="TabModal" />
 

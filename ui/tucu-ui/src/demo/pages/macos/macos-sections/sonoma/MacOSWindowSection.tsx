@@ -2,32 +2,57 @@ import React, { useState } from 'react';
 import {
   CardContainer,
   CardTitle,
-  Typography,
   CodeBlock,
   Button,
-} from '../../../../index';
-import { MacOSWindow } from '../../../../components/macos/window';
+  HeroCard,
+  LucideIcons,
+} from '../../../../../index';
+import { MacOSWindow } from '../../../../../components/macos/sonoma/containers/window';
+import { AutoPropsTable } from '../../../../components/auto-props-table';
+import { PropPlayground } from '../../../../components/prop-playground';
+
+// ─── PropPlayground sub-component (avoids hooks-in-render-prop violation) ──────
+function WindowPlayground(props: {
+  title?: string;
+  draggable?: boolean;
+  resizable?: boolean;
+  showTrafficLights?: boolean;
+  trafficLightsPosition?: 'left' | 'right';
+  defaultWidth?: number | string;
+  defaultHeight?: number | string;
+  minWidth?: number;
+  minHeight?: number;
+}) {
+  return (
+    <div
+      className="relative rounded-xl bg-gray-100 dark:bg-gray-800/50 p-8"
+      style={{ minHeight: 220 }}
+    >
+      <MacOSWindow {...props} defaultWidth={props.defaultWidth ?? 380}>
+        <div className="p-4 text-sm text-gray-700 dark:text-gray-300">
+          Interactive window — adjust props above.
+        </div>
+      </MacOSWindow>
+    </div>
+  );
+}
 
 export const MacOSWindowSection: React.FC = () => {
   const [open, setOpen] = useState(true);
 
   return (
     <>
-      <div className="text-center space-y-4">
-        <Typography tag="h2" className="text-3xl md:text-4xl font-bold">
-          MacOSWindow
-        </Typography>
-        <Typography
-          tag="p"
-          className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
-        >
-          A macOS-style window container with vibrancy title bar, traffic-light
-          buttons, and optional action slots. Supports drag, resize, maximize
-          and minimize.
-        </Typography>
-      </div>
+      <HeroCard
+        title="Window"
+        description="A macOS-style window container with vibrancy title bar, traffic-light buttons, drag & resize support, maximize/minimize states, and optional action slots."
+        icon={
+          <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 bg-linear-to-br from-blue-500 via-indigo-500 to-purple-600 rounded-full flex items-center justify-center shadow-lg border border-blue-500/50">
+            <LucideIcons.AppWindow className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 text-white filter drop-shadow-lg" />
+          </div>
+        }
+      />
 
-      <CardContainer>
+      <CardContainer className="overflow-hidden">
         <CardTitle
           title="Interactive — Drag, Resize, Maximize"
           className="mt-2 mb-2"
@@ -58,7 +83,7 @@ export const MacOSWindowSection: React.FC = () => {
         </CardTitle>
       </CardContainer>
 
-      <CardContainer>
+      <CardContainer className="overflow-hidden">
         <CardTitle
           title="Traffic Lights — Left (default)"
           className="mt-2 mb-2"
@@ -72,14 +97,14 @@ export const MacOSWindowSection: React.FC = () => {
             >
               <div className="p-6 text-sm text-gray-700 dark:text-gray-300">
                 Window content goes here. The title bar uses vibrancy material
-                and the traffic lights appear on hover with ×, −, ⤢ icons.
+                and the traffic lights appear on hover.
               </div>
             </MacOSWindow>
           </div>
         </CardTitle>
       </CardContainer>
 
-      <CardContainer>
+      <CardContainer className="overflow-hidden">
         <CardTitle title="Traffic Lights — Right" className="mt-2 mb-2">
           <div className="w-full p-4 sm:p-6">
             <MacOSWindow
@@ -96,7 +121,7 @@ export const MacOSWindowSection: React.FC = () => {
         </CardTitle>
       </CardContainer>
 
-      <CardContainer>
+      <CardContainer className="overflow-hidden">
         <CardTitle
           title="Without Traffic Lights + Custom Actions"
           className="mt-2 mb-2"
@@ -122,7 +147,7 @@ export const MacOSWindowSection: React.FC = () => {
         </CardTitle>
       </CardContainer>
 
-      <CardContainer>
+      <CardContainer className="overflow-hidden">
         <CardTitle title="Toggle Visibility" className="mt-2 mb-2">
           <div className="w-full p-4 sm:p-6 space-y-4">
             <Button onClick={() => setOpen((v) => !v)}>
@@ -136,8 +161,7 @@ export const MacOSWindowSection: React.FC = () => {
                 onClose={() => setOpen(false)}
               >
                 <div className="p-6 text-sm text-gray-700 dark:text-gray-300">
-                  Click the red traffic light or the button above to close this
-                  window.
+                  Click the red traffic light or the button above to close.
                 </div>
               </MacOSWindow>
             )}
@@ -145,7 +169,93 @@ export const MacOSWindowSection: React.FC = () => {
         </CardTitle>
       </CardContainer>
 
-      <CardContainer>
+      <PropPlayground
+        componentName="MacOSWindow"
+        defaultValues={{
+          title: 'My Window',
+          draggable: true,
+          resizable: true,
+          showTrafficLights: true,
+          trafficLightsPosition: 'left',
+          defaultWidth: 380,
+          defaultHeight: 200,
+          minWidth: 200,
+          minHeight: 120,
+        }}
+        controlOverrides={[
+          {
+            name: 'title',
+            type: 'text',
+            description: 'Window title displayed in the title bar',
+          },
+          {
+            name: 'draggable',
+            type: 'boolean',
+            description: 'Allow drag-moving by the title bar',
+          },
+          {
+            name: 'resizable',
+            type: 'boolean',
+            description: 'Allow resizing from edges/corners',
+          },
+          {
+            name: 'showTrafficLights',
+            type: 'boolean',
+            description: 'Show close/minimize/maximize buttons',
+          },
+          {
+            name: 'trafficLightsPosition',
+            type: 'select',
+            options: ['left', 'right'],
+            description: 'Position of traffic light buttons',
+          },
+          {
+            name: 'defaultWidth',
+            type: 'text',
+            description: 'Initial width (px or CSS value)',
+          },
+          {
+            name: 'defaultHeight',
+            type: 'text',
+            description: 'Initial height (px or CSS value)',
+          },
+          {
+            name: 'minWidth',
+            type: 'text',
+            description: 'Minimum width in pixels',
+          },
+          {
+            name: 'minHeight',
+            type: 'text',
+            description: 'Minimum height in pixels',
+          },
+        ]}
+        includeProps={[
+          'title',
+          'draggable',
+          'resizable',
+          'showTrafficLights',
+          'trafficLightsPosition',
+          'defaultWidth',
+          'defaultHeight',
+          'minWidth',
+          'minHeight',
+        ]}
+        excludeProps={[
+          'className',
+          'titleBarClassName',
+          'actions',
+          'onClose',
+          'onMinimize',
+          'onMaximize',
+        ]}
+      >
+        {(props) => <WindowPlayground {...props} />}
+      </PropPlayground>
+
+      <AutoPropsTable componentName="MacOSWindow" />
+
+      <CardContainer className="overflow-hidden">
         <CardTitle title="Code Example" className="mt-2 mb-2">
           <div className="w-full p-4 sm:p-6">
             <CodeBlock
@@ -164,11 +274,7 @@ export const MacOSWindowSection: React.FC = () => {
 </MacOSWindow>
 
 // Static window (no drag/resize)
-<MacOSWindow
-  title="Static"
-  draggable={false}
-  resizable={false}
->
+<MacOSWindow title="Static" draggable={false} resizable={false}>
   <div className="p-6">Content</div>
 </MacOSWindow>
 

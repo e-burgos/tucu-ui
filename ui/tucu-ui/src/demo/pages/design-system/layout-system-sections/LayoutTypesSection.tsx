@@ -1,5 +1,12 @@
 import React from 'react';
-import { CardContainer, Typography, LucideIcons, Badge, LAYOUT_OPTIONS } from '../../../../index';
+import {
+  CardContainer,
+  Typography,
+  LucideIcons,
+  Badge,
+  LAYOUT_OPTIONS,
+  HeroCard,
+} from '../../../../index';
 
 const LayoutTypesSection: React.FC = () => {
   const layoutTypes = [
@@ -27,13 +34,13 @@ const LayoutTypesSection: React.FC = () => {
         'RTL/LTR direction support',
         'Full-width content option available',
         'Sidebar padding: 96px (xl) / 112px (2xl)',
-        'Content padding: 16px (mobile) / 24px (sm) / 32px (lg) / 40px (3xl)',
+        'Content padding: 16px (mobile) / 24px (sm) / 32px (lg) / 40px (min-[1780px])',
       ],
       technical: {
         sidebar: 'ExpandableSidebar component (hidden on mobile, visible xl+)',
         header: 'AdminHeader component with menu toggle',
         drawer: 'Drawer component for mobile navigation',
-        breakpoint: 'Sidebar visible from xl breakpoint (1024px)',
+        breakpoint: 'Sidebar visible from xl breakpoint (1280px)',
       },
     },
     {
@@ -59,7 +66,7 @@ const LayoutTypesSection: React.FC = () => {
         'Mobile hamburger menu with drawer',
         'Backdrop blur effects on header',
         'Full-width content option available',
-        'Content padding: 8px (mobile) / 24px (sm) / 32px (lg) / 40px (3xl)',
+        'Content padding: 8px (mobile) / 24px (sm) / 32px (lg) / 40px (min-[1780px])',
         'Minimal vertical space usage',
       ],
       technical: {
@@ -106,13 +113,23 @@ const LayoutTypesSection: React.FC = () => {
 
   return (
     <>
-      <div className="text-center space-y-4">
-        <Typography tag="h2" className="text-3xl md:text-4xl font-bold">
+      <HeroCard
+        title="Layout Types"
+        description="Three distinct layout patterns for various application types and navigation needs."
+        icon={
+          <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 bg-linear-to-br from-cyan-500 via-teal-500 to-emerald-500 rounded-full flex items-center justify-center shadow-lg">
+            <LucideIcons.LayoutGrid className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 text-white filter drop-shadow-lg" />
+          </div>
+        }
+      />
+
+      <div className="text-center">
+        <Typography tag="h2" className="mb-2">
           Layout Types
         </Typography>
         <Typography
           tag="p"
-          className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
+          className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto"
         >
           Three distinct layout patterns for various application types. Choose
           the right layout based on your application's navigation needs and
@@ -130,7 +147,7 @@ const LayoutTypesSection: React.FC = () => {
               {/* Header */}
               <div className="flex items-start gap-4">
                 <div
-                  className={`p-3 rounded-xl bg-gradient-to-br ${layout.color} group-hover:scale-110 transition-all duration-300 shadow-lg shrink-0`}
+                  className={`p-3 rounded-xl bg-linear-to-br ${layout.color} group-hover:scale-110 transition-all duration-300 shadow-lg shrink-0`}
                 >
                   {layout.icon}
                 </div>
@@ -138,7 +155,7 @@ const LayoutTypesSection: React.FC = () => {
                   <div className="flex items-center gap-3 mb-2">
                     <Typography
                       tag="h3"
-                      className="font-semibold text-xl group-hover:text-primary transition-colors duration-300"
+                      className="font-semibold text-lg group-hover:text-primary transition-colors duration-300"
                     >
                       {layout.name}
                     </Typography>
@@ -191,10 +208,7 @@ const LayoutTypesSection: React.FC = () => {
                 </div>
                 <div className="space-y-2">
                   {layout.features.map((feature, featureIndex) => (
-                    <div
-                      key={featureIndex}
-                      className="flex items-start gap-2"
-                    >
+                    <div key={featureIndex} className="flex items-start gap-2">
                       <LucideIcons.Check className="w-4 h-4 text-green-500 shrink-0 mt-0.5" />
                       <Typography
                         tag="span"
@@ -224,7 +238,7 @@ const LayoutTypesSection: React.FC = () => {
                       >
                         <Typography
                           tag="span"
-                          className="font-medium text-gray-700 dark:text-gray-300 capitalize min-w-[100px]"
+                          className="font-medium text-gray-700 dark:text-gray-300 capitalize min-w-25"
                         >
                           {key.replace(/([A-Z])/g, ' $1').trim()}:
                         </Typography>
@@ -248,4 +262,3 @@ const LayoutTypesSection: React.FC = () => {
 };
 
 export default LayoutTypesSection;
-

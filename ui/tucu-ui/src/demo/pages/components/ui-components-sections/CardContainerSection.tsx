@@ -4,6 +4,8 @@ import {
   CardTitle,
   Typography,
   CodeBlock,
+  HeroCard,
+  LucideIcons,
 } from '../../../../index';
 import { AutoPropsTable } from '../../../components/auto-props-table';
 
@@ -11,18 +13,16 @@ const CardContainerSection: React.FC = () => {
 
   return (
     <>
-      <div className="text-center space-y-4">
-        <Typography tag="h2" className="text-3xl md:text-4xl font-bold">
-          CardContainer
-        </Typography>
-        <Typography
-          tag="p"
-          className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
-        >
-          A container component that provides consistent styling and layout for
-          card-based content.
-        </Typography>
-      </div>
+      <HeroCard
+        title="CardContainer"
+        description="A container component that provides consistent styling and layout for
+          card-based content."
+        icon={
+          <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 bg-linear-to-br from-purple-500 to-violet-500 rounded-full flex items-center justify-center shadow-lg">
+            <LucideIcons.LayoutGrid className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-white filter drop-shadow-lg" />
+          </div>
+        }
+      />
 
       <CardContainer className="overflow-hidden">
         <CardTitle title="Basic Examples" className="mt-2 mb-2">

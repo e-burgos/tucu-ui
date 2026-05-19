@@ -8,7 +8,7 @@ import {
 
 export function AccessibilityUtilities() {
   return (
-    <div className="space-y-8 sm:space-y-12 w-full mx-auto px-4 sm:px-6 lg:px-8 relative pt-8 lg:pt-12">
+    <div className="space-y-8 max-w-6xl sm:space-y-12 w-full mx-auto px-4 sm:px-6 lg:px-8 relative pt-8 lg:pt-12">
       <HeroCard
         title="Accessibility Utilities"
         description="Essential accessibility utilities in Tailwind CSS v4 for inclusive web design and high contrast support."
@@ -16,7 +16,7 @@ export function AccessibilityUtilities() {
         getStartedButton
         docsButton="tailwind-utilities"
         icon={
-          <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 bg-gradient-to-br from-slate-500 via-gray-500 to-zinc-500 rounded-full flex items-center justify-center shadow-lg border border-slate-500/50">
+          <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 bg-linear-to-br from-slate-500 via-gray-500 to-zinc-500 rounded-full flex items-center justify-center shadow-lg">
             <LucideIcons.Accessibility className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 text-white filter drop-shadow-lg" />
           </div>
         }
@@ -26,13 +26,13 @@ export function AccessibilityUtilities() {
         <div className="text-center">
           <Typography
             tag="h2"
-            className="mb-4 text-2xl sm:text-3xl md:text-4xl font-bold"
+            className="mb-2"
           >
             Inclusive Design & Accessibility
           </Typography>
           <Typography
             tag="p"
-            className="text-base sm:text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto"
+            className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto"
           >
             Critical accessibility utilities built with Tailwind CSS v4 @source
             directives
@@ -50,7 +50,7 @@ export function AccessibilityUtilities() {
                 modes
               </Typography>
               <div className="space-y-6">
-                <div className="p-4 bg-gradient-to-r from-brand to-blue-500 rounded-lg forced-color-adjust-auto">
+                <div className="p-4 bg-linear-to-r from-brand to-blue-500 rounded-lg forced-color-adjust-auto">
                   <Typography tag="p" className="text-white font-medium">
                     forced-color-adjust-auto
                   </Typography>
@@ -60,7 +60,7 @@ export function AccessibilityUtilities() {
                   </Typography>
                 </div>
 
-                <div className="p-4 bg-gradient-to-r from-green-500 to-purple-500 rounded-lg forced-color-adjust-none">
+                <div className="p-4 bg-linear-to-r from-green-500 to-purple-500 rounded-lg forced-color-adjust-none">
                   <Typography tag="p" className="text-white font-medium">
                     forced-color-adjust-none
                   </Typography>

@@ -72,6 +72,7 @@ const sections: SectionConfig[] = [
 export function DesignSystem() {
   return (
     <DynamicSectionsPage
+      hideHeroInSubSections
       sections={sections}
       hero={
         <>

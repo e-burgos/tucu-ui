@@ -1,21 +1,16 @@
 import React from 'react';
 import {
+  HeroCard,
   CardContainer,
   CardTitle,
   Typography,
+  LucideIcons,
   CodeBlock,
   Alert,
-  LucideIcons,
   BasicTable,
 } from '../../../../index';
 
 const ValidationSystemSection: React.FC = () => {
-  const validationRulesColumns = [
-    { key: 'rule', label: 'Rule' },
-    { key: 'example', label: 'Example' },
-    { key: 'description', label: 'Description' },
-  ];
-
   const validationRulesData = [
     {
       rule: 'required',
@@ -47,50 +42,42 @@ const ValidationSystemSection: React.FC = () => {
       example: "max: { value: 100, message: '...' }",
       description: 'Maximum numeric value',
     },
+    {
+      rule: 'validate',
+      example: "validate: { custom: (v) => v > 0 || '...' }",
+      description: 'Custom validation function(s)',
+    },
   ];
 
-  return (
-    <>
-      <div className="text-center space-y-4">
-        <Typography tag="h2" className="text-3xl md:text-4xl font-bold">
-          Validation System
-        </Typography>
-        <Typography
-          tag="p"
-          className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
-        >
-          Centralized validation with built-in and custom rules
-        </Typography>
-      </div>
+  const validationRulesColumns = [
+    {
+      key: 'rule',
+      label: 'Rule',
+      render: (value: unknown) => (
+        <code className="text-xs text-brand">{String(value)}</code>
+      ),
+    },
+    {
+      key: 'example',
+      label: 'Example',
+      render: (value: unknown) => (
+        <code className="text-xs text-gray-600 dark:text-gray-400">
+          {String(value)}
+        </code>
+      ),
+    },
+    {
+      key: 'description',
+      label: 'Description',
+      render: (value: unknown) => (
+        <span className="text-xs text-gray-600 dark:text-gray-400">
+          {String(value)}
+        </span>
+      ),
+    },
+  ];
 
-      <CardContainer className="overflow-hidden">
-        <CardTitle title="Validation Approaches" className="mt-2 mb-2">
-          <div className="w-full space-y-6 p-4 sm:p-6">
-            <Typography tag="p" className="text-gray-600 dark:text-gray-400">
-              You can define validation in two ways:
-            </Typography>
-
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <div className="space-y-4">
-                <div className="flex items-center gap-3">
-                  <div className="p-2 bg-linear-to-br from-blue-500 to-cyan-500 rounded-lg shadow-lg">
-                    <LucideIcons.FileText className="w-5 h-5 text-white filter drop-shadow-sm" />
-                  </div>
-                  <Typography tag="h4" className="font-semibold">
-                    Centralized Validation Schema
-                  </Typography>
-                </div>
-                <Typography
-                  tag="p"
-                  className="text-sm text-gray-600 dark:text-gray-400"
-                >
-                  Define all validation rules in a single schema object and pass
-                  it to the Form component. This eliminates the need to define
-                  rules on each FormField.
-                </Typography>
-                <CodeBlock
-                  language="tsx"
-                  code={`import { FormValidations } from '@e-burgos/tucu-ui';
+  const centralizedCode = `import { FormValidations } from '@e-burgos/tucu-ui';
 
 export const formValidations: FormValidations<FormValues> = {
   name: {
@@ -109,42 +96,18 @@ export const formValidations: FormValidations<FormValues> = {
   },
 };
 
-// Use in Form component
+// Pass to Form — rules auto-applied to all FormFields
 <Form<FormValues>
   onSubmit={handleSubmit}
   validationSchema={formValidations}
   useFormProps={{ defaultValues }}
 >
-  {/* FormFields don't need rules prop */}
   <FormField<FormValues> name="name" label="Name">
     <Input />
   </FormField>
-</Form>`}
-                />
-              </div>
+</Form>`;
 
-              <div className="space-y-4">
-                <div className="flex items-center gap-3">
-                  <div className="p-2 bg-linear-to-br from-purple-500 to-violet-500 rounded-lg shadow-lg">
-                    <LucideIcons.Code className="w-5 h-5 text-white filter drop-shadow-sm" />
-                  </div>
-                  <Typography tag="h4" className="font-semibold">
-                    Per-Field Validation
-                  </Typography>
-                </div>
-                <Typography
-                  tag="p"
-                  className="text-sm text-gray-600 dark:text-gray-400"
-                >
-                  Define validation rules directly on each FormField using the{' '}
-                  <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
-                    rules
-                  </code>{' '}
-                  prop. Useful for field-specific validation.
-                </Typography>
-                <CodeBlock
-                  language="tsx"
-                  code={`<FormField<FormValues>
+  const perFieldCode = `<FormField<FormValues>
   name="password"
   label="Password"
   rules={{
@@ -160,7 +123,7 @@ export const formValidations: FormValidations<FormValues> = {
         const hasNumber = /\\d/.test(value);
         
         if (!hasUpper || !hasLower || !hasNumber) {
-          return 'Password must contain uppercase, lowercase, and number';
+          return 'Must contain uppercase, lowercase, and number';
         }
         return true;
       }
@@ -168,76 +131,134 @@ export const formValidations: FormValidations<FormValues> = {
   }}
 >
   <Input type="password" />
-</FormField>`}
-                />
-              </div>
-            </div>
+</FormField>`;
 
-            <Alert variant="info" dismissible={false}>
-              <div className="flex flex-col gap-2">
-                <div className="flex items-center gap-2">
-                  <LucideIcons.Info className="h-4 w-4" />
-                  <Typography tag="span" className="font-semibold">
-                    Validation Schema vs Rules Prop
+  return (
+    <>
+      <HeroCard
+        title="Validation System"
+        description="Centralized or per-field validation powered by react-hook-form rules. Supports required, pattern, min/max, and custom async validators."
+        icon={
+          <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 bg-linear-to-br from-orange-500 via-red-500 to-pink-500 rounded-full flex items-center justify-center shadow-lg">
+            <LucideIcons.Shield className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 text-white filter drop-shadow-lg" />
+          </div>
+        }
+      />
+
+      <section className="space-y-8">
+        <div className="text-center">
+          <Typography tag="h2" className="mb-2">
+            Validation Approaches
+          </Typography>
+          <Typography
+            tag="p"
+            className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto"
+          >
+            Two ways to define validation — centralized schema or per-field rules
+          </Typography>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
+          <CardContainer className="overflow-hidden">
+            <CardTitle title="Centralized Schema" className="mt-2 mb-2">
+              <div className="w-full space-y-4 p-4 sm:p-6">
+                <div className="flex items-center gap-3">
+                  <div className="p-2 bg-linear-to-br from-blue-500 to-cyan-500 rounded-lg shadow-lg">
+                    <LucideIcons.FileText className="w-5 h-5 text-white" />
+                  </div>
+                  <Typography
+                    tag="p"
+                    className="text-sm text-gray-600 dark:text-gray-400"
+                  >
+                    Define all rules in one{' '}
+                    <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
+                      FormValidations
+                    </code>{' '}
+                    object, pass to Form via{' '}
+                    <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
+                      validationSchema
+                    </code>
+                    .
                   </Typography>
                 </div>
-                <Typography tag="p" className="text-sm">
-                  <strong>validationSchema:</strong> Centralized validation for
-                  all fields. Rules are automatically applied.{' '}
-                  <strong>rules prop:</strong> Field-specific validation that
-                  overrides schema rules for that field. Both can be used
-                  together, with{' '}
-                  <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
-                    rules
-                  </code>{' '}
-                  taking precedence.
-                </Typography>
+                <CodeBlock language="tsx" code={centralizedCode} />
               </div>
-            </Alert>
-          </div>
-        </CardTitle>
-      </CardContainer>
+            </CardTitle>
+          </CardContainer>
 
-      <CardContainer className="overflow-hidden">
-        <CardTitle title="Available Validation Rules" className="mt-2 mb-2">
-          <div className="w-full space-y-6 p-4 sm:p-6">
-            <Typography tag="p" className="text-gray-600 dark:text-gray-400">
-              Complete list of validation rules supported by React Hook Form:
+          <CardContainer className="overflow-hidden">
+            <CardTitle title="Per-Field Rules" className="mt-2 mb-2">
+              <div className="w-full space-y-4 p-4 sm:p-6">
+                <div className="flex items-center gap-3">
+                  <div className="p-2 bg-linear-to-br from-purple-500 to-violet-500 rounded-lg shadow-lg">
+                    <LucideIcons.Code className="w-5 h-5 text-white" />
+                  </div>
+                  <Typography
+                    tag="p"
+                    className="text-sm text-gray-600 dark:text-gray-400"
+                  >
+                    Define rules directly on{' '}
+                    <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
+                      FormField
+                    </code>{' '}
+                    via the{' '}
+                    <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
+                      rules
+                    </code>{' '}
+                    prop. Overrides schema for that field.
+                  </Typography>
+                </div>
+                <CodeBlock language="tsx" code={perFieldCode} />
+              </div>
+            </CardTitle>
+          </CardContainer>
+        </div>
+
+        <Alert variant="info" dismissible={false}>
+          <div className="flex flex-col gap-2">
+            <div className="flex items-center gap-2">
+              <LucideIcons.Info className="h-4 w-4" />
+              <Typography tag="span" className="font-semibold">
+                Priority
+              </Typography>
+            </div>
+            <Typography tag="p" className="text-sm">
+              Both approaches can be used together. The{' '}
+              <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
+                rules
+              </code>{' '}
+              prop on FormField takes precedence over{' '}
+              <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
+                validationSchema
+              </code>{' '}
+              for that specific field.
             </Typography>
+          </div>
+        </Alert>
+      </section>
+
+      <section className="space-y-8">
+        <div className="text-center">
+          <Typography tag="h2" className="mb-2">
+            Available Rules
+          </Typography>
+          <Typography
+            tag="p"
+            className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto"
+          >
+            All validation rules supported by the form system
+          </Typography>
+        </div>
+
+        <CardContainer className="overflow-hidden">
+          <div className="w-full p-4 sm:p-6">
             <BasicTable
-              columns={validationRulesColumns.map((col) => ({
-                ...col,
-                render: (value: unknown) => {
-                  if (col.key === 'rule') {
-                    return (
-                      <code className="text-xs text-brand">
-                        {String(value ?? '')}
-                      </code>
-                    );
-                  }
-                  if (col.key === 'example') {
-                    return (
-                      <code className="text-xs text-gray-600 dark:text-gray-400">
-                        {String(value ?? '')}
-                      </code>
-                    );
-                  }
-                  if (col.key === 'description') {
-                    return (
-                      <span className="text-xs text-gray-600 dark:text-gray-400">
-                        {String(value ?? '')}
-                      </span>
-                    );
-                  }
-                  return String(value ?? '');
-                },
-              }))}
+              columns={validationRulesColumns}
               data={validationRulesData as Array<Record<string, unknown>>}
-              containerClassName="mb-4"
             />
           </div>
-        </CardTitle>
-      </CardContainer>
+        </CardContainer>
+      </section>
     </>
   );
 };

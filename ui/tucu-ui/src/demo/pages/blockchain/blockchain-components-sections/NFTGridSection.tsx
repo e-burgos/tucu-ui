@@ -2,27 +2,26 @@ import React from 'react';
 import {
   CardContainer,
   CardTitle,
-  Typography,
   CodeBlock,
   NFTGrid,
+  HeroCard,
+  LucideIcons,
 } from '../../../../index';
 import { AutoPropsTable } from '../../../components/auto-props-table';
+import { PropPlayground } from '../../../components/prop-playground';
 
 const NFTGridSection: React.FC = () => {
   return (
     <>
-      <div className="text-center space-y-4">
-        <Typography tag="h2" className="text-3xl md:text-4xl font-bold">
-          NFTGrid
-        </Typography>
-        <Typography
-          tag="p"
-          className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
-        >
-          Grid card component for displaying NFT items with author information,
-          image, collection, and price.
-        </Typography>
-      </div>
+      <HeroCard
+        title="NFTGrid"
+        description="Grid card component for displaying NFT items with author information, image, collection, and price."
+        icon={
+          <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 bg-linear-to-br from-cyan-500 via-blue-500 to-indigo-500 rounded-full flex items-center justify-center shadow-lg border border-cyan-500/50">
+            <LucideIcons.Grid3x3 className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 text-white filter drop-shadow-lg" />
+          </div>
+        }
+      />
 
       <CardContainer className="overflow-hidden">
         <CardTitle title="Grid Examples" className="mt-2 mb-2">
@@ -81,6 +80,52 @@ const NFTGridSection: React.FC = () => {
           </div>
         </CardTitle>
       </CardContainer>
+
+      <PropPlayground
+        componentName="NFTGrid"
+        defaultValues={{
+          author: 'CryptoPunk',
+          authorImage: 'https://i.pravatar.cc/80?img=1',
+          image: 'https://picsum.photos/seed/nft1/400/300',
+          name: 'CryptoPunk #1234',
+          collection: 'Crypto Punks',
+          price: '45 ETH',
+          profilePath: '',
+        }}
+        controlOverrides={[
+          {
+            name: 'author',
+            type: 'text',
+            description: 'NFT author name',
+          },
+          {
+            name: 'name',
+            type: 'text',
+            description: 'NFT item name',
+          },
+          {
+            name: 'collection',
+            type: 'text',
+            description: 'Collection name',
+          },
+          {
+            name: 'price',
+            type: 'text',
+            description: 'Price display text',
+          },
+        ]}
+        includeProps={['author', 'name', 'collection', 'price', 'profilePath']}
+      >
+        {(props) => (
+          <div className="w-full max-w-xs">
+            <NFTGrid
+              {...props}
+              authorImage="https://i.pravatar.cc/80?img=1"
+              image="https://picsum.photos/seed/nft1/400/300"
+            />
+          </div>
+        )}
+      </PropPlayground>
 
       <AutoPropsTable componentName="NFTGrid" />
 

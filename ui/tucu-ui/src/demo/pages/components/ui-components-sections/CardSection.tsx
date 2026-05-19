@@ -7,25 +7,26 @@ import {
   Card,
   Badge,
   Button,
+  HeroCard,
+  LucideIcons,
 } from '../../../../index';
 import { AutoPropsTable } from '../../../components/auto-props-table';
 import { Users, Settings, Bell } from 'lucide-react';
 
+import { PropPlayground } from '../../../components/prop-playground';
 const CardSection: React.FC = () => {
   return (
     <>
-      <div className="text-center space-y-4">
-        <Typography tag="h2" className="text-3xl md:text-4xl font-bold">
-          Card
-        </Typography>
-        <Typography
-          tag="p"
-          className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
-        >
-          A flexible card component with optional header, icon, footer, actions,
-          and clickable behavior.
-        </Typography>
-      </div>
+      <HeroCard
+        title="Card"
+        description="A flexible card component with optional header, icon, footer, actions,
+          and clickable behavior."
+        icon={
+          <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 bg-linear-to-br from-violet-500 to-purple-600 rounded-full flex items-center justify-center shadow-lg">
+            <LucideIcons.CreditCard className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-white filter drop-shadow-lg" />
+          </div>
+        }
+      />
 
       <CardContainer className="overflow-hidden">
         <CardTitle title="Examples" className="mt-2 mb-2">
@@ -103,6 +104,19 @@ const CardSection: React.FC = () => {
           </div>
         </CardTitle>
       </CardContainer>
+      <PropPlayground
+        componentName="Card"
+        title="Card Playground"
+        defaultValues={{
+          'title': 'Card Title',
+          'description': 'This is a card description with relevant content.'
+}}
+        excludeProps={['onClick', 'icon', 'header', 'footer', 'actions', 'className']}
+      >
+        {(props) => <Card {...props} />}
+      </PropPlayground>
+
+
 
       <AutoPropsTable componentName="Card" />
 

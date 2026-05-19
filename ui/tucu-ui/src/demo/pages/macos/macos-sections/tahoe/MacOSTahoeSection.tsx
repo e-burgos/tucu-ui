@@ -6,8 +6,9 @@ import {
   Switch,
   Alert,
   Checkbox,
+  HeroCard,
   LucideIcons,
-} from '../../../../index';
+} from '../../../../../index';
 
 export const TahoeDemoContent = () => {
   return (
@@ -101,15 +102,15 @@ export default function MacOSTahoeSection() {
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex flex-col gap-2">
-        <h2 className="text-xl font-semibold dark:text-white">
-          Tahoe Liquid Glass Theme
-        </h2>
-        <p className="text-sm text-gray-500 dark:text-gray-400">
-          The <code>variant="tahoe"</code> setting forces the Layout to use
-          Liquid Glass materials and Spatial backgrounds.
-        </p>
-      </div>
+      <HeroCard
+        title="Liquid Glass"
+        description="The variant='tahoe' setting forces the Layout to use Liquid Glass materials and Spatial backgrounds."
+        icon={
+          <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 bg-linear-to-br from-blue-400/80 via-cyan-300/60 to-white/40 dark:from-blue-600/80 dark:via-cyan-500/60 dark:to-gray-800/40 rounded-full flex items-center justify-center shadow-lg border border-white/50 dark:border-cyan-400/50 backdrop-blur-md">
+            <LucideIcons.Sparkles className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 text-blue-700 dark:text-cyan-200 filter drop-shadow-lg" />
+          </div>
+        }
+      />
 
       <div
         className="relative w-full h-[600px] border border-[var(--macos-tahoe-border,rgba(130,161,183,0.28))] rounded-2xl overflow-hidden bg-[var(--macos-spatial-bg)] group"

@@ -50,6 +50,7 @@ const sections: SectionConfig[] = [
 export function LayoutSystem() {
   return (
     <DynamicSectionsPage
+      hideHeroInSubSections
       sections={sections}
       hero={
         <HeroCard

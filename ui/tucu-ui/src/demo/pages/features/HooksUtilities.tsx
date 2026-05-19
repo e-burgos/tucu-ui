@@ -43,6 +43,7 @@ const sections: SectionConfig[] = [
 export function HooksUtilities() {
   return (
     <DynamicSectionsPage
+      hideHeroInSubSections
       sections={sections}
       hero={
         <HeroCard

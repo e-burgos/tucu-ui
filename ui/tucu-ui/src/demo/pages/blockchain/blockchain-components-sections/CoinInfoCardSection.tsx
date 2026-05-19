@@ -5,30 +5,26 @@ import {
   Typography,
   CodeBlock,
   CoinInfoCard,
+  HeroCard,
+  LucideIcons,
 } from '../../../../index';
 import bitcoinImg from '../../../assets/images/coin/bitcoin.svg';
 import ethereumImg from '../../../assets/images/coin/tether.svg';
 import { AutoPropsTable } from '../../../components/auto-props-table';
+import { PropPlayground } from '../../../components/prop-playground';
 
 const CoinInfoCardSection: React.FC = () => {
-  // Table columns definition for props tables
-
-  // CoinInfoCard props data
-
   return (
     <>
-      <div className="text-center space-y-4">
-        <Typography tag="h2" className="text-3xl md:text-4xl font-bold">
-          CoinInfoCard
-        </Typography>
-        <Typography
-          tag="p"
-          className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
-        >
-          Compact card component for displaying coin information with icon,
-          name, and balance.
-        </Typography>
-      </div>
+      <HeroCard
+        title="CoinInfoCard"
+        description="Compact card component for displaying coin information with icon, name, and balance. Supports multiple size variants."
+        icon={
+          <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 bg-linear-to-br from-blue-500 via-cyan-500 to-teal-500 rounded-full flex items-center justify-center shadow-lg border border-blue-500/50">
+            <LucideIcons.Info className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 text-white filter drop-shadow-lg" />
+          </div>
+        }
+      />
 
       <CardContainer className="overflow-hidden">
         <CardTitle title="Basic Examples" className="mt-2 mb-2">
@@ -116,6 +112,38 @@ const CoinInfoCardSection: React.FC = () => {
           </div>
         </CardTitle>
       </CardContainer>
+
+      <PropPlayground
+        componentName="CoinInfoCard"
+        defaultValues={{
+          variant: 'small',
+        }}
+        controlOverrides={[
+          {
+            name: 'variant',
+            type: 'select',
+            options: ['small', 'medium', 'large'],
+            description: 'Size variant of the card',
+          },
+        ]}
+        includeProps={['variant']}
+      >
+        {(props) => (
+          <div className="w-full max-w-sm">
+            <CoinInfoCard
+              {...props}
+              item={{
+                id: 'bitcoin',
+                name: 'Bitcoin',
+                logo: bitcoinImg,
+                balance: '1.25 BTC',
+                coinType: 'ERC-20',
+              }}
+            />
+          </div>
+        )}
+      </PropPlayground>
+
       <AutoPropsTable componentName="CoinInfoCard" />
 
       <CardContainer className="overflow-hidden">

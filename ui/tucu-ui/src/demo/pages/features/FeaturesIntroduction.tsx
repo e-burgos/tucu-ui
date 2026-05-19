@@ -3,8 +3,8 @@ import {
   CardTitle,
   Typography,
   LucideIcons,
-  Button,
   HeroCard,
+  FeatureCard,
 } from '../../../../index';
 
 export function FeaturesIntroduction() {
@@ -48,7 +48,7 @@ export function FeaturesIntroduction() {
   ];
 
   return (
-    <div className="space-y-8 sm:space-y-12 w-full mx-auto px-4 sm:px-6 lg:px-8 relative pt-8 lg:pt-12">
+    <div className="space-y-8 max-w-6xl sm:space-y-12 w-full mx-auto px-4 sm:px-6 lg:px-8 relative pt-8 lg:pt-12">
       {/* Hero Section */}
       <HeroCard
         title="Features"
@@ -66,15 +66,12 @@ export function FeaturesIntroduction() {
       {/* Features Overview */}
       <section className="space-y-8">
         <div className="text-center">
-          <Typography
-            tag="h2"
-            className="mb-4 text-2xl sm:text-3xl md:text-4xl font-bold"
-          >
+          <Typography tag="h2" className="mb-2">
             Core Features
           </Typography>
           <Typography
             tag="p"
-            className="text-base sm:text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto"
+            className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto"
           >
             Built with modern web standards and best practices, our features
             ensure your applications are accessible, performant, and
@@ -85,40 +82,15 @@ export function FeaturesIntroduction() {
         {/* Features Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {features.map((feature, index) => (
-            <CardContainer
+            <FeatureCard
               key={index}
-              className="group hover:shadow-lg transition-shadow "
-            >
-              <div className="p-6 w-full flex flex-col justify-between">
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="p-2 bg-brand/10 dark:bg-brand/20 rounded-lg text-brand">
-                    {feature.icon}
-                  </div>
-                  <Typography tag="h3" className="text-lg font-semibold ">
-                    {feature.title}
-                  </Typography>
-                </div>
-
-                <Typography
-                  tag="p"
-                  className="text-sm text-gray-600 dark:text-gray-300 mb-4"
-                >
-                  {feature.description}
-                </Typography>
-
-                <Button
-                  variant="ghost"
-                  fullWidth
-                  className="w-full group-hover:bg-brand group-hover:text-white transition-colors"
-                  onClick={() => (window.location.href = feature.href)}
-                >
-                  <div className="flex items-center  gap-2">
-                    Explore {feature.title}
-                    <LucideIcons.ArrowRight className="w-4 h-4 " />
-                  </div>
-                </Button>
-              </div>
-            </CardContainer>
+              layout="horizontal"
+              icon={<div className="text-white">{feature.icon}</div>}
+              title={feature.title}
+              description={feature.description}
+              iconBgClassName="from-emerald-500 to-teal-600"
+              onClick={() => (window.location.href = feature.href)}
+            />
           ))}
         </div>
       </section>
@@ -126,15 +98,12 @@ export function FeaturesIntroduction() {
       {/* Feature Highlights */}
       <section className="space-y-8">
         <div className="text-center">
-          <Typography
-            tag="h2"
-            className="mb-4 text-2xl sm:text-3xl md:text-4xl font-bold"
-          >
+          <Typography tag="h2" className="mb-2">
             Why Choose Our Features
           </Typography>
           <Typography
             tag="p"
-            className="text-base sm:text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto"
+            className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto"
           >
             Each feature is carefully designed to solve real-world problems
             while maintaining high standards
@@ -270,81 +239,51 @@ export function FeaturesIntroduction() {
       {/* Quick Start */}
       <section className="space-y-8">
         <div className="text-center">
-          <Typography
-            tag="h2"
-            className="mb-4 text-2xl sm:text-3xl md:text-4xl font-bold"
-          >
+          <Typography tag="h2" className="mb-2">
             Get Started with Features
           </Typography>
           <Typography
             tag="p"
-            className="text-base sm:text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto"
+            className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto"
           >
             Explore our feature-rich components and utilities designed to
             enhance your development experience
           </Typography>
         </div>
 
-        <CardContainer>
-          <CardTitle
-            title="Feature Categories"
-            className="flex items-center gap-2"
-          >
-            <div className="flex items-center gap-2">
-              <LucideIcons.Grid3X3 className="w-5 h-5 text-indigo-500" />
-              <Typography
-                tag="p"
-                className="text-sm text-gray-600 dark:text-gray-300"
-              >
-                Organized by functionality for easy discovery
-              </Typography>
-            </div>
-            <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              <div className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-100  dark:hover:bg-gray-800 transition-colors">
-                <div className="flex items-center gap-2 mb-2">
-                  <LucideIcons.Palette className="w-5 h-5 text-indigo-500" />
-                  <Typography tag="p" className="font-medium">
-                    Design System
-                  </Typography>
-                </div>
-                <Typography
-                  tag="p"
-                  className="text-sm text-gray-600 dark:text-gray-300"
-                >
-                  Consistent theming, colors, and component library
-                </Typography>
-              </div>
-              <div className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-100  dark:hover:bg-gray-800 transition-colors">
-                <div className="flex items-center gap-2 mb-2">
-                  <LucideIcons.Accessibility className="w-5 h-5 text-blue-500" />
-                  <Typography tag="p" className="font-medium">
-                    Accessibility
-                  </Typography>
-                </div>
-                <Typography
-                  tag="p"
-                  className="text-sm text-gray-600 dark:text-gray-300"
-                >
-                  WCAG compliant components and utilities
-                </Typography>
-              </div>
-              <div className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-100  dark:hover:bg-gray-800 transition-colors">
-                <div className="flex items-center gap-2 mb-2">
-                  <LucideIcons.Zap className="w-5 h-5 text-yellow-500" />
-                  <Typography tag="p" className="font-medium">
-                    Performance
-                  </Typography>
-                </div>
-                <Typography
-                  tag="p"
-                  className="text-sm text-gray-600 dark:text-gray-300"
-                >
-                  Optimized rendering and bundle size management
-                </Typography>
-              </div>
-            </div>
-          </CardTitle>
-        </CardContainer>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {[
+            {
+              icon: <LucideIcons.Palette className="w-5 h-5 text-white" />,
+              title: 'Design System',
+              description: 'Consistent theming, colors, and component library',
+              gradient: 'from-indigo-500 to-violet-600',
+            },
+            {
+              icon: (
+                <LucideIcons.Accessibility className="w-5 h-5 text-white" />
+              ),
+              title: 'Accessibility',
+              description: 'WCAG compliant components and utilities',
+              gradient: 'from-blue-500 to-cyan-600',
+            },
+            {
+              icon: <LucideIcons.Zap className="w-5 h-5 text-white" />,
+              title: 'Performance',
+              description: 'Optimized rendering and bundle size management',
+              gradient: 'from-yellow-500 to-amber-600',
+            },
+          ].map((category, index) => (
+            <FeatureCard
+              key={index}
+              layout="horizontal"
+              icon={category.icon}
+              title={category.title}
+              description={category.description}
+              iconBgClassName={category.gradient}
+            />
+          ))}
+        </div>
       </section>
     </div>
   );

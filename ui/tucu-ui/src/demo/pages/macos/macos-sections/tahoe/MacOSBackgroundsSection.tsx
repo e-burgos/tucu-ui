@@ -3,11 +3,13 @@ import {
   BasicTable,
   CardContainer,
   CardTitle,
+  HeroCard,
+  LucideIcons,
   MacOSBackground,
   getMacOSBackgroundUrl,
   Typography,
-} from '../../../../index';
-import { useTheme } from '../../../../themes';
+} from '../../../../../index';
+import { useTheme } from '../../../../../themes';
 
 interface BgType {
   id: string;
@@ -54,19 +56,15 @@ export const MacOSBackgroundsSection: React.FC = () => {
 
   return (
     <>
-      <div className="text-center space-y-4">
-        <Typography tag="h2" className="text-3xl md:text-4xl font-bold">
-          Backgrounds
-        </Typography>
-        <Typography
-          tag="p"
-          className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
-        >
-          macOS Tahoe provides 4 background types optimized for different
-          viewport sizes and use cases. All adapt between light and dark
-          automatically.
-        </Typography>
-      </div>
+      <HeroCard
+        title="Backgrounds"
+        description="macOS Tahoe provides 4 background types optimized for different viewport sizes and use cases. All adapt between light and dark automatically."
+        icon={
+          <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 bg-linear-to-br from-cyan-400 via-blue-500 to-indigo-600 rounded-full flex items-center justify-center shadow-lg border border-cyan-400/50">
+            <LucideIcons.Image className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 text-white filter drop-shadow-lg" />
+          </div>
+        }
+      />
 
       {/* Overview */}
       <CardContainer className="overflow-hidden">

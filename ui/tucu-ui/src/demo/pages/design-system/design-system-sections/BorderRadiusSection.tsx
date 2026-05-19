@@ -1,13 +1,11 @@
 import React from 'react';
-import { CardContainer, CardTitle, Typography } from '../../../../index';
-
-// Helper function to get hex color from CSS variable
-const getColorHex = (varName: string): string => {
-  if (typeof window === 'undefined') return '';
-  const root = document.documentElement;
-  const value = getComputedStyle(root).getPropertyValue(varName).trim();
-  return value || '';
-};
+import {
+  CardContainer,
+  CardTitle,
+  Typography,
+  HeroCard,
+  LucideIcons,
+} from '../../../../index';
 
 const BorderRadiusSection: React.FC = () => {
   const extendedBorderRadius = {
@@ -25,18 +23,16 @@ const BorderRadiusSection: React.FC = () => {
   };
 
   return (
-    <>
-      <div className="text-center space-y-4">
-        <Typography tag="h2" className="text-3xl md:text-4xl font-bold">
-          Border Radius
-        </Typography>
-        <Typography
-          tag="p"
-          className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
-        >
-          Border radius values from Tucu UI Design Tokens
-        </Typography>
-      </div>
+    <div className="space-y-8 max-w-6xl sm:space-y-12 w-full mx-auto px-4 sm:px-6 lg:px-8 relative pt-8 lg:pt-12">
+      <HeroCard
+        title="Border Radius"
+        description="Border radius scale using Tailwind arbitrary values for consistent rounded corners."
+        icon={
+          <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 bg-linear-to-br from-amber-500 via-yellow-500 to-orange-500 rounded-full flex items-center justify-center shadow-lg">
+            <LucideIcons.Circle className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 text-white filter drop-shadow-lg" />
+          </div>
+        }
+      />
 
       <CardContainer className="overflow-hidden">
         <CardTitle title="Border Radius Scale" className="mt-2 mb-2">
@@ -44,8 +40,9 @@ const BorderRadiusSection: React.FC = () => {
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {Object.entries(extendedBorderRadius).map(
                 ([radius, className]) => {
-                  const varName = `--radius-tucu-ui-${radius}`;
-                  const radiusValue = getColorHex(varName);
+                  const pixelValue = className
+                    .replace('rounded-[', '')
+                    .replace(']', '');
                   return (
                     <div
                       key={radius}
@@ -55,14 +52,9 @@ const BorderRadiusSection: React.FC = () => {
                         <Typography tag="h4" className="font-semibold">
                           {radius}
                         </Typography>
-                        {radiusValue && (
-                          <Typography
-                            tag="h4"
-                            className="text-muted text-[10px]"
-                          >
-                            {radiusValue}
-                          </Typography>
-                        )}
+                        <Typography tag="h4" className="text-muted text-[10px]">
+                          {pixelValue}
+                        </Typography>
                       </div>
                       <div className="flex justify-center">
                         <div className={`w-20 h-20 bg-primary ${className}`} />
@@ -81,7 +73,7 @@ const BorderRadiusSection: React.FC = () => {
           </div>
         </CardTitle>
       </CardContainer>
-    </>
+    </div>
   );
 };
 

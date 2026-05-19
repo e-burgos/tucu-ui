@@ -1,17 +1,47 @@
 import React from 'react';
-import { CardContainer, CardTitle, Typography, LucideIcons, CodeBlock } from '../../../../index';
+import {
+  CardContainer,
+  CardTitle,
+  Typography,
+  LucideIcons,
+  CodeBlock,
+  HeroCard,
+} from '../../../../index';
 
 const ImplementationExamplesSection: React.FC = () => {
   return (
     <>
+      <HeroCard
+        title="Implementation Examples"
+        description="Practical code examples for common layout system configurations and patterns."
+        icon={
+          <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 bg-linear-to-br from-orange-500 via-amber-500 to-yellow-500 rounded-full flex items-center justify-center shadow-lg">
+            <LucideIcons.Code className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 text-white filter drop-shadow-lg" />
+          </div>
+        }
+      />
+
+      <div className="text-center">
+        <Typography tag="h2" className="mb-2">
+          Implementation Examples
+        </Typography>
+        <Typography
+          tag="p"
+          className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto"
+        >
+          Practical code examples for common layout system configurations and
+          patterns
+        </Typography>
+      </div>
+
       <CardContainer className="overflow-hidden">
         <CardTitle title="Implementation Examples" className="mt-2 mb-2">
           <div className="w-full space-y-8 p-4 sm:p-6">
             <div className="flex items-center gap-3">
-              <div className="p-2 rounded-lg bg-gradient-to-br from-indigo-500 via-purple-500 to-violet-500 shadow-md">
+              <div className="p-2 rounded-lg bg-linear-to-br from-indigo-500 via-purple-500 to-violet-500 shadow-md">
                 <LucideIcons.Code className="w-6 h-6 text-white filter drop-shadow-sm" />
               </div>
-              <Typography tag="h3" className="text-xl font-semibold">
+              <Typography tag="h3" className="text-base font-semibold">
                 Basic Usage
               </Typography>
             </div>
@@ -85,8 +115,8 @@ function App() {
                   tag="p"
                   className="text-sm text-gray-600 dark:text-gray-400"
                 >
-                  For landing pages or single-page applications without
-                  routing, use <code>customRoutes</code> with a single route.
+                  For landing pages or single-page applications without routing,
+                  use <code>customRoutes</code> with a single route.
                 </Typography>
                 <CodeBlock
                   language="tsx"
@@ -226,7 +256,7 @@ function App() {
   const menuItems = [
     { 
       name: 'Theme Controls', 
-      href: '/theme-controls',
+      path: '/theme-controls',
       component: <ThemeControls />
     }
   ];
@@ -247,8 +277,8 @@ function App() {
 
 function App() {
   const menuItems = [
-    { name: 'Home', href: '/', icon: <LucideIcons.Home /> },
-    { name: 'About', href: '/about', icon: <LucideIcons.Info /> },
+    { name: 'Home', path: '/', icon: <LucideIcons.Home />, component: <Home /> },
+    { name: 'About', path: '/about', icon: <LucideIcons.Info />, component: <About /> },
   ];
 
   return (
@@ -277,4 +307,3 @@ function App() {
 };
 
 export default ImplementationExamplesSection;
-

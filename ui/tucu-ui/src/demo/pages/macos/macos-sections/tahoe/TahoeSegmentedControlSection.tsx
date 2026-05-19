@@ -2,11 +2,34 @@ import React, { useState } from 'react';
 import {
   CardContainer,
   CardTitle,
-  Typography,
   CodeBlock,
   LucideIcons,
-} from '../../../../index';
-import { MacOSTahoeSegmentedControl } from '../../../../components/macos/tahoe/segmented-control-tahoe';
+  HeroCard,
+} from '../../../../../index';
+import { MacOSTahoeSegmentedControl } from '../../../../../components/macos/tahoe/controls/segmented-control-tahoe';
+import { AutoPropsTable } from '../../../../components/auto-props-table';
+import { PropPlayground } from '../../../../components/prop-playground';
+
+// ─── PropPlayground sub-component (avoids hooks-in-render-prop violation) ──────
+function SegmentedPlayground(props: {
+  size?: 'sm' | 'md' | 'lg';
+  fullWidth?: boolean;
+}) {
+  const [active, setActive] = useState('day');
+  return (
+    <MacOSTahoeSegmentedControl
+      options={[
+        { label: 'Day', value: 'day' },
+        { label: 'Week', value: 'week' },
+        { label: 'Month', value: 'month' },
+      ]}
+      value={active}
+      onChange={setActive}
+      size={props.size}
+      fullWidth={props.fullWidth}
+    />
+  );
+}
 
 export const TahoeSegmentedControlSection: React.FC = () => {
   const [view, setView] = useState<'list' | 'grid' | 'columns'>('list');
@@ -14,25 +37,21 @@ export const TahoeSegmentedControlSection: React.FC = () => {
 
   return (
     <>
-      <div className="text-center space-y-4">
-        <Typography tag="h2" className="text-3xl md:text-4xl font-bold">
-          Segmented Control
-        </Typography>
-        <Typography
-          tag="p"
-          className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
-        >
-          Glass-material segmented control with prominent backdrop for the
-          active segment. Supports icons, sizes, full-width mode, and disabled
-          options.
-        </Typography>
-      </div>
+      <HeroCard
+        title="Segmented Control"
+        description="Glass-material segmented control with prominent backdrop for the active segment. Supports icons, sizes, full-width mode, and disabled options."
+        icon={
+          <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 bg-linear-to-br from-teal-500 via-emerald-500 to-green-600 rounded-full flex items-center justify-center shadow-lg border border-teal-500/50">
+            <LucideIcons.ToggleLeft className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 text-white filter drop-shadow-lg" />
+          </div>
+        }
+      />
 
       <CardContainer>
         <CardTitle title="Sizes" className="mt-2 mb-2">
           <div className="flex flex-col gap-4 items-start">
             <div>
-              <span className="text-[12px] text-[var(--macos-tahoe-text-muted)] mb-1 block">
+              <span className="text-[12px] text-(--macos-tahoe-text-muted) mb-1 block">
                 Small
               </span>
               <MacOSTahoeSegmentedControl
@@ -47,7 +66,7 @@ export const TahoeSegmentedControlSection: React.FC = () => {
               />
             </div>
             <div>
-              <span className="text-[12px] text-[var(--macos-tahoe-text-muted)] mb-1 block">
+              <span className="text-[12px] text-(--macos-tahoe-text-muted) mb-1 block">
                 Medium (default)
               </span>
               <MacOSTahoeSegmentedControl
@@ -62,7 +81,7 @@ export const TahoeSegmentedControlSection: React.FC = () => {
               />
             </div>
             <div>
-              <span className="text-[12px] text-[var(--macos-tahoe-text-muted)] mb-1 block">
+              <span className="text-[12px] text-(--macos-tahoe-text-muted) mb-1 block">
                 Large
               </span>
               <MacOSTahoeSegmentedControl
@@ -103,7 +122,7 @@ export const TahoeSegmentedControlSection: React.FC = () => {
             value={view}
             onChange={setView}
           />
-          <p className="mt-2 text-[12px] text-[var(--macos-tahoe-text-muted)]">
+          <p className="mt-2 text-[12px] text-(--macos-tahoe-text-muted)">
             Selected: {view}
           </p>
         </CardTitle>
@@ -141,7 +160,7 @@ export const TahoeSegmentedControlSection: React.FC = () => {
       </CardContainer>
 
       <CardContainer>
-        <CardTitle title="Usage" className="mt-2 mb-2">
+        <CardTitle title="Code Example" className="mt-2 mb-2">
           <CodeBlock
             code={`import { MacOSTahoeSegmentedControl } from '@e-burgos/tucu-ui';
 
@@ -159,6 +178,17 @@ export const TahoeSegmentedControlSection: React.FC = () => {
           />
         </CardTitle>
       </CardContainer>
+
+      <PropPlayground
+        componentName="MacOSTahoeSegmentedControl"
+        defaultValues={{ size: 'md', fullWidth: false }}
+        includeProps={['size', 'fullWidth']}
+        excludeProps={['className', 'options', 'value', 'onChange']}
+      >
+        {(props) => <SegmentedPlayground {...props} />}
+      </PropPlayground>
+
+      <AutoPropsTable componentName="MacOSTahoeSegmentedControl" />
     </>
   );
 };

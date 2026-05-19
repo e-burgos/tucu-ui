@@ -1,99 +1,197 @@
 import React from 'react';
 import {
+  HeroCard,
   CardContainer,
   Typography,
   LucideIcons,
+  CodeBlock,
 } from '../../../../index';
 
 const BestPracticesSection: React.FC = () => {
-  const bestPractices = [
-    {
-      category: 'Performance',
-      items: [
-        'Use useCallback and useMemo with hooks that trigger frequent updates',
-        'Prefer useElementSize over useMeasure for simple dimension tracking',
-        'Debounce rapid state changes with toast notifications',
-        'Leverage tree-shaking by importing only needed hooks',
-      ],
-    },
-    {
-      category: 'TypeScript',
-      items: [
-        'Leverage generic types in useElementSize<HTMLCanvasElement>()',
-        'Use proper event types with useEventListener',
-        'Define custom interfaces for toast variants',
-        'Take advantage of full IntelliSense support',
-      ],
-    },
-    {
-      category: 'Accessibility',
-      items: [
-        'Combine useLockBodyScroll with focus management for modals',
-        'Use useEventListener for keyboard navigation',
-        'Implement proper ARIA attributes with responsive hooks',
-        'Test with screen readers and keyboard navigation',
-      ],
-    },
-    {
-      category: 'Error Handling',
-      items: [
-        'Use useIsMounted to prevent memory leaks in async operations',
-        'Handle edge cases in measurement hooks',
-        'Provide fallbacks for unsupported features',
-        'Always validate external data sources',
-      ],
-    },
+  const dos = [
+    'Use useIsMounted to guard async state updates and prevent memory leaks',
+    'Prefer useElementSize over useMeasure for simple width/height tracking',
+    'Leverage generic types: useElementSize<HTMLCanvasElement>()',
+    'Debounce rapid state changes when using useToastStore',
+    'Import only needed hooks for optimal tree-shaking',
+    'Combine useLockBodyScroll with focus management for accessible modals',
+    'Use useEventListener for keyboard navigation instead of inline handlers',
+    'Pass proper event types to useEventListener for type safety',
+    'Use useClickAway with a RefObject for dropdown/popover close behavior',
+    'Call useAnchorScroll once at root level for smooth scroll navigation',
+  ];
+
+  const donts = [
+    'Destructure useCopyToClipboard as [value, fn] — it returns [stateObj, fn]',
+    'Forget that useScrollableSlider requires react-router-dom context',
+    'Use useMeasure when you only need width/height — it has more overhead',
+    'Lock body scroll without preserving scrollbar width (useLockBodyScroll handles this)',
+    'Create multiple useToastStore instances — it is a singleton Zustand store',
+    'Ignore the noUserInteraction field in useCopyToClipboard state',
+    'Use useIsMounted as a function — it returns a boolean directly',
+    'Mix up useElementSize ref (callback ref) with useRef (RefObject)',
+    'Hardcode breakpoint pixel values — use useBreakpoint named values instead',
+    'Forget cleanup when using useEventListener with custom elements',
   ];
 
   return (
-    <div className="space-y-8">
-      <div className="text-center space-y-4">
-        <Typography tag="h2" className="text-3xl md:text-4xl font-bold">
-          Best Practices
-        </Typography>
-        <Typography
-          tag="p"
-          className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
-        >
-          Guidelines for optimal hook implementation and usage
-        </Typography>
-      </div>
+    <>
+      <HeroCard
+        title="Best Practices"
+        description="Guidelines for optimal hook usage, common pitfalls to avoid, and patterns that ensure performance, type safety, and accessibility."
+        icon={
+          <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 bg-linear-to-br from-green-500 via-emerald-500 to-teal-500 rounded-full flex items-center justify-center shadow-lg">
+            <LucideIcons.ShieldCheck className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 text-white filter drop-shadow-lg" />
+          </div>
+        }
+      />
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-        {bestPractices.map((practice, index) => (
-          <CardContainer
-            key={index}
-            className="group hover:shadow-large transition-all duration-300 hover:-translate-y-1"
+      <section className="space-y-8">
+        <div className="text-center">
+          <Typography tag="h2" className="mb-2">
+            Recommendations
+          </Typography>
+          <Typography
+            tag="p"
+            className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto"
           >
-            <div className="w-full space-y-4 p-4 sm:p-6">
+            Follow these guidelines for robust hook implementations
+          </Typography>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <CardContainer>
+            <div className="p-6 space-y-4">
               <div className="flex items-center gap-3">
-                <div className="p-2 rounded-lg bg-linear-to-br from-green-500 via-emerald-500 to-teal-500 shadow-lg">
-                  <LucideIcons.CheckCircle className="w-5 h-5 text-white filter drop-shadow-sm" />
+                <div className="p-2 rounded-lg bg-linear-to-br from-green-500 to-emerald-500 shadow-lg">
+                  <LucideIcons.Check className="w-5 h-5 text-white filter drop-shadow-sm" />
                 </div>
-                <Typography tag="h3" className="font-semibold text-lg">
-                  {practice.category}
+                <Typography tag="h3" className="font-semibold">
+                  Do&apos;s
                 </Typography>
               </div>
               <ul className="space-y-2">
-                {practice.items.map((item, itemIndex) => (
-                  <li key={itemIndex} className="flex items-start gap-2">
-                    <LucideIcons.ArrowRight className="w-4 h-4 text-primary mt-0.5 shrink-0" />
-                    <Typography
-                      tag="span"
-                      className="text-sm text-gray-600 dark:text-gray-400"
-                    >
-                      {item}
-                    </Typography>
+                {dos.map((item, index) => (
+                  <li key={index} className="flex items-start gap-2">
+                    <LucideIcons.Check className="w-4 h-4 text-green-500 mt-0.5 shrink-0" />
+                    <span className="text-sm">{item}</span>
                   </li>
                 ))}
               </ul>
             </div>
           </CardContainer>
-        ))}
-      </div>
-    </div>
+
+          <CardContainer>
+            <div className="p-6 space-y-4">
+              <div className="flex items-center gap-3">
+                <div className="p-2 rounded-lg bg-linear-to-br from-red-500 to-rose-500 shadow-lg">
+                  <LucideIcons.X className="w-5 h-5 text-white filter drop-shadow-sm" />
+                </div>
+                <Typography tag="h3" className="font-semibold">
+                  Don&apos;ts
+                </Typography>
+              </div>
+              <ul className="space-y-2">
+                {donts.map((item, index) => (
+                  <li key={index} className="flex items-start gap-2">
+                    <LucideIcons.X className="w-4 h-4 text-red-500 mt-0.5 shrink-0" />
+                    <span className="text-sm">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </CardContainer>
+        </div>
+      </section>
+
+      <section className="space-y-8">
+        <div className="text-center">
+          <Typography tag="h2" className="mb-2">
+            Common Patterns
+          </Typography>
+          <Typography
+            tag="p"
+            className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto"
+          >
+            Recommended hook composition patterns
+          </Typography>
+        </div>
+
+        <CardContainer>
+          <div className="p-6 space-y-6">
+            <div className="flex items-center gap-3">
+              <div className="p-2 rounded-lg bg-linear-to-br from-indigo-500 to-purple-500 shadow-lg">
+                <LucideIcons.Puzzle className="w-5 h-5 text-white filter drop-shadow-sm" />
+              </div>
+              <Typography tag="h3" className="font-semibold">
+                Accessible Modal Pattern
+              </Typography>
+            </div>
+            <div className="bg-light-dark p-4 rounded-xl border dark:border-gray-700 overflow-x-auto">
+              <CodeBlock
+                language="tsx"
+                noExpand={true}
+                code={`function Modal({ isOpen, onClose, children }) {
+  const modalRef = useRef<HTMLDivElement>(null);
+  
+  // Lock scroll when modal opens
+  useLockBodyScroll(isOpen);
+  
+  // Close on click outside
+  useClickAway(modalRef, onClose);
+  
+  // Close on Escape key
+  useEventListener('keydown', (e) => {
+    if (e.key === 'Escape') onClose();
+  });
+
+  if (!isOpen) return null;
+  return <div ref={modalRef} role="dialog">{children}</div>;
+}`}
+              />
+            </div>
+          </div>
+        </CardContainer>
+
+        <CardContainer>
+          <div className="p-6 space-y-6">
+            <div className="flex items-center gap-3">
+              <div className="p-2 rounded-lg bg-linear-to-br from-blue-500 to-cyan-500 shadow-lg">
+                <LucideIcons.Monitor className="w-5 h-5 text-white filter drop-shadow-sm" />
+              </div>
+              <Typography tag="h3" className="font-semibold">
+                Responsive Layout Pattern
+              </Typography>
+            </div>
+            <div className="bg-light-dark p-4 rounded-xl border dark:border-gray-700 overflow-x-auto">
+              <CodeBlock
+                language="tsx"
+                noExpand={true}
+                code={`function ResponsiveGrid({ children }) {
+  const { isMobile } = useIsMobile();
+  const { isGridCompact, setIsGridCompact } = useGridSwitcher();
+  const breakpoint = useBreakpoint();
+
+  // Auto-switch to compact on mobile
+  useEffect(() => {
+    if (isMobile && !isGridCompact) {
+      setIsGridCompact(true);
+    }
+  }, [isMobile]);
+
+  const cols = breakpoint === '4xl' ? 6 
+    : breakpoint === '2xl' ? 4 
+    : isGridCompact ? 3 : 2;
+
+  return <div className={\`grid grid-cols-\${cols}\`}>{children}</div>;
+}`}
+              />
+            </div>
+          </div>
+        </CardContainer>
+      </section>
+    </>
   );
 };
 
 export default BestPracticesSection;
-

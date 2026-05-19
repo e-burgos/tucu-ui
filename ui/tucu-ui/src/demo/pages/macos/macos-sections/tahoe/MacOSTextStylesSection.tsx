@@ -2,10 +2,11 @@ import React from 'react';
 import {
   CardContainer,
   CardTitle,
-  Typography,
+  HeroCard,
   LucideIcons,
-} from '../../../../index';
-import { useTheme } from '../../../../themes';
+  Typography,
+} from '../../../../../index';
+import { useTheme } from '../../../../../themes';
 
 interface TextStyle {
   name: string;
@@ -138,18 +139,15 @@ export const MacOSTextStylesSection: React.FC = () => {
 
   return (
     <>
-      <div className="text-center space-y-4">
-        <Typography tag="h2" className="text-3xl md:text-4xl font-bold">
-          Text Styles
-        </Typography>
-        <Typography
-          tag="p"
-          className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
-        >
-          The macOS type scale defines size, weight, leading, and tracking for
-          each text style. Each style adapts to the current appearance mode.
-        </Typography>
-      </div>
+      <HeroCard
+        title="Text Styles"
+        description="The macOS type scale defines size, weight, leading, and tracking for each text style. Each style adapts to the current appearance mode."
+        icon={
+          <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 bg-linear-to-br from-gray-800 via-gray-600 to-gray-400 dark:from-gray-200 dark:via-gray-400 dark:to-gray-600 rounded-full flex items-center justify-center shadow-lg border border-gray-500/50">
+            <LucideIcons.Type className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 text-white dark:text-gray-900 filter drop-shadow-lg" />
+          </div>
+        }
+      />
 
       {/* Font License Note */}
       <CardContainer className="overflow-hidden">

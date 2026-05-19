@@ -84,6 +84,7 @@ const sections: SectionConfig[] = [
 export function BlockchainComponents() {
   return (
     <DynamicSectionsPage
+      hideHeroInSubSections
       sections={sections}
       hero={
         <HeroCard

@@ -4,6 +4,8 @@ import {
   CardTitle,
   Typography,
   CodeBlock,
+  HeroCard,
+  LucideIcons,
 } from '../../../../index';
 import {
   TabGroup,
@@ -15,22 +17,21 @@ import {
 import { Home, Settings, User, Bell, Mail, Calendar } from 'lucide-react';
 import { AutoPropsTable } from '../../../components/auto-props-table';
 
+import { PropPlayground } from '../../../components/prop-playground';
 const TabSection: React.FC = () => {
 
   return (
     <>
-      <div className="text-center space-y-4">
-        <Typography tag="h2" className="text-3xl md:text-4xl font-bold">
-          Tabs
-        </Typography>
-        <Typography
-          tag="p"
-          className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
-        >
-          A flexible tab component system with multiple variants, smooth
-          animations, and mobile-responsive design built on Headless UI.
-        </Typography>
-      </div>
+      <HeroCard
+        title="Tabs"
+        description="A flexible tab component system with multiple variants, smooth
+          animations, and mobile-responsive design built on Headless UI."
+        icon={
+          <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 bg-linear-to-br from-purple-500 to-indigo-500 rounded-full flex items-center justify-center shadow-lg">
+            <LucideIcons.LayoutList className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-white filter drop-shadow-lg" />
+          </div>
+        }
+      />
 
       <CardContainer className="overflow-hidden">
         <CardTitle title="Variants" className="mt-2 mb-2">
@@ -439,6 +440,32 @@ const TabSection: React.FC = () => {
           </div>
         </CardTitle>
       </CardContainer>
+      <PropPlayground
+        componentName="TabGroup"
+        title="Tab Playground"
+        defaultValues={{
+          'variant': 'solid',
+          'defaultIndex': 0
+}}
+        excludeProps={['onChange', 'selectedIndex', 'className']}
+      >
+        {(props) => (
+          <TabGroup {...props}>
+            <TabList>
+              <TabItem>Tab 1</TabItem>
+              <TabItem>Tab 2</TabItem>
+              <TabItem>Tab 3</TabItem>
+            </TabList>
+            <TabPanels>
+              <TabPanel>Content 1</TabPanel>
+              <TabPanel>Content 2</TabPanel>
+              <TabPanel>Content 3</TabPanel>
+            </TabPanels>
+          </TabGroup>
+        )}
+      </PropPlayground>
+
+
       <AutoPropsTable componentName="Tab" />
 
       <CardContainer className="overflow-hidden">

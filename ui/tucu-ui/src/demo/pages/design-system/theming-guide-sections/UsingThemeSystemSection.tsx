@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  HeroCard,
   CardContainer,
   CardTitle,
   Typography,
@@ -9,21 +10,34 @@ import {
 
 const UsingThemeSystemSection: React.FC = () => {
   return (
-    <CardContainer>
-      <CardTitle title="Using the Theme System" className="mt-2 mb-6">
-        <div className="space-y-8">
-          <div className="space-y-4">
-            <div className="flex items-center gap-3">
-              <div className="p-2 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-lg shadow-lg">
-                <LucideIcons.Code className="w-5 h-5 text-white filter drop-shadow-sm" />
-              </div>
-              <Typography tag="h4" className="font-semibold">
-                ThemeProvider Setup
-              </Typography>
-            </div>
+    <>
+      <HeroCard
+        title="Using the Theme System"
+        description="Setup examples for ThemeProvider and the useTheme hook — everything you need to integrate theming in your application."
+        icon={
+          <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 bg-linear-to-br from-blue-500 via-indigo-500 to-purple-500 rounded-full flex items-center justify-center shadow-lg">
+            <LucideIcons.Code className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 text-white filter drop-shadow-lg" />
+          </div>
+        }
+      />
+
+      <section className="space-y-8">
+        <div className="text-center">
+          <Typography tag="h2" className="mb-2">
+            ThemeProvider Setup
+          </Typography>
+          <Typography
+            tag="p"
+            className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto"
+          >
+            Wrap your application with ThemeProvider to enable theming
+          </Typography>
+        </div>
+        <CardContainer>
+          <CardTitle title="Basic Configuration">
             <CodeBlock
               language="tsx"
-              code={`import { ThemeProvider, LAYOUT_OPTIONS } from '@ui/tucu-ui';
+              code={`import { ThemeProvider, LAYOUT_OPTIONS } from '@e-burgos/tucu-ui';
 
 function App() {
   const menuItems = [
@@ -33,15 +47,18 @@ function App() {
 
   return (
     <ThemeProvider
+      // Theme Style (constrains available layouts)
+      themeStyle="default" // 'default' | 'macos' | 'macos-tahoe'
+
       // Layout Configuration
       layout={LAYOUT_OPTIONS.HORIZONTAL} // CLEAN | ADMIN | HORIZONTAL
       menuItems={menuItems}
       logo={{ path: '/', name: 'MyApp' }}
 
       // Color Configuration
-      brandColor="Blue"              // Primary brand color preset
+      brandColor="Blue"
       customPaletteColor={{
-        primary: '#0052ff',          // Hex color or preset name
+        primary: '#0052ff',
         darkPrimary: '#578bfa',
         secondary: '#f3f4f6',
         darkSecondary: '#172131',
@@ -56,90 +73,69 @@ function App() {
       }}
 
       // Theme Settings
-      mode="light"                   // 'light' | 'dark'
+      mode="dark"                    // 'light' | 'dark' (default: 'dark')
       showSettings={true}
-      
+
       // Additional Features
       headerClassName="custom-header"
       contentClassName="custom-content"
       fullWidth={false}
       rightButton={<UserMenu />}
-      className="custom-layout"
     >
-      {/* Routes are automatically handled by ThemeProvider */}
-      {/* Or provide customRoutes prop for custom routing */}
+      {/* Routes handled automatically by ThemeProvider */}
     </ThemeProvider>
   );
 }`}
             />
-          </div>
+          </CardTitle>
+        </CardContainer>
+      </section>
 
-          <div className="space-y-4">
-            <div className="flex items-center gap-3">
-              <div className="p-2 bg-gradient-to-br from-purple-500 to-violet-500 rounded-lg shadow-lg">
-                <LucideIcons.Zap className="w-5 h-5 text-white filter drop-shadow-sm" />
-              </div>
-              <Typography tag="h4" className="font-semibold">
-                useTheme Hook
-              </Typography>
-            </div>
+      <section className="space-y-8">
+        <div className="text-center">
+          <Typography tag="h2" className="mb-2">
+            useTheme Hook Usage
+          </Typography>
+          <Typography
+            tag="p"
+            className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto"
+          >
+            Access and control theme state from any component
+          </Typography>
+        </div>
+        <CardContainer>
+          <CardTitle title="Theme Controls Example">
             <CodeBlock
               language="tsx"
-              code={`import { useTheme, LAYOUT_OPTIONS } from '@ui/tucu-ui';
+              code={`import { useTheme, LAYOUT_OPTIONS } from '@e-burgos/tucu-ui';
 
 function ThemeControls() {
   const {
     // State
-    mode,
-    layout,
-    primaryPreset,
-    darkPrimaryPreset,
-    secondaryPreset,
-    darkSecondaryPreset,
-    accentPreset,
-    darkAccentPreset,
-    mutedPreset,
-    darkMutedPreset,
-    darkBgPreset,
-    lightBgPreset,
-    lightDarkPreset,
-    darkLightDarkPreset,
-    direction,
-    logo,
-    lang,
+    mode, layout, direction, colorScheme,
+    primaryPreset, secondaryPreset, accentPreset,
     isSettingsOpen,
-    showSettings,
 
     // Setters
-    setMode,
-    setLayout,
-    setPrimaryPreset,
-    setDarkPrimaryPreset,
-    setSecondaryPreset,
-    setDarkSecondaryPreset,
-    setAccentPreset,
-    setDarkAccentPreset,
-    setMutedPreset,
-    setDarkMutedPreset,
-    setDarkBgPreset,
-    setLightBgPreset,
-    setLightDarkPreset,
-    setDarkLightDarkPreset,
-    setDirection,
-    setLogo,
-    setLang,
+    setMode, setLayout, setDirection,
+    setPrimaryPreset, setSecondaryPreset,
     setIsSettingsOpen,
-    setShowSettings,
+
+    // Actions
     restoreDefaultColors,
+    applyMacOSTheme,
+    applyMacOSTahoeTheme,
+    applyThemeStyle,
   } = useTheme();
 
   return (
     <div>
-      {/* Basic Controls */}
+      {/* Mode Toggle */}
       <button onClick={() => setMode(mode === 'light' ? 'dark' : 'light')}>
         Toggle {mode === 'light' ? 'Dark' : 'Light'} Mode
       </button>
 
+      {/* Layout (only valid options for current theme style) */}
       <select
         value={layout}
         onChange={(e) => setLayout(e.target.value as LAYOUT_OPTIONS)}
@@ -149,40 +145,31 @@ function ThemeControls() {
         <option value={LAYOUT_OPTIONS.HORIZONTAL}>Horizontal</option>
       </select>
 
-      <select
-        value={direction}
-        onChange={(e) => setDirection(e.target.value as 'ltr' | 'rtl')}
-      >
-        <option value="ltr">LTR</option>
-        <option value="rtl">RTL</option>
-      </select>
+      {/* Theme Style Actions */}
+      <button onClick={applyMacOSTheme}>Apply macOS Sonoma</button>
+      <button onClick={applyMacOSTahoeTheme}>Apply macOS Tahoe</button>
+      <button onClick={() => applyThemeStyle('default')}>Reset to Default</button>
 
-      {/* Advanced Color Controls */}
+      {/* Color Controls */}
       <button onClick={() => setPrimaryPreset({ label: 'Blue', value: '#105eff' })}>
-        Set Primary Color
+        Set Primary: Blue
       </button>
 
-      <button onClick={() => setSecondaryPreset({ label: 'DEFAULT_SECONDARY', value: '#f3f4f6' })}>
-        Set Secondary Color
-      </button>
-
-      {/* Settings Panel Control */}
+      {/* Settings Panel */}
       <button onClick={() => setIsSettingsOpen(!isSettingsOpen)}>
         {isSettingsOpen ? 'Close' : 'Open'} Settings
       </button>
 
       {/* Restore Defaults */}
-      <button onClick={restoreDefaultColors}>
-        Restore Default Colors
-      </button>
+      <button onClick={restoreDefaultColors}>Restore Default Colors</button>
     </div>
   );
 }`}
             />
-          </div>
-        </div>
-      </CardTitle>
-    </CardContainer>
+          </CardTitle>
+        </CardContainer>
+      </section>
+    </>
   );
 };
 

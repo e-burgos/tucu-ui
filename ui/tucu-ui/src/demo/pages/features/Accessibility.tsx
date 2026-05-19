@@ -62,6 +62,7 @@ const sections: SectionConfig[] = [
 export function Accessibility() {
   return (
     <DynamicSectionsPage
+      hideHeroInSubSections
       sections={sections}
       hero={
         <HeroCard

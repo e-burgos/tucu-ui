@@ -2,13 +2,15 @@ import React from 'react';
 import {
   CardContainer,
   CardTitle,
-  Typography,
   CodeBlock,
   CollectionCard,
+  HeroCard,
+  LucideIcons,
 } from '../../../../index';
 import collection1Img from '../../../assets/images/collection/collection-1.jpg';
 import avatar1Img from '../../../assets/images/avatar/1.png';
 import { AutoPropsTable } from '../../../components/auto-props-table';
+import { PropPlayground } from '../../../components/prop-playground';
 
 const CollectionCardSection: React.FC = () => {
   const collectionData = {
@@ -25,24 +27,17 @@ const CollectionCardSection: React.FC = () => {
     },
   };
 
-  // Table columns definition for props tables
-
-  // CollectionCard props data
-
   return (
     <>
-      <div className="text-center space-y-4">
-        <Typography tag="h2" className="text-3xl md:text-4xl font-bold">
-          CollectionCard
-        </Typography>
-        <Typography
-          tag="p"
-          className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
-        >
-          NFT collection preview with statistics, cover image, and creator
-          information for marketplace interfaces.
-        </Typography>
-      </div>
+      <HeroCard
+        title="CollectionCard"
+        description="NFT collection preview with statistics, cover image, and creator information for marketplace interfaces."
+        icon={
+          <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 bg-linear-to-br from-indigo-500 via-purple-500 to-pink-500 rounded-full flex items-center justify-center shadow-lg border border-indigo-500/50">
+            <LucideIcons.LayoutGrid className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 text-white filter drop-shadow-lg" />
+          </div>
+        }
+      />
 
       <CardContainer className="overflow-hidden">
         <CardTitle title="Basic Examples" className="mt-2 mb-2">
@@ -53,6 +48,28 @@ const CollectionCardSection: React.FC = () => {
           </div>
         </CardTitle>
       </CardContainer>
+
+      <PropPlayground
+        componentName="CollectionCard"
+        defaultValues={{
+          className: '',
+        }}
+        controlOverrides={[
+          {
+            name: 'className',
+            type: 'text',
+            description: 'Additional CSS classes for the card',
+          },
+        ]}
+        includeProps={['className']}
+      >
+        {(props) => (
+          <div className="w-full max-w-sm">
+            <CollectionCard item={collectionData} className={props.className} />
+          </div>
+        )}
+      </PropPlayground>
+
       <AutoPropsTable componentName="CollectionCard" />
 
       <CardContainer className="overflow-hidden">
@@ -86,4 +103,3 @@ const collectionData = {
 };
 
 export default CollectionCardSection;
-

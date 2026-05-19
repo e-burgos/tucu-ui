@@ -348,6 +348,7 @@ const sections: SectionConfig[] = [
 export function UiComponents() {
   return (
     <DynamicSectionsPage
+      hideHeroInSubSections
       sections={sections}
       hero={
         <HeroCard

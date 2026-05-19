@@ -5,10 +5,13 @@ import {
   Typography,
   CodeBlock,
   Stepper,
+  HeroCard,
+  LucideIcons,
 } from '../../../../index';
 import { AutoPropsTable } from '../../../components/auto-props-table';
 import { Check, User, CreditCard, Package } from 'lucide-react';
 
+import { PropPlayground } from '../../../components/prop-playground';
 const StepperSection: React.FC = () => {
   const [step1, setStep1] = useState(1);
   const [step2, setStep2] = useState(0);
@@ -37,18 +40,16 @@ const StepperSection: React.FC = () => {
 
   return (
     <>
-      <div className="text-center space-y-4">
-        <Typography tag="h2" className="text-3xl md:text-4xl font-bold">
-          Stepper
-        </Typography>
-        <Typography
-          tag="p"
-          className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
-        >
-          A step indicator for multi-step flows like checkouts, wizards, and
-          onboarding sequences.
-        </Typography>
-      </div>
+      <HeroCard
+        title="Stepper"
+        description="A step indicator for multi-step flows like checkouts, wizards, and
+          onboarding sequences."
+        icon={
+          <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 bg-linear-to-br from-teal-500 to-green-500 rounded-full flex items-center justify-center shadow-lg">
+            <LucideIcons.ListOrdered className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-white filter drop-shadow-lg" />
+          </div>
+        }
+      />
 
       <CardContainer className="overflow-hidden">
         <CardTitle title="Examples" className="mt-2 mb-2">
@@ -120,6 +121,27 @@ const StepperSection: React.FC = () => {
           </div>
         </CardTitle>
       </CardContainer>
+      <PropPlayground
+        componentName="Stepper"
+        title="Stepper Playground"
+        defaultValues={{
+          'currentStep': 1
+}}
+        excludeProps={['steps', 'onStepChange', 'className']}
+      >
+        {(props) => (
+          <Stepper
+            {...props}
+            steps={[
+              { label: 'Step 1' },
+              { label: 'Step 2' },
+              { label: 'Step 3' },
+            ]}
+          />
+        )}
+      </PropPlayground>
+
+
 
       <AutoPropsTable componentName="Stepper" />
 

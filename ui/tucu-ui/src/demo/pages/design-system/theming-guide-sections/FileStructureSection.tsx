@@ -1,31 +1,44 @@
 import React from 'react';
-import { CardContainer, CardTitle, Typography, Alert, CodeBlock } from '../../../../index';
+import {
+  HeroCard,
+  CardContainer,
+  CardTitle,
+  Typography,
+  LucideIcons,
+  Alert,
+  CodeBlock,
+} from '../../../../index';
 
 const FileStructureSection: React.FC = () => {
   return (
     <>
-      <div className="text-center">
-        <Typography
-          tag="h2"
-          className="mb-4 text-2xl sm:text-3xl md:text-4xl font-bold"
-        >
-          File Structure & Important Notes
-        </Typography>
-        <Typography
-          tag="p"
-          className="text-base sm:text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto"
-        >
-          Understanding the theme system architecture
-        </Typography>
-      </div>
+      <HeroCard
+        title="File Structure"
+        description="Understand the theme system's file organization and important architectural notes."
+        icon={
+          <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 bg-linear-to-br from-gray-500 via-slate-500 to-zinc-600 rounded-full flex items-center justify-center shadow-lg">
+            <LucideIcons.FolderTree className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 text-white filter drop-shadow-lg" />
+          </div>
+        }
+      />
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <section className="space-y-8">
+        <div className="text-center">
+          <Typography tag="h2" className="mb-2">
+            Theme File Organization
+          </Typography>
+          <Typography
+            tag="p"
+            className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto"
+          >
+            Key directories and files in the theme system
+          </Typography>
+        </div>
         <CardContainer>
-          <CardTitle title="File Structure" className="mt-2 mb-6">
-            <div className="space-y-4">
-              <CodeBlock
-                language="markdown"
-                code={`ui/tucu-ui/src/
+          <CardTitle title="Directory Tree">
+            <CodeBlock
+              language="markdown"
+              code={`ui/tucu-ui/src/
 ├── themes/
 │   ├── components/
 │   │   ├── theme-provider/
@@ -51,59 +64,66 @@ const FileStructureSection: React.FC = () => {
 │   └── index.ts
 └── assets/css/
     └── globals.css`}
-              />
-            </div>
+            />
           </CardTitle>
         </CardContainer>
+      </section>
 
-        <CardContainer>
-          <CardTitle title="Important Notes" className="mt-2 mb-6">
-            <div className="space-y-4">
-              <Alert variant="info" dismissible={false}>
-                <Typography tag="h5" className="font-semibold text-sm mb-2">
-                  Spacing Classes
-                </Typography>
-                <Typography tag="p" className="text-xs">
-                  All spacing classes use arbitrary values (e.g.,{' '}
-                  <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-700 rounded">
-                    p-[16px]
-                  </code>
-                  ) instead of Tailwind defaults to maintain original spacing
-                  values.
-                </Typography>
-              </Alert>
+      <section className="space-y-8">
+        <div className="text-center">
+          <Typography tag="h2" className="mb-2">
+            Important Notes
+          </Typography>
+          <Typography
+            tag="p"
+            className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto"
+          >
+            Key architectural details to keep in mind
+          </Typography>
+        </div>
+        <div className="space-y-4">
+          <Alert variant="info" dismissible={false}>
+            <Typography tag="h5" className="font-semibold text-sm mb-2">
+              Spacing Classes
+            </Typography>
+            <Typography tag="p" className="text-xs">
+              All spacing classes use arbitrary values (e.g.,{' '}
+              <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-700 rounded">
+                p-[16px]
+              </code>
+              ) instead of Tailwind defaults to maintain original spacing
+              values.
+            </Typography>
+          </Alert>
 
-              <Alert variant="warning" dismissible={false}>
-                <Typography tag="h5" className="font-semibold text-sm mb-2">
-                  Theme Persistence
-                </Typography>
-                <Typography tag="p" className="text-xs">
-                  Theme settings are automatically persisted to localStorage
-                  using Zustand's persist middleware. Storage key:{' '}
-                  <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-700 rounded">
-                    theme-storage
-                  </code>
-                  .
-                </Typography>
-              </Alert>
+          <Alert variant="warning" dismissible={false}>
+            <Typography tag="h5" className="font-semibold text-sm mb-2">
+              Theme Persistence
+            </Typography>
+            <Typography tag="p" className="text-xs">
+              Theme settings are automatically persisted to localStorage using
+              Zustand's persist middleware. Storage key:{' '}
+              <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-700 rounded">
+                theme-storage
+              </code>
+              .
+            </Typography>
+          </Alert>
 
-              <Alert variant="success" dismissible={false}>
-                <Typography tag="h5" className="font-semibold text-sm mb-2">
-                  CSS Variables
-                </Typography>
-                <Typography tag="p" className="text-xs">
-                  Theme colors are injected as CSS variables on the document
-                  root. These variables are used by Tailwind utilities and can
-                  be referenced directly in CSS or inline styles.
-                </Typography>
-              </Alert>
-            </div>
-          </CardTitle>
-        </CardContainer>
-      </div>
+          <Alert variant="success" dismissible={false}>
+            <Typography tag="h5" className="font-semibold text-sm mb-2">
+              CSS Variables
+            </Typography>
+            <Typography tag="p" className="text-xs">
+              Theme colors are injected as CSS variables on the document root.
+              These variables are used by Tailwind utilities and can be
+              referenced directly in CSS or inline styles.
+            </Typography>
+          </Alert>
+        </div>
+      </section>
     </>
   );
 };
 
 export default FileStructureSection;
-

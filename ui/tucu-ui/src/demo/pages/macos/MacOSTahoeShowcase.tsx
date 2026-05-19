@@ -4,77 +4,138 @@ import { DynamicSectionsPage, type SectionConfig } from '../../components';
 import { useTheme } from '../../../themes';
 
 const sections: SectionConfig[] = [
+  // ── Foundations ──────────────────────────────────────────────
   {
     id: 'tahoe-liquid-glass',
     label: 'Liquid Glass',
     category: 'Foundations',
-    component: lazy(() => import('./macos-sections/MacOSTahoeSection')),
+    component: lazy(() => import('./macos-sections/tahoe/MacOSTahoeSection')),
   },
+  {
+    id: 'macos-colors',
+    label: 'Colors',
+    category: 'Foundations',
+    component: lazy(() => import('./macos-sections/tahoe/MacOSColorsSection')),
+  },
+  {
+    id: 'macos-materials',
+    label: 'Materials',
+    category: 'Foundations',
+    component: lazy(
+      () => import('./macos-sections/tahoe/MacOSMaterialsSection')
+    ),
+  },
+  {
+    id: 'macos-text-styles',
+    label: 'Text Styles',
+    category: 'Foundations',
+    component: lazy(
+      () => import('./macos-sections/tahoe/MacOSTextStylesSection')
+    ),
+  },
+  {
+    id: 'macos-backgrounds',
+    label: 'Backgrounds',
+    category: 'Foundations',
+    component: lazy(
+      () => import('./macos-sections/tahoe/MacOSBackgroundsSection')
+    ),
+  },
+  // ── Layouts ───────────────────────────────────────────────────
+  {
+    id: 'tahoe-dock',
+    label: 'Dock',
+    category: 'Layouts',
+    component: lazy(() => import('./macos-sections/tahoe/TahoeDockSection')),
+  },
+  {
+    id: 'tahoe-toolbar',
+    label: 'Toolbar',
+    category: 'Layouts',
+    component: lazy(() => import('./macos-sections/tahoe/TahoeToolbarSection')),
+  },
+  {
+    id: 'tahoe-layout-sidebar',
+    label: 'Layout Sidebar',
+    category: 'Layouts',
+    component: lazy(
+      () => import('./macos-sections/tahoe/TahoeLayoutSidebarSection')
+    ),
+  },
+  {
+    id: 'tahoe-layout-content',
+    label: 'Layout Content',
+    category: 'Layouts',
+    component: lazy(
+      () => import('./macos-sections/tahoe/TahoeLayoutContentSection')
+    ),
+  },
+  // ── Containers ───────────────────────────────────────────────
   {
     id: 'tahoe-window',
     label: 'Window',
-    category: 'Components',
-    component: lazy(() => import('./macos-sections/TahoeWindowSection')),
-  },
-  {
-    id: 'tahoe-search-bar',
-    label: 'Search Bar',
-    category: 'Components',
-    component: lazy(() => import('./macos-sections/TahoeSearchBarSection')),
-  },
-  {
-    id: 'tahoe-segmented-control',
-    label: 'Segmented Control',
-    category: 'Components',
-    component: lazy(
-      () => import('./macos-sections/TahoeSegmentedControlSection')
-    ),
+    category: 'Containers',
+    component: lazy(() => import('./macos-sections/tahoe/TahoeWindowSection')),
   },
   {
     id: 'tahoe-widget',
     label: 'Widget',
-    category: 'Components',
-    component: lazy(() => import('./macos-sections/TahoeWidgetSection')),
+    category: 'Containers',
+    component: lazy(() => import('./macos-sections/tahoe/TahoeWidgetSection')),
   },
+  // ── Controls ─────────────────────────────────────────────────
   {
-    id: 'tahoe-popover',
-    label: 'Popover',
-    category: 'Components',
-    component: lazy(() => import('./macos-sections/TahoePopoverSection')),
-  },
-  {
-    id: 'tahoe-notification-banner',
-    label: 'Notification Banner',
-    category: 'Components',
+    id: 'tahoe-search-bar',
+    label: 'Search Bar',
+    category: 'Controls',
     component: lazy(
-      () => import('./macos-sections/TahoeNotificationBannerSection')
+      () => import('./macos-sections/tahoe/TahoeSearchBarSection')
+    ),
+  },
+  {
+    id: 'tahoe-segmented-control',
+    label: 'Segmented Control',
+    category: 'Controls',
+    component: lazy(
+      () => import('./macos-sections/tahoe/TahoeSegmentedControlSection')
+    ),
+  },
+  {
+    id: 'tahoe-command-palette',
+    label: 'Command Palette',
+    category: 'Controls',
+    component: lazy(
+      () => import('./macos-sections/tahoe/TahoeCommandPaletteSection')
     ),
   },
   {
     id: 'tahoe-progress-bar',
     label: 'Progress Bar',
-    category: 'Components',
-    component: lazy(() => import('./macos-sections/TahoeProgressBarSection')),
+    category: 'Controls',
+    component: lazy(
+      () => import('./macos-sections/tahoe/TahoeProgressBarSection')
+    ),
   },
+  // ── Feedback ─────────────────────────────────────────────────
   {
     id: 'tahoe-dialog',
     label: 'Dialog',
-    category: 'Components',
-    component: lazy(() => import('./macos-sections/TahoeDialogSection')),
+    category: 'Feedback',
+    component: lazy(() => import('./macos-sections/tahoe/TahoeDialogSection')),
   },
   {
-    id: 'tahoe-command-palette',
-    label: 'Command Palette',
-    category: 'Components',
+    id: 'tahoe-notification-banner',
+    label: 'Notification Banner',
+    category: 'Feedback',
     component: lazy(
-      () => import('./macos-sections/TahoeCommandPaletteSection')
+      () => import('./macos-sections/tahoe/TahoeNotificationBannerSection')
     ),
   },
   {
-    id: 'tahoe-dock',
-    label: 'Dock',
-    category: 'Components',
-    component: lazy(() => import('./macos-sections/TahoeDockSection')),
+    id: 'tahoe-popover',
+    label: 'Popover',
+    category: 'Feedback',
+    component: lazy(() => import('./macos-sections/tahoe/TahoePopoverSection')),
   },
 ];
 
@@ -89,6 +150,7 @@ export function MacOSTahoeShowcase() {
 
   return (
     <DynamicSectionsPage
+      hideHeroInSubSections
       sections={sections}
       hero={
         <HeroCard

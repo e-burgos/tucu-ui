@@ -5,8 +5,11 @@ import {
   Typography,
   CodeBlock,
   CollectionSelectList,
+  HeroCard,
+  LucideIcons,
 } from '../../../../index';
 import { AutoPropsTable } from '../../../components/auto-props-table';
+import { PropPlayground } from '../../../components/prop-playground';
 
 const CollectionSelectListSection: React.FC = () => {
   const [selected, setSelected] = useState<string | null>(null);
@@ -62,18 +65,15 @@ const CollectionSelectListSection: React.FC = () => {
 
   return (
     <>
-      <div className="text-center space-y-4">
-        <Typography tag="h2" className="text-3xl md:text-4xl font-bold">
-          CollectionSelectList
-        </Typography>
-        <Typography
-          tag="p"
-          className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
-        >
-          A searchable list with keyboard navigation for selecting NFT
-          collections. Supports filtering, highlight, and ARIA roles.
-        </Typography>
-      </div>
+      <HeroCard
+        title="CollectionSelectList"
+        description="A searchable list with keyboard navigation for selecting NFT collections. Supports filtering, highlight, and ARIA roles."
+        icon={
+          <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 bg-linear-to-br from-emerald-500 via-green-500 to-lime-500 rounded-full flex items-center justify-center shadow-lg border border-emerald-500/50">
+            <LucideIcons.ListChecks className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 text-white filter drop-shadow-lg" />
+          </div>
+        }
+      />
 
       <CardContainer className="overflow-hidden">
         <CardTitle title="Examples" className="mt-2 mb-2">
@@ -107,6 +107,38 @@ const CollectionSelectListSection: React.FC = () => {
           </div>
         </CardTitle>
       </CardContainer>
+
+      <PropPlayground
+        componentName="CollectionSelectList"
+        defaultValues={{
+          placeholder: 'Search collections...',
+          noResultsMessage: 'No collections found',
+        }}
+        controlOverrides={[
+          {
+            name: 'placeholder',
+            type: 'text',
+            description: 'Placeholder text for the search input',
+          },
+          {
+            name: 'noResultsMessage',
+            type: 'text',
+            description: 'Message shown when no results match',
+          },
+        ]}
+        includeProps={['placeholder', 'noResultsMessage']}
+      >
+        {(props) => (
+          <div className="w-full max-w-md">
+            <CollectionSelectList
+              collectionList={shortList}
+              onSelect={(v) => console.log('Selected:', v)}
+              placeholder={props.placeholder}
+              noResultsMessage={props.noResultsMessage}
+            />
+          </div>
+        )}
+      </PropPlayground>
 
       <AutoPropsTable componentName="CollectionSelectList" />
 

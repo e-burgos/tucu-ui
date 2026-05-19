@@ -5,32 +5,27 @@ import {
   Typography,
   CodeBlock,
   CoinCard,
+  HeroCard,
+  LucideIcons,
 } from '../../../../index';
 import bitcoinImg from '../../../assets/images/coin/bitcoin.svg';
 import ethereumImg from '../../../assets/images/coin/tether.svg';
 import cardanoImg from '../../../assets/images/coin/cardano.svg';
 import { AutoPropsTable } from '../../../components/auto-props-table';
+import { PropPlayground } from '../../../components/prop-playground';
 
 const CoinCardSection: React.FC = () => {
-  // Table columns definition for props tables
-
-  // CoinCard props data
-
   return (
     <>
-      <div className="text-center space-y-4">
-        <Typography tag="h2" className="text-3xl md:text-4xl font-bold">
-          CoinCard
-        </Typography>
-        <Typography
-          tag="p"
-          className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
-        >
-          Display cryptocurrency information in a clean, card format with
-          customizable background colors, price changes, and balance
-          information.
-        </Typography>
-      </div>
+      <HeroCard
+        title="CoinCard"
+        description="Display cryptocurrency information in a clean, card format with customizable background colors, price changes, and balance information."
+        icon={
+          <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 bg-linear-to-br from-amber-500 via-orange-500 to-yellow-500 rounded-full flex items-center justify-center shadow-lg border border-amber-500/50">
+            <LucideIcons.Coins className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 text-white filter drop-shadow-lg" />
+          </div>
+        }
+      />
 
       <CardContainer className="overflow-hidden">
         <CardTitle title="Basic Examples" className="mt-2 mb-2">
@@ -88,6 +83,49 @@ const CoinCardSection: React.FC = () => {
           </div>
         </CardTitle>
       </CardContainer>
+
+      <PropPlayground
+        componentName="CoinCard"
+        defaultValues={{
+          id: 'bitcoin',
+          name: 'Bitcoin',
+          symbol: 'BTC',
+          balance: '1.25',
+          usdBalance: '45,000',
+          change: '+2.5%',
+          isChangePositive: true,
+          color: '#FDEDD4',
+        }}
+        controlOverrides={[
+          {
+            name: 'isChangePositive',
+            type: 'boolean',
+            description: 'Whether the price change is positive',
+          },
+          {
+            name: 'color',
+            type: 'text',
+            description: 'Background color of the card (hex)',
+          },
+        ]}
+        includeProps={[
+          'id',
+          'name',
+          'symbol',
+          'balance',
+          'usdBalance',
+          'change',
+          'isChangePositive',
+          'color',
+        ]}
+      >
+        {(props) => (
+          <div className="w-full max-w-sm">
+            <CoinCard {...props} logo={bitcoinImg} />
+          </div>
+        )}
+      </PropPlayground>
+
       <AutoPropsTable componentName="CoinCard" />
 
       <CardContainer className="overflow-hidden">

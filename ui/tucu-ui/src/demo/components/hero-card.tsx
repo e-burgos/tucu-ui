@@ -84,13 +84,13 @@ export const HeroCard: React.FC<HeroCardProps> = ({
           {icon && <div className="relative mx-auto mb-6 w-fit">{icon}</div>}
           <Typography
             tag="h1"
-            className="text-5xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-brand mb-6"
+            className="text-3xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-5xl font-bold text-brand mb-6"
           >
             {title}
           </Typography>
           <Typography
             tag="p"
-            className="text-base sm:text-lg md:text-xl lg:text-2xl text-current max-w-6xl mx-auto leading-relaxed"
+            className="text-xs sm:text-sm md:text-base lg:text-lg text-current max-w-6xl mx-auto leading-relaxed"
           >
             {description}
           </Typography>

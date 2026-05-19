@@ -34,6 +34,8 @@ export interface DynamicSectionsPageProps {
   tocTitle?: string;
   /** Optional placeholder when no section is selected (defaults to a sections grid) */
   placeholder?: React.ReactNode;
+  /** Hide hero content when a subsection is selected */
+  hideHeroInSubSections?: boolean;
 }
 
 // ─── Hook: useDynamicSection ───────────────────────────────────
@@ -178,6 +180,7 @@ export const DynamicSectionsPage: React.FC<DynamicSectionsPageProps> = ({
   hero,
   tocTitle = 'Table of Contents',
   placeholder,
+  hideHeroInSubSections = false,
 }) => {
   const sectionIds = useMemo(() => sections.map((s) => s.id), [sections]);
 
@@ -214,7 +217,7 @@ export const DynamicSectionsPage: React.FC<DynamicSectionsPageProps> = ({
           }`}
         >
           {/* Hero Section - always visible */}
-          {hero}
+          {!hideHeroInSubSections || !sectionId ? hero : null}
 
           {/* Section Content or Placeholder */}
           {SectionComponent ? (

@@ -164,7 +164,7 @@ export const TocDefault: React.FC<TableOfContentsProps> = ({
         >
           <div className="h-full flex flex-col w-72 bg-body border-r border-gray-100 dark:border-gray-800">
             <div className="flex items-center justify-between shrink-0 px-4 py-4 border-b border-gray-100 dark:border-gray-800">
-              <Typography tag="h3" className="text-lg font-semibold">
+              <Typography tag="h3" className="text-sm font-semibold">
                 {title}
               </Typography>
               <Button
@@ -208,7 +208,7 @@ export const TocDefault: React.FC<TableOfContentsProps> = ({
           }}
         >
           <div className="z-10 flex items-center justify-between shrink-0 pl-4 pr-2 p-4 bg-body border-b border-gray-100 dark:border-gray-800">
-            <Typography tag="h3" className="text-lg font-semibold">
+            <Typography tag="h3" className="text-sm font-semibold">
               {title}
             </Typography>
             <button

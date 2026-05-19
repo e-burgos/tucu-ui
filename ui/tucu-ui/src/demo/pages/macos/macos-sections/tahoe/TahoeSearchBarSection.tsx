@@ -2,10 +2,13 @@ import React, { useState } from 'react';
 import {
   CardContainer,
   CardTitle,
-  Typography,
   CodeBlock,
-} from '../../../../index';
-import { MacOSTahoeSearchBar } from '../../../../components/macos/tahoe/search-bar-tahoe';
+  LucideIcons,
+  HeroCard,
+} from '../../../../../index';
+import { MacOSTahoeSearchBar } from '../../../../../components/macos/tahoe/controls/search-bar-tahoe';
+import { AutoPropsTable } from '../../../../components/auto-props-table';
+import { PropPlayground } from '../../../../components/prop-playground';
 
 export const TahoeSearchBarSection: React.FC = () => {
   const [value, setValue] = useState('');
@@ -13,18 +16,15 @@ export const TahoeSearchBarSection: React.FC = () => {
 
   return (
     <>
-      <div className="text-center space-y-4">
-        <Typography tag="h2" className="text-3xl md:text-4xl font-bold">
-          Search Bar
-        </Typography>
-        <Typography
-          tag="p"
-          className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
-        >
-          Liquid Glass search field with glass material background, clear
-          button, and submit/escape keyboard support.
-        </Typography>
-      </div>
+      <HeroCard
+        title="Search Bar"
+        description="Liquid Glass search field with glass material background, clear button, and submit/escape keyboard support."
+        icon={
+          <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 bg-linear-to-br from-cyan-500 via-sky-500 to-blue-600 rounded-full flex items-center justify-center shadow-lg border border-cyan-500/50">
+            <LucideIcons.Search className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 text-white filter drop-shadow-lg" />
+          </div>
+        }
+      />
 
       <CardContainer>
         <CardTitle title="Sizes" className="mt-2 mb-2">
@@ -94,7 +94,7 @@ export const TahoeSearchBarSection: React.FC = () => {
       </CardContainer>
 
       <CardContainer>
-        <CardTitle title="Usage" className="mt-2 mb-2">
+        <CardTitle title="Code Example" className="mt-2 mb-2">
           <CodeBlock
             code={`import { MacOSTahoeSearchBar } from '@e-burgos/tucu-ui';
 
@@ -110,6 +110,25 @@ export const TahoeSearchBarSection: React.FC = () => {
           />
         </CardTitle>
       </CardContainer>
+
+      <PropPlayground
+        componentName="MacOSTahoeSearchBar"
+        defaultValues={{
+          placeholder: 'Search...',
+          size: 'md',
+          autoFocus: false,
+        }}
+        includeProps={['placeholder', 'size', 'autoFocus']}
+        excludeProps={['className', 'value', 'onChange', 'onClear', 'onSubmit']}
+      >
+        {(props) => (
+          <div className="max-w-sm">
+            <MacOSTahoeSearchBar {...props} className="w-full" />
+          </div>
+        )}
+      </PropPlayground>
+
+      <AutoPropsTable componentName="MacOSTahoeSearchBar" />
     </>
   );
 };
