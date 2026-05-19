@@ -22,7 +22,7 @@ function TrafficLights({
   disableMaximize,
 }: TrafficLightsProps) {
   return (
-    <div data-tucu="traffic-lights" className="group flex items-center gap-2">
+    <div data-tucu="traffic-lights" className="group flex items-center gap-[8px]">
       <button
         data-tucu="traffic-light"
         data-type="close"
@@ -30,7 +30,7 @@ function TrafficLights({
         disabled={disableClose}
         aria-label="Close"
         className={cn(
-          'flex h-3 w-3 items-center justify-center rounded-full transition-[filter]',
+          'flex h-[12px] w-[12px] items-center justify-center rounded-full transition-[filter]',
           disableClose
             ? 'bg-gray-400/40 cursor-not-allowed'
             : 'bg-(--macos-traffic-close) hover:brightness-90'
@@ -58,7 +58,7 @@ function TrafficLights({
         disabled={disableMinimize}
         aria-label="Minimize"
         className={cn(
-          'flex h-3 w-3 items-center justify-center rounded-full transition-[filter]',
+          'flex h-[12px] w-[12px] items-center justify-center rounded-full transition-[filter]',
           disableMinimize
             ? 'bg-gray-400/40 cursor-not-allowed'
             : 'bg-(--macos-traffic-minimize) hover:brightness-90'
@@ -86,7 +86,7 @@ function TrafficLights({
         disabled={disableMaximize}
         aria-label="Maximize"
         className={cn(
-          'flex h-3 w-3 items-center justify-center rounded-full transition-[filter]',
+          'flex h-[12px] w-[12px] items-center justify-center rounded-full transition-[filter]',
           disableMaximize
             ? 'bg-gray-400/40 cursor-not-allowed'
             : 'bg-(--macos-traffic-maximize) hover:brightness-90'
@@ -373,7 +373,7 @@ export function MacOSTahoeWindow({
       data-state={windowState}
       className={cn(
         'flex flex-col',
-        'rounded-2xl',
+        'rounded-[16px]',
         'border border-(--macos-glass-border)',
         'bg-(--macos-glass-regular-bg) backdrop-blur-(--macos-glass-regular-blur,20px)',
         'shadow-(--macos-glass-shadow,0_8px_32px_rgba(0,0,0,0.12))',
@@ -391,11 +391,11 @@ export function MacOSTahoeWindow({
       <div
         data-tucu="tahoe-window-titlebar"
         className={cn(
-          'relative flex h-13 shrink-0 items-center gap-3 px-5',
+          'relative flex h-[52px] shrink-0 items-center gap-[12px] px-[20px]',
           'border-b border-(--macos-glass-border-subtle)',
           'bg-(--macos-glass-clear-bg)',
           'backdrop-blur-(--macos-glass-clear-blur,30px)',
-          isMinimized && 'rounded-2xl border-b-0',
+          isMinimized && 'rounded-[16px] border-b-0',
           isDraggable && 'cursor-grab active:cursor-grabbing',
           titleBarClassName
         )}
@@ -456,14 +456,14 @@ export function MacOSTahoeWindow({
             className={cn(
               'absolute z-10',
               cursorMap[edge],
-              edge === 'n' && 'inset-x-0 top-0 h-1',
-              edge === 's' && 'inset-x-0 bottom-0 h-1',
-              edge === 'e' && 'inset-y-0 right-0 w-1',
-              edge === 'w' && 'inset-y-0 left-0 w-1',
-              edge === 'ne' && 'right-0 top-0 h-3 w-3',
-              edge === 'nw' && 'left-0 top-0 h-3 w-3',
-              edge === 'se' && 'bottom-0 right-0 h-3 w-3',
-              edge === 'sw' && 'bottom-0 left-0 h-3 w-3'
+              edge === 'n' && 'inset-x-0 top-0 h-[4px]',
+              edge === 's' && 'inset-x-0 bottom-0 h-[4px]',
+              edge === 'e' && 'inset-y-0 right-0 w-[4px]',
+              edge === 'w' && 'inset-y-0 left-0 w-[4px]',
+              edge === 'ne' && 'right-0 top-0 h-[12px] w-[12px]',
+              edge === 'nw' && 'left-0 top-0 h-[12px] w-[12px]',
+              edge === 'se' && 'bottom-0 right-0 h-[12px] w-[12px]',
+              edge === 'sw' && 'bottom-0 left-0 h-[12px] w-[12px]'
             )}
           />
         ))}

@@ -20,8 +20,8 @@ export const CardTitle: React.FC<CardTitleProps> = ({
       className={cn(
         'w-full min-w-0 relative rounded-lg flex flex-col justify-start',
         border
-          ? 'border border-gray-200 dark:border-gray-700 sm:px-6 px-2 sm:pb-6 pb-2'
-          : 'sm:p-6 p-2 sm:pt-[32px] pt-[24px]',
+          ? 'border border-gray-200 dark:border-gray-700 sm:px-6 px-4 sm:pt-4 pt-3 sm:pb-6 pb-4'
+          : 'sm:p-6 p-4 sm:pt-[32px] pt-[24px]',
         className
       )}
     >
@@ -29,7 +29,7 @@ export const CardTitle: React.FC<CardTitleProps> = ({
         <legend
           data-tucu="card-title-label"
           className={cn(
-            'font-bold sm:text-2xl text-lg dark:text-white text-current px-2',
+            'font-bold sm:text-xl text-lg dark:text-white text-current px-2',
             border ? 'ml-4' : 'absolute -top-4 left-4 m-0'
           )}
         >

@@ -21,13 +21,13 @@ export interface MacOSSegmentedControlProps<T extends string = string> {
 // ─── Size map ──────────────────────────────────────────────────
 
 const SIZE = {
-  sm: { wrap: 'h-7 p-[3px]', seg: 'px-2.5 text-xs gap-1', icon: 'w-3 h-3' },
+  sm: { wrap: 'h-[28px] p-[3px]', seg: 'px-[10px] text-xs gap-[4px]', icon: 'w-[12px] h-[12px]' },
   md: {
-    wrap: 'h-8 p-[3px]',
-    seg: 'px-3.5 text-[13px] gap-1.5',
-    icon: 'w-3.5 h-3.5',
+    wrap: 'h-[32px] p-[3px]',
+    seg: 'px-[14px] text-[13px] gap-[6px]',
+    icon: 'w-[14px] h-[14px]',
   },
-  lg: { wrap: 'h-9 p-[3px]', seg: 'px-4   text-sm gap-1.5', icon: 'w-4 h-4' },
+  lg: { wrap: 'h-[36px] p-[3px]', seg: 'px-[16px]   text-sm gap-[6px]', icon: 'w-[16px] h-[16px]' },
 };
 
 // ─── MacOSSegmentedControl ─────────────────────────────────────

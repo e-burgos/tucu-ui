@@ -33,7 +33,7 @@ export function MacOSTahoeDialogButton({
       onClick={onClick}
       disabled={disabled}
       className={cn(
-        'inline-flex h-8 items-center justify-center rounded-lg px-4 text-[13px] font-medium transition-all',
+        'inline-flex h-[32px] items-center justify-center rounded-[8px] px-[16px] text-[13px] font-medium transition-all',
         'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--macos-tahoe-accent)/40',
         disabled && 'pointer-events-none opacity-40',
         variant === 'primary' && [
@@ -109,7 +109,7 @@ export function MacOSTahoeDialog({
         onClick={(e) => e.stopPropagation()}
         className={cn(
           'flex max-h-[80vh] flex-col overflow-hidden outline-none',
-          'rounded-2xl',
+          'rounded-[16px]',
           'bg-(--macos-glass-prominent-bg) backdrop-blur-(--macos-glass-prominent-blur,40px)',
           'border border-(--macos-glass-prominent-border,var(--macos-glass-border))',
           'shadow-[0_24px_80px_rgba(0,0,0,0.2),0_0_0_1px_rgba(255,255,255,0.06)_inset]',
@@ -119,16 +119,16 @@ export function MacOSTahoeDialog({
       >
         {/* Header */}
         {title && (
-          <div className="flex items-center justify-between border-b border-(--macos-glass-border-subtle) px-6 py-4">
+          <div className="flex items-center justify-between border-b border-(--macos-glass-border-subtle) px-[24px] py-[16px]">
             <h2 className="text-[15px] font-semibold text-(--macos-tahoe-text)">
               {title}
             </h2>
             <button
               onClick={onClose}
               aria-label="Close dialog"
-              className="rounded-md p-1 text-(--macos-tahoe-text-muted) transition-colors hover:text-(--macos-tahoe-text)"
+              className="rounded-[6px] p-[4px] text-(--macos-tahoe-text-muted) transition-colors hover:text-(--macos-tahoe-text)"
             >
-              <svg className="h-4 w-4" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
+              <svg className="h-[16px] w-[16px]" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
                 <path d="M4 4l8 8M12 4l-8 8" />
               </svg>
             </button>
@@ -136,11 +136,11 @@ export function MacOSTahoeDialog({
         )}
 
         {/* Body */}
-        <div className="flex-1 overflow-auto px-6 py-4">{children}</div>
+        <div className="flex-1 overflow-auto px-[24px] py-[16px]">{children}</div>
 
         {/* Footer */}
         {footer && (
-          <div className="flex items-center justify-end gap-2 border-t border-(--macos-glass-border-subtle) px-6 py-3">
+          <div className="flex items-center justify-end gap-[8px] border-t border-(--macos-glass-border-subtle) px-[24px] py-[12px]">
             {footer}
           </div>
         )}

@@ -27,7 +27,7 @@ export interface MacOSSidebarProps {
 
 // ─── MacOSSidebar ───────────────────────────────────────────────
 
-export function MacOSSidebar({
+export function MacSidebarCard({
   sections,
   activeId,
   header,
@@ -40,23 +40,25 @@ export function MacOSSidebar({
       data-tucu="sidebar"
       className={cn(
         'flex h-full flex-col',
-        'w-[var(--macos-sidebar-width,220px)] shrink-0',
+        'w-[var(--macos-sidebar-width,300px)] shrink-0',
         'bg-[var(--macos-material-toolbar,rgba(255,255,255,0.72))] backdrop-blur-xl',
         'border-r border-[var(--color-semantic-line-primary-subtle)]',
         className
       )}
     >
-      {header && <div className="shrink-0 px-3 pb-2 pt-4">{header}</div>}
+      {header && (
+        <div className="shrink-0 px-[12px] pb-[8px] pt-[16px]">{header}</div>
+      )}
 
-      <nav className="flex-1 overflow-y-auto px-2 py-2">
+      <nav className="flex-1 overflow-y-auto px-[8px] py-[8px]">
         {sections.map((section, si) => (
-          <div key={si} className={cn(si > 0 && 'mt-4')}>
+          <div key={si} className={cn(si > 0 && 'mt-[16px]')}>
             {section.label && (
-              <p className="mb-1 px-2 text-[11px] font-semibold uppercase tracking-widest text-gray-400 select-none dark:text-gray-500">
+              <p className="mb-[4px] px-[8px] text-[11px] font-semibold uppercase tracking-widest text-gray-400 select-none dark:text-gray-500">
                 {section.label}
               </p>
             )}
-            <ul className="space-y-0.5">
+            <ul className="space-y-[2px]">
               {section.items.map((item) => {
                 const active = item.id === activeId;
                 return (
@@ -69,7 +71,7 @@ export function MacOSSidebar({
                         onSelect?.(item.id);
                       }}
                       className={cn(
-                        'group flex h-7 w-full items-center gap-2 rounded-md px-2',
+                        'group flex h-[28px] w-full items-center gap-[8px] rounded-[6px] px-[8px]',
                         'text-sm transition-colors',
                         active
                           ? 'bg-[var(--color-semantic-bg-primary)]/15 font-medium text-[var(--color-semantic-bg-primary)]'
@@ -80,7 +82,7 @@ export function MacOSSidebar({
                       {item.icon && (
                         <span
                           className={cn(
-                            'h-4 w-4 shrink-0',
+                            'h-[16px] w-[16px] shrink-0',
                             active
                               ? 'text-[var(--color-semantic-bg-primary)]'
                               : 'text-gray-500 group-hover:text-gray-700 dark:text-gray-400 dark:group-hover:text-gray-200'
@@ -97,7 +99,7 @@ export function MacOSSidebar({
                       {item.badge !== undefined && (
                         <span
                           className={cn(
-                            'flex h-4 min-w-4 items-center justify-center rounded-full px-1 text-[11px] font-medium',
+                            'flex h-[16px] min-w-[16px] items-center justify-center rounded-full px-[4px] text-[11px] font-medium',
                             active
                               ? 'bg-[var(--color-semantic-bg-primary)] text-white'
                               : 'bg-gray-400/25 text-gray-600 dark:text-gray-300'
@@ -116,7 +118,7 @@ export function MacOSSidebar({
       </nav>
 
       {footer && (
-        <div className="shrink-0 border-t border-[var(--color-semantic-line-primary-subtle)] px-3 py-3">
+        <div className="shrink-0 border-t border-[var(--color-semantic-line-primary-subtle)] px-[12px] py-[12px]">
           {footer}
         </div>
       )}
@@ -124,4 +126,4 @@ export function MacOSSidebar({
   );
 }
 
-export default MacOSSidebar;
+export default MacSidebarCard;

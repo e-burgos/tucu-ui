@@ -15,14 +15,14 @@ function TrafficLights({
   onMaximize,
 }: TrafficLightsProps) {
   return (
-    <div data-tucu="traffic-lights" className="group flex items-center gap-2">
+    <div data-tucu="traffic-lights" className="group flex items-center gap-[8px]">
       <button
         data-tucu="traffic-light"
         data-type="close"
         onClick={onClose}
         aria-label="Close"
         className={cn(
-          'flex h-3 w-3 items-center justify-center rounded-full transition-[filter]',
+          'flex h-[12px] w-[12px] items-center justify-center rounded-full transition-[filter]',
           'bg-[var(--macos-traffic-close)] hover:brightness-90'
         )}
       >
@@ -46,7 +46,7 @@ function TrafficLights({
         onClick={onMinimize}
         aria-label="Minimize"
         className={cn(
-          'flex h-3 w-3 items-center justify-center rounded-full transition-[filter]',
+          'flex h-[12px] w-[12px] items-center justify-center rounded-full transition-[filter]',
           'bg-[var(--macos-traffic-minimize)] hover:brightness-90'
         )}
       >
@@ -70,7 +70,7 @@ function TrafficLights({
         onClick={onMaximize}
         aria-label="Maximize"
         className={cn(
-          'flex h-3 w-3 items-center justify-center rounded-full transition-[filter]',
+          'flex h-[12px] w-[12px] items-center justify-center rounded-full transition-[filter]',
           'bg-[var(--macos-traffic-maximize)] hover:brightness-90'
         )}
       >
@@ -428,7 +428,7 @@ export function MacOSWindow({
           onMouseDown={onDragStart}
           onDoubleClick={handleMaximize}
           className={cn(
-            'flex h-[var(--macos-titlebar-height,52px)] shrink-0 items-center gap-3 px-4',
+            'flex h-[var(--macos-titlebar-height,52px)] shrink-0 items-center gap-[12px] px-[16px]',
             'rounded-t-[var(--macos-radius-xl,10px)]',
             'bg-[var(--macos-material-toolbar,rgba(255,255,255,0.72))] backdrop-blur-xl',
             'border-b border-[var(--color-semantic-line-primary-subtle)]',
@@ -452,7 +452,7 @@ export function MacOSWindow({
           </span>
 
           {actions && (
-            <div className="flex shrink-0 items-center gap-2">{actions}</div>
+            <div className="flex shrink-0 items-center gap-[8px]">{actions}</div>
           )}
 
           {lightsRight && (

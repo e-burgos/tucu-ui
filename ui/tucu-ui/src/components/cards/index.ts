@@ -2,6 +2,8 @@ export * from './author-card';
 export * from './card';
 export * from './card-container';
 export * from './card-title';
+export * from './color-card';
+export * from './feature-card';
 export * from './info-card';
 export * from './panel-action-card';
 export * from './panel-card';

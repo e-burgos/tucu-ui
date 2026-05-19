@@ -17,15 +17,15 @@ export interface MacOSTahoeSegmentedControlProps<T extends string = string> {
 }
 
 const sizeMap = {
-  sm: 'h-7 text-[11px] gap-0.5 rounded-lg px-0.5',
-  md: 'h-8 text-[13px] gap-0.5 rounded-[10px] px-0.5',
-  lg: 'h-9 text-[14px] gap-1 rounded-xl px-1',
+  sm: 'h-[28px] text-[11px] gap-[2px] rounded-[8px] px-[2px]',
+  md: 'h-[32px] text-[13px] gap-[2px] rounded-[10px] px-[2px]',
+  lg: 'h-[36px] text-[14px] gap-[4px] rounded-[12px] px-[4px]',
 };
 
 const itemSize = {
-  sm: 'h-[22px] px-2 rounded-md',
-  md: 'h-[26px] px-3 rounded-lg',
-  lg: 'h-[30px] px-4 rounded-[10px]',
+  sm: 'h-[22px] px-[8px] rounded-[6px]',
+  md: 'h-[26px] px-[12px] rounded-[8px]',
+  lg: 'h-[30px] px-[16px] rounded-[10px]',
 };
 
 export function MacOSTahoeSegmentedControl<T extends string = string>({
@@ -59,7 +59,7 @@ export function MacOSTahoeSegmentedControl<T extends string = string>({
             disabled={option.disabled}
             onClick={() => !option.disabled && onChange(option.value)}
             className={cn(
-              'inline-flex select-none items-center justify-center gap-1.5 transition-all duration-200',
+              'inline-flex select-none items-center justify-center gap-[6px] transition-all duration-200',
               fullWidth && 'flex-1',
               itemSize[size],
               isActive

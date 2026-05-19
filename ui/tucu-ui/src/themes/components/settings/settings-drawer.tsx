@@ -39,6 +39,7 @@ import { Scrollbar } from '../../../components/common/scrollbar';
 import { Close } from '../../../components/icons/close';
 import { Input } from '../../../components/inputs/input';
 import { Select, SelectOption } from '../../../components/inputs/select';
+import { Circle, Waves, Image, Smartphone } from 'lucide-react';
 
 // ─── Color Configuration Map ───────────────────────────────────
 // Single source of truth: eliminates repetitive ternary chains.
@@ -571,15 +572,15 @@ function TahoeAccentPicker() {
               className={cn(
                 'group flex flex-col items-center gap-1.5 rounded-xl p-2 transition-all cursor-pointer',
                 isActive
-                  ? 'bg-white/10 ring-1 ring-white/20'
-                  : 'hover:bg-white/5'
+                  ? 'bg-black/8 ring-1 ring-black/15 dark:bg-white/10 dark:ring-white/20'
+                  : 'hover:bg-black/5 dark:hover:bg-white/5'
               )}
             >
               <span
                 className={cn(
                   'h-7 w-7 rounded-full border-2 transition-transform',
                   isActive
-                    ? 'border-white scale-110 shadow-lg'
+                    ? 'border-gray-900 dark:border-white scale-110 shadow-lg'
                     : 'border-transparent group-hover:scale-105'
                 )}
                 style={{
@@ -592,11 +593,70 @@ function TahoeAccentPicker() {
                 className={cn(
                   'text-[10px] font-medium transition-colors',
                   isActive
-                    ? 'text-white'
+                    ? 'text-gray-900 dark:text-white'
                     : 'text-(--macos-tahoe-text-muted) group-hover:text-(--macos-tahoe-text)'
                 )}
               >
                 {bundle.label}
+              </span>
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+// ─── TahoeBackgroundPicker ─────────────────────────────────────
+
+const TAHOE_BACKGROUNDS = [
+  { id: 'base', label: 'Base', Icon: Circle },
+  { id: 'wave', label: 'Wave', Icon: Waves },
+  { id: 'wallpaper', label: 'Wallpaper', Icon: Image },
+  { id: 'mobile', label: 'Mobile', Icon: Smartphone },
+] as const;
+
+function TahoeBackgroundPicker() {
+  const { backgroundVariant, setBackgroundVariant } = useTheme();
+
+  return (
+    <div className="px-6 pt-8">
+      <SettingsSectionHeading>Background</SettingsSectionHeading>
+      <div className="grid grid-cols-4 gap-3">
+        {TAHOE_BACKGROUNDS.map((bg) => {
+          const isActive = backgroundVariant === bg.id;
+          return (
+            <button
+              key={bg.id}
+              type="button"
+              aria-label={`${bg.label} background`}
+              onClick={() => setBackgroundVariant(bg.id)}
+              className={cn(
+                'group flex flex-col items-center gap-1.5 rounded-xl p-2 transition-all cursor-pointer',
+                isActive
+                  ? 'bg-black/8 ring-1 ring-black/15 dark:bg-white/10 dark:ring-white/20'
+                  : 'hover:bg-black/5 dark:hover:bg-white/5'
+              )}
+            >
+              <span
+                className={cn(
+                  'flex h-7 w-7 items-center bg-brand/30 justify-center rounded-full border-2 transition-transform',
+                  isActive
+                    ? 'border-gray-900 dark:border-white scale-110 shadow-lg'
+                    : 'border-transparent group-hover:scale-105'
+                )}
+              >
+                <bg.Icon className="h-4 w-4" />
+              </span>
+              <span
+                className={cn(
+                  'text-[10px] font-medium transition-colors',
+                  isActive
+                    ? 'text-gray-900 dark:text-white'
+                    : 'text-(--macos-tahoe-text-muted) group-hover:text-(--macos-tahoe-text)'
+                )}
+              >
+                {bg.label}
               </span>
             </button>
           );
@@ -691,7 +751,10 @@ export function SettingsDrawer() {
       <DirectionSwitcher />
       <LayoutSwitcher />
       {isTahoe ? (
-        <TahoeAccentPicker />
+        <>
+          <TahoeAccentPicker />
+          <TahoeBackgroundPicker />
+        </>
       ) : isSonoma ? (
         <SonomaAccentPicker />
       ) : (
@@ -747,7 +810,7 @@ export function SettingsDrawer() {
       isOpen={isSettingsOpen}
       setIsOpen={setIsSettingsOpen}
       title="Settings"
-      className={cn('relative', isMacOS && 'min-[500px]:w-80!')}
+      className={cn('relative', isMacOS && 'min-[500px]:w-[300px]!')}
     >
       {settingsContent}
     </Drawer>

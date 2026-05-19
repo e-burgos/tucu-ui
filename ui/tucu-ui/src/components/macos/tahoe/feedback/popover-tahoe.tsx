@@ -32,14 +32,14 @@ export interface MacOSTahoePopoverProps {
 }
 
 const placementStyles: Record<MacOSTahoePopoverPlacement, string> = {
-  top: 'bottom-full left-1/2 -translate-x-1/2 mb-2',
-  bottom: 'top-full left-1/2 -translate-x-1/2 mt-2',
-  left: 'right-full top-1/2 -translate-y-1/2 mr-2',
-  right: 'left-full top-1/2 -translate-y-1/2 ml-2',
-  'top-start': 'bottom-full left-0 mb-2',
-  'top-end': 'bottom-full right-0 mb-2',
-  'bottom-start': 'top-full left-0 mt-2',
-  'bottom-end': 'top-full right-0 mt-2',
+  top: 'bottom-full left-1/2 -translate-x-1/2 mb-[8px]',
+  bottom: 'top-full left-1/2 -translate-x-1/2 mt-[8px]',
+  left: 'right-full top-1/2 -translate-y-1/2 mr-[8px]',
+  right: 'left-full top-1/2 -translate-y-1/2 ml-[8px]',
+  'top-start': 'bottom-full left-0 mb-[8px]',
+  'top-end': 'bottom-full right-0 mb-[8px]',
+  'bottom-start': 'top-full left-0 mt-[8px]',
+  'bottom-end': 'top-full right-0 mt-[8px]',
 };
 
 export function MacOSTahoePopoverItem({
@@ -56,7 +56,7 @@ export function MacOSTahoePopoverItem({
       disabled={disabled}
       onClick={onClick}
       className={cn(
-        'flex w-full items-center gap-2.5 rounded-lg px-2.5 py-1.5 text-left text-[13px] transition-colors',
+        'flex w-full items-center gap-[10px] rounded-[8px] px-[10px] py-[6px] text-left text-[13px] transition-colors',
         disabled && 'pointer-events-none opacity-40',
         destructive
           ? 'text-red-500 hover:bg-red-500/10'
@@ -64,13 +64,13 @@ export function MacOSTahoePopoverItem({
       )}
     >
       {icon && (
-        <span className="flex h-4 w-4 shrink-0 items-center justify-center">
+        <span className="flex h-[16px] w-[16px] shrink-0 items-center justify-center">
           {icon}
         </span>
       )}
       <span className="flex-1">{label}</span>
       {shortcut && (
-        <kbd className="ml-3 text-[11px] text-(--macos-tahoe-text-muted)">
+        <kbd className="ml-[12px] text-[11px] text-(--macos-tahoe-text-muted)">
           {shortcut}
         </kbd>
       )}
@@ -127,8 +127,8 @@ export function MacOSTahoePopover({
         <div
           data-tucu="tahoe-popover"
           className={cn(
-            'absolute z-50 p-1.5',
-            'rounded-xl',
+            'absolute z-50 p-[6px]',
+            'rounded-[12px]',
             'bg-(--macos-glass-prominent-bg) backdrop-blur-(--macos-glass-prominent-blur,40px)',
             'border border-(--macos-glass-prominent-border,var(--macos-glass-border))',
             'shadow-(--macos-glass-shadow,0_8px_32px_rgba(0,0,0,0.15))',

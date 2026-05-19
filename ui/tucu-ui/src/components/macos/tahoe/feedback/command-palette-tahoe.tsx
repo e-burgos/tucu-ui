@@ -120,7 +120,7 @@ export function MacOSTahoeCommandPalette({
         onKeyDown={handleKeyDown}
         className={cn(
           'flex w-full max-w-[560px] flex-col overflow-hidden',
-          'rounded-2xl',
+          'rounded-[16px]',
           'bg-(--macos-glass-prominent-bg) backdrop-blur-(--macos-glass-prominent-blur,40px)',
           'border border-(--macos-glass-prominent-border,var(--macos-glass-border))',
           'shadow-[0_24px_80px_rgba(0,0,0,0.25),0_0_0_1px_rgba(255,255,255,0.06)_inset]',
@@ -128,9 +128,9 @@ export function MacOSTahoeCommandPalette({
         )}
       >
         {/* Search input */}
-        <div className="flex items-center gap-3 border-b border-(--macos-glass-border-subtle) px-4 py-3">
+        <div className="flex items-center gap-[12px] border-b border-(--macos-glass-border-subtle) px-[16px] py-[12px]">
           <svg
-            className="h-5 w-5 shrink-0 text-(--macos-tahoe-text-muted)"
+            className="h-[20px] w-[20px] shrink-0 text-(--macos-tahoe-text-muted)"
             viewBox="0 0 20 20"
             fill="none"
             stroke="currentColor"
@@ -151,22 +151,22 @@ export function MacOSTahoeCommandPalette({
             placeholder={placeholder}
             className="flex-1 bg-transparent text-[15px] text-(--macos-tahoe-text) outline-none placeholder:text-(--macos-tahoe-text-muted)"
           />
-          <kbd className="rounded-md border border-(--macos-glass-border) px-1.5 py-0.5 text-[11px] text-(--macos-tahoe-text-muted)">
+          <kbd className="rounded-[6px] border border-(--macos-glass-border) px-[6px] py-[2px] text-[11px] text-(--macos-tahoe-text-muted)">
             Esc
           </kbd>
         </div>
 
         {/* Results */}
-        <div className="max-h-[360px] overflow-y-auto p-2">
+        <div className="max-h-[360px] overflow-y-auto p-[8px]">
           {flatItems.length === 0 ? (
-            <div className="px-3 py-8 text-center text-[13px] text-(--macos-tahoe-text-muted)">
+            <div className="px-[12px] py-[32px] text-center text-[13px] text-(--macos-tahoe-text-muted)">
               No results found
             </div>
           ) : (
             Array.from(groups.entries()).map(([group, groupItems]) => (
               <div key={group || '__default'}>
                 {group && (
-                  <div className="px-2.5 pb-1 pt-2 text-[11px] font-semibold uppercase tracking-wider text-(--macos-tahoe-text-muted)">
+                  <div className="px-[10px] pb-[4px] pt-[8px] text-[11px] font-semibold uppercase tracking-wider text-(--macos-tahoe-text-muted)">
                     {group}
                   </div>
                 )}
@@ -181,14 +181,14 @@ export function MacOSTahoeCommandPalette({
                       onClick={() => handleSelect(item)}
                       onMouseEnter={() => setActiveIndex(idx)}
                       className={cn(
-                        'flex w-full items-center gap-2.5 rounded-lg px-2.5 py-2 text-left text-[13px] transition-colors',
+                        'flex w-full items-center gap-[10px] rounded-[8px] px-[10px] py-[8px] text-left text-[13px] transition-colors',
                         isActive
                           ? 'bg-(--macos-tahoe-selection) text-(--macos-tahoe-text)'
                           : 'text-(--macos-tahoe-text) hover:bg-(--macos-tahoe-hover)'
                       )}
                     >
                       {item.icon && (
-                        <span className="flex h-5 w-5 shrink-0 items-center justify-center text-(--macos-tahoe-text-muted)">
+                        <span className="flex h-[20px] w-[20px] shrink-0 items-center justify-center text-(--macos-tahoe-text-muted)">
                           {item.icon}
                         </span>
                       )}
@@ -207,15 +207,15 @@ export function MacOSTahoeCommandPalette({
         </div>
 
         {/* Footer hints */}
-        <div className="flex items-center gap-4 border-t border-(--macos-glass-border-subtle) px-4 py-2 text-[11px] text-(--macos-tahoe-text-muted)">
+        <div className="flex items-center gap-[16px] border-t border-(--macos-glass-border-subtle) px-[16px] py-[8px] text-[11px] text-(--macos-tahoe-text-muted)">
           <span>
-            <kbd className="rounded border border-(--macos-glass-border) px-1 py-px text-[10px]">↑↓</kbd> Navigate
+            <kbd className="rounded border border-(--macos-glass-border) px-[4px] py-px text-[10px]">↑↓</kbd> Navigate
           </span>
           <span>
-            <kbd className="rounded border border-(--macos-glass-border) px-1 py-px text-[10px]">↵</kbd> Select
+            <kbd className="rounded border border-(--macos-glass-border) px-[4px] py-px text-[10px]">↵</kbd> Select
           </span>
           <span>
-            <kbd className="rounded border border-(--macos-glass-border) px-1 py-px text-[10px]">Esc</kbd> Close
+            <kbd className="rounded border border-(--macos-glass-border) px-[4px] py-px text-[10px]">Esc</kbd> Close
           </span>
         </div>
       </div>

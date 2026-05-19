@@ -1,5 +1,5 @@
 import cn from 'classnames';
-import { SearchIcon } from '../icons';
+import { SearchIcon } from '../../../icons';
 
 // ─── Types ─────────────────────────────────────────────────────
 
@@ -15,9 +15,13 @@ export interface MacOSSearchBarProps {
 }
 
 const SIZE = {
-  sm: { wrap: 'h-7',  input: 'pl-7 pr-7 text-xs',  icon: 'left-2 w-3.5 h-3.5'   },
-  md: { wrap: 'h-[34px]', input: 'pl-8 pr-8 text-[13px]', icon: 'left-2.5 w-3.5 h-3.5' },
-  lg: { wrap: 'h-10', input: 'pl-9 pr-9 text-sm',  icon: 'left-3 w-4 h-4'       },
+  sm: { wrap: 'h-[28px]', input: 'pl-[28px] pr-[28px] text-xs', icon: 'left-[8px] w-[14px] h-[14px]' },
+  md: {
+    wrap: 'h-[34px]',
+    input: 'pl-[32px] pr-[32px] text-[13px]',
+    icon: 'left-[10px] w-[14px] h-[14px]',
+  },
+  lg: { wrap: 'h-[40px]', input: 'pl-[36px] pr-[36px] text-sm', icon: 'left-[12px] w-[16px] h-[16px]' },
 };
 
 // ─── MacOSSearchBar ────────────────────────────────────────────
@@ -80,13 +84,20 @@ export function MacOSSearchBar({
           onClick={onClear}
           aria-label="Clear"
           className={cn(
-            'absolute right-2 flex h-4 w-4 items-center justify-center rounded-full',
+            'absolute right-[8px] flex h-[16px] w-[16px] items-center justify-center rounded-full',
             'bg-gray-400/60 dark:bg-gray-500/60 text-white',
             'hover:bg-gray-500 dark:hover:bg-gray-400 transition-colors'
           )}
         >
-          <svg width="7" height="7" viewBox="0 0 7 7" fill="none"
-            stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
+          <svg
+            width="7"
+            height="7"
+            viewBox="0 0 7 7"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+          >
             <path d="M1 1l5 5M6 1L1 6" />
           </svg>
         </button>

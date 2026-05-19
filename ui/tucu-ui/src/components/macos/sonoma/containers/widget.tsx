@@ -64,10 +64,10 @@ export function MacOSWidgetHeader({
   className,
 }: MacOSWidgetHeaderProps) {
   return (
-    <div className={cn('flex items-start justify-between px-4 pt-4', className)}>
-      <div className="flex items-center gap-2">
+    <div className={cn('flex items-start justify-between px-[16px] pt-[16px]', className)}>
+      <div className="flex items-center gap-[8px]">
         {icon && (
-          <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-[var(--color-semantic-bg-primary)]/10 text-[var(--color-semantic-bg-primary)]">
+          <span className="flex h-[28px] w-[28px] shrink-0 items-center justify-center rounded-[8px] bg-[var(--color-semantic-bg-primary)]/10 text-[var(--color-semantic-bg-primary)]">
             {icon}
           </span>
         )}

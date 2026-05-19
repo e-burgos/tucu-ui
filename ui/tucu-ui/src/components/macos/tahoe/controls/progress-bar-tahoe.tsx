@@ -12,9 +12,9 @@ export interface MacOSTahoeProgressBarProps {
 }
 
 const trackSize = {
-  sm: 'h-1',
-  md: 'h-1.5',
-  lg: 'h-2',
+  sm: 'h-[4px]',
+  md: 'h-[6px]',
+  lg: 'h-[8px]',
 };
 
 export function MacOSTahoeProgressBar({
@@ -30,7 +30,7 @@ export function MacOSTahoeProgressBar({
   return (
     <div data-tucu="tahoe-progress-bar" className={cn('w-full', className)}>
       {(label || showValue) && (
-        <div className="mb-1.5 flex items-center justify-between text-[12px]">
+        <div className="mb-[6px] flex items-center justify-between text-[12px]">
           {label && (
             <span className="font-medium text-(--macos-tahoe-text)">
               {label}

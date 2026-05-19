@@ -27,10 +27,10 @@ export const DefaultErrorPage: FC<{ basePath?: string }> = ({ basePath }) => {
         )}
       </div>
 
-      <h2 className="mb-2 mt-5 text-xl font-medium uppercase tracking-wide text-gray-900 dark:text-white sm:mb-4 sm:mt-10 sm:text-xl min-[1780px]:mt-12 min-[1780px]:text-2xl">
+      <h2 className="mb-2 mt-5 text-base font-medium uppercase tracking-wide text-gray-900 dark:text-white sm:mb-4 sm:mt-10 sm:text-lg min-[1780px]:mt-12 min-[1780px]:text-xl">
         Error Page
       </h2>
-      <p className="mb-4 px-6 max-w-full text-lg leading-loose tracking-tight text-gray-600 dark:text-gray-400 sm:mb-6 min-[500px]:w-[80%] sm:w-[80%] md:w-[60%] lg:w-[50%] xl:w-[40%] 2xl:w-[30%] sm:text-sm">
+      <p className="mb-4 px-6 max-w-full text-base leading-loose tracking-tight text-gray-600 dark:text-gray-400 sm:mb-6 min-[500px]:w-[80%] sm:w-[80%] md:w-[60%] lg:w-[50%] xl:w-[40%] 2xl:w-[30%] sm:text-sm">
         An error has occurred. Please try again later or go back to the home
         page.
       </p>

@@ -12,14 +12,14 @@ export interface MacOSTahoeSearchBarProps {
 }
 
 const sizeStyles = {
-  sm: 'h-7 text-[12px] px-2.5',
-  md: 'h-8 text-[13px] px-3',
-  lg: 'h-9 text-[14px] px-3.5',
+  sm: 'h-[28px] text-[12px] px-[10px]',
+  md: 'h-[32px] text-[13px] px-[12px]',
+  lg: 'h-[36px] text-[14px] px-[14px]',
 };
 
 const iconSize = {
-  sm: 'h-3.5 w-3.5',
-  md: 'h-4 w-4',
+  sm: 'h-[14px] w-[14px]',
+  md: 'h-[16px] w-[16px]',
   lg: 'h-[18px] w-[18px]',
 };
 
@@ -50,7 +50,7 @@ export function MacOSTahoeSearchBar({
       {/* Magnifying glass icon */}
       <svg
         className={cn(
-          'pointer-events-none absolute left-2.5 text-(--macos-tahoe-text-muted)',
+          'pointer-events-none absolute left-[10px] text-(--macos-tahoe-text-muted)',
           iconSize[size]
         )}
         viewBox="0 0 20 20"
@@ -72,7 +72,7 @@ export function MacOSTahoeSearchBar({
         onChange={(e) => onChange?.(e.target.value)}
         onKeyDown={handleKeyDown}
         className={cn(
-          'w-full rounded-lg pl-8 outline-none',
+          'w-full rounded-[8px] pl-[32px] outline-none',
           'bg-(--macos-glass-clear-bg) backdrop-blur-(--macos-glass-clear-blur,30px)',
           'border border-(--macos-glass-border)',
           'text-(--macos-tahoe-text) placeholder:text-(--macos-tahoe-text-muted)',
@@ -88,7 +88,7 @@ export function MacOSTahoeSearchBar({
           onClick={onClear}
           aria-label="Clear search"
           className={cn(
-            'absolute right-2 flex items-center justify-center rounded-full',
+            'absolute right-[8px] flex items-center justify-center rounded-full',
             'text-(--macos-tahoe-text-muted) hover:text-(--macos-tahoe-text)',
             'transition-colors',
             iconSize[size]
@@ -97,7 +97,7 @@ export function MacOSTahoeSearchBar({
           <svg
             viewBox="0 0 16 16"
             fill="currentColor"
-            className="h-3.5 w-3.5"
+            className="h-[14px] w-[14px]"
           >
             <path
               fillRule="evenodd"

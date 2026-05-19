@@ -1,5 +1,5 @@
 import cn from 'classnames';
-import type { MacOSToolbarProps } from './types';
+import type { MacOSToolbarProps } from '../controls/types';
 
 /**
  * Default macOS toolbar — translucent material background with blur.
@@ -19,7 +19,7 @@ export function MacOSToolbarSonoma({
     <header
       data-tucu="toolbar"
       className={cn(
-        'relative z-20 flex h-(--macos-toolbar-height,58px) shrink-0 items-center gap-3 px-6!',
+        'relative z-20 flex h-(--macos-toolbar-height,58px) shrink-0 items-center gap-[12px] px-[24px]!',
         !transparent &&
           'bg-(--macos-material-toolbar,rgba(255,255,255,0.72)) backdrop-blur-xl ',
         bordered && 'border-b border-black/10 dark:border-white/8',
@@ -27,7 +27,7 @@ export function MacOSToolbarSonoma({
       )}
     >
       {leading && (
-        <div className="flex shrink-0 items-center gap-2">{leading}</div>
+        <div className="flex shrink-0 items-center gap-[8px]">{leading}</div>
       )}
 
       <div className="flex flex-1 items-center justify-center">
@@ -41,7 +41,7 @@ export function MacOSToolbarSonoma({
       </div>
 
       {trailing && (
-        <div className="flex shrink-0 items-center gap-2">{trailing}</div>
+        <div className="flex shrink-0 items-center gap-[8px]">{trailing}</div>
       )}
     </header>
   );

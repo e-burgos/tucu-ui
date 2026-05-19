@@ -130,7 +130,7 @@ export function MacOSCommandPalette({
         role="dialog"
         aria-modal="true"
         aria-label="Command Palette"
-        className={cn('relative w-full max-w-[600px] mx-4', className)}
+        className={cn('relative w-full max-w-[600px] mx-[16px]', className)}
         onClick={(e) => e.stopPropagation()}
         onKeyDown={handleKeyDown}
       >

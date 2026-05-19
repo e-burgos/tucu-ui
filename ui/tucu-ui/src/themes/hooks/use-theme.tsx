@@ -49,6 +49,9 @@ const defaultPresets = {
   darkLightDarkPreset: defaultDarkLightDarkPreset,
 } as const;
 
+// ─── Background Variant Type ───────────────────────────────────
+export type TahoeBackgroundVariant = 'base' | 'wave' | 'wallpaper' | 'mobile';
+
 const defaultState = {
   ...defaultPresets,
   direction: defaultDirection,
@@ -59,6 +62,7 @@ const defaultState = {
   showSettings: false,
   isSettingsOpen: false,
   lang: defaultLang,
+  backgroundVariant: 'base' as TahoeBackgroundVariant,
 } as const;
 
 // ─── Types ─────────────────────────────────────────────────────
@@ -90,6 +94,7 @@ interface IThemeState {
   isSettingsOpen: boolean;
   showSettings: boolean;
   lang: LangType;
+  backgroundVariant: TahoeBackgroundVariant;
 }
 
 /** Full store interface: state + auto-generated setters + actions */
@@ -139,6 +144,7 @@ export const useTheme = create<ITheme>()(
           logo: defaultLogo,
           isSettingsOpen: false,
           lang: defaultLang,
+          backgroundVariant: 'base',
         }),
 
       applyMacOSTheme: () =>

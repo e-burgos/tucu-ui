@@ -29,9 +29,9 @@ export function MacOSTahoeWidgetHeader({
   actions,
 }: MacOSTahoeWidgetHeaderProps) {
   return (
-    <div className="flex items-center gap-2 px-3.5 pt-3">
+    <div className="flex items-center gap-[8px] px-[14px] pt-[12px]">
       {icon && (
-        <div className="flex h-6 w-6 shrink-0 items-center justify-center text-(--macos-tahoe-accent)">
+        <div className="flex h-[24px] w-[24px] shrink-0 items-center justify-center text-(--macos-tahoe-accent)">
           {icon}
         </div>
       )}

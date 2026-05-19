@@ -2,8 +2,8 @@ import { useState, useRef, useEffect } from 'react';
 import cn from 'classnames';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ChevronDown, ChevronUp } from 'lucide-react';
-import { IMenuItem } from '../../layouts/menus/menu-item';
-import { matchesPath } from '../../layouts/macos-layout/utils';
+import { IMenuItem } from '../../../layouts/menus/menu-item';
+import { matchesPath } from '../../../layouts/macos-layout/utils';
 
 // ─── Types ─────────────────────────────────────────────────────
 
@@ -106,11 +106,11 @@ function DockItem({
       {tooltipVisible && !popoverOpen && (
         <div
           className={cn(
-            'pointer-events-none absolute z-50 whitespace-nowrap rounded-lg px-2.5 py-1 text-[12px] font-medium shadow-lg',
+            'pointer-events-none absolute z-50 whitespace-nowrap rounded-[8px] px-[10px] py-[4px] text-[12px] font-medium shadow-lg',
             'bg-(--macos-tahoe-panel-bg) text-(--macos-tahoe-text) border border-(--macos-tahoe-border) backdrop-blur-xl',
             isVertical
-              ? 'left-full ml-2 top-1/2 -translate-y-1/2'
-              : 'bottom-full mb-2 left-1/2 -translate-x-1/2'
+              ? 'left-full ml-[8px] top-1/2 -translate-y-1/2'
+              : 'bottom-full mb-[8px] left-1/2 -translate-x-1/2'
           )}
         >
           {item.name}
@@ -121,14 +121,14 @@ function DockItem({
       {popoverOpen && hasChildren && (
         <div
           className={cn(
-            'absolute z-50 min-w-45 rounded-2xl p-1.5',
+            'absolute z-50 min-w-[180px] rounded-[16px] p-[6px]',
             'bg-(--macos-glass-prominent-bg) backdrop-blur-xl backdrop-saturate-[1.8]',
             'border border-(--macos-glass-prominent-border,var(--macos-glass-border))',
             'shadow-(--macos-glass-shadow,0_8px_32px_rgba(0,0,0,0.15))',
             'animate-in fade-in slide-in-from-bottom-2 duration-200',
             isVertical
-              ? 'left-full ml-2 top-0'
-              : 'bottom-full mb-2 left-1/2 -translate-x-1/2'
+              ? 'left-full ml-[8px] top-0'
+              : 'bottom-full mb-[8px] left-1/2 -translate-x-1/2'
           )}
         >
           {item.dropdownItems
@@ -151,7 +151,7 @@ function DockItem({
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         className={cn(
-          'relative flex items-center justify-center rounded-xl transition-all duration-150 ease-out',
+          'relative flex items-center justify-center rounded-[12px] transition-all duration-150 ease-out',
           isActive
             ? 'bg-(--color-brand) shadow-sm'
             : 'hover:bg-(--color-brand)/15 hover:scale-110',
@@ -161,7 +161,7 @@ function DockItem({
       >
         <span
           className={cn(
-            'flex items-center justify-center [&>svg]:w-5 [&>svg]:h-5 transition-colors duration-150',
+            'flex items-center justify-center [&>svg]:w-[20px] [&>svg]:h-[20px] transition-colors duration-150',
             isActive
               ? 'text-white'
               : 'text-(--macos-tahoe-sidebar-item-icon) dark:text-white/50'
@@ -173,12 +173,12 @@ function DockItem({
         {hasChildren && (
           <ChevronUp
             className={cn(
-              'absolute w-2.5 h-2.5 transition-all duration-200 ease-out',
+              'absolute w-[10px] h-[10px] transition-all duration-200 ease-out',
               isVertical
-                ? 'left-0.5 top-1/2 -translate-y-1/2 -rotate-90'
-                : 'top-0.5 left-1/2 -translate-x-1/2',
-              popoverOpen && !isVertical && 'top-0 -translate-y-0.5',
-              popoverOpen && isVertical && 'left-0 -translate-x-0.5',
+                ? 'left-[2px] top-1/2 -translate-y-1/2 -rotate-90'
+                : 'top-[2px] left-1/2 -translate-x-1/2',
+              popoverOpen && !isVertical && 'top-0 -translate-y-[2px]',
+              popoverOpen && isVertical && 'left-0 -translate-x-[2px]',
               isActive
                 ? 'text-white/70'
                 : 'text-(--macos-tahoe-sidebar-item-icon)/50 dark:text-white/30'
@@ -194,8 +194,8 @@ function DockItem({
           className={cn(
             'absolute rounded-full bg-(--color-brand)',
             isVertical
-              ? 'right-0 top-1/2 -translate-y-1/2 translate-x-1 h-1 w-1'
-              : 'bottom-0 left-1/2 -translate-x-1/2 translate-y-1 h-1 w-1'
+              ? 'right-0 top-1/2 -translate-y-1/2 translate-x-[4px] h-[4px] w-[4px]'
+              : 'bottom-0 left-1/2 -translate-x-1/2 translate-y-[4px] h-[4px] w-[4px]'
           )}
         />
       )}
@@ -231,7 +231,7 @@ function DockPopoverItem({ item, onClose }: DockPopoverItemProps) {
       type="button"
       onClick={handleClick}
       className={cn(
-        'flex w-full items-center gap-2.5 rounded-lg px-2.5 py-1.5 text-left text-[13px] transition-colors',
+        'flex w-full items-center gap-[10px] rounded-[8px] px-[10px] py-[6px] text-left text-[13px] transition-colors',
         isActive
           ? 'bg-(--macos-tahoe-sidebar-item-active-bg) text-(--macos-tahoe-sidebar-item-active-text) font-semibold'
           : 'text-(--macos-tahoe-text) hover:bg-(--macos-tahoe-sidebar-item-hover-bg)'
@@ -240,7 +240,7 @@ function DockPopoverItem({ item, onClose }: DockPopoverItemProps) {
       {item.icon && (
         <span
           className={cn(
-            'flex h-4 w-4 shrink-0 items-center justify-center [&>svg]:h-4 [&>svg]:w-4',
+            'flex h-[16px] w-[16px] shrink-0 items-center justify-center [&>svg]:h-[16px] [&>svg]:w-[16px]',
             isActive
               ? 'text-(--macos-tahoe-sidebar-item-active-icon)'
               : 'text-(--macos-tahoe-sidebar-item-icon)'
@@ -261,7 +261,9 @@ function DockSeparator({ isVertical }: { isVertical: boolean }) {
     <div
       className={cn(
         'shrink-0 rounded-full bg-(--macos-tahoe-border) opacity-60',
-        isVertical ? 'mx-auto my-1 h-px w-8' : 'my-auto mx-1 h-8 w-px'
+        isVertical
+          ? 'mx-auto my-[4px] h-px w-[32px]'
+          : 'my-auto mx-[4px] h-[32px] w-px'
       )}
     />
   );
@@ -394,8 +396,8 @@ export function MacOSTahoeDock({
             ? 'relative flex-col'
             : 'relative flex-row'
           : isVertical
-          ? 'fixed left-3 top-1/2 z-50 -translate-y-1/2 flex-col'
-          : 'fixed bottom-3 left-1/2 z-50 -translate-x-1/2 flex-row',
+          ? 'fixed left-[12px] top-1/2 z-50 -translate-y-1/2 flex-col'
+          : 'fixed bottom-[12px] left-1/2 z-50 -translate-x-1/2 flex-row',
         'transition-all duration-300',
         autoHide &&
           !isVisible &&
@@ -408,13 +410,13 @@ export function MacOSTahoeDock({
       <div
         data-tucu="tahoe-dock-bar"
         className={cn(
-          'flex items-center rounded-2xl origin-bottom',
+          'flex items-center rounded-[16px] origin-bottom',
           'bg-(--macos-glass-regular-bg) backdrop-blur-[68px] backdrop-saturate-[1.8]',
           'border border-(--macos-glass-border)',
           'shadow-(--macos-glass-shadow,0_0_6px_rgba(0,0,0,0.15))',
           isVertical
-            ? 'flex-col gap-1 px-1.5 py-2 origin-left'
-            : 'flex-row gap-1 px-2 py-1.5 origin-bottom'
+            ? 'flex-col gap-[4px] px-[6px] py-[8px] origin-left'
+            : 'flex-row gap-[4px] px-[8px] py-[6px] origin-bottom'
         )}
         style={{
           transform: `scale(${dockScale})`,
@@ -436,7 +438,7 @@ export function MacOSTahoeDock({
               )}
               style={{ width: ICON_SIZE, height: ICON_SIZE }}
             >
-              <ChevronDown className="h-4 w-4" strokeWidth={2.5} />
+              <ChevronDown className="h-[16px] w-[16px]" strokeWidth={2.5} />
             </button>
           </>
         )}
