@@ -1,6 +1,6 @@
 # Tucu UI
 
-A modern, comprehensive React component library built with TypeScript, Tailwind CSS v4, and designed for creating production-ready web applications. Features **automatic layout generation**, **advanced routing system** with Standalone and Micro Frontends (MFE) support, **powerful form systems** with React Hook Form, **data visualization charts**, **5000+ icons**, **specialized blockchain components**, and **WCAG 2.1 AA accessibility compliance**.
+A modern, comprehensive React component library built with TypeScript, Tailwind CSS v4, and designed for creating production-ready web applications. Features **automatic layout generation**, **macOS-inspired design systems** (Sonoma & Tahoe with Liquid Glass), **advanced routing system** with Standalone and Micro Frontends (MFE) support, **powerful form systems** with React Hook Form, **data visualization charts**, **5000+ icons**, **specialized blockchain components**, and **WCAG 2.1 AA accessibility compliance**.
 
 ## 🌟 Documentation
 
@@ -21,9 +21,18 @@ Centralized validation powered by React Hook Form with built-in error handling a
 
 Specialized components for DeFi applications, NFT marketplaces, and crypto wallets.
 
+### **💻 macOS Design Systems**
+
+Two complete macOS-inspired design variants:
+
+- **macOS Sonoma**: Classic macOS desktop experience with sidebar navigation, toolbar, and translucent materials
+- **macOS Tahoe** (NEW): Liquid Glass aesthetics from macOS 26 — floating dock, frosted panels, 9 accent color bundles, command palette, and window chrome components
+
+Includes 11 dedicated Tahoe components (Window, Dock, CommandPalette, Dialog, Popover, SearchBar, SegmentedControl, ProgressBar, NotificationBanner, Widget) with full dark/light mode and accent color theming.
+
 ### **🎭 Advanced Theming System**
 
-34+ color presets with 12-layer color architecture (primary, dark primary, secondary, dark secondary, accent, dark accent, muted, dark muted, backgrounds). Includes modern colors (Bufus Blue, Coral, Mint, Lavender), secondary/accent color support, dark/light mode, RTL support, and persistent user preferences. Dynamic color system with CSS variables for brand, secondary, accent, and semantic colors.
+34+ color presets with 12-layer color architecture (primary, dark primary, secondary, dark secondary, accent, dark accent, muted, dark muted, backgrounds). Three theme styles (`default`, `macos`, `macos-tahoe`) with per-style layout constraints. Includes modern colors (Bufus Blue, Coral, Mint, Lavender), secondary/accent color support, dark/light mode, RTL support, and persistent user preferences. Dynamic color system with CSS variables for brand, secondary, accent, and semantic colors.
 
 ### **🎯 5000+ Icons Integrated**
 
@@ -434,7 +443,7 @@ All theme settings (colors, layout, mode, direction) are automatically persisted
 
 ## 🎨 Layout System
 
-### **Three Layout Types**
+### **Five Layout Types**
 
 #### **1. Classic Layout** - Traditional Dashboard
 
@@ -452,6 +461,19 @@ All theme settings (colors, layout, mode, direction) are automatically persisted
 
 - No predefined layout structure
 - Perfect for auth pages and custom designs
+
+#### **4. macOS Sonoma Layout** - Desktop Experience
+
+- Translucent sidebar with vibrancy effects
+- Toolbar and content area mimicking native macOS apps
+- Accent color bundles matching System Preferences
+
+#### **5. macOS Tahoe Layout** - Liquid Glass (NEW)
+
+- Floating Dock with app icons (bottom-anchored)
+- Frosted glass panels with blur and transparency
+- 9 accent color bundles (Glass, Blue, Purple, Pink, Red, Orange, Yellow, Green, Graphite)
+- Also available as `MacOSTahoeDockLayout` for dock-centric designs
 
 ### **Architectural Patterns**
 
@@ -477,7 +499,8 @@ Tucu UI supports two architectural patterns for different use cases:
 - ✅ **Dark/Light Mode** - Automatic theme switching
 - ✅ **RTL Support** - Full right-to-left language support
 - ✅ **Brand Colors** - 34+ color presets with multi-layer architecture
-- ✅ **Settings Panel** - Built-in user customization
+- ✅ **macOS Themes** - Sonoma & Tahoe design systems with accent bundles
+- ✅ **Settings Panel** - Built-in user customization with theme style switcher
 - ✅ **Routing Integration** - Automatic route generation (Standalone) or explicit configuration (MFE)
 - ✅ **Type Safety** - TypeScript discriminated unions ensure correct pattern usage
 

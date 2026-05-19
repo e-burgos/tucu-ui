@@ -1,6 +1,6 @@
 # Tucu UI
 
-Una moderna y completa librería de componentes React construida con TypeScript, Tailwind CSS v4, y diseñada para crear aplicaciones web listas para producción. Incluye **generación automática de layouts**, **sistema de routing avanzado** con soporte para Standalone y Micro Frontends (MFE), **sistemas de formularios potentes** con React Hook Form, **5000+ iconos**, **componentes especializados para blockchain**, y **cumplimiento de accesibilidad WCAG 2.1 AA**.
+Una moderna y completa librería de componentes React construida con TypeScript, Tailwind CSS v4, y diseñada para crear aplicaciones web listas para producción. Incluye **generación automática de layouts**, **sistemas de diseño inspirados en macOS** (Sonoma y Tahoe con Liquid Glass), **sistema de routing avanzado** con soporte para Standalone y Micro Frontends (MFE), **sistemas de formularios potentes** con React Hook Form, **gráficos de visualización de datos**, **5000+ iconos**, **componentes especializados para blockchain**, y **cumplimiento de accesibilidad WCAG 2.1 AA**.
 
 ## 🌟 Documentación
 
@@ -21,9 +21,18 @@ Validación centralizada alimentada por React Hook Form con manejo de errores in
 
 Componentes especializados para aplicaciones DeFi, mercados NFT, y billeteras crypto.
 
+### **� Sistemas de Diseño macOS**
+
+Dos variantes completas inspiradas en macOS:
+
+- **macOS Sonoma**: Experiencia de escritorio macOS clásica con sidebar, toolbar y materiales translúcidos
+- **macOS Tahoe** (NUEVO): Estética Liquid Glass de macOS 26 — dock flotante, paneles de cristal esmerilado, 9 bundles de colores de acento, command palette y componentes de ventana
+
+Incluye 11 componentes dedicados de Tahoe (Window, Dock, CommandPalette, Dialog, Popover, SearchBar, SegmentedControl, ProgressBar, NotificationBanner, Widget) con soporte completo de modo oscuro/claro y theming por color de acento.
+
 ### **🎭 Sistema de Temas Avanzado**
 
-34+ presets de color con arquitectura de 12 capas (primary, dark primary, secondary, dark secondary, accent, dark accent, muted, dark muted, backgrounds). Incluye colores modernos (Bufus Blue, Coral, Mint, Lavender), soporte para colores secundarios/accent, modo oscuro/claro, soporte RTL, y preferencias de usuario persistentes. Sistema de colores dinámico con variables CSS para brand, secondary, accent, y colores semánticos.
+34+ presets de color con arquitectura de 12 capas (primary, dark primary, secondary, dark secondary, accent, dark accent, muted, dark muted, backgrounds). Tres estilos de tema (`default`, `macos`, `macos-tahoe`) con restricciones de layout por estilo. Incluye colores modernos (Bufus Blue, Coral, Mint, Lavender), soporte para colores secundarios/accent, modo oscuro/claro, soporte RTL, y preferencias de usuario persistentes. Sistema de colores dinámico con variables CSS para brand, secondary, accent, y colores semánticos.
 
 ### **🎯 5000+ Iconos Integrados**
 
@@ -440,7 +449,7 @@ Todas las configuraciones del tema (colores, layout, modo, dirección) se persis
 
 ## 🎨 Sistema de Layouts
 
-### **Tres Tipos de Layout**
+### **Cinco Tipos de Layout**
 
 #### **1. Layout Classic** - Dashboard Tradicional
 
@@ -458,6 +467,19 @@ Todas las configuraciones del tema (colores, layout, modo, dirección) se persis
 
 - Sin estructura de layout predefinida
 - Perfecto para páginas de auth y diseños personalizados
+
+#### **4. Layout macOS Sonoma** - Experiencia de Escritorio
+
+- Sidebar translúcido con efectos de vibrancia
+- Toolbar y área de contenido imitando apps nativas de macOS
+- Bundles de colores de acento que coinciden con Preferencias del Sistema
+
+#### **5. Layout macOS Tahoe** - Liquid Glass (NUEVO)
+
+- Dock flotante con iconos de apps (anclado abajo)
+- Paneles de cristal esmerilado con blur y transparencia
+- 9 bundles de colores de acento (Glass, Blue, Purple, Pink, Red, Orange, Yellow, Green, Graphite)
+- También disponible como `MacOSTahoeDockLayout` para diseños centrados en dock
 
 ### **Patrones Arquitectónicos**
 
@@ -483,7 +505,8 @@ Tucu UI soporta dos patrones arquitectónicos para diferentes casos de uso:
 - ✅ **Modo Oscuro/Claro** - Cambio automático de tema
 - ✅ **Soporte RTL** - Soporte completo para idiomas de derecha a izquierda
 - ✅ **Colores de Marca** - 34+ presets de color con arquitectura multi-capa
-- ✅ **Panel de Configuración** - Personalización de usuario incorporada
+- ✅ **Temas macOS** - Sistemas de diseño Sonoma y Tahoe con bundles de acento
+- ✅ **Panel de Configuración** - Personalización incorporada con selector de estilo de tema
 - ✅ **Integración de Ruteo** - Generación automática de rutas (Standalone) o configuración explícita (MFE)
 - ✅ **Seguridad de Tipos** - Uniones discriminadas de TypeScript aseguran el uso correcto del patrón
 
