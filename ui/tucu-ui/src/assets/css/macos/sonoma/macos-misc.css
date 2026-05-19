@@ -187,6 +187,7 @@ html.macos.dark [data-tucu='list-dropdown'] {
 
 html.macos [data-tucu='list-item'] > div,
 html.macos [data-tucu='list-item'] > button {
+  width: 100%;
   border-radius: var(--macos-radius-sm);
   font-family: var(--macos-font-family);
   font-size: var(--macos-font-size-body);

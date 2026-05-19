@@ -132,7 +132,7 @@ html.macos {
   */
   --macos-titlebar-height: 28px; /* Traffic lights / title area */
   --macos-toolbar-height: 58px; /* Standard desktop toolbar */
-  --macos-sidebar-width: 240px; /* Medium sidebar */
+  --macos-sidebar-width: 300px; /* Medium sidebar */
   --macos-inspector-width: 300px; /* Trailing inspector panel */
   --macos-sidebar-row-height: 24px;
   --macos-sidebar-icon-size: 18px;

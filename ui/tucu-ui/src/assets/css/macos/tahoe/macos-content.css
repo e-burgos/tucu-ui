@@ -55,6 +55,7 @@ html.macos-tahoe [data-tucu='list-dropdown'] {
 html.macos-tahoe [data-tucu='list-item'] {
   display: flex;
   align-items: center;
+  justify-content: center;
   min-height: 24px;
   padding: 2px var(--macos-space-3);
   font-family: var(--macos-font-family);

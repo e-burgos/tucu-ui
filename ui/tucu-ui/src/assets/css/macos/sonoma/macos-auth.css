@@ -109,6 +109,10 @@ html.macos [data-tucu='coin-info-card'] {
   font-size: var(--macos-font-size-body);
 }
 
+html.macos [data-tucu='coin-info-card'] > div:first-child {
+  gap: 0.75rem;
+}
+
 html.macos.dark [data-tucu='coin-info-card'] {
   background-color: var(--macos-content-bg) !important;
   border-color: var(--macos-separator);

@@ -23,13 +23,13 @@ html.macos-tahoe [data-tucu='toolbar'] {
   background-color: var(--macos-glass-regular-bg);
   backdrop-filter: blur(var(--macos-glass-blur, 28px)) saturate(1.6);
   -webkit-backdrop-filter: blur(var(--macos-glass-blur, 28px)) saturate(1.6);
-  border-bottom: 0.5px solid var(--macos-glass-border);
+  border-bottom: 0.5px solid var(--macos-separator);
   z-index: 20;
 }
 
 html.macos-tahoe.dark [data-tucu='toolbar'] {
   background-color: var(--macos-glass-regular-bg);
-  border-bottom-color: var(--macos-glass-border);
+  border-bottom-color: var(--macos-separator);
 }
 
 /* Fallback: no backdrop-filter support */
@@ -188,7 +188,9 @@ html.macos-tahoe
     calc(var(--macos-radius-control) - 1px);
 }
 
-html.macos-tahoe [data-tucu='toolbar-group'] [data-tucu='toolbar-button']:last-child {
+html.macos-tahoe
+  [data-tucu='toolbar-group']
+  [data-tucu='toolbar-button']:last-child {
   border-radius: 0 calc(var(--macos-radius-control) - 1px)
     calc(var(--macos-radius-control) - 1px) 0;
 }

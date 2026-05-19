@@ -21,9 +21,17 @@ html.macos-tahoe [data-tucu='alert'] {
   box-shadow: var(--macos-shadow-card);
 }
 
+/* Force children inside alert to inherit the variant color */
+html.macos-tahoe [data-tucu='alert'] [data-tucu='typography'],
+html.macos-tahoe [data-tucu='alert'] p,
+html.macos-tahoe [data-tucu='alert'] button {
+  color: inherit !important;
+}
+
 /* Alert variants use system colors */
 html.macos-tahoe [data-tucu='alert'][data-variant='error'] {
   border-color: var(--macos-system-red);
+  color: var(--macos-system-red);
   background-color: color-mix(
     in srgb,
     var(--macos-system-red) 8%,
@@ -33,6 +41,7 @@ html.macos-tahoe [data-tucu='alert'][data-variant='error'] {
 
 html.macos-tahoe [data-tucu='alert'][data-variant='success'] {
   border-color: var(--macos-system-green);
+  color: var(--macos-system-green);
   background-color: color-mix(
     in srgb,
     var(--macos-system-green) 8%,
@@ -42,6 +51,7 @@ html.macos-tahoe [data-tucu='alert'][data-variant='success'] {
 
 html.macos-tahoe [data-tucu='alert'][data-variant='warning'] {
   border-color: var(--macos-system-orange);
+  color: var(--macos-system-orange);
   background-color: color-mix(
     in srgb,
     var(--macos-system-orange) 8%,
@@ -51,6 +61,7 @@ html.macos-tahoe [data-tucu='alert'][data-variant='warning'] {
 
 html.macos-tahoe [data-tucu='alert'][data-variant='info'] {
   border-color: var(--macos-system-blue);
+  color: var(--macos-system-blue);
   background-color: color-mix(
     in srgb,
     var(--macos-system-blue) 8%,
@@ -61,6 +72,7 @@ html.macos-tahoe [data-tucu='alert'][data-variant='info'] {
 /* Dark mode alerts */
 html.macos-tahoe.dark [data-tucu='alert'][data-variant='error'] {
   border-color: var(--macos-system-red);
+  color: var(--macos-system-red);
   background-color: color-mix(
     in srgb,
     var(--macos-system-red) 12%,
@@ -70,6 +82,7 @@ html.macos-tahoe.dark [data-tucu='alert'][data-variant='error'] {
 
 html.macos-tahoe.dark [data-tucu='alert'][data-variant='success'] {
   border-color: var(--macos-system-green);
+  color: var(--macos-system-green);
   background-color: color-mix(
     in srgb,
     var(--macos-system-green) 12%,
@@ -79,6 +92,7 @@ html.macos-tahoe.dark [data-tucu='alert'][data-variant='success'] {
 
 html.macos-tahoe.dark [data-tucu='alert'][data-variant='warning'] {
   border-color: var(--macos-system-orange);
+  color: var(--macos-system-orange);
   background-color: color-mix(
     in srgb,
     var(--macos-system-orange) 12%,
@@ -88,6 +102,7 @@ html.macos-tahoe.dark [data-tucu='alert'][data-variant='warning'] {
 
 html.macos-tahoe.dark [data-tucu='alert'][data-variant='info'] {
   border-color: var(--macos-system-blue);
+  color: var(--macos-system-blue);
   background-color: color-mix(
     in srgb,
     var(--macos-system-blue) 12%,
