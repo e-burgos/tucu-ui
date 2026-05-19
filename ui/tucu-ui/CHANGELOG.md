@@ -5,6 +5,99 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.9] - 2026-05-19
+
+### Added
+
+- **macOS Tahoe Design System**: Complete macOS Tahoe (macOS 26) design language with Liquid Glass aesthetics
+  - **11 new Tahoe components**: `WindowTahoe`, `DockTahoe`, `CommandPaletteTahoe`, `DialogTahoe`, `PopoverTahoe`, `SearchBarTahoe`, `SegmentedControlTahoe`, `ProgressBarTahoe`, `NotificationBannerTahoe`, `WidgetTahoe`, `index.ts` barrel export
+  - **Tahoe CSS module**: 16 new CSS files (`macos-foundations.css`, `macos-buttons.css`, `macos-inputs.css`, `macos-tables.css`, `macos-typography.css`, `macos-layouts.css`, `macos-sidebar.css`, `macos-toolbar.css`, `macos-window.css`, `macos-cards.css`, `macos-dialogs.css`, `macos-feedback.css`, `macos-navigation.css`, `macos-menus.css`, `macos-liquid-glass.css`, `macos-misc.css`)
+  - **Tahoe Accent Bundles**: 9 accent color presets (Glass, Blue, Purple, Pink, Red, Orange, Yellow, Green, Graphite) matching macOS System Preferences
+  - `TahoeAccentBundle` interface and `TAHOE_ACCENT_BUNDLES` constant for light/dark primary and accent colors
+  - `buildTahoePresets` utility to generate full theme presets from accent bundles
+- **macOS Tahoe Layouts**: Two new layout options
+  - `MacOSTahoeLayout`: Full desktop layout with sidebar, toolbar, and content area
+  - `MacOSTahoeDockLayout`: Dock-based layout with floating app dock and content
+  - New `LAYOUT_OPTIONS.MACOS_TAHOE_DOCK` enum value
+  - Layout utilities module (`utils.ts`) for shared macOS layout helpers
+- **macOS Sonoma Layout Extraction**: Separated Sonoma layout into its own module
+  - `MacOSSonomaLayout`: Extracted from monolithic `macos-layout/index.tsx`
+  - `SONOMA_ACCENT_BUNDLES` and `buildSonomaPresets` for Sonoma-specific accent colors
+- **macOS Common Components**: New shared macOS components
+  - `Background`: Dynamic gradient/mesh background component for macOS layouts
+  - `CommandPalette`: Spotlight-style command palette with keyboard navigation
+- **Sonoma CSS Module**: Reorganized into dedicated `sonoma/` subdirectory with 21 CSS files
+  - Added `macos-auth.css`, `macos-backgrounds.css`, `macos-content.css`, `macos-liquid-glass.css`, `macos-menus.css`, `macos-selection.css`, `macos-sidebar.css`, `macos-toolbar.css`, `macos-window.css`
+- **Theme System Enhancements**:
+  - New `THEME_VARIANT` value: `'macos-tahoe'`
+  - `ThemeStyleConfig` interface and `THEME_STYLE_LAYOUTS` mapping (theme style → valid layouts + default layout)
+  - `applyMacOSTahoeTheme()` action in `useTheme` Zustand store
+  - `applyThemeStyle(themeStyle)` generic action to switch between any theme variant
+- **BasicTable Enhancements**:
+  - `resizable` prop: Drag-to-resize column handles with min-width constraints
+  - `width` and `minWidth` properties in `TableColumn` interface
+  - Sticky header with `thead sticky top-0 z-10`
+  - Split container into clip wrapper + scroll wrapper for proper overflow handling
+- **CSS Architecture Refactor**:
+  - New `base.css`: Extracted base styles from `globals.css` (537 lines)
+  - New `utilities.css`: Custom utility classes (101 lines)
+  - New `third-party.css`: Third-party component overrides (35 lines)
+  - Improved `scrollbar.css` with theme-aware styling
+- **Variable Fonts**: Added Inter and JetBrains Mono as self-hosted variable font files (`.woff2`)
+  - Includes italic variants for both families
+  - License files included (SIL Open Font License)
+- **`data-tucu` Attributes**: Added semantic data attributes to UI components for CSS targeting
+  - Auth forms: `data-tucu="auth-form"`, `data-tucu="auth-form-panel"`
+  - Inputs: `data-tucu="input"`, `data-tucu="textarea"`, `data-tucu="select"`, `data-tucu="checkbox"`, `data-tucu="radio"`, `data-tucu="switch-control"`, `data-tucu="pin-code-input"`, `data-tucu="file-input-dropzone"`
+  - Cards: `data-tucu="card-container"`, `data-tucu="card-title"`
+  - Layout: `data-tucu="sidebar-item"`, `data-tucu="menu-item"`, `data-tucu="command-palette-item"`
+- **Sidebar Position Prop**: New `position` prop (`'left' | 'right'`) in `Sidebar` and `SidebarMenu` components
+- **Settings Drawer**: Added macOS Tahoe theme section with accent bundle selector and layout switcher
+- **Demo Documentation**: New Tahoe showcase pages with dedicated sections for all Tahoe components
+  - `TahoeDockSection`, `TahoeWindowSection`, `TahoeCommandPaletteSection`, `TahoeDialogSection`, `TahoePopoverSection`, `TahoeSearchBarSection`, `TahoeSegmentedControlSection`, `TahoeProgressBarSection`, `TahoeNotificationBannerSection`, `TahoeWidgetSection`
+
+### Changed
+
+- **macOS Layout Architecture**: Refactored monolithic `macos-layout/index.tsx` (~548 lines) into three focused modules
+  - `macos-sonoma-layout.tsx` (330 lines): Sonoma-specific layout
+  - `macos-tahoe-layout.tsx` (372 lines): Tahoe desktop layout
+  - `macos-tahoe-dock-layout.tsx` (143 lines): Tahoe dock layout
+  - `index.tsx` now acts as router selecting the correct sub-layout based on current `layout` state
+- **CSS Organization**: Reorganized macOS CSS from flat files into `sonoma/` and `tahoe/` subdirectories
+  - Removed legacy flat macOS CSS files (`macos-buttons.css`, `macos-fonts.css`, `macos-foundations.css`, `macos-layouts.css`, `macos-typography.css`)
+  - Each variant now has its own complete CSS module with `index.css` barrel
+- **`globals.css`**: Major refactoring — extracted 900+ lines into `base.css`, `utilities.css`, and `third-party.css`
+- **Theme Config**: Expanded `LAYOUT_OPTIONS` enum with `MACOS_TAHOE_DOCK` value
+- **Theme Store**: `applyMacOSTheme` now sets `layout: LAYOUT_OPTIONS.MACOS` (previously set `MACOS_TAHOE`)
+- **Sidebar & SidebarMenu**: Theme-aware rendering with dedicated Tahoe variant (rounded Liquid Glass panels)
+- **Drawer & Modal**: Added `data-tucu` attributes and Tahoe-aware styling
+- **Auth Components**: Added `data-tucu` semantic attributes for macOS CSS targeting
+- **Settings Drawer**: Expanded with theme style switcher (Default/macOS/Tahoe), accent color picker, and layout selector per theme variant (~307 lines added)
+- **BasicTable**: Improved default theme styles (bg-gray-100 header, font-semibold, proper borders), uses `ring-1` instead of `border` to fix corner artifacts
+- **macOS Table Styles**: Use `box-shadow inset` for table border (no corner bleed), overflow hidden on wrapper for proper clipping, resize handle accent color styles
+
+### Removed
+
+- **Unused Image Assets**: Removed 70+ legacy image files from the library
+  - Avatar images, logo variants, blockchain icons, portfolio SVGs, collection samples, wallet icons
+  - Reduces bundle size significantly by removing unused assets
+- **Legacy macOS CSS Files**: Removed flat `macos-buttons.css`, `macos-fonts.css`, `macos-foundations.css`, `macos-layouts.css`, `macos-typography.css` (replaced by `sonoma/` and `tahoe/` modules)
+
+### Fixed
+
+- **BasicTable Border Artifacts**: Fixed corner radius bleed by using `ring-1` instead of `border` with proper clip wrapper separation
+- **macOS Table Borders**: Fixed corner bleed in macOS themes using inset box-shadow
+- **Input Focus Rings**: Removed default focus outlines from all inputs globally via `data-tucu` CSS selectors
+- **Dropdown/Popover Backgrounds**: Fixed background transparency issues with material design tokens
+- **ListItem Double Hover**: Fixed duplicate hover background state in list items
+- **Sidebar menu close**: Improved close button behavior for Tahoe variant drawers
+
+### Documentation
+
+- **macOS Tahoe Showcase**: New documentation pages with dedicated sections for all 11 Tahoe components
+- **macOS Sonoma Split**: Separated Sonoma demos from Tahoe demos into distinct showcase pages
+- **SVG Assets**: Replaced zip documentation assets with extracted SVG files for Dock and Menu Bar illustrations
+
 ## [2.0.8] - 2026-05-07
 
 ### Changed
