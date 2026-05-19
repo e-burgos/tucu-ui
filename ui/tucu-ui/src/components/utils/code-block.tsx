@@ -123,7 +123,7 @@ export const CodeBlock = ({
       <Scrollbar
         className={`overflow-x-auto h-full p-4 pr-16 pt-4 lg:pr-4 lg:pt-16 transition-all duration-300`}
       >
-        <pre className="text-sm whitespace-pre-wrap font-mono block">
+        <pre className="text-xs whitespace-pre-wrap font-mono block">
           <code
             className={`language-${language || 'text'}`}
             dangerouslySetInnerHTML={{ __html: highlightedCode }}

@@ -55,7 +55,7 @@ export const FormExample: React.FC = () => {
     <div className="w-full space-y-[24px]">
       <Disclaimer />
       <CardContainer className="w-full mx-auto p-[24px]  rounded-lg shadow">
-        <h2 className="text-2xl font-bold mb-[24px] text-center">
+        <h2 className="text-lg font-bold mb-[24px] text-center">
           Form Example
         </h2>
         <Form<FormValues>

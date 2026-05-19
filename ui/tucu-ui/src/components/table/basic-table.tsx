@@ -82,13 +82,14 @@ export const BasicTable = <
 
       const handleMouseMove = (ev: MouseEvent) => {
         if (!resizingRef.current) return;
-        const col = columns.find((c) => c.key === resizingRef.current!.key);
+        const { key, startX, startWidth } = resizingRef.current;
+        const col = columns.find((c) => c.key === key);
         const min = col?.minWidth ?? 40;
-        const diff = ev.clientX - resizingRef.current.startX;
-        const newWidth = Math.max(min, resizingRef.current.startWidth + diff);
+        const diff = ev.clientX - startX;
+        const newWidth = Math.max(min, startWidth + diff);
         setColumnWidths((prev) => ({
           ...prev,
-          [resizingRef.current!.key]: newWidth,
+          [key]: newWidth,
         }));
       };
 
@@ -215,7 +216,7 @@ export const BasicTable = <
             className={cn(
               'overflow-hidden relative z-0 isolate',
               isTahoe ? 'rounded-2xl' : 'rounded-lg',
-              border && 'ring-1 ring-gray-200 dark:ring-gray-700'
+              border && 'border border-gray-200 dark:border-gray-700'
             )}
           >
             <div

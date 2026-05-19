@@ -15,6 +15,7 @@ export interface ModalProps {
   className?: string;
   contentClassName?: string;
   titleContainerClassName?: string;
+  hideCloseButton?: boolean;
   text?: {
     title?: string;
     content?: string;
@@ -37,6 +38,7 @@ export const Modal: React.FC<ModalProps> = ({
   className,
   titleContainerClassName,
   contentClassName,
+  hideCloseButton = false,
   setIsOpen,
   onSubmit,
   onBack,
@@ -178,7 +180,7 @@ export const Modal: React.FC<ModalProps> = ({
             className
           )}
         >
-          <h3
+          <span
             ref={titleRef}
             id={titleId}
             className={cn(
@@ -191,26 +193,28 @@ export const Modal: React.FC<ModalProps> = ({
             tabIndex={-1}
           >
             <Typography
-              tag="h3"
+              tag="span"
               className="font-bold font-figtree text-[22px] font-600 leading-[100%] tracking-[0.022px]"
             >
               {text?.title || ''}
             </Typography>
-            <Button
-              variant="transparent"
-              size="mini"
-              shape="circle"
-              onClick={closeableClose}
-              aria-label={closeable ? 'Close modal' : 'Close'}
-            >
-              <Close
-                className="h-[18px] w-[18px] cursor-pointer text-gray-500 dark:text-gray-200"
-                aria-hidden="true"
-                width={18}
-                height={18}
-              />
-            </Button>
-          </h3>
+            {!hideCloseButton && (
+              <Button
+                variant="transparent"
+                size="mini"
+                shape="circle"
+                onClick={closeableClose}
+                aria-label={closeable ? 'Close modal' : 'Close'}
+              >
+                <Close
+                  className="h-[18px] w-[18px] cursor-pointer text-gray-500 dark:text-gray-200"
+                  aria-hidden="true"
+                  width={18}
+                  height={18}
+                />
+              </Button>
+            )}
+          </span>
 
           {text?.content && (
             <p

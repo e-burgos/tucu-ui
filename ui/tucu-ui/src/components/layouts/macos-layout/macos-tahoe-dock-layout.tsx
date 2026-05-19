@@ -4,8 +4,10 @@ import { useState } from 'react';
 import { IMenuItem } from '../menus/menu-item';
 import Logo, { LogoPropTypes } from '../../logos/logo';
 import { useIsMobile } from '../../../hooks';
-import { MacOSToolbarTahoe as MacOSToolbar } from '../../macos/toolbar/toolbar-tahoe';
-import { MacOSTahoeDock } from '../../macos/tahoe/dock-tahoe';
+import { MacOSTahoeLayoutContent } from '../../macos/tahoe/layout/layout-content-tahoe';
+import { MacOSTahoeDock } from '../../macos/tahoe/layout/dock-tahoe';
+import { MacOSBackground } from '../../macos/tahoe/foundations/background';
+import { useTheme } from '../../../themes';
 import { findCurrentPageTitle } from './utils';
 
 // ─── Types ─────────────────────────────────────────────────────
@@ -34,6 +36,7 @@ export function MacOSTahoeDockLayout({
 }: MacOSTahoeDockLayoutProps) {
   const { pathname } = useLocation();
   const { isMobile } = useIsMobile();
+  const { backgroundVariant } = useTheme();
   const [isDockVisible, setIsDockVisible] = useState(true);
   const currentPageTitle = findCurrentPageTitle(menuItems, pathname);
 
@@ -42,62 +45,52 @@ export function MacOSTahoeDockLayout({
       data-tucu="macos-tahoe-root"
       data-layout-variant="tahoe-dock"
       className={cn(
-        'flex h-full w-full overflow-hidden relative bg-transparent p-3 min-[500px]:p-4',
+        'flex h-full w-full overflow-hidden relative bg-transparent p-[12px] min-[500px]:p-[16px]',
         className
       )}
     >
+      {/* Background layer */}
+      <MacOSBackground
+        variant={backgroundVariant}
+        className="inset-0 h-full w-full"
+        style={{ position: 'absolute', zIndex: -1 }}
+      />
+
       {/* Main area — full width, no sidebar */}
-      <div
-        data-tucu="macos-tahoe-shell"
+      <MacOSTahoeLayoutContent
+        toolbarCenter={
+          <div
+            data-tucu="macos-tahoe-toolbar-center"
+            className="truncate px-[24px] text-center text-[14px] font-semibold tracking-[0.01em] text-(--macos-tahoe-text)"
+          >
+            {currentPageTitle ?? 'Overview'}
+          </div>
+        }
+        toolbarLeading={
+          logo ? (
+            <Logo
+              {...logo}
+              size="small"
+              className={cn('w-auto shrink-0', logo.className)}
+            />
+          ) : undefined
+        }
+        toolbarTrailing={rightButton}
+        headerClassName={headerClassName}
+        contentClassName={contentClassName}
         className={cn(
-          'flex min-w-0 flex-1 flex-col overflow-hidden rounded-[34px] border border-(--macos-tahoe-border) bg-(--macos-tahoe-panel-bg) backdrop-blur-[34px]',
           'transition-[margin] duration-300 ease-in-out',
-          isDockVisible ? 'mb-[56px]' : 'mb-0'
+          isDockVisible ? 'mb-[56px]' : 'mb-[0px]'
         )}
       >
-        <MacOSToolbar
-          center={
-            <div
-              data-tucu="macos-tahoe-toolbar-center"
-              className="truncate px-6 text-center text-[14px] font-semibold tracking-[0.01em] text-(--macos-tahoe-text)"
-            >
-              {currentPageTitle ?? 'Overview'}
-            </div>
-          }
-          leading={
-            logo ? (
-              <Logo
-                {...logo}
-                size="small"
-                className={cn('w-auto shrink-0', logo.className)}
-              />
-            ) : undefined
-          }
-          trailing={rightButton}
-          className={headerClassName}
-        />
-
-        <main
-          data-tucu="macos-tahoe-content"
-          className={cn(
-            'relative flex-1 min-h-0 overflow-auto bg-transparent',
-            contentClassName
-          )}
-        >
-          <div
-            data-tucu="macos-tahoe-content-inner"
-            className="px-5 pb-6 pt-4 min-[500px]:px-7 min-[500px]:pb-8 *:max-w-none"
-          >
-            {children}
-          </div>
-        </main>
-      </div>
+        {children}
+      </MacOSTahoeLayoutContent>
 
       {/* Dock — bottom, mobile + desktop */}
       <div
         data-tucu="tahoe-dock-wrapper"
         className={cn(
-          'fixed bottom-3 left-1/2 z-50 -translate-x-1/2 transition-all duration-300',
+          'fixed bottom-[12px] left-1/2 z-50 -translate-x-1/2 transition-all duration-300',
           isDockVisible
             ? 'translate-y-0 opacity-100'
             : 'translate-y-full opacity-0 pointer-events-none'
@@ -120,8 +113,8 @@ export function MacOSTahoeDockLayout({
           aria-label="Show dock"
           onClick={() => setIsDockVisible(true)}
           className={cn(
-            'fixed bottom-3 left-1/2 z-50 -translate-x-1/2',
-            'flex h-10 w-14 items-center justify-center rounded-2xl',
+            'fixed bottom-[12px] left-1/2 z-50 -translate-x-1/2',
+            'flex h-[40px] w-[56px] items-center justify-center rounded-[16px]',
             'bg-(--macos-glass-regular-bg) backdrop-blur-[68px] backdrop-saturate-[1.8]',
             'border border-(--macos-glass-border)',
             'shadow-(--macos-glass-shadow,0_4px_16px_rgba(0,0,0,0.12))',
@@ -129,11 +122,19 @@ export function MacOSTahoeDockLayout({
             'animate-in fade-in slide-in-from-bottom-2 duration-300'
           )}
         >
-          <div className="relative flex flex-col items-center gap-0.75">
-            <span className="h-1.25 w-5.5 rounded-full bg-(--macos-tahoe-text-muted) opacity-70" />
-            <span className="h-1.25 w-5.5 rounded-full bg-(--macos-tahoe-text-muted) opacity-40" />
-            <span className="absolute -top-1 -right-1.5 h-2 w-2 rounded-full bg-red-500" />
-          </div>
+          <svg
+            className="h-[20px] w-[20px] text-(--macos-tahoe-text-muted)"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth={1.5}
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M4.5 15.75l7.5-7.5 7.5 7.5"
+            />
+          </svg>
         </button>
       )}
     </div>

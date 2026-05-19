@@ -8,7 +8,7 @@ export function CleanLayout({
   className?: string;
 }) {
   return (
-    <div className={cn('flex h-100vh flex-col', className)}>{children}</div>
+    <div className={cn('flex h-[100vh] flex-col', className)}>{children}</div>
   );
 }
 

@@ -95,7 +95,7 @@ export function HorizontalNavMenu({ menuItems }: { menuItems: IMenuItem[] }) {
                       />
                     </span>
                   </ActiveLink>
-                  <ul className="invisible absolute right-0 top-[130%] mt-[8px] w-[256px] rounded-lg bg-light-dark p-[12px] opacity-0 shadow-large transition-all group-hover/parent:visible group-hover/parent:top-full group-hover/parent:opacity-100 ltr:right-0 rtl:left-0">
+                  <ul className="invisible absolute right-0 top-[130%] mt-[8px] w-[256px] rounded-[8px] bg-light-dark p-[12px] opacity-0 shadow-large transition-all group-hover/parent:visible group-hover/parent:top-full group-hover/parent:opacity-100 ltr:right-0 rtl:left-0">
                     {item.dropdownItems.map((dropDownItem, index) => (
                       <li
                         className={cn(
@@ -107,7 +107,7 @@ export function HorizontalNavMenu({ menuItems }: { menuItems: IMenuItem[] }) {
                       >
                         {dropDownItem.dropdownItems ? (
                           <>
-                            <div className="flex w-full items-center justify-between rounded-lg px-[12px] py-[8px] text-sm font-medium uppercase text-gray-600 transition hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-700/50 dark:hover:text-white">
+                            <div className="flex w-full items-center justify-between rounded-[8px] px-[12px] py-[8px] text-sm font-medium uppercase text-gray-600 transition hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-700/50 dark:hover:text-white">
                               <span
                                 className={cn(
                                   'text-[12px]',
@@ -120,7 +120,7 @@ export function HorizontalNavMenu({ menuItems }: { menuItems: IMenuItem[] }) {
                                 <ChevronRight className="h-[10px] w-[10px]" />
                               </span>
                             </div>
-                            <ul className="invisible absolute left-[107%] right-0 top-[130%] w-[256px] rounded-lg bg-white p-[12px] opacity-0 shadow-large transition-all group-hover:visible group-hover/parent:top-0 group-hover:opacity-100 ltr:right-0 rtl:left-0 dark:bg-gray-800">
+                            <ul className="invisible absolute left-[107%] right-0 top-[130%] w-[256px] rounded-[8px] bg-white p-[12px] opacity-0 shadow-large transition-all group-hover:visible group-hover/parent:top-0 group-hover:opacity-100 ltr:right-0 rtl:left-0 dark:bg-gray-800">
                               {dropDownItem?.dropdownItems?.map(
                                 (subMenu, index) => {
                                   const SubMenuHrefToUse = subMenu.href
@@ -132,7 +132,7 @@ export function HorizontalNavMenu({ menuItems }: { menuItems: IMenuItem[] }) {
                                         path={subMenu.path}
                                         href={subMenu.href}
                                         to={SubMenuHrefToUse}
-                                        className="block rounded-lg px-[12px] py-[8px] text-sm font-medium uppercase !text-gray-600 transition hover:bg-gray-100  hover:text-gray-900 dark:!text-white dark:hover:bg-gray-700/50"
+                                        className="block rounded-[8px] px-[12px] py-[8px] text-sm font-medium uppercase !text-gray-600 transition hover:bg-gray-100  hover:text-gray-900 dark:!text-white dark:hover:bg-gray-700/50"
                                         activeClassName={cn(
                                           'bg-gray-100 dark:bg-gray-700 my-[4px] last:mb-[0px] first:mt-[0px] !text-gray-900 dark:!text-white',
                                           subMenu.isActive &&
@@ -160,14 +160,14 @@ export function HorizontalNavMenu({ menuItems }: { menuItems: IMenuItem[] }) {
                             href={dropDownItem.href}
                             onClick={dropDownItem.onClick}
                             onTouchStart={dropDownItem.onClick}
-                            className="flex items-center gap-[4px] rounded-lg px-[12px] py-[8px] text-sm font-medium uppercase text-gray-600 transition hover:bg-gray-200 hover:text-gray-900 dark:text-white dark:hover:bg-gray-700/50"
+                            className="flex items-center gap-[4px] rounded-[8px] px-[12px] py-[8px] text-sm font-medium uppercase text-gray-600 transition hover:bg-gray-200 hover:text-gray-900 dark:text-white dark:hover:bg-gray-700/50"
                             activeClassName={cn(
                               'bg-gray-100 dark:bg-gray-700 my-[4px] last:mb-[0px] first:mt-[0px] !text-gray-900 dark:!text-white',
                               dropDownItem.isActive && '!bg-brand !text-white'
                             )}
                           >
                             {dropDownItem.icon && (
-                              <span className="w-4 h-4 flex items-center justify-center mr-1.5">
+                              <span className="w-[16px] h-[16px] flex items-center justify-center mr-[6px]">
                                 {dropDownItem.icon}
                               </span>
                             )}
@@ -191,7 +191,7 @@ export function HorizontalNavMenu({ menuItems }: { menuItems: IMenuItem[] }) {
                   >
                     <span className="z-1 flex items-center ltr:mr-[12px] rtl:ml-[12px]">
                       {item.icon && (
-                        <span className="w-4 h-4 flex items-center justify-center mr-1.5">
+                        <span className="w-[16px] h-[16px] flex items-center justify-center mr-[6px]">
                           {item.icon}
                         </span>
                       )}

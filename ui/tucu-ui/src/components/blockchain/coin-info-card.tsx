@@ -50,7 +50,12 @@ export function CoinInfoCard({
       )}
     >
       <div className="flex items-center">
-        <div className={cn('rounded-full', variants[variant])}>
+        <div
+          className={cn(
+            'rounded-full flex items-center justify-center',
+            variants[variant]
+          )}
+        >
           <Image
             src={logo}
             alt={name}
