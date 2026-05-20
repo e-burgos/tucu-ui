@@ -5,9 +5,12 @@ import {
   Typography,
   CodeBlock,
   Carousel,
+  HeroCard,
+  LucideIcons,
 } from '../../../../index';
 import { AutoPropsTable } from '../../../components/auto-props-table';
 
+import { PropPlayground } from '../../../components/prop-playground';
 const CarouselSection: React.FC = () => {
   const slides = [
     <div
@@ -32,18 +35,16 @@ const CarouselSection: React.FC = () => {
 
   return (
     <>
-      <div className="text-center space-y-4">
-        <Typography tag="h2" className="text-3xl md:text-4xl font-bold">
-          Carousel
-        </Typography>
-        <Typography
-          tag="p"
-          className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
-        >
-          A powerful carousel component built on Swiper.js with support for
-          navigation, pagination, autoplay, and various effects.
-        </Typography>
-      </div>
+      <HeroCard
+        title="Carousel"
+        description="A powerful carousel component built on Swiper.js with support for
+          navigation, pagination, autoplay, and various effects."
+        icon={
+          <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 bg-linear-to-br from-pink-500 to-rose-500 rounded-full flex items-center justify-center shadow-lg">
+            <LucideIcons.GalleryHorizontal className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-white filter drop-shadow-lg" />
+          </div>
+        }
+      />
 
       <CardContainer className="overflow-hidden">
         <CardTitle title="Basic Examples" className="mt-2 mb-2">
@@ -87,6 +88,37 @@ const CarouselSection: React.FC = () => {
           </div>
         </CardTitle>
       </CardContainer>
+      <PropPlayground
+        componentName="Carousel"
+        title="Carousel Playground"
+        defaultValues={{
+          'direction': 'horizontal',
+          'effect': 'slide',
+          'loop': true,
+          'showNavigation': true,
+          'showPagination': true,
+          'paginationType': 'bullets',
+          'grabCursor': true,
+          'centeredSlides': false,
+          'freeMode': false,
+          'mousewheel': false,
+          'slidesPerView': 1,
+          'spaceBetween': 16
+}}
+        excludeProps={['onSlideChange', 'onSwiper', 'breakpoints', 'autoplay', 'className', 'slideClassName', 'aria-label']}
+      >
+        {(props) => (
+          <Carousel {...props}>
+            {[1, 2, 3, 4].map((i) => (
+              <div key={i} className="h-40 rounded-lg bg-brand/20 flex items-center justify-center">
+                <Typography tag="h4">Slide {i}</Typography>
+              </div>
+            ))}
+          </Carousel>
+        )}
+      </PropPlayground>
+
+
       <AutoPropsTable componentName="Carousel" />
 
       <CardContainer className="overflow-hidden">

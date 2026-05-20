@@ -6,27 +6,29 @@ import {
   CodeBlock,
   Modal,
   Button,
+  HeroCard,
+  LucideIcons,
 } from '../../../../index';
 import { AutoPropsTable } from '../../../components/auto-props-table';
 import { PropPlayground } from '../../../components/prop-playground';
 
 const ModalSection: React.FC = () => {
+  const [isOpen1, setIsOpen1] = useState(false);
+  const [isOpen2, setIsOpen2] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <>
-      <div className="text-center space-y-4">
-        <Typography tag="h2" className="text-3xl md:text-4xl font-bold">
-          Modal
-        </Typography>
-        <Typography
-          tag="p"
-          className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
-        >
-          A modal dialog component for displaying content in an overlay with
-          customizable buttons and close functionality.
-        </Typography>
-      </div>
+      <HeroCard
+        title="Modal"
+        description="A modal dialog component for displaying content in an overlay with
+          customizable buttons and close functionality."
+        icon={
+          <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 bg-linear-to-br from-amber-500 to-orange-500 rounded-full flex items-center justify-center shadow-lg">
+            <LucideIcons.Maximize2 className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-white filter drop-shadow-lg" />
+          </div>
+        }
+      />
 
       <CardContainer className="overflow-hidden">
         <CardTitle title="Basic Examples" className="mt-2 mb-2">
@@ -36,10 +38,10 @@ const ModalSection: React.FC = () => {
                 <Typography tag="h5" className="mb-3">
                   Basic Modal
                 </Typography>
-                <Button onClick={() => setIsOpen(true)}>Open Modal</Button>
+                <Button onClick={() => setIsOpen1(true)}>Open Modal</Button>
                 <Modal
-                  isOpen={isOpen}
-                  setIsOpen={setIsOpen}
+                  isOpen={isOpen1}
+                  setIsOpen={setIsOpen1}
                   text={{
                     title: 'Modal Title',
                     content: 'This is the modal content.',
@@ -51,12 +53,12 @@ const ModalSection: React.FC = () => {
                 <Typography tag="h5" className="mb-3">
                   Modal with Custom Content
                 </Typography>
-                <Button onClick={() => setIsOpen(true)}>
+                <Button onClick={() => setIsOpen2(true)}>
                   Open Custom Modal
                 </Button>
                 <Modal
-                  isOpen={isOpen}
-                  setIsOpen={setIsOpen}
+                  isOpen={isOpen2}
+                  setIsOpen={setIsOpen2}
                   text={{ title: 'Custom Modal' }}
                 >
                   <Typography tag="p">Custom content goes here</Typography>

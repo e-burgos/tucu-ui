@@ -15,24 +15,29 @@ export const CardTitle: React.FC<CardTitleProps> = ({
   className,
 }) => {
   return (
-    <div
+    <fieldset
       data-tucu="card-title"
       className={cn(
-        'w-full relative rounded-lg flex flex-col justify-start sm:p-6 p-2 sm:pt-[32px] pt-[24px]',
-        border && 'border border-gray-200 dark:border-gray-700',
+        'w-full min-w-0 relative rounded-lg flex flex-col justify-start',
+        border
+          ? 'border border-gray-200 dark:border-gray-700 sm:px-6 px-4 sm:pt-4 pt-3 sm:pb-6 pb-4'
+          : 'sm:p-6 p-4 sm:pt-[32px] pt-[24px]',
         className
       )}
     >
       {title && (
-        <h3
+        <legend
           data-tucu="card-title-label"
-          className={`absolute -top-4 left-4 m-0 bg-light-dark  font-bold sm:text-2xl text-lg dark:text-white text-current px-2 rounded-lg`}
+          className={cn(
+            'font-bold sm:text-xl text-lg dark:text-white text-current px-2',
+            border ? 'ml-4' : 'absolute -top-4 left-4 m-0'
+          )}
         >
           {title}
-        </h3>
+        </legend>
       )}
       {children}
-    </div>
+    </fieldset>
   );
 };
 

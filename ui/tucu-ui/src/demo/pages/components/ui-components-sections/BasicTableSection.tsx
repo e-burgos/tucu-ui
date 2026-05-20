@@ -5,9 +5,12 @@ import {
   Typography,
   CodeBlock,
   BasicTable,
+  HeroCard,
+  LucideIcons,
 } from '../../../../index';
 import { AutoPropsTable } from '../../../components/auto-props-table';
 
+import { PropPlayground } from '../../../components/prop-playground';
 const BasicTableSection: React.FC = () => {
 
   const exampleColumns = [
@@ -24,18 +27,16 @@ const BasicTableSection: React.FC = () => {
 
   return (
     <>
-      <div className="text-center space-y-4">
-        <Typography tag="h2" className="text-3xl md:text-4xl font-bold">
-          BasicTable
-        </Typography>
-        <Typography
-          tag="p"
-          className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
-        >
-          A flexible and customizable table component with support for custom
-          rendering, styling, and interactions.
-        </Typography>
-      </div>
+      <HeroCard
+        title="BasicTable"
+        description="A flexible and customizable table component with support for custom
+          rendering, styling, and interactions."
+        icon={
+          <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 bg-linear-to-br from-teal-500 to-cyan-500 rounded-full flex items-center justify-center shadow-lg">
+            <LucideIcons.Table2 className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-white filter drop-shadow-lg" />
+          </div>
+        }
+      />
 
       <CardContainer className="overflow-hidden">
         <CardTitle title="Basic Examples" className="mt-2 mb-2">
@@ -71,6 +72,37 @@ const BasicTableSection: React.FC = () => {
           </div>
         </CardTitle>
       </CardContainer>
+      <PropPlayground
+        componentName="BasicTable"
+        title="BasicTable Playground"
+        defaultValues={{
+          'border': false,
+          'hoverable': true,
+          'rounded': true,
+          'striped': false,
+          'showHeader': true,
+          'resizable': false
+}}
+        excludeProps={['columns', 'data', 'className', 'containerClassName', 'headerClassName', 'tableClassName', 'rowClassName', 'maxRows']}
+      >
+        {(props) => (
+          <BasicTable
+            {...props}
+            columns={[
+              { key: 'name', label: 'Name' },
+              { key: 'role', label: 'Role' },
+              { key: 'status', label: 'Status' },
+            ]}
+            data={[
+              { name: 'Alice', role: 'Developer', status: 'Active' },
+              { name: 'Bob', role: 'Designer', status: 'Inactive' },
+              { name: 'Carol', role: 'Manager', status: 'Active' },
+            ]}
+          />
+        )}
+      </PropPlayground>
+
+
       <AutoPropsTable componentName="BasicTable" />
 
       <CardContainer className="overflow-hidden">

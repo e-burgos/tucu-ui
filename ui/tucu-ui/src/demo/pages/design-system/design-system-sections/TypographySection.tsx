@@ -1,5 +1,12 @@
 import React from 'react';
-import { CardContainer, CardTitle, Typography, Badge } from '../../../../index';
+import {
+  CardContainer,
+  CardTitle,
+  Typography,
+  Badge,
+  HeroCard,
+  LucideIcons,
+} from '../../../../index';
 
 const TypographySection: React.FC = () => {
   const typographyTags = [
@@ -52,25 +59,27 @@ const TypographySection: React.FC = () => {
   ] as const;
 
   return (
-    <>
-      <div className="text-center space-y-4">
-        <Typography tag="h2" className="text-3xl md:text-4xl font-bold">
-          Typography
-        </Typography>
-        <Typography
-          tag="p"
-          className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
-        >
-          Typography component with all available tags, colors, and font families
-        </Typography>
-      </div>
+    <div className="space-y-8 max-w-6xl sm:space-y-12 w-full mx-auto px-4 sm:px-6 lg:px-8 relative pt-8 lg:pt-12">
+      <HeroCard
+        title="Typography"
+        description="Typography component with all available tags, colors, and font families."
+        icon={
+          <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 bg-linear-to-br from-blue-500 via-cyan-500 to-sky-500 rounded-full flex items-center justify-center shadow-lg">
+            <LucideIcons.Type className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 text-white filter drop-shadow-lg" />
+          </div>
+        }
+      />
 
       {/* Tucu UI Tokens */}
       <CardContainer className="overflow-hidden">
         <CardTitle title="Tucu UI Tokens - Type Scale" className="mt-2 mb-2">
           <div className="w-full space-y-8 p-4 sm:p-6">
-            <Typography tag="p" className="text-gray-600 dark:text-gray-400 mb-6">
-              Hierarchical typography tokens designed for consistent text styling across the design system.
+            <Typography
+              tag="p"
+              className="text-gray-600 dark:text-gray-400 mb-6"
+            >
+              Hierarchical typography tokens designed for consistent text
+              styling across the design system.
             </Typography>
             <div className="border border-gray-200 dark:border-gray-700 rounded-lg p-6 bg-light-dark">
               <div className="space-y-6">
@@ -96,17 +105,26 @@ const TypographySection: React.FC = () => {
                           >
                             {style.label}
                           </Typography>
-                          <Badge variant="outline" className="text-xs font-mono">
+                          <Badge
+                            variant="outline"
+                            className="text-xs font-mono"
+                          >
                             {style.tag}
                           </Badge>
                         </div>
                         <Typography tag="caption" className="text-muted">
-                          {style.tag === 'headline' && 'Main headlines and hero text'}
-                          {style.tag === 'body' && 'Primary body text and paragraphs'}
-                          {style.tag === 'label-1' && 'Primary labels and form fields'}
-                          {style.tag === 'label-2' && 'Secondary labels and smaller text'}
-                          {style.tag === 'caption' && 'Image captions and metadata'}
-                          {style.tag === 'legal' && 'Legal text, disclaimers, and fine print'}
+                          {style.tag === 'headline' &&
+                            'Main headlines and hero text'}
+                          {style.tag === 'body' &&
+                            'Primary body text and paragraphs'}
+                          {style.tag === 'label-1' &&
+                            'Primary labels and form fields'}
+                          {style.tag === 'label-2' &&
+                            'Secondary labels and smaller text'}
+                          {style.tag === 'caption' &&
+                            'Image captions and metadata'}
+                          {style.tag === 'legal' &&
+                            'Legal text, disclaimers, and fine print'}
                         </Typography>
                       </div>
                       <div className="md:w-1/2">
@@ -121,12 +139,14 @@ const TypographySection: React.FC = () => {
                               | 'legal'
                           }
                         >
-                          {style.tag === 'headline' && 'The quick brown fox jumps over the lazy dog'}
+                          {style.tag === 'headline' &&
+                            'The quick brown fox jumps over the lazy dog'}
                           {style.tag === 'body' &&
                             'The quick brown fox jumps over the lazy dog. This is body text used for paragraphs and main content.'}
                           {style.tag === 'label-1' && 'Label Text'}
                           {style.tag === 'label-2' && 'Small Label'}
-                          {style.tag === 'caption' && 'Image caption or supporting text'}
+                          {style.tag === 'caption' &&
+                            'Image caption or supporting text'}
                           {style.tag === 'legal' && 'Legal disclaimer text'}
                         </Typography>
                       </div>
@@ -142,7 +162,10 @@ const TypographySection: React.FC = () => {
       <CardContainer className="overflow-hidden">
         <CardTitle title="HTML Tags" className="mt-2 mb-2">
           <div className="w-full space-y-8 p-4 sm:p-6">
-            <Typography tag="p" className="text-gray-600 dark:text-gray-400 mb-6">
+            <Typography
+              tag="p"
+              className="text-gray-600 dark:text-gray-400 mb-6"
+            >
               Standard HTML semantic tags with Tucu UI styling.
             </Typography>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -155,7 +178,10 @@ const TypographySection: React.FC = () => {
                   >
                     <div className="space-y-1">
                       <Typography tag="h4">{style.label}</Typography>
-                      <Typography tag="h4" className="text-muted break-all text-xs">
+                      <Typography
+                        tag="h4"
+                        className="text-muted break-all text-xs"
+                      >
                         tag="{style.tag}"
                       </Typography>
                     </div>
@@ -166,8 +192,11 @@ const TypographySection: React.FC = () => {
                             ? 'overflow-wrap-anywhere whitespace-pre-wrap w-full'
                             : 'overflow-wrap-anywhere'
                         }
+                        // eslint-disable-next-line @typescript-eslint/no-explicit-any
                         tag={style.tag as any}
-                        {...(style.tag === 'abbr' && { title: 'Abbreviation example' })}
+                        {...(style.tag === 'abbr' && {
+                          title: 'Abbreviation example',
+                        })}
                       >
                         {style.tag === 'pre' || style.tag === 'code'
                           ? 'const example = "The quick brown fox jumps over the lazy dog";'
@@ -185,7 +214,10 @@ const TypographySection: React.FC = () => {
       <CardContainer className="overflow-hidden">
         <CardTitle title="Typography Colors" className="mt-2 mb-2">
           <div className="w-full space-y-8 p-4 sm:p-6">
-            <Typography tag="p" className="text-gray-600 dark:text-gray-400 mb-6">
+            <Typography
+              tag="p"
+              className="text-gray-600 dark:text-gray-400 mb-6"
+            >
               Available color props for the Typography component.
             </Typography>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -196,11 +228,15 @@ const TypographySection: React.FC = () => {
                 >
                   <div className="space-y-1">
                     <Typography tag="h4">{color.label}</Typography>
-                    <Typography tag="h4" className="text-muted break-all text-xs">
+                    <Typography
+                      tag="h4"
+                      className="text-muted break-all text-xs"
+                    >
                       color="{color.value}"
                     </Typography>
                   </div>
                   <div className="min-h-[40px] flex items-center">
+                    {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
                     <Typography tag="p" color={color.value as any}>
                       The quick brown fox jumps over the lazy dog
                     </Typography>
@@ -216,7 +252,10 @@ const TypographySection: React.FC = () => {
       <CardContainer className="overflow-hidden">
         <CardTitle title="Typography Font Families" className="mt-2 mb-2">
           <div className="w-full space-y-8 p-4 sm:p-6">
-            <Typography tag="p" className="text-gray-600 dark:text-gray-400 mb-6">
+            <Typography
+              tag="p"
+              className="text-gray-600 dark:text-gray-400 mb-6"
+            >
               Available fontFamily props for the Typography component.
             </Typography>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -227,11 +266,15 @@ const TypographySection: React.FC = () => {
                 >
                   <div className="space-y-1">
                     <Typography tag="h4">{font.label}</Typography>
-                    <Typography tag="h4" className="text-muted break-all text-xs">
+                    <Typography
+                      tag="h4"
+                      className="text-muted break-all text-xs"
+                    >
                       fontFamily="{font.value}"
                     </Typography>
                   </div>
                   <div className="min-h-[40px] flex items-center">
+                    {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
                     <Typography tag="p" fontFamily={font.value as any}>
                       The quick brown fox jumps over the lazy dog
                     </Typography>
@@ -247,7 +290,10 @@ const TypographySection: React.FC = () => {
       <CardContainer className="overflow-hidden">
         <CardTitle title="Combined Examples" className="mt-2 mb-2">
           <div className="w-full space-y-8 p-4 sm:p-6">
-            <Typography tag="p" className="text-gray-600 dark:text-gray-400 mb-6">
+            <Typography
+              tag="p"
+              className="text-gray-600 dark:text-gray-400 mb-6"
+            >
               Examples combining tags, colors, and font families.
             </Typography>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -303,9 +349,8 @@ const TypographySection: React.FC = () => {
           </div>
         </CardTitle>
       </CardContainer>
-    </>
+    </div>
   );
 };
 
 export default TypographySection;
-

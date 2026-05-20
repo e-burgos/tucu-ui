@@ -406,6 +406,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
 
       document.addEventListener('keydown', handleEscape);
       return () => document.removeEventListener('keydown', handleEscape);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isCalendarOpen, closeCalendar]);
 
     useEffect(() => {
@@ -524,7 +525,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             <label
               htmlFor={finalId}
               className={cn(
-                'block font-medium tracking-widest text-gray-700 dark:text-gray-100',
+                'block font-medium tracking-widest text-gray-800 dark:text-gray-100',
                 useUppercaseLabel
                   ? 'mb-[8px] uppercase sm:mb-[12px]'
                   : 'mb-[6px] ml-[6px]'

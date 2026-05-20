@@ -12,7 +12,7 @@ Complete API reference for all components, hooks, utilities, and types in `@e-bu
 | Field            | Value                                                                                                                                                       |
 | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Name**         | `@e-burgos/tucu-ui`                                                                                                                                         |
-| **Version**      | 2.0.4+                                                                                                                                                      |
+| **Version**      | 2.0.8                                                                                                                                                       |
 | **Author**       | Esteban Burgos                                                                                                                                              |
 | **License**      | MIT                                                                                                                                                         |
 | **Peer Deps**    | `react >=18`, `react-dom >=18`, `tailwindcss >=4`                                                                                                           |
@@ -163,13 +163,15 @@ const ButtonShowcase = () => (
 
 ### 2.4 Cards
 
-| Component           | Key Props                                                                  | Description                                |
-| ------------------- | -------------------------------------------------------------------------- | ------------------------------------------ |
-| **CardContainer**   | `{className?, children?}`                                                  | Wrapper with border, shadow, rounded, dark |
-| **CardTitle**       | `{border?(true), title?, children?, className?}`                           | Container with floating title              |
-| **AuthorCard**      | `{image, name?, authorRole?}`                                              | Author card with avatar                    |
-| **PanelCard**       | `{title, children, className?}`                                            | Card with header and scrollable content    |
-| **PanelActionCard** | `{title, actions?: {label, variant?, color?, size?, onClick}[], children}` | PanelCard with action buttons              |
+| Component           | Key Props                                                                  | Description                                        |
+| ------------------- | -------------------------------------------------------------------------- | -------------------------------------------------- |
+| **Card**            | `{title?, description?, icon?, header?, footer?, actions?, onClick?, className?}` | Versatile card with header, footer, actions slots  |
+| **CardContainer**   | `{className?, children?}`                                                  | Wrapper with border, shadow, rounded, dark         |
+| **CardTitle**       | `{border?(true), title?, children?, className?}`                           | Container with floating title                      |
+| **AuthorCard**      | `{image, name?, authorRole?}`                                              | Author card with avatar                            |
+| **InfoCard**        | `{title?, subtitle?, icon?, headerRight?, columns?: InfoCardColumn[], gridCols?, footerTags?, footerLabel?, footer?, className?}` | Structured multi-column info card with footer tags |
+| **PanelCard**       | `{title, children, className?}`                                            | Card with header and scrollable content            |
+| **PanelActionCard** | `{title, actions?: {label, variant?, color?, size?, onClick}[], children}` | PanelCard with action buttons                      |
 
 **Example:**
 
@@ -285,6 +287,7 @@ const UserProfileLoading = () => (
 | **DrawerContainer** | `{isOpen, setIsOpen, position?, backdrop?(true)}`                                                                                    | Sliding portal container           |
 | **Sidebar**         | `{children, title?, actionContent?, logo?, onClose?}`                                                                                | Generic sidebar with scroll        |
 | **SidebarMenu**     | `{menuItems: IMenuItem[], title?, actionContent?, onClose, logo?}`                                                                   | Sidebar with navigation menu       |
+| **TabModal**        | `{icon?, title?, subtitle?, badgeHeader?, tabs?: TabModalTab[], content?, footerLabel?, successButton?, closeButton?, closeLabel?, onClose, className?}` | Portal modal with tab bar, footer actions |
 
 **Example:**
 
@@ -553,10 +556,11 @@ const ArticlePage = () => (
 
 | Component            | Key Props                                                                                            | Description                        |
 | -------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------- |
-| **RootLayout**       | `{layout?: 'clean'\|'admin'\|'horizontal', menuItems: IMenuItem[], logo?, rightButton?, fullWidth?}` | Main layout orchestrator           |
+| **RootLayout**       | `{layout?: 'clean'\|'admin'\|'horizontal'\|'macos'\|'macos-tahoe', menuItems: IMenuItem[], logo?, rightButton?, fullWidth?}` | Main layout orchestrator           |
 | **AdminLayout**      | `{menuItems, rightButton?, logo?, isOpen, setIsOpen, fullWidth?}`                                    | Collapsible sidebar + fixed header |
 | **CleanLayout**      | `{children, className?}`                                                                             | Minimal layout without nav         |
 | **HorizontalLayout** | `{menuItems, rightButton?, logo?, isOpen, setIsOpen, fullWidth?}`                                    | Top horizontal navigation          |
+| **MacOSLayout**      | `{menuItems, rightButton?, logo?, isOpen, setIsOpen, fullWidth?}`                                    | macOS-style sidebar + toolbar      |
 | **MenuItem**         | `{name, icon?, path, href?, dropdownItems?, isActive?, hide?, onClick?}`                             | Menu item with sub-menu            |
 
 ---
@@ -596,7 +600,54 @@ import { LucideIcons } from '@e-burgos/tucu-ui';
 
 ---
 
-### 2.21 Charts
+### 2.21 macOS Components
+
+> Apple-inspired components for macOS-style interfaces. Use with `LAYOUT_OPTIONS.MACOS` or `LAYOUT_OPTIONS.MACOS_TAHOE` and `colorScheme: 'macos'`.
+
+| Component                    | Key Props                                                                                                   | Description                                    |
+| ---------------------------- | ----------------------------------------------------------------------------------------------------------- | ---------------------------------------------- |
+| **MacOSWindow**              | `{title?, icon?, children, showTrafficLights?(true), onClose?, onMinimize?, onMaximize?, className?}`       | Window chrome with traffic-light buttons       |
+| **MacOSSidebar**             | `{menuItems: IMenuItem[], logo?, isCollapsed?, onToggle?, activeItem?, className?}`                         | Translucent sidebar with vibrancy effect       |
+| **MacOSToolbar**             | `{title?, leftContent?, rightContent?, showDivider?(true), className?}`                                     | Top toolbar bar with customizable sections     |
+| **MacOSWidget**              | `{children, className?}`                                                                                    | Widget container with rounded corners          |
+| **MacOSWidgetHeader**        | `{title?, subtitle?, icon?, actions?, className?}`                                                          | Header for MacOSWidget                         |
+| **MacOSSegmentedControl**    | `{segments: {label, value, icon?}[], value, onChange, size?: 'sm'\|'md'\|'lg', className?}`                 | Native-style segmented control                 |
+| **MacOSSearchBar**           | `{value?, onChange?, placeholder?, onClear?, className?}`                                                   | Spotlight-style search input                   |
+| **MacOSPopover**             | `{trigger, children, position?: 'top'\|'bottom'\|'left'\|'right', className?}`                              | Popover container with arrow                   |
+| **MacOSPopoverItem**         | `{icon?, label, onClick?, disabled?, className?}`                                                           | Item inside MacOSPopover                       |
+| **MacOSNotificationBanner**  | `{title, message?, icon?, variant?: 'info'\|'success'\|'warning'\|'error', onDismiss?, autoDismiss?, className?}` | macOS-style notification banner          |
+
+**Example:**
+
+```tsx
+import { MacOSWindow, MacOSWidget, MacOSWidgetHeader, MacOSSegmentedControl, MacOSSearchBar } from '@e-burgos/tucu-ui';
+
+const MacOSDashboard = () => {
+  const [view, setView] = useState('grid');
+
+  return (
+    <MacOSWindow title="Dashboard" showTrafficLights>
+      <MacOSSearchBar placeholder="Search..." />
+      <MacOSSegmentedControl
+        segments={[
+          { label: 'Grid', value: 'grid' },
+          { label: 'List', value: 'list' },
+        ]}
+        value={view}
+        onChange={setView}
+      />
+      <MacOSWidget>
+        <MacOSWidgetHeader title="Statistics" subtitle="Last 30 days" />
+        {/* Widget content */}
+      </MacOSWidget>
+    </MacOSWindow>
+  );
+};
+```
+
+---
+
+### 2.22 Charts
 
 > Built on **Recharts v3**. All chart components auto-theme with dark/light mode via `useChartTheme`.
 
@@ -715,16 +766,18 @@ const ResponsiveComponent = () => {
 
 | Category                 | Count               |
 | ------------------------ | ------------------- |
-| UI Components            | ~85+                |
+| UI Components            | ~95+                |
 | Hooks                    | 15                  |
 | Utilities/Libs           | 3 modules           |
 | Chart Components         | 9 (6 charts + 3 shared) |
+| macOS Components         | 10                  |
 | Native SVG Icons         | 97+                 |
 | Lucide Icons (namespace) | 1500+               |
 | Error Pages              | 10                  |
 | Design Tokens (colors)   | ~170 + 12 semantic  |
 | Breakpoints              | 10                  |
-| Layouts                  | 3                   |
-| Color Presets            | 22                  |
+| Layouts                  | 5                   |
+| Color Presets            | 34 (22 standard + 12 macOS) |
+| Theme Variants           | 2 (default, macos)  |
 | Languages                | 3 (en, es, fr)      |
 | Architectures            | 2 (Standalone, MFE) |

@@ -1,0 +1,485 @@
+/* ============================================================
+   macOS Sonoma 14 — Typography
+
+   Targets: All text elements under html.macos
+
+   References:
+   - Apple HIG > Typography > macOS Sonoma text styles
+   - Inter Variable (bundled) primary, -apple-system fallback
+   - JetBrains Mono Variable for code/pre
+   - font-family / font-mono tokens defined in macos-foundations.css
+
+   11 official macOS text styles:
+     Large Title · Title 1–3 · Headline · Body · Callout
+     Subheadline · Footnote · Caption 1 · Caption 2
+   ============================================================ */
+
+/* ── 3.1 Text Style Tokens ───────────────────────────────────── */
+html.macos {
+  /* Large Title */
+  --macos-ts-large-title-size: 26px;
+  --macos-ts-large-title-weight: 400;
+  --macos-ts-large-title-leading: 32px;
+  --macos-ts-large-title-tracking: 0.22px;
+
+  /* Title 1 */
+  --macos-ts-title1-size: 22px;
+  --macos-ts-title1-weight: 400;
+  --macos-ts-title1-leading: 26px;
+  --macos-ts-title1-tracking: -0.26px;
+
+  /* Title 2 */
+  --macos-ts-title2-size: 17px;
+  --macos-ts-title2-weight: 400;
+  --macos-ts-title2-leading: 22px;
+  --macos-ts-title2-tracking: -0.43px;
+
+  /* Title 3 */
+  --macos-ts-title3-size: 15px;
+  --macos-ts-title3-weight: 400;
+  --macos-ts-title3-leading: 20px;
+  --macos-ts-title3-tracking: -0.23px;
+
+  /* Headline (bold body) */
+  --macos-ts-headline-size: 13px;
+  --macos-ts-headline-weight: 700;
+  --macos-ts-headline-leading: 16px;
+  --macos-ts-headline-tracking: -0.08px;
+
+  /* Body */
+  --macos-ts-body-size: 13px;
+  --macos-ts-body-weight: 400;
+  --macos-ts-body-leading: 16px;
+  --macos-ts-body-tracking: -0.08px;
+
+  /* Callout */
+  --macos-ts-callout-size: 12px;
+  --macos-ts-callout-weight: 400;
+  --macos-ts-callout-leading: 15px;
+  --macos-ts-callout-tracking: 0;
+
+  /* Subheadline */
+  --macos-ts-subheadline-size: 11px;
+  --macos-ts-subheadline-weight: 400;
+  --macos-ts-subheadline-leading: 14px;
+  --macos-ts-subheadline-tracking: 0.06px;
+
+  /* Footnote */
+  --macos-ts-footnote-size: 10px;
+  --macos-ts-footnote-weight: 400;
+  --macos-ts-footnote-leading: 13px;
+  --macos-ts-footnote-tracking: 0.12px;
+
+  /* Caption 1 */
+  --macos-ts-caption1-size: 10px;
+  --macos-ts-caption1-weight: 400;
+  --macos-ts-caption1-leading: 13px;
+  --macos-ts-caption1-tracking: 0.12px;
+
+  /* Caption 2 */
+  --macos-ts-caption2-size: 10px;
+  --macos-ts-caption2-weight: 500;
+  --macos-ts-caption2-leading: 13px;
+  --macos-ts-caption2-tracking: 0.12px;
+}
+
+/* ── 3.5 Base font ───────────────────────────────────────────── */
+html.macos {
+  font-family: var(--macos-font-family);
+  font-size: 13px;
+  line-height: 16px;
+  letter-spacing: -0.08px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── 3.2 Utility Classes ─────────────────────────────────────── */
+
+html.macos .macos-large-title {
+  font-family: var(--macos-font-display);
+  font-size: var(--macos-ts-large-title-size);
+  font-weight: var(--macos-ts-large-title-weight);
+  line-height: var(--macos-ts-large-title-leading);
+  letter-spacing: var(--macos-ts-large-title-tracking);
+}
+
+html.macos .macos-title-1 {
+  font-family: var(--macos-font-display);
+  font-size: var(--macos-ts-title1-size);
+  font-weight: var(--macos-ts-title1-weight);
+  line-height: var(--macos-ts-title1-leading);
+  letter-spacing: var(--macos-ts-title1-tracking);
+}
+
+html.macos .macos-title-2 {
+  font-family: var(--macos-font-display);
+  font-size: var(--macos-ts-title2-size);
+  font-weight: var(--macos-ts-title2-weight);
+  line-height: var(--macos-ts-title2-leading);
+  letter-spacing: var(--macos-ts-title2-tracking);
+}
+
+html.macos .macos-title-3 {
+  font-family: var(--macos-font-family);
+  font-size: var(--macos-ts-title3-size);
+  font-weight: var(--macos-ts-title3-weight);
+  line-height: var(--macos-ts-title3-leading);
+  letter-spacing: var(--macos-ts-title3-tracking);
+}
+
+html.macos .macos-headline {
+  font-family: var(--macos-font-family);
+  font-size: var(--macos-ts-headline-size);
+  font-weight: var(--macos-ts-headline-weight);
+  line-height: var(--macos-ts-headline-leading);
+  letter-spacing: var(--macos-ts-headline-tracking);
+}
+
+html.macos .macos-body {
+  font-family: var(--macos-font-family);
+  font-size: var(--macos-ts-body-size);
+  font-weight: var(--macos-ts-body-weight);
+  line-height: var(--macos-ts-body-leading);
+  letter-spacing: var(--macos-ts-body-tracking);
+}
+
+html.macos .macos-callout {
+  font-family: var(--macos-font-family);
+  font-size: var(--macos-ts-callout-size);
+  font-weight: var(--macos-ts-callout-weight);
+  line-height: var(--macos-ts-callout-leading);
+  letter-spacing: var(--macos-ts-callout-tracking);
+}
+
+html.macos .macos-subheadline {
+  font-family: var(--macos-font-family);
+  font-size: var(--macos-ts-subheadline-size);
+  font-weight: var(--macos-ts-subheadline-weight);
+  line-height: var(--macos-ts-subheadline-leading);
+  letter-spacing: var(--macos-ts-subheadline-tracking);
+}
+
+html.macos .macos-footnote {
+  font-family: var(--macos-font-family);
+  font-size: var(--macos-ts-footnote-size);
+  font-weight: var(--macos-ts-footnote-weight);
+  line-height: var(--macos-ts-footnote-leading);
+  letter-spacing: var(--macos-ts-footnote-tracking);
+}
+
+html.macos .macos-caption-1 {
+  font-family: var(--macos-font-family);
+  font-size: var(--macos-ts-caption1-size);
+  font-weight: var(--macos-ts-caption1-weight);
+  line-height: var(--macos-ts-caption1-leading);
+  letter-spacing: var(--macos-ts-caption1-tracking);
+}
+
+html.macos .macos-caption-2 {
+  font-family: var(--macos-font-family);
+  font-size: var(--macos-ts-caption2-size);
+  font-weight: var(--macos-ts-caption2-weight);
+  line-height: var(--macos-ts-caption2-leading);
+  letter-spacing: var(--macos-ts-caption2-tracking);
+}
+
+/* ── 3.3 Emphasized Variants ─────────────────────────────────── */
+
+html.macos .macos-large-title-emphasized {
+  font-family: var(--macos-font-display);
+  font-size: var(--macos-ts-large-title-size);
+  font-weight: 700;
+  line-height: var(--macos-ts-large-title-leading);
+  letter-spacing: var(--macos-ts-large-title-tracking);
+}
+
+html.macos .macos-title-1-emphasized {
+  font-family: var(--macos-font-display);
+  font-size: var(--macos-ts-title1-size);
+  font-weight: 700;
+  line-height: var(--macos-ts-title1-leading);
+  letter-spacing: var(--macos-ts-title1-tracking);
+}
+
+html.macos .macos-title-2-emphasized {
+  font-family: var(--macos-font-display);
+  font-size: var(--macos-ts-title2-size);
+  font-weight: 700;
+  line-height: var(--macos-ts-title2-leading);
+  letter-spacing: var(--macos-ts-title2-tracking);
+}
+
+html.macos .macos-title-3-emphasized {
+  font-family: var(--macos-font-family);
+  font-size: var(--macos-ts-title3-size);
+  font-weight: 600;
+  line-height: var(--macos-ts-title3-leading);
+  letter-spacing: var(--macos-ts-title3-tracking);
+}
+
+html.macos .macos-headline-emphasized {
+  font-family: var(--macos-font-family);
+  font-size: var(--macos-ts-headline-size);
+  font-weight: 800;
+  line-height: var(--macos-ts-headline-leading);
+  letter-spacing: var(--macos-ts-headline-tracking);
+}
+
+html.macos .macos-body-emphasized {
+  font-family: var(--macos-font-family);
+  font-size: var(--macos-ts-body-size);
+  font-weight: 600;
+  line-height: var(--macos-ts-body-leading);
+  letter-spacing: var(--macos-ts-body-tracking);
+}
+
+html.macos .macos-callout-emphasized {
+  font-family: var(--macos-font-family);
+  font-size: var(--macos-ts-callout-size);
+  font-weight: 600;
+  line-height: var(--macos-ts-callout-leading);
+  letter-spacing: var(--macos-ts-callout-tracking);
+}
+
+html.macos .macos-subheadline-emphasized {
+  font-family: var(--macos-font-family);
+  font-size: var(--macos-ts-subheadline-size);
+  font-weight: 600;
+  line-height: var(--macos-ts-subheadline-leading);
+  letter-spacing: var(--macos-ts-subheadline-tracking);
+}
+
+html.macos .macos-footnote-emphasized {
+  font-family: var(--macos-font-family);
+  font-size: var(--macos-ts-footnote-size);
+  font-weight: 600;
+  line-height: var(--macos-ts-footnote-leading);
+  letter-spacing: var(--macos-ts-footnote-tracking);
+}
+
+html.macos .macos-caption-1-emphasized {
+  font-family: var(--macos-font-family);
+  font-size: var(--macos-ts-caption1-size);
+  font-weight: 500;
+  line-height: var(--macos-ts-caption1-leading);
+  letter-spacing: var(--macos-ts-caption1-tracking);
+}
+
+html.macos .macos-caption-2-emphasized {
+  font-family: var(--macos-font-family);
+  font-size: var(--macos-ts-caption2-size);
+  font-weight: 600;
+  line-height: var(--macos-ts-caption2-leading);
+  letter-spacing: var(--macos-ts-caption2-tracking);
+}
+
+/* ── 3.4 HTML Element Mapping ─────────────────────────────────── */
+
+/* h1 → Large Title */
+html.macos h1,
+html.macos [data-tucu='heading-1'],
+html.macos [data-tucu='typography'][data-typography-tag='h1'] {
+  font-family: var(--macos-font-display);
+  font-size: var(--macos-ts-large-title-size);
+  font-weight: var(--macos-ts-large-title-weight);
+  line-height: var(--macos-ts-large-title-leading);
+  letter-spacing: var(--macos-ts-large-title-tracking);
+  color: var(--macos-label);
+}
+
+/* h2 → Title 1 */
+html.macos h2,
+html.macos [data-tucu='heading-2'],
+html.macos [data-tucu='typography'][data-typography-tag='h2'] {
+  font-family: var(--macos-font-display);
+  font-size: var(--macos-ts-title1-size);
+  font-weight: var(--macos-ts-title1-weight);
+  line-height: var(--macos-ts-title1-leading);
+  letter-spacing: var(--macos-ts-title1-tracking);
+  color: var(--macos-label);
+}
+
+/* h3 → Title 2 */
+html.macos h3,
+html.macos [data-tucu='heading-3'],
+html.macos [data-tucu='typography'][data-typography-tag='h3'] {
+  font-family: var(--macos-font-display);
+  font-size: var(--macos-ts-title2-size);
+  font-weight: var(--macos-ts-title2-weight);
+  line-height: var(--macos-ts-title2-leading);
+  letter-spacing: var(--macos-ts-title2-tracking);
+  color: var(--macos-label);
+}
+
+/* h4 → Title 3 */
+html.macos h4,
+html.macos [data-tucu='heading-4'],
+html.macos [data-tucu='typography'][data-typography-tag='h4'] {
+  font-family: var(--macos-font-family);
+  font-size: var(--macos-ts-title3-size);
+  font-weight: var(--macos-ts-title3-weight);
+  line-height: var(--macos-ts-title3-leading);
+  letter-spacing: var(--macos-ts-title3-tracking);
+  color: var(--macos-label);
+}
+
+/* h5 → Headline */
+html.macos h5,
+html.macos [data-tucu='heading-5'],
+html.macos [data-tucu='typography'][data-typography-tag='h5'] {
+  font-family: var(--macos-font-family);
+  font-size: var(--macos-ts-headline-size);
+  font-weight: var(--macos-ts-headline-weight);
+  line-height: var(--macos-ts-headline-leading);
+  letter-spacing: var(--macos-ts-headline-tracking);
+  color: var(--macos-label);
+}
+
+/* h6 → Subheadline */
+html.macos h6,
+html.macos [data-tucu='heading-6'],
+html.macos [data-tucu='typography'][data-typography-tag='h6'] {
+  font-family: var(--macos-font-family);
+  font-size: var(--macos-ts-subheadline-size);
+  font-weight: var(--macos-ts-subheadline-weight);
+  line-height: var(--macos-ts-subheadline-leading);
+  letter-spacing: var(--macos-ts-subheadline-tracking);
+  color: var(--macos-secondary-label);
+}
+
+/* body, p → Body */
+html.macos p,
+html.macos [data-tucu='text'],
+html.macos [data-tucu='typography'][data-typography-tag='p'],
+html.macos [data-tucu='typography'][data-typography-tag='body'] {
+  font-family: var(--macos-font-family);
+  font-size: var(--macos-ts-body-size);
+  font-weight: var(--macos-ts-body-weight);
+  line-height: var(--macos-ts-body-leading);
+  letter-spacing: var(--macos-ts-body-tracking);
+  color: var(--macos-label);
+}
+
+/* headline data-tucu tag */
+html.macos [data-tucu='typography'][data-typography-tag='headline'] {
+  font-family: var(--macos-font-family);
+  font-size: var(--macos-ts-headline-size);
+  font-weight: var(--macos-ts-headline-weight);
+  line-height: var(--macos-ts-headline-leading);
+  letter-spacing: var(--macos-ts-headline-tracking);
+  color: var(--macos-label);
+}
+
+/* small → Footnote */
+html.macos small,
+html.macos [data-tucu='typography'][data-typography-tag='small'] {
+  font-family: var(--macos-font-family);
+  font-size: var(--macos-ts-footnote-size);
+  font-weight: var(--macos-ts-footnote-weight);
+  line-height: var(--macos-ts-footnote-leading);
+  letter-spacing: var(--macos-ts-footnote-tracking);
+  color: var(--macos-secondary-label);
+}
+
+/* label, form label → Callout medium */
+html.macos label,
+html.macos [data-tucu='label'] {
+  font-family: var(--macos-font-family);
+  font-size: var(--macos-ts-callout-size);
+  font-weight: var(--macos-font-weight-medium);
+  line-height: var(--macos-ts-callout-leading);
+  letter-spacing: var(--macos-ts-callout-tracking);
+  color: var(--macos-secondary-label);
+}
+
+/* code, pre → JetBrains Mono */
+html.macos code,
+html.macos pre,
+html.macos [data-tucu='code'],
+html.macos [data-tucu='typography'][data-typography-tag='code'],
+html.macos [data-tucu='typography'][data-typography-tag='pre'] {
+  font-family: var(--macos-font-mono);
+  font-size: var(--macos-ts-body-size);
+  line-height: var(--macos-ts-body-leading);
+  letter-spacing: 0;
+}
+
+/* inline code chip */
+html.macos code:not(pre code),
+html.macos [data-tucu='inline-code'],
+html.macos [data-tucu='typography'][data-typography-tag='code'] {
+  background-color: var(--macos-gray6);
+  padding: 1px 4px;
+  border-radius: var(--macos-radius-small-control);
+  font-size: 0.9em;
+}
+
+html.macos.dark code:not(pre code),
+html.macos.dark [data-tucu='inline-code'] {
+  background-color: var(--macos-gray5);
+}
+
+/* caption / footnote data-tucu aliases */
+html.macos [data-tucu='caption'],
+html.macos [data-tucu='typography'][data-typography-tag='caption'] {
+  font-family: var(--macos-font-family);
+  font-size: var(--macos-ts-caption1-size);
+  font-weight: var(--macos-ts-caption1-weight);
+  line-height: var(--macos-ts-caption1-leading);
+  letter-spacing: var(--macos-ts-caption1-tracking);
+  color: var(--macos-secondary-label);
+}
+
+html.macos [data-tucu='footnote'],
+html.macos [data-tucu='typography'][data-typography-tag='legal'] {
+  font-family: var(--macos-font-family);
+  font-size: var(--macos-ts-footnote-size);
+  font-weight: var(--macos-ts-footnote-weight);
+  line-height: var(--macos-ts-footnote-leading);
+  letter-spacing: var(--macos-ts-footnote-tracking);
+  color: var(--macos-tertiary-label);
+}
+
+/* label-1 / label-2 data-tucu aliases */
+html.macos [data-tucu='typography'][data-typography-tag='label-1'] {
+  font-family: var(--macos-font-family);
+  font-size: var(--macos-ts-body-size);
+  font-weight: var(--macos-font-weight-medium);
+  line-height: var(--macos-ts-body-leading);
+  letter-spacing: var(--macos-ts-body-tracking);
+  color: var(--macos-secondary-label);
+}
+
+html.macos [data-tucu='typography'][data-typography-tag='label-2'] {
+  font-family: var(--macos-font-family);
+  font-size: var(--macos-ts-caption1-size);
+  font-weight: var(--macos-font-weight-medium);
+  line-height: var(--macos-ts-caption1-leading);
+  letter-spacing: var(--macos-ts-caption1-tracking);
+  color: var(--macos-secondary-label);
+}
+
+/* ── Links ───────────────────────────────────────────────────── */
+html.macos a,
+html.macos [data-tucu='link'] {
+  color: var(--macos-link);
+  text-decoration: none;
+  transition: color var(--macos-transition-fast);
+}
+
+html.macos a:hover,
+html.macos [data-tucu='link']:hover {
+  color: var(--macos-control-accent);
+}
+
+html.macos a:active,
+html.macos [data-tucu='link']:active {
+  opacity: 0.7;
+}
+
+/* Links inside buttons inherit button text color */
+html.macos [data-tucu='button'] a,
+html.macos [data-tucu='button'] a:hover {
+  color: inherit;
+  text-decoration: none;
+}

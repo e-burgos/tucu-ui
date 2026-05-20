@@ -2,6 +2,7 @@
   "extends": ["plugin:@nx/react", "../../.eslintrc.json"],
   "ignorePatterns": [
     "!**/*",
+    "node_modules",
     "**/vite.config.*.timestamp*",
     "**/vitest.config.*.timestamp*"
   ],

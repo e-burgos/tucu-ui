@@ -1,0 +1,279 @@
+/* ============================================================
+   macOS Tahoe 26 — Liquid Glass Materials
+
+   Token definitions and utility classes for the three Liquid Glass
+   material variants: regular, clear and prominent.
+
+   Rules (from Apple HIG + tucu-ui spec):
+   - regular: toolbars, sidebars, popovers, alerts — elements with text
+   - clear:   only over visually rich backgrounds; see-through controls
+   - prominent: accent-tinted; primary actions, selected states
+   - Max 2 backdrop-filter layers simultaneously in the visible viewport
+   - Always include will-change:transform or contain:paint on glass elements
+   - prefers-reduced-transparency: remove backdrop-filter, use opaque fallback
+   - @supports not (backdrop-filter): opaque fallback
+
+   Performance note: backdrop-filter triggers GPU compositing.
+   Apply only to bars, popovers, sheets and floating single-layer controls.
+   Never apply to scrolling lists, tables or per-row elements.
+   ============================================================ */
+
+html.macos-tahoe {
+  /* ── Liquid Glass Tokens — Light ───────────────────────────
+     Source: Apple HIG > Materials > Liquid Glass
+  */
+
+  /* Regular: bars, sidebars, popovers with text */
+  --macos-glass-regular-bg: rgba(255, 255, 255, 0.52);
+  --macos-glass-regular-bg-opaque: #f0f0f2; /* fallback */
+  --macos-glass-regular-blur: 28px;
+  --macos-glass-regular-saturate: 1.8;
+
+  /* Clear: controls over media / visually rich backgrounds */
+  --macos-glass-clear-bg: rgba(255, 255, 255, 0.22);
+  --macos-glass-clear-bg-opaque: #e8e8ea; /* fallback */
+  --macos-glass-clear-blur: 16px;
+  --macos-glass-clear-saturate: 1.4;
+
+  /* Prominent: accent-tinted primary actions (always uses --color-brand) */
+  --macos-glass-prominent-bg: color-mix(
+    in srgb,
+    var(--color-brand, #007aff) 15%,
+    rgba(255, 255, 255, 0.72)
+  );
+  --macos-glass-prominent-bg-opaque: color-mix(
+    in srgb,
+    var(--color-brand, #007aff) 15%,
+    #f0f0f2
+  );
+  --macos-glass-prominent-blur: 32px;
+  --macos-glass-prominent-saturate: 2;
+  --macos-glass-prominent-border: color-mix(
+    in srgb,
+    var(--color-brand, #007aff) 30%,
+    rgba(255, 255, 255, 0.6)
+  );
+
+  /* Shared glass decorators */
+  --macos-glass-border: rgba(255, 255, 255, 0.72);
+  --macos-glass-border-subtle: rgba(255, 255, 255, 0.4);
+  --macos-glass-highlight: inset 0 0.5px 0 rgba(255, 255, 255, 0.8),
+    inset 0 -0.5px 0 rgba(0, 0, 0, 0.06);
+  --macos-glass-shadow: 0 4px 24px rgba(0, 0, 0, 0.08),
+    0 1px 4px rgba(0, 0, 0, 0.04);
+  --macos-glass-scroll-edge: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.9) 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  --macos-glass-scroll-edge-bottom: linear-gradient(
+    to top,
+    rgba(255, 255, 255, 0.9) 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
+
+  /* Dim layer: 35% darkening over bright backgrounds (Apple spec) */
+  --macos-glass-dim-bg: rgba(0, 0, 0, 0.35);
+
+  /* ── Legacy material aliases (Sonoma compat) ───────────────
+     Some components reference --macos-material-* from older builds.
+     Alias them to Tahoe glass tokens to avoid transparent fallbacks.
+  */
+  --macos-material-toolbar: var(--macos-glass-regular-bg);
+  --macos-material-sidebar: var(--macos-glass-regular-bg);
+  --macos-material-sheet: var(--macos-glass-regular-bg);
+  --macos-material-overlay: rgba(0, 0, 0, 0.28);
+  --macos-material-sheet-blur: var(--macos-glass-regular-blur);
+}
+
+/* ── Dark Mode Tokens ─────────────────────────────────────── */
+html.macos-tahoe.dark {
+  /* Regular */
+  --macos-glass-regular-bg: rgba(32, 32, 36, 0.72);
+  --macos-glass-regular-bg-opaque: #28282c;
+
+  /* Clear */
+  --macos-glass-clear-bg: rgba(20, 20, 24, 0.4);
+  --macos-glass-clear-bg-opaque: #1e1e22;
+
+  /* Prominent */
+  --macos-glass-prominent-bg: color-mix(
+    in srgb,
+    var(--color-brand, #0a84ff) 20%,
+    rgba(40, 40, 44, 0.72)
+  );
+  --macos-glass-prominent-bg-opaque: color-mix(
+    in srgb,
+    var(--color-brand, #0a84ff) 20%,
+    #1e1e22
+  );
+  --macos-glass-prominent-border: color-mix(
+    in srgb,
+    var(--color-brand, #0a84ff) 25%,
+    rgba(255, 255, 255, 0.15)
+  );
+
+  /* Shared decorators — dark */
+  --macos-glass-border: rgba(255, 255, 255, 0.14);
+  --macos-glass-border-subtle: rgba(255, 255, 255, 0.08);
+  --macos-glass-highlight: inset 0 0.5px 0 rgba(255, 255, 255, 0.16),
+    inset 0 -0.5px 0 rgba(0, 0, 0, 0.3);
+  --macos-glass-shadow: 0 4px 24px rgba(0, 0, 0, 0.4),
+    0 1px 4px rgba(0, 0, 0, 0.2);
+  --macos-glass-scroll-edge: linear-gradient(
+    to bottom,
+    rgba(20, 20, 22, 0.92) 0%,
+    rgba(20, 20, 22, 0) 100%
+  );
+  --macos-glass-scroll-edge-bottom: linear-gradient(
+    to top,
+    rgba(20, 20, 22, 0.92) 0%,
+    rgba(20, 20, 22, 0) 100%
+  );
+  --macos-glass-dim-bg: rgba(0, 0, 0, 0.5);
+}
+
+/* ============================================================
+   Utility Classes
+   Apply to bars, panels, popovers — never to lists or tables.
+   Elements MUST have contain: paint or will-change: transform.
+   ============================================================ */
+
+/* Regular glass — toolbars, sidebars, popovers with text */
+html.macos-tahoe .macos-glass-regular {
+  background: var(--macos-glass-regular-bg);
+  border: 0.5px solid var(--macos-glass-border);
+  box-shadow: var(--macos-glass-shadow), var(--macos-glass-highlight);
+  contain: paint;
+}
+
+@supports (backdrop-filter: blur(1px)) {
+  html.macos-tahoe .macos-glass-regular {
+    backdrop-filter: blur(var(--macos-glass-regular-blur))
+      saturate(var(--macos-glass-regular-saturate));
+    -webkit-backdrop-filter: blur(var(--macos-glass-regular-blur))
+      saturate(var(--macos-glass-regular-saturate));
+  }
+}
+
+@supports not (backdrop-filter: blur(1px)) {
+  html.macos-tahoe .macos-glass-regular {
+    background: var(--macos-glass-regular-bg-opaque);
+  }
+}
+
+/* Clear glass — controls over media / rich backgrounds */
+html.macos-tahoe .macos-glass-clear {
+  background: var(--macos-glass-clear-bg);
+  border: 0.5px solid var(--macos-glass-border-subtle);
+  contain: paint;
+}
+
+@supports (backdrop-filter: blur(1px)) {
+  html.macos-tahoe .macos-glass-clear {
+    backdrop-filter: blur(var(--macos-glass-clear-blur))
+      saturate(var(--macos-glass-clear-saturate));
+    -webkit-backdrop-filter: blur(var(--macos-glass-clear-blur))
+      saturate(var(--macos-glass-clear-saturate));
+  }
+}
+
+@supports not (backdrop-filter: blur(1px)) {
+  html.macos-tahoe .macos-glass-clear {
+    background: var(--macos-glass-clear-bg-opaque);
+  }
+}
+
+/* Prominent glass — accent-tinted primary actions */
+html.macos-tahoe .macos-glass-prominent {
+  background: var(--macos-glass-prominent-bg);
+  border: 0.5px solid var(--macos-glass-border);
+  box-shadow: var(--macos-glass-shadow), var(--macos-glass-highlight);
+  contain: paint;
+}
+
+@supports (backdrop-filter: blur(1px)) {
+  html.macos-tahoe .macos-glass-prominent {
+    backdrop-filter: blur(var(--macos-glass-prominent-blur))
+      saturate(var(--macos-glass-prominent-saturate));
+    -webkit-backdrop-filter: blur(var(--macos-glass-prominent-blur))
+      saturate(var(--macos-glass-prominent-saturate));
+  }
+}
+
+@supports not (backdrop-filter: blur(1px)) {
+  html.macos-tahoe .macos-glass-prominent {
+    background: var(--macos-glass-prominent-bg-opaque);
+  }
+}
+
+/* Scroll edge — top fade for content scrolling under bars */
+html.macos-tahoe .macos-scroll-edge-top {
+  position: relative;
+}
+
+html.macos-tahoe .macos-scroll-edge-top::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 24px;
+  background: var(--macos-glass-scroll-edge);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Scroll edge — bottom fade */
+html.macos-tahoe .macos-scroll-edge-bottom {
+  position: relative;
+}
+
+html.macos-tahoe .macos-scroll-edge-bottom::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 24px;
+  background: var(--macos-glass-scroll-edge-bottom);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Dim layer — 35% darkening per Apple spec over bright backgrounds */
+html.macos-tahoe .macos-dim-layer {
+  background: var(--macos-glass-dim-bg);
+}
+
+/* ============================================================
+   Accessibility: Reduced Transparency
+   Remove backdrop-filter, increase opacity to maintain legibility.
+   ============================================================ */
+@media (prefers-reduced-transparency: reduce) {
+  html.macos-tahoe {
+    --macos-glass-regular-bg: var(--macos-glass-regular-bg-opaque);
+    --macos-glass-clear-bg: var(--macos-glass-clear-bg-opaque);
+    --macos-glass-prominent-bg: var(--macos-glass-prominent-bg-opaque);
+  }
+
+  html.macos-tahoe .macos-glass-regular,
+  html.macos-tahoe .macos-glass-clear,
+  html.macos-tahoe .macos-glass-prominent {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+}
+
+/* ============================================================
+   Accessibility: Increased Contrast
+   Strengthen borders for better visual definition.
+   ============================================================ */
+@media (prefers-contrast: more) {
+  html.macos-tahoe .macos-glass-regular,
+  html.macos-tahoe .macos-glass-clear,
+  html.macos-tahoe .macos-glass-prominent {
+    border-width: 1px !important;
+    border-color: currentColor !important;
+  }
+}

@@ -5,6 +5,8 @@ import {
   Typography,
   CodeBlock,
   Alert,
+  HeroCard,
+  LucideIcons,
 } from '../../../../index';
 import { AutoPropsTable } from '../../../components/auto-props-table';
 import { PropPlayground } from '../../../components/prop-playground';
@@ -12,18 +14,16 @@ import { PropPlayground } from '../../../components/prop-playground';
 const AlertSection: React.FC = () => {
   return (
     <>
-      <div className="text-center space-y-4">
-        <Typography tag="h2" className="text-3xl md:text-4xl font-bold">
-          Alert
-        </Typography>
-        <Typography
-          tag="p"
-          className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
-        >
-          An alert component for displaying important messages and notifications
-          with different variants and dismissible functionality.
-        </Typography>
-      </div>
+      <HeroCard
+        title="Alert"
+        description="An alert component for displaying important messages and notifications
+          with different variants and dismissible functionality."
+        icon={
+          <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 bg-linear-to-br from-red-500 to-orange-500 rounded-full flex items-center justify-center shadow-lg">
+            <LucideIcons.AlertCircle className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-white filter drop-shadow-lg" />
+          </div>
+        }
+      />
 
       <CardContainer className="overflow-hidden">
         <CardTitle title="Basic Examples" className="mt-2 mb-2">
@@ -80,12 +80,10 @@ const AlertSection: React.FC = () => {
             <div className="space-y-4">
               <CardContainer className="p-4">
                 <Typography tag="h5" className="mb-3">
-                  Non-dismissible Alert
+                  Dismissible Alert
                 </Typography>
-                <Alert variant="info" dismissible={false}>
-                  <Typography tag="p">
-                    This alert cannot be dismissed.
-                  </Typography>
+                <Alert variant="info" dismissible={true}>
+                  <Typography tag="p">This alert can be dismissed.</Typography>
                 </Alert>
               </CardContainer>
               <CardContainer className="p-4">

@@ -207,6 +207,7 @@ export const Radio = forwardRef<HTMLInputElement, RadioProps>(
           {label && (
             <span
               className={cn(
+                'text-gray-800 dark:text-gray-100',
                 labelClasses.size.text[size],
                 labelClasses.size.margin[labelPlacement][size],
                 labelPlacement === 'start' && 'order-first',

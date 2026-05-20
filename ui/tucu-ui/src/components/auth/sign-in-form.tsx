@@ -47,9 +47,15 @@ export function SignInForm({
   }
 
   return (
-    <div className={cn('w-full max-w-md mx-auto', className)}>
-      <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
-        <h2 className="text-2xl font-bold mb-6 text-center">
+    <div
+      data-tucu="auth-form"
+      className={cn('w-full max-w-md mx-auto', className)}
+    >
+      <div
+        data-tucu="auth-form-panel"
+        className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg"
+      >
+        <h2 className="text-lg font-bold mb-6 text-center">
           {title || 'Sign In'}
         </h2>
         {description && (

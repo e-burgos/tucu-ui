@@ -31,7 +31,7 @@ export const SimpleFormExample: React.FC = () => {
   };
 
   return (
-    <div className="w-full max-w-6xl mx-auto">
+    <div className="w-full mx-auto">
       <div className="p-6 bg-white dark:bg-light-dark rounded-lg shadow">
         <h2 className="text-2xl font-bold mb-6 text-center">Form Example</h2>
         <Form<FormValues>

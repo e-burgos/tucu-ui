@@ -2,15 +2,21 @@ import React, { Suspense } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { FallbackPage } from '../../pages';
 import { IAppRouteConfig } from '../../types';
-import ThemeWrapper, { ThemeWrapperProps } from './theme-wrapper';
+import ThemeWrapper, {
+  ThemeWrapperProps,
+  DistributiveOmit,
+} from './theme-wrapper';
 import { MfeAppRoutesProvider } from '../../router/components';
 
-interface MfeAppThemeProviderProps extends Omit<ThemeWrapperProps, 'children'> {
+type MfeAppThemeProviderProps = DistributiveOmit<
+  ThemeWrapperProps,
+  'children'
+> & {
   basePath: string;
   appRoutesConfig: IAppRouteConfig[];
   isAuthenticated: boolean;
   loginUrl: string;
-}
+};
 
 export const MfeAppThemeProvider: React.FC<MfeAppThemeProviderProps> = ({
   appRoutesConfig,

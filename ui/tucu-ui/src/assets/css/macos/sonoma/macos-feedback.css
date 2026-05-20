@@ -1,0 +1,237 @@
+/* ============================================================
+   macOS Sonoma 14 — Feedback Component Overrides
+
+   Targets: Alert, Badge, Spinner, Toast, Progressbar, Skeleton,
+            Loader, NotificationCard
+   Selectors: html.macos [data-tucu="alert"], etc.
+
+   References:
+   - Apple HIG Sonoma > Alerts: radius-2xl, system colors
+   - Badges: pill shape, 12pt, system colors
+   - Toast: glass regular material, compact
+   ============================================================ */
+
+/* ── Alert ───────────────────────────────────────────────────── */
+html.macos [data-tucu='alert'] {
+  border-radius: var(--macos-radius-2xl);
+  border: 1px solid var(--macos-separator);
+  font-family: var(--macos-font-family);
+  font-size: var(--macos-font-size-body);
+  padding: var(--macos-space-3) var(--macos-space-4);
+  box-shadow: var(--macos-shadow-card);
+}
+
+/* Force children inside alert to inherit the variant color */
+html.macos [data-tucu='alert'] [data-tucu='typography'],
+html.macos [data-tucu='alert'] p,
+html.macos [data-tucu='alert'] button {
+  color: inherit !important;
+}
+
+/* Alert variants use system colors */
+html.macos [data-tucu='alert'][data-variant='error'] {
+  border-color: var(--macos-system-red);
+  color: var(--macos-system-red);
+  background-color: color-mix(
+    in srgb,
+    var(--macos-system-red) 8%,
+    var(--macos-control-bg)
+  );
+}
+
+html.macos [data-tucu='alert'][data-variant='success'] {
+  border-color: var(--macos-system-green);
+  color: var(--macos-system-green);
+  background-color: color-mix(
+    in srgb,
+    var(--macos-system-green) 8%,
+    var(--macos-control-bg)
+  );
+}
+
+html.macos [data-tucu='alert'][data-variant='warning'] {
+  border-color: var(--macos-system-orange);
+  color: var(--macos-system-orange);
+  background-color: color-mix(
+    in srgb,
+    var(--macos-system-orange) 8%,
+    var(--macos-control-bg)
+  );
+}
+
+html.macos [data-tucu='alert'][data-variant='info'] {
+  border-color: var(--macos-system-blue);
+  color: var(--macos-system-blue);
+  background-color: color-mix(
+    in srgb,
+    var(--macos-system-blue) 8%,
+    var(--macos-control-bg)
+  );
+}
+
+/* Dark mode alerts */
+html.macos.dark [data-tucu='alert'][data-variant='error'] {
+  border-color: var(--macos-system-red);
+  color: var(--macos-system-red);
+  background-color: color-mix(
+    in srgb,
+    var(--macos-system-red) 12%,
+    var(--macos-control-bg)
+  );
+}
+
+html.macos.dark [data-tucu='alert'][data-variant='success'] {
+  border-color: var(--macos-system-green);
+  color: var(--macos-system-green);
+  background-color: color-mix(
+    in srgb,
+    var(--macos-system-green) 12%,
+    var(--macos-control-bg)
+  );
+}
+
+html.macos.dark [data-tucu='alert'][data-variant='warning'] {
+  border-color: var(--macos-system-orange);
+  color: var(--macos-system-orange);
+  background-color: color-mix(
+    in srgb,
+    var(--macos-system-orange) 12%,
+    var(--macos-control-bg)
+  );
+}
+
+html.macos.dark [data-tucu='alert'][data-variant='info'] {
+  border-color: var(--macos-system-blue);
+  color: var(--macos-system-blue);
+  background-color: color-mix(
+    in srgb,
+    var(--macos-system-blue) 12%,
+    var(--macos-control-bg)
+  );
+}
+
+/* ── Badge ───────────────────────────────────────────────────── */
+html.macos [data-tucu='badge'] {
+  border-radius: var(--macos-radius-full);
+  font-family: var(--macos-font-family);
+  font-size: var(--macos-font-size-caption);
+  font-weight: var(--macos-font-weight-medium);
+  padding: 2px 8px;
+  line-height: 1.2;
+}
+
+/* Badge solid: keep component color, just enforce macOS shape/font */
+/* Do NOT override background-color — the React component sets per-color classes */
+
+/* Badge ghost/outline: border style */
+html.macos [data-tucu='badge'][data-variant='ghost'],
+html.macos [data-tucu='badge'][data-variant='outline'] {
+  border: 1px solid var(--macos-separator);
+  background-color: transparent;
+}
+
+/* Badge soft: subtle background */
+html.macos [data-tucu='badge'][data-variant='soft'] {
+  background-color: var(--macos-gray6);
+  color: var(--macos-label);
+}
+
+html.macos.dark [data-tucu='badge'][data-variant='soft'] {
+  background-color: var(--macos-gray5);
+}
+
+/* ── Toast / Notification Banner ─────────────────────────────── */
+html.macos [data-tucu='toast'] {
+  border-radius: var(--macos-radius-2xl);
+  background-color: var(--macos-material-popover);
+  backdrop-filter: blur(var(--macos-material-popover-blur));
+  -webkit-backdrop-filter: blur(var(--macos-material-popover-blur));
+  box-shadow: var(--macos-shadow-window);
+  border: 1px solid var(--macos-separator);
+  padding: var(--macos-space-3) var(--macos-space-4);
+  font-family: var(--macos-font-family);
+  font-size: var(--macos-font-size-body);
+}
+
+html.macos.dark [data-tucu='toast'] {
+  background-color: var(--macos-material-popover);
+  border-color: var(--macos-separator);
+}
+
+/* ── Spinner ─────────────────────────────────────────────────── */
+html.macos [data-tucu='spinner'] {
+  color: var(--macos-secondary-label);
+}
+
+/* ── Progress Bar ────────────────────────────────────────────── */
+html.macos [data-tucu='progressbar'] {
+  height: 4px;
+  border-radius: var(--macos-radius-full);
+  background-color: var(--macos-gray5);
+  overflow: hidden;
+}
+
+html.macos [data-tucu='progressbar-fill'] {
+  height: 100%;
+  border-radius: var(--macos-radius-full);
+  background-color: var(--macos-control-accent);
+  transition: width var(--macos-transition-normal);
+}
+
+html.macos.dark [data-tucu='progressbar'] {
+  background-color: var(--macos-gray4);
+}
+
+/* ── Skeleton ────────────────────────────────────────────────── */
+html.macos [data-tucu='skeleton'] {
+  border-radius: var(--macos-radius-md);
+  background: linear-gradient(
+    90deg,
+    var(--macos-gray6) 25%,
+    var(--macos-gray5) 50%,
+    var(--macos-gray6) 75%
+  );
+  background-size: 200% 100%;
+  animation: macos-skeleton-pulse 1.5s ease-in-out infinite;
+}
+
+html.macos.dark [data-tucu='skeleton'] {
+  background: linear-gradient(
+    90deg,
+    var(--macos-gray5) 25%,
+    var(--macos-gray4) 50%,
+    var(--macos-gray5) 75%
+  );
+  background-size: 200% 100%;
+}
+
+@keyframes macos-skeleton-pulse {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* ── Loader (three-dots) ─────────────────────────────────────── */
+
+html.macos [data-tucu='loader'] > span {
+  background-color: var(--macos-secondary-label);
+  border-radius: var(--macos-radius-full);
+}
+
+/* ── Notification Card ───────────────────────────────────────── */
+
+html.macos [data-tucu='notification-card'] {
+  background-color: var(--macos-content-bg);
+  border-radius: var(--macos-radius-xl);
+  border: 0.5px solid var(--macos-separator);
+  box-shadow: var(--macos-shadow-card);
+  transition: box-shadow var(--macos-transition-fast),
+    transform var(--macos-transition-fast);
+}
+
+html.macos [data-tucu='notification-card']:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+}

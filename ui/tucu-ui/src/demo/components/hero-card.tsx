@@ -3,25 +3,12 @@ import {
   Button,
   type ButtonProps,
   Typography,
-  useTheme,
   AnchorLink,
   LucideIcons,
   ScrollToTop,
 } from '../../index';
 
-import {
-  DESIGN_SYSTEM_DOCS_URL,
-  ACCESSIBILITY_DOCS_URL,
-  THEMING_DOCS_URL,
-  ICONS_SYSTEM_DOCS_URL,
-  FORM_SYSTEM_DOCS_URL,
-  BLOCKCHAIN_DOCS_URL,
-  HOOKS_UTILITIES_DOCS_URL,
-  INTRODUCTION_DOCS_URL,
-  LAYOUT_SYSTEM_DOCS_URL,
-  TAILWIND_UTILITIES_DOCS_URL,
-  GITHUB_URL,
-} from '../utils/constants';
+import { INTRODUCTION_DOCS_URL, GITHUB_URL } from '../utils/constants';
 
 interface HeroCardProps {
   icon?: React.ReactNode;
@@ -57,26 +44,11 @@ export const HeroCard: React.FC<HeroCardProps> = ({
   description,
   githubButton,
   getStartedButton,
-  docsButton,
+  docsButton: _docsButton,
   backgroundAnimation,
   customButton,
   content,
 }) => {
-  const { mode } = useTheme();
-
-  const docsUrl = {
-    introduction: INTRODUCTION_DOCS_URL,
-    'layout-system': LAYOUT_SYSTEM_DOCS_URL,
-    'design-system': DESIGN_SYSTEM_DOCS_URL,
-    'theming-guide': THEMING_DOCS_URL,
-    'form-system': FORM_SYSTEM_DOCS_URL,
-    'icons-system': ICONS_SYSTEM_DOCS_URL,
-    'hooks-utilities': HOOKS_UTILITIES_DOCS_URL,
-    'blockchain-components': BLOCKCHAIN_DOCS_URL,
-    accessibility: ACCESSIBILITY_DOCS_URL,
-    'tailwind-utilities': TAILWIND_UTILITIES_DOCS_URL,
-  };
-
   return (
     <section className="relative overflow-hidden">
       <div className="relative rounded-2xl p-6 sm:p-8 md:p-12 lg:p-16">
@@ -91,9 +63,7 @@ export const HeroCard: React.FC<HeroCardProps> = ({
               className="absolute inset-0"
               style={{
                 backgroundImage:
-                  mode === 'dark'
-                    ? 'linear-gradient(var(--color-gray-800) 1px, transparent 1px), linear-gradient(90deg, var(--color-gray-800) 1px, transparent 1px)'
-                    : 'linear-gradient(var(--color-gray-200) 1px, transparent 1px), linear-gradient(90deg, var(--color-gray-200) 1px, transparent 1px)',
+                  'linear-gradient(var(--hero-grid-color) 1px, transparent 1px), linear-gradient(90deg, var(--hero-grid-color) 1px, transparent 1px)',
                 backgroundSize: '32px 32px',
               }}
             ></div>
@@ -114,13 +84,13 @@ export const HeroCard: React.FC<HeroCardProps> = ({
           {icon && <div className="relative mx-auto mb-6 w-fit">{icon}</div>}
           <Typography
             tag="h1"
-            className="text-5xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-brand mb-6"
+            className="text-3xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-5xl font-bold text-brand mb-6"
           >
             {title}
           </Typography>
           <Typography
             tag="p"
-            className="text-base sm:text-lg md:text-xl lg:text-2xl text-current max-w-6xl mx-auto leading-relaxed"
+            className="text-xs sm:text-sm md:text-base lg:text-lg text-current max-w-6xl mx-auto leading-relaxed"
           >
             {description}
           </Typography>

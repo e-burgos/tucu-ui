@@ -2,7 +2,7 @@ import { CardContainer, CardTitle, Typography, HeroCard } from '../../../index';
 
 export function SVGUtilities() {
   return (
-    <div className="space-y-8 sm:space-y-12 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative pt-8 lg:pt-12">
+    <div className="space-y-8 max-w-6xl sm:space-y-12 w-full mx-auto px-4 sm:px-6 lg:px-8 relative pt-8 lg:pt-12">
       <HeroCard
         title="SVG Utilities"
         description="Complete guide to SVG styling utilities in Tailwind CSS v4. Master fill, stroke, and stroke width properties."
@@ -10,7 +10,7 @@ export function SVGUtilities() {
         getStartedButton
         docsButton="tailwind-utilities"
         icon={
-          <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 bg-gradient-to-br from-amber-500 via-yellow-500 to-orange-500 rounded-full flex items-center justify-center shadow-lg border border-amber-500/50">
+          <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 bg-linear-to-br from-amber-500 via-yellow-500 to-orange-500 rounded-full flex items-center justify-center shadow-lg">
             <svg
               className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 text-white"
               viewBox="0 0 24 24"
@@ -34,13 +34,13 @@ export function SVGUtilities() {
         <div className="text-center">
           <Typography
             tag="h2"
-            className="mb-4 text-2xl sm:text-3xl md:text-4xl font-bold"
+            className="mb-2"
           >
             SVG Styling & Presentation
           </Typography>
           <Typography
             tag="p"
-            className="text-base sm:text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto"
+            className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto"
           >
             Specialized SVG utilities built with Tailwind CSS v4 @source
             directives

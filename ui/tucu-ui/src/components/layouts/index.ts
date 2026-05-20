@@ -11,3 +11,4 @@ export * from './menus/expandable-sidebar';
 export * from './menus/horizontal-nav-menu';
 export * from './menus/menu-item';
 export * from './root-layout';
+export * from './macos-layout/index';

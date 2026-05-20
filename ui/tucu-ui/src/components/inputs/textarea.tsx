@@ -56,7 +56,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
         {label && (
           <span
             className={cn(
-              'block font-medium tracking-widest dark:text-gray-100',
+              'block font-medium tracking-widest text-gray-800 dark:text-gray-100',
               useUppercaseLabel
                 ? 'mb-[8px] uppercase sm:mb-[12px]'
                 : 'mb-[6px] ml-[6px]'

@@ -8,7 +8,7 @@ import {
 
 export function EffectsUtilities() {
   return (
-    <div className="space-y-8 sm:space-y-12 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative pt-8 lg:pt-12">
+    <div className="space-y-8 max-w-6xl sm:space-y-12 w-full mx-auto px-4 sm:px-6 lg:px-8 relative pt-8 lg:pt-12">
       {/* Hero Section */}
       <HeroCard
         title="Effects Utilities"
@@ -17,7 +17,7 @@ export function EffectsUtilities() {
         getStartedButton
         docsButton="tailwind-utilities"
         icon={
-          <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 bg-gradient-to-br from-purple-500 via-pink-500 to-red-500 rounded-full flex items-center justify-center shadow-lg border border-purple-500/50">
+          <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 bg-linear-to-br from-purple-500 via-pink-500 to-red-500 rounded-full flex items-center justify-center shadow-lg">
             <LucideIcons.Sparkles className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 text-white filter drop-shadow-lg" />
           </div>
         }
@@ -28,13 +28,13 @@ export function EffectsUtilities() {
         <div className="text-center">
           <Typography
             tag="h2"
-            className="mb-4 text-2xl sm:text-3xl md:text-4xl font-bold"
+            className="mb-2"
           >
             Effects Architecture
           </Typography>
           <Typography
             tag="p"
-            className="text-base sm:text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto"
+            className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto"
           >
             Powerful visual effects built with Tailwind CSS v4 @source
             directives
@@ -43,7 +43,7 @@ export function EffectsUtilities() {
 
         {/* 1. BOX SHADOW */}
         <section className="space-y-6">
-          <Typography tag="h3" className="text-xl font-semibold">
+          <Typography tag="h3" className="text-base font-semibold">
             Box Shadow
           </Typography>
 
@@ -105,7 +105,7 @@ export function EffectsUtilities() {
 
         {/* 2. TEXT SHADOW */}
         <section className="space-y-6">
-          <Typography tag="h3" className="text-xl font-semibold">
+          <Typography tag="h3" className="text-base font-semibold">
             Text Shadow
           </Typography>
 
@@ -123,24 +123,24 @@ export function EffectsUtilities() {
                     <div className="text-2xl font-bold text-shadow-sm text-gray-900 dark:text-white">
                       text-shadow-sm
                     </div>
-                    <div className="text-lg font-semibold text-shadow text-gray-900 dark:text-white">
+                    <div className="text-base font-semibold text-shadow text-gray-900 dark:text-white">
                       text-shadow
                     </div>
                     <div className="text-xl font-bold text-shadow-md text-gray-900 dark:text-white">
                       text-shadow-md
                     </div>
-                    <div className="text-lg font-semibold text-shadow-lg text-gray-900 dark:text-white">
+                    <div className="text-base font-semibold text-shadow-lg text-gray-900 dark:text-white">
                       text-shadow-lg
                     </div>
                     <div className="text-base text-shadow-none text-gray-900 dark:text-white">
                       text-shadow-none
                     </div>
                   </div>
-                  <div className="space-y-3 p-6 bg-gradient-to-r from-brand to-blue-500 rounded-lg text-white">
+                  <div className="space-y-3 p-6 bg-linear-to-r from-brand to-blue-500 rounded-lg text-white">
                     <div className="text-2xl font-bold text-shadow-lg">
                       With Gradient
                     </div>
-                    <div className="text-lg font-semibold text-shadow-md">
+                    <div className="text-base font-semibold text-shadow-md">
                       Background
                     </div>
                     <div className="text-base text-shadow">
@@ -155,7 +155,7 @@ export function EffectsUtilities() {
 
         {/* 3. OPACITY */}
         <section className="space-y-6">
-          <Typography tag="h3" className="text-xl font-semibold">
+          <Typography tag="h3" className="text-base font-semibold">
             Opacity
           </Typography>
 
@@ -225,7 +225,7 @@ export function EffectsUtilities() {
 
         {/* 4. MIX BLEND MODE */}
         <section className="space-y-6">
-          <Typography tag="h3" className="text-xl font-semibold">
+          <Typography tag="h3" className="text-base font-semibold">
             Mix Blend Mode
           </Typography>
 
@@ -240,7 +240,7 @@ export function EffectsUtilities() {
                 </Typography>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                   <div className="space-y-2">
-                    <div className="relative w-full h-20 bg-gradient-to-r from-red-500 to-yellow-500 rounded-lg overflow-hidden">
+                    <div className="relative w-full h-20 bg-linear-to-r from-red-500 to-yellow-500 rounded-lg overflow-hidden">
                       <div className="absolute inset-0 bg-blue-500 mix-blend-multiply rounded-lg flex items-center justify-center">
                         <span className="text-xs text-white font-medium">
                           multiply
@@ -252,7 +252,7 @@ export function EffectsUtilities() {
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <div className="relative w-full h-20 bg-gradient-to-r from-red-500 to-yellow-500 rounded-lg overflow-hidden">
+                    <div className="relative w-full h-20 bg-linear-to-r from-red-500 to-yellow-500 rounded-lg overflow-hidden">
                       <div className="absolute inset-0 bg-blue-500 mix-blend-screen rounded-lg flex items-center justify-center">
                         <span className="text-xs text-white font-medium">
                           screen
@@ -262,7 +262,7 @@ export function EffectsUtilities() {
                     <div className="text-xs text-center">mix-blend-screen</div>
                   </div>
                   <div className="space-y-2">
-                    <div className="relative w-full h-20 bg-gradient-to-r from-red-500 to-yellow-500 rounded-lg overflow-hidden">
+                    <div className="relative w-full h-20 bg-linear-to-r from-red-500 to-yellow-500 rounded-lg overflow-hidden">
                       <div className="absolute inset-0 bg-blue-500 mix-blend-overlay rounded-lg flex items-center justify-center">
                         <span className="text-xs text-white font-medium">
                           overlay
@@ -272,7 +272,7 @@ export function EffectsUtilities() {
                     <div className="text-xs text-center">mix-blend-overlay</div>
                   </div>
                   <div className="space-y-2">
-                    <div className="relative w-full h-20 bg-gradient-to-r from-red-500 to-yellow-500 rounded-lg overflow-hidden">
+                    <div className="relative w-full h-20 bg-linear-to-r from-red-500 to-yellow-500 rounded-lg overflow-hidden">
                       <div className="absolute inset-0 bg-blue-500 mix-blend-difference rounded-lg flex items-center justify-center">
                         <span className="text-xs text-white font-medium">
                           difference
@@ -291,7 +291,7 @@ export function EffectsUtilities() {
 
         {/* 5. BACKGROUND BLEND MODE */}
         <section className="space-y-6">
-          <Typography tag="h3" className="text-xl font-semibold">
+          <Typography tag="h3" className="text-base font-semibold">
             Background Blend Mode
           </Typography>
 
@@ -352,7 +352,7 @@ export function EffectsUtilities() {
 
         {/* 6. MASK UTILITIES */}
         <section className="space-y-6">
-          <Typography tag="h3" className="text-xl font-semibold">
+          <Typography tag="h3" className="text-base font-semibold">
             Mask Utilities
           </Typography>
 
@@ -372,7 +372,7 @@ export function EffectsUtilities() {
                     </Typography>
                     <div className="grid grid-cols-2 gap-3">
                       <div className="space-y-1">
-                        <div className="w-full h-16 bg-gradient-to-r from-brand to-blue-500 rounded mask-linear-gradient flex items-center justify-center text-white text-xs font-medium">
+                        <div className="w-full h-16 bg-linear-to-r from-brand to-blue-500 rounded mask-linear-gradient flex items-center justify-center text-white text-xs font-medium">
                           Linear
                         </div>
                         <div className="text-xs text-center">
@@ -380,7 +380,7 @@ export function EffectsUtilities() {
                         </div>
                       </div>
                       <div className="space-y-1">
-                        <div className="w-full h-16 bg-gradient-to-r from-green-500 to-purple-500 rounded mask-radial-gradient flex items-center justify-center text-white text-xs font-medium">
+                        <div className="w-full h-16 bg-linear-to-r from-green-500 to-purple-500 rounded mask-radial-gradient flex items-center justify-center text-white text-xs font-medium">
                           Radial
                         </div>
                         <div className="text-xs text-center">
@@ -395,13 +395,13 @@ export function EffectsUtilities() {
                     </Typography>
                     <div className="grid grid-cols-2 gap-3">
                       <div className="space-y-1">
-                        <div className="w-full h-16 bg-gradient-to-r from-red-500 to-yellow-500 rounded mask-alpha flex items-center justify-center text-white text-xs font-medium">
+                        <div className="w-full h-16 bg-linear-to-r from-red-500 to-yellow-500 rounded mask-alpha flex items-center justify-center text-white text-xs font-medium">
                           Alpha
                         </div>
                         <div className="text-xs text-center">mask-alpha</div>
                       </div>
                       <div className="space-y-1">
-                        <div className="w-full h-16 bg-gradient-to-r from-pink-500 to-orange-500 rounded mask-luminance flex items-center justify-center text-white text-xs font-medium">
+                        <div className="w-full h-16 bg-linear-to-r from-pink-500 to-orange-500 rounded mask-luminance flex items-center justify-center text-white text-xs font-medium">
                           Luminance
                         </div>
                         <div className="text-xs text-center">
@@ -427,7 +427,7 @@ export function EffectsUtilities() {
                 <div className="grid grid-cols-3 gap-4">
                   <div className="space-y-2">
                     <div
-                      className="w-full h-16 bg-gradient-to-r from-brand to-blue-500 rounded mask-center mask-contain flex items-center justify-center text-white text-xs font-medium"
+                      className="w-full h-16 bg-linear-to-r from-brand to-blue-500 rounded mask-center mask-contain flex items-center justify-center text-white text-xs font-medium"
                       style={{
                         maskImage:
                           'url("data:image/svg+xml,%3Csvg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"%3E%3Ccircle cx="20" cy="20" r="15" fill="%23000000"/%3E%3C/svg%3E")',
@@ -439,7 +439,7 @@ export function EffectsUtilities() {
                   </div>
                   <div className="space-y-2">
                     <div
-                      className="w-full h-16 bg-gradient-to-r from-green-500 to-purple-500 rounded mask-top mask-contain flex items-start justify-center pt-1 text-white text-xs font-medium"
+                      className="w-full h-16 bg-linear-to-r from-green-500 to-purple-500 rounded mask-top mask-contain flex items-start justify-center pt-1 text-white text-xs font-medium"
                       style={{
                         maskImage:
                           'url("data:image/svg+xml,%3Csvg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"%3E%3Ccircle cx="20" cy="20" r="15" fill="%23000000"/%3E%3C/svg%3E")',
@@ -451,7 +451,7 @@ export function EffectsUtilities() {
                   </div>
                   <div className="space-y-2">
                     <div
-                      className="w-full h-16 bg-gradient-to-r from-pink-500 to-orange-500 rounded mask-left mask-contain flex items-center justify-start pl-1 text-white text-xs font-medium"
+                      className="w-full h-16 bg-linear-to-r from-pink-500 to-orange-500 rounded mask-left mask-contain flex items-center justify-start pl-1 text-white text-xs font-medium"
                       style={{
                         maskImage:
                           'url("data:image/svg+xml,%3Csvg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"%3E%3Ccircle cx="20" cy="20" r="15" fill="%23000000"/%3E%3C/svg%3E")',

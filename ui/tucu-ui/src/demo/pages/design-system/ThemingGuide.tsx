@@ -97,6 +97,7 @@ const sections: SectionConfig[] = [
 export function ThemingGuide() {
   return (
     <DynamicSectionsPage
+      hideHeroInSubSections
       sections={sections}
       hero={
         <HeroCard

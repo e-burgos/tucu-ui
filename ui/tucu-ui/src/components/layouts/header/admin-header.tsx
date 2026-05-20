@@ -45,6 +45,7 @@ export function AdminHeader({
 
   return (
     <nav
+      data-tucu="admin-header"
       className={cn(
         'sticky top-0 z-30 backdrop-blur-lg min-h-[72px] h-[72px] w-full transition-all duration-300 ltr:right-0 rtl:left-0',
         ((isMounted && windowScroll.y) as number) > 2 && 'shadow-card',

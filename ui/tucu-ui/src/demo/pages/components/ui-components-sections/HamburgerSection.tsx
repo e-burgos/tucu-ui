@@ -5,6 +5,8 @@ import {
   Typography,
   CodeBlock,
   Hamburger,
+  HeroCard,
+  LucideIcons,
 } from '../../../../index';
 import { AutoPropsTable } from '../../../components/auto-props-table';
 import { PropPlayground } from '../../../components/prop-playground';
@@ -14,18 +16,16 @@ const HamburgerSection: React.FC = () => {
 
   return (
     <>
-      <div className="text-center space-y-4">
-        <Typography tag="h2" className="text-3xl md:text-4xl font-bold">
-          Hamburger
-        </Typography>
-        <Typography
-          tag="p"
-          className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
-        >
-          An animated hamburger menu button component, perfect for mobile
-          navigation menus.
-        </Typography>
-      </div>
+      <HeroCard
+        title="Hamburger"
+        description="An animated hamburger menu button component, perfect for mobile
+          navigation menus."
+        icon={
+          <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 bg-linear-to-br from-blue-600 to-indigo-500 rounded-full flex items-center justify-center shadow-lg">
+            <LucideIcons.Menu className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-white filter drop-shadow-lg" />
+          </div>
+        }
+      />
 
       <CardContainer className="overflow-hidden">
         <CardTitle title="Basic Examples" className="mt-2 mb-2">

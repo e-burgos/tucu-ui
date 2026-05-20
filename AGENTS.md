@@ -8,7 +8,7 @@ Before answering complex questions or generating code, please check the relevant
 | Topic                 | Description                                                         | Skill File                                                             |
 | --------------------- | ------------------------------------------------------------------- | ---------------------------------------------------------------------- |
 | **Overview**          | Installation, architecture modes, quick start, agent guidelines     | [tucu-ui](.github/skills/tucu-ui/SKILL.md)                             |
-| **Component Catalog** | Full API reference: 85+ components, hooks, utils, types & examples  | [tucu-ui-catalog](.github/skills/tucu-ui-catalog/SKILL.md)             |
+| **Component Catalog** | Full API reference: 95+ components, hooks, utils, types & examples  | [tucu-ui-catalog](.github/skills/tucu-ui-catalog/SKILL.md)             |
 | **Form System**       | Form component, validation, all inputs, useFormContext patterns     | [tucu-ui-forms](.github/skills/tucu-ui-forms/SKILL.md)                 |
 | **Design System**     | Layouts, tokens, color presets, useTheme, dark/light, typography    | [tucu-ui-design-system](.github/skills/tucu-ui-design-system/SKILL.md) |
 | **Routing**           | Standalone routing, MFE routing, nested/dynamic routes, navigation  | [tucu-ui-routing](.github/skills/tucu-ui-routing/SKILL.md)             |

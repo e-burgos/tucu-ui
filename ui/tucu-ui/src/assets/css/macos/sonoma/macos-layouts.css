@@ -1,0 +1,223 @@
+/* ============================================================
+   macOS Sonoma 14 — Layout Overrides (updated Fase 6)
+
+   Targets: Header, AdminLayout, HorizontalLayout, Sidebar,
+            Menus, Scrollbar, Main content
+   Selectors: html.macos [data-tucu="..."]
+
+   References:
+   - Apple HIG > Sidebars: 240pt width, translucent material
+   - Apple HIG > Toolbars: 52pt height, glass regular
+   - macOS titlebar: 28pt, scrollbar: thin auto-hide overlay
+   ============================================================ */
+
+/* ── Header / Toolbar area ───────────────────────────────────── */
+html.macos [data-tucu='header'] {
+  height: var(--macos-toolbar-height);
+  background-color: var(--macos-glass-regular-bg);
+  backdrop-filter: blur(var(--macos-glass-blur, 28px)) saturate(1.6);
+  -webkit-backdrop-filter: blur(var(--macos-glass-blur, 28px)) saturate(1.6);
+  border-bottom: 0.5px solid var(--macos-glass-border);
+  padding: 0 var(--macos-space-4);
+  display: flex;
+  align-items: center;
+}
+
+html.macos.dark [data-tucu='header'] {
+  background-color: var(--macos-glass-regular-bg);
+  border-bottom-color: var(--macos-glass-border);
+}
+
+/* ── Admin Header ────────────────────────────────────────────── */
+html.macos [data-tucu='admin-header'] {
+  height: var(--macos-toolbar-height) !important;
+  min-height: var(--macos-toolbar-height) !important;
+  background-color: var(--macos-glass-regular-bg) !important;
+  backdrop-filter: blur(var(--macos-glass-blur, 28px)) saturate(1.6) !important;
+  -webkit-backdrop-filter: blur(var(--macos-glass-blur, 28px)) saturate(1.6) !important;
+  border-bottom: 0.5px solid var(--macos-glass-border) !important;
+  box-shadow: none !important;
+  padding: 0 var(--macos-space-4) !important;
+}
+
+html.macos.dark [data-tucu='admin-header'] {
+  background-color: var(--macos-glass-regular-bg) !important;
+  border-bottom-color: var(--macos-glass-border) !important;
+}
+
+/* ── Horizontal Header ───────────────────────────────────────── */
+html.macos [data-tucu='horizontal-header'] {
+  height: var(--macos-toolbar-height) !important;
+  min-height: var(--macos-toolbar-height) !important;
+  background-color: var(--macos-glass-regular-bg) !important;
+  backdrop-filter: blur(var(--macos-glass-blur, 28px)) saturate(1.6) !important;
+  -webkit-backdrop-filter: blur(var(--macos-glass-blur, 28px)) saturate(1.6) !important;
+  border-bottom: 0.5px solid var(--macos-glass-border) !important;
+  box-shadow: none !important;
+  font-family: var(--macos-font-family) !important;
+}
+
+html.macos.dark [data-tucu='horizontal-header'] {
+  background-color: var(--macos-glass-regular-bg) !important;
+  border-bottom-color: var(--macos-glass-border) !important;
+}
+
+/* ── Admin Layout ────────────────────────────────────────────── */
+html.macos [data-tucu='admin-layout'] {
+  background-color: var(--macos-window-bg);
+  font-family: var(--macos-font-family);
+}
+
+html.macos.dark [data-tucu='admin-layout'] {
+  background-color: var(--macos-window-bg);
+}
+
+html.macos [data-tucu='admin-content'] {
+  background-color: var(--macos-window-bg);
+}
+
+html.macos.dark [data-tucu='admin-content'] {
+  background-color: var(--macos-window-bg);
+}
+
+/* ── Horizontal Layout ───────────────────────────────────────── */
+html.macos [data-tucu='horizontal-layout'] {
+  background-color: var(--macos-window-bg);
+  font-family: var(--macos-font-family);
+}
+
+html.macos.dark [data-tucu='horizontal-layout'] {
+  background-color: var(--macos-window-bg);
+}
+
+html.macos [data-tucu='horizontal-content'] {
+  background-color: var(--macos-window-bg);
+}
+
+html.macos.dark [data-tucu='horizontal-content'] {
+  background-color: var(--macos-window-bg);
+}
+
+/* ── Expandable Sidebar ──────────────────────────────────────── */
+html.macos [data-tucu='expandable-sidebar'] {
+  background-color: var(--macos-glass-regular-bg) !important;
+  backdrop-filter: blur(var(--macos-glass-blur, 28px)) saturate(1.6) !important;
+  -webkit-backdrop-filter: blur(var(--macos-glass-blur, 28px)) saturate(1.6) !important;
+  border-right: 0.5px solid var(--macos-glass-border) !important;
+  border-left: none !important;
+  font-family: var(--macos-font-family) !important;
+}
+
+html.macos.dark [data-tucu='expandable-sidebar'] {
+  background-color: var(--macos-glass-regular-bg) !important;
+  border-right-color: var(--macos-glass-border) !important;
+}
+
+/* Fallback for no backdrop-filter */
+@supports not (backdrop-filter: blur(1px)) {
+  html.macos [data-tucu='admin-header'],
+  html.macos [data-tucu='horizontal-header'],
+  html.macos [data-tucu='expandable-sidebar'] {
+    background-color: var(--macos-glass-regular-bg-opaque) !important;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  html.macos [data-tucu='admin-header'],
+  html.macos [data-tucu='horizontal-header'],
+  html.macos [data-tucu='expandable-sidebar'] {
+    background-color: var(--macos-glass-regular-bg-opaque) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+}
+
+/* ── Main content area ───────────────────────────────────────── */
+html.macos [data-tucu='main-content'] {
+  background-color: var(--macos-window-bg);
+  padding: var(--macos-content-padding);
+}
+
+html.macos.dark [data-tucu='main-content'] {
+  background-color: var(--macos-window-bg);
+}
+
+/* ── macOS-style scrollbars ──────────────────────────────────── */
+html.macos ::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+html.macos ::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+html.macos ::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: var(--macos-radius-full);
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+html.macos ::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 0, 0, 0.35);
+}
+
+html.macos.dark ::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.25);
+}
+
+html.macos.dark ::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255, 255, 255, 0.4);
+}
+
+/* Auto-hide scrollbar when not scrolling (overlay style) */
+html.macos {
+  scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+  scrollbar-width: thin;
+}
+
+html.macos.dark {
+  scrollbar-color: rgba(255, 255, 255, 0.25) transparent;
+}
+
+/* ── Window-level background ─────────────────────────────────── */
+html.macos body {
+  background-color: var(--macos-window-bg);
+}
+
+html.macos.dark body {
+  background-color: var(--macos-window-bg);
+}
+
+/* ── Documentation content width in macOS ───────────────────── */
+html.macos
+  [data-tucu='macos-layout-content-inner']
+  > div[class*='space-y-8'][class*='pt-8'][class*='max-w-6xl'] {
+  max-width: 96rem !important;
+}
+
+html.macos
+  [data-tucu='macos-layout-content-inner']
+  > div.relative.scroll-smooth
+  div[class*='space-y-8'][class*='pt-8'][class*='max-w-7xl'] {
+  max-width: 96rem !important;
+}
+
+/* ── Divider / Separator ─────────────────────────────────────── */
+html.macos hr,
+html.macos [data-tucu='divider'] {
+  border: none;
+  height: 1px;
+  background-color: var(--macos-separator);
+  margin: var(--macos-space-4) 0;
+}
+
+/* ── Container max-widths (for content areas) ────────────────── */
+html.macos [data-tucu='container'] {
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--macos-content-padding);
+  padding-right: var(--macos-content-padding);
+}

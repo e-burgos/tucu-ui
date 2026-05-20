@@ -6,6 +6,12 @@ export const Toast: React.FC = () => {
   const { toasts, dismissToast } = useToastStore();
   const [visibleToasts, setVisibleToasts] = useState<IToast[]>([]);
 
+  // Don't render generic toast when a macOS theme is active (they have their own toast)
+  const isMacOS =
+    typeof document !== 'undefined' &&
+    (document.documentElement.classList.contains('macos') ||
+      document.documentElement.classList.contains('macos-tahoe'));
+
   const handleVariant = (variant: IToast['variant']) => {
     switch (variant) {
       case 'destructive':
@@ -62,11 +68,14 @@ export const Toast: React.FC = () => {
     };
   }, [toasts, handleDismiss]);
 
+  if (isMacOS) return null;
+
   return (
     <div
       role="region"
       aria-label="Notifications"
-      className="fixed bottom-4 right-4 flex flex-col gap-2 w-auto z-20"
+      data-tucu="toast-container"
+      className="fixed top-4 right-4 flex w-[360px] flex-col gap-2 z-50"
     >
       {visibleToasts.map((toast, index) => (
         <div
@@ -74,8 +83,14 @@ export const Toast: React.FC = () => {
           role="alert"
           aria-live="assertive"
           aria-atomic="true"
-          className={`relative flex items-center justify-between space-x-2 border-gray-300 p-4 pr-6 rounded-md shadow-lg transform transition-all duration-500 ease-in-out 
-            ${toast.dismissing ? 'translate-x-full -mr-6' : 'translate-x-0'} 
+          data-tucu="toast"
+          data-variant={toast.variant}
+          className={`relative flex items-center justify-between space-x-2 border-gray-300 p-4 pr-6 rounded-md shadow-lg transform transition-all duration-300 ease-out 
+            ${
+              toast.dismissing
+                ? 'translate-x-[120%] opacity-0 scale-95'
+                : 'translate-x-0 opacity-100 scale-100'
+            } 
             ${handleVariant(toast.variant)}`}
         >
           <div className="flex flex-col">

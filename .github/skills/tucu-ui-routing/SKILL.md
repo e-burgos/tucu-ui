@@ -55,6 +55,7 @@ interface IMenuItem {
   href?: string; // External link (opens new tab)
   hide?: boolean; // Hide from nav but keep route active
   dropdownItems?: IMenuItem[]; // Nested sub-routes (accordion in sidebar)
+  enableNestedRoutes?: boolean; // Use wildcard path (path/*) for nested sub-routing
   isActive?: boolean; // Force active state
   onClick?: () => void; // Custom click handler
 }

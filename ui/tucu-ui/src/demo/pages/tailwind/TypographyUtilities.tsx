@@ -2,7 +2,7 @@ import { CardContainer, CardTitle, Typography, HeroCard } from '../../../index';
 
 export function TypographyUtilities() {
   return (
-    <div className="space-y-8 sm:space-y-12 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative pt-8 lg:pt-12">
+    <div className="space-y-8 max-w-6xl sm:space-y-12 w-full mx-auto px-4 sm:px-6 lg:px-8 relative pt-8 lg:pt-12">
       {/* Hero Section */}
       <HeroCard
         title="Typography Utilities"
@@ -10,7 +10,7 @@ export function TypographyUtilities() {
         githubButton
         docsButton="tailwind-utilities"
         icon={
-          <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600 rounded-full flex items-center justify-center shadow-lg border border-blue-500/50">
+          <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 bg-linear-to-br from-blue-600 via-purple-600 to-pink-600 rounded-full flex items-center justify-center shadow-lg">
             <div className="w-16 h-16 bg-white/20 rounded-lg border-4 border-white/60 flex items-center justify-center">
               <div className="text-white/90 text-2xl font-bold">Aa</div>
             </div>
@@ -23,13 +23,13 @@ export function TypographyUtilities() {
         <div className="text-center">
           <Typography
             tag="h2"
-            className="mb-4 text-2xl sm:text-3xl md:text-4xl font-bold"
+            className="mb-2"
           >
             Font & Text Styling
           </Typography>
           <Typography
             tag="p"
-            className="text-base sm:text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto"
+            className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto"
           >
             Professional typography utilities built with Tailwind CSS v4 @source
             directives
@@ -38,7 +38,7 @@ export function TypographyUtilities() {
 
         {/* 1. FONT FAMILY */}
         <section className="space-y-6">
-          <Typography tag="h3" className="text-xl font-semibold">
+          <Typography tag="h3" className="text-base font-semibold">
             Font Family
           </Typography>
 
@@ -84,7 +84,7 @@ export function TypographyUtilities() {
 
         {/* 2. FONT SIZE */}
         <section className="space-y-6">
-          <Typography tag="h3" className="text-xl font-semibold">
+          <Typography tag="h3" className="text-base font-semibold">
             Font Size
           </Typography>
 
@@ -160,7 +160,7 @@ export function TypographyUtilities() {
 
         {/* 3. FONT SMOOTHING */}
         <section className="space-y-6">
-          <Typography tag="h3" className="text-xl font-semibold">
+          <Typography tag="h3" className="text-base font-semibold">
             Font Smoothing
           </Typography>
 
@@ -206,7 +206,7 @@ export function TypographyUtilities() {
 
         {/* 4. FONT STYLE */}
         <section className="space-y-6">
-          <Typography tag="h3" className="text-xl font-semibold">
+          <Typography tag="h3" className="text-base font-semibold">
             Font Style
           </Typography>
 
@@ -244,7 +244,7 @@ export function TypographyUtilities() {
 
         {/* 5. FONT WEIGHT */}
         <section className="space-y-6">
-          <Typography tag="h3" className="text-xl font-semibold">
+          <Typography tag="h3" className="text-base font-semibold">
             Font Weight
           </Typography>
 
@@ -314,7 +314,7 @@ export function TypographyUtilities() {
 
         {/* 6. FONT VARIANT NUMERIC */}
         <section className="space-y-6">
-          <Typography tag="h3" className="text-xl font-semibold">
+          <Typography tag="h3" className="text-base font-semibold">
             Font Variant Numeric
           </Typography>
 
@@ -388,7 +388,7 @@ export function TypographyUtilities() {
 
         {/* 7. LETTER SPACING */}
         <section className="space-y-6">
-          <Typography tag="h3" className="text-xl font-semibold">
+          <Typography tag="h3" className="text-base font-semibold">
             Letter Spacing
           </Typography>
 
@@ -458,7 +458,7 @@ export function TypographyUtilities() {
 
         {/* 8. LINE CLAMP & LINE HEIGHT */}
         <section className="space-y-6">
-          <Typography tag="h3" className="text-xl font-semibold">
+          <Typography tag="h3" className="text-base font-semibold">
             Line Clamp & Line Height
           </Typography>
 
@@ -533,7 +533,7 @@ export function TypographyUtilities() {
 
         {/* 9. LIST STYLE */}
         <section className="space-y-6">
-          <Typography tag="h3" className="text-xl font-semibold">
+          <Typography tag="h3" className="text-base font-semibold">
             List Style
           </Typography>
 
@@ -613,7 +613,7 @@ export function TypographyUtilities() {
 
         {/* 10. TEXT ALIGN & COLORS */}
         <section className="space-y-6">
-          <Typography tag="h3" className="text-xl font-semibold">
+          <Typography tag="h3" className="text-base font-semibold">
             Text Alignment & Colors
           </Typography>
 
@@ -699,7 +699,7 @@ export function TypographyUtilities() {
 
         {/* 11. TEXT DECORATION */}
         <section className="space-y-6">
-          <Typography tag="h3" className="text-xl font-semibold">
+          <Typography tag="h3" className="text-base font-semibold">
             Text Decoration
           </Typography>
 
@@ -789,7 +789,7 @@ export function TypographyUtilities() {
 
         {/* 12. TEXT TRANSFORM & OVERFLOW */}
         <section className="space-y-6">
-          <Typography tag="h3" className="text-xl font-semibold">
+          <Typography tag="h3" className="text-base font-semibold">
             Text Transform & Overflow
           </Typography>
 
@@ -861,7 +861,7 @@ export function TypographyUtilities() {
 
         {/* 13. TEXT WRAP & INDENTATION */}
         <section className="space-y-6">
-          <Typography tag="h3" className="text-xl font-semibold">
+          <Typography tag="h3" className="text-base font-semibold">
             Text Wrap & Indentation
           </Typography>
 
@@ -929,7 +929,7 @@ export function TypographyUtilities() {
 
         {/* 14. VERTICAL ALIGN & WHITESPACE */}
         <section className="space-y-6">
-          <Typography tag="h3" className="text-xl font-semibold">
+          <Typography tag="h3" className="text-base font-semibold">
             Vertical Align & Whitespace
           </Typography>
 
@@ -1010,7 +1010,7 @@ export function TypographyUtilities() {
 
         {/* 15. WORD BREAK & HYPHENS */}
         <section className="space-y-6">
-          <Typography tag="h3" className="text-xl font-semibold">
+          <Typography tag="h3" className="text-base font-semibold">
             Word Break & Hyphens
           </Typography>
 

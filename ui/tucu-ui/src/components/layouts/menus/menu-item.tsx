@@ -114,7 +114,7 @@ export function MenuItem({
           href={href}
           to={hrefToUse}
           className={cn(
-            'relative flex h-[48px] items-center whitespace-nowrap rounded-lg px-[16px] text-sm text-gray-500 transition-all hover:text-brand dark:hover:text-white',
+            'relative flex h-[48px] items-center whitespace-nowrap rounded-[8px] px-[16px] text-sm text-gray-500 transition-all hover:text-brand dark:hover:text-white',
             {
               'bg-brand': isActive,
             }
@@ -136,7 +136,7 @@ export function MenuItem({
           {path === pathname && (
             <motion.span
               className={cn(
-                'absolute bottom-0 left-0 right-0 h-full w-full rounded-lg bg-brand opacity-0 shadow-large transition-opacity'
+                'absolute bottom-0 left-0 right-0 h-full w-full rounded-[8px] bg-brand opacity-0 shadow-large transition-opacity'
               )}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -161,7 +161,7 @@ export function MenuItem({
           <ActiveLink
             activeClassName="bg-brand text-white"
             className={cn(
-              'relative flex h-[48px] cursor-pointer items-center justify-between whitespace-nowrap rounded-lg px-[16px] text-sm transition-all',
+              'relative flex h-[48px] cursor-pointer items-center justify-between whitespace-nowrap rounded-[8px] px-[16px] text-sm transition-all',
               'text-gray-500 hover:text-brand dark:hover:text-white',
               hide && 'hidden',
               isActive && '!text-white !bg-brand'
@@ -193,7 +193,7 @@ export function MenuItem({
             {(isParentActive || isChildrenActive) && (
               <motion.span
                 className={cn(
-                  'absolute bottom-0 left-0 right-0 h-full w-full rounded-lg bg-brand opacity-0 shadow-large transition-opacity'
+                  'absolute bottom-0 left-0 right-0 h-full w-full rounded-[8px] bg-brand opacity-0 shadow-large transition-opacity'
                 )}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -217,7 +217,7 @@ export function MenuItem({
                     path={path}
                     href={href}
                     to={hrefToUse}
-                    className="flex items-center rounded-lg p-[12px] text-sm text-gray-500 transition-all before:h-[4px] before:w-[4px] before:rounded-full before:bg-gray-500 hover:text-brand ltr:pl-[24px] ltr:before:mr-[20px] rtl:pr-[24px] rtl:before:ml-[20px] dark:hover:text-white"
+                    className="flex items-center rounded-[8px] p-[12px] text-sm text-gray-500 transition-all before:h-[4px] before:w-[4px] before:rounded-full before:bg-gray-500 hover:text-brand ltr:pl-[24px] ltr:before:mr-[20px] rtl:pr-[24px] rtl:before:ml-[20px] dark:hover:text-white"
                     activeClassName="text-brand! dark:text-white! dark:before:bg-white! before:bg-brand! before:w-[8px]! before:h-[8px]! before:-ml-[2px] ltr:before:mr-[18px]! rtl:before:ml-[18px]! font-medium!"
                     onClick={() => {
                       handleNavigation(hrefToUse, onClick);
@@ -242,8 +242,8 @@ export function MenuItem({
                       path={item.path}
                       href={item.href}
                       to={ItemHrefToUse}
-                      className="flex items-center rounded-lg p-[12px] text-sm text-gray-500 transition-all before:h-[4px] before:w-[4px] before:rounded-full before:bg-gray-500 hover:text-brand ltr:pl-[24px] ltr:before:mr-[20px] rtl:pr-[24px] rtl:before:ml-[20px] dark:hover:text-white"
-                      activeClassName="text-brand! dark:text-white! dark:before:bg-white! before:bg-brand! before:w-2! before:h-2! before:-ml-0.5 ltr:before:mr-[18px]! rtl:before:ml-[18px]! font-medium!"
+                      className="flex items-center rounded-[8px] p-[12px] text-sm text-gray-500 transition-all before:h-[4px] before:w-[4px] before:rounded-full before:bg-gray-500 hover:text-brand ltr:pl-[24px] ltr:before:mr-[20px] rtl:pr-[24px] rtl:before:ml-[20px] dark:hover:text-white"
+                      activeClassName="text-brand! dark:text-white! dark:before:bg-white! before:bg-brand! before:w-[8px]! before:h-[8px]! before:-ml-[2px] ltr:before:mr-[18px]! rtl:before:ml-[18px]! font-medium!"
                       onClick={() => {
                         handleNavigation(ItemHrefToUse, item?.onClick);
                       }}

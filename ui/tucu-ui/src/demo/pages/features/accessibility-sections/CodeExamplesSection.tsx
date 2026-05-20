@@ -1,153 +1,155 @@
 import React from 'react';
 import {
-  CardContainer,
-  CardTitle,
+  HeroCard,
   Typography,
   LucideIcons,
-  Input,
-  Alert,
   CodeBlock,
+  CardContainer,
 } from '../../../../index';
 
 const CodeExamplesSection: React.FC = () => {
-  const inputExampleCode = `<FormField
-  name="email"
-  label="Email Address"
-  helperText="We'll never share your email"
-  required={true}
-  error="Please enter a valid email"
->
-  <Input
-    type="email"
-    placeholder="Enter your email"
-    // Automatically includes:
-    // - aria-describedby for helper text and errors
-    // - aria-required="true" when required
-    // - aria-invalid when there's an error
-    // - proper label association with htmlFor
-  />
-</FormField>`;
+  const examples = [
+    {
+      title: 'Accessible Input with Error',
+      description:
+        'Input automatically connects label, error, and helper text via aria attributes.',
+      code: `import { Input } from '@e-burgos/tucu-ui';
 
-  const modalExampleCode = `<Modal
+// Input auto-generates IDs with useId()
+// label uses htmlFor → input id
+// helperText → aria-describedby
+// error → aria-invalid="true"
+// required → aria-required="true"
+<Input
+  label="Email Address"
+  placeholder="you@example.com"
+  required
+  error="Please enter a valid email"
+  helperText="We'll never share your email"
+  variant="ghost"
+/>`,
+    },
+    {
+      title: 'Accessible Modal',
+      description:
+        'Modal provides dialog semantics, Escape key, and focus restoration. Note: lacks focus trapping.',
+      code: `import { Modal } from '@e-burgos/tucu-ui';
+
+// role="dialog" + aria-modal="true"
+// aria-labelledby → title text
+// aria-describedby → content text
+// Escape key closes
+// Focus restores to trigger on close
+// ⚠️ Tab can escape modal (no focus trap)
+<Modal
   isOpen={isOpen}
-  onClose={onClose}
+  setIsOpen={setIsOpen}
+  onClose={() => console.log('closed')}
   text={{
     title: 'Confirm Action',
-    content: 'Are you sure you want to delete this item?',
+    content: 'Are you sure you want to proceed?',
+    button: 'Confirm',
+    backButton: 'Cancel',
   }}
->
-  {/* Modal content */}
-</Modal>`;
+/>`,
+    },
+    {
+      title: 'Accessible Alert',
+      description:
+        'Alert uses live regions so screen readers announce content changes immediately.',
+      code: `import { Alert } from '@e-burgos/tucu-ui';
 
-  const alertExampleCode = `<Alert variant="warning" dismissible={true} aria-label="Session expiry warning">
+// role="alert" → immediate announcement
+// aria-live="assertive" + aria-atomic="true"
+// Dismiss button has aria-label="Dismiss alert"
+// Supports custom aria-label
+<Alert
+  variant="warning"
+  dismissible={true}
+  aria-label="Important notification"
+>
   Your session will expire in 5 minutes.
-</Alert>`;
+</Alert>`,
+    },
+    {
+      title: 'Form with FormField',
+      description:
+        'FormField wraps react-hook-form Controller and auto-wires errors to child components.',
+      code: `import { Form, FormField, Input, Select } from '@e-burgos/tucu-ui';
+
+<Form onSubmit={handleSubmit}>
+  {/* FormField auto-injects error prop from form state */}
+  <FormField
+    name="email"
+    label="Email"
+    rules={{ required: 'Email is required' }}
+  >
+    <Input variant="ghost" placeholder="Enter email" />
+  </FormField>
+
+  <FormField
+    name="role"
+    label="Role"
+    rules={{ required: 'Role is required' }}
+  >
+    <Select
+      options={roleOptions}
+      variant="ghost"
+      placeholder="Select role"
+    />
+  </FormField>
+</Form>`,
+    },
+  ];
 
   return (
-    <div className="space-y-8">
-      <CardContainer className="overflow-hidden">
-        <CardTitle title="Implementation Examples" className="mt-2 mb-2">
-          <div className="w-full space-y-8 p-4 sm:p-6">
-            <div className="flex items-center gap-3">
-              <div className="p-2 rounded-lg bg-linear-to-br from-orange-500 via-amber-500 to-yellow-500 shadow-lg">
-                <LucideIcons.Code className="w-6 h-6 text-white filter drop-shadow-sm" />
-              </div>
-              <Typography tag="h3" className="text-xl font-semibold">
-                Accessible Component Examples
-              </Typography>
-            </div>
-
-            <div className="space-y-8">
-              {/* Input Example */}
-              <div className="space-y-4">
-                <Typography
-                  tag="h4"
-                  className="font-semibold flex items-center gap-2"
-                >
-                  <LucideIcons.CheckCircle className="w-5 h-5 text-green-500" />
-                  Input Fields - Fully Accessible
-                </Typography>
-                <div className="p-4 border rounded-lg">
-                  <div className="mb-4">
-                    <Input
-                      label="Email Address"
-                      type="email"
-                      placeholder="Enter your email"
-                      helperText="We'll never share your email with anyone else."
-                      required
-                    />
-                  </div>
-                  <Typography
-                    tag="p"
-                    className="text-sm text-gray-600 dark:text-gray-400 mb-3"
-                  >
-                    Features: Label association, ARIA attributes, error
-                    handling, helper text
-                  </Typography>
-                  <CodeBlock code={inputExampleCode} language="tsx" />
-                </div>
-              </div>
-
-              {/* Modal Example */}
-              <div className="space-y-4">
-                <Typography
-                  tag="h4"
-                  className="font-semibold flex items-center gap-2"
-                >
-                  <LucideIcons.CheckCircle className="w-5 h-5 text-green-500" />
-                  Modal Dialogs - Fully Accessible
-                </Typography>
-                <div className="p-4 border rounded-lg">
-                  <Typography
-                    tag="p"
-                    className="text-sm text-gray-600 dark:text-gray-400 mb-3"
-                  >
-                    Features: Focus trapping, keyboard navigation, proper ARIA
-                    roles
-                  </Typography>
-                  <CodeBlock code={modalExampleCode} language="tsx" />
-                </div>
-              </div>
-
-              {/* Alert Example */}
-              <div className="space-y-4">
-                <Typography
-                  tag="h4"
-                  className="font-semibold flex items-center gap-2"
-                >
-                  <LucideIcons.CheckCircle className="w-5 h-5 text-green-500" />
-                  Alerts and Notifications - Fully Accessible
-                </Typography>
-                <div className="p-4 border rounded-lg">
-                  <Alert variant="warning">
-                    <div className="flex flex-col gap-2">
-                      <LucideIcons.AlertTriangle className="h-4 w-4" />
-                      <Typography tag="span" className="font-semibold">
-                        Your session will expire in 5 minutes.
-                      </Typography>
-                    </div>
-                  </Alert>
-                  <Typography
-                    tag="p"
-                    className="text-sm text-gray-600 dark:text-gray-400 mb-3 mt-3"
-                  >
-                    Features: Live regions, proper roles, keyboard dismissal
-                  </Typography>
-
-                  <CodeBlock
-                    noExpand={true}
-                    code={alertExampleCode}
-                    language="tsx"
-                  />
-                </div>
-              </div>
-            </div>
+    <>
+      <HeroCard
+        title="Code Examples"
+        description="Practical code examples showing how to use accessibility features in tucu-ui components. Each example includes comments explaining the ARIA behavior."
+        icon={
+          <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 bg-linear-to-br from-cyan-500 via-blue-500 to-indigo-500 rounded-full flex items-center justify-center shadow-lg">
+            <LucideIcons.Code className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 text-white filter drop-shadow-lg" />
           </div>
-        </CardTitle>
-      </CardContainer>
-    </div>
+        }
+      />
+
+      <section className="space-y-8">
+        <div className="text-center">
+          <Typography tag="h2" className="mb-2">
+            Accessible Component Patterns
+          </Typography>
+          <Typography
+            tag="p"
+            className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto"
+          >
+            Copy-paste examples with built-in accessibility
+          </Typography>
+        </div>
+
+        <div className="space-y-6">
+          {examples.map((example, index) => (
+            <CardContainer key={index}>
+              <div className="w-full p-4 sm:p-6 space-y-4">
+                <div>
+                  <Typography tag="h3" className="font-semibold text-lg mb-1">
+                    {example.title}
+                  </Typography>
+                  <Typography
+                    tag="p"
+                    className="text-sm text-gray-500 dark:text-gray-400"
+                  >
+                    {example.description}
+                  </Typography>
+                </div>
+                <CodeBlock language="tsx" code={example.code} />
+              </div>
+            </CardContainer>
+          ))}
+        </div>
+      </section>
+    </>
   );
 };
 
 export default CodeExamplesSection;
-

@@ -1,146 +1,299 @@
-/* Custom scrollbar design starts from here */
-.os-theme-thin > .os-scrollbar-vertical {
-  bottom: 14px;
-  width: 14px;
-  padding: 6px 0;
+/* ── Custom scrollbar ─────────────────────────────────────────
+   Thin overlay scrollbar that adapts to theme and color mode.
+   Used by expandable-sidebar and any element needing a subtle
+   scrollbar that blends with the current layout.
+   ──────────────────────────────────────────────────────────── */
+
+/* ── Base (light) ── */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
 }
 
-.os-theme-thin > .os-scrollbar-horizontal {
-  right: 14px;
-  height: 16px;
-  padding: 0px 6px;
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
 }
 
-.os-theme-thin
-  > .os-scrollbar-horizontal
-  > .os-scrollbar-track
-  > .os-scrollbar-handle {
-  height: 100%;
-  min-width: 30px;
-}
-
-.os-theme-thin.os-host-transition
-  > .os-scrollbar-horizontal
-  > .os-scrollbar-track
-  > .os-scrollbar-handle:before {
-  transition: height 0.3s, margin-top 0.3s, background 0.2s;
-}
-
-.os-theme-thin
-  > .os-scrollbar-horizontal
-  > .os-scrollbar-track
-  > .os-scrollbar-handle:hover:before,
-.os-theme-thin
-  > .os-scrollbar-horizontal
-  > .os-scrollbar-track
-  > .os-scrollbar-handle.active:before {
-  height: 4px;
-  margin-top: -2px;
-}
-
-.os-theme-thin > .os-scrollbar-horizontal > .os-scrollbar-track:before,
-.os-theme-thin
-  > .os-scrollbar-horizontal
-  > .os-scrollbar-track
-  > .os-scrollbar-handle:before {
-  left: 0;
-  right: 0;
-  height: 2px;
-  top: 50%;
-  margin-top: -1px;
-}
-
-.os-theme-thin > .os-scrollbar > .os-scrollbar-track {
+.custom-scrollbar::-webkit-scrollbar-track {
   background: transparent;
 }
 
-.os-theme-thin > .os-scrollbar-horizontal > .os-scrollbar-track:before,
-.os-theme-thin > .os-scrollbar-vertical > .os-scrollbar-track:before {
-  content: '';
-  display: block;
-  position: absolute;
-  @apply bg-black/10 dark:bg-gray-500;
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
 }
 
-.os-theme-thin > .os-scrollbar-vertical > .os-scrollbar-track:before,
-.os-theme-thin
-  > .os-scrollbar-vertical
-  > .os-scrollbar-track
-  > .os-scrollbar-handle:before {
-  top: 0;
-  bottom: 0;
-  width: 2px;
-  left: 50%;
-  margin-left: -1px;
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 0, 0, 0.35);
 }
 
-.os-theme-thin
-  > .os-scrollbar-vertical
-  > .os-scrollbar-track
-  > .os-scrollbar-handle {
-  width: 100%;
-  min-height: 15px;
+/* ── Dark mode ── */
+html.dark .custom-scrollbar {
+  scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
 }
 
-.os-theme-thin > .os-scrollbar-vertical > .os-scrollbar-track:before,
-.os-theme-thin
-  > .os-scrollbar-vertical
-  > .os-scrollbar-track
-  > .os-scrollbar-handle:before {
-  top: 0;
-  bottom: 0;
-  width: 2px;
-  left: 50%;
-  margin-left: -1px;
-  border-radius: 15px;
-  @apply bg-black/10 dark:bg-gray-600;
-}
-.os-theme-thin
-  > .os-scrollbar
-  > .os-scrollbar-track
-  > .os-scrollbar-handle:before {
-  content: '';
-  display: block;
-  position: absolute;
-  border-radius: 10px;
-  @apply bg-black/30 dark:bg-gray-800;
+html.dark .custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
-.os-theme-thin
-  > .os-scrollbar-vertical
-  > .os-scrollbar-track
-  > .os-scrollbar-handle:hover:before,
-.os-theme-thin
-  > .os-scrollbar-vertical
-  > .os-scrollbar-track
-  > .os-scrollbar-handle.active:before {
-  width: 2px;
-  margin-left: -1px;
-  background: #666;
+html.dark .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255, 255, 255, 0.35);
 }
 
-.os-theme-thin.os-host-transition
-  > .os-scrollbar-vertical
-  > .os-scrollbar-track
-  > .os-scrollbar-handle:before {
-  -webkit-transition: width 0.3s, margin-left 0.3s, background 0.2s;
-  transition: width 0.3s, margin-left 0.3s, background 0.2s;
+/* ── macOS Sonoma ── */
+html.macos .custom-scrollbar {
+  scrollbar-color: rgba(0, 0, 0, 0.15) transparent;
 }
 
-/* ScrollBar Height Calc */
-.cart-scrollbar {
-  -webkit-overflow-scrolling: touch;
-  max-height: calc(100vh - 160px);
-}
-/* .table-scrollbar {
-  background-color: green;
-} */
-.table-scrollbar::-webkit-scrollbar {
-  -webkit-appearance: none;
+html.macos .custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.15);
 }
 
-.table-scrollbar::-webkit-scrollbar-thumb {
-  background-color: rgba(0, 0, 0, 0.075);
-  border-radius: 10px;
-  border: 2px solid var(--color-brand);
+html.macos .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+html.macos.dark .custom-scrollbar {
+  scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
+}
+
+html.macos.dark .custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+html.macos.dark .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+/* ── macOS Tahoe ── */
+html.macos-tahoe .custom-scrollbar {
+  scrollbar-color: rgba(0, 0, 0, 0.12) transparent;
+}
+
+html.macos-tahoe .custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.12);
+}
+
+html.macos-tahoe .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 0, 0, 0.25);
+}
+
+html.macos-tahoe.dark .custom-scrollbar {
+  scrollbar-color: rgba(255, 255, 255, 0.12) transparent;
+}
+
+html.macos-tahoe.dark .custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.12);
+}
+
+html.macos-tahoe.dark .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255, 255, 255, 0.25);
+}
+
+/* ── CodeBlock — bg, border & dual-axis scrollbar ────────────
+   Adapts background, border, action-button chrome and both
+   vertical + horizontal scrollbar tracks per theme × mode.
+   ──────────────────────────────────────────────────────────── */
+
+/* ── Base (light) ── */
+[data-tucu='code-block'] {
+  background-color: #f3f4f6;
+  border-color: #e5e7eb;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.15) transparent;
+}
+
+[data-tucu='code-block']:hover {
+  border-color: #9ca3af;
+}
+
+[data-tucu='code-block']::-webkit-scrollbar,
+[data-tucu='code-block'] *::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+[data-tucu='code-block']::-webkit-scrollbar-track,
+[data-tucu='code-block'] *::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+[data-tucu='code-block']::-webkit-scrollbar-thumb,
+[data-tucu='code-block'] *::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.15);
+  border-radius: 3px;
+}
+
+[data-tucu='code-block']::-webkit-scrollbar-thumb:hover,
+[data-tucu='code-block'] *::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+[data-tucu='code-block']::-webkit-scrollbar-corner,
+[data-tucu='code-block'] *::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+[data-tucu='code-block'] .code-block-btn {
+  background-color: #e5e7eb;
+  color: #4b5563;
+}
+
+[data-tucu='code-block'] .code-block-btn:hover {
+  background-color: #d1d5db;
+}
+
+/* ── Base (dark) ── */
+html.dark [data-tucu='code-block'] {
+  background-color: #1f2937;
+  border-color: #374151;
+  scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
+}
+
+html.dark [data-tucu='code-block']:hover {
+  border-color: #4b5563;
+}
+
+html.dark [data-tucu='code-block']::-webkit-scrollbar-thumb,
+html.dark [data-tucu='code-block'] *::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+html.dark [data-tucu='code-block']::-webkit-scrollbar-thumb:hover,
+html.dark [data-tucu='code-block'] *::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+html.dark [data-tucu='code-block'] .code-block-btn {
+  background-color: #374151;
+  color: #d1d5db;
+}
+
+html.dark [data-tucu='code-block'] .code-block-btn:hover {
+  background-color: #4b5563;
+}
+
+/* ── macOS Sonoma (light) ── */
+html.macos [data-tucu='code-block'] {
+  background-color: rgba(0, 0, 0, 0.04);
+  border-color: var(--macos-separator);
+  scrollbar-color: rgba(0, 0, 0, 0.12) transparent;
+}
+
+html.macos [data-tucu='code-block']:hover {
+  border-color: rgba(0, 0, 0, 0.3);
+}
+
+html.macos [data-tucu='code-block']::-webkit-scrollbar-thumb,
+html.macos [data-tucu='code-block'] *::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.12);
+}
+
+html.macos [data-tucu='code-block']::-webkit-scrollbar-thumb:hover,
+html.macos [data-tucu='code-block'] *::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 0, 0, 0.25);
+}
+
+html.macos [data-tucu='code-block'] .code-block-btn {
+  background-color: rgba(0, 0, 0, 0.06);
+  color: var(--macos-secondary-label);
+}
+
+html.macos [data-tucu='code-block'] .code-block-btn:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+/* ── macOS Sonoma (dark) ── */
+html.macos.dark [data-tucu='code-block'] {
+  background-color: rgba(255, 255, 255, 0.04);
+  border-color: var(--macos-separator);
+  scrollbar-color: rgba(255, 255, 255, 0.12) transparent;
+}
+
+html.macos.dark [data-tucu='code-block']:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+html.macos.dark [data-tucu='code-block']::-webkit-scrollbar-thumb,
+html.macos.dark [data-tucu='code-block'] *::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.12);
+}
+
+html.macos.dark [data-tucu='code-block']::-webkit-scrollbar-thumb:hover,
+html.macos.dark [data-tucu='code-block'] *::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255, 255, 255, 0.25);
+}
+
+html.macos.dark [data-tucu='code-block'] .code-block-btn {
+  background-color: rgba(255, 255, 255, 0.08);
+  color: var(--macos-secondary-label);
+}
+
+html.macos.dark [data-tucu='code-block'] .code-block-btn:hover {
+  background-color: rgba(255, 255, 255, 0.14);
+}
+
+/* ── macOS Tahoe (light) ── */
+html.macos-tahoe [data-tucu='code-block'] {
+  background-color: rgba(0, 0, 0, 0.03);
+  border-color: var(--macos-separator);
+  border-radius: var(--macos-radius-control);
+  scrollbar-color: rgba(0, 0, 0, 0.1) transparent;
+}
+
+html.macos-tahoe [data-tucu='code-block']:hover {
+  border-color: rgba(0, 0, 0, 0.28);
+}
+
+html.macos-tahoe [data-tucu='code-block']::-webkit-scrollbar-thumb,
+html.macos-tahoe [data-tucu='code-block'] *::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+html.macos-tahoe [data-tucu='code-block']::-webkit-scrollbar-thumb:hover,
+html.macos-tahoe [data-tucu='code-block'] *::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 0, 0, 0.22);
+}
+
+html.macos-tahoe [data-tucu='code-block'] .code-block-btn {
+  background-color: rgba(0, 0, 0, 0.05);
+  color: var(--macos-secondary-label);
+  border-radius: var(--macos-radius-small-control);
+}
+
+html.macos-tahoe [data-tucu='code-block'] .code-block-btn:hover {
+  background-color: rgba(0, 0, 0, 0.09);
+}
+
+/* ── macOS Tahoe (dark) ── */
+html.macos-tahoe.dark [data-tucu='code-block'] {
+  background-color: rgba(255, 255, 255, 0.03);
+  border-color: var(--macos-separator);
+  scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
+}
+
+html.macos-tahoe.dark [data-tucu='code-block']:hover {
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+html.macos-tahoe.dark [data-tucu='code-block']::-webkit-scrollbar-thumb,
+html.macos-tahoe.dark [data-tucu='code-block'] *::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+html.macos-tahoe.dark [data-tucu='code-block']::-webkit-scrollbar-thumb:hover,
+html.macos-tahoe.dark
+  [data-tucu='code-block']
+  *::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255, 255, 255, 0.22);
+}
+
+html.macos-tahoe.dark [data-tucu='code-block'] .code-block-btn {
+  background-color: rgba(255, 255, 255, 0.06);
+  color: var(--macos-secondary-label);
+}
+
+html.macos-tahoe.dark [data-tucu='code-block'] .code-block-btn:hover {
+  background-color: rgba(255, 255, 255, 0.12);
 }

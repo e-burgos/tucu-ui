@@ -25,6 +25,7 @@ export function NotificationCard({
   return (
     <AnchorLink
       to={url}
+      data-tucu="notification-card"
       className="mb-4 flex items-center rounded-lg bg-white p-4 shadow-card transition-all duration-200 last:mb-0 hover:-translate-y-0.5 hover:shadow-large dark:bg-light-dark sm:mb-5 sm:p-5"
     >
       <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-full sm:h-12 sm:w-12">

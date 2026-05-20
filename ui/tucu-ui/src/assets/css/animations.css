@@ -1,5 +1,16 @@
 /* ===================================================================
-   ANIMATIONS (Keyframes)
+   TUCU-UI — ANIMATIONS (Keyframes)
+   ===================================================================
+
+   Pure CSS @keyframes definitions used by the Tucu UI library.
+   Referenced via Tailwind's animate-* utilities or directly via
+   animation: <name> ... in component styles.
+
+   No Tailwind directives here — plain CSS only.
+   =================================================================== */
+
+/* ===================================================================
+   ATTENTION / FEEDBACK
    =================================================================== */
 
 @keyframes blink {
@@ -13,6 +24,10 @@
     opacity: 0.2;
   }
 }
+
+/* ===================================================================
+   EXPAND / SCALE
+   =================================================================== */
 
 @keyframes expand {
   0% {
@@ -48,6 +63,10 @@
   }
 }
 
+/* ===================================================================
+   MOVEMENT / TRANSLATE
+   =================================================================== */
+
 @keyframes moveUp {
   0% {
     transform: translateY(0);
@@ -75,12 +94,25 @@
   }
 }
 
+/* ===================================================================
+   LOADING / SHIMMER / WAVE
+   =================================================================== */
+
 @keyframes shimmer {
   0% {
     transform: translateX(-100%);
   }
   100% {
     transform: translateX(200%);
+  }
+}
+
+@keyframes wave {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
   }
 }
 

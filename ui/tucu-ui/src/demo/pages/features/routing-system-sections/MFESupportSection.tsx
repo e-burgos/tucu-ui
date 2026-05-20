@@ -1,33 +1,26 @@
 import React from 'react';
 import {
+  HeroCard,
   CardContainer,
   CardTitle,
   Typography,
   LucideIcons,
   CodeBlock,
   Alert,
+  FeatureCard,
 } from '../../../../index';
 
 const MFESupportSection: React.FC = () => {
-  const mfeRouteConfig = `interface IAppRouteConfig extends RouteProps {
+  const mfeRouteConfig = `import { RouteProps } from 'react-router-dom';
+
+// Extends React Router's RouteProps (provides path, element, index, etc.)
+type IAppRouteConfig = RouteProps & {
   key: string;           // Unique identifier for the route
   isPublic?: boolean;    // Whether the route is publicly accessible
-  disabled?: boolean;    // Whether the route is disabled
-  element: JSX.Element;  // The component to render
-}`;
+  disabled?: boolean;    // Whether the route is temporarily disabled
+};`;
 
-  const conditionalTyping = `// Conditional TypeScript Types
-// The ThemeProvider automatically infers the correct props based on architecturalPatterns
-
-// MFE Pattern
-type MfeThemeProviderProps = MfeAppThemeProviderProps & {
-  architecturalPatterns: 'mfe';
-};
-
-// TypeScript enforces required props for MFE mode
-// basePath and appRoutesConfig are required when architecturalPatterns="mfe"`;
-
-  const mfeBasicUsage = `import { ThemeProvider } from '@e-burgos/tucu-ui';
+  const mfeBasicUsage = `import { ThemeProvider, IAppRouteConfig } from '@e-burgos/tucu-ui';
 import '@e-burgos/tucu-ui/styles';
 
 const appRoutesConfig: IAppRouteConfig[] = [
@@ -35,7 +28,7 @@ const appRoutesConfig: IAppRouteConfig[] = [
     key: 'home',
     path: '/',
     element: <HomePage />,
-    isPublic: true, // Public route, no authentication required
+    isPublic: true,
   },
   {
     key: 'dashboard',
@@ -54,356 +47,226 @@ const appRoutesConfig: IAppRouteConfig[] = [
 function MfeApp() {
   return (
     <ThemeProvider
-      architecturalPatterns="mfe"  // Activates MFE mode
-      basePath="/my-app"           // Base path for the micro frontend
-      appRoutesConfig={appRoutesConfig}  // Required for MFE
+      architecturalPatterns="mfe"
+      basePath="/my-app"
+      appRoutesConfig={appRoutesConfig}
+      isAuthenticated={true}    // Required: authentication state
+      loginUrl="/auth/login"    // Required: redirect URL for unauthenticated users
       logo={{ name: 'My', secondName: 'App' }}
       showSettings
     />
   );
 }`;
 
-  const mfeAdvancedUsage = `import { ThemeProvider } from '@e-burgos/tucu-ui';
-import '@e-burgos/tucu-ui/styles';
+  const mfeAdvancedUsage = `import { ThemeProvider, IAppRouteConfig } from '@e-burgos/tucu-ui';
 
 const appRoutesConfig: IAppRouteConfig[] = [
   // Public routes (accessible without authentication)
-  {
-    key: 'login',
-    path: '/login',
-    element: <LoginPage />,
-    isPublic: true,
-  },
-  {
-    key: 'register',
-    path: '/register',
-    element: <RegisterPage />,
-    isPublic: true,
-  },
-  
+  { key: 'login', path: '/login', element: <LoginPage />, isPublic: true },
+  { key: 'register', path: '/register', element: <RegisterPage />, isPublic: true },
+
   // Private routes (require authentication)
-  {
-    key: 'dashboard',
-    path: '/dashboard',
-    element: <DashboardPage />,
-    isPublic: false,
-  },
-  {
-    key: 'settings',
-    path: '/settings',
-    element: <SettingsPage />,
-    isPublic: false,
-  },
-  
+  { key: 'dashboard', path: '/dashboard', element: <DashboardPage /> },
+  { key: 'settings', path: '/settings', element: <SettingsPage /> },
+
   // Disabled routes (temporarily unavailable)
-  {
-    key: 'beta-feature',
-    path: '/beta',
-    element: <BetaFeaturePage />,
-    disabled: true,
-  },
+  { key: 'beta', path: '/beta', element: <BetaPage />, disabled: true },
 ];
 
 function MfeApp() {
+  const { isLoggedIn } = useAuth();
+
   return (
     <ThemeProvider
       architecturalPatterns="mfe"
       basePath="/mfe-app"
       appRoutesConfig={appRoutesConfig}
+      isAuthenticated={isLoggedIn}
+      loginUrl="/mfe-app/login"
       logo={{ name: 'MFE', secondName: 'App' }}
       showSettings
-      // Note: menuItems and customRoutes are NOT allowed in MFE mode
-      // TypeScript will show an error if you try to use them
     />
   );
 }`;
 
-  const typeSafetyExample = `// ✅ Correct - MFE Pattern with required props
+  const typeSafetyExample = `// ✅ Correct — MFE with all required props
 <ThemeProvider
   architecturalPatterns="mfe"
   basePath="/app"
-  appRoutesConfig={[...]}
+  appRoutesConfig={routes}
+  isAuthenticated={isLoggedIn}
+  loginUrl="/login"
 />
 
-// ❌ Error - MFE Pattern without required props
+// ❌ Error — Missing required props
 <ThemeProvider
   architecturalPatterns="mfe"
-  // TypeScript Error: Property 'basePath' is missing
-  // TypeScript Error: Property 'appRoutesConfig' is missing
-/>
-
-// ❌ Error - Mixing MFE with Standalone App props
-<ThemeProvider
-  architecturalPatterns="mfe"
-  menuItems={[...]}  // Error: Property does not exist on MFE type
   basePath="/app"
-  appRoutesConfig={[...]}
+  appRoutesConfig={routes}
+  // TS Error: Property 'isAuthenticated' is missing
+  // TS Error: Property 'loginUrl' is missing
+/>
+
+// ❌ Error — Mixing MFE with Standalone props
+<ThemeProvider
+  architecturalPatterns="mfe"
+  menuItems={[...]}  // Error: not allowed in MFE mode
+  basePath="/app"
+  appRoutesConfig={routes}
 />`;
 
+  const features = [
+    {
+      icon: (
+        <LucideIcons.Settings className="w-6 h-6 text-white filter drop-shadow-sm" />
+      ),
+      title: 'Explicit Route Config',
+      description:
+        'Full control over each route via appRoutesConfig with access control.',
+      iconBgClassName: 'from-purple-500 to-indigo-500',
+    },
+    {
+      icon: (
+        <LucideIcons.Split className="w-6 h-6 text-white filter drop-shadow-sm" />
+      ),
+      title: 'Route Isolation',
+      description:
+        'Each MFE has its own basePath ensuring complete route isolation.',
+      iconBgClassName: 'from-blue-500 to-cyan-500',
+    },
+    {
+      icon: (
+        <LucideIcons.Lock className="w-6 h-6 text-white filter drop-shadow-sm" />
+      ),
+      title: 'Auth Integration',
+      description:
+        'Built-in public/private routes with isAuthenticated and loginUrl.',
+      iconBgClassName: 'from-red-500 to-rose-500',
+    },
+    {
+      icon: (
+        <LucideIcons.Rocket className="w-6 h-6 text-white filter drop-shadow-sm" />
+      ),
+      title: 'Independent Deploy',
+      description:
+        'Each app can be developed, built, and deployed independently.',
+      iconBgClassName: 'from-green-500 to-emerald-500',
+    },
+  ];
+
   return (
-    <div className="space-y-8">
-      <CardContainer>
-        <CardTitle title="Micro Frontends (MFE) Support" className="mt-2 mb-6">
-          <div className="space-y-6">
-            <div className="flex items-center gap-3">
-              <div className="p-2 rounded-lg bg-linear-to-br from-purple-500 to-indigo-500 shadow-lg">
-                <LucideIcons.Box className="w-5 h-5 text-white filter drop-shadow-sm" />
-              </div>
-              <Typography tag="h4" className="font-semibold">
-                Micro Frontend (MFE) Pattern
-              </Typography>
-            </div>
-
-            <Typography tag="p" className="text-gray-600 dark:text-gray-400">
-              The <strong>Micro Frontend (MFE) Pattern</strong> is designed for
-              distributed architectures where multiple applications need to be
-              deployed independently. It requires explicit route configuration
-              with{' '}
-              <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
-                appRoutesConfig
-              </code>{' '}
-              and a{' '}
-              <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
-                basePath
-              </code>
-              . Perfect for micro frontend architectures that need route
-              isolation, authentication boundaries, and independent deployments.
-            </Typography>
-
-            <Alert variant="info" dismissible={false}>
-              <div className="flex flex-col gap-2">
-                <div className="flex items-center gap-2">
-                  <LucideIcons.Info className="w-4 h-4" />
-                  <Typography tag="span" className="font-semibold">
-                    MFE Mode Requirements
-                  </Typography>
-                </div>
-                <Typography tag="p" className="text-sm">
-                  When using{' '}
-                  <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
-                    architecturalPatterns="mfe"
-                  </code>
-                  , you must provide{' '}
-                  <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
-                    basePath
-                  </code>{' '}
-                  and{' '}
-                  <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
-                    appRoutesConfig
-                  </code>
-                  . TypeScript will enforce these requirements at compile time.
-                </Typography>
-              </div>
-            </Alert>
-
-            <div className="space-y-6">
-              <div className="space-y-4">
-                <div className="flex items-center gap-3">
-                  <div className="p-2 rounded-lg bg-linear-to-br from-indigo-500 to-purple-500 shadow-lg">
-                    <LucideIcons.Code className="w-5 h-5 text-white filter drop-shadow-sm" />
-                  </div>
-                  <Typography tag="h4" className="font-semibold">
-                    Conditional TypeScript Types
-                  </Typography>
-                </div>
-                <Typography
-                  tag="p"
-                  className="text-sm text-gray-600 dark:text-gray-400"
-                >
-                  The ThemeProvider uses discriminated unions to automatically
-                  enforce the correct props based on{' '}
-                  <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
-                    architecturalPatterns
-                  </code>
-                  . When set to "mfe", TypeScript requires MFE-specific props.
-                </Typography>
-                <CodeBlock language="typescript" code={conditionalTyping} />
-              </div>
-
-              <div className="space-y-4">
-                <div className="flex items-center gap-3">
-                  <div className="p-2 rounded-lg bg-linear-to-br from-purple-500 to-indigo-500 shadow-lg">
-                    <LucideIcons.Settings className="w-5 h-5 text-white filter drop-shadow-sm" />
-                  </div>
-                  <Typography tag="h4" className="font-semibold">
-                    IAppRouteConfig Interface
-                  </Typography>
-                </div>
-                <Typography
-                  tag="p"
-                  className="text-sm text-gray-600 dark:text-gray-400"
-                >
-                  MFE pattern uses the{' '}
-                  <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
-                    IAppRouteConfig
-                  </code>{' '}
-                  interface for explicit route configuration with access control
-                  and route management.
-                </Typography>
-                <CodeBlock language="typescript" code={mfeRouteConfig} />
-              </div>
-
-              <div className="space-y-4">
-                <div className="flex items-center gap-3">
-                  <div className="p-2 rounded-lg bg-linear-to-br from-green-500 to-emerald-500 shadow-lg">
-                    <LucideIcons.Play className="w-5 h-5 text-white filter drop-shadow-sm" />
-                  </div>
-                  <Typography tag="h4" className="font-semibold">
-                    Basic MFE Usage
-                  </Typography>
-                </div>
-                <Typography
-                  tag="p"
-                  className="text-sm text-gray-600 dark:text-gray-400"
-                >
-                  Set{' '}
-                  <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
-                    architecturalPatterns="mfe"
-                  </code>{' '}
-                  to activate MFE mode. TypeScript will require{' '}
-                  <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
-                    basePath
-                  </code>{' '}
-                  and{' '}
-                  <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
-                    appRoutesConfig
-                  </code>
-                  .
-                </Typography>
-                <CodeBlock language="tsx" code={mfeBasicUsage} />
-              </div>
-
-              <div className="space-y-4">
-                <div className="flex items-center gap-3">
-                  <div className="p-2 rounded-lg bg-linear-to-br from-orange-500 to-amber-500 shadow-lg">
-                    <LucideIcons.Zap className="w-5 h-5 text-white filter drop-shadow-sm" />
-                  </div>
-                  <Typography tag="h4" className="font-semibold">
-                    Advanced: Public/Private Routes
-                  </Typography>
-                </div>
-                <Typography
-                  tag="p"
-                  className="text-sm text-gray-600 dark:text-gray-400"
-                >
-                  MFE pattern automatically handles authentication for private
-                  routes. Use{' '}
-                  <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
-                    isPublic
-                  </code>{' '}
-                  to control access and{' '}
-                  <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
-                    disabled
-                  </code>{' '}
-                  to temporarily disable routes.
-                </Typography>
-                <CodeBlock language="tsx" code={mfeAdvancedUsage} />
-              </div>
-
-              <div className="space-y-4">
-                <div className="flex items-center gap-3">
-                  <div className="p-2 rounded-lg bg-linear-to-br from-red-500 to-pink-500 shadow-lg">
-                    <LucideIcons.Shield className="w-5 h-5 text-white filter drop-shadow-sm" />
-                  </div>
-                  <Typography tag="h4" className="font-semibold">
-                    Type Safety Examples
-                  </Typography>
-                </div>
-                <Typography
-                  tag="p"
-                  className="text-sm text-gray-600 dark:text-gray-400"
-                >
-                  TypeScript prevents invalid prop combinations at compile time,
-                  ensuring type safety and preventing configuration errors.
-                </Typography>
-                <CodeBlock language="tsx" code={typeSafetyExample} />
-              </div>
-            </div>
-
-            <div className="space-y-4">
-              <Typography tag="h4" className="font-semibold text-lg">
-                Key Features
-              </Typography>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <CardContainer className="p-4">
-                  <div className="flex items-center gap-2 mb-3">
-                    <LucideIcons.CheckCircle className="w-5 h-5 text-green-500" />
-                    <Typography tag="h5" className="font-semibold">
-                      Explicit Route Configuration
-                    </Typography>
-                  </div>
-                  <Typography
-                    tag="p"
-                    className="text-sm text-gray-600 dark:text-gray-400"
-                  >
-                    Full control over route configuration with{' '}
-                    <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
-                      appRoutesConfig
-                    </code>
-                    . Each route is explicitly defined.
-                  </Typography>
-                </CardContainer>
-
-                <CardContainer className="p-4">
-                  <div className="flex items-center gap-2 mb-3">
-                    <LucideIcons.CheckCircle className="w-5 h-5 text-green-500" />
-                    <Typography tag="h5" className="font-semibold">
-                      Route Isolation
-                    </Typography>
-                  </div>
-                  <Typography
-                    tag="p"
-                    className="text-sm text-gray-600 dark:text-gray-400"
-                  >
-                    Each micro frontend has its own{' '}
-                    <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
-                      basePath
-                    </code>
-                    , ensuring complete route isolation.
-                  </Typography>
-                </CardContainer>
-
-                <CardContainer className="p-4">
-                  <div className="flex items-center gap-2 mb-3">
-                    <LucideIcons.CheckCircle className="w-5 h-5 text-green-500" />
-                    <Typography tag="h5" className="font-semibold">
-                      Authentication Integration
-                    </Typography>
-                  </div>
-                  <Typography
-                    tag="p"
-                    className="text-sm text-gray-600 dark:text-gray-400"
-                  >
-                    Built-in support for public/private routes with{' '}
-                    <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
-                      isPublic
-                    </code>
-                    . Automatic authentication handling.
-                  </Typography>
-                </CardContainer>
-
-                <CardContainer className="p-4">
-                  <div className="flex items-center gap-2 mb-3">
-                    <LucideIcons.CheckCircle className="w-5 h-5 text-green-500" />
-                    <Typography tag="h5" className="font-semibold">
-                      Independent Deployment
-                    </Typography>
-                  </div>
-                  <Typography
-                    tag="p"
-                    className="text-sm text-gray-600 dark:text-gray-400"
-                  >
-                    Perfect for micro frontend architectures where each app can
-                    be developed, built, and deployed independently.
-                  </Typography>
-                </CardContainer>
-              </div>
-            </div>
+    <>
+      <HeroCard
+        title="Micro Frontends (MFE)"
+        description="Designed for distributed architectures where multiple applications are deployed independently. Uses explicit route configuration with appRoutesConfig, basePath, and built-in authentication."
+        icon={
+          <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 bg-linear-to-br from-purple-500 via-indigo-500 to-blue-500 rounded-full flex items-center justify-center shadow-lg">
+            <LucideIcons.Box className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 text-white filter drop-shadow-lg" />
           </div>
-        </CardTitle>
-      </CardContainer>
-    </div>
+        }
+      />
+
+      <section className="space-y-8">
+        <div className="text-center">
+          <Typography tag="h2" className="mb-2">
+            IAppRouteConfig Interface
+          </Typography>
+          <Typography
+            tag="p"
+            className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto"
+          >
+            Extends React Router&apos;s RouteProps with access control
+          </Typography>
+        </div>
+        <CardContainer>
+          <CardTitle title="Interface Definition">
+            <CodeBlock language="typescript" code={mfeRouteConfig} />
+          </CardTitle>
+        </CardContainer>
+        <Alert variant="warning" dismissible={false}>
+          <Typography tag="p" className="text-sm">
+            <LucideIcons.AlertTriangle className="w-4 h-4 inline mr-2" />
+            MFE mode requires <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">isAuthenticated</code> (boolean) and <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">loginUrl</code> (string) as mandatory props. TypeScript enforces this at compile time.
+          </Typography>
+        </Alert>
+      </section>
+
+      <section className="space-y-8">
+        <div className="text-center">
+          <Typography tag="h2" className="mb-2">
+            Basic Usage
+          </Typography>
+          <Typography
+            tag="p"
+            className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto"
+          >
+            Minimal MFE setup with authentication
+          </Typography>
+        </div>
+        <CardContainer>
+          <CardTitle title="MFE ThemeProvider">
+            <CodeBlock language="tsx" code={mfeBasicUsage} />
+          </CardTitle>
+        </CardContainer>
+      </section>
+
+      <section className="space-y-8">
+        <div className="text-center">
+          <Typography tag="h2" className="mb-2">
+            Advanced: Public/Private Routes
+          </Typography>
+          <Typography
+            tag="p"
+            className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto"
+          >
+            Authentication handling with disabled routes
+          </Typography>
+        </div>
+        <CardContainer>
+          <CardTitle title="Advanced Configuration">
+            <CodeBlock language="tsx" code={mfeAdvancedUsage} />
+          </CardTitle>
+        </CardContainer>
+      </section>
+
+      <section className="space-y-8">
+        <div className="text-center">
+          <Typography tag="h2" className="mb-2">
+            Type Safety
+          </Typography>
+          <Typography
+            tag="p"
+            className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto"
+          >
+            TypeScript enforces correct prop combinations
+          </Typography>
+        </div>
+        <CardContainer>
+          <CardTitle title="Compile-Time Validation">
+            <CodeBlock language="tsx" code={typeSafetyExample} />
+          </CardTitle>
+        </CardContainer>
+      </section>
+
+      <section className="space-y-8">
+        <div className="text-center">
+          <Typography tag="h2" className="mb-2">
+            Key Features
+          </Typography>
+          <Typography
+            tag="p"
+            className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto"
+          >
+            Benefits of the MFE architectural pattern
+          </Typography>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+          {features.map((feature) => (
+            <FeatureCard key={feature.title} layout="vertical" {...feature} />
+          ))}
+        </div>
+      </section>
+    </>
   );
 };
 

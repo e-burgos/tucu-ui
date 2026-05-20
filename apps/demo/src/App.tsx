@@ -1,4 +1,4 @@
-import { LAYOUT_OPTIONS, ThemeProvider } from '@e-burgos/tucu-ui';
+import { ThemeProvider } from '@e-burgos/tucu-ui';
 import { useMenuItems } from './router/menuItems';
 import { RightButton } from './components/right-button';
 
@@ -14,7 +14,6 @@ function App() {
         primary: '#129961',
         darkPrimary: '#159962',
       }}
-      layout={LAYOUT_OPTIONS.HORIZONTAL}
       menuItems={menuItems}
     />
   );

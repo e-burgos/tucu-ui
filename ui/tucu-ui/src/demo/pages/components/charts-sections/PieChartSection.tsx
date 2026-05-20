@@ -21,12 +21,12 @@ const PieChartSection: React.FC = () => {
   return (
     <>
       <div className="text-center space-y-4">
-        <Typography tag="h2" className="text-3xl md:text-4xl font-bold">
+        <Typography tag="h2" className="text-base md:text-base font-semibold">
           PieChart
         </Typography>
         <Typography
           tag="p"
-          className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
+          className="text-sm text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
         >
           Pie and donut chart component for displaying proportions and
           distributions with labels and inner content support.

@@ -58,7 +58,7 @@ export function CollapsibleMenu({
         <>
           <div
             className={cn(
-              'relative flex h-[48px] cursor-pointer items-center justify-between whitespace-nowrap  rounded-lg px-[16px] text-sm transition-all',
+              'relative flex h-[48px] cursor-pointer items-center justify-between whitespace-nowrap  rounded-[8px] px-[16px] text-sm transition-all',
               isChildrenActive
                 ? 'text-white'
                 : 'text-gray-500 hover:text-brand dark:hover:text-white'
@@ -81,7 +81,7 @@ export function CollapsibleMenu({
             {isChildrenActive && (
               <motion.span
                 className={cn(
-                  'absolute bottom-0 left-0 right-0 h-full w-full rounded-lg bg-brand opacity-0 shadow-large transition-opacity'
+                  'absolute bottom-0 left-0 right-0 h-full w-full rounded-[8px] bg-brand opacity-0 shadow-large transition-opacity'
                 )}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -115,7 +115,7 @@ export function CollapsibleMenu({
                     path={item.path}
                     href={item.href}
                     to={item.href ? item.href : item.path}
-                    className="flex items-center rounded-lg p-[12px] text-sm text-gray-500 transition-all before:h-[4px] before:w-[4px] before:rounded-full before:bg-gray-500 hover:text-brand ltr:pl-[24px] before:ltr:mr-[20px] rtl:pr-[24px] before:rtl:ml-[20px] dark:hover:text-white"
+                    className="flex items-center rounded-[8px] p-[12px] text-sm text-gray-500 transition-all before:h-[4px] before:w-[4px] before:rounded-full before:bg-gray-500 hover:text-brand ltr:pl-[24px] before:ltr:mr-[20px] rtl:pr-[24px] before:rtl:ml-[20px] dark:hover:text-white"
                     activeClassName="!text-brand dark:!text-white dark:before:!bg-white before:!bg-brand before:!w-[8px] before:!h-[8px] before:-ml-[2px] before:ltr:!mr-[18px] before:rtl:!ml-[18px] !font-medium"
                   >
                     {item.name}
@@ -137,7 +137,7 @@ export function CollapsibleMenu({
           href={href}
           to={href ? href : path}
           className={cn(
-            'relative flex h-[48px] items-center whitespace-nowrap rounded-lg px-[16px] text-sm text-gray-500 transition-all hover:text-brand dark:hover:text-white',
+            'relative flex h-[48px] items-center whitespace-nowrap rounded-[8px] px-[16px] text-sm text-gray-500 transition-all hover:text-brand dark:hover:text-white',
             {
               'bg-brand': isActive,
             }
@@ -160,7 +160,7 @@ export function CollapsibleMenu({
           {path === pathname && (
             <motion.span
               className={cn(
-                'absolute bottom-0 left-0 right-0 h-full w-full rounded-lg bg-brand opacity-0 shadow-large transition-opacity'
+                'absolute bottom-0 left-0 right-0 h-full w-full rounded-[8px] bg-brand opacity-0 shadow-large transition-opacity'
               )}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}

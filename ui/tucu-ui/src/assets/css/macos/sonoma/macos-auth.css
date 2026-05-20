@@ -1,0 +1,162 @@
+/* ============================================================
+   macOS Sonoma 14 — Auth & Blockchain Component Overrides
+
+   Targets: SignInForm, SignUpForm, ForgetPasswordForm, ResetPinForm,
+            CoinCard, CoinInfoCard, CollectionCard, LivePriceFeed
+   Selectors: html.macos [data-tucu="auth-form"], etc.
+
+   References:
+   - Apple HIG > Forms: grouped table style, radius-xl
+   - Apple HIG > Typography: Label/SecondaryLabel system colors
+   - Crypto: monospace numbers, system green/red for price changes
+   ============================================================ */
+
+/* ══ AUTH FORMS ══════════════════════════════════════════════ */
+
+html.macos [data-tucu='auth-form'] {
+  font-family: var(--macos-font-family);
+}
+
+html.macos [data-tucu='auth-form-panel'] {
+  background-color: var(--macos-content-bg) !important;
+  border: 0.5px solid var(--macos-separator);
+  border-radius: var(--macos-radius-xl);
+  box-shadow: var(--macos-shadow-window);
+  padding: var(--macos-space-6) !important;
+}
+
+html.macos.dark [data-tucu='auth-form-panel'] {
+  background-color: var(--macos-content-bg) !important;
+  border-color: var(--macos-separator);
+}
+
+/* Auth form headings use macOS title2 */
+html.macos [data-tucu='auth-form-panel'] h2 {
+  font-size: 17px;
+  font-weight: var(--macos-font-weight-semibold);
+  letter-spacing: -0.4px;
+  color: var(--macos-label);
+}
+
+/* Auth form description */
+html.macos [data-tucu='auth-form-panel'] p {
+  font-size: var(--macos-font-size-body);
+  color: var(--macos-secondary-label);
+}
+
+/* Inline error in auth form */
+html.macos [data-tucu='auth-form-panel'] [role='alert'] {
+  border-radius: var(--macos-radius-control);
+  border-color: var(--macos-system-red) !important;
+  background-color: color-mix(
+    in srgb,
+    var(--macos-system-red) 10%,
+    var(--macos-content-bg)
+  ) !important;
+  color: var(--macos-system-red) !important;
+  font-size: var(--macos-font-size-callout);
+  font-family: var(--macos-font-family);
+}
+
+/* Inline success in auth form */
+html.macos [data-tucu='auth-form-panel'] .bg-green-50,
+html.macos [data-tucu='auth-form-panel'] [class*='bg-green'] {
+  border-color: var(--macos-system-green) !important;
+  background-color: color-mix(
+    in srgb,
+    var(--macos-system-green) 10%,
+    var(--macos-content-bg)
+  ) !important;
+  color: var(--macos-system-green) !important;
+  border-radius: var(--macos-radius-control);
+}
+
+/* ══ BLOCKCHAIN COMPONENTS ═══════════════════════════════════ */
+
+/* ── Coin Card ───────────────────────────────────────────────── */
+
+html.macos [data-tucu='coin-card'] {
+  border-radius: var(--macos-radius-xl) !important;
+  border: 0.5px solid rgba(0, 0, 0, 0.08);
+  box-shadow: var(--macos-shadow-card);
+  transition: box-shadow var(--macos-transition-fast);
+  font-family: var(--macos-font-family);
+}
+
+html.macos [data-tucu='coin-card']:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+
+html.macos.dark [data-tucu='coin-card'] {
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+/* Coin card label: use callout uppercase */
+html.macos [data-tucu='coin-card'] h4 {
+  font-size: var(--macos-font-size-callout);
+  font-weight: var(--macos-font-weight-semibold);
+  letter-spacing: 0.04em;
+}
+
+/* ── Coin Info Card ──────────────────────────────────────────── */
+
+html.macos [data-tucu='coin-info-card'] {
+  background-color: var(--macos-content-bg) !important;
+  border: 0.5px solid var(--macos-separator);
+  border-radius: var(--macos-radius-control) !important;
+  box-shadow: var(--macos-shadow-card);
+  font-family: var(--macos-font-family);
+  font-size: var(--macos-font-size-body);
+}
+
+html.macos [data-tucu='coin-info-card'] > div:first-child {
+  gap: 0.75rem;
+}
+
+html.macos.dark [data-tucu='coin-info-card'] {
+  background-color: var(--macos-content-bg) !important;
+  border-color: var(--macos-separator);
+}
+
+/* ── Collection Card ─────────────────────────────────────────── */
+
+html.macos [data-tucu='collection-card'] {
+  border-radius: var(--macos-radius-xl) !important;
+  overflow: hidden;
+  box-shadow: var(--macos-shadow-card);
+  transition: transform var(--macos-transition-fast),
+    box-shadow var(--macos-transition-fast);
+  font-family: var(--macos-font-family);
+}
+
+html.macos [data-tucu='collection-card']:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
+}
+
+/* ── Live Price Feed (positive/negative) ─────────────────────── */
+
+html.macos .price-up,
+html.macos [class*='text-green'] {
+  color: var(--macos-system-green) !important;
+}
+
+html.macos .price-down,
+html.macos [class*='text-red-5'] {
+  color: var(--macos-system-red) !important;
+}
+
+/* Monospace for crypto values */
+html.macos [data-tucu='coin-card'] span[class*='font-medium'],
+html.macos [data-tucu='coin-info-card'] span[class*='font-medium'] {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Reduced motion ──────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  html.macos [data-tucu='coin-card'],
+  html.macos [data-tucu='collection-card'] {
+    transition: none;
+  }
+}

@@ -1,0 +1,304 @@
+/* ============================================================
+   macOS Tahoe 26 — Toolbar
+
+   Scoped to html.macos-tahoe — no leakage to default theme.
+   References: Apple HIG > Toolbars > macOS Tahoe 26
+   Components: MacOSToolbar, MacOSToolbarGroup, MacOSToolbarButton,
+               MacOSToolbarOverflowMenu, ScrollEdge
+   ============================================================ */
+
+/* ── MacOSToolbar ────────────────────────────────────────────── */
+
+html.macos-tahoe [data-tucu='toolbar'] {
+  height: var(--macos-toolbar-height);
+  min-height: var(--macos-toolbar-height);
+  display: flex;
+  align-items: center;
+  padding: 0 var(--macos-space-2);
+  gap: var(--macos-space-1);
+  position: relative;
+  flex-shrink: 0;
+
+  /* Liquid Glass regular material */
+  background-color: var(--macos-glass-regular-bg);
+  backdrop-filter: blur(var(--macos-glass-blur, 28px)) saturate(1.6);
+  -webkit-backdrop-filter: blur(var(--macos-glass-blur, 28px)) saturate(1.6);
+  border-bottom: 0.5px solid var(--macos-separator);
+  z-index: 20;
+}
+
+html.macos-tahoe.dark [data-tucu='toolbar'] {
+  background-color: var(--macos-glass-regular-bg);
+  border-bottom-color: var(--macos-separator);
+}
+
+/* Fallback: no backdrop-filter support */
+@supports not (backdrop-filter: blur(1px)) {
+  html.macos-tahoe [data-tucu='toolbar'] {
+    background-color: var(--macos-glass-regular-bg-opaque);
+  }
+}
+
+/* Reduced transparency */
+@media (prefers-reduced-transparency: reduce) {
+  html.macos-tahoe [data-tucu='toolbar'] {
+    background-color: var(--macos-glass-regular-bg-opaque);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}
+
+/* Toolbar slots */
+html.macos-tahoe [data-tucu='toolbar-leading'] {
+  display: flex;
+  align-items: center;
+  gap: var(--macos-space-1);
+  flex-shrink: 0;
+}
+
+html.macos-tahoe [data-tucu='toolbar-center'] {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  gap: var(--macos-space-1);
+}
+
+html.macos-tahoe [data-tucu='toolbar-trailing'] {
+  display: flex;
+  align-items: center;
+  gap: var(--macos-space-1);
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+/* Toolbar title */
+html.macos-tahoe [data-tucu='toolbar-title'] {
+  font-family: var(--macos-font-family);
+  font-size: var(--macos-ts-body-size);
+  font-weight: var(--macos-font-weight-semibold);
+  line-height: var(--macos-ts-body-leading);
+  letter-spacing: var(--macos-ts-body-tracking);
+  color: var(--macos-label);
+  white-space: nowrap;
+  user-select: none;
+}
+
+/* ── MacOSToolbarGroup ───────────────────────────────────────── */
+/* Grouped buttons in a capsule — max 3 groups per toolbar */
+
+html.macos-tahoe [data-tucu='toolbar-group'] {
+  display: inline-flex;
+  align-items: center;
+  background-color: var(--macos-control-bg);
+  border-radius: var(--macos-radius-control);
+  border: 0.5px solid var(--macos-separator);
+  overflow: hidden;
+  gap: 0;
+  height: 28px;
+}
+
+html.macos-tahoe.dark [data-tucu='toolbar-group'] {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+/* Separator between items in a group */
+html.macos-tahoe [data-tucu='toolbar-group'] > * + * {
+  border-left: 0.5px solid var(--macos-separator);
+}
+
+html.macos-tahoe.dark [data-tucu='toolbar-group'] > * + * {
+  border-left-color: rgba(255, 255, 255, 0.1);
+}
+
+/* ── MacOSToolbarButton ──────────────────────────────────────── */
+/* Icon-only — tooltip is required for accessibility */
+
+html.macos-tahoe [data-tucu='toolbar-button'] {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--macos-radius-small-control);
+  border: none;
+  background-color: transparent;
+  color: var(--macos-label);
+  cursor: default;
+  padding: 0;
+  transition: background-color 0.12s ease, color 0.12s ease;
+  flex-shrink: 0;
+  position: relative;
+}
+
+html.macos-tahoe [data-tucu='toolbar-button']:hover {
+  background-color: var(--macos-control-bg-hover);
+  color: var(--macos-label);
+}
+
+html.macos-tahoe.dark [data-tucu='toolbar-button']:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+html.macos-tahoe [data-tucu='toolbar-button']:active {
+  background-color: var(--macos-control-bg-active);
+  transform: scale(0.95);
+}
+
+html.macos-tahoe [data-tucu='toolbar-button'][data-active='true'] {
+  background-color: color-mix(
+    in srgb,
+    var(--color-brand, #0088ff) 16%,
+    transparent
+  );
+  color: var(--macos-control-accent);
+}
+
+html.macos-tahoe.dark [data-tucu='toolbar-button'][data-active='true'] {
+  background-color: color-mix(
+    in srgb,
+    var(--color-brand, #0091ff) 20%,
+    transparent
+  );
+  color: var(--macos-control-accent);
+}
+
+html.macos-tahoe [data-tucu='toolbar-button'][disabled],
+html.macos-tahoe [data-tucu='toolbar-button']:disabled {
+  opacity: 0.38;
+  cursor: not-allowed;
+}
+
+html.macos-tahoe [data-tucu='toolbar-button']:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 var(--macos-focus-ring-width) var(--macos-focus-ring);
+}
+
+/* Inside a group: square not pill */
+html.macos-tahoe [data-tucu='toolbar-group'] [data-tucu='toolbar-button'] {
+  border-radius: 0;
+  height: 100%;
+}
+
+html.macos-tahoe
+  [data-tucu='toolbar-group']
+  [data-tucu='toolbar-button']:first-child {
+  border-radius: calc(var(--macos-radius-control) - 1px) 0 0
+    calc(var(--macos-radius-control) - 1px);
+}
+
+html.macos-tahoe
+  [data-tucu='toolbar-group']
+  [data-tucu='toolbar-button']:last-child {
+  border-radius: 0 calc(var(--macos-radius-control) - 1px)
+    calc(var(--macos-radius-control) - 1px) 0;
+}
+
+/* ── Toolbar Separator ───────────────────────────────────────── */
+
+html.macos-tahoe [data-tucu='toolbar-separator'] {
+  width: 0.5px;
+  height: 18px;
+  background-color: var(--macos-separator);
+  flex-shrink: 0;
+  margin: 0 var(--macos-space-1);
+}
+
+html.macos-tahoe.dark [data-tucu='toolbar-separator'] {
+  background-color: rgba(255, 255, 255, 0.14);
+}
+
+/* ── Scroll Edge ─────────────────────────────────────────────── */
+/* Appears at bottom of scrollable area to indicate more content */
+
+html.macos-tahoe [data-tucu='scroll-edge-top'] {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 20px;
+  background: linear-gradient(to bottom, var(--macos-window-bg), transparent);
+  pointer-events: none;
+  z-index: 10;
+}
+
+html.macos-tahoe [data-tucu='scroll-edge-bottom'] {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 20px;
+  background: linear-gradient(to top, var(--macos-window-bg), transparent);
+  pointer-events: none;
+  z-index: 10;
+}
+
+html.macos-tahoe.dark [data-tucu='scroll-edge-top'] {
+  background: linear-gradient(to bottom, var(--macos-window-bg), transparent);
+}
+
+html.macos-tahoe.dark [data-tucu='scroll-edge-bottom'] {
+  background: linear-gradient(to top, var(--macos-window-bg), transparent);
+}
+
+/* ── MacOSToolbarOverflowMenu ────────────────────────────────── */
+
+html.macos-tahoe [data-tucu='toolbar-overflow-btn'] {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--macos-radius-small-control);
+  background-color: var(--macos-control-bg);
+  border: 0.5px solid var(--macos-separator);
+  color: var(--macos-label);
+  cursor: default;
+}
+
+html.macos-tahoe [data-tucu='toolbar-overflow-btn']:hover {
+  background-color: var(--macos-control-bg-hover);
+}
+
+html.macos-tahoe [data-tucu='toolbar-overflow-menu'] {
+  border-radius: var(--macos-radius-popover);
+  background-color: var(--macos-glass-regular-bg-opaque);
+  backdrop-filter: blur(var(--macos-glass-blur, 28px));
+  -webkit-backdrop-filter: blur(var(--macos-glass-blur, 28px));
+  box-shadow: var(--macos-shadow-popover, var(--macos-shadow-window));
+  border: 0.5px solid var(--macos-glass-border);
+  padding: var(--macos-space-1) 0;
+  min-width: 160px;
+}
+
+html.macos-tahoe [data-tucu='toolbar-overflow-item'] {
+  display: flex;
+  align-items: center;
+  gap: var(--macos-space-2);
+  padding: 5px var(--macos-space-3);
+  font-family: var(--macos-font-family);
+  font-size: var(--macos-ts-body-size);
+  font-weight: var(--macos-font-weight-regular);
+  color: var(--macos-label);
+  cursor: default;
+  white-space: nowrap;
+}
+
+html.macos-tahoe [data-tucu='toolbar-overflow-item']:hover {
+  background-color: var(--macos-control-accent);
+  color: #ffffff;
+  border-radius: 4px;
+  margin: 0 4px;
+  padding-left: calc(var(--macos-space-3) - 4px);
+  padding-right: calc(var(--macos-space-3) - 4px);
+}
+
+/* ── Reduced motion ──────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  html.macos-tahoe [data-tucu='toolbar-button'] {
+    transition: none;
+    transform: none !important;
+  }
+}

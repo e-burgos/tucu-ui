@@ -27,6 +27,7 @@ import {
   macosLightPresets,
   LangType,
   defaultLang,
+  THEME_STYLE_LAYOUTS,
 } from '../config/index';
 
 // ─── Default State ─────────────────────────────────────────────
@@ -48,6 +49,9 @@ const defaultPresets = {
   darkLightDarkPreset: defaultDarkLightDarkPreset,
 } as const;
 
+// ─── Background Variant Type ───────────────────────────────────
+export type TahoeBackgroundVariant = 'base' | 'wave' | 'wallpaper' | 'mobile';
+
 const defaultState = {
   ...defaultPresets,
   direction: defaultDirection,
@@ -58,6 +62,7 @@ const defaultState = {
   showSettings: false,
   isSettingsOpen: false,
   lang: defaultLang,
+  backgroundVariant: 'base' as TahoeBackgroundVariant,
 } as const;
 
 // ─── Types ─────────────────────────────────────────────────────
@@ -89,13 +94,16 @@ interface IThemeState {
   isSettingsOpen: boolean;
   showSettings: boolean;
   lang: LangType;
+  backgroundVariant: TahoeBackgroundVariant;
 }
 
 /** Full store interface: state + auto-generated setters + actions */
 export interface ITheme extends IThemeState, Setters<IThemeState> {
   restoreDefaultColors: () => void;
   applyMacOSTheme: () => void;
+  applyMacOSTahoeTheme: () => void;
   applyDefaultTheme: () => void;
+  applyThemeStyle: (themeStyle: THEME_VARIANT) => void;
 }
 
 // ─── Store ─────────────────────────────────────────────────────
@@ -136,12 +144,20 @@ export const useTheme = create<ITheme>()(
           logo: defaultLogo,
           isSettingsOpen: false,
           lang: defaultLang,
+          backgroundVariant: 'base',
         }),
 
       applyMacOSTheme: () =>
         set({
           ...macosLightPresets,
           colorScheme: 'macos',
+          layout: LAYOUT_OPTIONS.MACOS,
+        }),
+
+      applyMacOSTahoeTheme: () =>
+        set({
+          ...macosLightPresets,
+          colorScheme: 'macos-tahoe',
           layout: LAYOUT_OPTIONS.MACOS_TAHOE,
         }),
 
@@ -151,6 +167,17 @@ export const useTheme = create<ITheme>()(
           colorScheme: 'default',
           layout: defaultLayout,
         }),
+
+      applyThemeStyle: (themeStyle: THEME_VARIANT) => {
+        const config = THEME_STYLE_LAYOUTS[themeStyle];
+        const presets =
+          themeStyle === 'default' ? defaultPresets : macosLightPresets;
+        set({
+          ...presets,
+          colorScheme: themeStyle,
+          layout: config.defaultLayout,
+        });
+      },
     }),
     {
       name: 'theme-storage',

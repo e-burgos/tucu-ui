@@ -83,11 +83,18 @@ const LayoutType = ({
 
   if (
     layout === LAYOUT_OPTIONS.MACOS ||
-    layout === LAYOUT_OPTIONS.MACOS_TAHOE
+    layout === LAYOUT_OPTIONS.MACOS_TAHOE ||
+    layout === LAYOUT_OPTIONS.MACOS_TAHOE_DOCK
   ) {
+    const variant =
+      layout === LAYOUT_OPTIONS.MACOS_TAHOE_DOCK
+        ? 'tahoe-dock'
+        : layout === LAYOUT_OPTIONS.MACOS_TAHOE
+        ? 'tahoe'
+        : 'sonoma';
     return (
       <MacOSLayout
-        variant={layout === LAYOUT_OPTIONS.MACOS_TAHOE ? 'tahoe' : 'sonoma'}
+        variant={variant}
         logo={logo}
         rightButton={rightButton}
         menuItems={menuItems}

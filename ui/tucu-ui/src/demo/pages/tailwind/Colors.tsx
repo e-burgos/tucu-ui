@@ -195,7 +195,7 @@ export function Colors() {
   const opacityLevels = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
 
   return (
-    <div className="space-y-8 sm:space-y-12 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative pt-8 lg:pt-12">
+    <div className="space-y-8 max-w-6xl sm:space-y-12 w-full mx-auto px-4 sm:px-6 lg:px-8 relative pt-8 lg:pt-12">
       {/* Hero Section */}
       <HeroCard
         title="Color System"
@@ -204,7 +204,7 @@ export function Colors() {
         getStartedButton
         docsButton="design-system"
         icon={
-          <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 bg-brand/70 rounded-full flex items-center justify-center shadow-lg border border-brand/50">
+          <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 bg-linear-to-br from-blue-500 via-indigo-500 to-purple-500 rounded-full flex items-center justify-center shadow-lg">
             <LucideIcons.Palette className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 text-white filter drop-shadow-lg" />
           </div>
         }
@@ -213,15 +213,12 @@ export function Colors() {
       {/* Semantic Colors */}
       <section className="space-y-8">
         <div className="text-center">
-          <Typography
-            tag="h2"
-            className="mb-4 text-2xl sm:text-3xl md:text-4xl font-bold"
-          >
+          <Typography tag="h2" className="mb-2">
             Semantic Colors
           </Typography>
           <Typography
             tag="p"
-            className="text-base sm:text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto"
+            className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto"
           >
             Predefined semantic colors for consistent UI patterns
           </Typography>
@@ -270,15 +267,12 @@ export function Colors() {
       {/* Color Palettes */}
       <section className="space-y-8">
         <div className="text-center">
-          <Typography
-            tag="h2"
-            className="mb-4 text-2xl sm:text-3xl md:text-4xl font-bold"
-          >
+          <Typography tag="h2" className="mb-2">
             Color Palettes
           </Typography>
           <Typography
             tag="p"
-            className="text-base sm:text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto"
+            className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto"
           >
             Explore our comprehensive color system with 22 color families
           </Typography>
@@ -332,15 +326,12 @@ export function Colors() {
       {/* Gradients */}
       <section className="space-y-8">
         <div className="text-center">
-          <Typography
-            tag="h2"
-            className="mb-4 text-2xl sm:text-3xl md:text-4xl font-bold"
-          >
+          <Typography tag="h2" className="mb-2">
             Gradient Combinations
           </Typography>
           <Typography
             tag="p"
-            className="text-base sm:text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto"
+            className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto"
           >
             Beautiful gradient combinations for modern UI designs
           </Typography>
@@ -354,7 +345,7 @@ export function Colors() {
             >
               <div className="w-full space-y-4">
                 <div
-                  className={`h-24 rounded-lg bg-gradient-to-r ${gradient.classes} group-hover:scale-105 transition-transform duration-300`}
+                  className={`h-24 rounded-lg bg-linear-to-r ${gradient.classes} group-hover:scale-105 transition-transform duration-300`}
                 ></div>
                 <div className="space-y-2">
                   <Typography
@@ -379,15 +370,12 @@ export function Colors() {
       {/* Opacity Variations */}
       <section className="space-y-8">
         <div className="text-center">
-          <Typography
-            tag="h2"
-            className="mb-4 text-2xl sm:text-3xl md:text-4xl font-bold"
-          >
+          <Typography tag="h2" className="mb-2">
             Opacity Variations
           </Typography>
           <Typography
             tag="p"
-            className="text-base sm:text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto"
+            className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto"
           >
             Explore opacity levels from 10% to 100% for layered designs
           </Typography>
@@ -461,15 +449,12 @@ export function Colors() {
       {/* Usage Examples */}
       <section className="space-y-8">
         <div className="text-center">
-          <Typography
-            tag="h2"
-            className="mb-4 text-2xl sm:text-3xl md:text-4xl font-bold"
-          >
+          <Typography tag="h2" className="mb-2">
             Usage Examples
           </Typography>
           <Typography
             tag="p"
-            className="text-base sm:text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto"
+            className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto"
           >
             See how colors work in real components and applications
           </Typography>
@@ -606,15 +591,12 @@ export function Colors() {
       {/* Color System Info */}
       <section className="space-y-8">
         <div className="text-center">
-          <Typography
-            tag="h2"
-            className="mb-4 text-2xl sm:text-3xl md:text-4xl font-bold"
-          >
+          <Typography tag="h2" className="mb-2">
             Color System Features
           </Typography>
           <Typography
             tag="p"
-            className="text-base sm:text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto"
+            className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto"
           >
             Built with modern color science and accessibility in mind
           </Typography>
@@ -682,7 +664,7 @@ export function Colors() {
               <div className="w-full space-y-4">
                 <div className="flex items-center gap-4">
                   <div
-                    className={`p-3 rounded-xl bg-gradient-to-br ${feature.color} group-hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-xl`}
+                    className={`p-3 rounded-xl bg-linear-to-br ${feature.color} group-hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-xl`}
                   >
                     {feature.icon}
                   </div>

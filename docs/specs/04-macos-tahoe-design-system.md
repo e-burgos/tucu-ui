@@ -1,7 +1,7 @@
 # Spec 04 — macOS Tahoe 26 Liquid Glass Design System
 
 **Fecha:** 2026-05-11
-**Version:** 1.0
+**Version:** 1.1
 **Estado:** Propuesto
 **Branch:** `feat/macos-design-system`
 **Dependencias:** Spec 03 — macOS Sonoma 14 Design System
@@ -101,21 +101,145 @@ Charts deben consumir tokens del theme y wrappers Tucu UI; componentes blockchai
 - Charts deben usar wrappers Tucu UI (`LineChart`, `BarChart`, `ChartContainer`, `ChartTooltip`, `ChartEmptyState`) y adaptar su tema via tokens, no con Recharts crudo en demos del design system.
 - Si se agregan componentes publicos nuevos, se debe actualizar el barrel export, regenerar props metadata y sincronizar docs con `tucu-ui-docs-sync`.
 
-### Restriccion importante de fuentes
+### Coexistencia Layout existente y Shell macOS
 
-No distribuir ni embeber archivos SF Pro como `.woff2` dentro del paquete sin validar licencia. La pagina de Apple Fonts permite descargar San Francisco para diseno/mockups bajo licencia Apple, pero no habilita redistribuir la fuente dentro de una libreria web general.
+Tucu UI tiene layouts propios (`RootLayout`, `AdminLayout`, `CleanLayout`, `HorizontalLayout`) con headers (`Header`, `AdminHeader`, `HorizontalHeader`), menus (`CollapsibleMenu`, `ExpandableSidebar`, `HorizontalNavMenu`) y areas auxiliares (`AdminRightArea`, `HorizontalRightArea`). Al activar `colorScheme: 'macos'`, el sistema debe resolver como conviven con el shell macOS:
 
-El theme debe usar esta estrategia:
+| Layout/componente existente                   | Comportamiento en `colorScheme: 'macos'`                                                                     |
+| --------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| `RootLayout`                                  | Sigue siendo el wrapper raiz; aplica `html.macos` y fondo espacial Tahoe si corresponde.                     |
+| `AdminLayout`                                 | Se adapta visualmente: el sidebar se restylea como source list Tahoe, el header como toolbar Tahoe.          |
+| `CleanLayout`                                 | Layout sin sidebar/header; aplica tokens Tahoe a fondos y tipografia.                                        |
+| `HorizontalLayout`                            | Se adapta: la nav horizontal hereda glass regular; no se reemplaza por sidebar.                              |
+| `Header` / `AdminHeader` / `HorizontalHeader` | Se restylean con Liquid Glass regular, toolbar height Tahoe y slots compatibles con `MacOSToolbar`.          |
+| `CollapsibleMenu` / `ExpandableSidebar`       | Se restylean como source list Tahoe con row states, badges y secciones. No se reemplazan por `MacOSSidebar`. |
+| `HorizontalNavMenu`                           | Hereda glass regular y estilos de menu bar Tahoe en modo macOS.                                              |
+| `SidebarMenu`                                 | Se restylea como sidebar Tahoe con disclosure y secciones.                                                   |
+| `AdminRightArea` / `HorizontalRightArea`      | Se restylean con tokens de controles Tahoe y densidad de escritorio.                                         |
+| `MenuItem`                                    | Hereda estados hover/pressed/selected Tahoe y tipografia del menu.                                           |
+
+Reglas:
+
+- `LAYOUT_OPTIONS.MACOS` activa tanto el `colorScheme: 'macos'` como un layout coherente. La implementacion debe definir si MACOS usa `AdminLayout` restyleado o un layout exclusivo con `MacOSWindow` + `MacOSToolbar` + `MacOSSidebar`.
+- Los layouts existentes NO se reemplazan ni duplican; se restylean via CSS tokens + `html.macos`. Los componentes macOS exclusivos (`MacOSWindow`, `MacOSSidebar`, `MacOSToolbar`) pueden usarse como alternativa de layout avanzada pero no son obligatorios para el restyling basico.
+- `applyMacOSTheme()` activa el theme y opcionalmente cambia al layout macOS coherente; `applyDefaultTheme()` restaura layout y limpia `html.macos`.
+
+### Transicion entre themes
+
+Cuando el usuario cambia entre Default y macOS en runtime:
+
+- La transicion debe ser inmediata (no animada) por defecto para evitar artefactos de layout shift.
+- `applyMacOSTheme()` agrega `html.macos`, aplica tokens y cambia layout; `applyDefaultTheme()` revierte todo sin dejar clases residuales.
+- Si una implementacion futura quiere animacion suave, debe usar `view-transition-name` o `@starting-style` CSS, nunca JavaScript timers.
+- El cambio de theme no debe causar re-mount de componentes; solo re-render de estilos via CSS custom properties.
+
+### Adaptacion de hooks y utilities
+
+| Hook / Utility    | Adaptacion en macOS                                                                                        |
+| ----------------- | ---------------------------------------------------------------------------------------------------------- |
+| `useChartTheme`   | Debe consumir tokens macOS automaticamente cuando `colorScheme === 'macos'`. Ver seccion Tokens de Charts. |
+| `useBreakpoint`   | No cambia; los breakpoints responsive se mantienen iguales.                                                |
+| `useThemeColor`   | Debe resolver colores via tokens macOS cuando el theme esta activo.                                        |
+| `useGridSwitcher` | Se mantiene funcional; el grid layout sigue siendo valido en macOS.                                        |
+| `useDirection`    | Sin cambios; macOS soporta LTR y RTL.                                                                      |
+| `useToastStore`   | Sin cambios en API; el componente `Toast` se restylea via CSS.                                             |
+
+### Performance de `backdrop-filter`
+
+`backdrop-filter` es costoso en web (GPU compositing, repaints en cada frame de scroll). Reglas obligatorias:
+
+- No anidar mas de 2 capas de `backdrop-filter` simultaneas en el viewport visible.
+- Elementos con `backdrop-filter` deben tener `will-change: transform` o `contain: paint` para aislar la composicion.
+- Usar `@supports (backdrop-filter: blur(1px))` con fallback opaco para browsers sin soporte o GPU debil.
+- En `prefers-reduced-transparency: reduce`, eliminar `backdrop-filter` y usar fondo opaco tokenizado.
+- En `prefers-reduced-motion: reduce`, mantener `backdrop-filter` estatico pero eliminar transiciones de blur.
+- No aplicar `backdrop-filter` a listas largas, tablas con muchas rows ni componentes que se renderizan en loop. Solo en barras, popovers, sheets y controles flotantes de capa unica.
+- Medir FPS en Chrome DevTools con Layout Shift y Paint Flashing antes de agregar blur a un nuevo componente.
+
+### Estrategia de fuentes
+
+#### Restriccion legal: SF Pro NO es redistribuible
+
+La licencia de Apple es explicita:
+
+> "THE APPLE SAN FRANCISCO FONT IS TO BE USED SOLELY FOR CREATING MOCK-UPS OF USER INTERFACES TO BE USED IN SOFTWARE PRODUCTS RUNNING ON APPLE'S iOS, OS X OR tvOS OPERATING SYSTEMS"
+> "You may not embed the Apple Font in any software programs or other products"
+
+Esto significa que **no podemos**: embeber `.woff2`, incluirla en el bundle, ni referenciarla via CDN propio.
+
+#### Solucion: Inter como fuente primaria del theme macOS
+
+**Inter** (por Rasmus Andersson) es la fuente libre elegida para el theme macOS:
+
+| Caracteristica    | Inter                                            | SF Pro                           |
+| ----------------- | ------------------------------------------------ | -------------------------------- |
+| Licencia          | SIL Open Font License 1.1 (libre redistribucion) | Propietaria Apple (solo mockups) |
+| Pesos             | 9 (100-900)                                      | 9 (Ultralight-Black)             |
+| Variable font     | Si (wght + opsz)                                 | Si                               |
+| Optical sizes     | 14pt-32pt (text → display)                       | Text / Display                   |
+| x-height          | Alta (1118 UPM @ opsz=14)                        | Alta                             |
+| Disenada para     | Pantallas, UI, legibilidad                       | Pantallas Apple                  |
+| Tabular numbers   | Si (tnum)                                        | Si                               |
+| Idiomas           | 147                                              | ~100                             |
+| OpenType features | Contextual alternates, slashed zero, fracs       | Similares                        |
+
+**Justificacion**: Inter tiene metricas muy similares a SF Pro (x-height alta, diseno geometrico-grotesque hibrido, optimizada para 13-16px), es la fuente UI libre mas usada del mundo (GitHub, Mozilla, Figma), y su licencia SIL OFL permite redistribucion completa.
+
+**Para monospace**: JetBrains Mono (SIL OFL, ligatures, 8 pesos, disenada para codigo).
+
+#### Font stack con fallback inteligente
 
 ```css
+/* @font-face: Inter se bundlea con el theme */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('./fonts/Inter-Variable.woff2') format('woff2-variations');
+  font-variation-settings: 'opsz' 16;
+}
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 100 800;
+  font-display: swap;
+  src: url('./fonts/JetBrainsMono-Variable.woff2') format('woff2-variations');
+}
+
 html.macos {
-  --macos-font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro Display', 'Helvetica Neue', Arial, sans-serif;
-  --macos-font-display: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', Arial, sans-serif;
-  --macos-font-mono: 'SF Mono', SFMono-Regular, ui-monospace, Menlo, Monaco, Consolas, monospace;
+  /* En macOS real: -apple-system resuelve a SF Pro automaticamente.
+     En otros OS: Inter se carga del bundle.
+     Resultado: aspecto macOS-autentico en TODAS las plataformas. */
+  --macos-font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+  --macos-font-display: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+  --macos-font-mono: 'JetBrains Mono', 'SF Mono', SFMono-Regular, ui-monospace, Menlo, Monaco, Consolas, monospace;
+
+  /* Optical sizing automatico */
+  font-optical-sizing: auto;
+
+  /* Features tipograficas macOS-like */
+  font-feature-settings: 'liga' 1, 'calt' 1, 'kern' 1;
 }
 ```
 
-En macOS Safari/Chrome se vera con SF Pro por sistema. En otros sistemas se usara fallback seguro sin cargar archivos propietarios.
+#### Estructura de archivos de fuentes
+
+```txt
+ui/tucu-ui/src/assets/fonts/
+  Inter-Variable.woff2           # ~300KB, cubre todos los pesos + italica
+  JetBrainsMono-Variable.woff2   # ~150KB, monospace con ligatures
+```
+
+#### Reglas de implementacion
+
+1. **Inter se bundlea** dentro del paquete CSS del theme macOS (SIL OFL lo permite)
+2. **En macOS nativo** el browser prioriza `-apple-system` → SF Pro se usa si esta disponible
+3. **En Windows/Linux** Inter se carga del bundle → aspecto consistente macOS-like
+4. **Subset opcional**: si el bundle size es critico, crear subset Latin (reduce a ~90KB)
+5. **font-display: swap** para evitar FOIT (flash of invisible text)
+6. **No usar CDN externo** (Google Fonts) — self-hosted para independencia y privacidad
 
 ## Arquitectura propuesta
 
@@ -392,6 +516,92 @@ La prioridad de implementacion debe favorecer primero el comportamiento transver
 | `MacOSBox`               | Basico   | Equivalente AppKit box para agrupar contenido relacionado.                         |
 | `MacOSEmptyState`        | Basico   | Icono, titulo corto y accion primaria; sin hero decorativo.                        |
 
+### F.bis Componentes existentes sin mencion explicita
+
+Estos componentes ya estan exportados por Tucu UI y son visibles en pantallas del theme macOS. Deben restylearse via tokens CSS + `html.macos` sin cambiar su API publica.
+
+| Componente         | Tipo   | Requerimiento Tahoe                                                                              |
+| ------------------ | ------ | ------------------------------------------------------------------------------------------------ |
+| `Avatar`           | Basico | Borde sutil adaptativo, shadow macOS, tamano coherente con row height Tahoe.                     |
+| `Tooltip`          | Basico | Material regular glass, tamano 11px, placement consistente y delay macOS (~0.5s).                |
+| `Collapse`         | Basico | Disclosure chevron animado (reduced motion compatible), borde sutil, padding Tahoe.              |
+| `KeyValueRow`      | Basico | Label secundario, valor primario, separador hairline, tipografia compacta macOS.                 |
+| `Pagination`       | Basico | Controles compactos con radios Tahoe, estados hover/disabled, numeros en Body style.             |
+| `Tab` / `ParamTab` | Basico | Mapear a tab bar Tahoe con selected underline o filled state y tipografia Title 3.               |
+| `TabSelect`        | Basico | Variante de seleccion de tabs; adaptar a segmented control Tahoe si es toolbar context.          |
+| `ActiveLink`       | Basico | Color accent macOS por defecto, underline sutil, visited no cambia (macOS convention).           |
+| `AnchorLink`       | Basico | Igual que ActiveLink; color accent y transicion suave.                                           |
+| `Carousel`         | Basico | Controles prev/next con icon button glass, indicators con radius pill, spacing Tahoe.            |
+| `CarouselCards`    | Basico | Cards internas como surfaces macOS sobrias, sin glass.                                           |
+| `CarouselImage`    | Basico | Aspect ratio preservado, corners redondeados, shadow Tahoe.                                      |
+| `PinCode`          | Basico | Inputs individuales con radius-control, focus ring macOS, gap consistente.                       |
+| `Scrollbar`        | Basico | Overlay scrollbar macOS, 6px track, radius pill, auto-hide con hover reveal.                     |
+| `ScrollbarNative`  | Basico | CSS overrides para `::-webkit-scrollbar` con colores macOS tokenizados.                          |
+| `ListContainer`    | Basico | Fondo grouped, separadores hairline, padding Tahoe.                                              |
+| `ListItem`         | Basico | Row height macOS, selected state, hover state, icon + label layout.                              |
+| `Typography`       | Basico | Mapear variantes h1-h6, body, code a text styles macOS (Large Title, Title 1-3, Body, etc.).     |
+| `CodeBlock`        | Basico | Font mono macOS, fondo grouped, borde sutil, radius-control.                                     |
+| `Image`            | Basico | Corners redondeados opcionales, shadow Tahoe para images elevadas.                               |
+| `Hamburger`        | Basico | Adaptar a icon button macOS con estados; considerar hide en layout macOS con sidebar permanente. |
+| `Loader`           | Basico | Circular indeterminate macOS, color accent, reduced motion: estatico con opacity pulse.          |
+| `Alert`            | Basico | Material regular, icono semantico, colores system (Red/Green/Blue/Yellow), borde sutil.          |
+| `FormField`        | Basico | Label alineado, spacing macOS, error text con color system red.                                  |
+| `HookForm`         | Basico | Wrapper; hereda estilos de Form. Sin cambios propios, se restylea transitivamente.               |
+
+#### Layouts y navegacion estructural existente
+
+| Componente                                    | Tipo   | Requerimiento Tahoe                                                                      |
+| --------------------------------------------- | ------ | ---------------------------------------------------------------------------------------- |
+| `RootLayout`                                  | Basico | Aplica fondo espacial Tahoe, fuente del sistema, transicion de theme.                    |
+| `AdminLayout`                                 | Basico | Sidebar como source list glass, header como toolbar glass, content pane solido.          |
+| `CleanLayout`                                 | Basico | Fondo content-bg, tipografia macOS, sin barras.                                          |
+| `HorizontalLayout`                            | Basico | Nav horizontal con glass regular, spacing Tahoe, selected state.                         |
+| `Header` / `AdminHeader` / `HorizontalHeader` | Basico | Glass regular, toolbar height, slots leading/center/trailing, title bar area si aplica.  |
+| `CollapsibleMenu`                             | Basico | Source list Tahoe: secciones, disclosure chevrons, row states, badges, accent selection. |
+| `ExpandableSidebar`                           | Basico | Glass regular, width transicion, toggle icon button, scroll overlay.                     |
+| `HorizontalNavMenu`                           | Basico | Items con glass hover, selected underline o filled, spacing horizontal macOS.            |
+| `SidebarMenu`                                 | Basico | Source list con secciones y disclosure; estados active/inactive.                         |
+| `MenuItem`                                    | Basico | Hover/pressed/selected states Tahoe, icon + label, shortcut area si aplica.              |
+| `AdminRightArea` / `HorizontalRightArea`      | Basico | Controles compactos, tokens macOS, densidad escritorio.                                  |
+
+#### Cards variantes y dialog adicionales
+
+| Componente         | Tipo   | Requerimiento Tahoe                                                    |
+| ------------------ | ------ | ---------------------------------------------------------------------- |
+| `CardTitle`        | Basico | Tipografia Title 2 o Title 3, color label primario.                    |
+| `AuthorCard`       | Basico | Avatar + nombre + metadata; surface macOS sobria, separadores sutiles. |
+| `InfoCard`         | Basico | Surface grouped, icono semantico, tipografia Body/Callout.             |
+| `PanelActionCard`  | Basico | Surface con accion primaria; boton prominent glass si es CTA.          |
+| `PanelCard`        | Basico | Surface grouped neutra, sin glass, borde sutil.                        |
+| `TabModal`         | Basico | Dialog con tabs internos; tabs restyleados como tab bar Tahoe.         |
+| `DrawerContainer`  | Basico | Container del drawer; adaptar a sheet/sidebar visual segun direccion.  |
+| `Sidebar` (dialog) | Basico | Sidebar como overlay; glass regular con dimming del fondo.             |
+
+#### Auth forms
+
+| Componente           | Tipo   | Requerimiento Tahoe                                                                           |
+| -------------------- | ------ | --------------------------------------------------------------------------------------------- |
+| `SignInForm`         | Basico | Inputs, buttons y labels con tokens macOS; validacion con system colors; layout form grouped. |
+| `SignUpForm`         | Basico | Igual que SignInForm; campos adicionales con spacing macOS consistente.                       |
+| `ForgetPasswordForm` | Basico | Layout compacto, input email con focus ring macOS, boton prominent.                           |
+| `ResetPinForm`       | Basico | PinCode inputs con tokens macOS, boton prominent.                                             |
+
+#### Blockchain / DeFi
+
+Estos componentes deben reinterpretar sus superficies, badges, iconos y estados con el sistema visual Tahoe cuando `colorScheme === 'macos'`. No deben quedar con aspecto Default dentro de un layout Tahoe.
+
+| Componente             | Tipo   | Requerimiento Tahoe                                                                     |
+| ---------------------- | ------ | --------------------------------------------------------------------------------------- |
+| `CoinCard`             | Basico | Surface grouped, icono con shadow macOS, tipografia numerica mono, badge soft.          |
+| `CoinInfoCard`         | Basico | KeyValue layout con tokens macOS, separadores hairline, color semantico para variacion. |
+| `CoinListbox`          | Basico | List con row states macOS, search integrado, scroll overlay.                            |
+| `CollectionCard`       | Basico | Surface con imagen (corners redondeados), metadata en Callout style.                    |
+| `CollectionSelectList` | Basico | List seleccionable con selected state macOS, badges.                                    |
+| `CurrencySwapIcons`    | Basico | Iconos con shadow macOS, transicion swap sutil.                                         |
+| `LivePriceFeed`        | Basico | Numeros mono, color semantico Green/Red para variacion, ticker compacto.                |
+| `NFTGrid`              | Basico | Grid con cards grouped, corners redondeados, hover shadow macOS.                        |
+| `TransactionInfo`      | Basico | KeyValue rows, separator hairline, badge status con colores semanticos macOS.           |
+
 ### G. Presentacion, modales y feedback
 
 | Componente              | Tipo     | Requerimiento Tahoe                                                                |
@@ -411,18 +621,53 @@ La prioridad de implementacion debe favorecer primero el comportamiento transver
 
 ### H. Componentes avanzados Tahoe/especiales
 
-| Componente                 | Tipo     | Requerimiento Tahoe                                                                     |
-| -------------------------- | -------- | --------------------------------------------------------------------------------------- |
-| `MacOSControlCenterPanel`  | Avanzado | Panel de controles agrupados con Liquid Glass, toggles, sliders y third-party controls. |
-| `MacOSControlTile`         | Avanzado | Tile para Wi-Fi/Bluetooth/etc. con icono, estado y accion.                              |
-| `MacOSMenuBarLiveActivity` | Avanzado | Chip en menu bar para actividad en vivo, compacto y expandible.                         |
-| `MacOSSpotlightResultList` | Avanzado | Resultados agrupados, quick keys, acciones y preview.                                   |
-| `MacOSWidget`              | Avanzado | Widget translucent compatible con wallpaper/content.                                    |
-| `MacOSAppIconPreview`      | Avanzado | Preview de iconos light/dark/clear/tinted por capas.                                    |
-| `MacOSIconLayer`           | Avanzado | Representacion de foreground/middle/background para iconos.                             |
-| `MacOSPhoneCallPanel`      | Avanzado | Panel de llamada/continuity con acciones primarias y poster opcional.                   |
-| `MacOSGameOverlay`         | Avanzado | Overlay in-game no intrusivo, controles de sistema y chat.                              |
-| `MacOSMarkdownExportPanel` | Avanzado | Caso Notes/Tahoe: dialog de exportacion con formato y destino.                          |
+Priorizados como P1 (util inmediatamente), P2 (nice to have) y P3 (futuro). Solo P1 deberia considerarse en la primera iteracion.
+
+| Componente                 | Tipo     | Prioridad | Requerimiento Tahoe                                                                     |
+| -------------------------- | -------- | --------- | --------------------------------------------------------------------------------------- |
+| `MacOSCommandPalette`      | Avanzado | **P1**    | Experiencia tipo Spotlight con search, acciones, quick keys y resultados agrupados.     |
+| `MacOSControlCenterPanel`  | Avanzado | **P2**    | Panel de controles agrupados con Liquid Glass, toggles, sliders y third-party controls. |
+| `MacOSControlTile`         | Avanzado | **P2**    | Tile para Wi-Fi/Bluetooth/etc. con icono, estado y accion.                              |
+| `MacOSWidget`              | Avanzado | **P2**    | Widget translucent compatible con wallpaper/content.                                    |
+| `MacOSMenuBarLiveActivity` | Avanzado | **P2**    | Chip en menu bar para actividad en vivo, compacto y expandible.                         |
+| `MacOSSpotlightResultList` | Avanzado | **P2**    | Resultados agrupados, quick keys, acciones y preview.                                   |
+| `MacOSAppIconPreview`      | Avanzado | **P3**    | Preview de iconos light/dark/clear/tinted por capas.                                    |
+| `MacOSIconLayer`           | Avanzado | **P3**    | Representacion de foreground/middle/background para iconos.                             |
+| `MacOSPhoneCallPanel`      | Avanzado | **P3**    | Panel de llamada/continuity con acciones primarias y poster opcional.                   |
+| `MacOSGameOverlay`         | Avanzado | **P3**    | Overlay in-game no intrusivo, controles de sistema y chat.                              |
+| `MacOSMarkdownExportPanel` | Avanzado | **P3**    | Caso Notes/Tahoe: dialog de exportacion con formato y destino.                          |
+
+### I. Charts y data visualization
+
+Los chart wrappers de Tucu UI (`LineChart`, `BarChart`, `AreaChart`, `PieChart`, `RadarChart`, `ComposedChart`) y los shared components (`ChartContainer`, `ChartTooltip`, `ChartEmptyState`) deben consumir tokens macOS automaticamente via `useChartTheme`. No deben usarse con Recharts crudo en demos del design system.
+
+| Componente        | Tipo   | Requerimiento Tahoe                                                                 |
+| ----------------- | ------ | ----------------------------------------------------------------------------------- |
+| `LineChart`       | Basico | Colores de series con system colors macOS, grid sutil, axis en secondary-label.     |
+| `BarChart`        | Basico | Bars con radius-small-control, colores system, hover highlight sutil.               |
+| `AreaChart`       | Basico | Fill con opacity Tahoe, stroke accent, gradient suave.                              |
+| `PieChart`        | Basico | Colores system, labels en Body/Callout style, leyenda con secondary-label.          |
+| `RadarChart`      | Basico | Grid sutil, fill con alpha baja, colores system.                                    |
+| `ComposedChart`   | Basico | Hereda estilos de Line/Bar/Area combinados.                                         |
+| `ChartContainer`  | Basico | Fondo content-bg o grouped-bg, borde sutil, padding Tahoe.                          |
+| `ChartTooltip`    | Basico | Material glass regular o fondo solido con shadow; tipografia Callout.               |
+| `ChartEmptyState` | Basico | Icono + mensaje en secondary-label, accion si aplica.                               |
+| `useChartTheme`   | Hook   | Debe detectar `colorScheme === 'macos'` y devolver palette/config con tokens Tahoe. |
+
+#### Tokens de charts macOS requeridos
+
+| Token                          | Light                           | Dark                            | Uso                        |
+| ------------------------------ | ------------------------------- | ------------------------------- | -------------------------- |
+| `--macos-chart-grid`           | `rgba(60,60,67,.12)`            | `rgba(84,84,88,.30)`            | Lineas de grid y ejes      |
+| `--macos-chart-axis`           | `var(--macos-tertiary-label)`   | `var(--macos-tertiary-label)`   | Labels de ejes             |
+| `--macos-chart-tooltip-bg`     | `var(--macos-glass-regular-bg)` | `var(--macos-glass-regular-bg)` | Fondo de tooltips de chart |
+| `--macos-chart-tooltip-border` | `var(--macos-glass-border)`     | `var(--macos-glass-border)`     | Borde de tooltips de chart |
+| `--macos-chart-series-1`       | `var(--macos-accent)`           | `var(--macos-accent)`           | Serie primaria (Blue)      |
+| `--macos-chart-series-2`       | `#34c759`                       | `#30d158`                       | Serie secundaria (Green)   |
+| `--macos-chart-series-3`       | `#ff8d28`                       | `#ff9230`                       | Serie terciaria (Orange)   |
+| `--macos-chart-series-4`       | `#cb30e0`                       | `#db34f2`                       | Serie cuaternaria (Purple) |
+| `--macos-chart-series-5`       | `#ff383c`                       | `#ff4245`                       | Serie 5 (Red)              |
+| `--macos-chart-series-6`       | `#00c8b3`                       | `#00dac3`                       | Serie 6 (Mint)             |
 
 ## Style guide operativo
 
@@ -491,6 +736,7 @@ La prioridad de implementacion debe favorecer primero el comportamiento transver
 - [ ] Crear soporte CSS para `prefers-reduced-transparency` y `prefers-reduced-motion`.
 - [ ] Corregir estrategia de fuentes para no distribuir SF Pro.
 - [ ] Validar `applyMacOSTheme()` y layout macOS automatico.
+- [ ] Agregar tokens de charts macOS (`--macos-chart-*`).
 
 ### Fase C — Shell macOS
 
@@ -499,6 +745,16 @@ La prioridad de implementacion debe favorecer primero el comportamiento transver
 - [ ] Adaptar `MacOSSidebar` con background extension y source list states.
 - [ ] Implementar o documentar `MacOSSplitView` y `MacOSInspector`.
 - [ ] Agregar estados inactive/key/main para ventana simulada si aplica.
+
+### Fase C.bis — Layouts y navegacion existente
+
+- [ ] Restylear `RootLayout` con fondo espacial y fuente del sistema.
+- [ ] Restylear `AdminLayout`: sidebar como source list glass, header como toolbar glass.
+- [ ] Restylear `HorizontalLayout`: nav horizontal con glass regular.
+- [ ] Restylear `CleanLayout` con tokens de fondo y tipografia macOS.
+- [ ] Restylear `Header`, `AdminHeader`, `HorizontalHeader` con glass regular y toolbar height.
+- [ ] Restylear `CollapsibleMenu`, `ExpandableSidebar`, `HorizontalNavMenu`, `SidebarMenu`, `MenuItem`.
+- [ ] Validar que `applyMacOSTheme()` activa layout coherente sin clases residuales al revertir.
 
 ### Fase D — Controles core
 
@@ -512,23 +768,45 @@ La prioridad de implementacion debe favorecer primero el comportamiento transver
 
 - [ ] Forms/grouped forms, FormRow, GroupBox.
 - [ ] Lists, OutlineList, Tables, Pagination.
-- [ ] Cards existentes reinterpretadas como surfaces macOS sobrias.
+- [ ] Cards existentes reinterpretadas como surfaces macOS sobrias (Card, CardTitle, AuthorCard, InfoCard, PanelCard, PanelActionCard).
 - [ ] Empty states y disclosure groups.
+- [ ] Avatar, Tooltip, Collapse, KeyValueRow, Scrollbar, ScrollbarNative.
+- [ ] Tabs existentes (Tab, ParamTab, TabSelect) adaptados a tab bar Tahoe.
+- [ ] Links (ActiveLink, AnchorLink) con color accent macOS.
+- [ ] Typography mapeada a text styles macOS.
+- [ ] CodeBlock con font mono macOS.
+- [ ] Carousel, CarouselCards, CarouselImage con controles glass.
+- [ ] PinCode con inputs y focus ring macOS.
+- [ ] ListContainer, ListItem con row states macOS.
+
+### Fase E.bis — Componentes compuestos y blockchain
+
+- [ ] Auth forms (SignInForm, SignUpForm, ForgetPasswordForm, ResetPinForm) con tokens macOS.
+- [ ] Blockchain/DeFi (CoinCard, CoinInfoCard, CoinListbox, CollectionCard, CollectionSelectList, CurrencySwapIcons, LivePriceFeed, NFTGrid, TransactionInfo) con surfaces y colores Tahoe.
+- [ ] FormField, HookForm: verificar que heredan estilos transitivamente.
+- [ ] Image, Hamburger, Loader: tokens macOS y estados.
 
 ### Fase F — Presentacion y estados
 
 - [ ] Dialog/Alert/Sheet/Popover/Panel.
 - [ ] Toast/NotificationCard/Badge/Progress/Spinner/Skeleton.
+- [ ] TabModal, DrawerContainer, Sidebar (dialog).
 - [ ] Validar acciones default/cancel/destructive y keyboard behavior.
 - [ ] Evitar modales excesivos; priorizar popover/sheet cuando corresponda.
 
-### Fase G — Tahoe advanced set
+### Fase F.bis — Charts
 
-- [ ] Control Center panel y tiles.
-- [ ] Menu bar extra y Live Activity chip.
-- [ ] Spotlight/Command Palette.
-- [ ] Widget visual style.
-- [ ] App icon preview light/dark/clear/tinted.
+- [ ] Adaptar `useChartTheme` para detectar `colorScheme === 'macos'` y devolver palette macOS.
+- [ ] Restylear ChartContainer, ChartTooltip, ChartEmptyState con tokens macOS.
+- [ ] Validar LineChart, BarChart, AreaChart, PieChart, RadarChart, ComposedChart con paleta macOS.
+
+### Fase G — Tahoe advanced set (solo P1 y P2)
+
+- [ ] **P1:** Spotlight/Command Palette (`MacOSCommandPalette`).
+- [ ] **P2:** Control Center panel y tiles.
+- [ ] **P2:** Widget visual style.
+- [ ] **P2:** Menu bar extra y Live Activity chip.
+- [ ] Los P3 se dejan para iteraciones futuras.
 
 ### Fase H — QA visual, accesibilidad y docs
 
@@ -536,8 +814,32 @@ La prioridad de implementacion debe favorecer primero el comportamiento transver
 - [ ] Demo de reduced transparency y reduced motion.
 - [ ] Demo de toolbar/sidebar con contenido scrolleando debajo.
 - [ ] Demo de fondos espaciales propios en root/window background y hero/demo surface.
+- [ ] Validar performance de `backdrop-filter`: max 2 capas, FPS en Chrome DevTools.
+- [ ] Validar transicion entre themes sin layout shift ni clases residuales.
 - [ ] Props metadata regenerada si se agregan componentes.
 - [ ] Invocar `tucu-ui-docs-sync` si se crean componentes nuevos.
+
+## Estrategia de testing visual
+
+### Validacion manual requerida
+
+- Verificar cada componente en light, dark y increased contrast con `colorScheme: 'macos'`.
+- Verificar `prefers-reduced-transparency: reduce` usando Chrome DevTools → Rendering → Emulate CSS media feature.
+- Verificar `prefers-reduced-motion: reduce` usando Chrome DevTools → Rendering → Emulate CSS media feature.
+- Comparar visualmente con capturas del macOS 26 UI Kit o screenshots oficiales de Apple.
+
+### Validacion automatizada sugerida
+
+- Screenshots de componentes clave en CI (Chromatic, Percy o `playwright screenshot`) para detectar regresiones.
+- Snapshot HTML/CSS de componentes con `html.macos` para validar que los tokens se aplican correctamente.
+- Lighthouse accessibility audit en la demo con theme macOS activado.
+- Chequeo automatico de contraste AA para texto sobre glass usando herramientas de color contrast.
+
+### Componentes prioritarios para screenshots
+
+Los siguientes componentes son los mas visibles y deben tener screenshot de referencia en light + dark:
+
+`MacOSWindow`, `MacOSToolbar`, `MacOSSidebar`, `AdminLayout` (macOS), `Button` (3 variantes), `Input`, `Select`, `Checkbox`, `Switch`, `Modal`, `Popover`, `Toast`, `BasicTable`, `Card`, `LineChart`, `BarChart`.
 
 ## Criterios de aceptacion
 
@@ -545,11 +847,15 @@ La prioridad de implementacion debe favorecer primero el comportamiento transver
 - [ ] `pnpm nx lint tucu-ui` exitoso.
 - [ ] Activar theme macOS aplica visual Tahoe 26 a componentes existentes sin cambiar su API publica.
 - [ ] Todo componente visible en una pantalla Tahoe queda restyleado via tokens/classes/`data-tucu`, incluyendo basicos, forms, navegacion, overlays/dialogs, feedback, data display, charts y blockchain/demo-specific exportados o documentados.
+- [ ] Layouts existentes (`AdminLayout`, `HorizontalLayout`, `CleanLayout`) se restylean correctamente en modo macOS sin duplicar wrappers.
+- [ ] Componentes no mencionados explicitamente en el inventario macOS pero exportados por la libreria heredan tokens Tahoe de forma transitiva via CSS custom properties.
 - [ ] Light, dark e increased contrast tienen tokens diferenciados.
 - [ ] `prefers-reduced-motion` y `prefers-reduced-transparency` estan soportados.
 - [ ] Fondos espaciales Tahoe usan assets propios/generados internamente, nunca assets propietarios Apple, y aplican solo a root/window background, hero/demo surface o wallpaper-like app background.
 - [ ] Toolbars, sidebars, menus, popovers y sheets usan Liquid Glass con moderacion.
+- [ ] No hay mas de 2 capas de `backdrop-filter` simultaneas en el viewport; performance validada.
 - [ ] Contenido principal, listas, tablas y formularios permanecen legibles y no usan glass decorativo innecesario.
+- [ ] Charts consumen tokens macOS automaticamente via `useChartTheme`.
 - [ ] Iconografia usa `LucideIcons` por defecto, documenta brechas Tahoe y usa SVG propios solo cuando Lucide no cubre el caso sin copiar SF Symbols.
 - [ ] Todos los icon-only buttons tienen tooltip o `aria-label`.
 - [ ] Los componentes avanzados tienen al menos una demo o story/documentacion si se implementan.
@@ -567,16 +873,21 @@ La prioridad de implementacion debe favorecer primero el comportamiento transver
 
 ## Decisiones de diseno
 
-| #   | Decision                                             | Alternativa                       | Razon                                                                                         |
-| --- | ---------------------------------------------------- | --------------------------------- | --------------------------------------------------------------------------------------------- |
-| 1   | Tahoe reemplaza el objetivo visual del theme `macos` | Crear `macosTahoe` paralelo       | Evita fragmentar API y mantiene continuidad con Spec 03.                                      |
-| 2   | Liquid Glass solo en capa funcional                  | Aplicarlo a todos los surfaces    | Apple recomienda no usarlo en contenido; evita ruido visual y baja legibilidad.               |
-| 3   | No embeber SF Pro                                    | Incluir `.woff2` en paquete       | Riesgo de licencia; el stack del sistema ya usa SF Pro en macOS.                              |
-| 4   | CSS tokens + `html.macos`                            | Componentes duplicados            | Mantiene API publica y reduce duplicacion.                                                    |
-| 5   | Valores visuales calibrables con UI Kit              | Declarar numeros como definitivos | Apple indica que colores/materiales pueden fluctuar; el UI Kit oficial debe cerrar exactitud. |
-| 6   | Lucide como aproximacion web documentada             | Exigir SF Symbols en React        | El paquete ya usa Lucide; SF Symbols no esta disponible como icon library web redistribuible. |
-| 7   | Fondos espaciales originales del proyecto            | Copiar wallpapers/assets Apple    | Evita riesgo legal y mantiene una identidad Tahoe-inspired implementable en web.              |
-| 8   | SVG propios solo para brechas Tahoe concretas        | Agregar otra libreria de iconos   | Reduce dependencias y evita variantes visuales incompatibles con Lucide/Tucu UI.              |
+| #   | Decision                                               | Alternativa                       | Razon                                                                                                                                                                                                    |
+| --- | ------------------------------------------------------ | --------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1   | Tahoe reemplaza el objetivo visual del theme `macos`   | Crear `macosTahoe` paralelo       | Evita fragmentar API y mantiene continuidad con Spec 03.                                                                                                                                                 |
+| 2   | Liquid Glass solo en capa funcional                    | Aplicarlo a todos los surfaces    | Apple recomienda no usarlo en contenido; evita ruido visual y baja legibilidad.                                                                                                                          |
+| 3   | Bundlear Inter + JetBrains Mono como fuentes del theme | Usar solo system stack sin bundle | SF Pro no es redistribuible (licencia Apple). Inter (SIL OFL) tiene metricas similares, 9 pesos, optical sizes y es la fuente UI libre mas usada. Garantiza aspecto macOS-like en TODAS las plataformas. |
+| 4   | CSS tokens + `html.macos`                              | Componentes duplicados            | Mantiene API publica y reduce duplicacion.                                                                                                                                                               |
+| 5   | Valores visuales calibrables con UI Kit                | Declarar numeros como definitivos | Apple indica que colores/materiales pueden fluctuar; el UI Kit oficial debe cerrar exactitud.                                                                                                            |
+| 6   | Lucide como aproximacion web documentada               | Exigir SF Symbols en React        | El paquete ya usa Lucide; SF Symbols no esta disponible como icon library web redistribuible.                                                                                                            |
+| 7   | Fondos espaciales originales del proyecto              | Copiar wallpapers/assets Apple    | Evita riesgo legal y mantiene una identidad Tahoe-inspired implementable en web.                                                                                                                         |
+| 8   | SVG propios solo para brechas Tahoe concretas          | Agregar otra libreria de iconos   | Reduce dependencias y evita variantes visuales incompatibles con Lucide/Tucu UI.                                                                                                                         |
+| 9   | Layouts existentes se restylean, no se reemplazan      | Crear layouts macOS paralelos     | Evita duplicar API; los componentes macOS exclusivos son alternativa avanzada, no obligatoria.                                                                                                           |
+| 10  | Max 2 capas de `backdrop-filter` simultaneas           | Sin limite de capas               | Performance web: GPU compositing es costoso y causa drops de FPS en scroll.                                                                                                                              |
+| 11  | Transicion de theme inmediata, sin animacion           | Fade/morph entre themes           | Evita artefactos de layout shift; CSS custom properties se aplican instantaneamente.                                                                                                                     |
+| 12  | Charts consumen tokens via `useChartTheme`             | Pasar colores manualmente         | Automatiza la adaptacion al theme activo y reduce errores de integracion.                                                                                                                                |
+| 13  | Componentes avanzados priorizados P1/P2/P3             | Implementar todos en una fase     | Focaliza esfuerzo en CommandPalette (P1); el resto no bloquea el restyling base.                                                                                                                         |
 
 ## Checklist para agentes implementadores
 

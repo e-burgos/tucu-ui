@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import {
+  HeroCard,
   CardContainer,
   Button,
   Badge,
@@ -23,7 +24,6 @@ import {
 
 const LiveDemonstrationsSection: React.FC = () => {
   const [copyText, setCopyText] = useState('Hello, World!');
-  const [copiedValue, copy] = useCopyToClipboard();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [keyPressed, setKeyPressed] = useState('');
@@ -31,6 +31,7 @@ const LiveDemonstrationsSection: React.FC = () => {
 
   const breakpoint = useBreakpoint();
   const { isMobile } = useIsMobile();
+  const [clipboardState, copyToClipboard] = useCopyToClipboard();
   const { addToast } = useToastStore();
   const { isGridCompact, setIsGridCompact } = useGridSwitcher();
   const { x: scrollX, y: scrollY } = useWindowScroll();
@@ -69,7 +70,7 @@ const LiveDemonstrationsSection: React.FC = () => {
   }, [isMounted]);
 
   const handleCopy = () => {
-    copy(copyText);
+    copyToClipboard(copyText);
     addToast({
       id: `copy-${Date.now()}`,
       title: 'Copied!',
@@ -108,34 +109,40 @@ const LiveDemonstrationsSection: React.FC = () => {
   }));
 
   return (
-    <div className="space-y-8">
-      <div className="text-center space-y-4">
-        <Typography tag="h2" className="text-3xl md:text-4xl font-bold">
-          Live Hook Demonstrations
-        </Typography>
-        <Typography
-          tag="p"
-          className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
-        >
-          Interactive examples showing hooks in action
-        </Typography>
-      </div>
+    <>
+      <HeroCard
+        title="Live Hook Demonstrations"
+        description="Interactive examples showing every hook in action. Resize the window, click buttons, and interact with the demos to see real-time hook behavior."
+        icon={
+          <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 bg-linear-to-br from-green-500 via-emerald-500 to-teal-500 rounded-full flex items-center justify-center shadow-lg">
+            <LucideIcons.Play className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 text-white filter drop-shadow-lg" />
+          </div>
+        }
+      />
 
-      <div className="space-y-8">
-        {/* Responsive Hooks Demo */}
-        <CardContainer className="group hover:shadow-large transition-all duration-300 hover:-translate-y-1">
+      <section className="space-y-8">
+        <div className="text-center">
+          <Typography tag="h2" className="mb-2">
+            Responsive Detection
+          </Typography>
+          <Typography
+            tag="p"
+            className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto"
+          >
+            Real-time breakpoint detection and mobile state tracking
+          </Typography>
+        </div>
+
+        <CardContainer>
           <div className="w-full space-y-6 p-4 sm:p-6">
             <div className="flex items-center gap-3">
-              <div className="p-2 rounded-lg bg-linear-to-br from-blue-500 via-cyan-500 to-teal-500 shadow-lg">
+              <div className="p-2 rounded-lg bg-linear-to-br from-blue-500 to-cyan-500 shadow-lg">
                 <LucideIcons.Monitor className="w-6 h-6 text-white filter drop-shadow-sm" />
               </div>
-              <Typography tag="h3" className="text-xl font-semibold">
-                Responsive Detection
+              <Typography tag="h3" className="text-base font-semibold">
+                useBreakpoint & useIsMobile
               </Typography>
             </div>
-            <Typography tag="p" className="text-gray-600 dark:text-gray-400">
-              Real-time breakpoint detection and mobile state tracking.
-            </Typography>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border">
@@ -171,7 +178,7 @@ const LiveDemonstrationsSection: React.FC = () => {
                     </Badge>
                   </div>
                   <Typography tag="p" className="text-xs text-gray-500">
-                    True for xs, sm, md breakpoints
+                    True for xs, sm, md breakpoints (≤768px)
                   </Typography>
                 </div>
               </div>
@@ -181,29 +188,40 @@ const LiveDemonstrationsSection: React.FC = () => {
               <CodeBlock
                 language="tsx"
                 noExpand={true}
-                code={`
-const breakpoint = useBreakpoint();
+                code={`const breakpoint = useBreakpoint();
+// Returns: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl'
+
 const { isMobile } = useIsMobile();
-// Current: ${breakpoint}, Mobile: ${isMobile}`}
+// Returns: { isMobile: boolean } — true for xs/sm/md`}
               />
             </div>
           </div>
         </CardContainer>
+      </section>
 
-        {/* Element Measurement Demo */}
-        <CardContainer className="group hover:shadow-large transition-all duration-300 hover:-translate-y-1">
+      <section className="space-y-8">
+        <div className="text-center">
+          <Typography tag="h2" className="mb-2">
+            Element Measurement
+          </Typography>
+          <Typography
+            tag="p"
+            className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto"
+          >
+            Track element dimensions and bounds in real-time
+          </Typography>
+        </div>
+
+        <CardContainer>
           <div className="w-full space-y-6 p-4 sm:p-6">
             <div className="flex items-center gap-3">
-              <div className="p-2 rounded-lg bg-linear-to-br from-green-500 via-emerald-500 to-teal-500 shadow-lg">
+              <div className="p-2 rounded-lg bg-linear-to-br from-green-500 to-emerald-500 shadow-lg">
                 <LucideIcons.Ruler className="w-6 h-6 text-white filter drop-shadow-sm" />
               </div>
-              <Typography tag="h3" className="text-xl font-semibold">
-                Element Measurement
+              <Typography tag="h3" className="text-base font-semibold">
+                useElementSize & useMeasure
               </Typography>
             </div>
-            <Typography tag="p" className="text-gray-600 dark:text-gray-400">
-              Track element dimensions and bounds in real-time.
-            </Typography>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
@@ -212,7 +230,7 @@ const { isMobile } = useIsMobile();
                 </Typography>
                 <div
                   ref={elementSizeRef}
-                  className="bg-blue-100 dark:bg-blue-800 p-4 rounded-lg border-2 border-dashed border-blue-300 dark:border-blue-600 resize overflow-auto min-h-[100px]"
+                  className="bg-blue-100 dark:bg-blue-800 p-4 rounded-lg border-2 border-dashed border-blue-300 dark:border-blue-600 resize overflow-auto min-h-25"
                 >
                   <Typography tag="p" className="text-sm">
                     Resize this element (drag corner)
@@ -233,7 +251,7 @@ const { isMobile } = useIsMobile();
                 </Typography>
                 <div
                   ref={measureElementRef}
-                  className="bg-cyan-100 dark:bg-cyan-800 p-4 rounded-lg border-2 border-dashed border-cyan-300 dark:border-cyan-600 min-h-[100px]"
+                  className="bg-cyan-100 dark:bg-cyan-800 p-4 rounded-lg border-2 border-dashed border-cyan-300 dark:border-cyan-600 min-h-25"
                 >
                   <Typography tag="p" className="text-sm">
                     Measured element
@@ -248,24 +266,46 @@ const { isMobile } = useIsMobile();
                 </div>
               </div>
             </div>
+
+            <div className="bg-light-dark p-4 rounded-xl border dark:border-gray-700 overflow-x-auto">
+              <CodeBlock
+                language="tsx"
+                noExpand={true}
+                code={`// useElementSize — returns [callbackRef, { width, height }]
+const [ref, { width, height }] = useElementSize<HTMLDivElement>();
+
+// useMeasure — returns [callbackRef, bounds]
+const [ref, bounds] = useMeasure<HTMLDivElement>();
+// bounds: { x, y, width, height, top, right, bottom, left }`}
+              />
+            </div>
           </div>
         </CardContainer>
+      </section>
 
-        {/* Interaction Hooks Demo */}
-        <CardContainer className="group hover:shadow-large transition-all duration-300 hover:-translate-y-1">
+      <section className="space-y-8">
+        <div className="text-center">
+          <Typography tag="h2" className="mb-2">
+            User Interaction
+          </Typography>
+          <Typography
+            tag="p"
+            className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto"
+          >
+            Click detection, clipboard, and event handling demos
+          </Typography>
+        </div>
+
+        <CardContainer>
           <div className="w-full space-y-6 p-4 sm:p-6">
             <div className="flex items-center gap-3">
-              <div className="p-2 rounded-lg bg-linear-to-br from-purple-500 via-violet-500 to-indigo-500 shadow-lg">
+              <div className="p-2 rounded-lg bg-linear-to-br from-purple-500 to-violet-500 shadow-lg">
                 <LucideIcons.MousePointer className="w-6 h-6 text-white filter drop-shadow-sm" />
               </div>
-              <Typography tag="h3" className="text-xl font-semibold">
-                User Interaction
+              <Typography tag="h3" className="text-base font-semibold">
+                useClickAway & useCopyToClipboard
               </Typography>
             </div>
-            <Typography tag="p" className="text-gray-600 dark:text-gray-400">
-              Interactive demonstrations of click detection and clipboard
-              operations.
-            </Typography>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
@@ -307,34 +347,59 @@ const { isMobile } = useIsMobile();
                     <LucideIcons.Copy className="w-4 h-4 mr-2" />
                     Copy to Clipboard
                   </Button>
-                  {copiedValue && (
+                  {clipboardState.value && (
                     <Typography
                       tag="p"
                       className="text-sm text-green-600 dark:text-green-400"
                     >
-                      ✓ Copied: {String(copiedValue)}
+                      ✓ Copied: {clipboardState.value}
                     </Typography>
                   )}
                 </div>
               </div>
             </div>
+
+            <div className="bg-light-dark p-4 rounded-xl border dark:border-gray-700 overflow-x-auto">
+              <CodeBlock
+                language="tsx"
+                noExpand={true}
+                code={`// useCopyToClipboard — returns [state, copyFn]
+const [state, copyToClipboard] = useCopyToClipboard();
+// state: { value?: string; error?: Error; noUserInteraction: boolean }
+copyToClipboard('text');
+
+// useClickAway — detects clicks outside ref
+const ref = useRef(null);
+useClickAway(ref, () => setIsOpen(false));`}
+              />
+            </div>
           </div>
         </CardContainer>
+      </section>
 
-        {/* State Management Demo */}
-        <CardContainer className="group hover:shadow-large transition-all duration-300 hover:-translate-y-1">
+      <section className="space-y-8">
+        <div className="text-center">
+          <Typography tag="h2" className="mb-2">
+            UI State Management
+          </Typography>
+          <Typography
+            tag="p"
+            className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto"
+          >
+            Global state hooks for layout and notifications
+          </Typography>
+        </div>
+
+        <CardContainer>
           <div className="w-full space-y-6 p-4 sm:p-6">
             <div className="flex items-center gap-3">
-              <div className="p-2 rounded-lg bg-linear-to-br from-green-500 via-emerald-500 to-teal-500 shadow-lg">
+              <div className="p-2 rounded-lg bg-linear-to-br from-green-500 to-emerald-500 shadow-lg">
                 <LucideIcons.Settings className="w-6 h-6 text-white filter drop-shadow-sm" />
               </div>
-              <Typography tag="h3" className="text-xl font-semibold">
-                UI State Management
+              <Typography tag="h3" className="text-base font-semibold">
+                useGridSwitcher & useToastStore
               </Typography>
             </div>
-            <Typography tag="p" className="text-gray-600 dark:text-gray-400">
-              Global state management for UI behaviors and notifications.
-            </Typography>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
@@ -397,135 +462,134 @@ const { isMobile } = useIsMobile();
                 </div>
               </div>
             </div>
+
+            <div className="bg-light-dark p-4 rounded-xl border dark:border-gray-700 overflow-x-auto">
+              <CodeBlock
+                language="tsx"
+                noExpand={true}
+                code={`// useToastStore — Zustand store for notifications
+const { addToast, dismissToast, toasts } = useToastStore();
+addToast({
+  id: 'unique-id',
+  title: 'Title',
+  message: 'Message text',
+  variant: 'success', // 'default' | 'destructive' | 'success' | 'warning' | 'info'
+  timeout: 3000,
+});
+
+// useGridSwitcher — Zustand store for grid layout
+const { isGridCompact, setIsGridCompact } = useGridSwitcher();`}
+              />
+            </div>
           </div>
         </CardContainer>
+      </section>
 
-        {/* Advanced Hooks Demo */}
-        <CardContainer className="group hover:shadow-large transition-all duration-300 hover:-translate-y-1">
+      <section className="space-y-8">
+        <div className="text-center">
+          <Typography tag="h2" className="mb-2">
+            Advanced Utilities
+          </Typography>
+          <Typography
+            tag="p"
+            className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto"
+          >
+            Scroll control, event listeners, and lifecycle hooks
+          </Typography>
+        </div>
+
+        <CardContainer>
           <div className="w-full space-y-6 p-4 sm:p-6">
             <div className="flex items-center gap-3">
-              <div className="p-2 rounded-lg bg-linear-to-br from-orange-500 via-amber-500 to-yellow-500 shadow-lg">
+              <div className="p-2 rounded-lg bg-linear-to-br from-orange-500 to-amber-500 shadow-lg">
                 <LucideIcons.Zap className="w-6 h-6 text-white filter drop-shadow-sm" />
               </div>
-              <Typography tag="h3" className="text-xl font-semibold">
-                Advanced Utilities
+              <Typography tag="h3" className="text-base font-semibold">
+                useScrollableSlider, useEventListener & more
               </Typography>
             </div>
-            <Typography tag="p" className="text-gray-600 dark:text-gray-400">
-              Advanced hooks for complex UI behaviors and interactions.
-            </Typography>
 
-            <div className="space-y-6">
-              <div>
-                <Typography tag="h5" className="font-medium mb-3">
-                  useScrollableSlider
-                </Typography>
-                <div className="relative">
-                  <button
-                    ref={sliderPrevBtn}
-                    onClick={scrollToTheLeft}
-                    className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white dark:bg-gray-800 border rounded-full p-2 shadow-md opacity-0 invisible transition-opacity"
-                  >
-                    <LucideIcons.ChevronLeft className="w-4 h-4" />
-                  </button>
+            <div>
+              <Typography tag="h5" className="font-medium mb-3">
+                useScrollableSlider
+              </Typography>
+              <div className="relative">
+                <button
+                  ref={sliderPrevBtn}
+                  onClick={scrollToTheLeft}
+                  className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white dark:bg-gray-800 border rounded-full p-2 shadow-md opacity-0 invisible transition-opacity"
+                >
+                  <LucideIcons.ChevronLeft className="w-4 h-4" />
+                </button>
 
-                  <div
-                    ref={sliderEl}
-                    className="flex gap-4 overflow-x-auto scrollbar-hide py-4"
-                  >
-                    {scrollableItems.map((item) => (
-                      <div
-                        key={item.id}
-                        className="shrink-0 w-48 p-4 bg-white dark:bg-gray-800 border rounded-lg"
+                <div
+                  ref={sliderEl}
+                  className="flex gap-4 overflow-x-auto scrollbar-hide py-4"
+                >
+                  {scrollableItems.map((item) => (
+                    <div
+                      key={item.id}
+                      className="shrink-0 w-48 p-4 bg-white dark:bg-gray-800 border rounded-lg"
+                    >
+                      <Typography tag="h6" className="font-medium mb-2">
+                        {item.title}
+                      </Typography>
+                      <Typography
+                        tag="p"
+                        className="text-sm text-gray-600 dark:text-gray-400"
                       >
-                        <Typography tag="h6" className="font-medium mb-2">
-                          {item.title}
-                        </Typography>
-                        <Typography
-                          tag="p"
-                          className="text-sm text-gray-600 dark:text-gray-400"
-                        >
-                          {item.content}
-                        </Typography>
-                      </div>
-                    ))}
-                  </div>
-
-                  <button
-                    ref={sliderNextBtn}
-                    onClick={scrollToTheRight}
-                    className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white dark:bg-gray-800 border rounded-full p-2 shadow-md transition-opacity"
-                  >
-                    <LucideIcons.ChevronRight className="w-4 h-4" />
-                  </button>
+                        {item.content}
+                      </Typography>
+                    </div>
+                  ))}
                 </div>
+
+                <button
+                  ref={sliderNextBtn}
+                  onClick={scrollToTheRight}
+                  className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white dark:bg-gray-800 border rounded-full p-2 shadow-md transition-opacity"
+                >
+                  <LucideIcons.ChevronRight className="w-4 h-4" />
+                </button>
               </div>
+            </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <Typography tag="h5" className="font-medium mb-3">
-                    useEventListener
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div>
+                <Typography tag="h5" className="font-medium mb-3">
+                  useEventListener
+                </Typography>
+                <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border">
+                  <Typography tag="p" className="text-sm mb-2">
+                    Press any key:
                   </Typography>
-                  <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border">
-                    <Typography tag="p" className="text-sm mb-2">
-                      Press any key to see event detection:
-                    </Typography>
-                    <div className="flex items-center gap-2">
-                      <span className="text-sm text-gray-600 dark:text-gray-400">
-                        Last key:
-                      </span>
-                      <Badge className="text-dark dark:text-white">
-                        {keyPressed || 'None'}
-                      </Badge>
-                    </div>
-                  </div>
-                </div>
-
-                <div>
-                  <Typography tag="h5" className="font-medium mb-3">
-                    useWindowScroll
-                  </Typography>
-                  <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border">
-                    <Typography tag="p" className="text-sm mb-2">
-                      Current scroll position:
-                    </Typography>
-                    <div className="space-y-1">
-                      <div className="flex items-center gap-2">
-                        <span className="text-xs text-gray-600 dark:text-gray-400">
-                          X:
-                        </span>
-                        <Badge className="text-dark dark:text-white">
-                          {Math.round(scrollX)}px
-                        </Badge>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <span className="text-xs text-gray-600 dark:text-gray-400">
-                          Y:
-                        </span>
-                        <Badge className="text-dark dark:text-white">
-                          {Math.round(scrollY)}px
-                        </Badge>
-                      </div>
-                    </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm text-gray-600 dark:text-gray-400">
+                      Last key:
+                    </span>
+                    <Badge className="text-dark dark:text-white">
+                      {keyPressed || 'None'}
+                    </Badge>
                   </div>
                 </div>
               </div>
 
               <div>
                 <Typography tag="h5" className="font-medium mb-3">
-                  useLockBodyScroll
+                  useWindowScroll
                 </Typography>
-                <div className="flex items-center gap-4">
-                  <Button onClick={() => setIsModalOpen(true)} variant="ghost">
-                    <LucideIcons.Lock className="w-4 h-4 mr-2" />
-                    Open Modal (Locks Scroll)
-                  </Button>
-                  <Typography
-                    tag="p"
-                    className="text-sm text-gray-600 dark:text-gray-400"
-                  >
-                    Body scroll is {isModalOpen ? 'locked' : 'unlocked'}
+                <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border">
+                  <Typography tag="p" className="text-sm mb-2">
+                    Scroll position:
                   </Typography>
+                  <div className="flex items-center gap-3">
+                    <Badge className="text-dark dark:text-white">
+                      X: {Math.round(scrollX)}px
+                    </Badge>
+                    <Badge className="text-dark dark:text-white">
+                      Y: {Math.round(scrollY)}px
+                    </Badge>
+                  </div>
                 </div>
               </div>
 
@@ -535,26 +599,39 @@ const { isMobile } = useIsMobile();
                 </Typography>
                 <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border">
                   <Typography tag="p" className="text-sm mb-2">
-                    Component mount status:
+                    Mount status:
                   </Typography>
-                  <div className="flex items-center gap-2">
-                    <span className="text-sm text-gray-600 dark:text-gray-400">
-                      Status:
-                    </span>
-                    <Badge className="text-dark dark:text-white">
-                      {mountedState}
-                    </Badge>
-                  </div>
+                  <Badge className="text-dark dark:text-white">
+                    {mountedState}
+                  </Badge>
                 </div>
+              </div>
+            </div>
+
+            <div>
+              <Typography tag="h5" className="font-medium mb-3">
+                useLockBodyScroll
+              </Typography>
+              <div className="flex items-center gap-4">
+                <Button onClick={() => setIsModalOpen(true)} variant="ghost">
+                  <LucideIcons.Lock className="w-4 h-4 mr-2" />
+                  Open Modal (Locks Scroll)
+                </Button>
+                <Typography
+                  tag="p"
+                  className="text-sm text-gray-600 dark:text-gray-400"
+                >
+                  Body scroll is {isModalOpen ? 'locked' : 'unlocked'}
+                </Typography>
               </div>
             </div>
           </div>
         </CardContainer>
-      </div>
+      </section>
 
       {/* Modal Demo */}
       {isModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
           <div className="bg-white dark:bg-gray-800 p-6 rounded-lg max-w-md w-full mx-4">
             <div className="flex items-center justify-between mb-4">
               <Typography tag="h3" className="font-semibold">
@@ -571,9 +648,9 @@ const { isMobile } = useIsMobile();
               tag="p"
               className="text-gray-600 dark:text-gray-400 mb-4"
             >
-              While this modal is open, body scrolling is locked using the
-              useLockBodyScroll hook. The scrollbar width is preserved to
-              prevent layout shift.
+              While this modal is open, body scrolling is locked using
+              useLockBodyScroll. The scrollbar width is preserved to prevent
+              layout shift.
             </Typography>
             <Button onClick={() => setIsModalOpen(false)} className="w-full">
               Close Modal
@@ -581,7 +658,7 @@ const { isMobile } = useIsMobile();
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 };
 

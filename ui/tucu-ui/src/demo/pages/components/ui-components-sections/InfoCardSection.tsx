@@ -6,25 +6,26 @@ import {
   CodeBlock,
   InfoCard,
   Badge,
+  HeroCard,
+  LucideIcons,
 } from '../../../../index';
 import { AutoPropsTable } from '../../../components/auto-props-table';
 import { DollarSign, TrendingUp, Activity, Clock } from 'lucide-react';
 
+import { PropPlayground } from '../../../components/prop-playground';
 const InfoCardSection: React.FC = () => {
   return (
     <>
-      <div className="text-center space-y-4">
-        <Typography tag="h2" className="text-3xl md:text-4xl font-bold">
-          InfoCard
-        </Typography>
-        <Typography
-          tag="p"
-          className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
-        >
-          A structured card for displaying key-value data in columns, with
-          optional header, footer tags, and tooltips.
-        </Typography>
-      </div>
+      <HeroCard
+        title="InfoCard"
+        description="A structured card for displaying key-value data in columns, with
+          optional header, footer tags, and tooltips."
+        icon={
+          <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 bg-linear-to-br from-violet-600 to-purple-500 rounded-full flex items-center justify-center shadow-lg">
+            <LucideIcons.Info className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-white filter drop-shadow-lg" />
+          </div>
+        }
+      />
 
       <CardContainer className="overflow-hidden">
         <CardTitle title="Examples" className="mt-2 mb-2">
@@ -215,6 +216,30 @@ const InfoCardSection: React.FC = () => {
           </div>
         </CardTitle>
       </CardContainer>
+      <PropPlayground
+        componentName="InfoCard"
+        title="InfoCard Playground"
+        defaultValues={{
+          'title': 'Info Card Title',
+          'subtitle': 'Subtitle text here',
+          'gridCols': 2
+}}
+        excludeProps={['columns', 'children', 'footer', 'footerLabel', 'footerTags', 'headerRight', 'icon', 'className']}
+      >
+        {(props) => (
+          <InfoCard
+            {...props}
+            columns={[
+              { label: 'Status', value: 'Active' },
+              { label: 'Type', value: 'Premium' },
+              { label: 'Created', value: '2024-01-01' },
+              { label: 'Updated', value: '2024-06-15' },
+            ]}
+          />
+        )}
+      </PropPlayground>
+
+
 
       <AutoPropsTable componentName="InfoCard" />
 

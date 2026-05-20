@@ -5,9 +5,12 @@ import {
   Typography,
   CodeBlock,
   CarouselImage,
+  HeroCard,
+  LucideIcons,
 } from '../../../../index';
 import { AutoPropsTable } from '../../../components/auto-props-table';
 
+import { PropPlayground } from '../../../components/prop-playground';
 const CarouselImageSection: React.FC = () => {
   const images = [
     {
@@ -50,18 +53,16 @@ const CarouselImageSection: React.FC = () => {
 
   return (
     <>
-      <div className="text-center space-y-4">
-        <Typography tag="h2" className="text-3xl md:text-4xl font-bold">
-          CarouselImage
-        </Typography>
-        <Typography
-          tag="p"
-          className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
-        >
-          A carousel component specifically designed for displaying images with
-          optional titles and descriptions.
-        </Typography>
-      </div>
+      <HeroCard
+        title="CarouselImage"
+        description="A carousel component specifically designed for displaying images with
+          optional titles and descriptions."
+        icon={
+          <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 bg-linear-to-br from-pink-600 to-rose-500 rounded-full flex items-center justify-center shadow-lg">
+            <LucideIcons.Image className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-white filter drop-shadow-lg" />
+          </div>
+        }
+      />
 
       <CardContainer className="overflow-hidden">
         <CardTitle title="Basic Examples" className="mt-2 mb-2">
@@ -125,6 +126,34 @@ const CarouselImageSection: React.FC = () => {
           </div>
         </CardTitle>
       </CardContainer>
+      <PropPlayground
+        componentName="CarouselImage"
+        title="CarouselImage Playground"
+        defaultValues={{
+          'showNavigation': true,
+          'showPagination': true,
+          'showTitles': true,
+          'loop': true,
+          'grabCursor': true,
+          'lazy': false,
+          'imageFit': 'cover',
+          'direction': 'horizontal'
+}}
+        excludeProps={['images', 'onSlideChange', 'onSwiper', 'breakpoints', 'autoplay', 'className', 'slideClassName', 'imageClassName', 'aria-label', 'aspectRatio', 'effect', 'paginationType', 'centeredSlides', 'freeMode', 'mousewheel', 'slidesPerView', 'spaceBetween']}
+      >
+        {(props) => (
+          <CarouselImage
+            {...props}
+            images={[
+              { src: 'https://picsum.photos/seed/1/800/400', alt: 'Image 1', title: 'Image 1' },
+              { src: 'https://picsum.photos/seed/2/800/400', alt: 'Image 2', title: 'Image 2' },
+              { src: 'https://picsum.photos/seed/3/800/400', alt: 'Image 3', title: 'Image 3' },
+            ]}
+          />
+        )}
+      </PropPlayground>
+
+
       <AutoPropsTable componentName="CarouselImage" />
 
       <CardContainer className="overflow-hidden">

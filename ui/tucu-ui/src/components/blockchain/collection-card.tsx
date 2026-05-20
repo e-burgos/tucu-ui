@@ -27,6 +27,7 @@ export function CollectionCard({ item, className = '' }: CollectionCardProps) {
     item ?? {};
   return (
     <div
+      data-tucu="collection-card"
       className={cn(
         'group relative overflow-hidden rounded-lg transition-transform hover:-translate-y-1',
         className

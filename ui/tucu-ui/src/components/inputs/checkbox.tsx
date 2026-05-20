@@ -266,6 +266,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
           {label && (
             <span
               className={cn(
+                'text-gray-800 dark:text-gray-100',
                 labelSizeClasses[size],
                 labelMarginClasses[size],
                 labelPlacement === 'start' && 'order-first',

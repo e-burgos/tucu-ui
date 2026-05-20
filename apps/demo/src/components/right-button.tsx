@@ -3,6 +3,7 @@ import {
   ListContainer,
   LucideIcons,
   SwitchMode,
+  SwitchVariant,
   Typography,
   type StandaloneAppRoutesMenuItem,
 } from '@e-burgos/tucu-ui';
@@ -27,6 +28,10 @@ export const RightButton = ({
     <ListContainer
       label="Options"
       items={[
+        {
+          id: 'theme-variant',
+          content: <SwitchVariant />,
+        },
         {
           id: 'theme',
           content: <SwitchMode />,

@@ -34,9 +34,13 @@ export function Pagination({
   if (totalPages > 1) pages.push(totalPages);
 
   return (
-    <div className={cn('flex items-center gap-1', className)}>
+    <div
+      data-tucu="pagination"
+      className={cn('flex items-center gap-1', className)}
+    >
       <button
         type="button"
+        data-tucu="pagination-btn"
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage <= 1}
         className="rounded-lg p-1.5 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-gray-100 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
@@ -48,6 +52,7 @@ export function Pagination({
         page === 'ellipsis' ? (
           <span
             key={`ellipsis-${i}`}
+            data-tucu="pagination-ellipsis"
             className="px-1 text-gray-500 dark:text-gray-400"
           >
             ...
@@ -56,6 +61,8 @@ export function Pagination({
           <button
             key={page}
             type="button"
+            data-tucu="pagination-page"
+            data-active={page === currentPage}
             onClick={() => onPageChange(page)}
             className={cn(
               'h-8 min-w-8 rounded-lg px-2 text-sm font-medium transition-colors',
@@ -71,6 +78,7 @@ export function Pagination({
 
       <button
         type="button"
+        data-tucu="pagination-btn"
         onClick={() => onPageChange(currentPage + 1)}
         disabled={currentPage >= totalPages}
         className="rounded-lg p-1.5 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-gray-100 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"

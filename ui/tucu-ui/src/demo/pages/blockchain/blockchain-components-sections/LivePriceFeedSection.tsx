@@ -2,13 +2,16 @@ import React from 'react';
 import {
   CardContainer,
   CardTitle,
-  Typography,
   CodeBlock,
   LivePriceFeed,
   Bitcoin,
+  HeroCard,
+  LucideIcons,
 } from '../../../../index';
 import { Ethereum } from '../../../../components/icons/ethereum';
 import { AutoPropsTable } from '../../../components/auto-props-table';
+import { PropPlayground } from '../../../components/prop-playground';
+import { Typography } from '../../../../index';
 
 const LivePriceFeedSection: React.FC = () => {
   const priceData = [
@@ -21,18 +24,15 @@ const LivePriceFeedSection: React.FC = () => {
 
   return (
     <>
-      <div className="text-center space-y-4">
-        <Typography tag="h2" className="text-3xl md:text-4xl font-bold">
-          LivePriceFeed
-        </Typography>
-        <Typography
-          tag="p"
-          className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
-        >
-          Real-time price display with integrated chart visualization for
-          cryptocurrency price tracking.
-        </Typography>
-      </div>
+      <HeroCard
+        title="LivePriceFeed"
+        description="Real-time price display with integrated chart visualization for cryptocurrency price tracking."
+        icon={
+          <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 bg-linear-to-br from-green-500 via-emerald-500 to-teal-500 rounded-full flex items-center justify-center shadow-lg border border-green-500/50">
+            <LucideIcons.TrendingUp className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 text-white filter drop-shadow-lg" />
+          </div>
+        }
+      />
 
       <CardContainer className="overflow-hidden">
         <CardTitle title="Basic Examples" className="mt-2 mb-2">
@@ -80,6 +80,53 @@ const LivePriceFeedSection: React.FC = () => {
           </div>
         </CardTitle>
       </CardContainer>
+
+      <PropPlayground
+        componentName="LivePriceFeed"
+        defaultValues={{
+          id: 'bitcoin',
+          name: 'Bitcoin',
+          symbol: 'BTC',
+          balance: '1.25',
+          usdBalance: '45,000',
+          change: '+2.5%',
+          isChangePositive: true,
+          isBorder: false,
+        }}
+        controlOverrides={[
+          {
+            name: 'isChangePositive',
+            type: 'boolean',
+            description: 'Whether the price change is positive',
+          },
+          {
+            name: 'isBorder',
+            type: 'boolean',
+            description: 'Show border around the component',
+          },
+        ]}
+        includeProps={[
+          'id',
+          'name',
+          'symbol',
+          'balance',
+          'usdBalance',
+          'change',
+          'isChangePositive',
+          'isBorder',
+        ]}
+      >
+        {(props) => (
+          <div className="w-full">
+            <LivePriceFeed
+              {...props}
+              icon={<Bitcoin className="w-6 h-6" />}
+              prices={priceData}
+            />
+          </div>
+        )}
+      </PropPlayground>
+
       <AutoPropsTable componentName="LivePriceFeed" />
 
       <CardContainer className="overflow-hidden">

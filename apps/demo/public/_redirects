@@ -7,6 +7,7 @@
 /form-system/code-example/*    /index.html   200
 /components/*    /index.html   200
 /components/blockchain/*    /index.html   200
+/components/charts/*    /index.html   200
 /components/ui-components/*    /index.html   200
 /components/inputs-components/*    /index.html   200
 /features/*    /index.html   200
@@ -14,6 +15,9 @@
 /features/accessibility/*    /index.html   200
 /features/hooks-utilities/*    /index.html   200
 /features/routing-system/*    /index.html   200
+/macos/*    /index.html   200
+/macos/sonoma/*    /index.html   200
+/macos/tahoe/*    /index.html   200
 /tailwind-utilities/*    /index.html   200
 /tailwind-utilities/colors/*    /index.html   200
 /tailwind-utilities/layout-utilities/*    /index.html   200

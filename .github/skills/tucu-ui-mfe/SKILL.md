@@ -799,11 +799,13 @@ export function useRoutesConfig(): IAppRouteConfig[] {
 
 Each MFE can use a different layout from `@e-burgos/tucu-ui` depending on its purpose. Choose the layout that best fits your app's UX:
 
-| Layout                      | Sidebar | Top Nav | Best For                                         |
-| --------------------------- | ------- | ------- | ------------------------------------------------ |
-| `LAYOUT_OPTIONS.ADMIN`      | Yes     | Yes     | Data-rich apps (dashboards, admin panels, CRM)   |
-| `LAYOUT_OPTIONS.HORIZONTAL` | No      | Yes     | Content apps (landing, docs, profiles, settings) |
-| `LAYOUT_OPTIONS.CLEAN`      | No      | No      | Standalone flows (login, signup, onboarding)     |
+| Layout                          | Sidebar | Top Nav | Best For                                           |
+| ------------------------------- | ------- | ------- | -------------------------------------------------- |
+| `LAYOUT_OPTIONS.ADMIN`          | Yes     | Yes     | Data-rich apps (dashboards, admin panels, CRM)     |
+| `LAYOUT_OPTIONS.HORIZONTAL`     | No      | Yes     | Content apps (landing, docs, profiles, settings)   |
+| `LAYOUT_OPTIONS.CLEAN`          | No      | No      | Standalone flows (login, signup, onboarding)       |
+| `LAYOUT_OPTIONS.MACOS`          | Yes     | Yes     | macOS-style apps with translucent sidebar + toolbar|
+| `LAYOUT_OPTIONS.MACOS_TAHOE`    | Yes     | Yes     | macOS Tahoe-style with rounded corners + vibrancy  |
 
 > **Reference Implementation examples**: Authentication → `CLEAN`, Landing → `HORIZONTAL`, Dashboard → `ADMIN`, User Profile → `HORIZONTAL`. These are just sensible defaults for their respective demo purposes.
 
@@ -1088,6 +1090,8 @@ enum LAYOUT_OPTIONS {
   ADMIN = 'admin', // Sidebar + top nav
   HORIZONTAL = 'horizontal', // Top nav only
   CLEAN = 'clean', // No navigation chrome
+  MACOS = 'macos', // macOS-style sidebar + toolbar
+  MACOS_TAHOE = 'macos-tahoe', // macOS Tahoe-style with rounded corners
 }
 
 // ThemeProvider props in MFE mode

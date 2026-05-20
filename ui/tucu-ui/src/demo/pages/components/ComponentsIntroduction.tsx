@@ -6,6 +6,7 @@ import {
   Badge,
   HeroCard,
   BasicTable,
+  FeatureCard,
 } from '../../../index';
 
 export function ComponentsIntroduction() {
@@ -116,7 +117,7 @@ export function ComponentsIntroduction() {
   };
 
   return (
-    <div className="space-y-8 sm:space-y-12 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative pt-8 lg:pt-12">
+    <div className="space-y-8 max-w-6xl sm:space-y-12 w-full mx-auto px-4 sm:px-6 lg:px-8 relative pt-8 lg:pt-12">
       {/* Hero Section */}
       <HeroCard
         title="Components"
@@ -134,15 +135,12 @@ export function ComponentsIntroduction() {
       {/* Main Component Sections */}
       <section className="space-y-8">
         <div className="text-center">
-          <Typography
-            tag="h2"
-            className="mb-4 text-2xl sm:text-3xl md:text-4xl font-bold"
-          >
+          <Typography tag="h2" className="mb-2">
             Component Sections
           </Typography>
           <Typography
             tag="p"
-            className="text-base sm:text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto"
+            className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto"
           >
             Explore our main component categories organized for modern web
             development
@@ -198,10 +196,13 @@ export function ComponentsIntroduction() {
         {/* Form Sections */}
         <div className="space-y-6">
           <div className="text-center">
-            <Typography tag="h2" className="mb-4 text-3xl font-bold">
+            <Typography tag="h2" className="mb-2">
               Form Solutions
             </Typography>
-            <Typography tag="p" className="text-gray-600 dark:text-gray-400">
+            <Typography
+              tag="p"
+              className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto"
+            >
               Complete form ecosystem with validation, examples, and
               implementation patterns
             </Typography>
@@ -209,49 +210,28 @@ export function ComponentsIntroduction() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {formSections.map((section, index) => (
-              <CardContainer
+              <FeatureCard
                 key={index}
-                className="w-full flex flex-col justify-center items-center hover:shadow-lg transition-all duration-200 hover:-translate-y-0.5"
-              >
-                <div className="p-6 text-center">
-                  <div
-                    className={`inline-flex p-3 bg-linear-to-br ${section.gradient} rounded-xl shadow-lg mb-4`}
-                  >
-                    <div className="text-white">{section.icon}</div>
-                  </div>
-
-                  <Typography tag="h4" className="font-semibold mb-2">
-                    {section.title}
-                  </Typography>
-
-                  <Typography tag="p" className="text-sm text-brand mb-4">
-                    {section.description}
-                  </Typography>
-
-                  <Button
-                    variant="ghost"
-                    fullWidth
-                    className="group-hover:border-brand group-hover:text-brand transition-colors"
-                    onClick={() => window.open(section.href, '_self')}
-                  >
-                    View {section.title}
-                  </Button>
-                </div>
-              </CardContainer>
+                icon={<div className="text-white">{section.icon}</div>}
+                title={section.title}
+                description={section.description}
+                iconBgClassName={section.gradient}
+                onClick={() => window.open(section.href, '_self')}
+              />
             ))}
           </div>
         </div>
       </section>
 
       {/* Component Categories Showcase */}
-      <section className="space-y-6">
+      <section className="space-y-8">
         <div className="text-center">
-          <Typography tag="h2" className="mb-4 text-3xl font-bold">
+          <Typography tag="h2" className="mb-2">
             Component Categories
           </Typography>
           <Typography
             tag="p"
-            className="text-gray-600 dark:text-gray-400 text-sm"
+            className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto"
           >
             Explore components organized by category and functionality
           </Typography>
@@ -262,7 +242,7 @@ export function ComponentsIntroduction() {
           <CardContainer className="p-6">
             <div className="flex items-center gap-3 mb-4">
               <div className="p-2 bg-linear-to-br from-indigo-500 via-purple-500 to-pink-500 rounded-lg">
-                <LucideIcons.Component className="w-5 h-5 text-white filter drop-shadow-sm" />
+                <LucideIcons.Component className="w-5 h-5 text-white! filter drop-shadow-sm" />
               </div>
               <div>
                 <Typography tag="h4" className="font-semibold">
@@ -275,6 +255,7 @@ export function ComponentsIntroduction() {
               </div>
             </div>
             <BasicTable
+              border
               columns={[
                 {
                   key: 'category',
@@ -312,7 +293,7 @@ export function ComponentsIntroduction() {
           <CardContainer className="p-6">
             <div className="flex items-center gap-3 mb-4">
               <div className="p-2 bg-linear-to-br from-blue-500 via-indigo-500 to-purple-500 rounded-lg">
-                <LucideIcons.Type className="w-5 h-5 text-white filter drop-shadow-sm" />
+                <LucideIcons.Type className="w-5 h-5 text-white! filter drop-shadow-sm" />
               </div>
               <div>
                 <Typography tag="h4" className="font-semibold">
@@ -345,7 +326,7 @@ export function ComponentsIntroduction() {
           <CardContainer className="p-6">
             <div className="flex items-center gap-3 mb-4">
               <div className="p-2 bg-linear-to-br from-green-500 via-emerald-500 to-teal-500 rounded-lg">
-                <LucideIcons.Coins className="w-5 h-5 text-white filter drop-shadow-sm" />
+                <LucideIcons.Coins className="w-5 h-5 text-white! filter drop-shadow-sm" />
               </div>
               <div>
                 <Typography tag="h4" className="font-semibold">
@@ -359,18 +340,6 @@ export function ComponentsIntroduction() {
             <BasicTable
               columns={[
                 {
-                  key: 'category',
-                  label: 'Category',
-                  render: (value: unknown) => (
-                    <Typography
-                      tag="span"
-                      className="text-xs font-semibold text-gray-700 dark:text-gray-300"
-                    >
-                      {String(value)}
-                    </Typography>
-                  ),
-                },
-                {
                   key: 'component',
                   label: 'Component',
                   render: (value: unknown) => (
@@ -380,153 +349,117 @@ export function ComponentsIntroduction() {
                   ),
                 },
               ]}
-              data={Object.entries(blockchainComponents).flatMap(
-                ([category, components]) =>
-                  components.map((component) => ({
-                    category,
-                    component,
-                  }))
-              )}
+              data={Object.values(blockchainComponents)
+                .flat()
+                .map((component) => ({
+                  component,
+                }))}
             />
           </CardContainer>
         </div>
       </section>
 
       {/* Key Features */}
-      <section className="space-y-6">
+      <section className="space-y-8">
         <div className="text-center">
-          <Typography tag="h2" className="mb-4 text-3xl font-bold">
+          <Typography tag="h2" className="mb-2">
             Built for Production
           </Typography>
           <Typography
             tag="p"
-            className="text-gray-600 dark:text-gray-400 text-sm"
+            className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto"
           >
             Modern standards and best practices in every component
           </Typography>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <CardContainer className="text-center p-6 hover:shadow-lg transition-shadow">
-            <div className="flex flex-col items-center">
-              <div className="inline-flex p-3 bg-blue-100 dark:bg-blue-900/30 rounded-xl mb-4">
-                <LucideIcons.Code className="w-6 h-6 text-blue-600 dark:text-blue-400" />
-              </div>
-              <Typography tag="h4" className="font-semibold mb-2">
-                TypeScript First
-              </Typography>
-            </div>
-            <Typography
-              tag="p"
-              className="text-sm text-gray-600 dark:text-gray-300"
-            >
-              Full type safety with comprehensive definitions and IntelliSense
-              support
-            </Typography>
-          </CardContainer>
-
-          <CardContainer className="text-center p-6 hover:shadow-lg transition-shadow">
-            <div className="flex flex-col items-center">
-              <div className="inline-flex p-3 bg-green-100 dark:bg-green-900/30 rounded-xl mb-4">
-                <LucideIcons.Accessibility className="w-6 h-6 text-green-600 dark:text-green-400" />
-              </div>
-              <Typography tag="h4" className="font-semibold mb-2">
-                WCAG 2.1 AA
-              </Typography>
-            </div>
-            <Typography
-              tag="p"
-              className="text-sm text-gray-600 dark:text-gray-300"
-            >
-              WCAG 2.1 AA compliant with ARIA attributes and keyboard navigation
-            </Typography>
-          </CardContainer>
-
-          <CardContainer className="text-center p-6 hover:shadow-lg transition-shadow">
-            <div className="flex flex-col items-center">
-              <div className="inline-flex p-3 bg-purple-100 dark:bg-purple-900/30 rounded-xl mb-4">
-                <LucideIcons.Palette className="w-6 h-6 text-purple-600 dark:text-purple-400" />
-              </div>
-              <Typography tag="h4" className="font-semibold mb-2">
-                Highly Customizable
-              </Typography>
-            </div>
-            <Typography
-              tag="p"
-              className="text-sm text-gray-600 dark:text-gray-300"
-            >
-              Flexible theming with CSS variables and custom styling options
-            </Typography>
-          </CardContainer>
+          {[
+            {
+              icon: <LucideIcons.Code className="w-5 h-5 text-white" />,
+              title: 'TypeScript First',
+              description:
+                'Full type safety with comprehensive definitions and IntelliSense support',
+              gradient: 'from-blue-500 to-indigo-600',
+            },
+            {
+              icon: (
+                <LucideIcons.Accessibility className="w-5 h-5 text-white" />
+              ),
+              title: 'WCAG 2.1 AA',
+              description:
+                'WCAG 2.1 AA compliant with ARIA attributes and keyboard navigation',
+              gradient: 'from-green-500 to-emerald-600',
+            },
+            {
+              icon: <LucideIcons.Palette className="w-5 h-5 text-white" />,
+              title: 'Highly Customizable',
+              description:
+                'Flexible theming with CSS variables and custom styling options',
+              gradient: 'from-purple-500 to-violet-600',
+            },
+          ].map((feature, index) => (
+            <FeatureCard
+              key={index}
+              layout="horizontal"
+              icon={feature.icon}
+              title={feature.title}
+              description={feature.description}
+              iconBgClassName={feature.gradient}
+            />
+          ))}
         </div>
       </section>
 
       {/* Performance & Features */}
-      <section className="space-y-6">
+      <section className="space-y-8">
         <div className="text-center">
-          <Typography tag="h2" className="mb-4 text-3xl font-bold">
+          <Typography tag="h2" className="mb-2">
             Performance & Developer Experience
           </Typography>
           <Typography
             tag="p"
-            className="text-gray-600 dark:text-gray-400 text-sm"
+            className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto"
           >
             Optimized for speed and developer productivity
           </Typography>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          <CardContainer className="p-4 text-center hover:shadow-md transition-shadow">
-            <LucideIcons.Zap className="w-5 h-5 text-yellow-500 dark:text-yellow-400 mx-auto mb-2" />
-            <Typography tag="h5" className="font-semibold text-sm mb-1">
-              Lazy Loading
-            </Typography>
-            <Typography
-              tag="p"
-              className="text-xs text-gray-600 dark:text-gray-400"
-            >
-              Components load on demand
-            </Typography>
-          </CardContainer>
-
-          <CardContainer className="p-4 text-center hover:shadow-md transition-shadow">
-            <LucideIcons.Package className="w-5 h-5 text-blue-500 dark:text-blue-400 mx-auto mb-2" />
-            <Typography tag="h5" className="font-semibold text-sm mb-1">
-              Tree Shakeable
-            </Typography>
-            <Typography
-              tag="p"
-              className="text-xs text-gray-600 dark:text-gray-400"
-            >
-              Import only what you need
-            </Typography>
-          </CardContainer>
-
-          <CardContainer className="p-4 text-center hover:shadow-md transition-shadow">
-            <LucideIcons.Moon className="w-5 h-5 text-indigo-500 dark:text-indigo-400 mx-auto mb-2" />
-            <Typography tag="h5" className="font-semibold text-sm mb-1">
-              Dark Mode
-            </Typography>
-            <Typography
-              tag="p"
-              className="text-xs text-gray-600 dark:text-gray-400"
-            >
-              Built-in dark mode support
-            </Typography>
-          </CardContainer>
-
-          <CardContainer className="p-4 text-center hover:shadow-md transition-shadow">
-            <LucideIcons.Tablet className="w-5 h-5 text-green-500 dark:text-green-400 mx-auto mb-2" />
-            <Typography tag="h5" className="font-semibold text-sm mb-1">
-              Responsive
-            </Typography>
-            <Typography
-              tag="p"
-              className="text-xs text-gray-600 dark:text-gray-400"
-            >
-              Mobile-first design
-            </Typography>
-          </CardContainer>
+          {[
+            {
+              icon: <LucideIcons.Zap className="w-5 h-5 text-white" />,
+              title: 'Lazy Loading',
+              description: 'Components load on demand',
+              gradient: 'from-yellow-500 to-amber-600',
+            },
+            {
+              icon: <LucideIcons.Package className="w-5 h-5 text-white" />,
+              title: 'Tree Shakeable',
+              description: 'Import only what you need',
+              gradient: 'from-blue-500 to-cyan-600',
+            },
+            {
+              icon: <LucideIcons.Moon className="w-5 h-5 text-white" />,
+              title: 'Dark Mode',
+              description: 'Built-in dark mode support',
+              gradient: 'from-indigo-500 to-violet-600',
+            },
+            {
+              icon: <LucideIcons.Tablet className="w-5 h-5 text-white" />,
+              title: 'Responsive',
+              description: 'Mobile-first design',
+              gradient: 'from-green-500 to-teal-600',
+            },
+          ].map((feature, index) => (
+            <FeatureCard
+              key={index}
+              icon={feature.icon}
+              title={feature.title}
+              description={feature.description}
+              iconBgClassName={feature.gradient}
+            />
+          ))}
         </div>
       </section>
     </div>

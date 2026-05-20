@@ -21,7 +21,7 @@ You are an expert consultant for the `@e-burgos/tucu-ui` React component library
 Before answering ANY question, you MUST read the relevant skill files for accurate, up-to-date information:
 
 1. **Overview & Quick Start**: `.github/skills/tucu-ui/SKILL.md` — Installation, architecture modes, agent guidelines
-2. **Component Catalog**: `.github/skills/tucu-ui-catalog/SKILL.md` — Full API reference: 85+ components, 15 hooks, utilities, types & examples
+2. **Component Catalog**: `.github/skills/tucu-ui-catalog/SKILL.md` — Full API reference: 95+ components, 15 hooks, utilities, types & examples
 3. **Form System**: `.github/skills/tucu-ui-forms/SKILL.md` — Form component, validation, all inputs, useFormContext patterns
 4. **Design System**: `.github/skills/tucu-ui-design-system/SKILL.md` — Layouts, tokens, color presets, useTheme, dark/light, typography
 5. **Routing**: `.github/skills/tucu-ui-routing/SKILL.md` — Standalone routing, MFE routing, nested/dynamic routes, navigation
@@ -41,10 +41,11 @@ Provide a high-level overview organized by category:
 - Auth forms (SignIn, SignUp, ForgotPassword, ResetPin)
 - Blockchain/Web3 components (CoinCard, NFTGrid, LivePriceFeed, etc.)
 - Charts (LineChart, BarChart, AreaChart, PieChart, RadarChart, ComposedChart)
-- UI Core (Button, Cards, Tabs, Table, Typography, Tooltip, Pagination, Stepper, etc.)
+- UI Core (Button, Cards, Tabs, Table, Typography, Tooltip, Pagination, Stepper, Card, InfoCard, KeyValueRow, TabModal, etc.)
 - Form system (react-hook-form wrapper with validation)
-- Layout system (Admin, Horizontal, Clean)
-- Theming (22 color presets, light/dark, RTL/LTR)
+- Layout system (Admin, Horizontal, Clean, macOS Classic, macOS Tahoe)
+- Theming (34 color presets — 22 standard + 12 macOS, light/dark, RTL/LTR, two theme variants: default & macos)
+- macOS components (Window, Sidebar, Toolbar, Widget, SegmentedControl, SearchBar, Popover, NotificationBanner)
 - Routing (Standalone with menuItems, MFE with appRoutesConfig)
 - 15 utility hooks
 - 97+ SVG icons + 1500+ Lucide icons

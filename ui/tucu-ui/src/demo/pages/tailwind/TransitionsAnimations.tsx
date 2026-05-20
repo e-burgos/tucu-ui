@@ -8,7 +8,7 @@ import {
 
 export function TransitionsAnimations() {
   return (
-    <div className="space-y-8 sm:space-y-12 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative pt-8 lg:pt-12">
+    <div className="space-y-8 max-w-6xl sm:space-y-12 w-full mx-auto px-4 sm:px-6 lg:px-8 relative pt-8 lg:pt-12">
       <HeroCard
         title="Transitions & Animations"
         description="Complete guide to CSS transitions and animations in Tailwind CSS v4. Master smooth transitions and engaging animations."
@@ -16,7 +16,7 @@ export function TransitionsAnimations() {
         getStartedButton
         docsButton="tailwind-utilities"
         icon={
-          <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 bg-gradient-to-br from-orange-500 via-red-500 to-pink-500 rounded-full flex items-center justify-center shadow-lg border border-orange-500/50">
+          <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 bg-linear-to-br from-orange-500 via-red-500 to-pink-500 rounded-full flex items-center justify-center shadow-lg">
             <LucideIcons.Play className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 text-white filter drop-shadow-lg" />
           </div>
         }
@@ -26,13 +26,13 @@ export function TransitionsAnimations() {
         <div className="text-center">
           <Typography
             tag="h2"
-            className="mb-4 text-2xl sm:text-3xl md:text-4xl font-bold"
+            className="mb-2"
           >
             Smooth Transitions & Engaging Animations
           </Typography>
           <Typography
             tag="p"
-            className="text-base sm:text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto"
+            className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto"
           >
             Professional animation utilities built with Tailwind CSS v4 @source
             directives
@@ -119,25 +119,25 @@ export function TransitionsAnimations() {
               </Typography>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div className="space-y-2">
-                  <div className="w-full h-16 bg-gradient-to-r from-red-500 to-yellow-500 rounded-lg flex items-center justify-center">
+                  <div className="w-full h-16 bg-linear-to-r from-red-500 to-yellow-500 rounded-lg flex items-center justify-center">
                     <div className="w-4 h-4 bg-white rounded-full animate-bounce ease-linear"></div>
                   </div>
                   <div className="text-xs text-center">ease-linear</div>
                 </div>
                 <div className="space-y-2">
-                  <div className="w-full h-16 bg-gradient-to-r from-green-500 to-blue-500 rounded-lg flex items-center justify-center">
+                  <div className="w-full h-16 bg-linear-to-r from-green-500 to-blue-500 rounded-lg flex items-center justify-center">
                     <div className="w-4 h-4 bg-white rounded-full animate-bounce ease-in"></div>
                   </div>
                   <div className="text-xs text-center">ease-in</div>
                 </div>
                 <div className="space-y-2">
-                  <div className="w-full h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
+                  <div className="w-full h-16 bg-linear-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
                     <div className="w-4 h-4 bg-white rounded-full animate-bounce ease-out"></div>
                   </div>
                   <div className="text-xs text-center">ease-out</div>
                 </div>
                 <div className="space-y-2">
-                  <div className="w-full h-16 bg-gradient-to-r from-indigo-500 to-cyan-500 rounded-lg flex items-center justify-center">
+                  <div className="w-full h-16 bg-linear-to-r from-indigo-500 to-cyan-500 rounded-lg flex items-center justify-center">
                     <div className="w-4 h-4 bg-white rounded-full animate-bounce ease-in-out"></div>
                   </div>
                   <div className="text-xs text-center">ease-in-out</div>

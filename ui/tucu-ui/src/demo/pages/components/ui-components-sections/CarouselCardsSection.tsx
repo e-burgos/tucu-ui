@@ -6,9 +6,11 @@ import {
   CodeBlock,
   CarouselCards,
   LucideIcons,
+  HeroCard,
 } from '../../../../index';
 import { AutoPropsTable } from '../../../components/auto-props-table';
 
+import { PropPlayground } from '../../../components/prop-playground';
 const CarouselCardsSection: React.FC = () => {
   const cards = [
     {
@@ -49,18 +51,16 @@ const CarouselCardsSection: React.FC = () => {
 
   return (
     <>
-      <div className="text-center space-y-4">
-        <Typography tag="h2" className="text-3xl md:text-4xl font-bold">
-          CarouselCards
-        </Typography>
-        <Typography
-          tag="p"
-          className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
-        >
-          A carousel component specifically designed for displaying cards with
-          customizable sizes and variants.
-        </Typography>
-      </div>
+      <HeroCard
+        title="CarouselCards"
+        description="A carousel component specifically designed for displaying cards with
+          customizable sizes and variants."
+        icon={
+          <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 bg-linear-to-br from-rose-500 to-pink-500 rounded-full flex items-center justify-center shadow-lg">
+            <LucideIcons.Layers className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-white filter drop-shadow-lg" />
+          </div>
+        }
+      />
 
       <CardContainer className="overflow-hidden">
         <CardTitle title="Basic Examples" className="mt-2 mb-2">
@@ -126,6 +126,34 @@ const CarouselCardsSection: React.FC = () => {
           </div>
         </CardTitle>
       </CardContainer>
+      <PropPlayground
+        componentName="CarouselCards"
+        title="CarouselCards Playground"
+        defaultValues={{
+          'variant': 'default',
+          'cardSize': 'md',
+          'showCardTitles': true,
+          'showNavigation': true,
+          'showPagination': true,
+          'loop': true,
+          'grabCursor': true,
+          'direction': 'horizontal'
+}}
+        excludeProps={['cards', 'onSlideChange', 'onSwiper', 'breakpoints', 'autoplay', 'className', 'slideClassName', 'cardClassName', 'aria-label', 'effect', 'paginationType', 'centeredSlides', 'freeMode', 'mousewheel', 'slidesPerView', 'spaceBetween']}
+      >
+        {(props) => (
+          <CarouselCards
+            {...props}
+            cards={[
+              { title: 'Card 1', description: 'Description 1', image: '' },
+              { title: 'Card 2', description: 'Description 2', image: '' },
+              { title: 'Card 3', description: 'Description 3', image: '' },
+            ]}
+          />
+        )}
+      </PropPlayground>
+
+
       <AutoPropsTable componentName="CarouselCards" />
 
       <CardContainer className="overflow-hidden">

@@ -6,30 +6,29 @@ import {
   CodeBlock,
   Drawer,
   Button,
+  HeroCard,
+  LucideIcons,
 } from '../../../../index';
 import { AutoPropsTable } from '../../../components/auto-props-table';
 import { PropPlayground } from '../../../components/prop-playground';
 
 const DrawerSection: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [drawerType, setDrawerType] = useState<'sidebar' | 'sidebar-menu'>(
-    'sidebar'
-  );
+  const [isOpen2, setIsOpen2] = useState(false);
+  const [, setDrawerType] = useState<'sidebar' | 'sidebar-menu'>('sidebar');
 
   return (
     <>
-      <div className="text-center space-y-4">
-        <Typography tag="h2" className="text-3xl md:text-4xl font-bold">
-          Drawer
-        </Typography>
-        <Typography
-          tag="p"
-          className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
-        >
-          A drawer component that slides in from the side, supporting both
-          simple sidebar and sidebar-menu variants.
-        </Typography>
-      </div>
+      <HeroCard
+        title="Drawer"
+        description="A drawer component that slides in from the side, supporting both
+          simple sidebar and sidebar-menu variants."
+        icon={
+          <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 bg-linear-to-br from-amber-600 to-orange-500 rounded-full flex items-center justify-center shadow-lg">
+            <LucideIcons.PanelRightOpen className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-white filter drop-shadow-lg" />
+          </div>
+        }
+      />
 
       <CardContainer className="overflow-hidden">
         <CardTitle title="Basic Examples" className="mt-2 mb-2">
@@ -37,7 +36,7 @@ const DrawerSection: React.FC = () => {
             <div className="space-y-4">
               <CardContainer className="p-4">
                 <Typography tag="h5" className="mb-3">
-                  Sidebar Drawer
+                  Left Position
                 </Typography>
                 <Button
                   onClick={() => {
@@ -45,13 +44,14 @@ const DrawerSection: React.FC = () => {
                     setIsOpen(true);
                   }}
                 >
-                  Open Sidebar
+                  Open Left Drawer
                 </Button>
                 <Drawer
                   isOpen={isOpen}
                   setIsOpen={setIsOpen}
                   type="sidebar"
                   title="Sidebar Title"
+                  position="left"
                 >
                   <Typography tag="p">Sidebar content goes here</Typography>
                 </Drawer>
@@ -63,14 +63,14 @@ const DrawerSection: React.FC = () => {
                 <Button
                   onClick={() => {
                     setDrawerType('sidebar');
-                    setIsOpen(true);
+                    setIsOpen2(true);
                   }}
                 >
                   Open Right Drawer
                 </Button>
                 <Drawer
-                  isOpen={isOpen}
-                  setIsOpen={setIsOpen}
+                  isOpen={isOpen2}
+                  setIsOpen={setIsOpen2}
                   type="sidebar"
                   position="right"
                   title="Right Drawer"

@@ -11,6 +11,7 @@ import {
   PresetColorType,
   LAYOUT_OPTIONS,
   MODE,
+  THEME_STYLE_LAYOUTS,
 } from '../../config';
 import {
   RootLayout,
@@ -54,7 +55,7 @@ function resolveColor(
   );
 }
 
-interface ThemeWrapperProps extends LayoutTypeProps {
+interface ThemeWrapperBaseProps extends Omit<LayoutTypeProps, 'layout'> {
   menuItems: IMenuItem[];
   brandColor?: PresetColorType;
   mode?: MODE;
@@ -80,9 +81,40 @@ interface ThemeWrapperProps extends LayoutTypeProps {
   setCurrentPathname?: (pathname: string) => void;
 }
 
+// ─── Conditional layout types per theme style ───────────────────
+type DefaultLayoutType = 'clean' | 'admin' | 'horizontal';
+type MacOSLayoutType = 'macos';
+type MacOSTahoeLayoutType = 'macos-tahoe' | 'macos-tahoe-dock';
+
+interface DefaultThemeWrapperProps extends ThemeWrapperBaseProps {
+  themeStyle?: 'default';
+  layout?: DefaultLayoutType;
+}
+
+interface MacOSThemeWrapperProps extends ThemeWrapperBaseProps {
+  themeStyle: 'macos';
+  layout?: MacOSLayoutType;
+}
+
+interface MacOSTahoeThemeWrapperProps extends ThemeWrapperBaseProps {
+  themeStyle: 'macos-tahoe';
+  layout?: MacOSTahoeLayoutType;
+}
+
+type ThemeWrapperProps =
+  | DefaultThemeWrapperProps
+  | MacOSThemeWrapperProps
+  | MacOSTahoeThemeWrapperProps;
+
+/** Distributive Omit — preserves discriminated union across variants */
+type DistributiveOmit<T, K extends keyof never> = T extends unknown
+  ? Omit<T, K>
+  : never;
+
 export function ThemeWrapper({
   logo = {},
   rightButton,
+  themeStyle,
   brandColor,
   customPaletteColor,
   showSettings,
@@ -123,11 +155,29 @@ export function ThemeWrapper({
       ? colorPreset?.find((item) => item.label === brandColor)
       : undefined;
 
+    // Resolve layout based on themeStyle constraints
+    const themeConfig = themeStyle
+      ? THEME_STYLE_LAYOUTS[themeStyle]
+      : undefined;
+    const resolvedLayout = themeConfig
+      ? appLayout &&
+        themeConfig.validLayouts.includes(appLayout as LAYOUT_OPTIONS)
+        ? (appLayout as LAYOUT_OPTIONS)
+        : themeConfig.defaultLayout
+      : appLayout
+      ? (appLayout as LAYOUT_OPTIONS)
+      : undefined;
+
+    // Apply themeStyle presets if provided
+    if (themeStyle) {
+      useTheme.getState().applyThemeStyle(themeStyle);
+    }
+
     useTheme.setState({
       logo: hasCustomLogo ? logo : defaultLogo,
       showSettings: Boolean(showSettings),
       ...(appMode && { mode: appMode }),
-      ...(appLayout && { layout: appLayout as LAYOUT_OPTIONS }),
+      ...(resolvedLayout && { layout: resolvedLayout }),
       ...(brandPreset && { primaryPreset: brandPreset }),
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -155,6 +205,10 @@ export function ThemeWrapper({
   }, [customPaletteColor]);
 
   // ─── Dark/Light mode class on <html> ─────────────────────────
+  // Adds/removes 'dark' and 'light' classes independently from 'macos'.
+  // Result: <html class="macos dark"> → CSS selector: html.macos.dark
+  // All macOS CSS files (macos-foundations, macos-liquid-glass, etc.)
+  // use html.macos.dark { } — NOT html.macos[data-mode="dark"].
   useEffect(() => {
     const html = document.documentElement;
     html.classList.toggle('dark', mode === 'dark');
@@ -162,28 +216,39 @@ export function ThemeWrapper({
   }, [mode]);
 
   // ─── macOS theme/layout classes on <html> ────────────────────
+  // 'macos' class is applied ONLY for Sonoma theme.
+  // 'macos-tahoe' class is applied ONLY for Tahoe theme.
+  // The two themes are fully independent — never overlap.
   useEffect(() => {
     document.documentElement.classList.toggle(
       'macos',
-      colorScheme === 'macos' ||
-        layout === LAYOUT_OPTIONS.MACOS ||
-        layout === LAYOUT_OPTIONS.MACOS_TAHOE
+      colorScheme === 'macos' || layout === LAYOUT_OPTIONS.MACOS
     );
   }, [colorScheme, layout]);
 
   useEffect(() => {
     document.documentElement.classList.toggle(
       'macos-tahoe',
-      layout === LAYOUT_OPTIONS.MACOS_TAHOE
+      colorScheme === 'macos-tahoe' ||
+        layout === LAYOUT_OPTIONS.MACOS_TAHOE ||
+        layout === LAYOUT_OPTIONS.MACOS_TAHOE_DOCK
     );
-  }, [layout]);
+  }, [colorScheme, layout]);
+
+  // ─── Resolve effective layout ─────────────────────────────────
+  const effectiveLayout = useMemo(() => {
+    if (appLayout) {
+      return appLayout as LAYOUT_OPTIONS;
+    }
+    return layout || defaultLayout;
+  }, [appLayout, layout]);
 
   return (
     <div
       className={`fixed inset-0 h-screen w-screen overflow-auto bg-body ${className}`}
     >
       <RootLayout
-        layout={(appLayout as LAYOUT_OPTIONS) || layout || defaultLayout}
+        layout={effectiveLayout}
         menuItems={menuList}
         rightButton={rightButton}
         logo={logo}
@@ -202,4 +267,14 @@ export function ThemeWrapper({
 
 export default ThemeWrapper;
 
-export type { ThemeWrapperProps };
+export type {
+  ThemeWrapperProps,
+  ThemeWrapperBaseProps,
+  DefaultThemeWrapperProps,
+  MacOSThemeWrapperProps,
+  MacOSTahoeThemeWrapperProps,
+  DistributiveOmit,
+  DefaultLayoutType,
+  MacOSLayoutType,
+  MacOSTahoeLayoutType,
+};

@@ -1,23 +1,8 @@
 /* ============================================================
-   macOS Sonoma 14 — CSS Overrides Barrel
-   Import order matters: fonts first, then foundations, then components
+   macOS Themes — CSS Overrides Barrel
+   Sonoma 14 and Tahoe 26 are fully independent.
+   Each sub-barrel imports fonts → foundations → components.
    ============================================================ */
 
-@import './macos-fonts.css';
-@import './macos-foundations.css';
-
-/* Fase B — High-visibility components */
-@import './macos-buttons.css';
-@import './macos-cards.css';
-@import './macos-inputs.css';
-@import './macos-dialogs.css';
-
-/* Fase C — Data & navigation */
-@import './macos-tables.css';
-@import './macos-navigation.css';
-@import './macos-feedback.css';
-
-/* Fase D — Typography, layouts, misc */
-@import './macos-typography.css';
-@import './macos-layouts.css';
-@import './macos-misc.css';
+@import './sonoma/index.css';
+@import './tahoe/index.css';

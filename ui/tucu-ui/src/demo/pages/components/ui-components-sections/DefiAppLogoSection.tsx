@@ -1,4 +1,5 @@
 import React from 'react';
+import { AutoPropsTable } from '../../../components/auto-props-table';
 import {
   CardContainer,
   CardTitle,
@@ -6,8 +7,12 @@ import {
   CodeBlock,
   BasicTable,
   DefiAppLogo,
+  TucuUiLogo,
+  HeroCard,
+  LucideIcons,
 } from '../../../../index';
 
+import { PropPlayground } from '../../../components/prop-playground';
 const DefiAppLogoSection: React.FC = () => {
   const propsTableColumns = [
     {
@@ -52,19 +57,17 @@ const DefiAppLogoSection: React.FC = () => {
 
   return (
     <>
-      <div className="text-center space-y-4">
-        <Typography tag="h2" className="text-3xl md:text-4xl font-bold">
-          DefiAppLogo
-        </Typography>
-        <Typography
-          tag="p"
-          className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
-        >
-          An animated brain-inspired logo component designed for DeFi
+      <HeroCard
+        title="DefiAppLogo"
+        description="An animated brain-inspired logo component designed for DeFi
           applications, featuring pulsing nodes and signal flows that represent
-          financial data processing.
-        </Typography>
-      </div>
+          financial data processing."
+        icon={
+          <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 bg-linear-to-br from-rose-600 to-pink-500 rounded-full flex items-center justify-center shadow-lg">
+            <LucideIcons.Diamond className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-white filter drop-shadow-lg" />
+          </div>
+        }
+      />
 
       <CardContainer className="overflow-hidden">
         <CardTitle title="Basic Examples" className="mt-2 mb-2">
@@ -158,7 +161,21 @@ const DefiAppLogoSection: React.FC = () => {
           </div>
         </CardTitle>
       </CardContainer>
-    </>
+    
+      <PropPlayground
+        componentName="TucuUiLogo"
+        title="Logo Playground"
+        defaultValues={{
+          'size': 48
+}}
+        excludeProps={['props', 'className']}
+      >
+        {(props) => <TucuUiLogo {...props} />}
+      </PropPlayground>
+
+      <AutoPropsTable componentName="TucuUiLogo" />
+
+      </>
   );
 };
 

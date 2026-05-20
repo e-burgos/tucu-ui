@@ -9,7 +9,13 @@ export interface ActiveLinkProps extends LinkProps {
 }
 export const ActiveLink: React.FC<
   ActiveLinkProps & Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'href'>
-> = ({ href, path, className, activeClassName = 'active', ...props }) => {
+> = ({
+  href: _href,
+  path,
+  className,
+  activeClassName = 'active',
+  ...props
+}) => {
   const location = useLocation();
   const pathname = location.pathname;
 

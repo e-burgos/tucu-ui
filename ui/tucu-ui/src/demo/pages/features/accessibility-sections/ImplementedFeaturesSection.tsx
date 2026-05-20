@@ -1,131 +1,101 @@
 import React from 'react';
 import {
-  CardContainer,
+  HeroCard,
   Typography,
   LucideIcons,
+  FeatureCard,
 } from '../../../../index';
 
 const ImplementedFeaturesSection: React.FC = () => {
-  const implementedFeatures = [
+  const features = [
     {
-      title: 'Focus Management',
-      description: 'Complete control over focus behavior and visual indicators',
       icon: (
         <LucideIcons.Target className="w-6 h-6 text-white filter drop-shadow-sm" />
       ),
-      color: 'from-red-500 via-orange-500 to-red-500',
-      features: [
-        'Visible focus indicators',
-        'Focus trapping in modals',
-        'Focus restoration',
-        'Skip navigation links',
-      ],
+      title: 'Focus Management',
+      description:
+        'Visible focus indicators, focus restoration on close (Modal, Drawer), auto-focus on open, and skip-navigation support.',
+      iconBgClassName: 'from-red-500 to-orange-500',
     },
     {
-      title: 'Keyboard Navigation',
-      description:
-        'Full keyboard accessibility across all interactive elements',
       icon: (
         <LucideIcons.Keyboard className="w-6 h-6 text-white filter drop-shadow-sm" />
       ),
-      color: 'from-red-500 via-orange-500 to-red-500',
-      features: [
-        'Tab navigation',
-        'Enter/Space activation',
-        'Escape key support',
-        'Arrow key navigation',
-      ],
+      title: 'Keyboard Navigation',
+      description:
+        'Tab/Shift+Tab traversal, Enter/Space activation, Escape to close, Arrow keys in Tabs and Select, Home/End support.',
+      iconBgClassName: 'from-blue-500 to-indigo-500',
     },
     {
-      title: 'Screen Reader Support',
-      description: 'Comprehensive support for assistive technologies',
       icon: (
         <LucideIcons.Volume2 className="w-6 h-6 text-white filter drop-shadow-sm" />
       ),
-      color: 'from-red-500 via-orange-500 to-red-500',
-      features: [
-        'Semantic HTML structure',
-        'ARIA labels and descriptions',
-        'Live regions',
-        'Role attributes',
-      ],
+      title: 'Screen Reader Support',
+      description:
+        'Semantic HTML, ARIA labels, aria-describedby connections, live regions (Alert), and proper role attributes.',
+      iconBgClassName: 'from-purple-500 to-violet-500',
     },
     {
-      title: 'Visual Accessibility',
-      description: 'Enhanced visual accessibility features',
       icon: (
         <LucideIcons.Palette className="w-6 h-6 text-white filter drop-shadow-sm" />
       ),
-      color: 'from-red-500 via-orange-500 to-red-500',
-      features: [
-        'High contrast support',
-        'Error state indicators',
-        'Loading state announcements',
-        'Color independence',
-      ],
+      title: 'Visual Accessibility',
+      description:
+        'High contrast modes, color-independent error indicators (aria-invalid), loading state announcements (aria-busy).',
+      iconBgClassName: 'from-teal-500 to-cyan-500',
+    },
+    {
+      icon: (
+        <LucideIcons.Lock className="w-6 h-6 text-white filter drop-shadow-sm" />
+      ),
+      title: 'Focus Trapping',
+      description:
+        'Drawer implements full focus trap (Tab cycles within). Modal has Escape close and focus restoration but Tab can escape.',
+      iconBgClassName: 'from-amber-500 to-yellow-500',
+    },
+    {
+      icon: (
+        <LucideIcons.FormInput className="w-6 h-6 text-white filter drop-shadow-sm" />
+      ),
+      title: 'Form Accessibility',
+      description:
+        'Auto-generated IDs (useId), label association (htmlFor), aria-required, aria-invalid, and aria-describedby for helpers/errors.',
+      iconBgClassName: 'from-green-500 to-emerald-500',
     },
   ];
 
   return (
-    <div className="space-y-8">
-      <div className="text-center space-y-4">
-        <Typography tag="h2" className="text-3xl md:text-4xl font-bold">
-          Implemented Features
-        </Typography>
-        <Typography
-          tag="p"
-          className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
-        >
-          Accessibility features currently available in our component library
-        </Typography>
-      </div>
+    <>
+      <HeroCard
+        title="Implemented Features"
+        description="Accessibility features currently available across the component library. Each feature has been verified against the source code."
+        icon={
+          <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 bg-linear-to-br from-green-500 via-emerald-500 to-teal-500 rounded-full flex items-center justify-center shadow-lg">
+            <LucideIcons.CheckCircle className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 text-white filter drop-shadow-lg" />
+          </div>
+        }
+      />
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-        {implementedFeatures.map((feature, index) => (
-          <CardContainer
-            key={index}
-            className="group hover:shadow-large transition-all duration-300 hover:-translate-y-1"
+      <section className="space-y-8">
+        <div className="text-center">
+          <Typography tag="h2" className="mb-2">
+            What&apos;s Available Today
+          </Typography>
+          <Typography
+            tag="p"
+            className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto"
           >
-            <div className="w-full space-y-4 p-4 sm:p-6">
-              <div className="flex items-center gap-4">
-                <div
-                  className={`p-3 rounded-xl bg-linear-to-br ${feature.color} group-hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-xl`}
-                >
-                  {feature.icon}
-                </div>
-                <Typography
-                  tag="h3"
-                  className="font-semibold text-lg group-hover:text-primary transition-colors duration-300"
-                >
-                  {feature.title}
-                </Typography>
-              </div>
-              <Typography
-                tag="p"
-                className="text-gray-600 dark:text-gray-400 leading-relaxed"
-              >
-                {feature.description}
-              </Typography>
-              <div className="space-y-2">
-                {feature.features.map((item, itemIndex) => (
-                  <div key={itemIndex} className="flex items-center gap-2">
-                    <LucideIcons.Check className="w-4 h-4 text-green-500 shrink-0" />
-                    <Typography
-                      tag="span"
-                      className="text-sm text-gray-600 dark:text-gray-400"
-                    >
-                      {item}
-                    </Typography>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </CardContainer>
-        ))}
-      </div>
-    </div>
+            Core accessibility features implemented across components
+          </Typography>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+          {features.map((feature) => (
+            <FeatureCard key={feature.title} layout="vertical" {...feature} />
+          ))}
+        </div>
+      </section>
+    </>
   );
 };
 
 export default ImplementedFeaturesSection;
-

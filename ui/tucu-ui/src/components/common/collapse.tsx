@@ -21,7 +21,9 @@ export function Collapse({
   const [ref, { height }] = useMeasure<HTMLDivElement>();
   const { layout } = useTheme();
   const isMacOS =
-    layout === LAYOUT_OPTIONS.MACOS || layout === LAYOUT_OPTIONS.MACOS_TAHOE;
+    layout === LAYOUT_OPTIONS.MACOS ||
+    layout === LAYOUT_OPTIONS.MACOS_TAHOE ||
+    layout === LAYOUT_OPTIONS.MACOS_TAHOE_DOCK;
   // macOS CSS adds padding (24px) to collapse-content that isn't in the measurement
   const extraPadding = isMacOS ? 24 : 0;
 

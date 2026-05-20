@@ -64,6 +64,7 @@ export function ExpandableSidebar({
   return (
     <aside
       ref={ref}
+      data-tucu="expandable-sidebar"
       onMouseEnter={() => setOpen(true)}
       onMouseLeave={() => setOpen(false)}
       onTouchStart={() => setOpen(true)}

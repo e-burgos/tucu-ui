@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  HeroCard,
   CardContainer,
   Typography,
   LucideIcons,
@@ -7,120 +8,173 @@ import {
 } from '../../../../index';
 
 const FormComponentsSection: React.FC = () => {
+  const inputCategories = [
+    {
+      icon: (
+        <LucideIcons.Type className="w-6 h-6 text-white filter drop-shadow-sm" />
+      ),
+      title: 'Text Inputs',
+      description: 'Standard text entry with validation and helper text',
+      color: 'from-blue-500 to-cyan-500',
+      components: ['Input', 'Textarea'],
+    },
+    {
+      icon: (
+        <LucideIcons.List className="w-6 h-6 text-white filter drop-shadow-sm" />
+      ),
+      title: 'Selection',
+      description: 'Dropdown and autocomplete with search support',
+      color: 'from-green-500 to-emerald-500',
+      components: ['Select', 'InputSearcher'],
+    },
+    {
+      icon: (
+        <LucideIcons.CheckSquare className="w-6 h-6 text-white filter drop-shadow-sm" />
+      ),
+      title: 'Choice Controls',
+      description: 'Boolean and group selection inputs',
+      color: 'from-purple-500 to-violet-500',
+      components: ['Checkbox', 'Radio', 'RadioGroup', 'Switch'],
+    },
+    {
+      icon: (
+        <LucideIcons.Upload className="w-6 h-6 text-white filter drop-shadow-sm" />
+      ),
+      title: 'File Upload',
+      description: 'File input with drag & drop support',
+      color: 'from-pink-500 to-rose-500',
+      components: ['FileInput'],
+    },
+    {
+      icon: (
+        <LucideIcons.Hash className="w-6 h-6 text-white filter drop-shadow-sm" />
+      ),
+      title: 'Specialized',
+      description: 'PIN codes and toggle selection bars',
+      color: 'from-indigo-500 to-purple-500',
+      components: ['PinCode', 'ToggleBar'],
+    },
+  ];
+
   return (
     <>
-      <div className="text-center">
-        <Typography
-          tag="h2"
-          className="mb-4 text-2xl sm:text-3xl md:text-4xl font-bold"
-        >
-          Form Components
-        </Typography>
-        <Typography
-          tag="p"
-          className="text-base sm:text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto"
-        >
-          Complete collection of form inputs and controls
-        </Typography>
-      </div>
+      <HeroCard
+        title="Form Components"
+        description="11 input components ready for use with FormField. Each integrates automatically with validation, error display, and form state."
+        icon={
+          <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 bg-linear-to-br from-purple-500 via-violet-500 to-indigo-500 rounded-full flex items-center justify-center shadow-lg">
+            <LucideIcons.LayoutGrid className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 text-white filter drop-shadow-lg" />
+          </div>
+        }
+      />
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {[
-          {
-            icon: (
-              <LucideIcons.Type className="w-6 h-6 text-white filter drop-shadow-sm" />
-            ),
-            title: 'Text Inputs',
-            description: 'Input, Textarea with validation support',
-            color: 'from-blue-500 to-cyan-500',
-            types: ['Input', 'Textarea', 'Password'],
-          },
-          {
-            icon: (
-              <LucideIcons.List className="w-6 h-6 text-white filter drop-shadow-sm" />
-            ),
-            title: 'Selection',
-            description: 'Dropdowns and selection components',
-            color: 'from-green-500 to-emerald-500',
-            types: ['Select', 'Combobox', 'Autocomplete'],
-          },
-          {
-            icon: (
-              <LucideIcons.CheckSquare className="w-6 h-6 text-white filter drop-shadow-sm" />
-            ),
-            title: 'Choice Controls',
-            description: 'Checkbox and radio button groups',
-            color: 'from-purple-500 to-violet-500',
-            types: ['Checkbox', 'Radio', 'RadioGroup'],
-          },
-          {
-            icon: (
-              <LucideIcons.Calendar className="w-6 h-6 text-white filter drop-shadow-sm" />
-            ),
-            title: 'Date & Time',
-            description: 'Date and time picker components',
-            color: 'from-orange-500 to-red-500',
-            types: ['DatePicker', 'TimePicker', 'DateRange'],
-          },
-          {
-            icon: (
-              <LucideIcons.Upload className="w-6 h-6 text-white filter drop-shadow-sm" />
-            ),
-            title: 'File Upload',
-            description: 'File input with drag & drop support',
-            color: 'from-pink-500 to-rose-500',
-            types: ['FileInput', 'ImageUpload', 'MultiFile'],
-          },
-          {
-            icon: (
-              <LucideIcons.Hash className="w-6 h-6 text-white filter drop-shadow-sm" />
-            ),
-            title: 'Specialized',
-            description: 'PIN codes, sliders, and custom inputs',
-            color: 'from-indigo-500 to-purple-500',
-            types: ['PinCode', 'RangeSlider', 'ColorPicker'],
-          },
-        ].map((category, index) => (
-          <CardContainer
-            key={index}
-            className="group hover:shadow-large transition-all duration-300 hover:-translate-y-1"
+      <section className="space-y-8">
+        <div className="text-center">
+          <Typography tag="h2" className="mb-2">
+            Available Inputs
+          </Typography>
+          <Typography
+            tag="p"
+            className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto"
           >
-            <div className="space-y-4">
-              <div className="flex items-center gap-4">
-                <div
-                  className={`p-3 rounded-xl bg-linear-to-br ${category.color} group-hover:scale-110 transition-all duration-300 shadow-lg`}
-                >
-                  {category.icon}
-                </div>
-                <Typography
-                  tag="h3"
-                  className="font-semibold text-lg group-hover:text-primary transition-colors duration-300"
-                >
-                  {category.title}
-                </Typography>
-              </div>
-              <Typography
-                tag="p"
-                className="text-gray-600 dark:text-gray-400 leading-relaxed"
-              >
-                {category.description}
-              </Typography>
-              <div className="flex flex-wrap gap-1">
-                {category.types.map((type, idx) => (
-                  <Badge
-                    key={idx}
-                    color="success"
-                    variant="outline"
-                    className="text-xs"
+            All form inputs organized by category
+          </Typography>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+          {inputCategories.map((category, index) => (
+            <CardContainer key={index}>
+              <div className="w-full p-4 sm:p-6 space-y-4">
+                <div className="flex items-center gap-3">
+                  <div
+                    className={`p-2.5 rounded-xl bg-linear-to-br ${category.color} shadow-lg`}
                   >
-                    {type}
-                  </Badge>
-                ))}
+                    {category.icon}
+                  </div>
+                  <div>
+                    <Typography tag="h3" className="font-semibold">
+                      {category.title}
+                    </Typography>
+                    <Typography
+                      tag="p"
+                      className="text-sm text-gray-500 dark:text-gray-400"
+                    >
+                      {category.description}
+                    </Typography>
+                  </div>
+                </div>
+                <div className="flex flex-wrap gap-1.5">
+                  {category.components.map((comp, idx) => (
+                    <Badge
+                      key={idx}
+                      color="success"
+                      variant="outline"
+                      className="text-xs"
+                    >
+                      {comp}
+                    </Badge>
+                  ))}
+                </div>
               </div>
+            </CardContainer>
+          ))}
+        </div>
+      </section>
+
+      <section className="space-y-8">
+        <div className="text-center">
+          <Typography tag="h2" className="mb-2">
+            Usage with FormField
+          </Typography>
+          <Typography
+            tag="p"
+            className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto"
+          >
+            Any input wrapped in FormField gets automatic registration and error
+            handling
+          </Typography>
+        </div>
+
+        <CardContainer>
+          <div className="w-full p-4 sm:p-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {[
+                {
+                  label: 'Input',
+                  code: '<FormField name="email"><Input type="email" /></FormField>',
+                },
+                {
+                  label: 'Select',
+                  code: '<FormField name="country"><Select options={countries} /></FormField>',
+                },
+                {
+                  label: 'Checkbox',
+                  code: '<FormField name="terms"><Checkbox label="Accept" /></FormField>',
+                },
+                {
+                  label: 'InputSearcher',
+                  code: '<FormField name="city"><InputSearcher options={cities} /></FormField>',
+                },
+              ].map((example, idx) => (
+                <div
+                  key={idx}
+                  className="p-3 bg-gray-100 dark:bg-gray-800/50 rounded-lg border border-gray-200 dark:border-gray-700"
+                >
+                  <Typography
+                    tag="span"
+                    className="text-xs font-semibold text-brand block mb-2"
+                  >
+                    {example.label}
+                  </Typography>
+                  <code className="text-xs text-gray-600 dark:text-gray-400 break-all">
+                    {example.code}
+                  </code>
+                </div>
+              ))}
             </div>
-          </CardContainer>
-        ))}
-      </div>
+          </div>
+        </CardContainer>
+      </section>
     </>
   );
 };

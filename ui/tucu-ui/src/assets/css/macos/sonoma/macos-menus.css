@@ -1,0 +1,184 @@
+/* ============================================================
+   macOS Sonoma 14 — Menu & Contextual Overrides
+
+   Targets: Dropdown menus, context menus, popovers, select dropdowns
+   Selector: html.macos [data-tucu="menu|menu-item|context-menu|popover"]
+
+   References:
+   - Apple HIG > Menus: Glass regular, 6pt radius items, 1pt separator
+   - Apple HIG > Contextual Menus: same material as menus
+   - Menu min-width: 200pt, max 680pt
+   - Item height: 22pt regular, separator: 1px
+   ============================================================ */
+
+/* ── Menu Container ──────────────────────────────────────────── */
+
+html.macos [data-tucu='menu'],
+html.macos [data-tucu='dropdown-menu'],
+html.macos [data-tucu='context-menu'] {
+  background-color: var(--macos-glass-regular-bg-opaque);
+  border: 0.5px solid var(--macos-glass-border);
+  border-radius: var(--macos-radius-popover);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2), 0 1px 4px rgba(0, 0, 0, 0.12);
+  padding: 4px 0;
+  font-family: var(--macos-font-family);
+  font-size: var(--macos-font-size-body);
+  min-width: 200px;
+  overflow: hidden;
+}
+
+@supports (backdrop-filter: blur(1px)) {
+  html.macos [data-tucu='menu'],
+  html.macos [data-tucu='dropdown-menu'],
+  html.macos [data-tucu='context-menu'] {
+    background-color: var(--macos-glass-regular-bg);
+    backdrop-filter: blur(var(--macos-glass-regular-blur)) saturate(160%);
+    -webkit-backdrop-filter: blur(var(--macos-glass-regular-blur))
+      saturate(160%);
+  }
+}
+
+html.macos.dark [data-tucu='menu'],
+html.macos.dark [data-tucu='dropdown-menu'],
+html.macos.dark [data-tucu='context-menu'] {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4), 0 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* ── Menu Item ───────────────────────────────────────────────── */
+
+html.macos [data-tucu='menu-item'] {
+  height: 22px;
+  padding: 0 12px 0 24px; /* leave space for checkmark */
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--macos-label);
+  font-size: var(--macos-font-size-body);
+  font-weight: var(--macos-font-weight-regular);
+  letter-spacing: var(--macos-tracking-13);
+  cursor: default;
+  border-radius: 4px;
+  margin: 0 4px;
+  transition: background-color 0.05s ease, color 0.05s ease;
+}
+
+html.macos [data-tucu='menu-item']:hover,
+html.macos [data-tucu='menu-item'][data-highlighted='true'] {
+  background-color: var(--macos-control-accent);
+  color: white;
+}
+
+html.macos [data-tucu='menu-item'][data-disabled='true'],
+html.macos [data-tucu='menu-item']:disabled {
+  color: var(--macos-tertiary-label);
+  cursor: default;
+  pointer-events: none;
+}
+
+html.macos [data-tucu='menu-item'][data-checked='true']::before {
+  content: '✓';
+  position: absolute;
+  left: 8px;
+  font-size: 11px;
+  color: var(--macos-label);
+}
+
+html.macos [data-tucu='menu-item']:hover[data-checked='true']::before {
+  color: white;
+}
+
+/* ── Menu Separator ──────────────────────────────────────────── */
+
+html.macos [data-tucu='menu-separator'] {
+  height: 1px;
+  background-color: var(--macos-separator);
+  margin: 4px 0;
+}
+
+/* ── Menu Section Label ──────────────────────────────────────── */
+
+html.macos [data-tucu='menu-section-label'] {
+  font-size: var(--macos-font-size-subheadline);
+  font-weight: var(--macos-font-weight-semibold);
+  color: var(--macos-secondary-label);
+  padding: 6px 12px 2px;
+  text-transform: uppercase;
+  letter-spacing: 0.06px;
+  cursor: default;
+  pointer-events: none;
+}
+
+/* ── Menu Shortcut ───────────────────────────────────────────── */
+
+html.macos [data-tucu='menu-shortcut'] {
+  font-size: var(--macos-font-size-callout);
+  color: var(--macos-secondary-label);
+  margin-left: auto;
+  font-weight: var(--macos-font-weight-regular);
+}
+
+html.macos [data-tucu='menu-item']:hover [data-tucu='menu-shortcut'],
+html.macos
+  [data-tucu='menu-item'][data-highlighted='true']
+  [data-tucu='menu-shortcut'] {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+/* ── Popover ─────────────────────────────────────────────────── */
+
+html.macos [data-tucu='popover'] {
+  background-color: var(--macos-glass-regular-bg-opaque);
+  border: 0.5px solid var(--macos-glass-border);
+  border-radius: var(--macos-radius-popover);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), 0 2px 8px rgba(0, 0, 0, 0.12);
+  padding: var(--macos-space-3);
+  font-family: var(--macos-font-family);
+  font-size: var(--macos-font-size-body);
+}
+
+@supports (backdrop-filter: blur(1px)) {
+  html.macos [data-tucu='popover'] {
+    background-color: var(--macos-glass-regular-bg);
+    backdrop-filter: blur(var(--macos-glass-regular-blur)) saturate(150%);
+    -webkit-backdrop-filter: blur(var(--macos-glass-regular-blur))
+      saturate(150%);
+  }
+}
+
+/* ── Tooltip ─────────────────────────────────────────────────── */
+
+html.macos [data-tucu='tooltip'] {
+  background-color: var(--macos-glass-regular-bg-opaque);
+  border: 0.5px solid var(--macos-glass-border);
+  border-radius: var(--macos-radius-control);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.16), 0 1px 3px rgba(0, 0, 0, 0.1);
+  padding: 4px 8px;
+  font-family: var(--macos-font-family);
+  font-size: var(--macos-font-size-callout);
+  font-weight: var(--macos-font-weight-regular);
+  color: var(--macos-label);
+  max-width: 240px;
+  pointer-events: none;
+}
+
+@supports (backdrop-filter: blur(1px)) {
+  html.macos [data-tucu='tooltip'] {
+    background-color: var(--macos-glass-regular-bg);
+    backdrop-filter: blur(20px) saturate(150%);
+    -webkit-backdrop-filter: blur(20px) saturate(150%);
+  }
+}
+
+/* ── Reduced transparency fallbacks ─────────────────────────── */
+
+@media (prefers-reduced-transparency: reduce) {
+  html.macos [data-tucu='menu'],
+  html.macos [data-tucu='dropdown-menu'],
+  html.macos [data-tucu='context-menu'],
+  html.macos [data-tucu='popover'],
+  html.macos [data-tucu='tooltip'] {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background-color: var(--macos-window-bg) !important;
+  }
+}

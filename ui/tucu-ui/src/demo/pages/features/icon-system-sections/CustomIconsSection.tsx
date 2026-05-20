@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import {
+  HeroCard,
   CardContainer,
   CardTitle,
   Typography,
@@ -52,7 +53,7 @@ const CustomIconsSection: React.FC = () => {
   const customIconCategories = [
     {
       category: 'Blockchain & Crypto',
-      description: 'Cryptocurrency and blockchain-related icons',
+      description: 'Cryptocurrency and blockchain platform icons',
       icon: (
         <LucideIcons.Coins className="w-6 h-6 text-white filter drop-shadow-sm" />
       ),
@@ -70,7 +71,7 @@ const CustomIconsSection: React.FC = () => {
     },
     {
       category: 'Layout Controls',
-      description: 'Icons for layout switching and navigation',
+      description: 'Icons for layout switching and theme selection',
       icon: (
         <LucideIcons.Layout className="w-6 h-6 text-white filter drop-shadow-sm" />
       ),
@@ -96,7 +97,7 @@ const CustomIconsSection: React.FC = () => {
     },
     {
       category: 'Social Brands',
-      description: 'Social media platform icons',
+      description: 'Social media platform brand icons',
       icon: (
         <LucideIcons.Share2 className="w-6 h-6 text-white filter drop-shadow-sm" />
       ),
@@ -111,7 +112,7 @@ const CustomIconsSection: React.FC = () => {
     },
     {
       category: 'UI Elements',
-      description: 'Common UI and interface icons',
+      description: 'Common interface and utility icons',
       icon: (
         <LucideIcons.Component className="w-6 h-6 text-white filter drop-shadow-sm" />
       ),
@@ -156,74 +157,86 @@ const CustomIconsSection: React.FC = () => {
   };
 
   return (
-    <div className="space-y-8">
-      <div className="text-center space-y-4">
-        <Typography tag="h2" className="text-3xl md:text-4xl font-bold">
-          Custom Tucu Icons
-        </Typography>
-        <Typography
-          tag="p"
-          className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
-        >
-          98+ custom-designed icons organized by category
-        </Typography>
-      </div>
+    <>
+      <HeroCard
+        title="Custom Tucu Icons"
+        description="96 hand-crafted SVG icons designed for tucu-ui. Includes blockchain/crypto, layout controls, social brands, and UI elements — all importable as named exports."
+        icon={
+          <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 bg-linear-to-br from-purple-500 via-pink-500 to-rose-500 rounded-full flex items-center justify-center shadow-lg">
+            <LucideIcons.Palette className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 text-white filter drop-shadow-lg" />
+          </div>
+        }
+      />
 
-      <div className="space-y-8">
-        {customIconCategories.map((category, index) => (
-          <CardContainer key={index} className="overflow-hidden">
-            <CardTitle title={category.category} className="mt-2 mb-2">
-              <div className="w-full space-y-6 p-4 sm:p-6">
-                <div className="flex items-center gap-3">
-                  <div
-                    className={`p-2 rounded-lg bg-linear-to-br ${category.color} shadow-lg`}
-                  >
-                    {category.icon}
-                  </div>
-                  <div>
-                    <Typography tag="h3" className="text-xl font-semibold">
-                      {category.category}
-                    </Typography>
-                    <Typography
-                      tag="p"
-                      className="text-gray-600 dark:text-gray-400"
-                    >
-                      {category.description}
-                    </Typography>
-                  </div>
-                </div>
+      <section className="space-y-8">
+        <div className="text-center">
+          <Typography tag="h2" className="mb-2">
+            Icon Gallery
+          </Typography>
+          <Typography
+            tag="p"
+            className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto"
+          >
+            Click any icon to copy its import code
+          </Typography>
+        </div>
 
-                <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-4">
-                  {category.icons.map((icon, iconIndex) => (
+        <div className="space-y-6">
+          {customIconCategories.map((category, index) => (
+            <CardContainer key={index} className="overflow-hidden">
+              <CardTitle title={category.category} className="mt-2 mb-2">
+                <div className="w-full space-y-6 p-4 sm:p-6">
+                  <div className="flex items-center gap-3">
                     <div
-                      key={iconIndex}
-                      className="flex flex-col items-center gap-2 p-3 rounded-lg hover:bg-gray-100  dark:hover:bg-gray-800 transition-colors cursor-pointer group relative"
-                      onClick={() => handleCopyIcon(icon.name)}
-                      title={`Click to copy: ${icon.name}`}
+                      className={`p-2 rounded-lg bg-linear-to-br ${category.color} shadow-lg`}
                     >
-                      <div className="text-gray-700 dark:text-gray-300 group-hover:text-brand transition-colors">
-                        {icon.component}
-                      </div>
-                      <Typography
-                        tag="span"
-                        className="text-xs text-center text-gray-500 dark:text-gray-400"
-                      >
-                        {icon.name}
-                      </Typography>
-                      {copiedIcon === icon.name && (
-                        <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 px-2 py-1 bg-green-500 text-white text-xs rounded whitespace-nowrap z-10">
-                          Copied!
-                        </div>
-                      )}
+                      {category.icon}
                     </div>
-                  ))}
+                    <div>
+                      <Typography tag="h3" className="text-base font-semibold">
+                        {category.category}
+                      </Typography>
+                      <Typography
+                        tag="p"
+                        className="text-gray-600 dark:text-gray-400"
+                      >
+                        {category.description}
+                      </Typography>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-4">
+                    {category.icons.map((icon, iconIndex) => (
+                      <div
+                        key={iconIndex}
+                        className="flex flex-col items-center gap-2 p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors cursor-pointer group relative"
+                        onClick={() => handleCopyIcon(icon.name)}
+                        title={`Click to copy: ${icon.name}`}
+                      >
+                        <div className="text-gray-700 dark:text-gray-300 group-hover:text-brand transition-colors">
+                          {icon.component}
+                        </div>
+                        <Typography
+                          tag="span"
+                          className="text-xs text-center text-gray-500 dark:text-gray-400"
+                        >
+                          {icon.name}
+                        </Typography>
+                        {copiedIcon === icon.name && (
+                          <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 px-2 py-1 bg-green-500 text-white text-xs rounded whitespace-nowrap z-10">
+                            Copied!
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            </CardTitle>
-          </CardContainer>
-        ))}
-      </div>
-    </div>
+              </CardTitle>
+            </CardContainer>
+          ))}
+        </div>
+      </section>
+    </>
   );
 };
 

@@ -5,28 +5,24 @@ import {
   Typography,
   CodeBlock,
   CurrencySwapIcons,
+  HeroCard,
+  LucideIcons,
 } from '../../../../index';
 import { AutoPropsTable } from '../../../components/auto-props-table';
+import { PropPlayground } from '../../../components/prop-playground';
 
 const CurrencySwapIconsSection: React.FC = () => {
-  // Table columns definition for props tables
-
-  // CurrencySwapIcons props data
-
   return (
     <>
-      <div className="text-center space-y-4">
-        <Typography tag="h2" className="text-3xl md:text-4xl font-bold">
-          CurrencySwapIcons
-        </Typography>
-        <Typography
-          tag="p"
-          className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
-        >
-          Component for displaying currency swap pairs with overlapping icons
-          and pair label.
-        </Typography>
-      </div>
+      <HeroCard
+        title="CurrencySwapIcons"
+        description="Component for displaying currency swap pairs with overlapping icons and pair label. Supports all major cryptocurrencies."
+        icon={
+          <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 bg-linear-to-br from-pink-500 via-rose-500 to-red-500 rounded-full flex items-center justify-center shadow-lg border border-pink-500/50">
+            <LucideIcons.ArrowLeftRight className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 text-white filter drop-shadow-lg" />
+          </div>
+        }
+      />
 
       <CardContainer className="overflow-hidden">
         <CardTitle title="Basic Examples" className="mt-2 mb-2">
@@ -54,6 +50,36 @@ const CurrencySwapIconsSection: React.FC = () => {
           </div>
         </CardTitle>
       </CardContainer>
+
+      <PropPlayground
+        componentName="CurrencySwapIcons"
+        defaultValues={{
+          from: 'BTC',
+          to: 'ETH',
+        }}
+        controlOverrides={[
+          {
+            name: 'from',
+            type: 'select',
+            options: ['BTC', 'ETH', 'USDT', 'BNB', 'USDC', 'ADA', 'DOGE'],
+            description: 'Source currency',
+          },
+          {
+            name: 'to',
+            type: 'select',
+            options: ['BTC', 'ETH', 'USDT', 'BNB', 'USDC', 'ADA', 'DOGE'],
+            description: 'Target currency',
+          },
+        ]}
+        includeProps={['from', 'to']}
+      >
+        {(props) => (
+          <div className="w-full flex justify-center">
+            <CurrencySwapIcons from={props.from} to={props.to} />
+          </div>
+        )}
+      </PropPlayground>
+
       <AutoPropsTable componentName="CurrencySwapIcons" />
 
       <CardContainer className="overflow-hidden">

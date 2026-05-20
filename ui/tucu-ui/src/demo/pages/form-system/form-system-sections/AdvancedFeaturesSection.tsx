@@ -1,112 +1,144 @@
 import React from 'react';
-import { CardContainer, Typography, LucideIcons } from '../../../../index';
+import {
+  HeroCard,
+  CardContainer,
+  Typography,
+  LucideIcons,
+  CodeBlock,
+  FeatureCard,
+} from '../../../../index';
 
 const AdvancedFeaturesSection: React.FC = () => {
+  const features = [
+    {
+      title: 'Conditional Fields',
+      description:
+        'Show/hide fields based on other values using watch(). Validation adapts dynamically when fields appear or disappear.',
+      icon: <LucideIcons.GitBranch className="w-6 h-6" />,
+    },
+    {
+      title: 'Custom Validation',
+      description:
+        'Use the validate option for async server-side checks, cross-field validation, or complex business rules.',
+      icon: <LucideIcons.Zap className="w-6 h-6" />,
+    },
+    {
+      title: 'Form State Access',
+      description:
+        'Real-time access to isDirty, isValid, errors, touchedFields via useFormContext from any child component.',
+      icon: <LucideIcons.Eye className="w-6 h-6" />,
+    },
+    {
+      title: 'Programmatic Control',
+      description:
+        'Set values, trigger validation, reset forms, and clear errors programmatically from anywhere in the tree.',
+      icon: <LucideIcons.Settings className="w-6 h-6" />,
+    },
+    {
+      title: 'Validation Modes',
+      description:
+        'Choose when validation triggers: onChange (real-time), onBlur (on field exit), onSubmit (only on submit), or all.',
+      icon: <LucideIcons.Clock className="w-6 h-6" />,
+    },
+    {
+      title: 'Error Customization',
+      description:
+        'FormField auto-displays errors, but you can hide them with hideError and render custom error UI using formState.errors.',
+      icon: <LucideIcons.AlertTriangle className="w-6 h-6" />,
+    },
+  ];
+
+  const conditionalCode = `import { Form, FormField, Input, Select, useFormContext } from '@e-burgos/tucu-ui';
+
+function ConditionalForm() {
+  return (
+    <Form<FormValues> onSubmit={handleSubmit} useFormProps={{ defaultValues }}>
+      <FormField name="hasCompany" label="Do you have a company?">
+        <Select options={[
+          { name: 'Yes', value: 'yes' },
+          { name: 'No', value: 'no' },
+        ]} />
+      </FormField>
+      
+      {/* Conditional field rendered via watch */}
+      <CompanyField />
+      
+      <Button type="submit">Submit</Button>
+    </Form>
+  );
+}
+
+function CompanyField() {
+  const { watch } = useFormContext<FormValues>();
+  const hasCompany = watch('hasCompany');
+
+  if (hasCompany !== 'yes') return null;
+
+  return (
+    <FormField name="companyName" label="Company Name" rules={{ required: 'Required' }}>
+      <Input placeholder="Enter company name" />
+    </FormField>
+  );
+}`;
+
   return (
     <>
-      <div className="text-center">
-        <Typography
-          tag="h2"
-          className="mb-4 text-2xl sm:text-3xl md:text-4xl font-bold"
-        >
-          Advanced Features
-        </Typography>
-        <Typography
-          tag="p"
-          className="text-base sm:text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto"
-        >
-          Powerful features for complex form scenarios
-        </Typography>
-      </div>
+      <HeroCard
+        title="Advanced Features"
+        description="Patterns for complex form scenarios: conditional fields, async validation, programmatic control, and custom error handling — all powered by react-hook-form via tucu-ui."
+        icon={
+          <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 bg-linear-to-br from-pink-500 via-rose-500 to-red-500 rounded-full flex items-center justify-center shadow-lg">
+            <LucideIcons.Sparkles className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 text-white filter drop-shadow-lg" />
+          </div>
+        }
+      />
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {[
-          {
-            icon: (
-              <LucideIcons.GitBranch className="w-8 h-8 text-white filter drop-shadow-sm" />
-            ),
-            title: 'Conditional Fields',
-            description:
-              'Show/hide fields based on other field values with dynamic validation',
-            color: 'from-blue-500 via-indigo-500 to-purple-500',
-          },
-          {
-            icon: (
-              <LucideIcons.Plus className="w-8 h-8 text-white filter drop-shadow-sm" />
-            ),
-            title: 'Dynamic Arrays',
-            description:
-              'Handle dynamic lists of fields with add/remove functionality',
-            color: 'from-green-500 via-emerald-500 to-teal-500',
-          },
-          {
-            icon: (
-              <LucideIcons.ArrowRight className="w-8 h-8 text-white filter drop-shadow-sm" />
-            ),
-            title: 'Multi-Step Forms',
-            description:
-              'Wizard-style forms with step validation and progress tracking',
-            color: 'from-orange-500 via-red-500 to-pink-500',
-          },
-          {
-            icon: (
-              <LucideIcons.Zap className="w-8 h-8 text-white filter drop-shadow-sm" />
-            ),
-            title: 'Async Validation',
-            description:
-              'Server-side validation with debouncing and loading states',
-            color: 'from-purple-500 via-violet-500 to-indigo-500',
-          },
-          {
-            icon: (
-              <LucideIcons.Eye className="w-8 h-8 text-white filter drop-shadow-sm" />
-            ),
-            title: 'Form State Management',
-            description:
-              'Real-time access to form state, values, and validation status',
-            color: 'from-pink-500 via-rose-500 to-red-500',
-          },
-          {
-            icon: (
-              <LucideIcons.AlertTriangle className="w-8 h-8 text-white filter drop-shadow-sm" />
-            ),
-            title: 'Error Handling',
-            description:
-              'Comprehensive error handling with custom error display options',
-            color: 'from-yellow-500 via-orange-500 to-red-500',
-          },
-        ].map((feature, index) => (
-          <CardContainer
-            key={index}
-            className="group hover:shadow-large transition-all duration-300 hover:-translate-y-1"
+      <section className="space-y-8">
+        <div className="text-center">
+          <Typography tag="h2" className="mb-2">
+            Capabilities
+          </Typography>
+          <Typography
+            tag="p"
+            className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto"
           >
-            <div className="space-y-4">
-              <div className="flex items-center gap-4">
-                <div
-                  className={`p-3 rounded-xl bg-linear-to-br ${feature.color} group-hover:scale-110 transition-all duration-300 shadow-lg`}
-                >
-                  {feature.icon}
-                </div>
-                <Typography
-                  tag="h3"
-                  className="font-semibold text-lg group-hover:text-primary transition-colors duration-300"
-                >
-                  {feature.title}
-                </Typography>
-              </div>
-              <Typography
-                tag="p"
-                className="text-gray-600 dark:text-gray-400 leading-relaxed"
-              >
-                {feature.description}
-              </Typography>
-            </div>
-          </CardContainer>
-        ))}
-      </div>
+            Advanced patterns available through the form system
+          </Typography>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+          {features.map((feature, index) => (
+            <FeatureCard
+              key={index}
+              title={feature.title}
+              description={feature.description}
+              icon={feature.icon}
+            />
+          ))}
+        </div>
+      </section>
+
+      <section className="space-y-8">
+        <div className="text-center">
+          <Typography tag="h2" className="mb-2">
+            Conditional Fields Example
+          </Typography>
+          <Typography
+            tag="p"
+            className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto"
+          >
+            Show/hide fields based on form values using watch + useFormContext
+          </Typography>
+        </div>
+
+        <CardContainer className="overflow-hidden">
+          <div className="w-full p-4 sm:p-6">
+            <CodeBlock language="tsx" code={conditionalCode} />
+          </div>
+        </CardContainer>
+      </section>
     </>
   );
 };
 
 export default AdvancedFeaturesSection;
-

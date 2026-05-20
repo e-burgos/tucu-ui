@@ -1,0 +1,635 @@
+/* ============================================================
+   macOS Tahoe 26 — Miscellaneous Component Overrides
+
+   Targets: Carousel, Collapse, Tooltip, Tag, Avatar, Dropdown,
+            Popover, ContextMenu, Breadcrumb
+   Selectors: html.macos-tahoe [data-tucu="tooltip"], etc.
+
+   References:
+   - Apple HIG Tahoe > Popovers: radius-popover, glass regular
+   - Apple HIG Tahoe > Tooltips: callout size, dark surface
+   - macOS native tag/pill: full radius, system colors
+   ============================================================ */
+
+/* ── Tooltip ─────────────────────────────────────────────────── */
+html.macos-tahoe [data-tucu='tooltip'] {
+  border-radius: var(--macos-radius-control);
+  background-color: rgba(40, 40, 40, 0.92);
+  color: #ffffff;
+  font-family: var(--macos-font-family);
+  font-size: var(--macos-font-size-callout);
+  font-weight: var(--macos-font-weight-regular);
+  padding: 4px 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  line-height: 1.3;
+  max-width: 240px;
+  pointer-events: none;
+  letter-spacing: var(--macos-tracking-13);
+}
+
+html.macos-tahoe.dark [data-tucu='tooltip'] {
+  background-color: rgba(70, 70, 73, 0.92);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+/* ── Collapse / Disclosure ───────────────────────────────────── */
+html.macos-tahoe [data-tucu='collapse'] {
+  border-radius: var(--macos-radius-lg) !important;
+  background-color: var(--macos-control-bg) !important;
+  border: none !important;
+  outline: 1px solid var(--macos-separator);
+  outline-offset: -1px;
+  box-shadow: none !important;
+  transition: height 0.35s cubic-bezier(0.33, 1, 0.68, 1),
+    background-color var(--macos-transition-fast);
+}
+
+html.macos-tahoe [data-tucu='collapse']:hover {
+  box-shadow: none !important;
+  background-color: var(--macos-gray6) !important;
+}
+
+html.macos-tahoe [data-tucu='collapse'][data-open='true'] {
+  background-color: var(--macos-control-bg) !important;
+}
+
+html.macos-tahoe [data-tucu='collapse-trigger'] {
+  font-family: var(--macos-font-family) !important;
+  font-size: var(--macos-font-size-body) !important;
+  font-weight: var(--macos-font-weight-semibold) !important;
+  text-transform: none !important;
+  letter-spacing: normal !important;
+  color: var(--macos-label) !important;
+  height: 54px !important;
+  padding: 0 var(--macos-space-4) !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+html.macos-tahoe [data-tucu='collapse-content'] {
+  border-style: solid !important;
+  border-color: var(--macos-separator) !important;
+  font-family: var(--macos-font-family);
+  font-size: var(--macos-font-size-body);
+  color: var(--macos-secondary-label);
+  padding: var(--macos-space-3) var(--macos-space-4) !important;
+}
+
+/* Dark mode */
+html.macos-tahoe.dark [data-tucu='collapse'] {
+  background-color: var(--macos-control-bg) !important;
+  border-color: var(--macos-separator);
+}
+
+html.macos-tahoe.dark [data-tucu='collapse']:hover {
+  background-color: var(--macos-gray5) !important;
+}
+
+html.macos-tahoe.dark [data-tucu='collapse'][data-open='true'] {
+  background-color: var(--macos-control-bg) !important;
+}
+
+html.macos-tahoe.dark [data-tucu='collapse-content'] {
+  border-color: var(--macos-separator) !important;
+}
+
+/* ── Popover ─────────────────────────────────────────────────── */
+html.macos-tahoe [data-tucu='popover'] {
+  border-radius: var(--macos-radius-lg);
+  background-color: var(--macos-material-popover);
+  backdrop-filter: blur(var(--macos-material-popover-blur));
+  -webkit-backdrop-filter: blur(var(--macos-material-popover-blur));
+  box-shadow: var(--macos-shadow-window);
+  border: 1px solid var(--macos-separator);
+  padding: var(--macos-space-2);
+}
+
+html.macos-tahoe.dark [data-tucu='popover'] {
+  background-color: var(--macos-material-popover);
+  border-color: var(--macos-separator);
+}
+
+/* ── Context Menu / Dropdown Menu ────────────────────────────── */
+html.macos-tahoe [data-tucu='context-menu'],
+html.macos-tahoe [data-tucu='dropdown-menu'] {
+  border-radius: var(--macos-radius-lg);
+  background-color: var(--macos-material-popover);
+  backdrop-filter: blur(var(--macos-material-popover-blur));
+  -webkit-backdrop-filter: blur(var(--macos-material-popover-blur));
+  box-shadow: var(--macos-shadow-window);
+  border: 1px solid var(--macos-separator);
+  padding: var(--macos-space-1) 0;
+  min-width: 180px;
+}
+
+html.macos-tahoe [data-tucu='menu-item'] {
+  padding: var(--macos-space-1) var(--macos-space-3);
+  font-size: var(--macos-font-size-body);
+  border-radius: var(--macos-radius-sm);
+  margin: 0 var(--macos-space-1);
+  transition: background-color var(--macos-transition-fast);
+}
+
+html.macos-tahoe [data-tucu='menu-item']:hover {
+  background-color: var(--macos-control-accent);
+  color: #ffffff;
+}
+
+html.macos-tahoe [data-tucu='menu-separator'] {
+  height: 1px;
+  background-color: var(--macos-separator);
+  margin: var(--macos-space-1) var(--macos-space-3);
+}
+
+/* ── ListContainer (Options dropdown) ────────────────────────── */
+html.macos-tahoe [data-tucu='list-trigger'] {
+  border-radius: var(--macos-radius-full);
+  border: 1px solid var(--macos-separator);
+  background-color: var(--macos-control-bg);
+  font-family: var(--macos-font-family);
+  font-size: var(--macos-font-size-body);
+  font-weight: var(--macos-font-weight-medium);
+  color: var(--macos-label);
+  transition: background-color var(--macos-transition-fast),
+    border-color var(--macos-transition-fast);
+}
+
+html.macos-tahoe [data-tucu='list-trigger']:hover {
+  background-color: var(--macos-gray6);
+  border-color: var(--macos-gray4);
+}
+
+html.macos-tahoe.dark [data-tucu='list-trigger'] {
+  background-color: var(--macos-control-bg);
+  border-color: var(--macos-separator);
+  color: var(--macos-label);
+}
+
+html.macos-tahoe.dark [data-tucu='list-trigger']:hover {
+  background-color: var(--macos-gray5);
+}
+
+html.macos-tahoe [data-tucu='list-dropdown'] {
+  border-radius: var(--macos-radius-lg);
+  background-color: var(--macos-material-popover);
+  backdrop-filter: blur(var(--macos-material-popover-blur));
+  -webkit-backdrop-filter: blur(var(--macos-material-popover-blur));
+  box-shadow: var(--macos-shadow-popover);
+  border: 1px solid var(--macos-separator);
+  padding: var(--macos-space-2);
+  overflow: hidden;
+}
+
+html.macos-tahoe.dark [data-tucu='list-dropdown'] {
+  background-color: var(--macos-material-popover);
+  border-color: var(--macos-separator);
+}
+
+html.macos-tahoe [data-tucu='list-item'] > div,
+html.macos-tahoe [data-tucu='list-item'] > button {
+  width: 100%;
+  border-radius: var(--macos-radius-sm);
+  font-family: var(--macos-font-family);
+  font-size: var(--macos-font-size-body);
+  padding: var(--macos-space-2) var(--macos-space-3);
+  transition: background-color var(--macos-transition-fast);
+}
+
+html.macos-tahoe [data-tucu='list-item'] > div:hover,
+html.macos-tahoe [data-tucu='list-item'] > button:hover {
+  background-color: transparent !important;
+}
+
+html.macos-tahoe.dark [data-tucu='list-item'] > div:hover,
+html.macos-tahoe.dark [data-tucu='list-item'] > button:hover {
+  background-color: transparent !important;
+}
+
+/* ── Tag / Chip ──────────────────────────────────────────────── */
+html.macos-tahoe [data-tucu='tag'] {
+  border-radius: var(--macos-radius-full);
+  font-family: var(--macos-font-family);
+  font-size: var(--macos-font-size-callout);
+  font-weight: var(--macos-font-weight-medium);
+  padding: 2px 10px;
+  border: 1px solid var(--macos-separator);
+  background-color: var(--macos-gray6);
+  color: var(--macos-label);
+  transition: all var(--macos-transition-fast);
+}
+
+html.macos-tahoe [data-tucu='tag']:hover {
+  background-color: var(--macos-gray5);
+}
+
+html.macos-tahoe.dark [data-tucu='tag'] {
+  background-color: var(--macos-gray5);
+  border-color: var(--macos-separator);
+}
+
+html.macos-tahoe.dark [data-tucu='tag']:hover {
+  background-color: var(--macos-gray4);
+}
+
+/* ── Avatar ──────────────────────────────────────────────────── */
+html.macos-tahoe [data-tucu='avatar'] {
+  border-radius: var(--macos-radius-full);
+  border: 2px solid var(--macos-separator);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+/* ── Collapse / Accordion ────────────────────────────────────── */
+html.macos-tahoe [data-tucu='collapse'] {
+  border: 1px solid var(--macos-separator);
+  border-radius: var(--macos-radius-xl);
+  overflow: hidden;
+}
+
+html.macos-tahoe [data-tucu='collapse-header'] {
+  padding: var(--macos-space-3) var(--macos-space-4);
+  font-weight: var(--macos-font-weight-medium);
+  font-size: var(--macos-font-size-body);
+  background-color: var(--macos-gray6);
+  border-bottom: 1px solid var(--macos-separator);
+  cursor: pointer;
+  transition: background-color var(--macos-transition-fast);
+}
+
+html.macos-tahoe [data-tucu='collapse-header']:hover {
+  background-color: var(--macos-gray5);
+}
+
+html.macos-tahoe.dark [data-tucu='collapse-header'] {
+  background-color: var(--macos-gray5);
+}
+
+html.macos-tahoe.dark [data-tucu='collapse-header']:hover {
+  background-color: var(--macos-gray4);
+}
+
+html.macos-tahoe [data-tucu='collapse-content'] {
+  padding: var(--macos-space-4);
+}
+
+/* ── Carousel ────────────────────────────────────────────────── */
+html.macos-tahoe [data-tucu='carousel'] {
+  border-radius: var(--macos-radius-xl);
+  overflow: hidden;
+}
+
+html.macos-tahoe [data-tucu='carousel-indicator'] {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--macos-radius-full);
+  background-color: var(--macos-gray3);
+  transition: all var(--macos-transition-fast);
+}
+
+html.macos-tahoe [data-tucu='carousel-indicator'][data-active='true'] {
+  width: 18px;
+  background-color: var(--macos-control-accent);
+}
+
+/* ── Breadcrumb ──────────────────────────────────────────────── */
+html.macos-tahoe [data-tucu='breadcrumb'] {
+  font-family: var(--macos-font-family);
+  font-size: var(--macos-font-size-callout);
+  color: var(--macos-secondary-label);
+}
+
+html.macos-tahoe [data-tucu='breadcrumb'] a {
+  color: var(--macos-link);
+  text-decoration: none;
+}
+
+html.macos-tahoe [data-tucu='breadcrumb'] a:hover {
+  text-decoration: underline;
+}
+
+html.macos-tahoe [data-tucu='breadcrumb-separator'] {
+  margin: 0 var(--macos-space-1);
+  color: var(--macos-tertiary-label);
+}
+
+/* ── Charts ──────────────────────────────────────────────────── */
+html.macos-tahoe [data-tucu='chart'] {
+  border-radius: var(--macos-radius-xl);
+  font-family: var(--macos-font-family);
+}
+
+html.macos-tahoe [data-tucu='chart-tooltip'] {
+  border-radius: var(--macos-radius-control) !important;
+  background-color: rgba(255, 255, 255, 0.94) !important;
+  backdrop-filter: blur(20px) saturate(150%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(150%) !important;
+  border: 0.5px solid var(--macos-separator) !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12) !important;
+  font-family: var(--macos-font-family) !important;
+  font-size: var(--macos-font-size-callout) !important;
+  color: var(--macos-label) !important;
+  padding: var(--macos-space-2) var(--macos-space-3) !important;
+}
+
+html.macos-tahoe.dark [data-tucu='chart-tooltip'] {
+  background-color: rgba(38, 38, 40, 0.94) !important;
+  border-color: var(--macos-separator) !important;
+  color: var(--macos-label) !important;
+}
+
+html.macos-tahoe [data-tucu='chart-empty'] {
+  border-radius: var(--macos-radius-xl);
+  border-color: var(--macos-separator);
+  font-family: var(--macos-font-family);
+  font-size: var(--macos-font-size-body);
+  color: var(--macos-secondary-label);
+}
+
+/* ── Global Scrollbar (macOS overlay style) ──────────────────── */
+
+html.macos-tahoe ::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+html.macos-tahoe ::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+html.macos-tahoe ::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+html.macos-tahoe ::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 0, 0, 0.32);
+}
+
+html.macos-tahoe.dark ::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.18);
+}
+
+html.macos-tahoe.dark ::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255, 255, 255, 0.28);
+}
+
+html.macos-tahoe {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+}
+
+html.macos-tahoe.dark {
+  scrollbar-color: rgba(255, 255, 255, 0.18) transparent;
+}
+
+/* ── Reduced motion ──────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  html.macos-tahoe [data-tucu='carousel-indicator'],
+  html.macos-tahoe [data-tucu='collapse'],
+  html.macos-tahoe [data-tucu='tag'] {
+    transition: none;
+  }
+}
+
+/* ══ ICONOGRAPHY (Fase 16) ══════════════════════════════════ */
+
+/* Lucide icons in macOS context: normalize stroke and sizing */
+html.macos-tahoe svg[class*='lucide'] {
+  color: currentColor;
+  stroke-width: 1.5;
+}
+
+/* Icon inside sidebar items: match sidebar-icon-size */
+html.macos-tahoe [data-tucu='sidebar-item'] svg {
+  width: var(--macos-sidebar-icon-size);
+  height: var(--macos-sidebar-icon-size);
+  flex-shrink: 0;
+}
+
+/* Icon-only buttons need visible label for a11y */
+html.macos-tahoe [data-tucu='button'][aria-label] svg {
+  pointer-events: none;
+}
+
+/* Decorative icons */
+html.macos-tahoe svg[aria-hidden='true'] {
+  pointer-events: none;
+}
+
+/* ══ COMMAND PALETTE (Fase 17) ══════════════════════════════ */
+
+html.macos-tahoe [data-tucu='command-palette'] {
+  border-radius: var(--macos-radius-popover);
+  background-color: var(--macos-glass-regular-bg-opaque);
+  border: 0.5px solid var(--macos-glass-border);
+  box-shadow: var(--macos-shadow-window), 0 0 0 0.5px rgba(0, 0, 0, 0.06) inset;
+  overflow: hidden;
+  outline: none;
+}
+
+@supports (backdrop-filter: blur(1px)) {
+  html.macos-tahoe [data-tucu='command-palette'] {
+    background-color: var(--macos-glass-regular-bg);
+    backdrop-filter: blur(var(--macos-glass-regular-blur)) saturate(160%);
+    -webkit-backdrop-filter: blur(var(--macos-glass-regular-blur))
+      saturate(160%);
+  }
+}
+
+html.macos-tahoe.dark [data-tucu='command-palette'] {
+  border-color: var(--macos-separator);
+}
+
+/* Search bar */
+html.macos-tahoe [data-tucu='command-palette-search'] {
+  display: flex;
+  align-items: center;
+  gap: var(--macos-space-2);
+  padding: 12px var(--macos-space-3);
+  border-bottom: 0.5px solid var(--macos-separator);
+}
+
+html.macos-tahoe [data-tucu='command-palette-search-icon'] {
+  width: 16px;
+  height: 16px;
+  color: var(--macos-tertiary-label);
+  flex-shrink: 0;
+}
+
+html.macos-tahoe [data-tucu='command-palette-input'] {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: var(--macos-font-family);
+  font-size: var(--macos-font-size-body);
+  color: var(--macos-label);
+  caret-color: var(--macos-control-accent);
+}
+
+html.macos-tahoe [data-tucu='command-palette-input']::placeholder {
+  color: var(--macos-quaternary-label);
+}
+
+html.macos-tahoe [data-tucu='command-palette-clear'] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: var(--macos-radius-full);
+  border: none;
+  background-color: var(--macos-tertiary-label);
+  color: #ffffff;
+  cursor: pointer;
+  padding: 0;
+}
+
+html.macos-tahoe [data-tucu='command-palette-clear'] svg {
+  width: 10px;
+  height: 10px;
+}
+
+/* Results container */
+html.macos-tahoe [data-tucu='command-palette-results'] {
+  max-height: 360px;
+  overflow-y: auto;
+  padding: var(--macos-space-1) 0;
+  scrollbar-width: thin;
+}
+
+/* Group */
+html.macos-tahoe [data-tucu='command-palette-group'] {
+  padding: 0;
+}
+
+html.macos-tahoe [data-tucu='command-palette-group-label'] {
+  font-size: var(--macos-font-size-subheadline);
+  font-weight: var(--macos-font-weight-semibold);
+  color: var(--macos-secondary-label);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: var(--macos-space-2) var(--macos-space-3) var(--macos-space-1);
+}
+
+/* Item */
+html.macos-tahoe [data-tucu='command-palette-item'] {
+  display: flex;
+  align-items: center;
+  gap: var(--macos-space-2);
+  padding: 6px var(--macos-space-3);
+  border-radius: var(--macos-radius-small-control);
+  margin: 0 var(--macos-space-1);
+  min-height: 34px;
+  cursor: pointer;
+  transition: background-color var(--macos-transition-fast);
+}
+
+html.macos-tahoe [data-tucu='command-palette-item'][data-highlighted='true'] {
+  background-color: var(--macos-control-accent);
+  color: #ffffff;
+}
+
+html.macos-tahoe [data-tucu='command-palette-item-icon'] {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  color: var(--macos-secondary-label);
+}
+
+html.macos-tahoe
+  [data-tucu='command-palette-item'][data-highlighted='true']
+  [data-tucu='command-palette-item-icon'] {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+html.macos-tahoe [data-tucu='command-palette-item-label'] {
+  font-size: var(--macos-font-size-body);
+  font-weight: var(--macos-font-weight-medium);
+  color: var(--macos-label);
+  flex: 1;
+}
+
+html.macos-tahoe
+  [data-tucu='command-palette-item'][data-highlighted='true']
+  [data-tucu='command-palette-item-label'] {
+  color: #ffffff;
+}
+
+html.macos-tahoe [data-tucu='command-palette-item-desc'] {
+  font-size: var(--macos-font-size-callout);
+  color: var(--macos-secondary-label);
+  margin-left: auto;
+  padding-left: var(--macos-space-2);
+}
+
+html.macos-tahoe
+  [data-tucu='command-palette-item'][data-highlighted='true']
+  [data-tucu='command-palette-item-desc'] {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Shortcut */
+html.macos-tahoe [data-tucu='command-palette-shortcut'] {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  margin-left: auto;
+}
+
+html.macos-tahoe [data-tucu='command-palette-key'] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 4px;
+  border-radius: 4px;
+  font-family: var(--macos-font-family);
+  font-size: 10px;
+  font-weight: var(--macos-font-weight-medium);
+  background-color: var(--macos-gray5);
+  color: var(--macos-secondary-label);
+  border: 0.5px solid var(--macos-separator);
+}
+
+html.macos-tahoe
+  [data-tucu='command-palette-item'][data-highlighted='true']
+  [data-tucu='command-palette-key'] {
+  background-color: rgba(255, 255, 255, 0.18);
+  color: rgba(255, 255, 255, 0.9);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Empty */
+html.macos-tahoe [data-tucu='command-palette-empty'] {
+  padding: 24px var(--macos-space-3);
+  text-align: center;
+  font-size: var(--macos-font-size-body);
+  color: var(--macos-tertiary-label);
+}
+
+/* Footer */
+html.macos-tahoe [data-tucu='command-palette-footer'] {
+  display: flex;
+  align-items: center;
+  gap: var(--macos-space-3);
+  padding: var(--macos-space-2) var(--macos-space-3);
+  border-top: 0.5px solid var(--macos-separator);
+  font-size: var(--macos-font-size-callout);
+  color: var(--macos-tertiary-label);
+}
+
+html.macos-tahoe [data-tucu='command-palette-footer'] span {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.macos-tahoe [data-tucu='command-palette-item'] {
+    transition: none;
+  }
+}

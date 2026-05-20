@@ -1,79 +1,60 @@
-.roboto-thin {
-  font-family: 'Inter', sans-serif;
-  font-weight: 100;
+/* ===================================================================
+   TUCU-UI — FONT DECLARATIONS
+   ===================================================================
+
+   Local @font-face declarations for Inter Variable and JetBrains Mono
+   Variable. Both fonts are served from bundled woff2 files — no
+   external network requests required.
+
+   Fonts:
+   - Inter v4.1 (SIL OFL 1.1):        https://github.com/rsms/inter
+   - JetBrains Mono v2.304 (SIL OFL 1.1): https://github.com/JetBrains/JetBrainsMono
+
+   Licenses: assets/fonts/LICENSE-Inter.txt
+             assets/fonts/LICENSE-JetBrainsMono.txt
+   =================================================================== */
+
+/* ── Inter Variable — Normal ──────────────────────────────────────── */
+
+@font-face {
+  font-family: 'Inter';
+  src: url('../fonts/Inter-Variable.woff2') format('woff2-variations'),
+    local('Inter');
+  font-weight: 100 900;
   font-style: normal;
+  font-display: swap;
 }
 
-.roboto-light {
-  font-family: 'Inter', sans-serif;
-  font-weight: 300;
+/* ── Inter Variable — Italic ──────────────────────────────────────── */
+
+@font-face {
+  font-family: 'Inter';
+  src: url('../fonts/Inter-Variable-Italic.woff2') format('woff2-variations'),
+    local('Inter Italic');
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* ── JetBrains Mono Variable — Normal ────────────────────────────── */
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('../fonts/JetBrainsMono-Variable.woff2') format('woff2-variations'),
+    local('JetBrains Mono');
+  font-weight: 100 800;
   font-style: normal;
+  font-display: swap;
 }
 
-.roboto-regular {
-  font-family: 'Inter', sans-serif;
-  font-weight: 400;
-  font-style: normal;
-}
+/* ── JetBrains Mono Variable — Italic ───────────────────────────── */
 
-.roboto-medium {
-  font-family: 'Inter', sans-serif;
-  font-weight: 500;
-  font-style: normal;
-}
-
-.roboto-bold {
-  font-family: 'Inter', sans-serif;
-  font-weight: 700;
-  font-style: normal;
-}
-
-.roboto-black {
-  font-family: 'Inter', sans-serif;
-  font-weight: 900;
-  font-style: normal;
-}
-
-.roboto-thin-italic {
-  font-family: 'Inter', sans-serif;
-  font-weight: 100;
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('../fonts/JetBrainsMono-Variable-Italic.woff2')
+      format('woff2-variations'),
+    local('JetBrains Mono Italic');
+  font-weight: 100 800;
   font-style: italic;
-}
-
-.roboto-light-italic {
-  font-family: 'Inter', sans-serif;
-  font-weight: 300;
-  font-style: italic;
-}
-
-.roboto-regular-italic {
-  font-family: 'Inter', sans-serif;
-  font-weight: 400;
-  font-style: italic;
-}
-
-.roboto-medium-italic {
-  font-family: 'Inter', sans-serif;
-  font-weight: 500;
-  font-style: italic;
-}
-
-.roboto-bold-italic {
-  font-family: 'Inter', sans-serif;
-  font-weight: 700;
-  font-style: italic;
-}
-
-.roboto-black-italic {
-  font-family: 'Inter', sans-serif;
-  font-weight: 900;
-  font-style: italic;
-}
-
-/* Global font family configuration */
-body,
-html {
-  font-optical-sizing: auto;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-display: swap;
 }

@@ -1,0 +1,35 @@
+/* ===================================================================
+   TUCU-UI — THIRD-PARTY STYLES
+   ===================================================================
+
+   CSS overrides and integration styles for third-party libraries:
+   Swiper and Recharts.
+
+   Plain CSS only — no Tailwind directives (@apply allowed since
+   this file is part of the Tailwind processing chain).
+   =================================================================== */
+
+/* ===================================================================
+   SWIPER
+   =================================================================== */
+
+.swiper-pagination-bullet {
+  --swiper-pagination-bullet-width: 8px;
+  --swiper-pagination-bullet-height: 8px;
+  --swiper-pagination-bullet-inactive-color: #e5e7eb;
+  --swiper-pagination-color: #9ca3af;
+  --swiper-pagination-bullet-inactive-opacity: 1;
+  border-radius: 10px;
+}
+
+/* ===================================================================
+   RECHARTS
+   =================================================================== */
+
+.recharts-tooltip-wrapper .recharts-default-tooltip {
+  @apply rounded-xs border-0! bg-white! px-4! shadow-card dark:bg-light-dark!;
+}
+
+.recharts-tooltip-wrapper .recharts-default-tooltip .recharts-tooltip-item {
+  @apply text-xs uppercase dark:text-gray-400! lg:text-sm;
+}

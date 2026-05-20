@@ -75,6 +75,7 @@ const sections: SectionConfig[] = [
 export const InputsComponents = () => {
   return (
     <DynamicSectionsPage
+      hideHeroInSubSections
       sections={sections}
       hero={
         <HeroCard

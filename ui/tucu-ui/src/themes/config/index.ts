@@ -6,13 +6,9 @@ export interface IThemeItem {
 
 export type MODE = 'light' | 'dark';
 
-export type THEME_VARIANT = 'default' | 'macos';
+export type THEME_VARIANT = 'default' | 'macos' | 'macos-tahoe';
 
 export const defaultThemeVariant: THEME_VARIANT = 'default';
-
-export type DIRECTION = 'ltr' | 'rtl';
-
-export type LogoType = LogoPropTypes;
 
 export enum LAYOUT_OPTIONS {
   CLEAN = 'clean',
@@ -20,21 +16,52 @@ export enum LAYOUT_OPTIONS {
   HORIZONTAL = 'horizontal',
   MACOS = 'macos',
   MACOS_TAHOE = 'macos-tahoe',
+  MACOS_TAHOE_DOCK = 'macos-tahoe-dock',
 }
+
+// ─── Theme Style → Layout Mapping ─────────────────────────────────────────
+// Each theme style has a set of valid layouts and a default layout.
+
+export interface ThemeStyleConfig {
+  validLayouts: LAYOUT_OPTIONS[];
+  defaultLayout: LAYOUT_OPTIONS;
+}
+
+export const THEME_STYLE_LAYOUTS: Record<THEME_VARIANT, ThemeStyleConfig> = {
+  default: {
+    validLayouts: [
+      LAYOUT_OPTIONS.CLEAN,
+      LAYOUT_OPTIONS.ADMIN,
+      LAYOUT_OPTIONS.HORIZONTAL,
+    ],
+    defaultLayout: LAYOUT_OPTIONS.HORIZONTAL,
+  },
+  macos: {
+    validLayouts: [LAYOUT_OPTIONS.MACOS],
+    defaultLayout: LAYOUT_OPTIONS.MACOS,
+  },
+  'macos-tahoe': {
+    validLayouts: [LAYOUT_OPTIONS.MACOS_TAHOE, LAYOUT_OPTIONS.MACOS_TAHOE_DOCK],
+    defaultLayout: LAYOUT_OPTIONS.MACOS_TAHOE,
+  },
+};
+
+export type DIRECTION = 'ltr' | 'rtl';
+
+export type LogoType = LogoPropTypes;
 
 export type LayoutOptionType =
   | 'clean'
   | 'admin'
   | 'horizontal'
   | 'macos'
-  | 'macos-tahoe';
+  | 'macos-tahoe'
+  | 'macos-tahoe-dock';
 
 export const layoutOptions: IThemeItem[] = [
   { label: 'Clean', value: LAYOUT_OPTIONS.CLEAN },
   { label: 'Admin', value: LAYOUT_OPTIONS.ADMIN },
   { label: 'Horizontal', value: LAYOUT_OPTIONS.HORIZONTAL },
-  { label: 'macOS Classic', value: LAYOUT_OPTIONS.MACOS },
-  { label: 'macOS Tahoe', value: LAYOUT_OPTIONS.MACOS_TAHOE },
 ];
 
 export type PresetColorType =
@@ -457,3 +484,242 @@ export const macosLightPresets = {
     value: PRESET_COLORS.MACOS_DARK_LIGHT_DARK,
   },
 } as const;
+
+// ─── macOS Tahoe Accent Color Bundles ─────────────────────────────────────
+// Inspired by macOS System Preferences accent color options.
+// Each accent defines primary (light/dark) + accent (light/dark) while
+// sharing the same neutral backgrounds/muted/secondary values.
+
+export interface TahoeAccentBundle {
+  id: string;
+  label: string;
+  /** Preview swatch — light mode primary */
+  swatch: string;
+  primaryLight: string;
+  primaryDark: string;
+  accentLight: string;
+  accentDark: string;
+}
+
+export const TAHOE_ACCENT_BUNDLES: TahoeAccentBundle[] = [
+  {
+    id: 'glass-neutral',
+    label: 'Glass',
+    swatch: '#007AFF',
+    primaryLight: '#007AFF',
+    primaryDark: '#0A84FF',
+    accentLight: '#FF9500',
+    accentDark: '#FF9F0A',
+  },
+  {
+    id: 'blue',
+    label: 'Blue',
+    swatch: '#007AFF',
+    primaryLight: '#007AFF',
+    primaryDark: '#0A84FF',
+    accentLight: '#5AC8FA',
+    accentDark: '#64D2FF',
+  },
+  {
+    id: 'purple',
+    label: 'Purple',
+    swatch: '#AF52DE',
+    primaryLight: '#AF52DE',
+    primaryDark: '#BF5AF2',
+    accentLight: '#5856D6',
+    accentDark: '#5E5CE6',
+  },
+  {
+    id: 'pink',
+    label: 'Pink',
+    swatch: '#FF2D55',
+    primaryLight: '#FF2D55',
+    primaryDark: '#FF375F',
+    accentLight: '#FF6482',
+    accentDark: '#FF6482',
+  },
+  {
+    id: 'red',
+    label: 'Red',
+    swatch: '#FF3B30',
+    primaryLight: '#FF3B30',
+    primaryDark: '#FF453A',
+    accentLight: '#FF6961',
+    accentDark: '#FF6961',
+  },
+  {
+    id: 'orange',
+    label: 'Orange',
+    swatch: '#FF9500',
+    primaryLight: '#FF9500',
+    primaryDark: '#FF9F0A',
+    accentLight: '#FFB340',
+    accentDark: '#FFB340',
+  },
+  {
+    id: 'yellow',
+    label: 'Yellow',
+    swatch: '#FFCC00',
+    primaryLight: '#FFCC00',
+    primaryDark: '#FFD60A',
+    accentLight: '#FFE066',
+    accentDark: '#FFE066',
+  },
+  {
+    id: 'green',
+    label: 'Green',
+    swatch: '#34C759',
+    primaryLight: '#34C759',
+    primaryDark: '#30D158',
+    accentLight: '#63DA83',
+    accentDark: '#63DA83',
+  },
+  {
+    id: 'graphite',
+    label: 'Graphite',
+    swatch: '#8E8E93',
+    primaryLight: '#8E8E93',
+    primaryDark: '#98989D',
+    accentLight: '#636366',
+    accentDark: '#AEAEB2',
+  },
+];
+
+/** Build a full macOS preset set from a Tahoe accent bundle */
+export function buildTahoePresets(bundle: TahoeAccentBundle) {
+  return {
+    primaryPreset: {
+      label: `Tahoe${bundle.label}`,
+      value: bundle.primaryLight,
+    },
+    darkPrimaryPreset: {
+      label: `Tahoe${bundle.label}Dark`,
+      value: bundle.primaryDark,
+    },
+    secondaryPreset: macosLightPresets.secondaryPreset,
+    darkSecondaryPreset: macosLightPresets.darkSecondaryPreset,
+    accentPreset: {
+      label: `Tahoe${bundle.label}Accent`,
+      value: bundle.accentLight,
+    },
+    darkAccentPreset: {
+      label: `Tahoe${bundle.label}AccentDark`,
+      value: bundle.accentDark,
+    },
+    mutedPreset: macosLightPresets.mutedPreset,
+    darkMutedPreset: macosLightPresets.darkMutedPreset,
+    lightBgPreset: macosLightPresets.lightBgPreset,
+    darkBgPreset: macosLightPresets.darkBgPreset,
+    lightDarkPreset: macosLightPresets.lightDarkPreset,
+    darkLightDarkPreset: macosLightPresets.darkLightDarkPreset,
+  };
+}
+
+// ─── macOS Sonoma Accent Color Bundles ────────────────────────────────────
+// macOS Sonoma System Preferences accent color options.
+// Uses the same TahoeAccentBundle shape for consistency.
+
+export const SONOMA_ACCENT_BUNDLES: TahoeAccentBundle[] = [
+  {
+    id: 'blue',
+    label: 'Blue',
+    swatch: '#007AFF',
+    primaryLight: '#007AFF',
+    primaryDark: '#0A84FF',
+    accentLight: '#007AFF',
+    accentDark: '#0A84FF',
+  },
+  {
+    id: 'purple',
+    label: 'Purple',
+    swatch: '#AF52DE',
+    primaryLight: '#AF52DE',
+    primaryDark: '#BF5AF2',
+    accentLight: '#AF52DE',
+    accentDark: '#BF5AF2',
+  },
+  {
+    id: 'pink',
+    label: 'Pink',
+    swatch: '#FF2D55',
+    primaryLight: '#FF2D55',
+    primaryDark: '#FF375F',
+    accentLight: '#FF2D55',
+    accentDark: '#FF375F',
+  },
+  {
+    id: 'red',
+    label: 'Red',
+    swatch: '#FF3B30',
+    primaryLight: '#FF3B30',
+    primaryDark: '#FF453A',
+    accentLight: '#FF3B30',
+    accentDark: '#FF453A',
+  },
+  {
+    id: 'orange',
+    label: 'Orange',
+    swatch: '#FF9500',
+    primaryLight: '#FF9500',
+    primaryDark: '#FF9F0A',
+    accentLight: '#FF9500',
+    accentDark: '#FF9F0A',
+  },
+  {
+    id: 'yellow',
+    label: 'Yellow',
+    swatch: '#FFCC00',
+    primaryLight: '#FFCC00',
+    primaryDark: '#FFD60A',
+    accentLight: '#FFCC00',
+    accentDark: '#FFD60A',
+  },
+  {
+    id: 'green',
+    label: 'Green',
+    swatch: '#34C759',
+    primaryLight: '#34C759',
+    primaryDark: '#30D158',
+    accentLight: '#34C759',
+    accentDark: '#30D158',
+  },
+  {
+    id: 'graphite',
+    label: 'Graphite',
+    swatch: '#8E8E93',
+    primaryLight: '#8E8E93',
+    primaryDark: '#98989D',
+    accentLight: '#8E8E93',
+    accentDark: '#98989D',
+  },
+];
+
+/** Build a full macOS preset set from a Sonoma accent bundle */
+export function buildSonomaPresets(bundle: TahoeAccentBundle) {
+  return {
+    primaryPreset: {
+      label: `Sonoma${bundle.label}`,
+      value: bundle.primaryLight,
+    },
+    darkPrimaryPreset: {
+      label: `Sonoma${bundle.label}Dark`,
+      value: bundle.primaryDark,
+    },
+    secondaryPreset: macosLightPresets.secondaryPreset,
+    darkSecondaryPreset: macosLightPresets.darkSecondaryPreset,
+    accentPreset: {
+      label: `Sonoma${bundle.label}Accent`,
+      value: bundle.accentLight,
+    },
+    darkAccentPreset: {
+      label: `Sonoma${bundle.label}AccentDark`,
+      value: bundle.accentDark,
+    },
+    mutedPreset: macosLightPresets.mutedPreset,
+    darkMutedPreset: macosLightPresets.darkMutedPreset,
+    lightBgPreset: macosLightPresets.lightBgPreset,
+    darkBgPreset: macosLightPresets.darkBgPreset,
+    lightDarkPreset: macosLightPresets.lightDarkPreset,
+    darkLightDarkPreset: macosLightPresets.darkLightDarkPreset,
+  };
+}

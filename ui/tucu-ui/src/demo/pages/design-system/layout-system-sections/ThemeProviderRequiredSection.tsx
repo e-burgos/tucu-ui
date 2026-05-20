@@ -1,9 +1,38 @@
 import React from 'react';
-import { CardContainer, CardTitle, Typography, LucideIcons, Alert } from '../../../../index';
+import {
+  CardContainer,
+  CardTitle,
+  Typography,
+  LucideIcons,
+  Alert,
+  HeroCard,
+} from '../../../../index';
 
 const ThemeProviderRequiredSection: React.FC = () => {
   return (
     <>
+      <HeroCard
+        title="ThemeProvider Required"
+        description="Essential prerequisite for using the layout system and theme hooks. All layout components depend on the theme context."
+        icon={
+          <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 bg-linear-to-br from-purple-500 via-violet-500 to-indigo-500 rounded-full flex items-center justify-center shadow-lg">
+            <LucideIcons.Shield className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 text-white filter drop-shadow-lg" />
+          </div>
+        }
+      />
+
+      <div className="text-center">
+        <Typography tag="h2" className="mb-2">
+          ThemeProvider Required
+        </Typography>
+        <Typography
+          tag="p"
+          className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto"
+        >
+          Essential prerequisite for using the layout system and theme hooks
+        </Typography>
+      </div>
+
       <Alert variant="warning">
         <div>
           <div className="flex items-center gap-2 font-semibold">
@@ -12,9 +41,9 @@ const ThemeProviderRequiredSection: React.FC = () => {
           </div>
           <div>
             Before using any layout components or theme hooks, you MUST wrap
-            your application with ThemeProvider. All layout components and
-            theme hooks depend on the theme context provided by ThemeProvider.
-            Located in{' '}
+            your application with ThemeProvider. All layout components and theme
+            hooks depend on the theme context provided by ThemeProvider. Located
+            in{' '}
             <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-700 rounded text-xs">
               ui/tucu-ui/src/themes/components/theme-provider
             </code>
@@ -31,8 +60,8 @@ const ThemeProviderRequiredSection: React.FC = () => {
               <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-700 rounded text-xs">
                 BrowserRouter
               </code>{' '}
-              from React Router and handles routing automatically. You have
-              two options:
+              from React Router and handles routing automatically. You have two
+              options:
             </Typography>
 
             <div className="space-y-4">
@@ -88,4 +117,3 @@ const ThemeProviderRequiredSection: React.FC = () => {
 };
 
 export default ThemeProviderRequiredSection;
-

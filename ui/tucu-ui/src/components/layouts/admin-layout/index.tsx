@@ -32,6 +32,7 @@ export function AdminLayout({
 }: AdminLayoutProps) {
   return (
     <div
+      data-tucu="admin-layout"
       className={cn(
         'xl:ltr:pl-[96px] xl:rtl:pr-[96px] 2xl:ltr:pl-[112px] 2xl:rtl:pr-[112px]',
         className
@@ -60,6 +61,7 @@ export function AdminLayout({
         logo={logo}
       />
       <main
+        data-tucu="admin-content"
         className={cn(
           fullWidth
             ? 'min-h-full w-full h-full px-[0px]'

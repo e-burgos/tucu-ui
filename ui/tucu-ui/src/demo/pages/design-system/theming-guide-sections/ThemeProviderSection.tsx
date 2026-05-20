@@ -1,5 +1,12 @@
 import React from 'react';
-import { CardContainer, CardTitle, Typography, BasicTable } from '../../../../index';
+import {
+  HeroCard,
+  CardContainer,
+  CardTitle,
+  Typography,
+  LucideIcons,
+  BasicTable,
+} from '../../../../index';
 
 const ThemeProviderSection: React.FC = () => {
   const themeProviderPropsColumns = [
@@ -17,15 +24,21 @@ const ThemeProviderSection: React.FC = () => {
       description: 'Navigation menu items',
     },
     {
+      prop: 'themeStyle',
+      type: "'default' | 'macos' | 'macos-tahoe'",
+      default: "'default'",
+      description: 'Visual theme variant — constrains available layouts',
+    },
+    {
       prop: 'layout',
       type: 'LAYOUT_OPTIONS',
       default: 'HORIZONTAL',
-      description: 'Layout type: CLEAN, ADMIN, or HORIZONTAL',
+      description: 'Layout type (constrained by themeStyle)',
     },
     {
       prop: 'mode',
       type: "'light' | 'dark'",
-      default: "'light'",
+      default: "'dark'",
       description: 'Color mode',
     },
     {
@@ -38,7 +51,8 @@ const ThemeProviderSection: React.FC = () => {
       prop: 'customPaletteColor',
       type: 'object',
       default: '-',
-      description: 'Custom color palette (see Color Configuration)',
+      description:
+        'Custom color palette with 12 color slots (primary, darkPrimary, secondary, etc.)',
     },
     {
       prop: 'logo',
@@ -50,7 +64,7 @@ const ThemeProviderSection: React.FC = () => {
       prop: 'brandColor',
       type: 'PresetColorType',
       default: '-',
-      description: 'Brand color preset',
+      description: 'Brand color preset name',
     },
     {
       prop: 'headerClassName',
@@ -82,73 +96,84 @@ const ThemeProviderSection: React.FC = () => {
       default: '-',
       description: 'Custom CSS classes for root layout',
     },
+    {
+      prop: 'setCurrentPathname',
+      type: '(pathname: string) => void',
+      default: '-',
+      description: 'Callback invoked on route change with current pathname',
+    },
   ];
 
   return (
     <>
-      <div className="text-center">
-        <Typography
-          tag="h2"
-          className="mb-4 text-2xl sm:text-3xl md:text-4xl font-bold"
-        >
-          ThemeProvider Component
-        </Typography>
-        <Typography
-          tag="p"
-          className="text-base sm:text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto"
-        >
-          Complete reference for ThemeProvider props and configuration
-        </Typography>
-      </div>
-
-      <CardContainer>
-        <CardTitle title="ThemeProvider Props" className="mt-2 mb-6">
-          <div className="space-y-6">
-            <Typography tag="p" className="text-gray-600 dark:text-gray-400">
-              The ThemeProvider is the root component that wraps your
-              application and manages all theme state. Located in
-              <code className="px-2 py-1 font-mono rounded text-sm">
-                ui/tucu-ui/src/themes
-              </code>
-              directory.
-            </Typography>
-            <BasicTable
-              columns={themeProviderPropsColumns.map((col) => ({
-                ...col,
-                render: (value: unknown) => {
-                  if (col.key === 'prop') {
-                    return (
-                      <code className="text-xs text-brand">
-                        {String(value ?? '')}
-                      </code>
-                    );
-                  }
-                  if (col.key === 'type' || col.key === 'default') {
-                    return (
-                      <code className="text-xs text-gray-600 dark:text-gray-400">
-                        {String(value ?? '')}
-                      </code>
-                    );
-                  }
-                  if (col.key === 'description') {
-                    return (
-                      <span className="text-xs text-gray-600 dark:text-gray-400">
-                        {String(value ?? '')}
-                      </span>
-                    );
-                  }
-                  return String(value ?? '');
-                },
-              }))}
-              data={themeProviderPropsData as Array<Record<string, unknown>>}
-              containerClassName="mb-4"
-            />
+      <HeroCard
+        title="ThemeProvider Component"
+        description="The root component that wraps your application, manages all theme state, handles routing, and applies color configurations."
+        icon={
+          <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 bg-linear-to-br from-blue-500 via-cyan-500 to-teal-500 rounded-full flex items-center justify-center shadow-lg">
+            <LucideIcons.Component className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 text-white filter drop-shadow-lg" />
           </div>
-        </CardTitle>
-      </CardContainer>
+        }
+      />
+
+      <section className="space-y-8">
+        <div className="text-center">
+          <Typography tag="h2" className="mb-2">
+            Props Reference
+          </Typography>
+          <Typography
+            tag="p"
+            className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto"
+          >
+            Complete list of ThemeProvider configuration props
+          </Typography>
+        </div>
+        <CardContainer>
+          <CardTitle title="ThemeProvider Props">
+            <div className="space-y-6">
+              <Typography tag="p" className="text-gray-600 dark:text-gray-400">
+                Located in{' '}
+                <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
+                  ui/tucu-ui/src/themes/components/theme-provider/
+                </code>
+              </Typography>
+              <BasicTable
+                columns={themeProviderPropsColumns.map((col) => ({
+                  ...col,
+                  render: (value: unknown) => {
+                    if (col.key === 'prop') {
+                      return (
+                        <code className="text-xs text-brand">
+                          {String(value ?? '')}
+                        </code>
+                      );
+                    }
+                    if (col.key === 'type' || col.key === 'default') {
+                      return (
+                        <code className="text-xs text-gray-600 dark:text-gray-400">
+                          {String(value ?? '')}
+                        </code>
+                      );
+                    }
+                    if (col.key === 'description') {
+                      return (
+                        <span className="text-xs text-gray-600 dark:text-gray-400">
+                          {String(value ?? '')}
+                        </span>
+                      );
+                    }
+                    return String(value ?? '');
+                  },
+                }))}
+                data={themeProviderPropsData as Array<Record<string, unknown>>}
+                containerClassName="mb-4"
+              />
+            </div>
+          </CardTitle>
+        </CardContainer>
+      </section>
     </>
   );
 };
 
 export default ThemeProviderSection;
-

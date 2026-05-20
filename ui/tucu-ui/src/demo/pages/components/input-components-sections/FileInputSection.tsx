@@ -5,6 +5,8 @@ import {
   Typography,
   CodeBlock,
   FileInput,
+  HeroCard,
+  LucideIcons,
 } from '../../../../index';
 import { AutoPropsTable } from '../../../components/auto-props-table';
 import { PropPlayground } from '../../../components/prop-playground';
@@ -21,20 +23,15 @@ const FileInputSection: React.FC = () => {
 
   return (
     <>
-      <div className="text-center space-y-4">
-        <Typography tag="h2" className="text-3xl md:text-4xl font-bold">
-          FileInput
-        </Typography>
-        <Typography
-          tag="p"
-          className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
-        >
-          An advanced file input component with native HTML5 drag-and-drop
-          support, image preview, and flexible file type validation. The
-          component implements native drag and drop functionality without
-          external dependencies.
-        </Typography>
-      </div>
+      <HeroCard
+        title="FileInput"
+        description="An advanced file input component with native HTML5 drag-and-drop support, image preview, and flexible file type validation. The component implements native drag and drop functionality without external dependencies."
+        icon={
+          <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 bg-linear-to-br from-purple-500 via-fuchsia-500 to-pink-500 rounded-full flex items-center justify-center shadow-lg border border-purple-500/50">
+            <LucideIcons.Upload className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 text-white filter drop-shadow-lg" />
+          </div>
+        }
+      />
 
       <CardContainer className="overflow-hidden">
         <CardTitle title="Examples" className="mt-2 mb-2">

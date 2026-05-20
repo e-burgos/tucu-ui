@@ -20,7 +20,7 @@ import {
 
 export function CodeExamplePage() {
   return (
-    <div className="space-y-8 sm:space-y-12 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative pt-8 lg:pt-12">
+    <div className="space-y-8 max-w-6xl sm:space-y-12 w-full mx-auto px-4 sm:px-6 lg:px-8 relative pt-8 lg:pt-12">
       {/* Hero Section */}
       <HeroCard
         title="Form System Code Example"
@@ -29,7 +29,7 @@ export function CodeExamplePage() {
         getStartedButton
         docsButton="form-system"
         icon={
-          <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 bg-brand/70 rounded-full flex items-center justify-center shadow-lg border border-brand/50">
+          <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 bg-linear-to-br from-purple-500 via-violet-500 to-indigo-500 rounded-full flex items-center justify-center shadow-lg">
             <LucideIcons.FileText className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 text-white filter drop-shadow-lg" />
           </div>
         }
@@ -48,7 +48,7 @@ export function CodeExamplePage() {
                   <div className="p-2 rounded-lg bg-linear-to-br from-purple-500 via-violet-500 to-indigo-500 shadow-lg">
                     <LucideIcons.Layout className="w-6 h-6 text-white filter drop-shadow-sm" />
                   </div>
-                  <Typography tag="h3" className="text-xl font-semibold">
+                  <Typography tag="h3" className="text-base font-semibold">
                     Basic Form Implementation
                   </Typography>
                 </div>
@@ -153,7 +153,7 @@ export function CodeExamplePage() {
                   <div className="p-2 rounded-lg bg-linear-to-br from-red-500 via-rose-500 to-pink-500 shadow-lg">
                     <LucideIcons.AlertCircle className="w-6 h-6 text-white filter drop-shadow-sm" />
                   </div>
-                  <Typography tag="h3" className="text-xl font-semibold">
+                  <Typography tag="h3" className="text-base font-semibold">
                     Form Error Handling
                   </Typography>
                 </div>
@@ -255,7 +255,7 @@ export function CodeExamplePage() {
                   <div className="p-2 rounded-lg bg-linear-to-br from-amber-500 via-yellow-500 to-orange-500 shadow-lg">
                     <LucideIcons.Wand2 className="w-6 h-6 text-white filter drop-shadow-sm" />
                   </div>
-                  <Typography tag="h3" className="text-xl font-semibold">
+                  <Typography tag="h3" className="text-base font-semibold">
                     Form Method Manipulation
                   </Typography>
                 </div>
@@ -349,7 +349,7 @@ export function CodeExamplePage() {
                   <div className="p-2 rounded-lg bg-linear-to-br from-blue-500 via-cyan-500 to-sky-500 shadow-lg">
                     <LucideIcons.ListChecks className="w-6 h-6 text-white filter drop-shadow-sm" />
                   </div>
-                  <Typography tag="h3" className="text-xl font-semibold">
+                  <Typography tag="h3" className="text-base font-semibold">
                     Form Options & Constants
                   </Typography>
                 </div>
@@ -440,7 +440,7 @@ export function CodeExamplePage() {
                   <div className="p-2 rounded-lg bg-linear-to-br from-green-500 via-emerald-500 to-teal-500 shadow-lg">
                     <LucideIcons.ShieldCheck className="w-6 h-6 text-white filter drop-shadow-sm" />
                   </div>
-                  <Typography tag="h3" className="text-xl font-semibold">
+                  <Typography tag="h3" className="text-base font-semibold">
                     Form Validation Rules
                   </Typography>
                 </div>
