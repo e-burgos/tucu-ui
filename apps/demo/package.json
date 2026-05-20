@@ -13,7 +13,7 @@
   "dependencies": {
     "react": "^19.2.5",
     "react-dom": "^19.2.5",
-    "@e-burgos/tucu-ui": "file:../../dist/ui/tucu-ui"
+    "@e-burgos/tucu-ui": "^2.0.9"
   },
   "devDependencies": {
     "@eslint/js": "^9.25.0",

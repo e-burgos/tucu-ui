@@ -5,5 +5,5 @@
   NX_SKIP_NX_CACHE = "true"
 
 [build]
-  command = "pnpm run prebuild:ci && pnpm install && pnpm run build"
+  command = "pnpm run build"
   publish = "dist"
