@@ -571,7 +571,11 @@
 
   /* Line */
   --color-semantic-line-primary: var(--color-tucu-ui-gray-20);
-  --color-semantic-line-primary-subtle: var(--color-tucu-ui-gray-15);
+  --color-semantic-line-primary-subtle: color-mix(
+    in oklab,
+    var(--color-black) 10%,
+    transparent
+  );
   --color-semantic-line-inverse: var(--color-tucu-ui-gray-0);
 
   /* Elevation */
@@ -620,10 +624,15 @@
   --color-semantic-dark-bg-positive-wash: var(--color-tucu-ui-dark-green-0);
   --color-semantic-dark-bg-warning: var(--color-tucu-ui-dark-yellow-50);
   --color-semantic-dark-bg-warning-wash: var(--color-tucu-ui-dark-orange-0);
+  --color-semantic-dark-bg-info: var(--color-tucu-ui-dark-blue-70);
 
   /* Line Dark */
   --color-semantic-dark-line-primary: var(--color-tucu-ui-dark-gray-20);
-  --color-semantic-dark-line-primary-subtle: var(--color-tucu-ui-dark-gray-15);
+  --color-semantic-dark-line-primary-subtle: color-mix(
+    in oklab,
+    var(--color-white) 8%,
+    transparent
+  );
   --color-semantic-dark-line-inverse: var(--color-tucu-ui-dark-gray-0);
 
   /* Elevation Dark */
@@ -657,7 +666,7 @@
 
   /* Dynamic multiplier: enables full Tailwind scale (0, 0.5, 1, 1.5, …, 96) */
   /* Each unit = 0.25rem (4px). E.g. p-4 = 16px, p-24 = 96px, gap-0.5 = 2px */
-  --spacing: 0.25rem;
+  --spacing: 4px;
 
   /* ===================================================================
      Tailwind Border Radius Scale
@@ -778,12 +787,16 @@
   --color-secondary: var(--color-semantic-bg-secondary);
   --color-accent: var(--color-semantic-accent-bold-yellow);
   --color-muted: var(--color-semantic-fg-muted);
-  --color-border: var(--color-semantic-line-primary-subtle);
+  --color-border: var(
+    --color-semantic-line-primary-subtle,
+    color-mix(in oklab, var(--color-black) 10%, transparent)
+  );
   --swiper-theme-color: var(--color-brand);
   --color-success: var(--color-semantic-bg-positive);
   --color-warning: var(--color-semantic-bg-warning);
   --color-error: var(--color-semantic-bg-negative);
   --color-info: var(--color-semantic-bg-primary);
+  --color-foreground: var(--font-primary-color);
   --color-body: var(--color-semantic-bg);
   --color-dark: var(--color-semantic-dark-bg);
   --color-light: var(--color-semantic-bg);

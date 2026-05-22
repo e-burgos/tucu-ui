@@ -1,0 +1,276 @@
+/* ═══════════════════════════════════════════════════════════════
+   Theme Backgrounds — Global (all theme variants)
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ─── Keyframes ─────────────────────────────────────────────── */
+
+@keyframes tucu-aurora-drift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* ─── Base ──────────────────────────────────────────────────── */
+
+.tucu-bg-base {
+  background: radial-gradient(
+      circle at 28% 32%,
+      rgba(142, 200, 255, 0.45) 0%,
+      transparent 42%
+    ),
+    radial-gradient(
+      circle at 72% 68%,
+      rgba(170, 150, 255, 0.28) 0%,
+      transparent 42%
+    ),
+    #f0f2f7;
+}
+
+html.dark .tucu-bg-base,
+.dark .tucu-bg-base {
+  background: radial-gradient(
+      circle at 28% 32%,
+      rgba(18, 60, 100, 0.8) 0%,
+      transparent 42%
+    ),
+    radial-gradient(
+      circle at 72% 68%,
+      rgba(55, 30, 100, 0.6) 0%,
+      transparent 42%
+    ),
+    #131318;
+}
+
+/* ─── Sonoma ────────────────────────────────────────────────── */
+
+.tucu-bg-sonoma {
+  background: #f2f2f7;
+}
+
+html.dark .tucu-bg-sonoma,
+.dark .tucu-bg-sonoma {
+  background: #1c1c1e;
+}
+
+/* ─── Radial ────────────────────────────────────────────────── */
+
+.tucu-bg-radial {
+  background: radial-gradient(
+      ellipse at 10% 15%,
+      rgba(90, 170, 255, 0.46),
+      transparent 38%
+    ),
+    radial-gradient(
+      ellipse at 85% 80%,
+      rgba(160, 210, 255, 0.5),
+      transparent 42%
+    ),
+    radial-gradient(
+      ellipse at 50% 0%,
+      rgba(120, 190, 250, 0.34),
+      transparent 28%
+    ),
+    linear-gradient(170deg, #c8e6ff 0%, #d4edff 50%, #bcd8f0 100%);
+}
+
+html.dark .tucu-bg-radial,
+.dark .tucu-bg-radial {
+  background: radial-gradient(
+      ellipse at 15% 20%,
+      rgba(30, 100, 255, 0.88),
+      transparent 42%
+    ),
+    radial-gradient(
+      ellipse at 80% 75%,
+      rgba(120, 60, 240, 0.75),
+      transparent 46%
+    ),
+    radial-gradient(ellipse at 55% 5%, rgba(20, 70, 200, 0.55), transparent 30%),
+    radial-gradient(
+      ellipse at 50% 100%,
+      rgba(60, 30, 150, 0.42),
+      transparent 36%
+    ),
+    linear-gradient(170deg, #0c1428 0%, #090e1e 60%, #060b16 100%);
+}
+
+/* ─── Aurora (animated) ─────────────────────────────────────── */
+
+.tucu-bg-aurora {
+  background: radial-gradient(
+      circle at 28% 32%,
+      rgba(142, 200, 255, 0.55) 0%,
+      transparent 42%
+    ),
+    radial-gradient(
+      circle at 72% 68%,
+      rgba(170, 150, 255, 0.38) 0%,
+      transparent 42%
+    ),
+    radial-gradient(
+      circle at 68% 28%,
+      rgba(100, 210, 240, 0.35) 0%,
+      transparent 42%
+    ),
+    radial-gradient(
+      circle at 32% 72%,
+      rgba(180, 130, 255, 0.25) 0%,
+      transparent 42%
+    ),
+    #f0f2f7;
+  background-size: 200% 200%;
+  animation: tucu-aurora-drift 16s ease-in-out infinite;
+}
+
+html.dark .tucu-bg-aurora,
+.dark .tucu-bg-aurora {
+  background: radial-gradient(
+      circle at 28% 32%,
+      rgba(18, 60, 100, 0.8) 0%,
+      transparent 42%
+    ),
+    radial-gradient(
+      circle at 72% 68%,
+      rgba(55, 30, 100, 0.6) 0%,
+      transparent 42%
+    ),
+    radial-gradient(
+      circle at 68% 28%,
+      rgba(30, 50, 110, 0.7) 0%,
+      transparent 42%
+    ),
+    radial-gradient(
+      circle at 32% 72%,
+      rgba(80, 20, 80, 0.45) 0%,
+      transparent 42%
+    ),
+    #131318;
+  background-size: 200% 200%;
+  animation: tucu-aurora-drift 16s ease-in-out infinite;
+}
+
+/* ─── Depth ─────────────────────────────────────────────────── */
+
+.tucu-bg-depth {
+  background: linear-gradient(
+    160deg,
+    #f0f2f6 0%,
+    #eaedf4 40%,
+    #f2f0f8 70%,
+    #eef2f6 100%
+  );
+}
+
+html.dark .tucu-bg-depth,
+.dark .tucu-bg-depth {
+  background: linear-gradient(
+    160deg,
+    #141418 0%,
+    #18181e 40%,
+    #191520 70%,
+    #141418 100%
+  );
+}
+
+/* ─── Demo ──────────────────────────────────────────────────── */
+
+.tucu-bg-demo {
+  background: radial-gradient(
+      ellipse 80% 60% at 20% 10%,
+      rgba(100, 180, 255, 0.4) 0%,
+      transparent 55%
+    ),
+    radial-gradient(
+      ellipse 60% 50% at 80% 80%,
+      rgba(160, 120, 255, 0.3) 0%,
+      transparent 55%
+    ),
+    radial-gradient(
+      ellipse 50% 40% at 60% 30%,
+      rgba(80, 210, 220, 0.22) 0%,
+      transparent 50%
+    ),
+    #f0f2f7;
+}
+
+html.dark .tucu-bg-demo,
+.dark .tucu-bg-demo {
+  background: radial-gradient(
+      ellipse 80% 60% at 20% 10%,
+      rgba(0, 60, 160, 0.55) 0%,
+      transparent 55%
+    ),
+    radial-gradient(
+      ellipse 60% 50% at 80% 80%,
+      rgba(80, 0, 160, 0.4) 0%,
+      transparent 55%
+    ),
+    radial-gradient(
+      ellipse 50% 40% at 60% 30%,
+      rgba(0, 100, 140, 0.3) 0%,
+      transparent 50%
+    ),
+    #101014;
+}
+
+/* ─── Window ────────────────────────────────────────────────── */
+
+.tucu-bg-window {
+  background: #f0f2f7;
+}
+
+html.dark .tucu-bg-window,
+.dark .tucu-bg-window {
+  background: #131318;
+}
+
+/* ─── SVG variants (fallback = base gradient while image loads) */
+
+.tucu-bg-wave,
+.tucu-bg-wallpaper,
+.tucu-bg-mobile {
+  background: radial-gradient(
+      circle at 28% 32%,
+      rgba(142, 200, 255, 0.45) 0%,
+      transparent 42%
+    ),
+    radial-gradient(
+      circle at 72% 68%,
+      rgba(170, 150, 255, 0.28) 0%,
+      transparent 42%
+    ),
+    #f0f2f7;
+}
+
+html.dark .tucu-bg-wave,
+html.dark .tucu-bg-wallpaper,
+html.dark .tucu-bg-mobile,
+.dark .tucu-bg-wave,
+.dark .tucu-bg-wallpaper,
+.dark .tucu-bg-mobile {
+  background: radial-gradient(
+      circle at 28% 32%,
+      rgba(18, 60, 100, 0.8) 0%,
+      transparent 42%
+    ),
+    radial-gradient(
+      circle at 72% 68%,
+      rgba(55, 30, 100, 0.6) 0%,
+      transparent 42%
+    ),
+    #131318;
+}
+
+/* ─── Reduced motion ────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .tucu-bg-aurora {
+    animation: none;
+  }
+}
