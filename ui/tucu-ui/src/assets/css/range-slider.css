@@ -114,7 +114,7 @@
 .rc-slider-disabled .rc-slider-handle,
 .rc-slider-disabled .rc-slider-dot {
   @apply bg-white dark:bg-gray-700;
-  border-color: #ccc;
+  border-color: var(--color-border);
   box-shadow: none;
   cursor: not-allowed;
 }

@@ -112,8 +112,13 @@ html.macos {
   --macos-label: rgba(0, 0, 0, 0.85);
   --macos-secondary-label: rgba(60, 60, 67, 0.6);
   --macos-tertiary-label: rgba(60, 60, 67, 0.3);
-  --macos-separator: rgba(60, 60, 67, 0.29);
-  --macos-window-bg: #ececec;
+  --macos-separator: color-mix(
+    in oklab,
+    var(--color-black) 10%,
+    transparent
+  ) !important;
+  /* --macos-window-bg: #ececec; */
+  --macos-window-bg: var(--macos-material-toolbar);
   --macos-control-bg: #ffffff;
   --macos-selected-content-bg: #0063e1;
   --macos-control-accent: #007aff;
@@ -202,8 +207,13 @@ html.macos.dark {
   --macos-label: rgba(255, 255, 255, 0.85);
   --macos-secondary-label: rgba(235, 235, 245, 0.6);
   --macos-tertiary-label: rgba(235, 235, 245, 0.3);
-  --macos-separator: rgba(84, 84, 88, 0.65);
-  --macos-window-bg: #1e1e1e;
+  --macos-separator: color-mix(
+    in oklab,
+    var(--color-white) 8%,
+    transparent
+  ) !important;
+  /* --macos-window-bg: #1e1e1e; */
+  --macos-window-bg: var(--macos-material-toolbar);
   --macos-control-bg: #1e1e1e;
   --macos-selected-content-bg: #0058d0;
   --macos-control-accent: #0a84ff;

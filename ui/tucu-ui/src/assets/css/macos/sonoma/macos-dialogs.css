@@ -13,22 +13,14 @@
 /* ── Modal / Sheet ───────────────────────────────────────────── */
 html.macos [data-tucu='modal'] {
   border-radius: var(--macos-radius-popover);
-  background-color: var(--macos-glass-regular-bg-opaque);
+  background-color: var(--macos-window-bg);
   border: 0.5px solid var(--macos-glass-border);
   box-shadow: var(--macos-shadow-window), 0 0 0 0.5px rgba(0, 0, 0, 0.06) inset;
   overflow: hidden;
 }
 
-@supports (backdrop-filter: blur(1px)) {
-  html.macos [data-tucu='modal'] {
-    background-color: var(--macos-glass-regular-bg);
-    backdrop-filter: blur(var(--macos-glass-regular-blur)) saturate(150%);
-    -webkit-backdrop-filter: blur(var(--macos-glass-regular-blur))
-      saturate(150%);
-  }
-}
-
 html.macos.dark [data-tucu='modal'] {
+  background-color: var(--macos-window-bg);
   border-color: var(--macos-separator);
 }
 
@@ -40,7 +32,6 @@ html.macos [data-tucu='modal-overlay'] {
 html.macos.dark [data-tucu='modal-overlay'] {
   background-color: rgba(0, 0, 0, 0.48) !important;
 }
-
 
 /* Modal header */
 html.macos [data-tucu='modal-header'] {
@@ -66,21 +57,13 @@ html.macos [data-tucu='modal-footer'] {
 
 /* ── Drawer ──────────────────────────────────────────────────── */
 html.macos [data-tucu='drawer'] {
-  background-color: var(--macos-glass-regular-bg-opaque);
+  background-color: var(--macos-window-bg);
   border-left: 0.5px solid var(--macos-separator);
   box-shadow: -4px 0 24px rgba(0, 0, 0, 0.16);
 }
 
-@supports (backdrop-filter: blur(1px)) {
-  html.macos [data-tucu='drawer'] {
-    background-color: var(--macos-glass-regular-bg);
-    backdrop-filter: blur(var(--macos-glass-regular-blur)) saturate(140%);
-    -webkit-backdrop-filter: blur(var(--macos-glass-regular-blur))
-      saturate(140%);
-  }
-}
-
 html.macos.dark [data-tucu='drawer'] {
+  background-color: var(--macos-window-bg);
   border-left-color: var(--macos-separator);
 }
 
@@ -137,4 +120,3 @@ html.macos [data-tucu='sidebar-icon'] {
   height: var(--macos-sidebar-icon-size);
   margin-right: var(--macos-space-2);
 }
-
