@@ -7,10 +7,23 @@ import {
   MacOSTahoeDockLayout,
   MacOSTahoeDockLayoutProps,
 } from './macos-tahoe-dock-layout';
+import {
+  MacOSTahoeCleanLayout,
+  MacOSTahoeCleanLayoutProps,
+} from './macos-tahoe-clean-layout';
+import {
+  MacOSSonomaCleanLayout,
+  MacOSSonomaCleanLayoutProps,
+} from './macos-sonoma-clean-layout';
 
 // ─── Types ─────────────────────────────────────────────────────
 
-type MacOSLayoutVariant = 'sonoma' | 'tahoe' | 'tahoe-dock';
+type MacOSLayoutVariant =
+  | 'sonoma'
+  | 'sonoma-clean'
+  | 'tahoe'
+  | 'tahoe-dock'
+  | 'macos-tahoe-clean';
 
 export interface MacOSLayoutProps {
   children: React.ReactNode;
@@ -33,6 +46,12 @@ export function MacOSLayout({
   if (variant === 'tahoe-dock') {
     return <MacOSTahoeDockLayout {...props} />;
   }
+  if (variant === 'macos-tahoe-clean') {
+    return <MacOSTahoeCleanLayout {...props} />;
+  }
+  if (variant === 'sonoma-clean') {
+    return <MacOSSonomaCleanLayout {...props} />;
+  }
   if (variant === 'tahoe') {
     return <MacOSTahoeLayout {...props} />;
   }
@@ -40,10 +59,18 @@ export function MacOSLayout({
 }
 
 export default MacOSLayout;
-export { MacOSSonomaLayout, MacOSTahoeLayout, MacOSTahoeDockLayout };
+export {
+  MacOSSonomaLayout,
+  MacOSSonomaCleanLayout,
+  MacOSTahoeLayout,
+  MacOSTahoeDockLayout,
+  MacOSTahoeCleanLayout,
+};
 export type {
   MacOSSonomaLayoutProps,
+  MacOSSonomaCleanLayoutProps,
   MacOSTahoeLayoutProps,
   MacOSTahoeDockLayoutProps,
+  MacOSTahoeCleanLayoutProps,
   MacOSLayoutVariant,
 };
