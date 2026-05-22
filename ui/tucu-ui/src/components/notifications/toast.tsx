@@ -23,7 +23,7 @@ export const Toast: React.FC = () => {
       case 'info':
         return 'border-blue-500 bg-blue-500 text-white';
       default:
-        return 'border-gray-300 bg-white p-4 shadow-card dark:bg-light-dark';
+        return 'border-border bg-white p-4 shadow-card dark:bg-light-dark';
     }
   };
 
@@ -85,7 +85,7 @@ export const Toast: React.FC = () => {
           aria-atomic="true"
           data-tucu="toast"
           data-variant={toast.variant}
-          className={`relative flex items-center justify-between space-x-2 border-gray-300 p-4 pr-6 rounded-md shadow-lg transform transition-all duration-300 ease-out 
+          className={`relative flex items-center justify-between space-x-2 border-border p-4 pr-6 rounded-md shadow-lg transform transition-all duration-300 ease-out 
             ${
               toast.dismissing
                 ? 'translate-x-[120%] opacity-0 scale-95'

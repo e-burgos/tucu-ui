@@ -95,12 +95,12 @@ export function TabModal({
     >
       <div
         className={cn(
-          'relative w-full sm:max-w-xl max-h-[92dvh] flex flex-col rounded-t-2xl sm:rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 shadow-2xl overflow-hidden',
+          'relative w-full sm:max-w-xl max-h-[92dvh] flex flex-col rounded-t-2xl sm:rounded-2xl border border-border bg-white dark:bg-gray-900 shadow-2xl overflow-hidden',
           className
         )}
       >
         {/* ── Header ── */}
-        <div className="flex items-center justify-between px-4 py-3 shrink-0 bg-brand/5 dark:bg-brand/10 border-b border-gray-200 dark:border-gray-700">
+        <div className="flex items-center justify-between px-4 py-3 shrink-0 bg-brand/5 dark:bg-brand/10 border-b border-border">
           <div className="flex items-center gap-2.5">
             {HeaderIcon && (
               <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand/10 dark:bg-brand/20 border border-brand/20 dark:border-brand/30">
@@ -120,7 +120,7 @@ export function TabModal({
                       className={cn(
                         'rounded-full border px-2 py-0.5 text-[10px] font-semibold',
                         badgeHeaderClassName ??
-                          'text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-800 border-gray-200 dark:border-gray-700'
+                          'text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-800 border-border'
                       )}
                     >
                       {badgeHeader}
@@ -146,7 +146,7 @@ export function TabModal({
 
         {/* ── Tabs bar (only when tabs provided and no direct content) ── */}
         {useTabs && (
-          <div className="flex shrink-0 border-b border-gray-200 dark:border-gray-700 bg-gray-100 dark:bg-gray-800/20">
+          <div className="flex shrink-0 border-b border-border bg-gray-100 dark:bg-gray-800/20">
             {tabs?.map(({ icon: TabIcon, name }, index) => (
               <button
                 key={name}
@@ -172,7 +172,7 @@ export function TabModal({
         </div>
 
         {/* ── Footer ── */}
-        <div className="shrink-0 border-t border-gray-200 dark:border-gray-700 px-4 py-3 flex items-center justify-between bg-gray-100 dark:bg-gray-800/10">
+        <div className="shrink-0 border-t border-border px-4 py-3 flex items-center justify-between bg-gray-100 dark:bg-gray-800/10">
           {closeButton || successButton ? (
             // Normal layout: footerLabel left, buttons right
             <>

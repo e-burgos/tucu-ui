@@ -23,7 +23,7 @@ export const PanelActionCard: React.FC<PanelActionCardProps> = ({
 }) => {
   return (
     <div
-      className={`w-full max-w-md border border-gray-200 dark:border-gray-700 rounded-lg shadow-md overflow-hidden ${className}`}
+      className={`w-full max-w-md border border-border rounded-lg shadow-md overflow-hidden ${className}`}
     >
       <div className="p-4 bg-white dark:bg-gray-800">
         <h3 className="text-lg font-medium">{title}</h3>
@@ -42,10 +42,10 @@ export const PanelActionCard: React.FC<PanelActionCardProps> = ({
           },
         }}
       >
-        <div className="p-4 bg-white dark:bg-gray-800">{children}</div>
+        <div className="p-4">{children}</div>
       </Scrollbar>
       {actions && (
-        <div className="flex gap-2 h-auto justify-end items-center flex-wrap p-4 bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700">
+        <div className="flex gap-2 h-auto justify-end items-center flex-wrap p-4 bg-white dark:bg-gray-800 border-t border-border">
           {actions?.map((action) => (
             <Button
               key={action.label}

@@ -62,7 +62,7 @@ export const CodeBlock = ({
       data-tucu="code-block"
       className={cn(
         'overflow-x-auto relative rounded-xl border mt-4',
-        'bg-gray-100 dark:bg-gray-800 border-gray-200 dark:border-gray-700 hover:border-gray-400 dark:hover:border-gray-600',
+        'bg-gray-100 dark:bg-gray-800 border-border hover:border-gray-400 dark:hover:border-gray-600',
         isExpanded
           ? 'max-h-[300px] h-[300px] transition-all duration-300'
           : 'h-full transition-all duration-300',

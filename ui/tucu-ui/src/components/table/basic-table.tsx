@@ -216,7 +216,7 @@ export const BasicTable = <
             className={cn(
               'overflow-hidden relative z-0 isolate',
               isTahoe ? 'rounded-2xl' : 'rounded-lg',
-              border && 'border border-gray-200 dark:border-gray-700'
+              border && 'border border-border'
             )}
           >
             <div
@@ -263,8 +263,7 @@ export const BasicTable = <
                             data-tucu="table-header-cell"
                             className={cn(
                               'px-3 py-2 text-left text-[11px] font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider relative',
-                              border &&
-                                'border-b border-gray-200 dark:border-gray-700',
+                              border && 'border-b border-border',
                               border &&
                                 !isLastCol &&
                                 'border-r border-r-gray-200 dark:border-r-gray-700',
@@ -319,10 +318,10 @@ export const BasicTable = <
                               className={cn(
                                 'px-3 py-2 text-sm text-gray-700 dark:text-gray-300 overflow-hidden text-ellipsis whitespace-nowrap',
                                 border &&
-                                  'border-b border-gray-100 dark:border-gray-700/60',
+                                  'border-b border-border dark:border-border/60',
                                 border &&
                                   !isLastCol &&
-                                  'border-r border-gray-100 dark:border-gray-700/60',
+                                  'border-r border-border dark:border-border/60',
                                 border && isLastRow && 'border-b-0',
                                 column.className
                               )}
@@ -354,7 +353,7 @@ export const BasicTable = <
               className={cn(
                 'w-full border-collapse',
                 !resizable && 'min-w-max',
-                border && 'border border-gray-200 dark:border-gray-700',
+                border && 'border border-border',
                 tableClassName
               )}
               style={{ tableLayout: resizable ? 'fixed' : undefined }}
@@ -390,8 +389,7 @@ export const BasicTable = <
                           data-tucu="table-header-cell"
                           className={cn(
                             'px-3 py-2 text-left text-[11px] font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider relative',
-                            border &&
-                              'border-r border-b border-gray-200 dark:border-gray-700',
+                            border && 'border-r border-b border-border',
                             border && isLastCol && 'border-r-0',
                             column.headerClassName
                           )}
@@ -443,7 +441,7 @@ export const BasicTable = <
                             className={cn(
                               'px-3 py-2 text-sm text-gray-700 dark:text-gray-300 overflow-hidden text-ellipsis whitespace-nowrap',
                               border &&
-                                'border-r border-b border-gray-100 dark:border-gray-700/60',
+                                'border-r border-b border-border dark:border-border/60',
                               border && isLastCol && 'border-r-0',
                               border && isLastRow && 'border-b-0',
                               column.className

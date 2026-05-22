@@ -249,7 +249,7 @@ function CoinListBox({
         onClick={toggleDropdown}
         onKeyDown={handleKeyDown}
         className={cn(
-          'flex h-11 w-full items-center justify-between whitespace-nowrap dark:bg-light-dark bg-white border border-gray-100 dark:border-gray-700 px-4 pl-3 text-sm text-gray-900 rounded-lg dark:text-white sm:h-13 sm:pl-4',
+          'flex h-11 w-full items-center justify-between whitespace-nowrap dark:bg-light-dark bg-white border border-border dark:border-border px-4 pl-3 text-sm text-gray-900 rounded-lg dark:text-white sm:h-13 sm:pl-4',
           disabled && 'cursor-not-allowed opacity-50'
         )}
       >

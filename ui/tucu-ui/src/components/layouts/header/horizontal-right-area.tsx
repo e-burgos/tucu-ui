@@ -29,7 +29,7 @@ export function HorizontalRightArea({
               isOpen={isOpen}
               onClick={() => setIsOpen(!isOpen)}
               color="white"
-              className="shadow-main ltr:ml-[14px] rtl:mr-[14px] w-[40px]! h-[40px]! sm:w-[48px]! sm:h-[48px]! md:w-[48px]! md:h-[48px]! dark:border dark:border-solid dark:border-gray-700 dark:bg-light-dark dark:text-white sm:ltr:ml-[20px] sm:rtl:mr-[20px]"
+              className="shadow-main ltr:ml-[14px] rtl:mr-[14px] w-[40px]! h-[40px]! sm:w-[48px]! sm:h-[48px]! md:w-[48px]! md:h-[48px]! dark:border dark:border-solid dark:border-border dark:bg-light-dark dark:text-white sm:ltr:ml-[20px] sm:rtl:mr-[20px]"
             />
 
             <Drawer

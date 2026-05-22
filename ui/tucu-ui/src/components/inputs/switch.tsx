@@ -13,14 +13,13 @@ type SwitchColor =
 
 const switchVariantClasses = {
   ghost: {
-    unchecked:
-      'border border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800',
+    unchecked: 'border border-border bg-white dark:bg-gray-800',
   },
   solid: {
     unchecked: 'bg-gray-200/70 dark:bg-gray-800',
   },
   transparent: {
-    unchecked: 'bg-transparent border border-gray-200 dark:border-gray-700',
+    unchecked: 'bg-transparent border border-border',
   },
 };
 
@@ -130,7 +129,7 @@ export const Switch: React.FC<SwitchProps> = ({
             'appearance-none transition-colors cursor-pointer w-[56px] h-[28px] rounded-full focus:outline-hidden focus:ring-[2px] focus:ring-offset-[2px] focus:ring-offset-black',
             colorClasses.focus,
             disabled &&
-              'cursor-not-allowed! bg-muted/10! border-gray-200! dark:border-gray-700!',
+              'cursor-not-allowed! bg-muted/10! border-border! dark:border-border!',
             checked
               ? colorClasses.checked
               : switchVariantClasses[variant].unchecked

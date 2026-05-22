@@ -19,7 +19,7 @@ export function TopupButton({
     <button
       data-tucu="topup-button"
       className={cn(
-        'flex h-10 w-full items-center whitespace-nowrap rounded-lg border-2 border-dashed border-gray-500 bg-gray-100 px-6 text-sm uppercase tracking-wider text-gray-900 dark:border-gray-600 dark:bg-gray-800 dark:text-white lg:h-12 min-[1780px]:h-13',
+        'flex h-10 w-full items-center whitespace-nowrap rounded-lg border-2 border-dashed border-border bg-gray-100 px-6 text-sm uppercase tracking-wider text-gray-900 dark:bg-gray-800 dark:text-white lg:h-12 min-[1780px]:h-13',
         'hover:border-brand dark:hover:border-brand hover:cursor-pointer hover:transform-3d hover:shadow-lg',
         className
       )}

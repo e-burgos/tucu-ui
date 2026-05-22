@@ -50,7 +50,7 @@ export function AdminHeader({
         'sticky top-0 z-30 backdrop-blur-lg min-h-[72px] h-[72px] w-full transition-all duration-300 ltr:right-0 rtl:left-0',
         ((isMounted && windowScroll.y) as number) > 2 && 'shadow-card',
         smallScreen
-          ? 'shadow-card border-b border-transparent dark:border-gray-800'
+          ? 'shadow-card border-b border-transparent dark:border-border'
           : '',
         className
       )}
@@ -86,7 +86,7 @@ export function AdminHeader({
                   isOpen={isOpen}
                   onClick={() => setIsOpen && setIsOpen(true)}
                   color="white"
-                  className="shadow-main dark:border dark:border-solid dark:border-gray-700 dark:bg-light-dark dark:text-white"
+                  className="shadow-main dark:border dark:border-solid dark:border-border dark:bg-light-dark dark:text-white"
                 />
               </div>
             </div>

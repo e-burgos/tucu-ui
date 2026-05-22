@@ -45,7 +45,7 @@ export function Sidebar({
         <aside
           data-tucu="macos-tahoe-drawer"
           className={cn(
-            'pointer-events-auto flex h-full w-80 max-w-[calc(100vw-24px)] flex-col overflow-hidden rounded-[30px] border border-(--macos-tahoe-border) bg-(--macos-tahoe-sidebar-bg) backdrop-blur-[30px]',
+            'pointer-events-auto flex h-full w-80 max-w-[calc(100vw-24px)] flex-col overflow-hidden rounded-[30px] border border-border bg-(--macos-tahoe-sidebar-bg) backdrop-blur-[30px]',
             className
           )}
         >
@@ -60,7 +60,7 @@ export function Sidebar({
               type="button"
               onClick={onClose}
               aria-label="Close"
-              className="ml-auto flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-white/10 bg-black/8 text-(--macos-tahoe-text-muted) transition-colors hover:bg-black/12 hover:text-(--macos-tahoe-text) dark:bg-white/6 dark:hover:bg-white/10"
+              className="ml-auto flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-border bg-black/8 text-(--macos-tahoe-text-muted) transition-colors hover:bg-black/12 hover:text-(--macos-tahoe-text) dark:bg-white/6 dark:hover:bg-white/10"
             >
               <Close className="h-3.5 w-3.5" width={14} height={14} />
             </button>
@@ -81,8 +81,8 @@ export function Sidebar({
       className={cn(
         'top-0 z-40 h-full w-full max-w-full pointer-events-auto',
         isMacOS
-          ? 'min-[500px]:w-80 bg-[var(--macos-material-toolbar,rgba(255,255,255,0.72))] backdrop-blur-xl border-r border-[var(--color-semantic-line-primary-subtle)]'
-          : 'border-dashed border-gray-200 dark:border-gray-700 bg-light-dark min-[500px]:w-80 lg:w-96 xl:w-96 2xl:w-96',
+          ? 'min-[500px]:w-[300px] bg-light-dark backdrop-blur-xl border-r border-[var(--color-border)]'
+          : 'border-dashed border-[var(--color-border)] bg-light-dark min-[500px]:w-[300px] lg:w-96 xl:w-96 2xl:w-96',
         className
       )}
     >
@@ -90,7 +90,7 @@ export function Sidebar({
         className={cn(
           'relative flex items-center justify-between overflow-hidden',
           isMacOS
-            ? 'h-[52px] px-3 py-2 border-b border-[var(--color-semantic-line-primary-subtle)]'
+            ? 'h-[52px] px-3 py-2 border-b border-[var(--color-border)]'
             : 'h-[96px] px-[24px] py-[16px] 2xl:px-[32px]'
         )}
       >
@@ -122,7 +122,7 @@ export function Sidebar({
             onClick={onClose}
             className={cn(
               'flex h-6 w-6 items-center justify-center rounded-full border transition-colors',
-              'border-[var(--color-semantic-line-primary-subtle)] bg-[var(--macos-control-bg)]',
+              'border-[var(--color-border)] bg-[var(--macos-control-bg)]',
               'text-gray-500 hover:bg-black/4 hover:text-gray-700',
               'dark:text-gray-300 dark:hover:bg-white/8 dark:hover:text-white'
             )}

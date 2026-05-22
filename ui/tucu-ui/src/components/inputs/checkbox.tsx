@@ -22,9 +22,9 @@ function CheckmarkIcon({ className }: { className?: string }) {
 
 const checkboxVariantClasses = {
   ghost:
-    'transition-shadow border border-gray-200 bg-white text-gray-900 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100',
+    'transition-shadow border border-border bg-white text-gray-900 dark:bg-gray-800 dark:text-gray-100',
   solid:
-    'transition-colors  bg-gray-200/70 hover:bg-gray-300 dark:bg-gray-800 dark:hover:bg-gray-700',
+    'transition-colors bg-gray-200/70 hover:bg-gray-300 dark:bg-gray-800 dark:hover:bg-gray-700',
   transparent: '',
 };
 
@@ -130,7 +130,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
           checkedHover:
             'checked:hover:enabled:bg-brand/90 checked:hover:enabled:border-brand/90 checked:hover:enabled:scale-105',
           focus: 'focus:enabled:border-brand focus:ring-brand/30',
-          disabled: 'disabled:bg-muted/10 disabled:border-gray-300',
+          disabled: 'disabled:bg-muted/10 disabled:border-border',
           icon: 'bg-brand',
         },
         secondary: {
@@ -140,7 +140,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
           checkedHover:
             'checked:hover:enabled:bg-gray-800 checked:hover:enabled:border-gray-800 checked:hover:enabled:scale-105',
           focus: 'focus:enabled:border-gray-900 focus:ring-gray-900/30',
-          disabled: 'disabled:bg-muted/10 disabled:border-gray-300',
+          disabled: 'disabled:bg-muted/10 disabled:border-border',
           icon: 'bg-gray-500',
         },
         danger: {
@@ -150,7 +150,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
           checkedHover:
             'checked:hover:enabled:bg-red-600 checked:hover:enabled:border-red-600 checked:hover:enabled:scale-105',
           focus: 'focus:enabled:border-red-500 focus:ring-red-500/30',
-          disabled: 'disabled:bg-muted/10 disabled:border-gray-300',
+          disabled: 'disabled:bg-muted/10 disabled:border-border',
           icon: 'bg-red-500',
         },
         info: {
@@ -160,7 +160,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
           checkedHover:
             'checked:hover:enabled:bg-blue-600 checked:hover:enabled:border-blue-600 checked:hover:enabled:scale-105',
           focus: 'focus:enabled:border-blue-500 focus:ring-blue-500/30',
-          disabled: 'disabled:bg-muted/10 disabled:border-gray-300',
+          disabled: 'disabled:bg-muted/10 disabled:border-border',
           icon: 'bg-blue-500',
         },
         success: {
@@ -170,7 +170,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
           checkedHover:
             'checked:hover:enabled:bg-green-600 checked:hover:enabled:border-green-600 checked:hover:enabled:scale-105',
           focus: 'focus:enabled:border-green-500 focus:ring-green-500/30',
-          disabled: 'disabled:bg-muted/10 disabled:border-gray-300',
+          disabled: 'disabled:bg-muted/10 disabled:border-border',
           icon: 'bg-green-500',
         },
         warning: {
@@ -180,7 +180,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
           checkedHover:
             'checked:hover:enabled:bg-orange-600 checked:hover:enabled:border-orange-600 checked:hover:enabled:scale-105',
           focus: 'focus:enabled:border-orange-500 focus:ring-orange-500/30',
-          disabled: 'disabled:bg-muted/10 disabled:border-gray-300',
+          disabled: 'disabled:bg-muted/10 disabled:border-border',
           icon: 'bg-orange-500',
         },
       };
@@ -246,8 +246,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
                 colorClasses.checkedHover,
                 colorClasses.focus,
                 colorClasses.disabled,
-                disabled &&
-                  'bg-muted/10! border-gray-200! dark:border-gray-700!',
+                disabled && 'bg-muted/10! border-border! dark:border-border!',
                 inputClassName
               )}
               {...checkboxProps}
@@ -256,7 +255,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
               className={cn(
                 `peer-checked:opacity-100 ${checkboxShapeClasses[shape]} absolute inset-0 h-full w-full opacity-0 text-white pointer-events-none`,
                 disabled
-                  ? 'bg-muted/10! border-gray-200! dark:border-gray-700!'
+                  ? 'bg-muted/10! border-border! dark:border-border!'
                   : colorClasses.icon,
                 iconClassName
               )}

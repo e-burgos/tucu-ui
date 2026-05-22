@@ -38,7 +38,7 @@ const colors: Record<ColorNames, string[]> = {
   white: ['text-gray-900', 'bg-white', 'border-white'],
   'light-dark': [
     'text-light-dark dark:text-gray-200',
-    'border-light-dark dark:border-gray-700',
+    'border-light-dark dark:border-border',
   ],
 };
 

@@ -13,7 +13,7 @@ import {
 
 export const textareaVariantClasses = {
   ghost:
-    'transition-shadow border border-gray-200 bg-white text-gray-900 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100',
+    'transition-shadow border border-border bg-white text-gray-900 dark:bg-gray-800 dark:text-gray-100',
   solid:
     'transition-colors bg-gray-200/70 hover:bg-gray-300 text-gray-900 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-gray-100',
   transparent: '',
@@ -78,7 +78,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
           data-size={size}
           {...props}
           className={cn(
-            'block w-full placeholder-gray-400 transition-shadow duration-200 invalid:border-red-500 invalid:text-red-600 focus:border-gray-300 focus:outline-hidden focus:ring-1 focus:ring-gray-300 focus:invalid:border-red-500 focus:invalid:ring-red-500 disabled:border-gray-200 disabled:bg-muted/10 disabled:text-gray-500 disabled:cursor-not-allowed dark:border-gray-700 dark:text-gray-100 dark:focus:border-gray-600 dark:focus:ring-gray-600 rounded-xl',
+            'block w-full placeholder-gray-400 transition-shadow duration-200 invalid:border-red-500 invalid:text-red-600 focus:border-border focus:outline-hidden focus:ring-1 focus:ring-gray-300 focus:invalid:border-red-500 focus:invalid:ring-red-500 disabled:border-border disabled:bg-muted/10 disabled:text-gray-500 disabled:cursor-not-allowed dark:text-gray-100 dark:focus:border-gray-600 dark:focus:ring-gray-600 rounded-xl',
             textControlSizeClasses.textarea[size],
             textareaVariantClasses[variant],
             color && textControlColorClasses[variant][color],

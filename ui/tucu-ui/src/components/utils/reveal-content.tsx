@@ -31,10 +31,7 @@ export function RevealContent({
   }, [setShowContent, defaultHeight]);
   return (
     <div
-      className={cn(
-        'relative border border-gray-200 dark:border-gray-700 rounded-lg p-4',
-        className
-      )}
+      className={cn('relative border border-border rounded-lg p-4', className)}
     >
       <div
         ref={revealEl}

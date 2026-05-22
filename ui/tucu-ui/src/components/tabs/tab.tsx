@@ -36,7 +36,7 @@ const variants: Record<
   underline: {
     base: 'relative pb-2 border-b-2 border-transparent',
     selected: 'border-brand text-brand dark:border-brand dark:text-brand',
-    unselected: 'hover:border-gray-300 dark:hover:border-gray-600',
+    unselected: 'hover:border-border dark:hover:border-gray-600',
   },
   pills: {
     base: 'rounded-full px-4 py-2 transition-all duration-200',
@@ -46,8 +46,7 @@ const variants: Record<
   bordered: {
     base: 'rounded-lg border-2 px-4 py-2 transition-all duration-200',
     selected: 'border-brand bg-brand/10 text-brand dark:bg-brand/20',
-    unselected:
-      'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600',
+    unselected: 'border-border hover:border-border dark:hover:border-gray-600',
   },
   solid: {
     base: 'rounded-lg px-4 py-2 transition-all duration-200',
@@ -215,8 +214,7 @@ export const TabList: FC<TabListExtendedProps> = ({
   const listClasses = cn(
     'flex',
     {
-      'gap-6 border-b border-gray-200 dark:border-gray-700':
-        variant === 'underline',
+      'gap-6 border-b border-border': variant === 'underline',
       'gap-2 bg-gray-100 dark:bg-gray-900 p-1 rounded-xl': variant === 'pills',
       'gap-2': variant === 'bordered',
       'gap-1 bg-gray-100 dark:bg-gray-800 p-1 rounded-xl': variant === 'solid',
@@ -276,7 +274,7 @@ interface TabListMobileSelectProps {
 
 const mobileVariantButton: Record<VariantNames, string> = {
   underline:
-    'border-2 border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-100  dark:hover:bg-gray-800/50',
+    'border-2 border-border rounded-lg hover:bg-gray-100  dark:hover:bg-gray-800/50',
   pills:
     'bg-gray-100 dark:bg-gray-900 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800',
   bordered: 'border-2 border-brand rounded-lg bg-brand/5 dark:bg-brand/10',
@@ -285,10 +283,10 @@ const mobileVariantButton: Record<VariantNames, string> = {
 };
 
 const mobileVariantDropdown: Record<VariantNames, string> = {
-  underline: 'rounded-xl border border-gray-200 dark:border-gray-700',
-  pills: 'rounded-2xl border border-gray-200 dark:border-gray-700',
+  underline: 'rounded-xl border border-border',
+  pills: 'rounded-2xl border border-border',
   bordered: 'rounded-xl border-2 border-brand/30 dark:border-brand/20',
-  solid: 'rounded-xl border border-gray-200 dark:border-gray-700',
+  solid: 'rounded-xl border border-border',
 };
 
 const mobileVariantOption: Record<
