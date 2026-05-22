@@ -5,6 +5,169 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.11] - 2026-05-22
+
+### Added
+
+- **`ThemeBackground` Component**: New unified background component replacing `MacOSBackground`
+  - 10 background variants: `none`, `base`, `sonoma`, `radial`, `aurora`, `depth`, `demo`, `window`, `wave`, `wallpaper`, `mobile`
+  - CSS-class-driven variants with CDN-hosted SVG assets for `wave`, `wallpaper`, and `mobile`
+  - `getBackgroundUrl()` helper for direct SVG asset URLs
+- **`default-backgrounds.css`**: New CSS file with all background variant styles (276 lines)
+- **Clean Layout Variants**: Two new layout options for minimal content-only rendering
+  - `MacOSSonomaCleanLayout`: Sonoma with only background + content (no sidebar/toolbar)
+  - `MacOSTahoeCleanLayout`: Tahoe with only background + content (no sidebar/toolbar)
+  - New `LAYOUT_OPTIONS.MACOS_CLEAN` and `LAYOUT_OPTIONS.MACOS_TAHOE_CLEAN` enum values
+- **BackgroundPicker**: New unified Settings panel section available across all three themes
+  - 11-option grid (None, Base, Sonoma, Radial, Wave, Wallpaper, Mobile, Window, Aurora, Depth, Demo)
+  - Replaces previous Tahoe-only `TahoeBackgroundPicker`
+- **Settings Drawer — Visual Color Editor**:
+  - `ColorSwatchModal`: Full-featured color picker with preset grid, native color input, opacity slider, and mode switcher
+  - `ColorDot`: Compact swatch trigger replacing the old Select-based ColorSwitcher
+  - Replaces old `Select`-based `ColorSwitcher` with a more compact, visual interface
+- **Extended Color Presets**: 12 new preset categories in theme store
+  - `successPreset` / `darkSuccessPreset`, `warningPreset` / `darkWarningPreset`
+  - `errorPreset` / `darkErrorPreset`, `infoPreset` / `darkInfoPreset`
+  - `fgPreset` / `darkFgPreset`, `borderPreset` / `darkBorderPreset`
+- **`useThemeColor` expanded**: Now applies status colors, foreground, and border to DOM via `setProperty()`
+- **`ThemeWrapper` expanded**: Supports all 24 color palette slots + new `background` prop
+- **`BackgroundVariant` type** exported from `use-theme.tsx` (11 options)
+- **Backgrounds Documentation**: New `BackgroundsSection` demo page with interactive previews and props table
+- **Layout Switcher for Sonoma**: Now shows macOS + Clean options (previously hidden)
+- **Layout Switcher for Tahoe**: Expanded to 3 columns (Sidebar, Dock, Clean)
+- **ListContainer `closeDelay` prop**: Configurable delay before closing dropdown on mouse leave
+
+### Changed
+
+- **Renamed**: `MacOSBackground` → `ThemeBackground`, `getMacOSBackgroundUrl` → `getBackgroundUrl`
+- **`backgroundVariant` store default**: Changed from `'base'` to `'radial'`
+- **`restoreDefaultColors`**: Now theme-aware — resets to different defaults per `colorScheme`:
+  - `'macos-tahoe'`: Glass Neutral bundle + radial background
+  - `'macos'`: Sonoma presets + sonoma background
+  - `'default'`: Default presets + no background
+- **`applyMacOSTheme`**: Now also sets `backgroundVariant: 'sonoma'`
+- **`applyMacOSTahoeTheme`**: Now also sets `backgroundVariant: 'radial'`
+- **`applyDefaultTheme`**: Now also sets `backgroundVariant: 'none'`
+- **`applyThemeStyle`**: Sets appropriate background variant per theme style
+- **Settings Drawer structure**: All themes share `DefaultColorSettings` + `BackgroundPicker` sections
+- **`settings-button.tsx`**: Now reads all 24 color slots for theme detection
+- **`THEME_STYLE_LAYOUTS`**: Added `MACOS_CLEAN` and `MACOS_TAHOE_CLEAN` to valid layouts
+- **`ListContainer` Rewrite**: Replaced CSS-relative positioning with fixed positioning strategy (same as `Select`)
+  - Uses `getBoundingClientRect()` for viewport-relative dropdown placement
+  - Supports `position`, `align`, drop-up detection, and overflow prevention
+  - Hover trigger uses configurable `closeDelay` with timer-based open/close
+- **`HorizontalNavMenu`**: Migrated text color classes from `text-gray-600 dark:text-gray-300` → `text-foreground/60`; dropdown gets `z-50` and `border-border`
+- **`HorizontalHeader`**: Added `min-w-0` and `overflow-visible` for proper dropdown rendering; border uses `border-border` token
+- **Root Layout (`LayoutType`)**: All layout variants wrapped in `<ThemeBackground>` for unified background rendering
+- **Demo pages**: Migrated all border classes from `border-gray-200 dark:border-gray-700` → `border-border`
+  - Updated: MacOSBackgroundsSection, MacOSColorsSection, MacOSMaterialsSection, MacOSTextStylesSection, TahoeLayoutContentSection, TahoeLayoutSidebarSection, TahoeToolbarSection, BackgroundUtilities, Colors, EffectsUtilities, FiltersUtilities, TablesUtilities, TypographyUtilities, AccessibilityUtilities
+- **Input Components**: Migrated border classes to use `border-border` token
+  - Updated: Checkbox, FileInput, Input, PinCode, Radio, Select, Switch, Textarea, InputSearcher
+
+### Fixed
+
+- **Horizontal Nav Dropdown Clipping**: Fixed dropdowns not showing on hover in Default theme horizontal layout
+  - Root cause: `overflow-hidden` on parent containers clipped absolutely-positioned dropdowns
+  - Solution: Changed to `overflow-visible` on nav container and added `min-w-0` for flex children
+- **ListContainer Dropdown Clipping**: Fixed dropdown cut off by parent overflow containers
+  - Rewrote to use `position: fixed` + `getBoundingClientRect()` (same strategy as Select)
+  - Dropdown no longer depends on parent overflow/z-index context
+- **ListContainer Initial Render Position**: Fixed dropdown briefly appearing in wrong position before hover
+  - When closed, dropdown uses `visibility: hidden` + `pointer-events: none` inline style
+- **ListContainer Close Animation**: Fixed strange "fly away" animation when dropdown closes
+  - Changed from `transition-all` to `transition-opacity` to prevent position properties from animating
+- **Border Color Settings**: Fixed `--color-border` not updating when changing the Border color in the Settings panel
+  - `--color-border` now references `--color-semantic-line-primary-subtle` (with `color-mix()` fallback) instead of a hardcoded formula
+  - The `useThemeColor` hook correctly updates `--color-semantic-line-primary-subtle` which propagates to `border-border` Tailwind class
+- **Sonoma Circular CSS Reference**: Fixed `--macos-separator` ↔ `--color-border` ↔ `--color-semantic-line-primary-subtle` circular dependency
+  - Inverted dependency: `--color-semantic-line-primary-subtle` now holds the concrete value, `--macos-separator` derives from it
+  - All three themes (Default, Sonoma, Tahoe) use consistent `color-mix()` formulas for borders
+- **Restore Theme Border Presets**: Fixed "Restore Theme" button not resetting border colors
+  - Added `borderPreset` and `darkBorderPreset` to `buildSonomaPresets()` and `buildTahoePresets()`
+  - Default border preset values now use `color-mix(in oklab, var(--color-black) 10%, transparent)` (light) and `color-mix(in oklab, var(--color-white) 8%, transparent)` (dark)
+- **InfoCard Key Warning**: Fixed React "Each child in a list should have a unique key prop" warning in footer tags rendering
+- **Tahoe section border typo**: Fixed `border-borderrounded-2xl` → `border-border rounded-2xl` in MacOSTahoeSection
+
+### Removed
+
+- **`MacOSBackground`**: Replaced by unified `ThemeBackground` component
+- **`getMacOSBackgroundUrl`**: Replaced by `getBackgroundUrl`
+- **`TahoeBackgroundPicker`**: Replaced by shared `BackgroundPicker` available in all themes
+- **`ColorSwitcher` (old Select-based)**: Replaced by `ColorDot` + `ColorSwatchModal`
+
+## [2.0.10] - 2026-05-22
+
+### Added
+
+- **`ThemeBackground` Component**: New unified background component replacing `MacOSBackground`
+  - 10 background variants: `none`, `base`, `sonoma`, `radial`, `aurora`, `depth`, `demo`, `window`, `wave`, `wallpaper`, `mobile`
+  - Two positioning modes: `'fixed'` (fullscreen layer + content wrapper) and `'absolute'` (within parent container)
+  - 7 CSS-only gradients (no image download) + 3 SVG asset variants from CDN
+  - Automatic dark/light mode adaptation via CSS classes (`tucu-bg-base`, `tucu-bg-radial`, etc.)
+  - Animated aurora variant with `prefers-reduced-motion` support
+  - `getBackgroundUrl()` helper for direct SVG asset URLs
+- **`default-backgrounds.css`**: New CSS file with all background variant styles (276 lines)
+- **Clean Layout Variants**: Two new layout options for minimal content-only rendering
+  - `MacOSSonomaCleanLayout`: Sonoma with only background + content (no sidebar/toolbar)
+  - `MacOSTahoeCleanLayout`: Tahoe with only background + content (no sidebar/dock)
+  - New `LAYOUT_OPTIONS.MACOS_CLEAN` and `LAYOUT_OPTIONS.MACOS_TAHOE_CLEAN` enum values
+- **BackgroundPicker**: New unified Settings panel section available across all three themes
+  - 11-option grid (None, Base, Sonoma, Radial, Wave, Wallpaper, Mobile, Window, Aurora, Depth, Demo)
+  - Replaces previous Tahoe-only `TahoeBackgroundPicker`
+- **Settings Drawer — Visual Color Editor**:
+  - `ColorSwatchModal`: Full-featured color picker with preset grid, native color input, opacity slider, and mode switcher
+  - `DefaultColorSettings`: Grouped dot-based color editor (Brand, Surfaces, Text, Status) with light/dark awareness
+  - Replaces old `Select`-based `ColorSwitcher` with a more compact, visual interface
+- **Extended Color Presets**: 12 new preset categories in theme store
+  - `successPreset` / `darkSuccessPreset`, `warningPreset` / `darkWarningPreset`
+  - `errorPreset` / `darkErrorPreset`, `infoPreset` / `darkInfoPreset`
+  - `fgPreset` / `darkFgPreset`, `borderPreset` / `darkBorderPreset`
+- **`useThemeColor` expanded**: Now applies status colors, foreground, and border to DOM via `setProperty()`
+- **`ThemeWrapper` expanded**: Supports all 24 color palette slots + new `background` prop
+- **`BackgroundVariant` type** exported from `use-theme.tsx` (11 options)
+- **Backgrounds Documentation**: New `BackgroundsSection` demo page with interactive previews and props table
+- **Layout Switcher for Sonoma**: Now shows macOS + Clean options (previously hidden)
+- **Layout Switcher for Tahoe**: Expanded to 3 columns (Sidebar, Dock, Clean)
+
+### Changed
+
+- **Renamed**: `MacOSBackground` → `ThemeBackground`, `getMacOSBackgroundUrl` → `getBackgroundUrl`
+- **`backgroundVariant` store default**: Changed from `'base'` to `'radial'`
+- **`restoreDefaultColors`**: Now theme-aware — resets to different defaults per `colorScheme`:
+  - `'macos-tahoe'`: Glass Neutral bundle + radial background
+  - `'macos'`: Blue Sonoma bundle + sonoma background
+  - `'default'`: Default presets + no background
+- **`applyMacOSTheme`**: Now also sets `backgroundVariant: 'sonoma'`
+- **`applyMacOSTahoeTheme`**: Now also sets `backgroundVariant: 'radial'`
+- **`applyDefaultTheme`**: Now also sets `backgroundVariant: 'none'`
+- **`applyThemeStyle`**: Sets appropriate background variant per theme style
+- **Settings Drawer structure**: All themes share `DefaultColorSettings` + `BackgroundPicker` sections
+- **`settings-button.tsx`**: Now reads all 24 color slots for theme detection
+- **`THEME_STYLE_LAYOUTS`**: Added `MACOS_CLEAN` and `MACOS_TAHOE_CLEAN` to valid layouts
+- **Demo pages**: Migrated all border classes from `border-gray-200 dark:border-gray-700` → `border-border`
+  - Updated: MacOSBackgroundsSection, MacOSColorsSection, MacOSMaterialsSection, MacOSTextStylesSection, TahoeLayoutContentSection, TahoeLayoutSidebarSection, TahoeToolbarSection, BackgroundUtilities, Colors, EffectsUtilities, FiltersUtilities, TablesUtilities, TypographyUtilities, AccessibilityUtilities
+
+### Fixed
+
+- **Border Color Settings**: Fixed `--color-border` not updating when changing the Border color in the Settings panel
+  - `--color-border` now references `--color-semantic-line-primary-subtle` (with `color-mix()` fallback) instead of a hardcoded formula
+  - The `useThemeColor` hook correctly updates `--color-semantic-line-primary-subtle` which propagates to `border-border` Tailwind class
+- **Sonoma Circular CSS Reference**: Fixed `--macos-separator` ↔ `--color-border` ↔ `--color-semantic-line-primary-subtle` circular dependency
+  - Inverted dependency: `--color-semantic-line-primary-subtle` now holds the concrete value, `--macos-separator` derives from it
+  - All three themes (Default, Sonoma, Tahoe) use consistent `color-mix()` formulas for borders
+- **Restore Theme Border Presets**: Fixed "Restore Theme" button not resetting border colors
+  - Added `borderPreset` and `darkBorderPreset` to `buildSonomaPresets()` and `buildTahoePresets()`
+  - Default border preset values now use `color-mix(in oklab, var(--color-black) 10%, transparent)` (light) and `color-mix(in oklab, var(--color-white) 8%, transparent)` (dark)
+- **InfoCard Key Warning**: Fixed React "Each child in a list should have a unique key prop" warning in footer tags rendering
+- **Tahoe section border typo**: Fixed `border-borderrounded-2xl` → `border-border rounded-2xl` in MacOSTahoeSection
+
+### Removed
+
+- **`MacOSBackground`**: Replaced by unified `ThemeBackground` component
+- **`getMacOSBackgroundUrl`**: Replaced by `getBackgroundUrl`
+- **`TahoeBackgroundPicker`**: Replaced by shared `BackgroundPicker` available in all themes
+- **`ColorSwitcher` (old Select-based)**: Replaced by `ColorDot` + `ColorSwatchModal`
+
 ## [2.0.9] - 2026-05-19
 
 ### Added
