@@ -158,7 +158,7 @@ const FormComponentsSection: React.FC = () => {
               ].map((example, idx) => (
                 <div
                   key={idx}
-                  className="p-3 bg-gray-100 dark:bg-gray-800/50 rounded-lg border border-gray-200 dark:border-gray-700"
+                  className="p-3 bg-gray-100 dark:bg-gray-800/50 rounded-lg border border-border"
                 >
                   <Typography
                     tag="span"

@@ -249,7 +249,7 @@ pnpm install @e-burgos/tucu-ui
       description: (
         <>
           Props automatically change based on{' '}
-          <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
+          <code className="px-1 py-0.5 border border-border rounded text-xs">
             architecturalPatterns
           </code>{' '}
           value. No invalid combinations possible.
@@ -430,7 +430,7 @@ pnpm install @e-burgos/tucu-ui
         getStartedButton
         backgroundAnimation
         icon={
-          <div className="flex items-center justify-center w-full h-full bg-gradient-to-br from-brand via-secondary to-light-dark rounded-full border border-gray-200 dark:border-gray-700">
+          <div className="flex items-center justify-center w-full h-full bg-gradient-to-br from-brand via-secondary to-light-dark rounded-full border border-border">
             <Logo name="" secondName="" size="xxlarge" />
           </div>
         }
@@ -521,7 +521,7 @@ pnpm install @e-burgos/tucu-ui
                       className="flex items-center gap-2 p-2 bg-light-dark rounded-lg"
                     >
                       <div
-                        className={`w-6 h-6 rounded ${item.color} border border-gray-300 dark:border-gray-600 shrink-0`}
+                        className={`w-6 h-6 rounded ${item.color} border border-border shrink-0`}
                       ></div>
                       <div className="overflow-hidden">
                         <Typography tag="label-2" className="truncate">
@@ -699,7 +699,7 @@ pnpm install tailwindcss @tailwindcss/vite`}
                         className="text-gray-600 dark:text-gray-400 mb-2"
                       >
                         Add the Tailwind CSS plugin to your{' '}
-                        <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
+                        <code className="px-1 py-0.5 border border-border rounded text-xs">
                           vite.config.ts
                         </code>
                         :
@@ -732,11 +732,11 @@ export default defineConfig({
                         className="text-gray-600 dark:text-gray-400 mb-2"
                       >
                         In your main CSS file (e.g.,{' '}
-                        <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
+                        <code className="px-1 py-0.5 border border-border rounded text-xs">
                           src/index.css
                         </code>{' '}
                         or{' '}
-                        <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
+                        <code className="px-1 py-0.5 border border-border rounded text-xs">
                           src/styles.css
                         </code>
                         ), add:
@@ -785,7 +785,7 @@ export default defineConfig({
                 {/* Live Demo */}
                 <div className="space-y-3">
                   <Typography tag="h5">4. Live Demo</Typography>
-                  <div className="p-4 sm:p-6 bg-light-dark rounded-xl border border-gray-200 dark:border-gray-700">
+                  <div className="p-4 sm:p-6 bg-light-dark rounded-xl border border-border">
                     <Home />
                   </div>
                 </div>
@@ -827,7 +827,7 @@ export default defineConfig({
                       <strong>Default pattern</strong> - Ideal for traditional
                       single-page applications with automatic route generation
                       from{' '}
-                      <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
+                      <code className="px-1 py-0.5 border border-border rounded text-xs">
                         menuItems
                       </code>
                       .
@@ -856,7 +856,7 @@ export default defineConfig({
                   <CodeBlock language="tsx" code={StandaloneAppExample} />
                 </div>
 
-                <div className="p-4 bg-light-dark rounded-lg border border-gray-200 dark:border-gray-700">
+                <div className="p-4 bg-light-dark rounded-lg border border-border">
                   <div className="flex items-center gap-2 mb-3">
                     <LucideIcons.CheckCircle className="w-5 h-5 text-green-500" />
                     <Typography tag="h5">When to Use</Typography>
@@ -889,11 +889,11 @@ export default defineConfig({
                     <Typography tag="p">
                       <strong>Advanced pattern</strong> - For micro frontend
                       architectures with explicit route configuration via{' '}
-                      <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
+                      <code className="px-1 py-0.5 border border-border rounded text-xs">
                         appRoutesConfig
                       </code>{' '}
                       and{' '}
-                      <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
+                      <code className="px-1 py-0.5 border border-border rounded text-xs">
                         basePath
                       </code>
                       .
@@ -922,7 +922,7 @@ export default defineConfig({
                   <CodeBlock language="tsx" code={MfeAppExample} />
                 </div>
 
-                <div className="p-4 bg-light-dark rounded-lg border border-gray-200 dark:border-gray-700">
+                <div className="p-4 bg-light-dark rounded-lg border border-border">
                   <div className="flex items-center gap-2 mb-3">
                     <LucideIcons.CheckCircle className="w-5 h-5 text-green-500" />
                     <Typography tag="h5">When to Use</Typography>
@@ -974,20 +974,20 @@ export default defineConfig({
                 description={
                   <>
                     When you set{' '}
-                    <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
+                    <code className="px-1 py-0.5 border border-border rounded text-xs">
                       architecturalPatterns="mfe"
                     </code>
                     , TypeScript requires{' '}
-                    <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
+                    <code className="px-1 py-0.5 border border-border rounded text-xs">
                       basePath
                     </code>{' '}
                     and{' '}
-                    <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
+                    <code className="px-1 py-0.5 border border-border rounded text-xs">
                       appRoutesConfig
                     </code>
                     . With the default Standalone App pattern, TypeScript
                     requires{' '}
-                    <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
+                    <code className="px-1 py-0.5 border border-border rounded text-xs">
                       menuItems
                     </code>{' '}
                     instead. This is powered by TypeScript discriminated unions.

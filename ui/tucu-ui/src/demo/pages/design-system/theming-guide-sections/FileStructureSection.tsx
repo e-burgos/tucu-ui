@@ -88,7 +88,7 @@ const FileStructureSection: React.FC = () => {
             </Typography>
             <Typography tag="p" className="text-xs">
               All spacing classes use arbitrary values (e.g.,{' '}
-              <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-700 rounded">
+              <code className="px-1 py-0.5 border border-border dark:border-border rounded">
                 p-[16px]
               </code>
               ) instead of Tailwind defaults to maintain original spacing
@@ -103,7 +103,7 @@ const FileStructureSection: React.FC = () => {
             <Typography tag="p" className="text-xs">
               Theme settings are automatically persisted to localStorage using
               Zustand's persist middleware. Storage key:{' '}
-              <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-700 rounded">
+              <code className="px-1 py-0.5 border border-border dark:border-border rounded">
                 theme-storage
               </code>
               .

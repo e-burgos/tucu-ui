@@ -88,7 +88,7 @@ export const TocTahoe: React.FC<TableOfContentsProps> = ({
                   }}
                 >
                   <div className="overflow-hidden">
-                    <div className="mt-0.5 ml-4 space-y-0.5 border-l border-gray-200/60 pl-2 dark:border-gray-700/60">
+                    <div className="mt-0.5 ml-4 space-y-0.5 border-l border-border/60 pl-2 dark:border-border/60">
                       {categoryItems.map((item) => {
                         const isActive = activeSection === item.id;
                         return (
@@ -144,7 +144,7 @@ export const TocTahoe: React.FC<TableOfContentsProps> = ({
       <div className="fixed top-25 z-10 right-0">
         {!isSidebarOpen && (
           <button
-            className="flex items-center justify-center h-10 w-10 rounded-l-2xl border border-r-0 border-(--macos-tahoe-border) bg-(--macos-tahoe-sidebar-bg) backdrop-blur-[30px] text-white/60 hover:text-white/90 transition-colors shadow-(--macos-tahoe-sidebar-shadow)"
+            className="flex items-center justify-center h-10 w-10 rounded-l-2xl border border-r-0 border-border bg-(--macos-tahoe-sidebar-bg) backdrop-blur-[30px] text-white/60 hover:text-white/90 transition-colors shadow-(--macos-tahoe-sidebar-shadow)"
             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
             aria-label="Toggle table of contents"
             title="Toggle table of contents"
@@ -166,7 +166,7 @@ export const TocTahoe: React.FC<TableOfContentsProps> = ({
           <div className="pointer-events-none relative z-10 flex h-full w-full items-stretch p-3 min-[500px]:p-4">
             <aside
               data-tucu="macos-tahoe-toc"
-              className="pointer-events-auto flex h-full w-62 max-w-[calc(100vw-24px)] flex-col rounded-[30px] border border-(--macos-tahoe-border) bg-(--macos-tahoe-sidebar-bg) backdrop-blur-[30px]"
+              className="pointer-events-auto flex h-full w-62 max-w-[calc(100vw-24px)] flex-col rounded-[30px] border border-border bg-(--macos-tahoe-sidebar-bg) backdrop-blur-[30px]"
             >
               <div className="shrink-0 px-5 pb-3 pt-5 flex items-center justify-between gap-3">
                 {renderTitle()}
@@ -174,7 +174,7 @@ export const TocTahoe: React.FC<TableOfContentsProps> = ({
                   type="button"
                   onClick={() => setIsSidebarOpen(false)}
                   aria-label="Close table of contents"
-                  className="flex h-7 w-7 items-center justify-center rounded-full border border-white/10 bg-black/8 text-(--macos-tahoe-text-muted) transition-colors hover:bg-black/12 hover:text-(--macos-tahoe-text) dark:bg-white/6 dark:hover:bg-white/10"
+                  className="flex h-7 w-7 items-center justify-center rounded-full border border-border bg-black/8 text-(--macos-tahoe-text-muted) transition-colors hover:bg-black/12 hover:text-(--macos-tahoe-text) dark:bg-white/6 dark:hover:bg-white/10"
                 >
                   <LucideIcons.X className="w-3.5 h-3.5" />
                 </button>
@@ -195,18 +195,18 @@ export const TocTahoe: React.FC<TableOfContentsProps> = ({
         <aside
           data-tucu="macos-tahoe-toc"
           className={cn(
-            'fixed top-[70px] right-4 bottom-4 w-[240px] xl:w-[var(--macos-tahoe-sidebar-width,280px)] rounded-3xl border border-gray-200 dark:border-gray-700/50 bg-white dark:bg-light-dark shadow-card z-10',
+            'fixed top-[70px] right-4 bottom-4 w-[240px] xl:w-[var(--macos-tahoe-sidebar-width,280px)] rounded-3xl border border-border/50 bg-white dark:bg-light-dark shadow-card z-10',
             'transition-all duration-300 ease-in-out overflow-y-hidden',
             className
           )}
         >
-          <div className="z-10 flex items-center justify-between shrink-0 px-5 pt-4 pb-3 border-b border-gray-200 dark:border-(--macos-tahoe-border)">
+          <div className="z-10 flex items-center justify-between shrink-0 px-5 pt-4 pb-3 border-b border-border">
             {renderTitle()}
             <button
               type="button"
               onClick={() => setIsSidebarOpen(false)}
               aria-label="Close table of contents"
-              className="flex items-center justify-center rounded-full transition-colors h-6 w-6 border border-gray-200 dark:border-white/10 bg-gray-100 dark:bg-white/6 text-gray-500 dark:text-white/50 hover:bg-gray-200 dark:hover:bg-white/12 hover:text-gray-700 dark:hover:text-white/80"
+              className="flex items-center justify-center rounded-full transition-colors h-6 w-6 border border-border bg-gray-100 dark:bg-white/6 text-gray-500 dark:text-white/50 hover:bg-gray-200 dark:hover:bg-white/12 hover:text-gray-700 dark:hover:text-white/80"
             >
               <LucideIcons.X className="w-3 h-3" />
             </button>

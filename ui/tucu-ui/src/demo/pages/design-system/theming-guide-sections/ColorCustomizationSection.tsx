@@ -16,27 +16,39 @@ const ColorCustomizationSection: React.FC = () => {
     'bg-brand',
     'text-brand',
     'border-brand',
+    'bg-primary',
+    'text-primary',
+    'border-primary',
     'bg-secondary',
     'text-secondary',
     'border-secondary',
     'bg-accent',
     'text-accent',
     'border-accent',
-    'bg-primary',
-    'text-primary',
-    'border-primary',
+    'bg-foreground',
+    'text-foreground',
+    'border-foreground',
+    'bg-muted',
+    'text-muted',
+    'border-muted',
+    'bg-border',
+    'border-border',
+    'bg-success',
+    'text-success',
+    'bg-warning',
+    'text-warning',
+    'bg-error',
+    'text-error',
+    'bg-info',
+    'text-info',
+    'bg-body',
     'bg-dark',
     'text-dark',
-    'border-dark',
     'bg-light',
     'text-light',
-    'border-light',
+    'text-foreground/60',
     'bg-brand/50',
-    'text-brand/80',
     'border-brand/30',
-    'bg-secondary/20',
-    'text-secondary/60',
-    'border-secondary/40',
   ];
 
   return (
@@ -70,7 +82,7 @@ const ColorCustomizationSection: React.FC = () => {
                 Brand colors are dynamically applied using CSS custom
                 properties, allowing real-time theme updates without rebuilding.
                 Colors are defined in{' '}
-                <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
+                <code className="px-1 py-0.5 border border-border rounded text-xs">
                   ui/tucu-ui/src/themes/config/index.ts
                 </code>
               </Typography>
@@ -86,7 +98,7 @@ const ColorCustomizationSection: React.FC = () => {
               <Alert variant="info">
                 <Typography tag="p" className="text-xs">
                   <strong>Color Presets:</strong> Spectrum colors use the{' '}
-                  <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
+                  <code className="px-1 py-0.5 border border-border rounded text-xs">
                     -50
                   </code>{' '}
                   value from Tucu UI Design Tokens. Default colors use semantic
@@ -117,7 +129,7 @@ const ColorCustomizationSection: React.FC = () => {
                 {tailwindUtilities.map((className, index) => (
                   <div key={index} className="flex items-center gap-2">
                     <div
-                      className={`w-3 h-3 rounded border border-gray-300 dark:border-gray-600 ${
+                      className={`w-3 h-3 rounded border border-border ${
                         className.includes('bg-') ? className : 'bg-brand'
                       }`}
                     />

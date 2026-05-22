@@ -32,7 +32,7 @@ const CustomColorPaletteSection: React.FC = () => {
             className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto"
           >
             Provide custom colors via the{' '}
-            <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
+            <code className="px-1 py-0.5 border border-border rounded text-xs">
               customPaletteColor
             </code>{' '}
             prop on ThemeProvider
@@ -67,11 +67,11 @@ const CustomColorPaletteSection: React.FC = () => {
         <Alert variant="info">
           <Typography tag="p" className="text-xs">
             <strong>Note:</strong> All color presets are defined in{' '}
-            <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-700 rounded">
+            <code className="px-1 py-0.5 border border-border dark:border-border rounded">
               ui/tucu-ui/src/themes/config/index.ts
             </code>
             . Spectrum colors use the{' '}
-            <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-700 rounded">
+            <code className="px-1 py-0.5 border border-border dark:border-border rounded">
               -50
             </code>{' '}
             value from Tucu UI Design Tokens, while default colors use semantic

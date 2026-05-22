@@ -66,7 +66,7 @@ export const TahoeLayoutSidebarSection: React.FC = () => {
       <CardContainer className="overflow-hidden">
         <CardTitle title="Interactive Preview" className="mt-2 mb-2">
           <div className="w-full p-4 sm:p-6">
-            <div className="flex h-80 rounded-[20px] overflow-hidden border border-[var(--macos-tahoe-border,rgba(0,0,0,0.1))] shadow-[var(--shadow-card)]">
+            <div className="flex h-80 rounded-[20px] overflow-hidden border border-border shadow-[var(--shadow-card)]">
               <MacOSTahoeLayoutSidebar menuItems={menuItems} />
               <div className="flex flex-1 items-center justify-center bg-[var(--color-semantic-bg)] text-sm text-gray-400">
                 Main content area
@@ -79,7 +79,7 @@ export const TahoeLayoutSidebarSection: React.FC = () => {
       <CardContainer className="overflow-hidden">
         <CardTitle title="Mobile Drawer Variant" className="mt-2 mb-2">
           <div className="w-full p-4 sm:p-6">
-            <div className="flex h-80 rounded-[20px] overflow-hidden border border-[var(--macos-tahoe-border,rgba(0,0,0,0.1))] shadow-[var(--shadow-card)]">
+            <div className="flex h-80 rounded-[20px] overflow-hidden border border-border shadow-[var(--shadow-card)]">
               <MacOSTahoeLayoutSidebar
                 menuItems={menuItems}
                 mobile

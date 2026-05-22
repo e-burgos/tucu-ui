@@ -1,4 +1,5 @@
 import {
+  BasicTable,
   CardContainer,
   CardTitle,
   Typography,
@@ -24,10 +25,7 @@ export function TablesUtilities() {
 
       <section className="space-y-8">
         <div className="text-center">
-          <Typography
-            tag="h2"
-            className="mb-2"
-          >
+          <Typography tag="h2" className="mb-2">
             Table Layout & Styling
           </Typography>
           <Typography
@@ -53,56 +51,31 @@ export function TablesUtilities() {
                   <Typography tag="h4" className="text-sm font-medium">
                     Border Collapse
                   </Typography>
-                  <table className="border-collapse border border-gray-300 w-full">
-                    <thead>
-                      <tr className="bg-gray-50">
-                        <th className="border border-gray-300 px-4 py-2 text-left">
-                          Header 1
-                        </th>
-                        <th className="border border-gray-300 px-4 py-2 text-left">
-                          Header 2
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td className="border border-gray-300 px-4 py-2">
-                          Cell 1
-                        </td>
-                        <td className="border border-gray-300 px-4 py-2">
-                          Cell 2
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
+                  <BasicTable
+                    columns={[
+                      { key: 'col1', label: 'Header 1' },
+                      { key: 'col2', label: 'Header 2' },
+                    ]}
+                    data={[{ col1: 'Cell 1', col2: 'Cell 2' }]}
+                    border
+                    resizable={false}
+                  />
                   <div className="text-xs text-center">border-collapse</div>
                 </div>
                 <div className="space-y-2">
                   <Typography tag="h4" className="text-sm font-medium">
                     Border Separate
                   </Typography>
-                  <table className="border-separate border-spacing-2 border border-gray-300 w-full">
-                    <thead>
-                      <tr className="bg-gray-50">
-                        <th className="border border-gray-300 px-4 py-2 text-left">
-                          Header 1
-                        </th>
-                        <th className="border border-gray-300 px-4 py-2 text-left">
-                          Header 2
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td className="border border-gray-300 px-4 py-2">
-                          Cell 1
-                        </td>
-                        <td className="border border-gray-300 px-4 py-2">
-                          Cell 2
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
+                  <BasicTable
+                    columns={[
+                      { key: 'col1', label: 'Header 1' },
+                      { key: 'col2', label: 'Header 2' },
+                    ]}
+                    data={[{ col1: 'Cell 1', col2: 'Cell 2' }]}
+                    border
+                    resizable={false}
+                    tableClassName="border-separate border-spacing-2"
+                  />
                   <div className="text-xs text-center">
                     border-separate border-spacing-2
                   </div>
@@ -126,37 +99,17 @@ export function TablesUtilities() {
                   <Typography tag="h4" className="text-sm font-medium">
                     Auto Layout
                   </Typography>
-                  <table className="table-auto border-collapse border border-gray-300 w-full">
-                    <caption className="caption-top text-sm font-medium mb-2">
-                      Table Caption (Top)
-                    </caption>
-                    <thead>
-                      <tr className="bg-gray-50">
-                        <th className="border border-gray-300 px-4 py-2 text-left">
-                          Column 1
-                        </th>
-                        <th className="border border-gray-300 px-4 py-2 text-left">
-                          Column 2
-                        </th>
-                        <th className="border border-gray-300 px-4 py-2 text-left">
-                          Column 3
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td className="border border-gray-300 px-4 py-2">
-                          Data 1
-                        </td>
-                        <td className="border border-gray-300 px-4 py-2">
-                          Data 2
-                        </td>
-                        <td className="border border-gray-300 px-4 py-2">
-                          Data 3
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
+                  <BasicTable
+                    columns={[
+                      { key: 'col1', label: 'Column 1' },
+                      { key: 'col2', label: 'Column 2' },
+                      { key: 'col3', label: 'Column 3' },
+                    ]}
+                    data={[{ col1: 'Data 1', col2: 'Data 2', col3: 'Data 3' }]}
+                    border
+                    resizable={false}
+                    tableClassName="table-auto"
+                  />
                   <div className="text-xs text-center">
                     table-auto + caption-top
                   </div>
@@ -165,37 +118,23 @@ export function TablesUtilities() {
                   <Typography tag="h4" className="text-sm font-medium">
                     Fixed Layout
                   </Typography>
-                  <table className="table-fixed border-collapse border border-gray-300 w-full">
-                    <caption className="caption-bottom text-sm font-medium mt-2">
-                      Table Caption (Bottom)
-                    </caption>
-                    <thead>
-                      <tr className="bg-gray-50">
-                        <th className="border border-gray-300 px-4 py-2 text-left w-1/3">
-                          Column 1
-                        </th>
-                        <th className="border border-gray-300 px-4 py-2 text-left w-1/3">
-                          Column 2
-                        </th>
-                        <th className="border border-gray-300 px-4 py-2 text-left w-1/3">
-                          Column 3
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td className="border border-gray-300 px-4 py-2">
-                          Fixed width
-                        </td>
-                        <td className="border border-gray-300 px-4 py-2">
-                          Fixed width
-                        </td>
-                        <td className="border border-gray-300 px-4 py-2">
-                          Fixed width
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
+                  <BasicTable
+                    columns={[
+                      { key: 'col1', label: 'Column 1' },
+                      { key: 'col2', label: 'Column 2' },
+                      { key: 'col3', label: 'Column 3' },
+                    ]}
+                    data={[
+                      {
+                        col1: 'Fixed width',
+                        col2: 'Fixed width',
+                        col3: 'Fixed width',
+                      },
+                    ]}
+                    border
+                    resizable={false}
+                    tableClassName="table-fixed"
+                  />
                   <div className="text-xs text-center">
                     table-fixed + caption-bottom
                   </div>

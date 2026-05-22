@@ -5,8 +5,8 @@ import {
   CardTitle,
   HeroCard,
   LucideIcons,
-  MacOSBackground,
-  getMacOSBackgroundUrl,
+  ThemeBackground,
+  getBackgroundUrl,
   Typography,
 } from '../../../../../index';
 import { useTheme } from '../../../../../themes';
@@ -82,7 +82,7 @@ export const MacOSBackgroundsSection: React.FC = () => {
               {bgTypes.map((bg) => (
                 <div
                   key={bg.id}
-                  className="p-4 rounded-xl border border-gray-200 dark:border-gray-700 space-y-2"
+                  className="p-4 rounded-xl border border-border space-y-2"
                 >
                   <div className="flex items-center gap-2">
                     <div
@@ -113,7 +113,7 @@ export const MacOSBackgroundsSection: React.FC = () => {
                   <p className="text-xs text-gray-500 dark:text-gray-400">
                     {bg.desc}
                   </p>
-                  <div className="pt-2 border-t border-gray-100 dark:border-gray-800 space-y-1">
+                  <div className="pt-2 border-t border-[var(--color-border)] space-y-1">
                     <p className="text-[10px] font-mono text-gray-400">
                       {bg.dimensions}
                     </p>
@@ -152,7 +152,7 @@ export const MacOSBackgroundsSection: React.FC = () => {
               {/* Aurora */}
               <div className="space-y-2">
                 <div
-                  className="relative w-full h-40 rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700"
+                  className="relative w-full h-40 rounded-xl overflow-hidden border border-border"
                   style={{
                     backgroundColor: isDark ? '#131318' : '#f0f2f7',
                   }}
@@ -177,7 +177,7 @@ export const MacOSBackgroundsSection: React.FC = () => {
               {/* Depth */}
               <div className="space-y-2">
                 <div
-                  className="w-full h-40 rounded-xl border border-gray-200 dark:border-gray-700"
+                  className="w-full h-40 rounded-xl border border-border"
                   style={{
                     background: isDark
                       ? 'linear-gradient(160deg, #141418 0%, #18181e 40%, #191520 70%, #141418 100%)'
@@ -194,7 +194,7 @@ export const MacOSBackgroundsSection: React.FC = () => {
               {/* Demo */}
               <div className="space-y-2">
                 <div
-                  className="w-full h-40 rounded-xl border border-gray-200 dark:border-gray-700"
+                  className="w-full h-40 rounded-xl border border-border"
                   style={{
                     background: isDark
                       ? 'radial-gradient(ellipse 80% 60% at 20% 10%, rgba(0, 60, 160, 0.55) 0%, transparent 55%), radial-gradient(ellipse 60% 50% at 80% 80%, rgba(80, 0, 160, 0.4) 0%, transparent 55%), #101014'
@@ -226,17 +226,18 @@ export const MacOSBackgroundsSection: React.FC = () => {
             <p className="text-[10px] font-mono text-gray-400 mb-4">
               1512 × 982 — Landscape (desktop full-screen)
             </p>
-            <div className="rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700">
-              <MacOSBackground
+            <div className="rounded-xl overflow-hidden border border-border">
+              <ThemeBackground
+                mode="absolute"
                 variant="wave"
-                className="rounded-xl"
+                className="rounded-xl !relative !inset-auto !z-auto"
                 style={{ height: '320px' }}
               />
             </div>
             <div className="mt-3 p-3 rounded-lg bg-gray-100 dark:bg-gray-800/50">
               <p className="text-[11px] font-mono text-gray-500 dark:text-gray-400">
                 <span className="text-gray-700 dark:text-gray-300">url:</span>{' '}
-                {getMacOSBackgroundUrl('wave', isDark)}
+                {getBackgroundUrl('wave', isDark)}
               </p>
             </div>
           </div>
@@ -257,17 +258,18 @@ export const MacOSBackgroundsSection: React.FC = () => {
             <p className="text-[10px] font-mono text-gray-400 mb-4">
               1080 × 560 — Landscape (contained sections)
             </p>
-            <div className="rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700">
-              <MacOSBackground
+            <div className="rounded-xl overflow-hidden border border-border">
+              <ThemeBackground
+                mode="absolute"
                 variant="wallpaper"
-                className="rounded-xl"
+                className="rounded-xl !relative !inset-auto !z-auto"
                 style={{ height: '280px' }}
               />
             </div>
             <div className="mt-3 p-3 rounded-lg bg-gray-100 dark:bg-gray-800/50">
               <p className="text-[11px] font-mono text-gray-500 dark:text-gray-400">
                 <span className="text-gray-700 dark:text-gray-300">url:</span>{' '}
-                {getMacOSBackgroundUrl('wallpaper', isDark)}
+                {getBackgroundUrl('wallpaper', isDark)}
               </p>
             </div>
           </div>
@@ -290,19 +292,20 @@ export const MacOSBackgroundsSection: React.FC = () => {
             </p>
             <div className="flex justify-center">
               <div
-                className="rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700"
+                className="rounded-xl overflow-hidden border border-border"
                 style={{ width: '220px', height: '478px' }}
               >
-                <MacOSBackground
+                <ThemeBackground
+                  mode="absolute"
                   variant="mobile"
-                  className="rounded-xl w-full h-full"
+                  className="rounded-xl w-full h-full !relative !inset-auto !z-auto"
                 />
               </div>
             </div>
             <div className="mt-3 p-3 rounded-lg bg-gray-100 dark:bg-gray-800/50">
               <p className="text-[11px] font-mono text-gray-500 dark:text-gray-400">
                 <span className="text-gray-700 dark:text-gray-300">url:</span>{' '}
-                {getMacOSBackgroundUrl('mobile', isDark)}
+                {getBackgroundUrl('mobile', isDark)}
               </p>
             </div>
           </div>

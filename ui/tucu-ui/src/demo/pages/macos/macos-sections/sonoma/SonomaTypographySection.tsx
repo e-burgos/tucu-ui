@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  BasicTable,
   CardContainer,
   CardTitle,
   HeroCard,
@@ -244,7 +245,7 @@ const SonomaTypographySection: React.FC = () => {
               {fontFamilies.map((f) => (
                 <div
                   key={f.name}
-                  className="p-4 rounded-xl border border-gray-200 dark:border-gray-700"
+                  className="p-4 rounded-xl border border-border"
                 >
                   <div className="flex flex-wrap items-start justify-between gap-2 mb-2">
                     <div>
@@ -290,7 +291,7 @@ const SonomaTypographySection: React.FC = () => {
               {textStyles.map((ts) => (
                 <div
                   key={ts.name}
-                  className="flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-4 p-3 rounded-xl border border-gray-100 dark:border-gray-800"
+                  className="flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-4 p-3 rounded-xl border border-[var(--color-border)]"
                 >
                   <div className="sm:w-40 shrink-0">
                     <span className="text-[10px] font-medium text-gray-400 uppercase tracking-widest">
@@ -332,51 +333,48 @@ const SonomaTypographySection: React.FC = () => {
       {/* Token Reference Table */}
       <CardContainer className="overflow-hidden">
         <CardTitle title="CSS Token Reference" className="mt-2 mb-2">
-          <div className="w-full p-4 sm:p-6 overflow-x-auto">
+          <div className="w-full p-4 sm:p-6">
             <Typography
               tag="p"
               className="text-sm text-gray-500 dark:text-gray-400 mb-4"
             >
               Full token reference for all 11 text styles.
             </Typography>
-            <table className="w-full text-xs">
-              <thead>
-                <tr className="border-b border-gray-200 dark:border-gray-700">
-                  {['Style', 'Size', 'Weight', 'Leading', 'Tracking'].map(
-                    (h) => (
-                      <th
-                        key={h}
-                        className="text-left pb-2 pr-4 font-semibold text-gray-500 dark:text-gray-400"
-                      >
-                        {h}
-                      </th>
-                    )
-                  )}
-                </tr>
-              </thead>
-              <tbody>
-                {textStyles.map((ts) => (
-                  <tr
-                    key={ts.name}
-                    className="border-b border-gray-100 dark:border-gray-800"
-                  >
-                    <td className="py-2 pr-4 font-medium">{ts.name}</td>
-                    <td className="py-2 pr-4 font-mono text-gray-500">
-                      {ts.size}
-                    </td>
-                    <td className="py-2 pr-4 text-gray-500">
-                      {ts.weightLabel} ({ts.weight})
-                    </td>
-                    <td className="py-2 pr-4 font-mono text-gray-500">
-                      {ts.leading}
-                    </td>
-                    <td className="py-2 font-mono text-gray-500">
-                      {ts.tracking}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+            <BasicTable
+              columns={[
+                { key: 'name', label: 'Style' },
+                {
+                  key: 'size',
+                  label: 'Size',
+                  className: 'font-mono text-gray-500',
+                },
+                {
+                  key: 'weight',
+                  label: 'Weight',
+                  className: 'text-gray-500',
+                  render: (_v, row) =>
+                    `${
+                      (row as unknown as (typeof textStyles)[number])
+                        .weightLabel
+                    } (${
+                      (row as unknown as (typeof textStyles)[number]).weight
+                    })`,
+                },
+                {
+                  key: 'leading',
+                  label: 'Leading',
+                  className: 'font-mono text-gray-500',
+                },
+                {
+                  key: 'tracking',
+                  label: 'Tracking',
+                  className: 'font-mono text-gray-500',
+                },
+              ]}
+              data={textStyles as unknown as Record<string, unknown>[]}
+              maxRows={15}
+              resizable={false}
+            />
           </div>
         </CardTitle>
       </CardContainer>
@@ -418,7 +416,7 @@ const SonomaTypographySection: React.FC = () => {
               ].map((item) => (
                 <div
                   key={item.label}
-                  className="p-3 rounded-xl border border-gray-200 dark:border-gray-700"
+                  className="p-3 rounded-xl border border-border"
                 >
                   <code className="text-[10px] font-mono text-blue-500 dark:text-blue-400">
                     {item.label}

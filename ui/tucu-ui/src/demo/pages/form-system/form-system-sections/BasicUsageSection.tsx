@@ -104,10 +104,7 @@ function ContactForm() {
           </CardContainer>
 
           <CardContainer className="overflow-hidden">
-            <CardTitle
-              title="2. Create Default Values"
-              className="mt-2 mb-2"
-            >
+            <CardTitle title="2. Create Default Values" className="mt-2 mb-2">
               <div className="w-full space-y-4 p-4 sm:p-6">
                 <Typography
                   tag="p"
@@ -115,7 +112,7 @@ function ContactForm() {
                 >
                   Define default values matching your interface. These
                   initialize the form and are used by{' '}
-                  <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
+                  <code className="px-1 py-0.5 border border-border rounded text-xs">
                     reset()
                   </code>
                   .
@@ -126,21 +123,18 @@ function ContactForm() {
           </CardContainer>
 
           <CardContainer className="overflow-hidden">
-            <CardTitle
-              title="3. Compose the Form"
-              className="mt-2 mb-2"
-            >
+            <CardTitle title="3. Compose the Form" className="mt-2 mb-2">
               <div className="w-full space-y-4 p-4 sm:p-6">
                 <Typography
                   tag="p"
                   className="text-gray-600 dark:text-gray-400"
                 >
                   Use{' '}
-                  <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
+                  <code className="px-1 py-0.5 border border-border rounded text-xs">
                     {'<Form>'}
                   </code>{' '}
                   as the container and{' '}
-                  <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
+                  <code className="px-1 py-0.5 border border-border rounded text-xs">
                     {'<FormField>'}
                   </code>{' '}
                   to wrap each input. FormField handles registration, error

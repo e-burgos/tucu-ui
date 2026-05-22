@@ -25,7 +25,7 @@ const ThemeHooksSection: React.FC = () => {
       ),
       title: 'useThemeColor',
       description:
-        'Injects 12 CSS variables (6 light/dark pairs) into document root for real-time theming.',
+        'Injects 24 CSS variables (12 light/dark pairs) into document root for real-time theming.',
       iconBgClassName: 'from-blue-500 via-cyan-500 to-teal-500',
     },
     {
@@ -91,7 +91,7 @@ const ThemeHooksSection: React.FC = () => {
                   className="text-gray-600 dark:text-gray-400 text-sm"
                 >
                   Accessed via{' '}
-                  <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
+                  <code className="px-1 py-0.5 border border-border rounded text-xs">
                     useTheme()
                   </code>{' '}
                   — persisted to localStorage automatically.
@@ -107,6 +107,13 @@ const ThemeHooksSection: React.FC = () => {
                   <li>mutedPreset, darkMutedPreset</li>
                   <li>darkBgPreset, lightBgPreset</li>
                   <li>lightDarkPreset, darkLightDarkPreset</li>
+                  <li>successPreset, darkSuccessPreset</li>
+                  <li>warningPreset, darkWarningPreset</li>
+                  <li>errorPreset, darkErrorPreset</li>
+                  <li>infoPreset, darkInfoPreset</li>
+                  <li>fgPreset, darkFgPreset</li>
+                  <li>borderPreset, darkBorderPreset</li>
+                  <li>backgroundVariant</li>
                   <li>isSettingsOpen, showSettings</li>
                 </ul>
               </div>
@@ -130,8 +137,14 @@ const ThemeHooksSection: React.FC = () => {
                   <li>setMutedPreset, setDarkMutedPreset</li>
                   <li>setDarkBgPreset, setLightBgPreset</li>
                   <li>setLightDarkPreset, setDarkLightDarkPreset</li>
-                  <li>setLogo, setLang, setIsSettingsOpen</li>
-                  <li>setShowSettings</li>
+                  <li>setSuccessPreset, setDarkSuccessPreset</li>
+                  <li>setWarningPreset, setDarkWarningPreset</li>
+                  <li>setErrorPreset, setDarkErrorPreset</li>
+                  <li>setInfoPreset, setDarkInfoPreset</li>
+                  <li>setFgPreset, setDarkFgPreset</li>
+                  <li>setBorderPreset, setDarkBorderPreset</li>
+                  <li>setBackgroundVariant</li>
+                  <li>setLogo, setLang, setIsSettingsOpen, setShowSettings</li>
                 </ul>
               </div>
             </CardTitle>
@@ -171,8 +184,8 @@ const ThemeHooksSection: React.FC = () => {
                   tag="p"
                   className="text-gray-600 dark:text-gray-400 text-sm"
                 >
-                  12 CSS variables injected into{' '}
-                  <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
+                  24 CSS variables injected into{' '}
+                  <code className="px-1 py-0.5 border border-border rounded text-xs">
                     document.documentElement
                   </code>
                   :
@@ -184,6 +197,14 @@ const ThemeHooksSection: React.FC = () => {
                   <li>--color-semantic-fg-muted / dark variant</li>
                   <li>--color-semantic-bg / dark variant</li>
                   <li>--color-semantic-bg-secondary-wash / dark variant</li>
+                  <li>--color-semantic-bg-positive / dark variant (success)</li>
+                  <li>--color-semantic-bg-warning / dark variant (warning)</li>
+                  <li>--color-semantic-bg-negative / dark variant (error)</li>
+                  <li>--color-semantic-bg-info / dark variant (info)</li>
+                  <li>--color-semantic-fg / dark variant (text foreground)</li>
+                  <li>
+                    --color-semantic-line-primary-subtle / dark variant (border)
+                  </li>
                 </ul>
               </div>
             </CardTitle>

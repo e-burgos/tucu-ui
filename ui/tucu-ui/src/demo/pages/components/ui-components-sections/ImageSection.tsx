@@ -93,7 +93,7 @@ const ImageSection: React.FC = () => {
                   width={300}
                   height={200}
                   objectFit="cover"
-                  className="rounded-lg border-2 border-gray-200 dark:border-gray-700"
+                  className="rounded-lg border-2 border-border"
                 />
               </div>
 
@@ -134,7 +134,7 @@ const ImageSection: React.FC = () => {
                   width={300}
                   height={200}
                   objectFit="fill"
-                  className="rounded-lg border-2 border-gray-200 dark:border-gray-700"
+                  className="rounded-lg border-2 border-border"
                 />
               </div>
             </div>

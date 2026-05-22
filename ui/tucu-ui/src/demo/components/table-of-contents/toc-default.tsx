@@ -51,7 +51,7 @@ export const TocDefault: React.FC<TableOfContentsProps> = ({
                 <button
                   type="button"
                   onClick={() => handleCategoryToggle(category, categoryItems)}
-                  className="w-full flex items-center transition-colors select-none justify-between rounded-lg px-3 py-2 text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800"
+                  className="w-full flex items-center transition-colors select-none justify-between rounded-lg px-3 py-2 text-xs font-semibold uppercase tracking-wider text-foreground/60 hover:bg-gray-100 dark:hover:bg-gray-800"
                   aria-expanded={isOpen}
                   aria-label={`${
                     isOpen ? 'Close' : 'Open'
@@ -88,7 +88,7 @@ export const TocDefault: React.FC<TableOfContentsProps> = ({
                               'block w-full text-left rounded-lg px-3 py-2 text-sm transition-all duration-200',
                               isActive
                                 ? 'bg-brand/10 text-brand font-semibold'
-                                : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-gray-100'
+                                : 'text-foreground/60 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-foreground dark:hover:text-foreground'
                             )}
                             onClick={(e) => handleItemClick(e, item)}
                           >
@@ -112,7 +112,7 @@ export const TocDefault: React.FC<TableOfContentsProps> = ({
                   'block w-full text-left rounded-lg px-3 py-2 text-sm transition-all duration-200',
                   isActive
                     ? 'bg-brand/10 text-brand font-semibold'
-                    : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-gray-100'
+                    : 'text-foreground/60 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-foreground dark:hover:text-foreground'
                 )}
                 onClick={(e) => handleItemClick(e, item)}
               >
@@ -162,8 +162,8 @@ export const TocDefault: React.FC<TableOfContentsProps> = ({
           position="left"
           backdrop
         >
-          <div className="h-full flex flex-col w-72 bg-body border-r border-gray-100 dark:border-gray-800">
-            <div className="flex items-center justify-between shrink-0 px-4 py-4 border-b border-gray-100 dark:border-gray-800">
+          <div className="h-full flex flex-col w-72 bg-body border-r border-[var(--color-border)]">
+            <div className="flex items-center justify-between shrink-0 px-4 py-4 border-b border-[var(--color-border)]">
               <Typography tag="h3" className="text-sm font-semibold">
                 {title}
               </Typography>
@@ -194,8 +194,8 @@ export const TocDefault: React.FC<TableOfContentsProps> = ({
           className={cn(
             'transition-all duration-300 ease-in-out overflow-y-hidden',
             layout === LAYOUT_OPTIONS.ADMIN && !smallScreen
-              ? 'fixed left-0 translate-x-25 w-64 lg:w-72 border-r bg-body backdrop-blur-lg shadow-md border-gray-100 dark:border-gray-800 z-20'
-              : 'fixed left-0 translate-x-0 w-72 lg:w-72 border-r bg-body backdrop-blur-lg shadow-md border-gray-100 dark:border-gray-800 z-20',
+              ? 'fixed left-0 translate-x-25 w-64 lg:w-72 border-r bg-light-dark backdrop-blur-lg shadow-md border-[var(--color-border)] z-20'
+              : 'fixed left-0 translate-x-0 w-72 lg:w-72 border-r bg-light-dark backdrop-blur-lg shadow-md border-[var(--color-border)] z-20',
             className
           )}
           style={{
@@ -207,7 +207,7 @@ export const TocDefault: React.FC<TableOfContentsProps> = ({
                 : '100vh',
           }}
         >
-          <div className="z-10 flex items-center justify-between shrink-0 pl-4 pr-2 p-4 bg-body border-b border-gray-100 dark:border-gray-800">
+          <div className="z-10 flex items-center justify-between shrink-0 pl-4 pr-2 p-4 border-b border-[var(--color-border)]">
             <Typography tag="h3" className="text-sm font-semibold">
               {title}
             </Typography>

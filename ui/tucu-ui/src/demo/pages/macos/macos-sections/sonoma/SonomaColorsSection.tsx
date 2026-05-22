@@ -275,7 +275,7 @@ const SonomaColorsSection: React.FC = () => {
                   className="flex flex-col items-center gap-1.5"
                 >
                   <div
-                    className="w-full h-14 rounded-xl shadow-sm border border-black/5 dark:border-white/10"
+                    className="w-full h-14 rounded-xl shadow-sm border border-border"
                     style={{ backgroundColor: `var(${c.cssVar}, ${c.value})` }}
                   />
                   <span className="text-xs font-medium text-center leading-tight">
@@ -307,10 +307,10 @@ const SonomaColorsSection: React.FC = () => {
               {currentSemantic.map((c) => (
                 <div
                   key={c.label}
-                  className="flex items-center gap-3 p-3 rounded-xl border border-gray-200 dark:border-gray-700"
+                  className="flex items-center gap-3 p-3 rounded-xl border border-border"
                 >
                   <div
-                    className="w-10 h-10 rounded-lg shrink-0 border border-black/10 dark:border-white/10"
+                    className="w-10 h-10 rounded-lg shrink-0 border border-border"
                     style={{ backgroundColor: `var(${c.cssVar}, ${c.value})` }}
                   />
                   <div className="min-w-0 flex-1">
@@ -348,7 +348,7 @@ const SonomaColorsSection: React.FC = () => {
               {currentGray.map((g) => (
                 <div key={g.label} className="flex items-center gap-3">
                   <div
-                    className="w-12 h-8 rounded-lg border border-black/10 dark:border-white/10 shrink-0"
+                    className="w-12 h-8 rounded-lg border border-border shrink-0"
                     style={{ backgroundColor: `var(${g.cssVar}, ${g.value})` }}
                   />
                   <code className="text-xs font-mono w-40 text-gray-500">
@@ -383,7 +383,7 @@ const SonomaColorsSection: React.FC = () => {
               {trafficLights.map((t) => (
                 <div key={t.label} className="flex flex-col items-center gap-2">
                   <div
-                    className="w-12 h-12 rounded-full border border-black/10 dark:border-white/10 shadow-sm"
+                    className="w-12 h-12 rounded-full border border-border shadow-sm"
                     style={{
                       backgroundColor: `var(${t.cssVar}, ${
                         isDark ? t.dark : t.light
@@ -429,7 +429,7 @@ const SonomaColorsSection: React.FC = () => {
                   className="flex flex-col items-center gap-1.5"
                 >
                   <div
-                    className="w-12 h-12 rounded-xl shadow-sm border border-black/5 dark:border-white/10"
+                    className="w-12 h-12 rounded-xl shadow-sm border border-border"
                     style={{ backgroundColor: `var(${c.cssVar}, ${c.value})` }}
                   />
                   <span className="text-[10px] font-medium">{c.label}</span>

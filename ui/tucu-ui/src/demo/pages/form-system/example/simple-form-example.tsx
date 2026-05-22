@@ -43,7 +43,7 @@ export const SimpleFormExample: React.FC = () => {
           }}
           className={'grid grid-cols-1 gap-4'}
         >
-          <div className="w-full space-y-4 border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+          <div className="w-full space-y-4 border border-border rounded-lg p-4">
             <div className="grid grid-cols-1 gap-4">
               <FormField<FormValues> name="name" label="Name">
                 <Input placeholder="Ingresa tu nombre" />

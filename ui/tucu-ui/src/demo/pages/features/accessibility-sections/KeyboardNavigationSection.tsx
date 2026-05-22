@@ -111,7 +111,7 @@ const KeyboardNavigationSection: React.FC = () => {
                   {group.items.map((item, itemIndex) => (
                     <div
                       key={itemIndex}
-                      className="flex items-center justify-between gap-2 py-1 border-b border-gray-100 dark:border-gray-800 last:border-0"
+                      className="flex items-center justify-between gap-2 py-1 border-b border-[var(--color-border)] last:border-0"
                     >
                       <code className="text-xs sm:text-sm bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded font-mono whitespace-nowrap">
                         {item.key}

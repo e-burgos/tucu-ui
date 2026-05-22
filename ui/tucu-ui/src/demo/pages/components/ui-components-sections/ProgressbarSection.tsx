@@ -60,13 +60,13 @@ const ProgressbarSection: React.FC = () => {
                   <div className="flex gap-2">
                     <button
                       onClick={() => setProgress(Math.max(0, progress - 10))}
-                      className="px-3 py-1 bg-light-dark rounded border border-gray-300 dark:border-gray-600 hover:opacity-80 transition-opacity"
+                      className="px-3 py-1 bg-light-dark rounded border border-border hover:opacity-80 transition-opacity"
                     >
                       -10
                     </button>
                     <button
                       onClick={() => setProgress(Math.min(100, progress + 10))}
-                      className="px-3 py-1 bg-light-dark rounded border border-gray-300 dark:border-gray-600 hover:opacity-80 transition-opacity"
+                      className="px-3 py-1 bg-light-dark rounded border border-border hover:opacity-80 transition-opacity"
                     >
                       +10
                     </button>

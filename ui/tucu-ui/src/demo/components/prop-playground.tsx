@@ -456,7 +456,7 @@ export const PropPlayground: React.FC<PropPlaygroundProps> = ({
       <CardTitle title={title || `${meta.displayName} Playground`}>
         <div className="w-full min-w-0">
           {/* Preview Area */}
-          <div className="pb-6 mt-6 rounded-2xl sm:p-8 border border-gray-200 dark:border-gray-700 bg-gray-100 dark:bg-gray-800/50 flex items-center justify-center min-h-[120px]">
+          <div className="pb-6 mt-6 rounded-2xl sm:p-8 border border-border bg-gray-100 dark:bg-gray-800/50 flex items-center justify-center min-h-[120px]">
             {children(renderProps)}
           </div>
 

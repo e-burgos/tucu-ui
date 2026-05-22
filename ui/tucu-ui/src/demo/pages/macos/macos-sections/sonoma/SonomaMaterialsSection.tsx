@@ -139,7 +139,7 @@ const SonomaMaterialsSection: React.FC = () => {
         title="Materials"
         description="Sonoma vibrancy materials — translucent CSS surfaces defined by --macos-material-* tokens. Each balances blur, opacity, and brightness for its role."
         icon={
-          <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 bg-linear-to-br from-white/80 via-gray-200/60 to-gray-400/40 dark:from-gray-700/80 dark:via-gray-800/60 dark:to-gray-900/40 rounded-full flex items-center justify-center shadow-lg border border-white/50 dark:border-gray-600/50 backdrop-blur-md">
+          <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 bg-linear-to-br from-white/80 via-gray-200/60 to-gray-400/40 dark:from-gray-700/80 dark:via-gray-800/60 dark:to-gray-900/40 rounded-full flex items-center justify-center shadow-lg border border-white/50 dark:border-border/50 backdrop-blur-md">
             <LucideIcons.Layers className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 text-gray-700 dark:text-gray-200 filter drop-shadow-lg" />
           </div>
         }
@@ -173,7 +173,7 @@ const SonomaMaterialsSection: React.FC = () => {
                   }}
                 >
                   <div
-                    className="m-3 rounded-xl p-4 border border-white/20 dark:border-white/10"
+                    className="m-3 rounded-xl p-4 border border-border"
                     style={{
                       backgroundColor: `var(${mat.cssVar}, ${
                         isDark ? mat.darkValue : mat.lightValue
@@ -213,7 +213,7 @@ const SonomaMaterialsSection: React.FC = () => {
                         </p>
                       </div>
                     </div>
-                    <div className="mt-3 pt-3 border-t border-white/20 dark:border-white/10 space-y-0.5">
+                    <div className="mt-3 pt-3 border-t border-border space-y-0.5">
                       <code
                         className={`block text-[9px] font-mono ${
                           isDark ? 'text-gray-400' : 'text-gray-600'

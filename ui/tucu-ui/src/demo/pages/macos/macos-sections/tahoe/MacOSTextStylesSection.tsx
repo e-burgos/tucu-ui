@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  BasicTable,
   CardContainer,
   CardTitle,
   HeroCard,
@@ -178,7 +179,7 @@ export const MacOSTextStylesSection: React.FC = () => {
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-6">
               <div
-                className="p-4 rounded-lg border border-gray-200 dark:border-gray-700"
+                className="p-4 rounded-lg border border-border"
                 style={{ backgroundColor: isDark ? '#1e1e1e' : '#ffffff' }}
               >
                 <p
@@ -198,7 +199,7 @@ export const MacOSTextStylesSection: React.FC = () => {
                 </p>
               </div>
               <div
-                className="p-4 rounded-lg border border-gray-200 dark:border-gray-700"
+                className="p-4 rounded-lg border border-border"
                 style={{ backgroundColor: isDark ? '#1e1e1e' : '#ffffff' }}
               >
                 <p
@@ -218,7 +219,7 @@ export const MacOSTextStylesSection: React.FC = () => {
                 </p>
               </div>
               <div
-                className="p-4 rounded-lg border border-gray-200 dark:border-gray-700"
+                className="p-4 rounded-lg border border-border"
                 style={{ backgroundColor: isDark ? '#1e1e1e' : '#ffffff' }}
               >
                 <p
@@ -248,14 +249,14 @@ export const MacOSTextStylesSection: React.FC = () => {
         <CardTitle title="Type Scale" className="mt-2 mb-2">
           <div className="w-full p-4 sm:p-6">
             <div
-              className="rounded-xl p-6 border border-gray-200 dark:border-gray-700"
+              className="rounded-xl p-6 border border-border"
               style={{ backgroundColor: isDark ? '#1e1e1e' : '#ffffff' }}
             >
               <div className="flex flex-col gap-4">
                 {textStyles.map((style) => (
                   <div
                     key={style.name}
-                    className="flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-6 pb-3 border-b border-gray-100 dark:border-gray-800 last:border-0"
+                    className="flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-6 pb-3 border-b border-[var(--color-border)] last:border-0"
                   >
                     <span
                       className="shrink-0"
@@ -300,7 +301,7 @@ export const MacOSTextStylesSection: React.FC = () => {
               Showing {isDark ? 'dark' : 'light'} appearance values.
             </Typography>
             <div
-              className="rounded-xl p-6 border border-gray-200 dark:border-gray-700"
+              className="rounded-xl p-6 border border-border"
               style={{ backgroundColor: isDark ? '#1e1e1e' : '#ffffff' }}
             >
               <div className="space-y-3">
@@ -358,50 +359,31 @@ export const MacOSTextStylesSection: React.FC = () => {
       {/* CSS Variables Table */}
       <CardContainer className="overflow-hidden">
         <CardTitle title="CSS Variables" className="mt-2 mb-2">
-          <div className="w-full p-4 sm:p-6 overflow-x-auto">
-            <table className="w-full text-xs">
-              <thead>
-                <tr className="border-b border-gray-200 dark:border-gray-700">
-                  <th className="text-left py-2 pr-4 font-medium text-gray-500">
-                    Style
-                  </th>
-                  <th className="text-left py-2 pr-4 font-medium text-gray-500">
-                    CSS Variable
-                  </th>
-                  <th className="text-left py-2 pr-4 font-medium text-gray-500">
-                    Size
-                  </th>
-                  <th className="text-left py-2 pr-4 font-medium text-gray-500">
-                    Leading
-                  </th>
-                  <th className="text-left py-2 font-medium text-gray-500">
-                    Font
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {textStyles.map((style) => (
-                  <tr
-                    key={style.name}
-                    className="border-b border-gray-100 dark:border-gray-800 last:border-0"
-                  >
-                    <td className="py-2 pr-4 text-gray-700 dark:text-gray-300">
-                      {style.name}
-                    </td>
-                    <td className="py-2 pr-4 font-mono text-gray-500">
-                      {style.cssVar}
-                    </td>
-                    <td className="py-2 pr-4 font-mono text-gray-500">
-                      {style.size}
-                    </td>
-                    <td className="py-2 pr-4 font-mono text-gray-500">
-                      {style.leading}
-                    </td>
-                    <td className="py-2 text-gray-500">{style.font}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+          <div className="w-full p-4 sm:p-6">
+            <BasicTable
+              columns={[
+                { key: 'name', label: 'Style' },
+                {
+                  key: 'cssVar',
+                  label: 'CSS Variable',
+                  className: 'font-mono text-gray-500',
+                },
+                {
+                  key: 'size',
+                  label: 'Size',
+                  className: 'font-mono text-gray-500',
+                },
+                {
+                  key: 'leading',
+                  label: 'Leading',
+                  className: 'font-mono text-gray-500',
+                },
+                { key: 'font', label: 'Font', className: 'text-gray-500' },
+              ]}
+              data={textStyles as unknown as Record<string, unknown>[]}
+              maxRows={15}
+              resizable={false}
+            />
           </div>
         </CardTitle>
       </CardContainer>

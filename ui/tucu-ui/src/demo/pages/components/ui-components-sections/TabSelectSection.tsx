@@ -200,7 +200,7 @@ const TabSelectSection: React.FC = () => {
                 >
                   Perfect for replacing horizontal tab bars on mobile devices
                   where space is limited.
-                  <code className="ml-1 text-xs border border-gray-300 dark:border-gray-600 px-2 py-1 rounded">
+                  <code className="ml-1 text-xs border border-border px-2 py-1 rounded">
                     ParamTab
                   </code>{' '}
                   automatically switches to TabSelect on mobile breakpoints.
@@ -366,8 +366,8 @@ const TabSelectSection: React.FC = () => {
         componentName="TabSelect"
         title="TabSelect Playground"
         defaultValues={{
-          'selectedTabIndex': 0
-}}
+          selectedTabIndex: 0,
+        }}
         excludeProps={['onChange', 'tabMenu']}
       >
         {(props) => (
@@ -382,7 +382,6 @@ const TabSelectSection: React.FC = () => {
           />
         )}
       </PropPlayground>
-
 
       <AutoPropsTable componentName="TabSelect" />
 

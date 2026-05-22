@@ -73,7 +73,7 @@ const IconSizingGuideSection: React.FC = () => {
                   key={size.label}
                   className="flex flex-col items-center text-center space-y-3"
                 >
-                  <div className="p-4 rounded-xl bg-gray-100 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700 flex items-center justify-center min-h-[80px]">
+                  <div className="p-4 rounded-xl bg-gray-100 dark:bg-gray-800/50 border border-border flex items-center justify-center min-h-[80px]">
                     <LucideIcons.Star className={size.tailwind} />
                   </div>
                   <div className="space-y-1">

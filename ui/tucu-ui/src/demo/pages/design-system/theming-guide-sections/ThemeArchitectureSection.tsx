@@ -138,23 +138,25 @@ const THEME_STYLE_LAYOUTS: Record<THEME_VARIANT, ThemeStyleConfig> = {
     defaultLayout: HORIZONTAL,
   },
   macos: {
-    validLayouts: [MACOS],
+    validLayouts: [MACOS, MACOS_CLEAN],
     defaultLayout: MACOS,
   },
   'macos-tahoe': {
-    validLayouts: [MACOS_TAHOE, MACOS_TAHOE_DOCK],
+    validLayouts: [MACOS_TAHOE, MACOS_TAHOE_DOCK, MACOS_TAHOE_CLEAN],
     defaultLayout: MACOS_TAHOE,
   },
 };
 
-// LAYOUT_OPTIONS enum (6 values)
+// LAYOUT_OPTIONS enum (8 values)
 enum LAYOUT_OPTIONS {
   CLEAN = 'clean',
   ADMIN = 'admin',
   HORIZONTAL = 'horizontal',
   MACOS = 'macos',
+  MACOS_CLEAN = 'macos-clean',
   MACOS_TAHOE = 'macos-tahoe',
   MACOS_TAHOE_DOCK = 'macos-tahoe-dock',
+  MACOS_TAHOE_CLEAN = 'macos-tahoe-clean',
 }`}
         />
       </section>

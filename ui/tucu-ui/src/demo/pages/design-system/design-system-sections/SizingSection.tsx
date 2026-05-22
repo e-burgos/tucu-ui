@@ -42,7 +42,7 @@ const SizingSection: React.FC = () => {
                   return (
                     <div
                       key={size}
-                      className="text-center space-y-2 border border-gray-200 dark:border-gray-700 rounded-lg p-3"
+                      className="text-center space-y-2 border border-border rounded-lg p-3"
                     >
                       <div
                         className={`bg-primary rounded mx-auto ${widthClass} ${heightClass}`}
@@ -86,7 +86,7 @@ const SizingSection: React.FC = () => {
                   return (
                     <div
                       key={size}
-                      className="text-center space-y-2 border border-gray-200 dark:border-gray-700 rounded-lg p-3"
+                      className="text-center space-y-2 border border-border rounded-lg p-3"
                     >
                       <div
                         className={`bg-primary rounded-full mx-auto ${widthClass} ${heightClass}`}

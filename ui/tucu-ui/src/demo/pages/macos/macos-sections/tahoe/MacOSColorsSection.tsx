@@ -155,7 +155,7 @@ export const MacOSColorsSection: React.FC = () => {
               Colors adapt based on the current appearance mode.
             </Typography>
             <div
-              className="rounded-xl p-6 border border-gray-200 dark:border-gray-700"
+              className="rounded-xl p-6 border border-border"
               style={{ backgroundColor: isDark ? '#1e1e1e' : '#ffffff' }}
             >
               <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
@@ -165,7 +165,7 @@ export const MacOSColorsSection: React.FC = () => {
                     className="flex flex-col items-center gap-2"
                   >
                     <div
-                      className="w-full h-16 rounded-lg border border-gray-200 dark:border-gray-700 flex items-center justify-center"
+                      className="w-full h-16 rounded-lg border border-border flex items-center justify-center"
                       style={{ backgroundColor: item.color }}
                     />
                     <span
@@ -239,7 +239,7 @@ export const MacOSColorsSection: React.FC = () => {
                   className="flex flex-col items-center gap-2"
                 >
                   <div
-                    className="w-full h-16 rounded-xl border border-gray-200 dark:border-gray-700"
+                    className="w-full h-16 rounded-xl border border-border"
                     style={{
                       backgroundColor: isDark ? color.dark : color.light,
                     }}
@@ -272,10 +272,10 @@ export const MacOSColorsSection: React.FC = () => {
               {currentSemantic.map((color) => (
                 <div
                   key={color.label}
-                  className="flex flex-col gap-2 p-3 rounded-lg border border-gray-200 dark:border-gray-700"
+                  className="flex flex-col gap-2 p-3 rounded-lg border border-border"
                 >
                   <div
-                    className="w-full h-10 rounded-md border border-gray-200 dark:border-gray-600"
+                    className="w-full h-10 rounded-md border border-border"
                     style={{ backgroundColor: color.value }}
                   />
                   <span className="text-xs font-medium text-gray-700 dark:text-gray-300">
@@ -313,7 +313,7 @@ export const MacOSColorsSection: React.FC = () => {
                     className="flex flex-col items-center gap-2"
                   >
                     <div
-                      className="w-20 h-14 rounded-lg border border-gray-200 dark:border-gray-700"
+                      className="w-20 h-14 rounded-lg border border-border"
                       style={{ backgroundColor: baseColor }}
                     />
                     <span className="text-[10px] text-gray-400 font-mono">

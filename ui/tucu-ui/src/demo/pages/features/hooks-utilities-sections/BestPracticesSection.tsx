@@ -127,7 +127,7 @@ const BestPracticesSection: React.FC = () => {
                 Accessible Modal Pattern
               </Typography>
             </div>
-            <div className="bg-light-dark p-4 rounded-xl border dark:border-gray-700 overflow-x-auto">
+            <div className="bg-light-dark p-4 rounded-xl border dark:border-border overflow-x-auto">
               <CodeBlock
                 language="tsx"
                 noExpand={true}
@@ -163,7 +163,7 @@ const BestPracticesSection: React.FC = () => {
                 Responsive Layout Pattern
               </Typography>
             </div>
-            <div className="bg-light-dark p-4 rounded-xl border dark:border-gray-700 overflow-x-auto">
+            <div className="bg-light-dark p-4 rounded-xl border dark:border-border overflow-x-auto">
               <CodeBlock
                 language="tsx"
                 noExpand={true}

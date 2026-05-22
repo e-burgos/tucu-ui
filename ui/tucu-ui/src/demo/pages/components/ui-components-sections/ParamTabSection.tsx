@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  BasicTable,
   CardContainer,
   CardTitle,
   Typography,
@@ -182,7 +183,10 @@ const ParamTabSection: React.FC = () => {
                     <CardContainer className="p-6">
                       <div className="flex items-center gap-3 mb-4">
                         <Home className="text-brand" size={24} />
-                        <Typography tag="h3" className="text-base font-semibold">
+                        <Typography
+                          tag="h3"
+                          className="text-base font-semibold"
+                        >
                           Dashboard Home
                         </Typography>
                       </div>
@@ -199,7 +203,10 @@ const ParamTabSection: React.FC = () => {
                     <CardContainer className="p-6">
                       <div className="flex items-center gap-3 mb-4">
                         <BarChart className="text-brand" size={24} />
-                        <Typography tag="h3" className="text-base font-semibold">
+                        <Typography
+                          tag="h3"
+                          className="text-base font-semibold"
+                        >
                           Analytics Overview
                         </Typography>
                       </div>
@@ -216,7 +223,10 @@ const ParamTabSection: React.FC = () => {
                     <CardContainer className="p-6">
                       <div className="flex items-center gap-3 mb-4">
                         <FileText className="text-brand" size={24} />
-                        <Typography tag="h3" className="text-base font-semibold">
+                        <Typography
+                          tag="h3"
+                          className="text-base font-semibold"
+                        >
                           Reports Center
                         </Typography>
                       </div>
@@ -232,7 +242,10 @@ const ParamTabSection: React.FC = () => {
                     <CardContainer className="p-6">
                       <div className="flex items-center gap-3 mb-4">
                         <Settings className="text-brand" size={24} />
-                        <Typography tag="h3" className="text-base font-semibold">
+                        <Typography
+                          tag="h3"
+                          className="text-base font-semibold"
+                        >
                           Application Settings
                         </Typography>
                       </div>
@@ -451,41 +464,44 @@ const ParamTabSection: React.FC = () => {
       <CardContainer className="overflow-hidden">
         <CardTitle title="TabMenuItem Interface" className="mt-2 mb-2">
           <div className="w-full p-4 sm:p-6">
-            <table className="w-full text-sm text-left">
-              <thead>
-                <tr className="border-b border-gray-200 dark:border-gray-700">
-                  <th className="px-3 py-2 font-semibold">Prop</th>
-                  <th className="px-3 py-2 font-semibold">Type</th>
-                  <th className="px-3 py-2 font-semibold">Default</th>
-                  <th className="px-3 py-2 font-semibold">Description</th>
-                </tr>
-              </thead>
-              <tbody>
-                {interfaceData.map((row) => (
-                  <tr
-                    key={row.prop}
-                    className="border-b border-gray-100 dark:border-gray-800"
-                  >
-                    <td className="px-3 py-2">
-                      <code className="text-xs text-brand">{row.prop}</code>
-                    </td>
-                    <td className="px-3 py-2">
-                      <code className="text-xs">{row.type}</code>
-                    </td>
-                    <td className="px-3 py-2">
-                      {row.default === 'required' ? (
-                        <span className="text-xs text-red-500">required</span>
-                      ) : (
-                        <code className="text-xs">{row.default}</code>
-                      )}
-                    </td>
-                    <td className="px-3 py-2 text-gray-600 dark:text-gray-400">
-                      {row.description}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+            <BasicTable
+              columns={[
+                {
+                  key: 'prop',
+                  label: 'Prop',
+                  render: (value) => (
+                    <code className="text-xs text-brand">
+                      {value as string}
+                    </code>
+                  ),
+                },
+                {
+                  key: 'type',
+                  label: 'Type',
+                  render: (value) => (
+                    <code className="text-xs">{value as string}</code>
+                  ),
+                },
+                {
+                  key: 'default',
+                  label: 'Default',
+                  render: (value) =>
+                    value === 'required' ? (
+                      <span className="text-xs text-red-500">required</span>
+                    ) : (
+                      <code className="text-xs">{value as string}</code>
+                    ),
+                },
+                {
+                  key: 'description',
+                  label: 'Description',
+                  className: 'text-gray-600 dark:text-gray-400',
+                },
+              ]}
+              data={interfaceData}
+              maxRows={10}
+              resizable={false}
+            />
           </div>
         </CardTitle>
       </CardContainer>
@@ -493,10 +509,10 @@ const ParamTabSection: React.FC = () => {
         componentName="ParamTab"
         title="ParamTab Playground"
         defaultValues={{
-          'variant': 'solid',
-          'size': 'medium',
-          'showMobileSelect': false
-}}
+          variant: 'solid',
+          size: 'medium',
+          showMobileSelect: false,
+        }}
         excludeProps={['tabMenu', 'tabListClassName']}
       >
         {(props) => (
@@ -510,7 +526,6 @@ const ParamTabSection: React.FC = () => {
           />
         )}
       </PropPlayground>
-
 
       <AutoPropsTable componentName="ParamTab" />
 

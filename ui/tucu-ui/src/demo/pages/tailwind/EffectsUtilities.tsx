@@ -26,10 +26,7 @@ export function EffectsUtilities() {
       {/* Effects Architecture */}
       <section className="space-y-8">
         <div className="text-center">
-          <Typography
-            tag="h2"
-            className="mb-2"
-          >
+          <Typography tag="h2" className="mb-2">
             Effects Architecture
           </Typography>
           <Typography
@@ -58,42 +55,42 @@ export function EffectsUtilities() {
                 </Typography>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                   <div className="space-y-2">
-                    <div className="w-full h-16 bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 flex items-center justify-center">
+                    <div className="w-full h-16 bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-border flex items-center justify-center">
                       <span className="text-xs font-medium">shadow-sm</span>
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <div className="w-full h-16 bg-white dark:bg-gray-800 rounded-lg shadow border border-gray-200 dark:border-gray-700 flex items-center justify-center">
+                    <div className="w-full h-16 bg-white dark:bg-gray-800 rounded-lg shadow border border-border flex items-center justify-center">
                       <span className="text-xs font-medium">shadow</span>
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <div className="w-full h-16 bg-white dark:bg-gray-800 rounded-lg shadow-md border border-gray-200 dark:border-gray-700 flex items-center justify-center">
+                    <div className="w-full h-16 bg-white dark:bg-gray-800 rounded-lg shadow-md border border-border flex items-center justify-center">
                       <span className="text-xs font-medium">shadow-md</span>
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <div className="w-full h-16 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 flex items-center justify-center">
+                    <div className="w-full h-16 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-border flex items-center justify-center">
                       <span className="text-xs font-medium">shadow-lg</span>
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <div className="w-full h-16 bg-white dark:bg-gray-800 rounded-lg shadow-xl border border-gray-200 dark:border-gray-700 flex items-center justify-center">
+                    <div className="w-full h-16 bg-white dark:bg-gray-800 rounded-lg shadow-xl border border-border flex items-center justify-center">
                       <span className="text-xs font-medium">shadow-xl</span>
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <div className="w-full h-16 bg-white dark:bg-gray-800 rounded-lg shadow-2xl border border-gray-200 dark:border-gray-700 flex items-center justify-center">
+                    <div className="w-full h-16 bg-white dark:bg-gray-800 rounded-lg shadow-2xl border border-border flex items-center justify-center">
                       <span className="text-xs font-medium">shadow-2xl</span>
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <div className="w-full h-16 bg-white dark:bg-gray-800 rounded-lg shadow-inner border border-gray-200 dark:border-gray-700 flex items-center justify-center">
+                    <div className="w-full h-16 bg-white dark:bg-gray-800 rounded-lg shadow-inner border border-border flex items-center justify-center">
                       <span className="text-xs font-medium">shadow-inner</span>
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <div className="w-full h-16 bg-white dark:bg-gray-800 rounded-lg shadow-none border border-gray-200 dark:border-gray-700 flex items-center justify-center">
+                    <div className="w-full h-16 bg-white dark:bg-gray-800 rounded-lg shadow-none border border-border flex items-center justify-center">
                       <span className="text-xs font-medium">shadow-none</span>
                     </div>
                   </div>
@@ -119,7 +116,7 @@ export function EffectsUtilities() {
                   Text shadow effects with different intensities
                 </Typography>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-3 p-6 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
+                  <div className="space-y-3 p-6 bg-white dark:bg-gray-800 rounded-lg border border-border">
                     <div className="text-2xl font-bold text-shadow-sm text-gray-900 dark:text-white">
                       text-shadow-sm
                     </div>

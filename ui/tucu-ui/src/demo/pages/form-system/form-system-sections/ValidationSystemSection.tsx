@@ -154,7 +154,8 @@ export const formValidations: FormValidations<FormValues> = {
             tag="p"
             className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto"
           >
-            Two ways to define validation — centralized schema or per-field rules
+            Two ways to define validation — centralized schema or per-field
+            rules
           </Typography>
         </div>
 
@@ -171,11 +172,11 @@ export const formValidations: FormValidations<FormValues> = {
                     className="text-sm text-gray-600 dark:text-gray-400"
                   >
                     Define all rules in one{' '}
-                    <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
+                    <code className="px-1 py-0.5 border border-border rounded text-xs">
                       FormValidations
                     </code>{' '}
                     object, pass to Form via{' '}
-                    <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
+                    <code className="px-1 py-0.5 border border-border rounded text-xs">
                       validationSchema
                     </code>
                     .
@@ -198,11 +199,11 @@ export const formValidations: FormValidations<FormValues> = {
                     className="text-sm text-gray-600 dark:text-gray-400"
                   >
                     Define rules directly on{' '}
-                    <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
+                    <code className="px-1 py-0.5 border border-border rounded text-xs">
                       FormField
                     </code>{' '}
                     via the{' '}
-                    <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
+                    <code className="px-1 py-0.5 border border-border rounded text-xs">
                       rules
                     </code>{' '}
                     prop. Overrides schema for that field.
@@ -224,11 +225,11 @@ export const formValidations: FormValidations<FormValues> = {
             </div>
             <Typography tag="p" className="text-sm">
               Both approaches can be used together. The{' '}
-              <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
+              <code className="px-1 py-0.5 border border-border rounded text-xs">
                 rules
               </code>{' '}
               prop on FormField takes precedence over{' '}
-              <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
+              <code className="px-1 py-0.5 border border-border rounded text-xs">
                 validationSchema
               </code>{' '}
               for that specific field.

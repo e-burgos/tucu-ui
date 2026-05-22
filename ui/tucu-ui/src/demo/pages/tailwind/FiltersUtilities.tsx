@@ -26,10 +26,7 @@ export function FiltersUtilities() {
       {/* Filters Architecture */}
       <section className="space-y-8">
         <div className="text-center">
-          <Typography
-            tag="h2"
-            className="mb-2"
-          >
+          <Typography tag="h2" className="mb-2">
             Filters & Backdrop Effects
           </Typography>
           <Typography
@@ -57,56 +54,56 @@ export function FiltersUtilities() {
                 </Typography>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                   <div className="space-y-2">
-                    <div className="w-full h-16 bg-linear-to-r from-brand to-blue-500 rounded-lg blur-none border border-gray-300 dark:border-gray-600 flex items-center justify-center">
+                    <div className="w-full h-16 bg-linear-to-r from-brand to-blue-500 rounded-lg blur-none border border-border flex items-center justify-center">
                       <span className="text-xs text-white font-medium z-10 relative">
                         blur-none
                       </span>
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <div className="w-full h-16 bg-linear-to-r from-brand to-blue-500 rounded-lg blur-sm border border-gray-300 dark:border-gray-600 flex items-center justify-center">
+                    <div className="w-full h-16 bg-linear-to-r from-brand to-blue-500 rounded-lg blur-sm border border-border flex items-center justify-center">
                       <span className="text-xs text-white font-medium z-10 relative">
                         blur-sm
                       </span>
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <div className="w-full h-16 bg-linear-to-r from-green-500 to-purple-500 rounded-lg blur border border-gray-300 dark:border-gray-600 flex items-center justify-center">
+                    <div className="w-full h-16 bg-linear-to-r from-green-500 to-purple-500 rounded-lg blur border border-border flex items-center justify-center">
                       <span className="text-xs text-white font-medium z-10 relative">
                         blur
                       </span>
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <div className="w-full h-16 bg-linear-to-r from-pink-500 to-orange-500 rounded-lg blur-md border border-gray-300 dark:border-gray-600 flex items-center justify-center">
+                    <div className="w-full h-16 bg-linear-to-r from-pink-500 to-orange-500 rounded-lg blur-md border border-border flex items-center justify-center">
                       <span className="text-xs text-white font-medium z-10 relative">
                         blur-md
                       </span>
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <div className="w-full h-16 bg-linear-to-r from-red-500 to-yellow-500 rounded-lg blur-lg border border-gray-300 dark:border-gray-600 flex items-center justify-center">
+                    <div className="w-full h-16 bg-linear-to-r from-red-500 to-yellow-500 rounded-lg blur-lg border border-border flex items-center justify-center">
                       <span className="text-xs text-white font-medium z-10 relative">
                         blur-lg
                       </span>
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <div className="w-full h-16 bg-linear-to-r from-indigo-500 to-cyan-500 rounded-lg blur-xl border border-gray-300 dark:border-gray-600 flex items-center justify-center">
+                    <div className="w-full h-16 bg-linear-to-r from-indigo-500 to-cyan-500 rounded-lg blur-xl border border-border flex items-center justify-center">
                       <span className="text-xs text-white font-medium z-10 relative">
                         blur-xl
                       </span>
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <div className="w-full h-16 bg-linear-to-r from-purple-500 to-pink-500 rounded-lg blur-2xl border border-gray-300 dark:border-gray-600 flex items-center justify-center">
+                    <div className="w-full h-16 bg-linear-to-r from-purple-500 to-pink-500 rounded-lg blur-2xl border border-border flex items-center justify-center">
                       <span className="text-xs text-white font-medium z-10 relative">
                         blur-2xl
                       </span>
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <div className="w-full h-16 bg-linear-to-r from-teal-500 to-green-500 rounded-lg blur-3xl border border-gray-300 dark:border-gray-600 flex items-center justify-center">
+                    <div className="w-full h-16 bg-linear-to-r from-teal-500 to-green-500 rounded-lg blur-3xl border border-border flex items-center justify-center">
                       <span className="text-xs text-white font-medium z-10 relative">
                         blur-3xl
                       </span>
@@ -135,35 +132,35 @@ export function FiltersUtilities() {
                 </Typography>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                   <div className="space-y-2">
-                    <div className="w-full h-16 bg-linear-to-r from-brand to-blue-500 rounded-lg brightness-0 border border-gray-300 dark:border-gray-600 flex items-center justify-center">
+                    <div className="w-full h-16 bg-linear-to-r from-brand to-blue-500 rounded-lg brightness-0 border border-border flex items-center justify-center">
                       <span className="text-xs text-white font-medium z-10 relative">
                         brightness-0
                       </span>
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <div className="w-full h-16 bg-linear-to-r from-brand to-blue-500 rounded-lg brightness-50 border border-gray-300 dark:border-gray-600 flex items-center justify-center">
+                    <div className="w-full h-16 bg-linear-to-r from-brand to-blue-500 rounded-lg brightness-50 border border-border flex items-center justify-center">
                       <span className="text-xs text-white font-medium z-10 relative">
                         brightness-50
                       </span>
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <div className="w-full h-16 bg-linear-to-r from-green-500 to-purple-500 rounded-lg brightness-100 border border-gray-300 dark:border-gray-600 flex items-center justify-center">
+                    <div className="w-full h-16 bg-linear-to-r from-green-500 to-purple-500 rounded-lg brightness-100 border border-border flex items-center justify-center">
                       <span className="text-xs text-white font-medium z-10 relative">
                         brightness-100
                       </span>
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <div className="w-full h-16 bg-linear-to-r from-pink-500 to-orange-500 rounded-lg brightness-150 border border-gray-300 dark:border-gray-600 flex items-center justify-center">
+                    <div className="w-full h-16 bg-linear-to-r from-pink-500 to-orange-500 rounded-lg brightness-150 border border-border flex items-center justify-center">
                       <span className="text-xs text-white font-medium z-10 relative">
                         brightness-150
                       </span>
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <div className="w-full h-16 bg-linear-to-r from-red-500 to-yellow-500 rounded-lg brightness-200 border border-gray-300 dark:border-gray-600 flex items-center justify-center">
+                    <div className="w-full h-16 bg-linear-to-r from-red-500 to-yellow-500 rounded-lg brightness-200 border border-border flex items-center justify-center">
                       <span className="text-xs text-black font-medium z-10 relative">
                         brightness-200
                       </span>
@@ -192,42 +189,42 @@ export function FiltersUtilities() {
                 </Typography>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                   <div className="space-y-2">
-                    <div className="w-full h-16 bg-linear-to-r from-gray-300 to-gray-700 rounded-lg contrast-0 border border-gray-300 dark:border-gray-600 flex items-center justify-center">
+                    <div className="w-full h-16 bg-linear-to-r from-gray-300 to-gray-700 rounded-lg contrast-0 border border-border flex items-center justify-center">
                       <span className="text-xs text-white font-medium z-10 relative">
                         contrast-0
                       </span>
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <div className="w-full h-16 bg-linear-to-r from-gray-300 to-gray-700 rounded-lg contrast-50 border border-gray-300 dark:border-gray-600 flex items-center justify-center">
+                    <div className="w-full h-16 bg-linear-to-r from-gray-300 to-gray-700 rounded-lg contrast-50 border border-border flex items-center justify-center">
                       <span className="text-xs text-white font-medium z-10 relative">
                         contrast-50
                       </span>
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <div className="w-full h-16 bg-linear-to-r from-gray-300 to-gray-700 rounded-lg contrast-100 border border-gray-300 dark:border-gray-600 flex items-center justify-center">
+                    <div className="w-full h-16 bg-linear-to-r from-gray-300 to-gray-700 rounded-lg contrast-100 border border-border flex items-center justify-center">
                       <span className="text-xs text-white font-medium z-10 relative">
                         contrast-100
                       </span>
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <div className="w-full h-16 bg-linear-to-r from-gray-300 to-gray-700 rounded-lg contrast-125 border border-gray-300 dark:border-gray-600 flex items-center justify-center">
+                    <div className="w-full h-16 bg-linear-to-r from-gray-300 to-gray-700 rounded-lg contrast-125 border border-border flex items-center justify-center">
                       <span className="text-xs text-black font-medium z-10 relative">
                         contrast-125
                       </span>
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <div className="w-full h-16 bg-linear-to-r from-gray-300 to-gray-700 rounded-lg contrast-150 border border-gray-300 dark:border-gray-600 flex items-center justify-center">
+                    <div className="w-full h-16 bg-linear-to-r from-gray-300 to-gray-700 rounded-lg contrast-150 border border-border flex items-center justify-center">
                       <span className="text-xs text-black font-medium z-10 relative">
                         contrast-150
                       </span>
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <div className="w-full h-16 bg-linear-to-r from-gray-300 to-gray-700 rounded-lg contrast-200 border border-gray-300 dark:border-gray-600 flex items-center justify-center">
+                    <div className="w-full h-16 bg-linear-to-r from-gray-300 to-gray-700 rounded-lg contrast-200 border border-border flex items-center justify-center">
                       <span className="text-xs text-black font-medium z-10 relative">
                         contrast-200
                       </span>
@@ -256,42 +253,42 @@ export function FiltersUtilities() {
                 </Typography>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                   <div className="space-y-2">
-                    <div className="w-full h-16 bg-linear-to-r from-red-500 to-yellow-500 rounded-lg hue-rotate-15 border border-gray-300 dark:border-gray-600 flex items-center justify-center">
+                    <div className="w-full h-16 bg-linear-to-r from-red-500 to-yellow-500 rounded-lg hue-rotate-15 border border-border flex items-center justify-center">
                       <span className="text-xs text-white font-medium z-10 relative">
                         hue-rotate-15
                       </span>
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <div className="w-full h-16 bg-linear-to-r from-red-500 to-yellow-500 rounded-lg hue-rotate-90 border border-gray-300 dark:border-gray-600 flex items-center justify-center">
+                    <div className="w-full h-16 bg-linear-to-r from-red-500 to-yellow-500 rounded-lg hue-rotate-90 border border-border flex items-center justify-center">
                       <span className="text-xs text-white font-medium z-10 relative">
                         hue-rotate-90
                       </span>
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <div className="w-full h-16 bg-linear-to-r from-red-500 to-yellow-500 rounded-lg hue-rotate-180 border border-gray-300 dark:border-gray-600 flex items-center justify-center">
+                    <div className="w-full h-16 bg-linear-to-r from-red-500 to-yellow-500 rounded-lg hue-rotate-180 border border-border flex items-center justify-center">
                       <span className="text-xs text-white font-medium z-10 relative">
                         hue-rotate-180
                       </span>
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <div className="w-full h-16 bg-linear-to-r from-red-500 to-yellow-500 rounded-lg saturate-0 border border-gray-300 dark:border-gray-600 flex items-center justify-center">
+                    <div className="w-full h-16 bg-linear-to-r from-red-500 to-yellow-500 rounded-lg saturate-0 border border-border flex items-center justify-center">
                       <span className="text-xs text-white font-medium z-10 relative">
                         saturate-0
                       </span>
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <div className="w-full h-16 bg-linear-to-r from-red-500 to-yellow-500 rounded-lg saturate-50 border border-gray-300 dark:border-gray-600 flex items-center justify-center">
+                    <div className="w-full h-16 bg-linear-to-r from-red-500 to-yellow-500 rounded-lg saturate-50 border border-border flex items-center justify-center">
                       <span className="text-xs text-white font-medium z-10 relative">
                         saturate-50
                       </span>
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <div className="w-full h-16 bg-linear-to-r from-red-500 to-yellow-500 rounded-lg saturate-150 border border-gray-300 dark:border-gray-600 flex items-center justify-center">
+                    <div className="w-full h-16 bg-linear-to-r from-red-500 to-yellow-500 rounded-lg saturate-150 border border-border flex items-center justify-center">
                       <span className="text-xs text-white font-medium z-10 relative">
                         saturate-150
                       </span>
@@ -313,28 +310,28 @@ export function FiltersUtilities() {
                 </Typography>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                   <div className="space-y-2">
-                    <div className="w-full h-16 bg-linear-to-r from-red-500 to-yellow-500 rounded-lg grayscale border border-gray-300 dark:border-gray-600 flex items-center justify-center">
+                    <div className="w-full h-16 bg-linear-to-r from-red-500 to-yellow-500 rounded-lg grayscale border border-border flex items-center justify-center">
                       <span className="text-xs text-gray-800 font-medium z-10 relative">
                         grayscale
                       </span>
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <div className="w-full h-16 bg-linear-to-r from-red-500 to-yellow-500 rounded-lg sepia border border-gray-300 dark:border-gray-600 flex items-center justify-center">
+                    <div className="w-full h-16 bg-linear-to-r from-red-500 to-yellow-500 rounded-lg sepia border border-border flex items-center justify-center">
                       <span className="text-xs text-gray-800 font-medium z-10 relative">
                         sepia
                       </span>
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <div className="w-full h-16 bg-linear-to-r from-red-500 to-yellow-500 rounded-lg invert border border-gray-300 dark:border-gray-600 flex items-center justify-center">
+                    <div className="w-full h-16 bg-linear-to-r from-red-500 to-yellow-500 rounded-lg invert border border-border flex items-center justify-center">
                       <span className="text-xs text-white font-medium z-10 relative">
                         invert
                       </span>
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <div className="w-full h-16 bg-linear-to-r from-red-500 to-yellow-500 rounded-lg grayscale invert border border-gray-300 dark:border-gray-600 flex items-center justify-center">
+                    <div className="w-full h-16 bg-linear-to-r from-red-500 to-yellow-500 rounded-lg grayscale invert border border-border flex items-center justify-center">
                       <span className="text-xs text-white font-medium z-10 relative">
                         grayscale + invert
                       </span>

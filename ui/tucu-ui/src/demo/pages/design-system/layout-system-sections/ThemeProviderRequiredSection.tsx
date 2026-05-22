@@ -44,7 +44,7 @@ const ThemeProviderRequiredSection: React.FC = () => {
             your application with ThemeProvider. All layout components and theme
             hooks depend on the theme context provided by ThemeProvider. Located
             in{' '}
-            <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-700 rounded text-xs">
+            <code className="px-1 py-0.5 border border-border dark:border-border rounded text-xs">
               ui/tucu-ui/src/themes/components/theme-provider
             </code>
             .
@@ -57,7 +57,7 @@ const ThemeProviderRequiredSection: React.FC = () => {
           <div className="w-full space-y-6 p-4 sm:p-6">
             <Typography tag="p" className="text-gray-600 dark:text-gray-400">
               <strong>ThemeProvider</strong> includes{' '}
-              <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-700 rounded text-xs">
+              <code className="px-1 py-0.5 border border-border dark:border-border rounded text-xs">
                 BrowserRouter
               </code>{' '}
               from React Router and handles routing automatically. You have two

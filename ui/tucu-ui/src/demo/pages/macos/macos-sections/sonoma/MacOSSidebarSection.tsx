@@ -14,17 +14,44 @@ const DEMO_SECTIONS = [
   {
     label: 'Favorites',
     items: [
-      { id: 'inbox', label: 'Inbox', icon: <LucideIcons.Inbox className="w-4 h-4" />, badge: 12 },
-      { id: 'starred', label: 'Starred', icon: <LucideIcons.Star className="w-4 h-4" /> },
-      { id: 'sent', label: 'Sent', icon: <LucideIcons.Send className="w-4 h-4" /> },
+      {
+        id: 'inbox',
+        label: 'Inbox',
+        icon: <LucideIcons.Inbox className="w-4 h-4" />,
+        badge: 12,
+      },
+      {
+        id: 'starred',
+        label: 'Starred',
+        icon: <LucideIcons.Star className="w-4 h-4" />,
+      },
+      {
+        id: 'sent',
+        label: 'Sent',
+        icon: <LucideIcons.Send className="w-4 h-4" />,
+      },
     ],
   },
   {
     label: 'Folders',
     items: [
-      { id: 'work', label: 'Work', icon: <LucideIcons.Briefcase className="w-4 h-4" />, badge: 3 },
-      { id: 'personal', label: 'Personal', icon: <LucideIcons.User className="w-4 h-4" /> },
-      { id: 'archive', label: 'Archive', icon: <LucideIcons.Archive className="w-4 h-4" />, disabled: true },
+      {
+        id: 'work',
+        label: 'Work',
+        icon: <LucideIcons.Briefcase className="w-4 h-4" />,
+        badge: 3,
+      },
+      {
+        id: 'personal',
+        label: 'Personal',
+        icon: <LucideIcons.User className="w-4 h-4" />,
+      },
+      {
+        id: 'archive',
+        label: 'Archive',
+        icon: <LucideIcons.Archive className="w-4 h-4" />,
+        disabled: true,
+      },
     ],
   },
 ];
@@ -33,7 +60,7 @@ const DEMO_SECTIONS = [
 function SidebarPlayground(props: { activeId?: string }) {
   const [active, setActive] = useState(props.activeId || 'inbox');
   return (
-    <div className="flex h-64 rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700">
+    <div className="flex h-64 rounded-xl overflow-hidden border border-border">
       <MacSidebarCard
         sections={DEMO_SECTIONS}
         activeId={active}
@@ -45,7 +72,10 @@ function SidebarPlayground(props: { activeId?: string }) {
         }
       />
       <div className="flex flex-1 items-center justify-center bg-gray-50 dark:bg-gray-900 text-sm text-gray-500">
-        Active: <span className="ml-1 font-medium text-gray-800 dark:text-gray-200">{active}</span>
+        Active:{' '}
+        <span className="ml-1 font-medium text-gray-800 dark:text-gray-200">
+          {active}
+        </span>
       </div>
     </div>
   );
@@ -69,7 +99,7 @@ export const MacOSSidebarSection: React.FC = () => {
       <CardContainer className="overflow-hidden">
         <CardTitle title="Interactive Sidebar" className="mt-2 mb-2">
           <div className="w-full p-4 sm:p-6">
-            <div className="flex h-72 rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700 shadow-sm">
+            <div className="flex h-72 rounded-xl overflow-hidden border border-border shadow-sm">
               <MacSidebarCard
                 sections={DEMO_SECTIONS}
                 activeId={activeId}
@@ -100,14 +130,26 @@ export const MacOSSidebarSection: React.FC = () => {
       <CardContainer className="overflow-hidden">
         <CardTitle title="Without Section Labels" className="mt-2 mb-2">
           <div className="w-full p-4 sm:p-6">
-            <div className="flex h-56 rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700 shadow-sm">
+            <div className="flex h-56 rounded-xl overflow-hidden border border-border shadow-sm">
               <MacSidebarCard
                 sections={[
                   {
                     items: [
-                      { id: 'home', label: 'Home', icon: <LucideIcons.Home className="w-4 h-4" /> },
-                      { id: 'search', label: 'Search', icon: <LucideIcons.Search className="w-4 h-4" /> },
-                      { id: 'settings', label: 'Settings', icon: <LucideIcons.Settings className="w-4 h-4" /> },
+                      {
+                        id: 'home',
+                        label: 'Home',
+                        icon: <LucideIcons.Home className="w-4 h-4" />,
+                      },
+                      {
+                        id: 'search',
+                        label: 'Search',
+                        icon: <LucideIcons.Search className="w-4 h-4" />,
+                      },
+                      {
+                        id: 'settings',
+                        label: 'Settings',
+                        icon: <LucideIcons.Settings className="w-4 h-4" />,
+                      },
                     ],
                   },
                 ]}
@@ -123,17 +165,35 @@ export const MacOSSidebarSection: React.FC = () => {
       </CardContainer>
 
       <CardContainer className="overflow-hidden">
-        <CardTitle title="With Badge Counts & Disabled Items" className="mt-2 mb-2">
+        <CardTitle
+          title="With Badge Counts & Disabled Items"
+          className="mt-2 mb-2"
+        >
           <div className="w-full p-4 sm:p-6">
-            <div className="flex h-64 rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700 shadow-sm">
+            <div className="flex h-64 rounded-xl overflow-hidden border border-border shadow-sm">
               <MacSidebarCard
                 sections={[
                   {
                     label: 'Notifications',
                     items: [
-                      { id: 'all', label: 'All', icon: <LucideIcons.Bell className="w-4 h-4" />, badge: 42 },
-                      { id: 'mentions', label: 'Mentions', icon: <LucideIcons.AtSign className="w-4 h-4" />, badge: 7 },
-                      { id: 'muted', label: 'Muted', icon: <LucideIcons.BellOff className="w-4 h-4" />, disabled: true },
+                      {
+                        id: 'all',
+                        label: 'All',
+                        icon: <LucideIcons.Bell className="w-4 h-4" />,
+                        badge: 42,
+                      },
+                      {
+                        id: 'mentions',
+                        label: 'Mentions',
+                        icon: <LucideIcons.AtSign className="w-4 h-4" />,
+                        badge: 7,
+                      },
+                      {
+                        id: 'muted',
+                        label: 'Muted',
+                        icon: <LucideIcons.BellOff className="w-4 h-4" />,
+                        disabled: true,
+                      },
                     ],
                   },
                 ]}
@@ -154,7 +214,19 @@ export const MacOSSidebarSection: React.FC = () => {
           activeId: 'inbox',
         }}
         controlOverrides={[
-          { name: 'activeId', type: 'select', options: ['inbox', 'starred', 'sent', 'work', 'personal', 'archive'], description: 'Currently active item ID' },
+          {
+            name: 'activeId',
+            type: 'select',
+            options: [
+              'inbox',
+              'starred',
+              'sent',
+              'work',
+              'personal',
+              'archive',
+            ],
+            description: 'Currently active item ID',
+          },
         ]}
         includeProps={['activeId']}
         excludeProps={['className', 'sections', 'onSelect', 'header', 'footer']}

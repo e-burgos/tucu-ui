@@ -21,10 +21,7 @@ export function TypographyUtilities() {
       {/* Typography Architecture */}
       <section className="space-y-8">
         <div className="text-center">
-          <Typography
-            tag="h2"
-            className="mb-2"
-          >
+          <Typography tag="h2" className="mb-2">
             Font & Text Styling
           </Typography>
           <Typography
@@ -53,7 +50,7 @@ export function TypographyUtilities() {
                 </Typography>
                 <div className="grid grid-cols-1 gap-4">
                   <div className="space-y-2">
-                    <div className="p-4 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+                    <div className="p-4 bg-white dark:bg-gray-800 border border-border rounded-lg">
                       <p className="font-sans text-lg">
                         <strong className="text-brand">font-sans:</strong> The
                         quick brown fox jumps over the lazy dog
@@ -61,7 +58,7 @@ export function TypographyUtilities() {
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <div className="p-4 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+                    <div className="p-4 bg-white dark:bg-gray-800 border border-border rounded-lg">
                       <p className="font-serif text-lg">
                         <strong className="text-brand">font-serif:</strong> The
                         quick brown fox jumps over the lazy dog
@@ -69,7 +66,7 @@ export function TypographyUtilities() {
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <div className="p-4 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+                    <div className="p-4 bg-white dark:bg-gray-800 border border-border rounded-lg">
                       <p className="font-mono text-lg">
                         <strong className="text-brand">font-mono:</strong> The
                         quick brown fox jumps over the lazy dog
@@ -99,7 +96,7 @@ export function TypographyUtilities() {
                 </Typography>
                 <div className="space-y-4">
                   <div className="space-y-2">
-                    <div className="p-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded">
+                    <div className="p-2 bg-white dark:bg-gray-800 border border-border rounded">
                       <span className="text-xs text-brand">text-xs:</span>
                       <span className="text-xs ml-2">
                         The quick brown fox jumps over the lazy dog
@@ -107,7 +104,7 @@ export function TypographyUtilities() {
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <div className="p-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded">
+                    <div className="p-2 bg-white dark:bg-gray-800 border border-border rounded">
                       <span className="text-sm text-brand">text-sm:</span>
                       <span className="text-sm ml-2">
                         The quick brown fox jumps over the lazy dog
@@ -115,7 +112,7 @@ export function TypographyUtilities() {
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <div className="p-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded">
+                    <div className="p-2 bg-white dark:bg-gray-800 border border-border rounded">
                       <span className="text-base text-brand">text-base:</span>
                       <span className="text-base ml-2">
                         The quick brown fox jumps over the lazy dog
@@ -123,7 +120,7 @@ export function TypographyUtilities() {
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <div className="p-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded">
+                    <div className="p-2 bg-white dark:bg-gray-800 border border-border rounded">
                       <span className="text-lg text-brand">text-lg:</span>
                       <span className="text-lg ml-2">
                         The quick brown fox jumps over the lazy dog
@@ -131,7 +128,7 @@ export function TypographyUtilities() {
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <div className="p-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded">
+                    <div className="p-2 bg-white dark:bg-gray-800 border border-border rounded">
                       <span className="text-xl text-brand">text-xl:</span>
                       <span className="text-xl ml-2">
                         The quick brown fox jumps over the lazy dog
@@ -139,7 +136,7 @@ export function TypographyUtilities() {
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <div className="p-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded">
+                    <div className="p-2 bg-white dark:bg-gray-800 border border-border rounded">
                       <span className="text-2xl text-brand">text-2xl:</span>
                       <span className="text-2xl ml-2">
                         The quick brown fox jumps
@@ -147,7 +144,7 @@ export function TypographyUtilities() {
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <div className="p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded">
+                    <div className="p-3 bg-white dark:bg-gray-800 border border-border rounded">
                       <span className="text-3xl text-brand">text-3xl:</span>
                       <span className="text-3xl ml-2">The quick brown</span>
                     </div>
@@ -175,7 +172,7 @@ export function TypographyUtilities() {
                 </Typography>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <div className="p-4 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+                    <div className="p-4 bg-white dark:bg-gray-800 border border-border rounded-lg">
                       <p className="antialiased text-lg">
                         <strong className="text-brand">antialiased:</strong> The
                         quick brown fox jumps over the lazy dog
@@ -186,7 +183,7 @@ export function TypographyUtilities() {
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <div className="p-4 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+                    <div className="p-4 bg-white dark:bg-gray-800 border border-border rounded-lg">
                       <p className="subpixel-antialiased text-lg">
                         <strong className="text-brand">
                           subpixel-antialiased:
@@ -221,7 +218,7 @@ export function TypographyUtilities() {
                 </Typography>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <div className="p-4 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+                    <div className="p-4 bg-white dark:bg-gray-800 border border-border rounded-lg">
                       <p className="not-italic text-lg">
                         <strong className="text-brand">not-italic:</strong> The
                         quick brown fox jumps over the lazy dog
@@ -229,7 +226,7 @@ export function TypographyUtilities() {
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <div className="p-4 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+                    <div className="p-4 bg-white dark:bg-gray-800 border border-border rounded-lg">
                       <p className="italic text-lg">
                         <strong className="text-brand">italic:</strong> The
                         quick brown fox jumps over the lazy dog
@@ -258,19 +255,19 @@ export function TypographyUtilities() {
                   Comprehensive font weight options from thin to black
                 </Typography>
                 <div className="space-y-3">
-                  <div className="p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded">
+                  <div className="p-3 bg-white dark:bg-gray-800 border border-border rounded">
                     <span className="font-thin text-sm text-brand">
                       font-thin (100):
                     </span>
                     <span className="font-thin ml-2">The quick brown fox</span>
                   </div>
-                  <div className="p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded">
+                  <div className="p-3 bg-white dark:bg-gray-800 border border-border rounded">
                     <span className="font-light text-sm text-brand">
                       font-light (300):
                     </span>
                     <span className="font-light ml-2">The quick brown fox</span>
                   </div>
-                  <div className="p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded">
+                  <div className="p-3 bg-white dark:bg-gray-800 border border-border rounded">
                     <span className="font-normal text-sm text-brand">
                       font-normal (400):
                     </span>
@@ -278,7 +275,7 @@ export function TypographyUtilities() {
                       The quick brown fox
                     </span>
                   </div>
-                  <div className="p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded">
+                  <div className="p-3 bg-white dark:bg-gray-800 border border-border rounded">
                     <span className="font-medium text-sm text-brand">
                       font-medium (500):
                     </span>
@@ -286,7 +283,7 @@ export function TypographyUtilities() {
                       The quick brown fox
                     </span>
                   </div>
-                  <div className="p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded">
+                  <div className="p-3 bg-white dark:bg-gray-800 border border-border rounded">
                     <span className="font-semibold text-sm text-brand">
                       font-semibold (600):
                     </span>
@@ -294,13 +291,13 @@ export function TypographyUtilities() {
                       The quick brown fox
                     </span>
                   </div>
-                  <div className="p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded">
+                  <div className="p-3 bg-white dark:bg-gray-800 border border-border rounded">
                     <span className="font-bold text-sm text-brand">
                       font-bold (700):
                     </span>
                     <span className="font-bold ml-2">The quick brown fox</span>
                   </div>
-                  <div className="p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded">
+                  <div className="p-3 bg-white dark:bg-gray-800 border border-border rounded">
                     <span className="font-black text-sm text-brand">
                       font-black (900):
                     </span>
@@ -333,19 +330,19 @@ export function TypographyUtilities() {
                       Number Styles
                     </Typography>
                     <div className="space-y-2">
-                      <div className="p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded">
+                      <div className="p-3 bg-white dark:bg-gray-800 border border-border rounded">
                         <span className="normal-nums text-sm text-brand">
                           normal-nums:
                         </span>
                         <span className="normal-nums ml-2">1234567890</span>
                       </div>
-                      <div className="p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded">
+                      <div className="p-3 bg-white dark:bg-gray-800 border border-border rounded">
                         <span className="lining-nums text-sm text-brand">
                           lining-nums:
                         </span>
                         <span className="lining-nums ml-2">1234567890</span>
                       </div>
-                      <div className="p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded">
+                      <div className="p-3 bg-white dark:bg-gray-800 border border-border rounded">
                         <span className="oldstyle-nums text-sm text-brand">
                           oldstyle-nums:
                         </span>
@@ -358,19 +355,19 @@ export function TypographyUtilities() {
                       Fraction & Spacing
                     </Typography>
                     <div className="space-y-2">
-                      <div className="p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded">
+                      <div className="p-3 bg-white dark:bg-gray-800 border border-border rounded">
                         <span className="diagonal-fractions text-sm text-brand">
                           diagonal-fractions:
                         </span>
                         <span className="diagonal-fractions ml-2">1/2 3/4</span>
                       </div>
-                      <div className="p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded">
+                      <div className="p-3 bg-white dark:bg-gray-800 border border-border rounded">
                         <span className="stacked-fractions text-sm text-brand">
                           stacked-fractions:
                         </span>
                         <span className="stacked-fractions ml-2">1/2 3/4</span>
                       </div>
-                      <div className="p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded">
+                      <div className="p-3 bg-white dark:bg-gray-800 border border-border rounded">
                         <span className="tabular-nums text-sm text-brand">
                           tabular-nums:
                         </span>
@@ -402,7 +399,7 @@ export function TypographyUtilities() {
                   Control space between characters for improved readability
                 </Typography>
                 <div className="space-y-3">
-                  <div className="p-4 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded">
+                  <div className="p-4 bg-white dark:bg-gray-800 border border-border rounded">
                     <span className="tracking-tighter text-sm text-brand">
                       tracking-tighter:
                     </span>
@@ -410,7 +407,7 @@ export function TypographyUtilities() {
                       The quick brown fox
                     </span>
                   </div>
-                  <div className="p-4 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded">
+                  <div className="p-4 bg-white dark:bg-gray-800 border border-border rounded">
                     <span className="tracking-tight text-sm text-brand">
                       tracking-tight:
                     </span>
@@ -418,7 +415,7 @@ export function TypographyUtilities() {
                       The quick brown fox
                     </span>
                   </div>
-                  <div className="p-4 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded">
+                  <div className="p-4 bg-white dark:bg-gray-800 border border-border rounded">
                     <span className="tracking-normal text-sm text-brand">
                       tracking-normal:
                     </span>
@@ -426,7 +423,7 @@ export function TypographyUtilities() {
                       The quick brown fox
                     </span>
                   </div>
-                  <div className="p-4 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded">
+                  <div className="p-4 bg-white dark:bg-gray-800 border border-border rounded">
                     <span className="tracking-wide text-sm text-brand">
                       tracking-wide:
                     </span>
@@ -434,7 +431,7 @@ export function TypographyUtilities() {
                       The quick brown fox
                     </span>
                   </div>
-                  <div className="p-4 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded">
+                  <div className="p-4 bg-white dark:bg-gray-800 border border-border rounded">
                     <span className="tracking-wider text-sm text-brand">
                       tracking-wider:
                     </span>
@@ -442,7 +439,7 @@ export function TypographyUtilities() {
                       The quick brown fox
                     </span>
                   </div>
-                  <div className="p-4 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded">
+                  <div className="p-4 bg-white dark:bg-gray-800 border border-border rounded">
                     <span className="tracking-widest text-sm text-brand">
                       tracking-widest:
                     </span>
@@ -477,7 +474,7 @@ export function TypographyUtilities() {
                       Line Clamp
                     </Typography>
                     <div className="space-y-2">
-                      <div className="w-full max-w-md h-20 p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded overflow-hidden">
+                      <div className="w-full max-w-md h-20 p-3 bg-white dark:bg-gray-800 border border-border rounded overflow-hidden">
                         <p className="line-clamp-2 text-sm">
                           <strong className="text-brand">line-clamp-2:</strong>{' '}
                           This is a long paragraph that will be truncated after
@@ -485,7 +482,7 @@ export function TypographyUtilities() {
                           beyond the second line.
                         </p>
                       </div>
-                      <div className="w-full max-w-md h-20 p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded overflow-hidden">
+                      <div className="w-full max-w-md h-20 p-3 bg-white dark:bg-gray-800 border border-border rounded overflow-hidden">
                         <p className="line-clamp-3 text-sm">
                           <strong className="text-brand">line-clamp-3:</strong>{' '}
                           This is a long paragraph that will be truncated after
@@ -500,14 +497,14 @@ export function TypographyUtilities() {
                       Line Height
                     </Typography>
                     <div className="space-y-2">
-                      <div className="p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded">
+                      <div className="p-3 bg-white dark:bg-gray-800 border border-border rounded">
                         <p className="leading-tight text-sm">
                           <strong className="text-brand">leading-tight:</strong>
                           <br />
                           Tight line spacing for compact layouts
                         </p>
                       </div>
-                      <div className="p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded">
+                      <div className="p-3 bg-white dark:bg-gray-800 border border-border rounded">
                         <p className="leading-normal text-sm">
                           <strong className="text-brand">
                             leading-normal:
@@ -516,7 +513,7 @@ export function TypographyUtilities() {
                           Standard line spacing for comfortable reading
                         </p>
                       </div>
-                      <div className="p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded">
+                      <div className="p-3 bg-white dark:bg-gray-800 border border-border rounded">
                         <p className="leading-loose text-sm">
                           <strong className="text-brand">leading-loose:</strong>
                           <br />
@@ -552,7 +549,7 @@ export function TypographyUtilities() {
                       List Position
                     </Typography>
                     <div className="space-y-2">
-                      <div className="p-4 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded">
+                      <div className="p-4 bg-white dark:bg-gray-800 border border-border rounded">
                         <ul className="list-inside text-sm">
                           <li>
                             <strong className="text-brand">list-inside:</strong>{' '}
@@ -562,7 +559,7 @@ export function TypographyUtilities() {
                           <li>Third item here</li>
                         </ul>
                       </div>
-                      <div className="p-4 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded">
+                      <div className="p-4 bg-white dark:bg-gray-800 border border-border rounded">
                         <ul className="list-outside text-sm">
                           <li>
                             <strong className="text-brand">
@@ -581,7 +578,7 @@ export function TypographyUtilities() {
                       List Types
                     </Typography>
                     <div className="space-y-2">
-                      <div className="p-4 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded">
+                      <div className="p-4 bg-white dark:bg-gray-800 border border-border rounded">
                         <ul className="list-disc text-sm">
                           <li>
                             <strong className="text-brand">list-disc:</strong>{' '}
@@ -591,7 +588,7 @@ export function TypographyUtilities() {
                           <li>Third item</li>
                         </ul>
                       </div>
-                      <div className="p-4 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded">
+                      <div className="p-4 bg-white dark:bg-gray-800 border border-border rounded">
                         <ol className="list-decimal text-sm">
                           <li>
                             <strong className="text-brand">
@@ -632,20 +629,20 @@ export function TypographyUtilities() {
                       Text Alignment
                     </Typography>
                     <div className="space-y-2">
-                      <div className="p-4 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded">
+                      <div className="p-4 bg-white dark:bg-gray-800 border border-border rounded">
                         <p className="text-left text-sm">
                           <strong className="text-brand">text-left:</strong>{' '}
                           Left aligned text for standard layouts
                         </p>
                       </div>
-                      <div className="p-4 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded">
+                      <div className="p-4 bg-white dark:bg-gray-800 border border-border rounded">
                         <p className="text-center text-sm">
                           <strong className="text-brand">text-center:</strong>{' '}
                           Center aligned text for headings
                         </p>
                       </div>
-                      <div className="p-4 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded">
-                        <p className="p-4 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded">
+                      <div className="p-4 bg-white dark:bg-gray-800 border border-border rounded">
+                        <p className="p-4 bg-white dark:bg-gray-800 border border-border rounded">
                           <p className="text-right text-sm">
                             <strong className="text-brand">text-right:</strong>{' '}
                             Right aligned text for special layouts
@@ -659,32 +656,32 @@ export function TypographyUtilities() {
                       Text Colors
                     </Typography>
                     <div className="grid grid-cols-2 gap-2">
-                      <div className="p-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded text-center">
+                      <div className="p-2 bg-white dark:bg-gray-800 border border-border rounded text-center">
                         <span className="text-brand text-sm block">
                           text-brand
                         </span>
                       </div>
-                      <div className="p-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded text-center">
+                      <div className="p-2 bg-white dark:bg-gray-800 border border-border rounded text-center">
                         <span className="text-red-500 text-sm block">
                           text-red-500
                         </span>
                       </div>
-                      <div className="p-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded text-center">
+                      <div className="p-2 bg-white dark:bg-gray-800 border border-border rounded text-center">
                         <span className="text-green-500 text-sm block">
                           text-green-500
                         </span>
                       </div>
-                      <div className="p-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded text-center">
+                      <div className="p-2 bg-white dark:bg-gray-800 border border-border rounded text-center">
                         <span className="text-blue-500 text-sm block">
                           text-blue-500
                         </span>
                       </div>
-                      <div className="p-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded text-center">
+                      <div className="p-2 bg-white dark:bg-gray-800 border border-border rounded text-center">
                         <span className="text-gray-600 text-sm block">
                           text-gray-600
                         </span>
                       </div>
-                      <div className="p-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded text-center">
+                      <div className="p-2 bg-white dark:bg-gray-800 border border-border rounded text-center">
                         <span className="text-gray-900 text-sm block">
                           text-gray-900
                         </span>
@@ -718,20 +715,20 @@ export function TypographyUtilities() {
                       Decoration Types
                     </Typography>
                     <div className="space-y-2">
-                      <div className="p-4 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded">
+                      <div className="p-4 bg-white dark:bg-gray-800 border border-border rounded">
                         <p className="underline text-lg">
                           <strong className="text-brand">underline:</strong>{' '}
                           Underlined text
                         </p>
                       </div>
-                      <div className="p-4 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded">
+                      <div className="p-4 bg-white dark:bg-gray-800 border border-border rounded">
                         <p className="overline text-lg">
                           <strong className="text-brand">overline:</strong>{' '}
                           Overlined text
                         </p>
                       </div>
-                      <div className="p-4 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded">
-                        <p className="p-4 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded">
+                      <div className="p-4 bg-white dark:bg-gray-800 border border-border rounded">
+                        <p className="p-4 bg-white dark:bg-gray-800 border border-border rounded">
                           <p className="line-through text-lg">
                             <strong className="text-brand">
                               line-through:
@@ -747,7 +744,7 @@ export function TypographyUtilities() {
                       Decoration Styles
                     </Typography>
                     <div className="space-y-2">
-                      <div className="p-4 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded">
+                      <div className="p-4 bg-white dark:bg-gray-800 border border-border rounded">
                         <p className="underline decoration-solid text-lg">
                           <strong className="text-brand">
                             decoration-solid:
@@ -755,7 +752,7 @@ export function TypographyUtilities() {
                           Solid underline
                         </p>
                       </div>
-                      <div className="p-4 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded">
+                      <div className="p-4 bg-white dark:bg-gray-800 border border-border rounded">
                         <p className="underline decoration-dashed text-lg">
                           <strong className="text-brand">
                             decoration-dashed:
@@ -763,7 +760,7 @@ export function TypographyUtilities() {
                           Dashed underline
                         </p>
                       </div>
-                      <div className="p-4 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded">
+                      <div className="p-4 bg-white dark:bg-gray-800 border border-border rounded">
                         <p className="underline decoration-wavy text-lg">
                           <strong className="text-brand">
                             decoration-wavy:
@@ -771,7 +768,7 @@ export function TypographyUtilities() {
                           Wavy underline
                         </p>
                       </div>
-                      <div className="p-4 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded">
+                      <div className="p-4 bg-white dark:bg-gray-800 border border-border rounded">
                         <p className="underline decoration-2 decoration-brand text-lg">
                           <strong className="text-brand">
                             decoration-2 decoration-brand:
@@ -808,25 +805,25 @@ export function TypographyUtilities() {
                       Text Transform
                     </Typography>
                     <div className="space-y-2">
-                      <div className="p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded">
+                      <div className="p-3 bg-white dark:bg-gray-800 border border-border rounded">
                         <span className="uppercase text-sm text-brand">
                           uppercase:
                         </span>
                         <span className="uppercase ml-2">hello world</span>
                       </div>
-                      <div className="p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded">
+                      <div className="p-3 bg-white dark:bg-gray-800 border border-border rounded">
                         <span className="lowercase text-sm text-brand">
                           lowercase:
                         </span>
                         <span className="lowercase ml-2">HELLO WORLD</span>
                       </div>
-                      <div className="p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded">
+                      <div className="p-3 bg-white dark:bg-gray-800 border border-border rounded">
                         <span className="capitalize text-sm text-brand">
                           capitalize:
                         </span>
                         <span className="capitalize ml-2">hello world</span>
                       </div>
-                      <div className="p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded">
+                      <div className="p-3 bg-white dark:bg-gray-800 border border-border rounded">
                         <span className="normal-case text-sm text-brand">
                           normal-case:
                         </span>
@@ -839,13 +836,13 @@ export function TypographyUtilities() {
                       Text Overflow
                     </Typography>
                     <div className="space-y-2">
-                      <div className="w-full max-w-xs h-12 p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded overflow-hidden">
+                      <div className="w-full max-w-xs h-12 p-3 bg-white dark:bg-gray-800 border border-border rounded overflow-hidden">
                         <p className="truncate text-sm">
                           <strong className="text-brand">truncate:</strong> This
                           text will be truncated with ellipsis if it's too long
                         </p>
                       </div>
-                      <div className="w-full max-w-xs h-12 p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded overflow-hidden">
+                      <div className="w-full max-w-xs h-12 p-3 bg-white dark:bg-gray-800 border border-border rounded overflow-hidden">
                         <p className="text-ellipsis text-sm overflow-hidden">
                           <strong className="text-brand">text-ellipsis:</strong>{' '}
                           This text will show ellipsis at the end
@@ -880,14 +877,14 @@ export function TypographyUtilities() {
                       Text Wrap
                     </Typography>
                     <div className="space-y-2">
-                      <div className="w-full max-w-md p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded">
+                      <div className="w-full max-w-md p-3 bg-white dark:bg-gray-800 border border-border rounded">
                         <p className="text-wrap text-sm">
                           <strong className="text-brand">text-wrap:</strong>{' '}
                           This text will wrap normally at word boundaries and
                           fill the available space.
                         </p>
                       </div>
-                      <div className="w-full max-w-md p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded overflow-hidden">
+                      <div className="w-full max-w-md p-3 bg-white dark:bg-gray-800 border border-border rounded overflow-hidden">
                         <p className="text-nowrap text-sm">
                           <strong className="text-brand">text-nowrap:</strong>{' '}
                           This text will not wrap and may overflow its
@@ -901,19 +898,19 @@ export function TypographyUtilities() {
                       Text Indent
                     </Typography>
                     <div className="space-y-2">
-                      <div className="w-full max-w-md p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded">
+                      <div className="w-full max-w-md p-3 bg-white dark:bg-gray-800 border border-border rounded">
                         <p className="indent-0 text-sm">
                           <strong className="text-brand">indent-0:</strong> No
                           indentation for the first line of text.
                         </p>
                       </div>
-                      <div className="w-full max-w-md p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded">
+                      <div className="w-full max-w-md p-3 bg-white dark:bg-gray-800 border border-border rounded">
                         <p className="indent-4 text-sm">
                           <strong className="text-brand">indent-4:</strong>{' '}
                           First line indented by 1rem for paragraph formatting.
                         </p>
                       </div>
-                      <div className="w-full max-w-md p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded">
+                      <div className="w-full max-w-md p-3 bg-white dark:bg-gray-800 border border-border rounded">
                         <p className="indent-8 text-sm">
                           <strong className="text-brand">indent-8:</strong>{' '}
                           First line indented by 2rem for deeper nesting.
@@ -948,21 +945,21 @@ export function TypographyUtilities() {
                       Vertical Align
                     </Typography>
                     <div className="space-y-3">
-                      <div className="h-16 p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded flex items-center">
+                      <div className="h-16 p-3 bg-white dark:bg-gray-800 border border-border rounded flex items-center">
                         <span className="w-4 h-4 bg-brand rounded align-baseline mr-2"></span>
                         <span className="text-sm text-brand">
                           align-baseline:
                         </span>
                         <span className="ml-2">Text aligned to baseline</span>
                       </div>
-                      <div className="h-16 p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded flex items-center">
+                      <div className="h-16 p-3 bg-white dark:bg-gray-800 border border-border rounded flex items-center">
                         <span className="w-4 h-4 bg-green-500 rounded align-middle mr-2"></span>
                         <span className="text-sm text-green-600">
                           align-middle:
                         </span>
                         <span className="ml-2">Text aligned to middle</span>
                       </div>
-                      <div className="h-16 p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded flex items-center">
+                      <div className="h-16 p-3 bg-white dark:bg-gray-800 border border-border rounded flex items-center">
                         <span className="w-4 h-4 bg-blue-500 rounded align-top mr-2"></span>
                         <span className="text-sm text-blue-600">
                           align-top:
@@ -976,7 +973,7 @@ export function TypographyUtilities() {
                       Whitespace
                     </Typography>
                     <div className="space-y-2">
-                      <div className="w-full max-w-md p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded">
+                      <div className="w-full max-w-md p-3 bg-white dark:bg-gray-800 border border-border rounded">
                         <p className="whitespace-normal text-sm">
                           <strong className="text-brand">
                             whitespace-normal:
@@ -984,7 +981,7 @@ export function TypographyUtilities() {
                           Normal whitespace handling with wrapping.
                         </p>
                       </div>
-                      <div className="w-full max-w-md p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded overflow-hidden">
+                      <div className="w-full max-w-md p-3 bg-white dark:bg-gray-800 border border-border rounded overflow-hidden">
                         <p className="whitespace-nowrap text-sm">
                           <strong className="text-brand">
                             whitespace-nowrap:
@@ -992,7 +989,7 @@ export function TypographyUtilities() {
                           No wrapping, may overflow.
                         </p>
                       </div>
-                      <div className="w-full max-w-md p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded">
+                      <div className="w-full max-w-md p-3 bg-white dark:bg-gray-800 border border-border rounded">
                         <p className="whitespace-pre text-sm">
                           <strong className="text-brand">
                             whitespace-pre:
@@ -1029,13 +1026,13 @@ export function TypographyUtilities() {
                       Word Break
                     </Typography>
                     <div className="space-y-2">
-                      <div className="w-full max-w-xs p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded">
+                      <div className="w-full max-w-xs p-3 bg-white dark:bg-gray-800 border border-border rounded">
                         <p className="break-normal text-sm">
                           <strong className="text-brand">break-normal:</strong>{' '}
                           Normal word breaking at natural boundaries.
                         </p>
                       </div>
-                      <div className="w-full max-w-xs p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded">
+                      <div className="w-full max-w-xs p-3 bg-white dark:bg-gray-800 border border-border rounded">
                         <p className="break-words text-sm">
                           <strong className="text-brand">break-words:</strong>{' '}
                           Verylongwordsthatwouldnormallyoverflow.
@@ -1048,13 +1045,13 @@ export function TypographyUtilities() {
                       Hyphens
                     </Typography>
                     <div className="space-y-2">
-                      <div className="w-full max-w-xs p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded">
+                      <div className="w-full max-w-xs p-3 bg-white dark:bg-gray-800 border border-border rounded">
                         <p className="hyphens-none text-sm">
                           <strong className="text-brand">hyphens-none:</strong>{' '}
                           No hyphenation, words may overflow.
                         </p>
                       </div>
-                      <div className="w-full max-w-xs p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded">
+                      <div className="w-full max-w-xs p-3 bg-white dark:bg-gray-800 border border-border rounded">
                         <p className="hyphens-auto text-sm">
                           <strong className="text-brand">hyphens-auto:</strong>{' '}
                           Automatic hyphenation when appropriate.
