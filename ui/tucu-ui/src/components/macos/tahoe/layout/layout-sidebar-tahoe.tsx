@@ -227,7 +227,7 @@ export function MacOSTahoeLayoutSidebar({
     <aside
       data-tucu={mobile ? 'macos-tahoe-drawer' : 'macos-tahoe-sidebar'}
       className={cn(
-        'flex h-full flex-col rounded-[30px] border border-(--macos-tahoe-border) bg-(--macos-tahoe-sidebar-bg) backdrop-blur-[30px]',
+        'flex h-full flex-col rounded-[30px] border border-border bg-(--macos-tahoe-sidebar-bg) backdrop-blur-[30px]',
         mobile
           ? 'pointer-events-auto w-[320px] max-w-[calc(100vw-24px)]'
           : 'mr-[16px] w-[240px] xl:w-[var(--macos-tahoe-sidebar-width,280px)] shrink-0',
@@ -236,7 +236,7 @@ export function MacOSTahoeLayoutSidebar({
     >
       <div
         data-tucu="macos-tahoe-sidebar-top"
-        className="flex h-(--macos-toolbar-height,58px) shrink-0 items-center border-b border-(--macos-tahoe-border) px-[20px]"
+        className="flex h-(--macos-toolbar-height,58px) shrink-0 items-center border-b border-border px-[20px]"
       >
         <div className="flex w-full items-center justify-between gap-[12px]">
           {logo && (
@@ -251,7 +251,7 @@ export function MacOSTahoeLayoutSidebar({
               type="button"
               aria-label="Close sidebar"
               onClick={onClose}
-              className="flex h-[28px] w-[28px] items-center justify-center rounded-full border border-white/10 bg-black/8 text-(--macos-tahoe-text-muted) transition-colors hover:bg-black/12 hover:text-(--macos-tahoe-text) dark:bg-white/6 dark:hover:bg-white/10"
+              className="flex h-[28px] w-[28px] items-center justify-center rounded-full border border-border bg-black/8 text-(--macos-tahoe-text-muted) transition-colors hover:bg-black/12 hover:text-(--macos-tahoe-text) dark:bg-white/6 dark:hover:bg-white/10"
             >
               <Close className="h-[14px] w-[14px]" width={14} height={14} />
             </button>

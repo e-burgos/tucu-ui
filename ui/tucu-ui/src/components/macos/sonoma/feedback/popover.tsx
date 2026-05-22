@@ -20,9 +20,9 @@ export interface MacOSPopoverProps {
 
 const PLACEMENT: Record<MacOSPopoverPlacement, string> = {
   bottom: 'top-full left-1/2 -translate-x-1/2 mt-[8px]',
-  top:    'bottom-full left-1/2 -translate-x-1/2 mb-[8px]',
-  left:   'right-full top-1/2 -translate-y-1/2 mr-[8px]',
-  right:  'left-full top-1/2 -translate-y-1/2 ml-[8px]',
+  top: 'bottom-full left-1/2 -translate-x-1/2 mb-[8px]',
+  left: 'right-full top-1/2 -translate-y-1/2 mr-[8px]',
+  right: 'left-full top-1/2 -translate-y-1/2 ml-[8px]',
 };
 
 // ─── MacOSPopover ──────────────────────────────────────────────
@@ -60,7 +60,7 @@ export function MacOSPopover({
             'absolute z-50',
             'overflow-hidden rounded-[16px]',
             'bg-[var(--macos-material-popover,rgba(255,255,255,0.90))] backdrop-blur-2xl',
-            'border border-[var(--color-semantic-line-primary-subtle)]',
+            'border border-[var(--color-border)]',
             'shadow-[var(--shadow-main)]',
             PLACEMENT[placement],
             contentClassName
@@ -106,11 +106,15 @@ export function MacOSPopoverItem({
       )}
     >
       {icon && (
-        <span className="h-[16px] w-[16px] shrink-0 text-gray-500 dark:text-gray-400">{icon}</span>
+        <span className="h-[16px] w-[16px] shrink-0 text-gray-500 dark:text-gray-400">
+          {icon}
+        </span>
       )}
       <span className="flex-1 text-left">{label}</span>
       {shortcut && (
-        <span className="shrink-0 text-[11px] text-gray-400 dark:text-gray-500">{shortcut}</span>
+        <span className="shrink-0 text-[11px] text-gray-400 dark:text-gray-500">
+          {shortcut}
+        </span>
       )}
     </button>
   );

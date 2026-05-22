@@ -20,9 +20,8 @@ export function MacOSToolbarSonoma({
       data-tucu="toolbar"
       className={cn(
         'relative z-20 flex h-(--macos-toolbar-height,58px) shrink-0 items-center gap-[12px] px-[24px]!',
-        !transparent &&
-          'bg-(--macos-material-toolbar,rgba(255,255,255,0.72)) backdrop-blur-xl ',
-        bordered && 'border-b border-black/10 dark:border-white/8',
+        !transparent && 'bg-(--macos-glass-regular-bg) backdrop-blur-xl',
+        bordered && 'border-b border-(--macos-separator)',
         className
       )}
     >
@@ -30,10 +29,10 @@ export function MacOSToolbarSonoma({
         <div className="flex shrink-0 items-center gap-[8px]">{leading}</div>
       )}
 
-      <div className="flex flex-1 items-center justify-center">
+      <div className="flex min-w-0 flex-1 items-center justify-center overflow-hidden">
         {center ??
           (title && (
-            <span className="select-none text-[13px] font-semibold text-gray-800 dark:text-gray-100">
+            <span className="select-none truncate text-[13px] font-semibold text-gray-800 dark:text-gray-100">
               {title}
             </span>
           ))}

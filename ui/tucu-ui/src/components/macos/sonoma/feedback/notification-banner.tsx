@@ -128,7 +128,7 @@ export function MacOSNotificationBanner({
       className={cn(
         'flex items-start gap-[12px] rounded-[12px] px-[16px] py-[12px]',
         'bg-[var(--macos-material-popover,rgba(255,255,255,0.90))] backdrop-blur-xl',
-        'border border-[var(--color-semantic-line-primary-subtle)] border-l-4',
+        'border border-[var(--color-border)] border-l-4',
         'shadow-[var(--shadow-card)]',
         VARIANT_ACCENT[variant],
         className

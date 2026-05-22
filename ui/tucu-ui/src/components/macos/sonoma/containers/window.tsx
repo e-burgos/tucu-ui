@@ -15,7 +15,10 @@ function TrafficLights({
   onMaximize,
 }: TrafficLightsProps) {
   return (
-    <div data-tucu="traffic-lights" className="group flex items-center gap-[8px]">
+    <div
+      data-tucu="traffic-lights"
+      className="group flex items-center gap-[8px]"
+    >
       <button
         data-tucu="traffic-light"
         data-type="close"
@@ -412,7 +415,7 @@ export function MacOSWindow({
           'flex flex-col',
           'rounded-[var(--macos-radius-xl,10px)]',
           'bg-[var(--color-semantic-elevation-1)]',
-          'border border-[var(--color-semantic-line-primary-subtle)]',
+          'border border-[var(--color-border)]',
           'shadow-[var(--shadow-main)]',
           isMaximized && 'rounded-none',
           (isDragging || isResizing) && 'select-none',
@@ -431,7 +434,7 @@ export function MacOSWindow({
             'flex h-[var(--macos-titlebar-height,52px)] shrink-0 items-center gap-[12px] px-[16px]',
             'rounded-t-[var(--macos-radius-xl,10px)]',
             'bg-[var(--macos-material-toolbar,rgba(255,255,255,0.72))] backdrop-blur-xl',
-            'border-b border-[var(--color-semantic-line-primary-subtle)]',
+            'border-b border-[var(--color-border)]',
             'select-none',
             draggable && !isMaximized && 'cursor-grab',
             isDragging && 'cursor-grabbing',
@@ -452,7 +455,9 @@ export function MacOSWindow({
           </span>
 
           {actions && (
-            <div className="flex shrink-0 items-center gap-[8px]">{actions}</div>
+            <div className="flex shrink-0 items-center gap-[8px]">
+              {actions}
+            </div>
           )}
 
           {lightsRight && (

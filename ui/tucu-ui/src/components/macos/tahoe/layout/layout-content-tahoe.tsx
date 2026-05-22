@@ -34,7 +34,7 @@ export function MacOSTahoeLayoutContent({
     <div
       data-tucu="macos-tahoe-shell"
       className={cn(
-        'flex min-w-0 flex-1 flex-col overflow-hidden rounded-[34px] border border-(--macos-tahoe-border) bg-(--macos-tahoe-panel-bg) backdrop-blur-[34px]',
+        'flex min-w-0 flex-1 flex-col overflow-hidden rounded-[34px] border border-border bg-(--macos-tahoe-panel-bg) backdrop-blur-[34px]',
         className
       )}
     >

@@ -9,6 +9,7 @@ import { useIsMobile } from '../../../hooks';
 import { MacOSSonomaLayoutSidebar } from '../../macos/sonoma/layout/layout-sidebar-sonoma';
 import { MacOSSonomaLayoutContent } from '../../macos/sonoma/layout/layout-content-sonoma';
 import { MacOSSonomaToast } from '../../macos/sonoma/feedback/macos-sonoma-toast';
+import { ThemeBackground, useTheme } from '../../../themes';
 import { findCurrentPageTitle } from './utils';
 
 // ─── Types ─────────────────────────────────────────────────────
@@ -37,6 +38,7 @@ export function MacOSSonomaLayout({
 }: MacOSSonomaLayoutProps) {
   const { pathname } = useLocation();
   const { isMobile } = useIsMobile();
+  const { backgroundVariant } = useTheme();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const currentPageTitle = findCurrentPageTitle(menuItems, pathname);
 
@@ -51,8 +53,11 @@ export function MacOSSonomaLayout({
   return (
     <div
       data-layout-variant="sonoma"
-      className={cn('flex h-full w-full overflow-hidden', className)}
+      className={cn('flex h-full w-full overflow-hidden relative', className)}
     >
+      {/* Background layer */}
+      <ThemeBackground mode="absolute" variant={backgroundVariant} />
+
       {/* Sidebar — desktop */}
       {!isMobile && (
         <MacOSSonomaLayoutSidebar menuItems={menuItems} logo={logo} />

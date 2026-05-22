@@ -6,8 +6,7 @@ import Logo, { LogoPropTypes } from '../../logos/logo';
 import { useIsMobile } from '../../../hooks';
 import { MacOSTahoeLayoutContent } from '../../macos/tahoe/layout/layout-content-tahoe';
 import { MacOSTahoeDock } from '../../macos/tahoe/layout/dock-tahoe';
-import { MacOSBackground } from '../../macos/tahoe/foundations/background';
-import { useTheme } from '../../../themes';
+import { ThemeBackground, useTheme } from '../../../themes';
 import { findCurrentPageTitle } from './utils';
 
 // ─── Types ─────────────────────────────────────────────────────
@@ -50,11 +49,7 @@ export function MacOSTahoeDockLayout({
       )}
     >
       {/* Background layer */}
-      <MacOSBackground
-        variant={backgroundVariant}
-        className="inset-0 h-full w-full"
-        style={{ position: 'absolute', zIndex: -1 }}
-      />
+      <ThemeBackground mode="absolute" variant={backgroundVariant} />
 
       {/* Main area — full width, no sidebar */}
       <MacOSTahoeLayoutContent
