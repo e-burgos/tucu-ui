@@ -113,7 +113,7 @@ export default function MacOSTahoeSection() {
       />
 
       <div
-        className="relative w-full h-[600px] border border-[var(--macos-tahoe-border,rgba(130,161,183,0.28))] rounded-2xl overflow-hidden bg-[var(--macos-spatial-bg)] group"
+        className="relative w-full h-[600px] border border-border rounded-2xl overflow-hidden bg-[var(--macos-spatial-bg)] group"
         style={{
           background: 'var(--macos-tahoe-root-bg, var(--macos-spatial-bg))',
         }}

@@ -41,7 +41,7 @@ export function MacOSWidget({
       className={cn(
         'relative flex flex-col overflow-hidden rounded-[20px]',
         WIDGET_SIZE[size],
-        'border border-[var(--color-semantic-line-primary-subtle)]',
+        'border border-[var(--color-border)]',
         'shadow-[var(--shadow-card)]',
         glass
           ? 'bg-[var(--macos-material-sidebar,rgba(246,246,248,0.82))] backdrop-blur-2xl'
@@ -64,7 +64,12 @@ export function MacOSWidgetHeader({
   className,
 }: MacOSWidgetHeaderProps) {
   return (
-    <div className={cn('flex items-start justify-between px-[16px] pt-[16px]', className)}>
+    <div
+      className={cn(
+        'flex items-start justify-between px-[16px] pt-[16px]',
+        className
+      )}
+    >
       <div className="flex items-center gap-[8px]">
         {icon && (
           <span className="flex h-[28px] w-[28px] shrink-0 items-center justify-center rounded-[8px] bg-[var(--color-semantic-bg-primary)]/10 text-[var(--color-semantic-bg-primary)]">
@@ -76,7 +81,9 @@ export function MacOSWidgetHeader({
             {title}
           </p>
           {subtitle && (
-            <p className="text-[11px] text-gray-500 dark:text-gray-400">{subtitle}</p>
+            <p className="text-[11px] text-gray-500 dark:text-gray-400">
+              {subtitle}
+            </p>
           )}
         </div>
       </div>

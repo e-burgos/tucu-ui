@@ -15,7 +15,7 @@
 /* ── Base card ───────────────────────────────────────────────── */
 html.macos-tahoe [data-tucu='card'] {
   border-radius: var(--macos-radius-xl);
-  border: 0.5px solid var(--macos-separator);
+  border: 0.5px solid var(--macos-tahoe-border);
   background-color: var(--macos-content-bg);
   box-shadow: var(--macos-shadow-card);
   transition: box-shadow var(--macos-transition-normal),
@@ -29,7 +29,7 @@ html.macos-tahoe [data-tucu='card']:hover {
 /* ── Dark mode ───────────────────────────────────────────────── */
 html.macos-tahoe.dark [data-tucu='card'] {
   background-color: var(--macos-content-bg);
-  border-color: var(--macos-separator);
+  border-color: var(--macos-tahoe-border);
   box-shadow: var(--macos-shadow-card);
 }
 
@@ -39,7 +39,7 @@ html.macos-tahoe.dark [data-tucu='card']:hover {
 
 /* ── Card header (internal) ──────────────────────────────────── */
 html.macos-tahoe [data-tucu='card-header'] {
-  border-bottom: 1px solid var(--macos-separator);
+  border-bottom: 1px solid var(--macos-tahoe-border);
   padding: var(--macos-space-3) var(--macos-space-4);
   font-weight: var(--macos-font-weight-semibold);
   font-size: var(--macos-font-size-body);
@@ -53,7 +53,7 @@ html.macos-tahoe [data-tucu='card-body'] {
 /* ── Stats / Info cards: tighter padding ─────────────────────── */
 html.macos-tahoe [data-tucu='stats-card'] {
   border-radius: var(--macos-radius-xl);
-  border: 0.5px solid var(--macos-separator);
+  border: 0.5px solid var(--macos-tahoe-border);
   background-color: var(--macos-content-bg);
   box-shadow: var(--macos-shadow-card);
   padding: var(--macos-space-3) var(--macos-space-4);
@@ -61,30 +61,30 @@ html.macos-tahoe [data-tucu='stats-card'] {
 
 html.macos-tahoe.dark [data-tucu='stats-card'] {
   background-color: var(--macos-content-bg);
-  border-color: var(--macos-separator);
+  border-color: var(--macos-tahoe-border);
 }
 
 /* ── Panel card (section containers) ─────────────────────────── */
 html.macos-tahoe [data-tucu='panel-card'] {
   border-radius: var(--macos-radius-xl);
-  border: 1px solid var(--macos-separator);
+  border: 1px solid var(--macos-tahoe-border);
   background-color: var(--macos-gray6);
   box-shadow: none;
 }
 
 html.macos-tahoe.dark [data-tucu='panel-card'] {
   background-color: var(--macos-gray5);
-  border-color: var(--macos-separator);
+  border-color: var(--macos-tahoe-border);
 }
 
 /* ── CardTitle (section with floating label) ─────────────────── */
 html.macos-tahoe [data-tucu='card-title'] {
   border-radius: var(--macos-radius-xl);
-  border-color: var(--macos-separator);
+  border-color: var(--macos-tahoe-border);
 }
 
 html.macos-tahoe.dark [data-tucu='card-title'] {
-  border-color: var(--macos-separator);
+  border-color: var(--macos-tahoe-border);
 }
 
 /* Floating label inherits card bg so it blends with the parent */
@@ -112,7 +112,7 @@ html.macos-tahoe [data-tucu='card'],
 html.macos-tahoe [data-tucu='panel-card'],
 html.macos-tahoe [data-tucu='info-card'] {
   background: var(--color-semantic-elevation-1);
-  border: 1px solid var(--color-semantic-line-primary-subtle);
+  border: 1px solid var(--macos-tahoe-border);
   border-radius: var(--macos-radius-lg);
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
@@ -121,5 +121,5 @@ html.macos-tahoe.dark [data-tucu='card'],
 html.macos-tahoe.dark [data-tucu='panel-card'],
 html.macos-tahoe.dark [data-tucu='info-card'] {
   background: var(--color-semantic-elevation-2);
-  border-color: rgba(255, 255, 255, 0.1);
+  border-color: var(--macos-tahoe-border);
 }

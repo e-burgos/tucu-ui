@@ -107,7 +107,7 @@ function DockItem({
         <div
           className={cn(
             'pointer-events-none absolute z-50 whitespace-nowrap rounded-[8px] px-[10px] py-[4px] text-[12px] font-medium shadow-lg',
-            'bg-(--macos-tahoe-panel-bg) text-(--macos-tahoe-text) border border-(--macos-tahoe-border) backdrop-blur-xl',
+            'bg-(--macos-tahoe-panel-bg) text-(--macos-tahoe-text) border border-border backdrop-blur-xl',
             isVertical
               ? 'left-full ml-[8px] top-1/2 -translate-y-1/2'
               : 'bottom-full mb-[8px] left-1/2 -translate-x-1/2'
@@ -123,7 +123,7 @@ function DockItem({
           className={cn(
             'absolute z-50 min-w-[180px] rounded-[16px] p-[6px]',
             'bg-(--macos-glass-prominent-bg) backdrop-blur-xl backdrop-saturate-[1.8]',
-            'border border-(--macos-glass-prominent-border,var(--macos-glass-border))',
+            'border border-border',
             'shadow-(--macos-glass-shadow,0_8px_32px_rgba(0,0,0,0.15))',
             'animate-in fade-in slide-in-from-bottom-2 duration-200',
             isVertical
@@ -260,7 +260,7 @@ function DockSeparator({ isVertical }: { isVertical: boolean }) {
   return (
     <div
       className={cn(
-        'shrink-0 rounded-full bg-(--macos-tahoe-border) opacity-60',
+        'shrink-0 rounded-full bg-(--macos-tahoe-toolbar-bg) opacity-60',
         isVertical
           ? 'mx-auto my-[4px] h-px w-[32px]'
           : 'my-auto mx-[4px] h-[32px] w-px'
@@ -412,7 +412,7 @@ export function MacOSTahoeDock({
         className={cn(
           'flex items-center rounded-[16px] origin-bottom',
           'bg-(--macos-glass-regular-bg) backdrop-blur-[68px] backdrop-saturate-[1.8]',
-          'border border-(--macos-glass-border)',
+          'border border-border',
           'shadow-(--macos-glass-shadow,0_0_6px_rgba(0,0,0,0.15))',
           isVertical
             ? 'flex-col gap-[4px] px-[6px] py-[8px] origin-left'

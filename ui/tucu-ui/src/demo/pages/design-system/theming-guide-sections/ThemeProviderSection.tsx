@@ -52,7 +52,7 @@ const ThemeProviderSection: React.FC = () => {
       type: 'object',
       default: '-',
       description:
-        'Custom color palette with 12 color slots (primary, darkPrimary, secondary, etc.)',
+        'Custom color palette with 24 color slots organized in groups: Brand (primary, accent), Surfaces (secondary, backgrounds), Text (fg, muted, border), and Status (success, warning, error, info) — each with light/dark variants',
     },
     {
       prop: 'logo',
@@ -133,7 +133,7 @@ const ThemeProviderSection: React.FC = () => {
             <div className="space-y-6">
               <Typography tag="p" className="text-gray-600 dark:text-gray-400">
                 Located in{' '}
-                <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
+                <code className="px-1 py-0.5 border border-border rounded text-xs">
                   ui/tucu-ui/src/themes/components/theme-provider/
                 </code>
               </Typography>

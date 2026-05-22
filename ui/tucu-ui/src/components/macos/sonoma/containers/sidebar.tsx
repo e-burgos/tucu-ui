@@ -42,7 +42,7 @@ export function MacSidebarCard({
         'flex h-full flex-col',
         'w-[var(--macos-sidebar-width,300px)] shrink-0',
         'bg-[var(--macos-material-toolbar,rgba(255,255,255,0.72))] backdrop-blur-xl',
-        'border-r border-[var(--color-semantic-line-primary-subtle)]',
+        'border-r border-[var(--color-border)]',
         className
       )}
     >
@@ -118,7 +118,7 @@ export function MacSidebarCard({
       </nav>
 
       {footer && (
-        <div className="shrink-0 border-t border-[var(--color-semantic-line-primary-subtle)] px-[12px] py-[12px]">
+        <div className="shrink-0 border-t border-[var(--color-border)] px-[12px] py-[12px]">
           {footer}
         </div>
       )}

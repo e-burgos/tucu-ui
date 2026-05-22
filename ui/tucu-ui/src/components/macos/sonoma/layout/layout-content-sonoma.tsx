@@ -42,7 +42,7 @@ export function MacOSSonomaLayoutContent({
       <main
         data-tucu="macos-sonoma-main"
         className={cn(
-          'relative flex-1 min-h-0 overflow-auto bg-(--macos-window-bg)',
+          'relative flex-1 min-h-0 overflow-auto bg-transparent',
           contentClassName
         )}
       >

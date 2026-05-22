@@ -28,13 +28,11 @@ const cardSizes = {
 };
 
 const cardVariants = {
-  default:
-    'bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700',
-  elevated:
-    'bg-white dark:bg-gray-800 shadow-lg border border-gray-200 dark:border-gray-700',
-  outlined: 'bg-transparent border-2 border-gray-200 dark:border-gray-700',
+  default: 'bg-white dark:bg-gray-800 border border-border',
+  elevated: 'bg-white dark:bg-gray-800 shadow-lg border border-border',
+  outlined: 'bg-transparent border-2 border-border',
   filled:
-    'bg-gray-100 dark:bg-gray-800 border border-gray-100 dark:border-gray-700',
+    'bg-gray-100 dark:bg-gray-800 border border-border dark:border-border',
 };
 
 export const CarouselCards: React.FC<CarouselCardsProps> = ({
@@ -106,7 +104,7 @@ export const CarouselCards: React.FC<CarouselCardsProps> = ({
 
           {/* Footer */}
           {card.footer && (
-            <div className="mt-auto pt-4 border-t border-gray-200 dark:border-gray-700">
+            <div className="mt-auto pt-4 border-t border-border">
               {card.footer}
             </div>
           )}

@@ -14,6 +14,18 @@ import {
   defaultLightBgPreset,
   defaultLightDarkPreset,
   defaultDarkLightDarkPreset,
+  defaultSuccessPreset,
+  defaultDarkSuccessPreset,
+  defaultWarningPreset,
+  defaultDarkWarningPreset,
+  defaultErrorPreset,
+  defaultDarkErrorPreset,
+  defaultInfoPreset,
+  defaultDarkInfoPreset,
+  defaultFgPreset,
+  defaultDarkFgPreset,
+  defaultBorderPreset,
+  defaultDarkBorderPreset,
 } from '../../config';
 
 export function SettingsButton() {
@@ -31,6 +43,18 @@ export function SettingsButton() {
     lightBgPreset,
     lightDarkPreset,
     darkLightDarkPreset,
+    successPreset,
+    darkSuccessPreset,
+    warningPreset,
+    darkWarningPreset,
+    errorPreset,
+    darkErrorPreset,
+    infoPreset,
+    darkInfoPreset,
+    fgPreset,
+    darkFgPreset,
+    borderPreset,
+    darkBorderPreset,
     direction,
     showSettings,
   } = useTheme();
@@ -66,6 +90,32 @@ export function SettingsButton() {
     darkLightDarkPreset: darkLightDarkPreset
       ? darkLightDarkPreset.value
       : defaultDarkLightDarkPreset.value,
+    successPreset: successPreset
+      ? successPreset.value
+      : defaultSuccessPreset.value,
+    darkSuccessPreset: darkSuccessPreset
+      ? darkSuccessPreset.value
+      : defaultDarkSuccessPreset.value,
+    warningPreset: warningPreset
+      ? warningPreset.value
+      : defaultWarningPreset.value,
+    darkWarningPreset: darkWarningPreset
+      ? darkWarningPreset.value
+      : defaultDarkWarningPreset.value,
+    errorPreset: errorPreset ? errorPreset.value : defaultErrorPreset.value,
+    darkErrorPreset: darkErrorPreset
+      ? darkErrorPreset.value
+      : defaultDarkErrorPreset.value,
+    infoPreset: infoPreset ? infoPreset.value : defaultInfoPreset.value,
+    darkInfoPreset: darkInfoPreset
+      ? darkInfoPreset.value
+      : defaultDarkInfoPreset.value,
+    fgPreset: fgPreset ? fgPreset.value : defaultFgPreset.value,
+    darkFgPreset: darkFgPreset ? darkFgPreset.value : defaultDarkFgPreset.value,
+    borderPreset: borderPreset ? borderPreset.value : defaultBorderPreset.value,
+    darkBorderPreset: darkBorderPreset
+      ? darkBorderPreset.value
+      : defaultDarkBorderPreset.value,
   });
 
   if (!showSettings) return null;

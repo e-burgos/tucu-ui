@@ -55,7 +55,7 @@ const SettingsPanelSection: React.FC = () => {
       ),
       title: 'Color Management',
       description:
-        'Select from 34 presets for primary, secondary, accent, muted, and backgrounds.',
+        'Organized in groups: Brand (primary, accent), Surfaces (secondary, backgrounds), Text (primary, muted, border), and Status (success, warning, error, info).',
       iconBgClassName: 'from-pink-500 to-rose-500',
     },
   ];

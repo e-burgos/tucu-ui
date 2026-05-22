@@ -461,7 +461,7 @@ const SonomaShapesSection: React.FC = () => {
               {layoutDimensions.map((d) => (
                 <div
                   key={d.name}
-                  className="flex items-start gap-3 p-3 rounded-xl border border-gray-100 dark:border-gray-800"
+                  className="flex items-start gap-3 p-3 rounded-xl border border-[var(--color-border)]"
                 >
                   <div
                     className="w-10 shrink-0 text-center py-1 rounded font-mono text-[9px] font-bold"
@@ -507,7 +507,7 @@ const SonomaShapesSection: React.FC = () => {
               {transitions.map((t) => (
                 <div
                   key={t.name}
-                  className="p-4 rounded-xl border border-gray-100 dark:border-gray-800"
+                  className="p-4 rounded-xl border border-[var(--color-border)]"
                 >
                   <div className="flex items-center justify-between mb-2">
                     <span className="font-semibold text-sm">{t.name}</span>

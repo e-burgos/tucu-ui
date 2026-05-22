@@ -15,8 +15,10 @@ export enum LAYOUT_OPTIONS {
   ADMIN = 'admin',
   HORIZONTAL = 'horizontal',
   MACOS = 'macos',
+  MACOS_CLEAN = 'macos-clean',
   MACOS_TAHOE = 'macos-tahoe',
   MACOS_TAHOE_DOCK = 'macos-tahoe-dock',
+  MACOS_TAHOE_CLEAN = 'macos-tahoe-clean',
 }
 
 // ─── Theme Style → Layout Mapping ─────────────────────────────────────────
@@ -37,11 +39,15 @@ export const THEME_STYLE_LAYOUTS: Record<THEME_VARIANT, ThemeStyleConfig> = {
     defaultLayout: LAYOUT_OPTIONS.HORIZONTAL,
   },
   macos: {
-    validLayouts: [LAYOUT_OPTIONS.MACOS],
+    validLayouts: [LAYOUT_OPTIONS.MACOS, LAYOUT_OPTIONS.MACOS_CLEAN],
     defaultLayout: LAYOUT_OPTIONS.MACOS,
   },
   'macos-tahoe': {
-    validLayouts: [LAYOUT_OPTIONS.MACOS_TAHOE, LAYOUT_OPTIONS.MACOS_TAHOE_DOCK],
+    validLayouts: [
+      LAYOUT_OPTIONS.MACOS_TAHOE,
+      LAYOUT_OPTIONS.MACOS_TAHOE_DOCK,
+      LAYOUT_OPTIONS.MACOS_TAHOE_CLEAN,
+    ],
     defaultLayout: LAYOUT_OPTIONS.MACOS_TAHOE,
   },
 };
@@ -55,8 +61,10 @@ export type LayoutOptionType =
   | 'admin'
   | 'horizontal'
   | 'macos'
+  | 'macos-clean'
   | 'macos-tahoe'
-  | 'macos-tahoe-dock';
+  | 'macos-tahoe-dock'
+  | 'macos-tahoe-clean';
 
 export const layoutOptions: IThemeItem[] = [
   { label: 'Clean', value: LAYOUT_OPTIONS.CLEAN },
@@ -119,6 +127,20 @@ export enum PRESET_LABEL_COLORS {
   DARK_YELLOW = 'DarkYellow',
   CHARTREUSE = 'Chartreuse',
   DARK_CHARTREUSE = 'DarkChartreuse',
+
+  // Status & Foreground
+  DEFAULT_SUCCESS = 'DefaultSuccess',
+  DEFAULT_DARK_SUCCESS = 'DefaultDarkSuccess',
+  DEFAULT_WARNING = 'DefaultWarning',
+  DEFAULT_DARK_WARNING = 'DefaultDarkWarning',
+  DEFAULT_ERROR = 'DefaultError',
+  DEFAULT_DARK_ERROR = 'DefaultDarkError',
+  DEFAULT_INFO = 'DefaultInfo',
+  DEFAULT_DARK_INFO = 'DefaultDarkInfo',
+  DEFAULT_FG = 'DefaultFg',
+  DEFAULT_DARK_FG = 'DefaultDarkFg',
+  DEFAULT_BORDER = 'DefaultBorder',
+  DEFAULT_DARK_BORDER = 'DefaultDarkBorder',
 
   // macOS / Apple preset labels
   MACOS_PRIMARY = 'MacOSPrimary',
@@ -184,6 +206,27 @@ export enum PRESET_COLORS {
   DARK_YELLOW = '#c79e00', // --color-tucu-ui-dark-yellow-50
   CHARTREUSE = '#56b340', // --color-tucu-ui-chartreuse-50
   DARK_CHARTREUSE = '#7bc869', // --color-tucu-ui-dark-chartreuse-50
+
+  // Status & Foreground
+  DEFAULT_SUCCESS = '#098551', // --color-tucu-ui-green-60 (light)
+  DEFAULT_DARK_SUCCESS = '#27ad75', // --color-tucu-ui-dark-green-60 (dark)
+  DEFAULT_WARNING = '#ed702f', // --color-tucu-ui-orange-40 (light)
+  // eslint-disable-next-line @typescript-eslint/no-duplicate-enum-values
+  DEFAULT_DARK_WARNING = '#c79e00', // --color-tucu-ui-dark-yellow-50 (dark)
+  DEFAULT_ERROR = '#cf202f', // --color-tucu-ui-red-60 (light)
+  DEFAULT_DARK_ERROR = '#f0616d', // --color-tucu-ui-dark-red-60 (dark)
+  // eslint-disable-next-line @typescript-eslint/no-duplicate-enum-values
+  DEFAULT_INFO = '#0052ff', // same as primary (light)
+  // eslint-disable-next-line @typescript-eslint/no-duplicate-enum-values
+  DEFAULT_DARK_INFO = '#578bfa', // same as dark primary (dark)
+  // eslint-disable-next-line @typescript-eslint/no-duplicate-enum-values
+  DEFAULT_FG = '#030712', // --color-tucu-ui-gray-100 (light)
+  // eslint-disable-next-line @typescript-eslint/no-duplicate-enum-values
+  DEFAULT_DARK_FG = '#ffffff', // --color-tucu-ui-dark-gray-100 (dark)
+  // eslint-disable-next-line @typescript-eslint/no-duplicate-enum-values
+  DEFAULT_BORDER = 'color-mix(in oklab, var(--color-black) 10%, transparent)',
+  // eslint-disable-next-line @typescript-eslint/no-duplicate-enum-values
+  DEFAULT_DARK_BORDER = 'color-mix(in oklab, var(--color-white) 8%, transparent)',
 
   // macOS Sonoma / Apple system colors
   // Source: UIColor/NSColor semantic values, sampled from macOS Sonoma 14
@@ -339,6 +382,55 @@ export const colorPreset: IThemeItem[] = [
     label: PRESET_LABEL_COLORS.DARK_CHARTREUSE,
     value: PRESET_COLORS.DARK_CHARTREUSE,
   },
+  // Status & Foreground presets
+  {
+    label: PRESET_LABEL_COLORS.DEFAULT_SUCCESS,
+    value: PRESET_COLORS.DEFAULT_SUCCESS,
+  },
+  {
+    label: PRESET_LABEL_COLORS.DEFAULT_DARK_SUCCESS,
+    value: PRESET_COLORS.DEFAULT_DARK_SUCCESS,
+  },
+  {
+    label: PRESET_LABEL_COLORS.DEFAULT_WARNING,
+    value: PRESET_COLORS.DEFAULT_WARNING,
+  },
+  {
+    label: PRESET_LABEL_COLORS.DEFAULT_DARK_WARNING,
+    value: PRESET_COLORS.DEFAULT_DARK_WARNING,
+  },
+  {
+    label: PRESET_LABEL_COLORS.DEFAULT_ERROR,
+    value: PRESET_COLORS.DEFAULT_ERROR,
+  },
+  {
+    label: PRESET_LABEL_COLORS.DEFAULT_DARK_ERROR,
+    value: PRESET_COLORS.DEFAULT_DARK_ERROR,
+  },
+  {
+    label: PRESET_LABEL_COLORS.DEFAULT_INFO,
+    value: PRESET_COLORS.DEFAULT_INFO,
+  },
+  {
+    label: PRESET_LABEL_COLORS.DEFAULT_DARK_INFO,
+    value: PRESET_COLORS.DEFAULT_DARK_INFO,
+  },
+  {
+    label: PRESET_LABEL_COLORS.DEFAULT_FG,
+    value: PRESET_COLORS.DEFAULT_FG,
+  },
+  {
+    label: PRESET_LABEL_COLORS.DEFAULT_DARK_FG,
+    value: PRESET_COLORS.DEFAULT_DARK_FG,
+  },
+  {
+    label: PRESET_LABEL_COLORS.DEFAULT_BORDER,
+    value: PRESET_COLORS.DEFAULT_BORDER,
+  },
+  {
+    label: PRESET_LABEL_COLORS.DEFAULT_DARK_BORDER,
+    value: PRESET_COLORS.DEFAULT_DARK_BORDER,
+  },
 ];
 
 export const Direction: IThemeItem[] = [
@@ -425,6 +517,54 @@ export const defaultLightDarkPreset = colorPreset.find(
 
 export const defaultDarkLightDarkPreset = colorPreset.find(
   (item) => item.label === PRESET_LABEL_COLORS.DEFAULT_DARK_LIGHT_DARK
+) as IThemeItem;
+
+export const defaultSuccessPreset = colorPreset.find(
+  (item) => item.label === PRESET_LABEL_COLORS.DEFAULT_SUCCESS
+) as IThemeItem;
+
+export const defaultDarkSuccessPreset = colorPreset.find(
+  (item) => item.label === PRESET_LABEL_COLORS.DEFAULT_DARK_SUCCESS
+) as IThemeItem;
+
+export const defaultWarningPreset = colorPreset.find(
+  (item) => item.label === PRESET_LABEL_COLORS.DEFAULT_WARNING
+) as IThemeItem;
+
+export const defaultDarkWarningPreset = colorPreset.find(
+  (item) => item.label === PRESET_LABEL_COLORS.DEFAULT_DARK_WARNING
+) as IThemeItem;
+
+export const defaultErrorPreset = colorPreset.find(
+  (item) => item.label === PRESET_LABEL_COLORS.DEFAULT_ERROR
+) as IThemeItem;
+
+export const defaultDarkErrorPreset = colorPreset.find(
+  (item) => item.label === PRESET_LABEL_COLORS.DEFAULT_DARK_ERROR
+) as IThemeItem;
+
+export const defaultInfoPreset = colorPreset.find(
+  (item) => item.label === PRESET_LABEL_COLORS.DEFAULT_INFO
+) as IThemeItem;
+
+export const defaultDarkInfoPreset = colorPreset.find(
+  (item) => item.label === PRESET_LABEL_COLORS.DEFAULT_DARK_INFO
+) as IThemeItem;
+
+export const defaultFgPreset = colorPreset.find(
+  (item) => item.label === PRESET_LABEL_COLORS.DEFAULT_FG
+) as IThemeItem;
+
+export const defaultDarkFgPreset = colorPreset.find(
+  (item) => item.label === PRESET_LABEL_COLORS.DEFAULT_DARK_FG
+) as IThemeItem;
+
+export const defaultBorderPreset = colorPreset.find(
+  (item) => item.label === PRESET_LABEL_COLORS.DEFAULT_BORDER
+) as IThemeItem;
+
+export const defaultDarkBorderPreset = colorPreset.find(
+  (item) => item.label === PRESET_LABEL_COLORS.DEFAULT_DARK_BORDER
 ) as IThemeItem;
 
 export const defaultDirection = 'ltr';
@@ -612,6 +752,14 @@ export function buildTahoePresets(bundle: TahoeAccentBundle) {
     darkBgPreset: macosLightPresets.darkBgPreset,
     lightDarkPreset: macosLightPresets.lightDarkPreset,
     darkLightDarkPreset: macosLightPresets.darkLightDarkPreset,
+    borderPreset: {
+      label: PRESET_LABEL_COLORS.DEFAULT_BORDER,
+      value: PRESET_COLORS.DEFAULT_BORDER,
+    },
+    darkBorderPreset: {
+      label: PRESET_LABEL_COLORS.DEFAULT_DARK_BORDER,
+      value: PRESET_COLORS.DEFAULT_DARK_BORDER,
+    },
   };
 }
 
@@ -721,5 +869,13 @@ export function buildSonomaPresets(bundle: TahoeAccentBundle) {
     darkBgPreset: macosLightPresets.darkBgPreset,
     lightDarkPreset: macosLightPresets.lightDarkPreset,
     darkLightDarkPreset: macosLightPresets.darkLightDarkPreset,
+    borderPreset: {
+      label: PRESET_LABEL_COLORS.DEFAULT_BORDER,
+      value: PRESET_COLORS.DEFAULT_BORDER,
+    },
+    darkBorderPreset: {
+      label: PRESET_LABEL_COLORS.DEFAULT_DARK_BORDER,
+      value: PRESET_COLORS.DEFAULT_DARK_BORDER,
+    },
   };
 }

@@ -64,7 +64,7 @@ const SpacingSystemSection: React.FC = () => {
                 return (
                   <div
                     key={space.key}
-                    className="border border-gray-200 dark:border-gray-700 rounded-lg p-4 space-y-3"
+                    className="border border-border rounded-lg p-4 space-y-3"
                   >
                     <div className="flex items-center justify-between">
                       <Typography tag="h4" className="font-semibold">

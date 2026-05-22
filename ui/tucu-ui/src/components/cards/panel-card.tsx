@@ -14,9 +14,9 @@ export const PanelCard: React.FC<PanelCardProps> = ({
 }) => {
   return (
     <div
-      className={`border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden ${className}`}
+      className={`border border-border rounded-lg overflow-hidden ${className}`}
     >
-      <div className="p-3 bg-gray-100 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
+      <div className="p-3 bg-gray-100 dark:bg-gray-800 border-b border-border">
         <h3 className="font-medium">{title}</h3>
       </div>
       <Scrollbar

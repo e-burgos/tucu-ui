@@ -159,8 +159,8 @@ importers:
   apps/demo:
     dependencies:
       '@e-burgos/tucu-ui':
-        specifier: ^2.0.9
-        version: 2.0.9(@types/react@19.2.14)(immer@11.1.7)(react-dom@19.2.5(react@19.2.5))(react-is@18.3.1)(react@19.2.5)(tailwindcss@4.1.18)(use-sync-external-store@1.6.0(react@19.2.5))
+        specifier: ^2.0.11
+        version: 2.0.11(@types/react@19.2.14)(immer@11.1.7)(react-dom@19.2.5(react@19.2.5))(react-is@18.3.1)(react@19.2.5)(tailwindcss@4.1.18)(use-sync-external-store@1.6.0(react@19.2.5))
       react:
         specifier: ^19.2.5
         version: 19.2.5
@@ -921,8 +921,8 @@ packages:
     resolution: {integrity: sha512-IchNf6dN4tHoMFIn/7OE8LWZ19Y6q/67Bmf6vnGREv8RSbBVb9LPJxEcnwrcwX6ixSvaiGoomAUvu4YSxXrVgw==}
     engines: {node: '>=12'}
 
-  '@e-burgos/tucu-ui@2.0.9':
-    resolution: {integrity: sha512-CXEOVGtSOtzGQd87DnJR5NoWLq4dwMtolJTnOaTIrRPdjTv0yWeWPLM357tqx22FWrLLvKI5lcdY/ZW7nfcpOQ==}
+  '@e-burgos/tucu-ui@2.0.11':
+    resolution: {integrity: sha512-/fItCC3bPBImsR9en3dKsoJFbgXWGTvZRnNrxdyDJUcTbm7NcOBTE+0msNLOnJCwK/jSPAeMJJEo9T3FSfYbOg==}
     peerDependencies:
       react: '>=18.0.0'
       react-dom: '>=18.0.0'
@@ -7894,7 +7894,7 @@ snapshots:
     dependencies:
       '@jridgewell/trace-mapping': 0.3.9
 
-  '@e-burgos/tucu-ui@2.0.9(@types/react@19.2.14)(immer@11.1.7)(react-dom@19.2.5(react@19.2.5))(react-is@18.3.1)(react@19.2.5)(tailwindcss@4.1.18)(use-sync-external-store@1.6.0(react@19.2.5))':
+  '@e-burgos/tucu-ui@2.0.11(@types/react@19.2.14)(immer@11.1.7)(react-dom@19.2.5(react@19.2.5))(react-is@18.3.1)(react@19.2.5)(tailwindcss@4.1.18)(use-sync-external-store@1.6.0(react@19.2.5))':
     dependencies:
       '@tailwindcss/typography': 0.0.0-insiders.0339c42(tailwindcss@4.1.18)
       classnames: 2.5.1

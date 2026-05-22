@@ -24,7 +24,7 @@ export const TahoeToolbarSection: React.FC = () => {
       <CardContainer className="overflow-hidden">
         <CardTitle title="With Leading & Trailing" className="mt-2 mb-2">
           <div className="w-full p-4 sm:p-6">
-            <div className="rounded-[14px] overflow-hidden border border-[var(--macos-tahoe-border,rgba(0,0,0,0.1))] shadow-[var(--shadow-card)]">
+            <div className="rounded-[14px] overflow-hidden border border-border shadow-[var(--shadow-card)]">
               <MacOSToolbarTahoe
                 leading={
                   <button className="flex items-center gap-1.5 text-sm text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
@@ -59,7 +59,7 @@ export const TahoeToolbarSection: React.FC = () => {
       <CardContainer className="overflow-hidden">
         <CardTitle title="Center Slot (Custom Content)" className="mt-2 mb-2">
           <div className="w-full p-4 sm:p-6">
-            <div className="rounded-[14px] overflow-hidden border border-[var(--macos-tahoe-border,rgba(0,0,0,0.1))] shadow-[var(--shadow-card)]">
+            <div className="rounded-[14px] overflow-hidden border border-border shadow-[var(--shadow-card)]">
               <MacOSToolbarTahoe
                 center={
                   <div className="flex items-center gap-2 rounded-[10px] bg-black/5 dark:bg-white/8 px-3 py-1.5">
@@ -84,7 +84,7 @@ export const TahoeToolbarSection: React.FC = () => {
       <CardContainer className="overflow-hidden">
         <CardTitle title="Without Border" className="mt-2 mb-2">
           <div className="w-full p-4 sm:p-6">
-            <div className="rounded-[14px] overflow-hidden border border-[var(--macos-tahoe-border,rgba(0,0,0,0.1))] shadow-[var(--shadow-card)]">
+            <div className="rounded-[14px] overflow-hidden border border-border shadow-[var(--shadow-card)]">
               <MacOSToolbarTahoe title="No Border" bordered={false} />
               <div className="flex h-24 items-center justify-center bg-[var(--color-semantic-bg)] text-sm text-gray-400">
                 Content area

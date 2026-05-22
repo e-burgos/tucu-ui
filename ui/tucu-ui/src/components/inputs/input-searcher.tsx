@@ -415,7 +415,7 @@ export function InputSearcher({
         }
         style={dropdownStyle}
         className={cn(
-          'max-h-60 overflow-hidden rounded-xl border border-gray-200 bg-white shadow-large outline-hidden dark:border-gray-700 dark:bg-gray-800',
+          'max-h-60 overflow-hidden rounded-xl border border-border bg-white shadow-large outline-hidden dark:bg-gray-800',
           'transition ease-in duration-100',
           isClosing ? 'opacity-0' : 'opacity-100'
         )}

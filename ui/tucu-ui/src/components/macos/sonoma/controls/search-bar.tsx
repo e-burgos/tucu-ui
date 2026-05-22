@@ -15,13 +15,21 @@ export interface MacOSSearchBarProps {
 }
 
 const SIZE = {
-  sm: { wrap: 'h-[28px]', input: 'pl-[28px] pr-[28px] text-xs', icon: 'left-[8px] w-[14px] h-[14px]' },
+  sm: {
+    wrap: 'h-[28px]',
+    input: 'pl-[28px] pr-[28px] text-xs',
+    icon: 'left-[8px] w-[14px] h-[14px]',
+  },
   md: {
     wrap: 'h-[34px]',
     input: 'pl-[32px] pr-[32px] text-[13px]',
     icon: 'left-[10px] w-[14px] h-[14px]',
   },
-  lg: { wrap: 'h-[40px]', input: 'pl-[36px] pr-[36px] text-sm', icon: 'left-[12px] w-[16px] h-[16px]' },
+  lg: {
+    wrap: 'h-[40px]',
+    input: 'pl-[36px] pr-[36px] text-sm',
+    icon: 'left-[12px] w-[16px] h-[16px]',
+  },
 };
 
 // ─── MacOSSearchBar ────────────────────────────────────────────
@@ -48,7 +56,7 @@ export function MacOSSearchBar({
       className={cn(
         'relative flex items-center rounded-full',
         'bg-black/6 dark:bg-white/10',
-        'border border-[var(--color-semantic-line-primary-subtle)]',
+        'border border-[var(--color-border)]',
         'transition-all duration-150',
         'focus-within:bg-white dark:focus-within:bg-[#3a3a3c]',
         'focus-within:shadow-[0_0_0_var(--macos-focus-ring-width,3px)_var(--macos-focus-ring,rgba(0,122,255,0.5))]',

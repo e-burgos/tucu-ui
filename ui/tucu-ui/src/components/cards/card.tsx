@@ -27,7 +27,7 @@ export function Card({
     <div
       data-tucu="card"
       className={cn(
-        'rounded-xl border border-gray-200/50 dark:border-gray-700/50 bg-light-dark',
+        'rounded-xl border border-border bg-light-dark',
         onClick &&
           'cursor-pointer hover:border-brand/30 dark:hover:border-brand/30 transition-colors',
         className
@@ -62,9 +62,7 @@ export function Card({
       )}
       {children && <div className="p-4">{children}</div>}
       {footer && (
-        <div className="border-t border-gray-200/50 dark:border-gray-700/50 px-4 py-3">
-          {footer}
-        </div>
+        <div className="border-t border-border px-4 py-3">{footer}</div>
       )}
     </div>
   );

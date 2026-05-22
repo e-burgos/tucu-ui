@@ -23,7 +23,7 @@ export const Spinner: React.FC<SpinnerProps> = ({
     <div data-tucu="spinner" className="flex items-center justify-center">
       <div
         className={cn(
-          'border-4 border-t-4 border-gray-200 rounded-full animate-spin',
+          'border-4 border-t-4 border-border rounded-full animate-spin',
           size === 'sm' && 'w-4 h-4',
           size === 'md' && 'w-6 h-6',
           size === 'lg' && 'w-8 h-8',

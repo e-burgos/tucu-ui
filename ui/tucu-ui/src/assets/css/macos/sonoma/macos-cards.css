@@ -28,7 +28,7 @@ html.macos [data-tucu='card']:hover {
 
 /* ── Dark mode ───────────────────────────────────────────────── */
 html.macos.dark [data-tucu='card'] {
-  background-color: var(--macos-content-bg);
+  background-color: var(--macos-content-bg) !important;
   border-color: var(--macos-separator);
   box-shadow: var(--macos-shadow-card);
 }
@@ -102,4 +102,3 @@ html.macos.dark [data-tucu='card-title-label'] {
   background-color: var(--macos-control-bg);
   color: var(--macos-label);
 }
-

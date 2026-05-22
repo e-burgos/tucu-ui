@@ -303,7 +303,7 @@ export function Colors() {
                         ].map((shade) => (
                           <div
                             key={shade}
-                            className={`h-8 rounded-md bg-${colorName}-${shade} border border-gray-200 dark:border-gray-700 flex items-center justify-between px-2 group hover:scale-105 transition-transform duration-200`}
+                            className={`h-8 rounded-md bg-${colorName}-${shade} border border-border flex items-center justify-between px-2 group hover:scale-105 transition-transform duration-200`}
                           >
                             <span className="text-xs font-mono text-gray-600 dark:text-gray-400">
                               {shade}
@@ -395,7 +395,7 @@ export function Colors() {
                   {opacityLevels.map((opacity, opacityIndex) => (
                     <div
                       key={opacityIndex}
-                      className={`h-12 rounded-md bg-brand/${opacity} border border-gray-200 dark:border-gray-700 flex items-center justify-center group hover:scale-105 transition-transform duration-200`}
+                      className={`h-12 rounded-md bg-brand/${opacity} border border-border flex items-center justify-center group hover:scale-105 transition-transform duration-200`}
                     >
                       <span className="text-xs font-mono text-gray-600 dark:text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity">
                         {opacity}%
@@ -431,7 +431,7 @@ export function Colors() {
                     {opacityLevels.map((opacity, opacityIndex) => (
                       <div
                         key={opacityIndex}
-                        className={`h-12 rounded-md bg-${color}-500/${opacity} border border-gray-200 dark:border-gray-700 flex items-center justify-center group hover:scale-105 transition-transform duration-200`}
+                        className={`h-12 rounded-md bg-${color}-500/${opacity} border border-border flex items-center justify-center group hover:scale-105 transition-transform duration-200`}
                       >
                         <span className="text-xs font-mono text-gray-600 dark:text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity">
                           {opacity}%

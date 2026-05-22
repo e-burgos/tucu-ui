@@ -61,6 +61,13 @@ const sections: SectionConfig[] = [
     component: lazy(() => import('./design-system-sections/SizingSection')),
   },
   {
+    id: 'backgrounds',
+    label: 'Backgrounds',
+    component: lazy(
+      () => import('./design-system-sections/BackgroundsSection')
+    ),
+  },
+  {
     id: 'implementation-guidelines',
     label: 'Implementation Guidelines',
     component: lazy(

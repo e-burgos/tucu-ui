@@ -49,7 +49,7 @@ const HookDocumentationSection: React.FC = () => {
                     Returns the current screen breakpoint name. Built on
                     createBreakpoint from react-use.
                   </Typography>
-                  <div className="bg-light-dark p-4 rounded-xl border dark:border-gray-700 overflow-x-auto">
+                  <div className="bg-light-dark p-4 rounded-xl border dark:border-border overflow-x-auto">
                     <CodeBlock
                       language="tsx"
                       noExpand={true}
@@ -71,10 +71,10 @@ const HookDocumentationSection: React.FC = () => {
                     tag="p"
                     className="text-gray-600 dark:text-gray-400 mb-4"
                   >
-                    Returns an object with isMobile boolean. True for xs, sm,
-                    md breakpoints (≤768px).
+                    Returns an object with isMobile boolean. True for xs, sm, md
+                    breakpoints (≤768px).
                   </Typography>
-                  <div className="bg-light-dark p-4 rounded-xl border dark:border-gray-700 overflow-x-auto">
+                  <div className="bg-light-dark p-4 rounded-xl border dark:border-border overflow-x-auto">
                     <CodeBlock
                       language="tsx"
                       noExpand={true}
@@ -109,7 +109,7 @@ return <DesktopLayout />;`}
                     Tracks element dimensions. Returns a callback ref setter
                     (not a RefObject) and size object.
                   </Typography>
-                  <div className="bg-light-dark p-4 rounded-xl border dark:border-gray-700 overflow-x-auto">
+                  <div className="bg-light-dark p-4 rounded-xl border dark:border-border overflow-x-auto">
                     <CodeBlock
                       language="tsx"
                       noExpand={true}
@@ -137,7 +137,7 @@ return (
                     Advanced measurement with full bounds. Uses ResizeObserver
                     internally (from react-use).
                   </Typography>
-                  <div className="bg-light-dark p-4 rounded-xl border dark:border-gray-700 overflow-x-auto">
+                  <div className="bg-light-dark p-4 rounded-xl border dark:border-border overflow-x-auto">
                     <CodeBlock
                       language="tsx"
                       noExpand={true}
@@ -172,7 +172,7 @@ return (
                   Returns current scroll position. Custom implementation that
                   detects scroll on window, document, and overflow containers.
                 </Typography>
-                <div className="bg-light-dark p-4 rounded-xl border dark:border-gray-700 overflow-x-auto">
+                <div className="bg-light-dark p-4 rounded-xl border dark:border-border overflow-x-auto">
                   <CodeBlock
                     language="tsx"
                     noExpand={true}
@@ -219,7 +219,7 @@ return (
                     Detects clicks outside a ref element. Re-exported from
                     react-use. Defaults to mousedown + touchstart.
                   </Typography>
-                  <div className="bg-light-dark p-4 rounded-xl border dark:border-gray-700 overflow-x-auto">
+                  <div className="bg-light-dark p-4 rounded-xl border dark:border-border overflow-x-auto">
                     <CodeBlock
                       language="tsx"
                       noExpand={true}
@@ -244,7 +244,7 @@ useClickAway(ref, () => {
                     Clipboard functionality with state tracking. Re-exported
                     from react-use.
                   </Typography>
-                  <div className="bg-light-dark p-4 rounded-xl border dark:border-gray-700 overflow-x-auto">
+                  <div className="bg-light-dark p-4 rounded-xl border dark:border-border overflow-x-auto">
                     <CodeBlock
                       language="tsx"
                       noExpand={true}
@@ -279,7 +279,7 @@ if (state.error) console.error('Failed:', state.error);`}
                   implementation with overloads for window, document,
                   HTMLElement, and MediaQueryList.
                 </Typography>
-                <div className="bg-light-dark p-4 rounded-xl border dark:border-gray-700 overflow-x-auto">
+                <div className="bg-light-dark p-4 rounded-xl border dark:border-border overflow-x-auto">
                   <CodeBlock
                     language="tsx"
                     noExpand={true}
@@ -330,7 +330,7 @@ useEventListener('click', (event) => {
                   Zustand-based global toast notification system with 5 variants
                   and auto-dismiss.
                 </Typography>
-                <div className="bg-light-dark p-4 rounded-xl border dark:border-gray-700 overflow-x-auto">
+                <div className="bg-light-dark p-4 rounded-xl border dark:border-border overflow-x-auto">
                   <CodeBlock
                     language="tsx"
                     noExpand={true}
@@ -371,7 +371,7 @@ dismissToast();             // dismiss all`}
                     Zustand store for global grid layout switching. Persists
                     state across components.
                   </Typography>
-                  <div className="bg-light-dark p-4 rounded-xl border dark:border-gray-700 overflow-x-auto">
+                  <div className="bg-light-dark p-4 rounded-xl border dark:border-border overflow-x-auto">
                     <CodeBlock
                       language="tsx"
                       noExpand={true}
@@ -394,7 +394,7 @@ const toggleLayout = () => setIsGridCompact(!isGridCompact);`}
                     Locks body scroll when active. Automatically preserves
                     scrollbar width to prevent layout shift.
                   </Typography>
-                  <div className="bg-light-dark p-4 rounded-xl border dark:border-gray-700 overflow-x-auto">
+                  <div className="bg-light-dark p-4 rounded-xl border dark:border-border overflow-x-auto">
                     <CodeBlock
                       language="tsx"
                       noExpand={true}
@@ -413,10 +413,7 @@ useLockBodyScroll(isOpen);`}
         </CardContainer>
 
         <CardContainer className="overflow-hidden">
-          <CardTitle
-            title="useScrollableSlider"
-            className="mt-2 mb-2"
-          >
+          <CardTitle title="useScrollableSlider" className="mt-2 mb-2">
             <div className="w-full space-y-6 p-4 sm:p-6">
               <div className="p-6 border rounded-lg">
                 <Typography tag="h5" className="font-medium mb-3">
@@ -429,7 +426,7 @@ useLockBodyScroll(isOpen);`}
                   Horizontal scrollable slider with navigation buttons. Uses
                   react-router-dom internally for active path detection.
                 </Typography>
-                <div className="bg-light-dark p-4 rounded-xl border dark:border-gray-700 overflow-x-auto">
+                <div className="bg-light-dark p-4 rounded-xl border dark:border-border overflow-x-auto">
                   <CodeBlock
                     language="tsx"
                     noExpand={true}
@@ -481,7 +478,7 @@ useLockBodyScroll(isOpen);`}
                     Returns a boolean indicating component mount state. Useful
                     to prevent memory leaks in async operations.
                   </Typography>
-                  <div className="bg-light-dark p-4 rounded-xl border dark:border-gray-700 overflow-x-auto">
+                  <div className="bg-light-dark p-4 rounded-xl border dark:border-border overflow-x-auto">
                     <CodeBlock
                       language="tsx"
                       noExpand={true}
@@ -510,7 +507,7 @@ useEffect(() => {
                     Intercepts anchor link clicks and performs smooth scrolling
                     to target elements.
                   </Typography>
-                  <div className="bg-light-dark p-4 rounded-xl border dark:border-gray-700 overflow-x-auto">
+                  <div className="bg-light-dark p-4 rounded-xl border dark:border-border overflow-x-auto">
                     <CodeBlock
                       language="tsx"
                       noExpand={true}

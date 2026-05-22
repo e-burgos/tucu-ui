@@ -104,7 +104,7 @@ export function CollectionSelectList({
       )}
     >
       {/* Search */}
-      <div className="relative flex items-center gap-2.5 border-b border-gray-100 dark:border-gray-800 px-4 py-3">
+      <div className="relative flex items-center gap-2.5 border-b border-[var(--color-border)] px-4 py-3">
         <Search className="h-4 w-4 shrink-0 text-gray-400 dark:text-gray-500" />
         <input
           ref={inputRef}

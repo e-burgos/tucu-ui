@@ -110,7 +110,7 @@ const LayoutPrinciplesSection: React.FC = () => {
                   return (
                     <div
                       key={breakpoint.name}
-                      className="space-y-3 p-4 bg-muted/20 rounded-lg border border-gray-200 dark:border-gray-700"
+                      className="space-y-3 p-4 bg-muted/20 rounded-lg border border-border"
                     >
                       <div className="space-y-1">
                         <div className="flex items-center gap-2">

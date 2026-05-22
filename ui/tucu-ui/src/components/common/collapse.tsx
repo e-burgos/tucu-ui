@@ -59,7 +59,7 @@ export function Collapse({
       <div
         data-tucu="collapse-content"
         className={`border-t border-dashed ${
-          isOpen ? 'border-gray-200 dark:border-gray-700' : 'border-transparent'
+          isOpen ? 'border-border' : 'border-transparent'
         }`}
         ref={ref}
       >

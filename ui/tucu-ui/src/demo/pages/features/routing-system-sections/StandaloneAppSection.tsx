@@ -158,7 +158,16 @@ function StandaloneApp() {
         <Alert variant="info" dismissible={false}>
           <Typography tag="p" className="text-sm">
             <LucideIcons.Info className="w-4 h-4 inline mr-2" />
-            The Standalone pattern is the default. You don&apos;t need to specify <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">architecturalPatterns</code>. Simply provide <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">menuItems</code> and routes will be generated.
+            The Standalone pattern is the default. You don&apos;t need to
+            specify{' '}
+            <code className="px-1 py-0.5 border border-border rounded text-xs">
+              architecturalPatterns
+            </code>
+            . Simply provide{' '}
+            <code className="px-1 py-0.5 border border-border rounded text-xs">
+              menuItems
+            </code>{' '}
+            and routes will be generated.
           </Typography>
         </Alert>
       </section>

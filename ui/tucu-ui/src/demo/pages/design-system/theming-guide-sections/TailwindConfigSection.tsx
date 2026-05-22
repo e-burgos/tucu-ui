@@ -140,11 +140,11 @@ const TailwindConfigSection: React.FC = () => {
               <Alert variant="info">
                 <Typography tag="p" className="text-sm">
                   <strong>Note:</strong> Components use arbitrary values like{' '}
-                  <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
+                  <code className="px-1 py-0.5 border border-border rounded text-xs">
                     p-[16px]
                   </code>{' '}
                   instead of{' '}
-                  <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
+                  <code className="px-1 py-0.5 border border-border rounded text-xs">
                     p-4
                   </code>{' '}
                   to maintain original spacing values consistently.

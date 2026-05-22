@@ -93,7 +93,7 @@ export const TocSonoma: React.FC<TableOfContentsProps> = ({
                   }}
                 >
                   <div className="overflow-hidden">
-                    <div className="mt-0.5 ml-4 space-y-0.5 border-l border-gray-200/60 pl-2 dark:border-gray-700/60">
+                    <div className="mt-0.5 ml-4 space-y-0.5 border-l border-border/60 pl-2 dark:border-border/60">
                       {categoryItems.map((item) => {
                         const isActive = activeSection === item.id;
                         return (
@@ -167,7 +167,7 @@ export const TocSonoma: React.FC<TableOfContentsProps> = ({
           position="left"
           backdrop
         >
-          <div className="h-full flex flex-col w-full max-w-full min-[500px]:w-80 bg-(--macos-material-toolbar,rgba(255,255,255,0.72)) backdrop-blur-xl border-r border-(--color-semantic-line-primary-subtle)">
+          <div className="h-full flex flex-col w-full max-w-full min-[500px]:w-80 bg-(--macos-material-toolbar,rgba(255,255,255,0.72)) backdrop-blur-xl border-r border-(--macos-separator))">
             <div className="flex items-center justify-between shrink-0 px-3 py-3 border-b border-(--color-semantic-line-primary-subtle)">
               {renderTitle()}
               <Button
@@ -195,12 +195,13 @@ export const TocSonoma: React.FC<TableOfContentsProps> = ({
       {!isMobile && isSidebarOpen && (
         <aside
           className={cn(
-            'fixed top-[58px] right-0 bottom-0 w-80 border-l border-(--color-semantic-line-primary-subtle) bg-(--macos-material-toolbar,rgba(255,255,255,0.72)) backdrop-blur-xl z-10',
+            'fixed top-[58px] right-0 bottom-0 w-80 border-l border-(--macos-separator) z-10',
+            'bg-(--macos-glass-regular-bg) backdrop-blur-xl ',
             'transition-all duration-300 ease-in-out overflow-y-hidden',
             className
           )}
         >
-          <div className="z-10 flex h-[58px] items-center justify-between shrink-0 pl-4 pr-2 p-4 border-b border-(--color-semantic-line-primary-subtle)">
+          <div className="z-10 flex h-[58px] items-center justify-between shrink-0 pl-4 pr-2 p-4 border-b border-(--macos-separator)">
             {renderTitle()}
             <button
               type="button"

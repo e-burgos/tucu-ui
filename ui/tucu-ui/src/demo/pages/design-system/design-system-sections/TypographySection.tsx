@@ -81,14 +81,14 @@ const TypographySection: React.FC = () => {
               Hierarchical typography tokens designed for consistent text
               styling across the design system.
             </Typography>
-            <div className="border border-gray-200 dark:border-gray-700 rounded-lg p-6 bg-light-dark">
+            <div className="border border-border rounded-lg p-6 bg-light-dark">
               <div className="space-y-6">
                 {typographyTags
                   .filter((style) => style.category === 'Tucu UI Tokens')
                   .map((style) => (
                     <div
                       key={style.tag}
-                      className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 pb-6 border-b border-gray-200 dark:border-gray-700 last:border-0 last:pb-0"
+                      className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 pb-6 border-b border-border last:border-0 last:pb-0"
                     >
                       <div className="flex-1 space-y-2">
                         <div className="flex items-center gap-3">
@@ -174,7 +174,7 @@ const TypographySection: React.FC = () => {
                 .map((style) => (
                   <div
                     key={style.tag}
-                    className="border border-gray-200 dark:border-gray-700 rounded-lg p-4 space-y-3"
+                    className="border border-border rounded-lg p-4 space-y-3"
                   >
                     <div className="space-y-1">
                       <Typography tag="h4">{style.label}</Typography>
@@ -224,7 +224,7 @@ const TypographySection: React.FC = () => {
               {typographyColors.map((color) => (
                 <div
                   key={color.value}
-                  className="border border-gray-200 dark:border-gray-700 rounded-lg p-4 space-y-3"
+                  className="border border-border rounded-lg p-4 space-y-3"
                 >
                   <div className="space-y-1">
                     <Typography tag="h4">{color.label}</Typography>
@@ -262,7 +262,7 @@ const TypographySection: React.FC = () => {
               {typographyFontFamilies.map((font) => (
                 <div
                   key={font.value}
-                  className="border border-gray-200 dark:border-gray-700 rounded-lg p-4 space-y-3"
+                  className="border border-border rounded-lg p-4 space-y-3"
                 >
                   <div className="space-y-1">
                     <Typography tag="h4">{font.label}</Typography>
@@ -297,7 +297,7 @@ const TypographySection: React.FC = () => {
               Examples combining tags, colors, and font families.
             </Typography>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              <div className="border border-gray-200 dark:border-gray-700 rounded-lg p-4 space-y-3">
+              <div className="border border-border rounded-lg p-4 space-y-3">
                 <Typography tag="h4" className="text-xs text-muted">
                   Headline + Primary + Mono
                 </Typography>
@@ -305,7 +305,7 @@ const TypographySection: React.FC = () => {
                   The quick brown fox
                 </Typography>
               </div>
-              <div className="border border-gray-200 dark:border-gray-700 rounded-lg p-4 space-y-3">
+              <div className="border border-border rounded-lg p-4 space-y-3">
                 <Typography tag="h4" className="text-xs text-muted">
                   Body + Success
                 </Typography>
@@ -313,7 +313,7 @@ const TypographySection: React.FC = () => {
                   The quick brown fox jumps over the lazy dog
                 </Typography>
               </div>
-              <div className="border border-gray-200 dark:border-gray-700 rounded-lg p-4 space-y-3">
+              <div className="border border-border rounded-lg p-4 space-y-3">
                 <Typography tag="h4" className="text-xs text-muted">
                   Label 1 + Warning
                 </Typography>
@@ -321,7 +321,7 @@ const TypographySection: React.FC = () => {
                   The quick brown fox
                 </Typography>
               </div>
-              <div className="border border-gray-200 dark:border-gray-700 rounded-lg p-4 space-y-3">
+              <div className="border border-border rounded-lg p-4 space-y-3">
                 <Typography tag="h4" className="text-xs text-muted">
                   Code + Error + Mono
                 </Typography>
@@ -329,7 +329,7 @@ const TypographySection: React.FC = () => {
                   const example = "Hello World";
                 </Typography>
               </div>
-              <div className="border border-gray-200 dark:border-gray-700 rounded-lg p-4 space-y-3">
+              <div className="border border-border rounded-lg p-4 space-y-3">
                 <Typography tag="h4" className="text-xs text-muted">
                   Caption + Muted
                 </Typography>
@@ -337,7 +337,7 @@ const TypographySection: React.FC = () => {
                   The quick brown fox jumps over the lazy dog
                 </Typography>
               </div>
-              <div className="border border-gray-200 dark:border-gray-700 rounded-lg p-4 space-y-3">
+              <div className="border border-border rounded-lg p-4 space-y-3">
                 <Typography tag="h4" className="text-xs text-muted">
                   H2 + Secondary
                 </Typography>

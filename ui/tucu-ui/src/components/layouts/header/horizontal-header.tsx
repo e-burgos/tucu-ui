@@ -30,13 +30,13 @@ export function HorizontalHeader({
       data-tucu="horizontal-header"
       className={cn(
         // 'sticky top-0 z-30 flex w-full max-w-screen overflow-x-auto overflow-y-hidden backdrop-blur-lg shadow-md items-center justify-between px-4 transition-all duration-300 ltr:right-0 rtl:left-0 sm:px-6 lg:px-8 3xl:px-10',
-        'sticky top-0 z-30 flex w-full border-b border-transparent dark:border-gray-800 items-center justify-between px-[16px] transition-all duration-300 backdrop-blur-lg shadow-md ltr:right-0 rtl:left-0 sm:px-[24px] lg:px-[32px] min-[1780px]:px-[40px]',
+        'sticky top-0 z-30 flex w-full border-b border-transparent dark:border-border items-center justify-between px-[16px] transition-all duration-300 backdrop-blur-lg shadow-md ltr:right-0 rtl:left-0 sm:px-[24px] lg:px-[32px] min-[1780px]:px-[40px]',
         isMounted && windowScroll.y > 17 ? 'min-h-[72px] shadow-card' : '',
         className
       )}
     >
-      <div className="mx-auto flex w-full items-center justify-between">
-        <div className="flex items-center gap-[24px]">
+      <div className="mx-auto flex w-full items-center justify-between gap-[16px]">
+        <div className="flex items-center gap-[24px] min-w-0">
           {logo && (
             <Logo
               isoType={breakpoint === 'xs' ? true : false}

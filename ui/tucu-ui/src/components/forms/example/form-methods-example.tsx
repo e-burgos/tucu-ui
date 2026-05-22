@@ -56,7 +56,7 @@ export const FormMethodsExample: React.FC = () => {
   };
 
   return (
-    <div className="mt-[32px] border border-gray-200 bg-white dark:bg-gray-800 dark:border-gray-700 rounded-lg p-[16px]">
+    <div className="mt-[32px] border border-border bg-white rounded-lg p-[16px]">
       <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-[16px]">
         Form Methods Example
       </h3>
@@ -89,7 +89,7 @@ export const FormMethodsExample: React.FC = () => {
 
       {/* Form state */}
       <div className="mb-[16px] grid grid-cols-2 gap-[8px]">
-        <div className="p-[8px] border border-gray-200 dark:border-gray-700 rounded-md">
+        <div className="p-[8px] border border-border rounded-md">
           <p className="text-sm font-medium mb-[4px]">isDirty:</p>
           <span
             className={`text-sm ${
@@ -99,7 +99,7 @@ export const FormMethodsExample: React.FC = () => {
             {isDirty ? 'Yes' : 'No'}
           </span>
         </div>
-        <div className="p-[8px] border border-gray-200 dark:border-gray-700 rounded-md">
+        <div className="p-[8px] border border-border rounded-md">
           <p className="text-sm font-medium mb-[4px]">isValid:</p>
           <span
             className={`text-sm ${isValid ? 'text-green-500' : 'text-red-500'}`}
@@ -107,7 +107,7 @@ export const FormMethodsExample: React.FC = () => {
             {isValid ? 'Yes' : 'No'}
           </span>
         </div>
-        <div className="p-[8px] border border-gray-200 dark:border-gray-700 rounded-md">
+        <div className="p-[8px] border border-border rounded-md">
           <p className="text-sm font-medium mb-[4px]">isSubmitting:</p>
           <span
             className={`text-sm ${
@@ -117,7 +117,7 @@ export const FormMethodsExample: React.FC = () => {
             {isSubmitting ? 'Yes' : 'No'}
           </span>
         </div>
-        <div className="p-[8px] border border-gray-200 dark:border-gray-700 rounded-md">
+        <div className="p-[8px] border border-border rounded-md">
           <p className="text-sm font-medium mb-[4px]">Errors:</p>
           <span
             className={`text-sm ${

@@ -24,10 +24,7 @@ export function AccessibilityUtilities() {
 
       <section className="space-y-8">
         <div className="text-center">
-          <Typography
-            tag="h2"
-            className="mb-2"
-          >
+          <Typography tag="h2" className="mb-2">
             Inclusive Design & Accessibility
           </Typography>
           <Typography
@@ -70,7 +67,7 @@ export function AccessibilityUtilities() {
                   </Typography>
                 </div>
 
-                <div className="p-4 bg-light-dark rounded-lg border border-gray-300 dark:border-gray-600">
+                <div className="p-4 bg-light-dark rounded-lg border border-border">
                   <Typography tag="h4" className="font-medium mb-2">
                     When to Use Each Value:
                   </Typography>

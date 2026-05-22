@@ -9,8 +9,7 @@ import { useIsMobile } from '../../../hooks';
 import { MacOSTahoeLayoutSidebar } from '../../macos/tahoe/layout/layout-sidebar-tahoe';
 import { MacOSTahoeLayoutContent } from '../../macos/tahoe/layout/layout-content-tahoe';
 import { MacOSTahoeToast } from '../../macos/tahoe/controls/macos-tahoe-toast';
-import { MacOSBackground } from '../../macos/tahoe/foundations/background';
-import { useTheme } from '../../../themes';
+import { ThemeBackground, useTheme } from '../../../themes';
 import { findCurrentPageTitle } from './utils';
 
 // ─── Types ─────────────────────────────────────────────────────
@@ -61,11 +60,7 @@ export function MacOSTahoeLayout({
       )}
     >
       {/* Background layer */}
-      <MacOSBackground
-        variant={backgroundVariant}
-        className="inset-0 h-full w-full"
-        style={{ position: 'absolute', zIndex: -1 }}
-      />
+      <ThemeBackground mode="absolute" variant={backgroundVariant} />
 
       {/* Sidebar — desktop */}
       {!isMobile && (

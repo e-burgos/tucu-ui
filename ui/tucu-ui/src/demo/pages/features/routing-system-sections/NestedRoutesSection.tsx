@@ -135,7 +135,7 @@ const menuItems: StandaloneAppRoutesMenuItem[] = [
           <Typography tag="p" className="text-sm">
             <LucideIcons.Info className="w-4 h-4 inline mr-2" />
             Use{' '}
-            <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
+            <code className="px-1 py-0.5 border border-border rounded text-xs">
               enableNestedRoutes: true
             </code>{' '}
             on parent routes when child components need their own internal

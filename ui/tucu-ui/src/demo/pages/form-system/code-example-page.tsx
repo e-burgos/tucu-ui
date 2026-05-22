@@ -68,11 +68,11 @@ export function CodeExamplePage() {
                           The main example form component. Demonstrates how to
                           use the centralized form system with validation,
                           fields, and state management. Uses the{' '}
-                          <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
+                          <code className="px-1 py-0.5 border border-border rounded text-xs">
                             Form
                           </code>{' '}
                           component from{' '}
-                          <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
+                          <code className="px-1 py-0.5 border border-border rounded text-xs">
                             tucu-ui
                           </code>{' '}
                           to provide React Hook Form context to all child
@@ -91,15 +91,15 @@ export function CodeExamplePage() {
                           className="text-gray-600 dark:text-gray-400"
                         >
                           Defines the form using{' '}
-                          <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
+                          <code className="px-1 py-0.5 border border-border rounded text-xs">
                             {'<Form<FormValues> ...>'}
                           </code>
                           , uses{' '}
-                          <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
+                          <code className="px-1 py-0.5 border border-border rounded text-xs">
                             FormField
                           </code>{' '}
                           for each field, passes centralized validation via{' '}
-                          <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
+                          <code className="px-1 py-0.5 border border-border rounded text-xs">
                             validationSchema
                           </code>
                           , and includes helper components for error and method
@@ -118,7 +118,7 @@ export function CodeExamplePage() {
                           className="text-gray-600 dark:text-gray-400"
                         >
                           Simply render{' '}
-                          <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
+                          <code className="px-1 py-0.5 border border-border rounded text-xs">
                             {'<FormExample />'}
                           </code>{' '}
                           to get a fully validated, error-handling form.
@@ -135,7 +135,7 @@ export function CodeExamplePage() {
                   <Typography tag="h4" className="font-semibold text-lg mt-6">
                     Live Demo
                   </Typography>
-                  <div className="p-6 bg-light-dark rounded-xl border border-gray-200 dark:border-gray-700">
+                  <div className="p-6 bg-light-dark rounded-xl border border-border">
                     <SimpleFormExample />
                   </div>
                 </div>
@@ -172,7 +172,7 @@ export function CodeExamplePage() {
                         >
                           A component that consumes the React Hook Form context
                           using{' '}
-                          <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
+                          <code className="px-1 py-0.5 border border-border rounded text-xs">
                             useFormContext
                           </code>{' '}
                           and displays the current form errors.
@@ -190,15 +190,15 @@ export function CodeExamplePage() {
                           className="text-gray-600 dark:text-gray-400"
                         >
                           Uses{' '}
-                          <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
+                          <code className="px-1 py-0.5 border border-border rounded text-xs">
                             useFormContext&lt;FormValues&gt;()
                           </code>{' '}
                           to access{' '}
-                          <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
+                          <code className="px-1 py-0.5 border border-border rounded text-xs">
                             formState.errors
                           </code>{' '}
                           and renders a{' '}
-                          <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
+                          <code className="px-1 py-0.5 border border-border rounded text-xs">
                             &lt;pre&gt;
                           </code>{' '}
                           block with the current errors as JSON.
@@ -216,11 +216,11 @@ export function CodeExamplePage() {
                           className="text-gray-600 dark:text-gray-400"
                         >
                           Place{' '}
-                          <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
+                          <code className="px-1 py-0.5 border border-border rounded text-xs">
                             {'<ErrorContainerExample />'}
                           </code>{' '}
                           inside a{' '}
-                          <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
+                          <code className="px-1 py-0.5 border border-border rounded text-xs">
                             {'<Form>'}
                           </code>{' '}
                           to see real-time form errors.
@@ -237,7 +237,7 @@ export function CodeExamplePage() {
                   <Typography tag="h4" className="font-semibold text-lg mt-6">
                     Live Demo
                   </Typography>
-                  <div className="p-6 bg-light-dark rounded-xl border border-gray-200 dark:border-gray-700">
+                  <div className="p-6 bg-light-dark rounded-xl border border-border">
                     <ErrorContainerExample />
                   </div>
                 </div>
@@ -290,7 +290,7 @@ export function CodeExamplePage() {
                           className="text-gray-600 dark:text-gray-400"
                         >
                           Uses{' '}
-                          <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
+                          <code className="px-1 py-0.5 border border-border rounded text-xs">
                             useFormContext&lt;FormValues&gt;()
                           </code>{' '}
                           to access form methods and state, shows real-time
@@ -310,11 +310,11 @@ export function CodeExamplePage() {
                           className="text-gray-600 dark:text-gray-400"
                         >
                           Place{' '}
-                          <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
+                          <code className="px-1 py-0.5 border border-border rounded text-xs">
                             {'<FormMethodsExample />'}
                           </code>{' '}
                           inside a{' '}
-                          <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
+                          <code className="px-1 py-0.5 border border-border rounded text-xs">
                             {'<Form>'}
                           </code>{' '}
                           to interact with and observe form state and methods.
@@ -331,7 +331,7 @@ export function CodeExamplePage() {
                   <Typography tag="h4" className="font-semibold text-lg mt-6">
                     Live Demo
                   </Typography>
-                  <div className="p-6 bg-light-dark rounded-xl border border-gray-200 dark:border-gray-700">
+                  <div className="p-6 bg-light-dark rounded-xl border border-border">
                     <FormMethodsExample />
                   </div>
                 </div>
@@ -382,15 +382,15 @@ export function CodeExamplePage() {
                           className="text-gray-600 dark:text-gray-400"
                         >
                           Exports arrays like{' '}
-                          <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
+                          <code className="px-1 py-0.5 border border-border rounded text-xs">
                             countryOptions
                           </code>
                           ,{' '}
-                          <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
+                          <code className="px-1 py-0.5 border border-border rounded text-xs">
                             genderOptions
                           </code>
                           , and{' '}
-                          <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
+                          <code className="px-1 py-0.5 border border-border rounded text-xs">
                             developerOptions
                           </code>{' '}
                           for use in form fields.
@@ -408,11 +408,11 @@ export function CodeExamplePage() {
                           className="text-gray-600 dark:text-gray-400"
                         >
                           Use these constants in{' '}
-                          <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
+                          <code className="px-1 py-0.5 border border-border rounded text-xs">
                             Select
                           </code>
                           ,{' '}
-                          <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
+                          <code className="px-1 py-0.5 border border-border rounded text-xs">
                             RadioGroup
                           </code>
                           , etc., to populate field options.
@@ -473,15 +473,15 @@ export function CodeExamplePage() {
                           className="text-gray-600 dark:text-gray-400"
                         >
                           Defines the{' '}
-                          <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
+                          <code className="px-1 py-0.5 border border-border rounded text-xs">
                             FormValues
                           </code>{' '}
                           interface, exports{' '}
-                          <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
+                          <code className="px-1 py-0.5 border border-border rounded text-xs">
                             defaultValues
                           </code>{' '}
                           for initial form state, and{' '}
-                          <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
+                          <code className="px-1 py-0.5 border border-border rounded text-xs">
                             formValidations
                           </code>{' '}
                           for field validation rules.
@@ -499,15 +499,15 @@ export function CodeExamplePage() {
                           className="text-gray-600 dark:text-gray-400"
                         >
                           Pass{' '}
-                          <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
+                          <code className="px-1 py-0.5 border border-border rounded text-xs">
                             formValidations
                           </code>{' '}
                           and{' '}
-                          <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
+                          <code className="px-1 py-0.5 border border-border rounded text-xs">
                             defaultValues
                           </code>{' '}
                           to the{' '}
-                          <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">
+                          <code className="px-1 py-0.5 border border-border rounded text-xs">
                             Form
                           </code>{' '}
                           component to enable centralized, type-safe validation

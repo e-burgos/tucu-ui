@@ -55,7 +55,7 @@ export function BackgroundUtilities() {
                 </Typography>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div className="space-y-2">
-                    <div className="h-32 bg-fixed bg-center bg-cover bg-linear-to-r from-red-500 to-yellow-500 rounded-lg border-2 border-gray-300 dark:border-gray-600 overflow-hidden">
+                    <div className="h-32 bg-fixed bg-center bg-cover bg-linear-to-r from-red-500 to-yellow-500 rounded-lg border-2 border-border overflow-hidden">
                       <div className="h-64 p-4 bg-black/50 text-white">
                         <p className="text-sm">Fixed attachment</p>
                         <p className="text-xs opacity-75 mt-1">
@@ -66,7 +66,7 @@ export function BackgroundUtilities() {
                     <div className="text-xs text-center">bg-fixed</div>
                   </div>
                   <div className="space-y-2">
-                    <div className="h-32 bg-local bg-center bg-cover bg-linear-to-r from-blue-500 to-purple-500 rounded-lg border-2 border-gray-300 dark:border-gray-600 overflow-hidden">
+                    <div className="h-32 bg-local bg-center bg-cover bg-linear-to-r from-blue-500 to-purple-500 rounded-lg border-2 border-border overflow-hidden">
                       <div className="h-64 p-4 bg-black/50 text-white">
                         <p className="text-sm">Local attachment</p>
                         <p className="text-xs opacity-75 mt-1">
@@ -77,7 +77,7 @@ export function BackgroundUtilities() {
                     <div className="text-xs text-center">bg-local</div>
                   </div>
                   <div className="space-y-2">
-                    <div className="h-32 bg-scroll bg-center bg-cover bg-linear-to-r from-green-500 to-teal-500 rounded-lg border-2 border-gray-300 dark:border-gray-600 overflow-hidden">
+                    <div className="h-32 bg-scroll bg-center bg-cover bg-linear-to-r from-green-500 to-teal-500 rounded-lg border-2 border-border overflow-hidden">
                       <div className="h-64 p-4 bg-black/50 text-white">
                         <p className="text-sm">Scroll attachment</p>
                         <p className="text-xs opacity-75 mt-1">
@@ -276,19 +276,19 @@ export function BackgroundUtilities() {
                   Control background image positioning
                 </Typography>
                 <div className="grid grid-cols-3 md:grid-cols-5 gap-4">
-                  <div className="w-20 h-20 bg-center bg-contain bg-no-repeat bg-red-500 rounded border-2 border-gray-300 dark:border-gray-600 flex items-center justify-center">
+                  <div className="w-20 h-20 bg-center bg-contain bg-no-repeat bg-red-500 rounded border-2 border-border flex items-center justify-center">
                     <div className="w-4 h-4 bg-white rounded-full"></div>
                   </div>
-                  <div className="w-20 h-20 bg-top bg-contain bg-no-repeat bg-green-500 rounded border-2 border-gray-300 dark:border-gray-600 flex items-start justify-center pt-1">
+                  <div className="w-20 h-20 bg-top bg-contain bg-no-repeat bg-green-500 rounded border-2 border-border flex items-start justify-center pt-1">
                     <div className="w-4 h-4 bg-white rounded-full"></div>
                   </div>
-                  <div className="w-20 h-20 bg-bottom bg-contain bg-no-repeat bg-blue-500 rounded border-2 border-gray-300 dark:border-gray-600 flex items-end justify-center pb-1">
+                  <div className="w-20 h-20 bg-bottom bg-contain bg-no-repeat bg-blue-500 rounded border-2 border-border flex items-end justify-center pb-1">
                     <div className="w-4 h-4 bg-white rounded-full"></div>
                   </div>
-                  <div className="w-20 h-20 bg-left bg-contain bg-no-repeat bg-purple-500 rounded border-2 border-gray-300 dark:border-gray-600 flex items-center justify-start pl-1">
+                  <div className="w-20 h-20 bg-left bg-contain bg-no-repeat bg-purple-500 rounded border-2 border-border flex items-center justify-start pl-1">
                     <div className="w-4 h-4 bg-white rounded-full"></div>
                   </div>
-                  <div className="w-20 h-20 bg-right bg-contain bg-no-repeat bg-yellow-500 rounded border-2 border-gray-300 dark:border-gray-600 flex items-center justify-end pr-1">
+                  <div className="w-20 h-20 bg-right bg-contain bg-no-repeat bg-yellow-500 rounded border-2 border-border flex items-center justify-end pr-1">
                     <div className="w-4 h-4 bg-white rounded-full"></div>
                   </div>
                 </div>
@@ -322,7 +322,7 @@ export function BackgroundUtilities() {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div className="space-y-2">
                     <div
-                      className="h-20 bg-repeat bg-center bg-auto rounded border-2 border-gray-300 dark:border-gray-600"
+                      className="h-20 bg-repeat bg-center bg-auto rounded border-2 border-border"
                       style={{
                         backgroundImage:
                           'url("https://plus.unsplash.com/premium_photo-1709579654090-3f3ca8f8416b?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8bmF0dXJhbGV6YSUyMHBhaXNhamV8ZW58MHx8MHx8fDA%3D&fm=jpg&q=60&w=3000")',
@@ -332,7 +332,7 @@ export function BackgroundUtilities() {
                   </div>
                   <div className="space-y-2">
                     <div
-                      className="h-20 bg-no-repeat bg-center bg-auto rounded border-2 border-gray-300 dark:border-gray-600"
+                      className="h-20 bg-no-repeat bg-center bg-auto rounded border-2 border-border"
                       style={{
                         backgroundImage:
                           'url("https://plus.unsplash.com/premium_photo-1709579654090-3f3ca8f8416b?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8bmF0dXJhbGV6YSUyMHBhaXNhamV8ZW58MHx8MHx8fDA%3D&fm=jpg&q=60&w=3000")',
@@ -342,7 +342,7 @@ export function BackgroundUtilities() {
                   </div>
                   <div className="space-y-2">
                     <div
-                      className="h-20 bg-repeat-x bg-center bg-auto rounded border-2 border-gray-300 dark:border-gray-600"
+                      className="h-20 bg-repeat-x bg-center bg-auto rounded border-2 border-border"
                       style={{
                         backgroundImage:
                           'url("https://plus.unsplash.com/premium_photo-1709579654090-3f3ca8f8416b?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8bmF0dXJhbGV6YSUyMHBhaXNhamV8ZW58MHx8MHx8fDA%3D&fm=jpg&q=60&w=3000")',
@@ -352,7 +352,7 @@ export function BackgroundUtilities() {
                   </div>
                   <div className="space-y-2">
                     <div
-                      className="h-20 bg-repeat-y bg-center bg-auto rounded border-2 border-gray-300 dark:border-gray-600"
+                      className="h-20 bg-repeat-y bg-center bg-auto rounded border-2 border-border"
                       style={{
                         backgroundImage:
                           'url("https://plus.unsplash.com/premium_photo-1709579654090-3f3ca8f8416b?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8bmF0dXJhbGV6YSUyMHBhaXNhamV8ZW58MHx8MHx8fDA%3D&fm=jpg&q=60&w=3000")',
@@ -384,7 +384,7 @@ export function BackgroundUtilities() {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div className="space-y-2">
                     <div
-                      className="h-20 bg-auto bg-center bg-no-repeat rounded border-2 border-gray-300 dark:border-gray-600"
+                      className="h-20 bg-auto bg-center bg-no-repeat rounded border-2 border-border"
                       style={{
                         backgroundImage:
                           'url("https://plus.unsplash.com/premium_photo-1709579654090-3f3ca8f8416b?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8bmF0dXJhbGV6YSUyMHBhaXNhamV8ZW58MHx8MHx8fDA%3D&fm=jpg&q=60&w=3000")',
@@ -394,7 +394,7 @@ export function BackgroundUtilities() {
                   </div>
                   <div className="space-y-2">
                     <div
-                      className="h-20 bg-cover bg-center bg-no-repeat rounded border-2 border-gray-300 dark:border-gray-600"
+                      className="h-20 bg-cover bg-center bg-no-repeat rounded border-2 border-border"
                       style={{
                         backgroundImage:
                           'url("https://plus.unsplash.com/premium_photo-1709579654090-3f3ca8f8416b?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8bmF0dXJhbGV6YSUyMHBhaXNhamV8ZW58MHx8MHx8fDA%3D&fm=jpg&q=60&w=3000")',
@@ -404,7 +404,7 @@ export function BackgroundUtilities() {
                   </div>
                   <div className="space-y-2">
                     <div
-                      className="h-20 bg-contain bg-center bg-no-repeat rounded border-2 border-gray-300 dark:border-gray-600"
+                      className="h-20 bg-contain bg-center bg-no-repeat rounded border-2 border-border"
                       style={{
                         backgroundImage:
                           'url("https://plus.unsplash.com/premium_photo-1709579654090-3f3ca8f8416b?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8bmF0dXJhbGV6YSUyMHBhaXNhamV8ZW58MHx8MHx8fDA%3D&fm=jpg&q=60&w=3000")',

@@ -67,7 +67,7 @@ export function NFTGrid({
           </div>
         </div>
 
-        <div className="flex items-center justify-between border-t border-gray-100 dark:border-gray-800 pt-2.5">
+        <div className="flex items-center justify-between border-t border-[var(--color-border)] pt-2.5">
           <span className="text-xs text-gray-500 dark:text-gray-500">
             Price
           </span>

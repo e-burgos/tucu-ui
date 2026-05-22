@@ -130,7 +130,7 @@ const ThemeConfigurationSection: React.FC = () => {
                     className="flex items-center gap-2 p-2 bg-gray-200 dark:bg-gray-800 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
                   >
                     <div
-                      className="w-4 h-4 rounded-full border border-gray-300 dark:border-gray-600 shadow-sm"
+                      className="w-4 h-4 rounded-full border border-border shadow-sm"
                       style={{ backgroundColor: preset.color }}
                     />
                     <span className="text-xs font-medium truncate">

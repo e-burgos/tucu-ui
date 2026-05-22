@@ -29,30 +29,41 @@ const ColorSystemSection: React.FC = () => {
     return () => clearTimeout(timer);
   }, [mode]);
 
-  // Observe changes to the document class (light/dark)
+  // Observe changes to the document class (light/dark) AND style (color presets)
   useEffect(() => {
     const observer = new MutationObserver(() => {
       setUpdateKey((prev) => prev + 1);
     });
     observer.observe(document.documentElement, {
       attributes: true,
-      attributeFilter: ['class'],
+      attributeFilter: ['class', 'style'],
     });
     return () => observer.disconnect();
   }, []);
 
+  // Groups aligned with Settings Drawer organization
   const brandColors = [
-    { name: 'Primary', class: 'bg-primary', hex: '#3B82F6' },
-    { name: 'Secondary', class: 'bg-secondary', hex: '#6B7280' },
-    { name: 'Accent', class: 'bg-accent', hex: '#10B981' },
-    { name: 'Muted', class: 'bg-muted', hex: '#F3F4F6' },
+    { name: 'Primary', class: 'bg-primary', varName: '--color-primary' },
+    { name: 'Accent', class: 'bg-accent', varName: '--color-accent' },
   ];
 
-  const semanticColors = [
-    { name: 'Success', class: 'bg-green-500', hex: '#10B981' },
-    { name: 'Warning', class: 'bg-yellow-500', hex: '#F59E0B' },
-    { name: 'Error', class: 'bg-red-500', hex: '#EF4444' },
-    { name: 'Info', class: 'bg-blue-500', hex: '#3B82F6' },
+  const surfaceColors = [
+    { name: 'Secondary', class: 'bg-secondary', varName: '--color-secondary' },
+    { name: 'Background', class: 'bg-body', varName: '--color-body' },
+    { name: 'Dark', class: 'bg-dark', varName: '--color-dark' },
+  ];
+
+  const textColors = [
+    { name: 'Muted', class: 'bg-muted', varName: '--color-muted' },
+    { name: 'Primary', class: 'bg-foreground', varName: '--color-foreground' },
+    { name: 'Border', class: 'bg-border', varName: '--color-border' },
+  ];
+
+  const statusColors = [
+    { name: 'Success', class: 'bg-success', varName: '--color-success' },
+    { name: 'Warning', class: 'bg-warning', varName: '--color-warning' },
+    { name: 'Error', class: 'bg-error', varName: '--color-error' },
+    { name: 'Info', class: 'bg-info', varName: '--color-info' },
   ];
 
   const colorSpectrum = [
@@ -107,7 +118,13 @@ const ColorSystemSection: React.FC = () => {
     { name: 'primary', varName: '--color-primary', class: 'bg-primary' },
     { name: 'secondary', varName: '--color-secondary', class: 'bg-secondary' },
     { name: 'accent', varName: '--color-accent', class: 'bg-accent' },
+    {
+      name: 'foreground',
+      varName: '--color-foreground',
+      class: 'bg-foreground',
+    },
     { name: 'muted', varName: '--color-muted', class: 'bg-muted' },
+    { name: 'border', varName: '--color-border', class: 'bg-border' },
     { name: 'success', varName: '--color-success', class: 'bg-success' },
     { name: 'warning', varName: '--color-warning', class: 'bg-warning' },
     { name: 'error', varName: '--color-error', class: 'bg-error' },
@@ -139,36 +156,106 @@ const ColorSystemSection: React.FC = () => {
         <CardContainer className="overflow-hidden">
           <CardTitle title="Brand Colors" className="mt-2 mb-2">
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6">
-              {brandColors.map((color) => (
-                <div key={color.name} className="text-center space-y-2">
+              {brandColors.map((color) => {
+                const hexValue = getColorHex(color.varName);
+                return (
                   <div
-                    className={`w-16 h-16 rounded-lg ${color.class} mx-auto`}
-                  />
-                  <div className="text-sm">
-                    <div className="font-semibold">{color.name}</div>
-                    <div className="text-muted-foreground">{color.hex}</div>
+                    key={`${color.name}-${updateKey}`}
+                    className="text-center space-y-2"
+                  >
+                    <div
+                      className={`w-16 h-16 rounded-lg ${color.class} mx-auto border border-border`}
+                    />
+                    <div className="text-sm">
+                      <div className="font-semibold">{color.name}</div>
+                      <div className="text-muted text-xs">
+                        {hexValue || color.varName}
+                      </div>
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </CardTitle>
         </CardContainer>
 
-        {/* Semantic Colors */}
+        {/* Surfaces */}
         <CardContainer className="overflow-hidden">
-          <CardTitle title="Semantic Colors" className="mt-2 mb-2">
+          <CardTitle title="Surfaces" className="mt-2 mb-2">
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6">
-              {semanticColors.map((color) => (
-                <div key={color.name} className="text-center space-y-2">
+              {surfaceColors.map((color) => {
+                const hexValue = getColorHex(color.varName);
+                return (
                   <div
-                    className={`w-16 h-16 rounded-lg ${color.class} mx-auto`}
-                  />
-                  <div className="text-sm">
-                    <div className="font-semibold">{color.name}</div>
-                    <div className="text-muted-foreground">{color.hex}</div>
+                    key={`surface-${color.name}-${updateKey}`}
+                    className="text-center space-y-2"
+                  >
+                    <div
+                      className={`w-16 h-16 rounded-lg ${color.class} mx-auto border border-border`}
+                    />
+                    <div className="text-sm">
+                      <div className="font-semibold">{color.name}</div>
+                      <div className="text-muted text-xs">
+                        {hexValue || color.varName}
+                      </div>
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
+            </div>
+          </CardTitle>
+        </CardContainer>
+
+        {/* Text */}
+        <CardContainer className="overflow-hidden">
+          <CardTitle title="Text" className="mt-2 mb-2">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 sm:gap-6">
+              {textColors.map((color) => {
+                const hexValue = getColorHex(color.varName);
+                return (
+                  <div
+                    key={`text-${color.name}-${updateKey}`}
+                    className="text-center space-y-2"
+                  >
+                    <div
+                      className={`w-16 h-16 rounded-lg ${color.class} mx-auto border border-border`}
+                    />
+                    <div className="text-sm">
+                      <div className="font-semibold">{color.name}</div>
+                      <div className="text-muted text-xs">
+                        {hexValue || color.varName}
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </CardTitle>
+        </CardContainer>
+
+        {/* Status */}
+        <CardContainer className="overflow-hidden">
+          <CardTitle title="Status" className="mt-2 mb-2">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6">
+              {statusColors.map((color) => {
+                const hexValue = getColorHex(color.varName);
+                return (
+                  <div
+                    key={`status-${color.name}-${updateKey}`}
+                    className="text-center space-y-2"
+                  >
+                    <div
+                      className={`w-16 h-16 rounded-lg ${color.class} mx-auto border border-border`}
+                    />
+                    <div className="text-sm">
+                      <div className="font-semibold">{color.name}</div>
+                      <div className="text-muted text-xs">
+                        {hexValue || color.varName}
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </CardTitle>
         </CardContainer>
@@ -218,7 +305,7 @@ const ColorSystemSection: React.FC = () => {
                             className="space-y-1 w-full min-w-[40px]"
                           >
                             <div
-                              className={`h-16 w-full rounded border border-gray-200 dark:border-gray-700 ${bgClass}`}
+                              className={`h-16 w-full rounded border border-border ${bgClass}`}
                               title={`${color.name}-${shade}: ${
                                 hexValue || varName
                               }`}
@@ -273,10 +360,10 @@ const ColorSystemSection: React.FC = () => {
                   return (
                     <div
                       key={`main-${color.name}-${updateKey}`}
-                      className="space-y-2 border border-gray-200 dark:border-gray-700 rounded-lg p-2"
+                      className="space-y-2 border border-border rounded-lg p-2"
                     >
                       <div
-                        className={`h-20 rounded flex items-center justify-center ${color.class} ${textColor} border border-gray-200 dark:border-gray-700`}
+                        className={`h-20 rounded flex items-center justify-center ${color.class} ${textColor} border border-border`}
                         title={`${color.name}: var(${color.varName})${
                           hexValue ? ` = ${hexValue}` : ''
                         }`}

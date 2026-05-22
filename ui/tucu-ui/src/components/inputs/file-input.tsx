@@ -224,7 +224,7 @@ function FileInput(
       data-tucu="file-input"
       data-color={color}
       className={cn(
-        'rounded-lg border border-solid border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-light-dark sm:p-6',
+        'rounded-lg border border-solid border-border bg-white p-4 dark:bg-light-dark sm:p-6',
         color && fileInputColorClasses[color].wrapper,
         wrapperClassName
       )}
@@ -232,7 +232,7 @@ function FileInput(
       <div
         data-tucu="file-input-dropzone"
         className={cn(
-          'hover:bg-gray-100  dark:hover:bg-gray-900/50 border border-dashed dark:hover:border-brand hover:border-brand transition-all duration-300 relative border-gray-200 dark:border-gray-700 h-48 flex items-center justify-center rounded-lg',
+          'hover:bg-gray-100  dark:hover:bg-gray-900/50 border border-dashed dark:hover:border-brand hover:border-brand transition-all duration-300 relative border-border h-48 flex items-center justify-center rounded-lg',
           color && fileInputColorClasses[color].dropzone,
           containerClassName
         )}
@@ -292,7 +292,7 @@ function FileInput(
                 {isImage ? (
                   <figure
                     data-tucu="file-input-image-preview"
-                    className="relative mx-auto aspect-square w-20 overflow-hidden rounded-xl border border-gray-300 @2xl:w-32"
+                    className="relative mx-auto aspect-square w-20 overflow-hidden rounded-xl border border-border @2xl:w-32"
                   >
                     <Image
                       src={URL.createObjectURL(file)}
@@ -304,7 +304,7 @@ function FileInput(
                 ) : (
                   <div
                     data-tucu="file-input-preview"
-                    className="relative mx-auto w-20 @2xl:w-32 flex flex-col items-center justify-center p-3 rounded-xl border border-gray-300 dark:border-gray-700 bg-gray-200 dark:bg-gray-800"
+                    className="relative mx-auto w-20 @2xl:w-32 flex flex-col items-center justify-center p-3 rounded-xl border border-border dark:border-border bg-gray-200 dark:bg-gray-800"
                   >
                     <DocumentIcon className="w-8 h-8 text-gray-600 dark:text-gray-400 mb-2" />
                     <span className="text-xs font-semibold text-gray-700 dark:text-gray-300 text-center">

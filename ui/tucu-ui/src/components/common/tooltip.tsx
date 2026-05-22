@@ -37,7 +37,7 @@ export interface TooltipProps {
 const colorStyles: Record<TooltipColor, string> = {
   dark: 'bg-gray-900 text-white dark:bg-gray-100 dark:text-gray-900',
   light:
-    'bg-white text-gray-900 dark:bg-gray-800 dark:text-gray-100 border border-gray-200 dark:border-gray-700',
+    'bg-white text-gray-900 dark:bg-gray-800 dark:text-gray-100 border border-border',
   primary: 'bg-brand text-white',
   success: 'bg-green-500 text-white',
   info: 'bg-blue-500 text-white',

@@ -8,7 +8,7 @@ export const ErrorContainerExample: React.FC = () => {
   const { errors } = formState;
 
   return (
-    <div className="mt-[24px] border border-gray-200 dark:border-gray-700 rounded-lg p-[16px]">
+    <div className="mt-[24px] border border-border rounded-lg p-[16px]">
       <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-[8px]">
         Error List
       </h3>

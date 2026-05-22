@@ -5,7 +5,7 @@ import { FieldError } from './helpers/field-error-text';
 import { FieldHelperText } from './helpers/field-helper-text';
 
 const inputClasses = {
-  base: 'appearance-none cursor-pointer rounded-full disabled:bg-muted/10 disabled:border-gray-200 disabled:cursor-not-allowed transition-all duration-200',
+  base: 'appearance-none cursor-pointer rounded-full disabled:bg-muted/10 disabled:border-border disabled:cursor-not-allowed transition-all duration-200',
   size: {
     sm: 'h-[16px] w-[16px]',
     md: 'h-[20px] w-[20px]',
@@ -16,7 +16,7 @@ const inputClasses = {
     ghost: {
       base: 'border-[2px] bg-white dark:bg-gray-800 hover:enabled:bg-gray-100 dark:hover:enabled:bg-gray-700 transition-colors',
       defaultColor:
-        'border-gray-300 dark:border-gray-600 focus:ring-[2px] focus:ring-brand/30 checked:border-brand checked:bg-brand checked:hover:enabled:bg-brand/90 checked:hover:enabled:border-brand/90 checked:hover:enabled:scale-105',
+        'border-border focus:ring-[2px] focus:ring-brand/30 checked:border-brand checked:bg-brand checked:hover:enabled:bg-brand/90 checked:hover:enabled:border-brand/90 checked:hover:enabled:scale-105',
       color: {
         primary:
           'border-brand focus:ring-[2px] focus:ring-brand/30 checked:border-brand checked:bg-brand checked:hover:enabled:bg-brand/90 checked:hover:enabled:border-brand/90 checked:hover:enabled:scale-105',
@@ -185,7 +185,7 @@ export const Radio = forwardRef<HTMLInputElement, RadioProps>(
                 inputClasses.variant[variant].base,
                 colorClasses,
                 disabled &&
-                  'cursor-not-allowed bg-muted/10! border-gray-200! dark:border-gray-700!',
+                  'cursor-not-allowed bg-muted/10! border-border! dark:border-border!',
                 'peer',
                 inputClassName
               )}

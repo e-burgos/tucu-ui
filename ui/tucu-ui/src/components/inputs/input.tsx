@@ -64,7 +64,7 @@ export type InputProps = Omit<
 
 export const inputVariantClasses = {
   ghost:
-    'transition-shadow border border-gray-200 bg-white text-gray-900 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100',
+    'transition-shadow border border-border bg-white text-gray-900 dark:bg-gray-800 dark:text-gray-100',
   solid:
     'transition-colors bg-gray-200/70 hover:bg-gray-300 text-gray-900 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-gray-100',
   transparent: '',
@@ -564,7 +564,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
                     onChange: undefined,
                   })}
               className={cn(
-                'block w-full placeholder-gray-400 transition-shadow duration-200 rounded-xl text-gray-900 dark:invalid:border-red-500 dark:invalid:text-red-600 invalid:border-red-500 invalid:text-red-600 focus:border-gray-300 focus:outline-hidden focus:ring-1 focus:ring-gray-300 focus:invalid:border-red-500 focus:invalid:ring-red-500 disabled:border-gray-200 disabled:bg-muted/10 disabled:text-gray-500 disabled:cursor-not-allowed dark:text-gray-100 dark:focus:border-gray-600 dark:focus:ring-gray-600 cursor-pointer',
+                'block w-full placeholder-gray-400 transition-shadow duration-200 rounded-xl text-gray-900 dark:invalid:border-red-500 dark:invalid:text-red-600 invalid:border-red-500 invalid:text-red-600 focus:border-border focus:outline-hidden focus:ring-1 focus:ring-gray-300 focus:invalid:border-red-500 focus:invalid:ring-red-500 disabled:border-border disabled:bg-muted/10 disabled:text-gray-500 disabled:cursor-not-allowed dark:text-gray-100 dark:focus:border-gray-600 dark:focus:ring-gray-600 cursor-pointer',
                 textControlSizeClasses.input[size],
                 Boolean(icon) && 'pl-[40px]',
                 type === 'date' ? 'pr-[48px] cursor-pointer' : '',
@@ -629,7 +629,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
                 data-tucu="input-calendar"
                 style={calendarStyle}
                 className={cn(
-                  'overflow-hidden rounded-xl border border-gray-200 bg-white p-[16px] shadow-large outline-hidden dark:border-gray-700 dark:bg-gray-800',
+                  'overflow-hidden rounded-xl border border-border bg-white p-[16px] shadow-large outline-hidden dark:bg-gray-800',
                   'transition ease-in duration-100',
                   isCalendarClosing ? 'opacity-0' : 'opacity-100'
                 )}
@@ -746,7 +746,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
                     </div>
 
                     {/* Today button */}
-                    <div className="mt-[16px] pt-[12px] border-t border-gray-200 dark:border-gray-700">
+                    <div className="mt-[16px] pt-[12px] border-t border-border">
                       <button
                         type="button"
                         onClick={() => handleDateSelect(new Date())}

@@ -54,19 +54,19 @@ export function HorizontalNavMenu({ menuItems }: { menuItems: IMenuItem[] }) {
   const pathname = location.pathname;
 
   return (
-    <div className="flex items-center xl:px-[36px] 2xl:px-[56px] min-[1780px]:px-[64px]">
-      <ul className="relative flex items-center gap-[16px] 2xl:gap-[24px]">
+    <div className="flex items-center min-w-0 overflow-visible xl:px-[36px] 2xl:px-[56px] min-[1780px]:px-[64px]">
+      <ul className="relative flex items-center min-w-0 gap-[16px] 2xl:gap-[24px]">
         {handleMenuItems(menuItems, pathname).map((item, index) => {
           const hrefToUse = item.href ? item.href : item.path;
           return (
             <Fragment key={`layout-${item.name}-${index}`}>
               {item.dropdownItems && !item.hide ? (
-                <li className="group/parent relative">
+                <li className="group/parent relative min-w-0">
                   <ActiveLink
                     path={item.path}
                     href={item.href}
                     to={hrefToUse}
-                    className="flex w-full items-center text-sm font-medium uppercase text-gray-600 transition hover:text-gray-900 dark:text-gray-300 dark:hover:text-white hover:cursor-pointer"
+                    className="flex w-full items-center text-sm font-medium uppercase text-foreground/60 transition hover:text-foreground hover:cursor-pointer"
                   >
                     {item.icon && (
                       <span
@@ -95,7 +95,7 @@ export function HorizontalNavMenu({ menuItems }: { menuItems: IMenuItem[] }) {
                       />
                     </span>
                   </ActiveLink>
-                  <ul className="invisible absolute right-0 top-[130%] mt-[8px] w-[256px] rounded-[8px] bg-light-dark p-[12px] opacity-0 shadow-large transition-all group-hover/parent:visible group-hover/parent:top-full group-hover/parent:opacity-100 ltr:right-0 rtl:left-0">
+                  <ul className="invisible absolute right-0 z-50 border border-border top-[130%] mt-[8px] w-[256px] rounded-[8px] bg-light-dark p-[12px] opacity-0 shadow-large transition-all group-hover/parent:visible group-hover/parent:top-full group-hover/parent:opacity-100 ltr:right-0 rtl:left-0">
                     {item.dropdownItems.map((dropDownItem, index) => (
                       <li
                         className={cn(
@@ -107,7 +107,7 @@ export function HorizontalNavMenu({ menuItems }: { menuItems: IMenuItem[] }) {
                       >
                         {dropDownItem.dropdownItems ? (
                           <>
-                            <div className="flex w-full items-center justify-between rounded-[8px] px-[12px] py-[8px] text-sm font-medium uppercase text-gray-600 transition hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-700/50 dark:hover:text-white">
+                            <div className="flex w-full items-center justify-between rounded-[8px] px-[12px] py-[8px] text-sm font-medium uppercase text-foreground/60 transition hover:text-foreground dark:hover:bg-gray-700/50">
                               <span
                                 className={cn(
                                   'text-[12px]',
@@ -132,9 +132,9 @@ export function HorizontalNavMenu({ menuItems }: { menuItems: IMenuItem[] }) {
                                         path={subMenu.path}
                                         href={subMenu.href}
                                         to={SubMenuHrefToUse}
-                                        className="block rounded-[8px] px-[12px] py-[8px] text-sm font-medium uppercase !text-gray-600 transition hover:bg-gray-100  hover:text-gray-900 dark:!text-white dark:hover:bg-gray-700/50"
+                                        className="block rounded-[8px] px-[12px] py-[8px] text-sm font-medium uppercase text-foreground/60 transition hover:bg-gray-100 hover:text-foreground dark:hover:bg-gray-700/50"
                                         activeClassName={cn(
-                                          'bg-gray-100 dark:bg-gray-700 my-[4px] last:mb-[0px] first:mt-[0px] !text-gray-900 dark:!text-white',
+                                          'bg-gray-100 dark:bg-gray-700 my-[4px] last:mb-[0px] first:mt-[0px] !text-foreground',
                                           subMenu.isActive &&
                                             '!bg-brand !text-white'
                                         )}
@@ -160,9 +160,9 @@ export function HorizontalNavMenu({ menuItems }: { menuItems: IMenuItem[] }) {
                             href={dropDownItem.href}
                             onClick={dropDownItem.onClick}
                             onTouchStart={dropDownItem.onClick}
-                            className="flex items-center gap-[4px] rounded-[8px] px-[12px] py-[8px] text-sm font-medium uppercase text-gray-600 transition hover:bg-gray-200 hover:text-gray-900 dark:text-white dark:hover:bg-gray-700/50"
+                            className="flex items-center gap-[4px] rounded-[8px] px-[12px] py-[8px] text-sm font-medium uppercase text-foreground/60 transition hover:bg-gray-200 hover:text-foreground dark:hover:bg-gray-700/50"
                             activeClassName={cn(
-                              'bg-gray-100 dark:bg-gray-700 my-[4px] last:mb-[0px] first:mt-[0px] !text-gray-900 dark:!text-white',
+                              'bg-gray-100 dark:bg-gray-700 my-[4px] last:mb-[0px] first:mt-[0px] !text-foreground',
                               dropDownItem.isActive && '!bg-brand !text-white'
                             )}
                           >
@@ -181,7 +181,7 @@ export function HorizontalNavMenu({ menuItems }: { menuItems: IMenuItem[] }) {
                   </ul>
                 </li>
               ) : (
-                <li>
+                <li className="min-w-0">
                   <ActiveLink
                     path={item.path}
                     href={item.href}

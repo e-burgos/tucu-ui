@@ -186,7 +186,16 @@ function MfeApp() {
         <Alert variant="warning" dismissible={false}>
           <Typography tag="p" className="text-sm">
             <LucideIcons.AlertTriangle className="w-4 h-4 inline mr-2" />
-            MFE mode requires <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">isAuthenticated</code> (boolean) and <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">loginUrl</code> (string) as mandatory props. TypeScript enforces this at compile time.
+            MFE mode requires{' '}
+            <code className="px-1 py-0.5 border border-border rounded text-xs">
+              isAuthenticated
+            </code>{' '}
+            (boolean) and{' '}
+            <code className="px-1 py-0.5 border border-border rounded text-xs">
+              loginUrl
+            </code>{' '}
+            (string) as mandatory props. TypeScript enforces this at compile
+            time.
           </Typography>
         </Alert>
       </section>

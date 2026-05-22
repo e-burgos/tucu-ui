@@ -24,7 +24,7 @@ export const TahoeLayoutContentSection: React.FC = () => {
       <CardContainer className="overflow-hidden">
         <CardTitle title="With Toolbar Slots" className="mt-2 mb-2">
           <div className="w-full p-4 sm:p-6">
-            <div className="h-80 rounded-[20px] overflow-hidden border border-[var(--macos-tahoe-border,rgba(0,0,0,0.1))] shadow-[var(--shadow-card)]">
+            <div className="h-80 rounded-[20px] overflow-hidden border border-border shadow-[var(--shadow-card)]">
               <MacOSTahoeLayoutContent
                 toolbarLeading={
                   <button className="flex items-center gap-1.5 text-sm text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
@@ -48,7 +48,7 @@ export const TahoeLayoutContentSection: React.FC = () => {
                   {['Revenue', 'Users', 'Sessions'].map((label) => (
                     <div
                       key={label}
-                      className="rounded-[14px] border border-[var(--macos-tahoe-border,rgba(0,0,0,0.1))] bg-white/40 dark:bg-white/5 backdrop-blur-sm p-4"
+                      className="rounded-[14px] border border-border bg-white/40 dark:bg-white/5 backdrop-blur-sm p-4"
                     >
                       <p className="text-xs text-gray-400 mb-1">{label}</p>
                       <p className="text-xl font-semibold text-gray-800 dark:text-gray-100">

@@ -141,7 +141,12 @@ function MyMfeApp() {
         <Alert variant="info" dismissible={false}>
           <Typography tag="p" className="text-sm">
             <LucideIcons.Lightbulb className="w-4 h-4 inline mr-2" />
-            Both patterns use TypeScript discriminated unions. The <code className="px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded text-xs">architecturalPatterns</code> prop determines which props are available, preventing configuration errors at compile time.
+            Both patterns use TypeScript discriminated unions. The{' '}
+            <code className="px-1 py-0.5 border border-border rounded text-xs">
+              architecturalPatterns
+            </code>{' '}
+            prop determines which props are available, preventing configuration
+            errors at compile time.
           </Typography>
         </Alert>
       </section>
@@ -189,19 +194,22 @@ function MyMfeApp() {
             <div className="flex items-start gap-3">
               <LucideIcons.ArrowRight className="w-5 h-5 text-blue-500 shrink-0 mt-0.5" />
               <Typography tag="p" className="text-sm">
-                <strong>Start with Standalone</strong> if you&apos;re unsure — it&apos;s simpler and can be migrated to MFE later.
+                <strong>Start with Standalone</strong> if you&apos;re unsure —
+                it&apos;s simpler and can be migrated to MFE later.
               </Typography>
             </div>
             <div className="flex items-start gap-3">
               <LucideIcons.ArrowRight className="w-5 h-5 text-purple-500 shrink-0 mt-0.5" />
               <Typography tag="p" className="text-sm">
-                <strong>Use MFE from the start</strong> if you know you&apos;ll need independent deployments or route isolation.
+                <strong>Use MFE from the start</strong> if you know you&apos;ll
+                need independent deployments or route isolation.
               </Typography>
             </div>
             <div className="flex items-start gap-3">
               <LucideIcons.ArrowRight className="w-5 h-5 text-green-500 shrink-0 mt-0.5" />
               <Typography tag="p" className="text-sm">
-                <strong>Both patterns share</strong> the same ThemeProvider, theming, and layout system — only routing differs.
+                <strong>Both patterns share</strong> the same ThemeProvider,
+                theming, and layout system — only routing differs.
               </Typography>
             </div>
           </div>

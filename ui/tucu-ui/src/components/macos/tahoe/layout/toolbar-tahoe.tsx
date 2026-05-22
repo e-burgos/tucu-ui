@@ -19,7 +19,7 @@ export function MacOSToolbarTahoe({
       className={cn(
         'relative z-20 flex h-(--macos-toolbar-height,58px) shrink-0 items-center gap-[12px] px-[20px] min-[500px]:px-[24px]',
         'bg-(--macos-tahoe-toolbar-bg) backdrop-blur-xl',
-        bordered && 'border-b border-(--macos-tahoe-border)',
+        bordered && 'border-b border-border',
         className
       )}
     >
@@ -27,10 +27,10 @@ export function MacOSToolbarTahoe({
         <div className="flex shrink-0 items-center gap-[8px]">{leading}</div>
       )}
 
-      <div className="flex flex-1 items-center justify-center">
+      <div className="flex min-w-0 flex-1 items-center justify-center overflow-hidden">
         {center ??
           (title && (
-            <span className="select-none text-[14px] font-semibold tracking-[0.01em] text-(--macos-tahoe-text)">
+            <span className="select-none truncate text-[14px] font-semibold tracking-[0.01em] text-(--macos-tahoe-text)">
               {title}
             </span>
           ))}

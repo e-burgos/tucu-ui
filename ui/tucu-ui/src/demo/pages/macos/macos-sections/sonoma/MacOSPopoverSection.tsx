@@ -28,15 +28,30 @@ function PopoverPlayground(props: {
         minWidth={props.minWidth}
         content={
           <div className="py-1">
-            <MacOSPopoverItem label="New File" icon={<LucideIcons.FilePlus className="w-4 h-4" />} shortcut="⌘N" onClick={() => setOpen(false)} />
-            <MacOSPopoverItem label="Open" icon={<LucideIcons.FolderOpen className="w-4 h-4" />} shortcut="⌘O" onClick={() => setOpen(false)} />
-            <MacOSPopoverItem label="Delete" icon={<LucideIcons.Trash2 className="w-4 h-4" />} destructive onClick={() => setOpen(false)} />
+            <MacOSPopoverItem
+              label="New File"
+              icon={<LucideIcons.FilePlus className="w-4 h-4" />}
+              shortcut="⌘N"
+              onClick={() => setOpen(false)}
+            />
+            <MacOSPopoverItem
+              label="Open"
+              icon={<LucideIcons.FolderOpen className="w-4 h-4" />}
+              shortcut="⌘O"
+              onClick={() => setOpen(false)}
+            />
+            <MacOSPopoverItem
+              label="Delete"
+              icon={<LucideIcons.Trash2 className="w-4 h-4" />}
+              destructive
+              onClick={() => setOpen(false)}
+            />
           </div>
         }
       >
         <button
           onClick={() => setOpen(true)}
-          className="rounded-lg border border-gray-300 dark:border-gray-600 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+          className="rounded-lg border border-border px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
         >
           Open Popover ({props.placement})
         </button>
@@ -71,16 +86,35 @@ export const MacOSPopoverSection: React.FC = () => {
               placement="bottom"
               content={
                 <div className="py-1">
-                  <MacOSPopoverItem label="New File" icon={<LucideIcons.FilePlus className="w-4 h-4" />} shortcut="⌘N" onClick={close} />
-                  <MacOSPopoverItem label="Open Recent" icon={<LucideIcons.Clock className="w-4 h-4" />} onClick={close} />
-                  <MacOSPopoverItem label="Save As…" icon={<LucideIcons.Save className="w-4 h-4" />} shortcut="⌘⇧S" onClick={close} />
-                  <MacOSPopoverItem label="Delete" icon={<LucideIcons.Trash2 className="w-4 h-4" />} destructive onClick={close} />
+                  <MacOSPopoverItem
+                    label="New File"
+                    icon={<LucideIcons.FilePlus className="w-4 h-4" />}
+                    shortcut="⌘N"
+                    onClick={close}
+                  />
+                  <MacOSPopoverItem
+                    label="Open Recent"
+                    icon={<LucideIcons.Clock className="w-4 h-4" />}
+                    onClick={close}
+                  />
+                  <MacOSPopoverItem
+                    label="Save As…"
+                    icon={<LucideIcons.Save className="w-4 h-4" />}
+                    shortcut="⌘⇧S"
+                    onClick={close}
+                  />
+                  <MacOSPopoverItem
+                    label="Delete"
+                    icon={<LucideIcons.Trash2 className="w-4 h-4" />}
+                    destructive
+                    onClick={close}
+                  />
                 </div>
               }
             >
               <button
                 onClick={() => toggle('context')}
-                className="rounded-lg border border-gray-300 dark:border-gray-600 px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                className="rounded-lg border border-border px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
               >
                 Right-click Menu
               </button>
@@ -93,28 +127,30 @@ export const MacOSPopoverSection: React.FC = () => {
         <CardTitle title="Four Placements" className="mt-2 mb-2">
           <div className="w-full p-4 sm:p-6">
             <div className="grid grid-cols-2 gap-8 p-8">
-              {(['bottom', 'top', 'right', 'left'] as const).map((placement) => (
-                <div key={placement} className="flex justify-center">
-                  <MacOSPopover
-                    isOpen={openId === placement}
-                    onClose={close}
-                    placement={placement}
-                    content={
-                      <div className="py-1">
-                        <MacOSPopoverItem label="Option A" onClick={close} />
-                        <MacOSPopoverItem label="Option B" onClick={close} />
-                      </div>
-                    }
-                  >
-                    <button
-                      onClick={() => toggle(placement)}
-                      className="rounded-lg border border-gray-300 dark:border-gray-600 px-3 py-2 text-xs text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors capitalize"
+              {(['bottom', 'top', 'right', 'left'] as const).map(
+                (placement) => (
+                  <div key={placement} className="flex justify-center">
+                    <MacOSPopover
+                      isOpen={openId === placement}
+                      onClose={close}
+                      placement={placement}
+                      content={
+                        <div className="py-1">
+                          <MacOSPopoverItem label="Option A" onClick={close} />
+                          <MacOSPopoverItem label="Option B" onClick={close} />
+                        </div>
+                      }
                     >
-                      {placement}
-                    </button>
-                  </MacOSPopover>
-                </div>
-              ))}
+                      <button
+                        onClick={() => toggle(placement)}
+                        className="rounded-lg border border-border px-3 py-2 text-xs text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors capitalize"
+                      >
+                        {placement}
+                      </button>
+                    </MacOSPopover>
+                  </div>
+                )
+              )}
             </div>
           </div>
         </CardTitle>
@@ -128,15 +164,29 @@ export const MacOSPopoverSection: React.FC = () => {
               onClose={close}
               content={
                 <div className="py-1">
-                  <MacOSPopoverItem label="Available" icon={<LucideIcons.Check className="w-4 h-4" />} onClick={close} />
-                  <MacOSPopoverItem label="Unavailable" icon={<LucideIcons.Lock className="w-4 h-4" />} disabled onClick={close} />
-                  <MacOSPopoverItem label="Delete" destructive icon={<LucideIcons.Trash2 className="w-4 h-4" />} onClick={close} />
+                  <MacOSPopoverItem
+                    label="Available"
+                    icon={<LucideIcons.Check className="w-4 h-4" />}
+                    onClick={close}
+                  />
+                  <MacOSPopoverItem
+                    label="Unavailable"
+                    icon={<LucideIcons.Lock className="w-4 h-4" />}
+                    disabled
+                    onClick={close}
+                  />
+                  <MacOSPopoverItem
+                    label="Delete"
+                    destructive
+                    icon={<LucideIcons.Trash2 className="w-4 h-4" />}
+                    onClick={close}
+                  />
                 </div>
               }
             >
               <button
                 onClick={() => toggle('disabled')}
-                className="rounded-lg border border-gray-300 dark:border-gray-600 px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                className="rounded-lg border border-border px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
               >
                 Show Popover
               </button>
@@ -152,11 +202,26 @@ export const MacOSPopoverSection: React.FC = () => {
           minWidth: 200,
         }}
         controlOverrides={[
-          { name: 'placement', type: 'select', options: ['top', 'bottom', 'left', 'right'], description: 'Popover placement relative to trigger' },
-          { name: 'minWidth', type: 'text', description: 'Minimum width in pixels' },
+          {
+            name: 'placement',
+            type: 'select',
+            options: ['top', 'bottom', 'left', 'right'],
+            description: 'Popover placement relative to trigger',
+          },
+          {
+            name: 'minWidth',
+            type: 'text',
+            description: 'Minimum width in pixels',
+          },
         ]}
         includeProps={['placement', 'minWidth']}
-        excludeProps={['className', 'contentClassName', 'isOpen', 'onClose', 'content']}
+        excludeProps={[
+          'className',
+          'contentClassName',
+          'isOpen',
+          'onClose',
+          'content',
+        ]}
       >
         {(props) => <PopoverPlayground {...props} />}
       </PropPlayground>

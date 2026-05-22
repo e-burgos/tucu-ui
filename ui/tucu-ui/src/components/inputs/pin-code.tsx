@@ -14,7 +14,7 @@ const containerClasses = {
 };
 
 const inputClasses = {
-  base: 'block peer text-center mr-[8px] last:mr-0 focus:placeholder:opacity-0 focus:outline-hidden transition duration-200 disabled:bg-muted/10 disabled:placeholder:text-gray-400 disabled:cursor-not-allowed disabled:border-gray-200',
+  base: 'block peer text-center mr-[8px] last:mr-0 focus:placeholder:opacity-0 focus:outline-hidden transition duration-200 disabled:bg-muted/10 disabled:placeholder:text-gray-400 disabled:cursor-not-allowed disabled:border-border',
   numberType:
     '[&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none [-moz-appearance:textfield]',
   error:
@@ -34,7 +34,7 @@ const inputClasses = {
   },
   variant: {
     ghost: {
-      base: 'transition-shadow border border-gray-200 bg-white text-gray-900 hover:border-gray-300 hover:ring-1 hover:ring-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 dark:hover:border-gray-600 dark:hover:ring-gray-600',
+      base: 'transition-shadow border border-border bg-white text-gray-900 hover:border-border hover:ring-1 hover:ring-gray-300 dark:bg-gray-800 dark:text-gray-100 dark:hover:border-gray-600 dark:hover:ring-gray-600',
     },
     solid: {
       base: 'transition-colors bg-gray-200/70 hover:bg-gray-300 dark:bg-gray-800 dark:hover:bg-gray-700',
@@ -241,7 +241,7 @@ export function PinCode({
                 error && inputClasses.error,
                 mask && 'password-dot',
                 props.disabled &&
-                  'bg-muted/10! cursor-not-allowed border-gray-200! dark:border-gray-700! hover:border-gray-200! dark:hover:border-gray-700!',
+                  'bg-muted/10! cursor-not-allowed border-border! dark:border-border! hover:border-border! dark:hover:border-gray-700!',
                 inputClassName
               )}
               {...props}

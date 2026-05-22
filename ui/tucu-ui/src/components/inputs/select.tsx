@@ -62,7 +62,7 @@ export interface SelectTypes {
 
 const selectVariantClasses = {
   ghost:
-    'transition-shadow rounded-xl border border-gray-200 bg-white text-gray-900 hover:border-gray-300 hover:ring-1 hover:ring-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 dark:hover:border-gray-600 dark:hover:ring-gray-600',
+    'transition-shadow rounded-xl border border-border bg-white text-gray-900 hover:border-border hover:ring-1 hover:ring-gray-300 dark:bg-gray-800 dark:text-gray-100 dark:hover:border-gray-600 dark:hover:ring-gray-600',
   solid:
     'transition-colors rounded-xl bg-gray-200/70 hover:bg-gray-300 dark:bg-gray-800 dark:hover:bg-gray-700',
   transparent: '',
@@ -360,14 +360,14 @@ export function Select({
         }
         style={dropdownStyle}
         className={cn(
-          'max-h-55 overflow-hidden rounded-xl border border-gray-200 bg-white shadow-large outline-hidden dark:border-gray-700 dark:bg-gray-800',
+          'max-h-55 overflow-hidden rounded-xl border border-border bg-white shadow-large outline-hidden dark:bg-gray-800',
           'transition ease-in duration-100',
           isClosing ? 'opacity-0' : 'opacity-100'
         )}
       >
         {/* Search input */}
         {searchable && (
-          <div className="flex items-center gap-2 border-b border-gray-200 dark:border-gray-700 px-3 py-2">
+          <div className="flex items-center gap-2 border-b border-border px-3 py-2">
             <Search className="h-3.5 w-3.5 shrink-0 text-gray-400 dark:text-gray-500" />
             <input
               data-tucu="select-search"

@@ -67,7 +67,7 @@ export function Header({
                   isOpen={isOpen}
                   onClick={() => setIsOpen && setIsOpen(true)}
                   color="white"
-                  className="shadow-main dark:border dark:border-solid dark:border-gray-700 dark:bg-light-dark dark:text-white"
+                  className="shadow-main dark:border dark:border-solid dark:border-border dark:bg-light-dark dark:text-white"
                 />
               </div>
             </div>

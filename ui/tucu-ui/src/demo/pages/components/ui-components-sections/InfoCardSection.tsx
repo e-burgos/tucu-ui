@@ -138,11 +138,8 @@ const InfoCardSection: React.FC = () => {
                 </Badge>
               }
               footer={
-                <div className="px-5 py-3 border-t border-gray-200/40 dark:border-gray-700/40 flex items-center justify-between">
-                  <Typography
-                    tag="span"
-                    className="text-[11px] text-gray-500"
-                  >
+                <div className="px-5 py-3 border-t border-border flex items-center justify-between">
+                  <Typography tag="span" className="text-[11px] text-gray-500">
                     Last synced 5 min ago
                   </Typography>
                   <Typography
@@ -220,11 +217,20 @@ const InfoCardSection: React.FC = () => {
         componentName="InfoCard"
         title="InfoCard Playground"
         defaultValues={{
-          'title': 'Info Card Title',
-          'subtitle': 'Subtitle text here',
-          'gridCols': 2
-}}
-        excludeProps={['columns', 'children', 'footer', 'footerLabel', 'footerTags', 'headerRight', 'icon', 'className']}
+          title: 'Info Card Title',
+          subtitle: 'Subtitle text here',
+          gridCols: 2,
+        }}
+        excludeProps={[
+          'columns',
+          'children',
+          'footer',
+          'footerLabel',
+          'footerTags',
+          'headerRight',
+          'icon',
+          'className',
+        ]}
       >
         {(props) => (
           <InfoCard
@@ -238,8 +244,6 @@ const InfoCardSection: React.FC = () => {
           />
         )}
       </PropPlayground>
-
-
 
       <AutoPropsTable componentName="InfoCard" />
 

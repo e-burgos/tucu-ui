@@ -7,6 +7,7 @@ import Toast from '../notifications/toast';
 import { LogoPropTypes } from '../logos/logo';
 import { LAYOUT_OPTIONS, LayoutOptionType } from '../../themes/config/index';
 import { IMenuItem } from './menus/menu-item';
+import { ThemeBackground } from '../../themes/components/theme-background';
 
 export interface LayoutTypeProps {
   logo?: LogoPropTypes;
@@ -38,59 +39,71 @@ const LayoutType = ({
 
   if (layout === LAYOUT_OPTIONS.CLEAN) {
     return (
-      <CleanLayout className={className || contentClassName}>
-        {children}
-        <Toast />
-      </CleanLayout>
+      <ThemeBackground>
+        <CleanLayout className={className || contentClassName}>
+          {children}
+          <Toast />
+        </CleanLayout>
+      </ThemeBackground>
     );
   }
   if (layout === LAYOUT_OPTIONS.HORIZONTAL) {
     return (
-      <HorizontalLayout
-        logo={logo}
-        rightButton={rightButton}
-        menuItems={menuItems}
-        isOpen={isOpen}
-        setIsOpen={setIsOpen}
-        className={className}
-        headerClassName={headerClassName}
-        contentClassName={contentClassName}
-        fullWidth={fullWidth}
-      >
-        {children}
-        <Toast />
-      </HorizontalLayout>
+      <ThemeBackground>
+        <HorizontalLayout
+          logo={logo}
+          rightButton={rightButton}
+          menuItems={menuItems}
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
+          className={className}
+          headerClassName={headerClassName}
+          contentClassName={contentClassName}
+          fullWidth={fullWidth}
+        >
+          {children}
+          <Toast />
+        </HorizontalLayout>
+      </ThemeBackground>
     );
   }
   if (layout === LAYOUT_OPTIONS.ADMIN) {
     return (
-      <AdminLayout
-        logo={logo}
-        rightButton={rightButton}
-        menuItems={menuItems}
-        isOpen={isOpen}
-        setIsOpen={setIsOpen}
-        className={className}
-        headerClassName={headerClassName}
-        contentClassName={contentClassName}
-        fullWidth={fullWidth}
-      >
-        {children}
-        <Toast />
-      </AdminLayout>
+      <ThemeBackground>
+        <AdminLayout
+          logo={logo}
+          rightButton={rightButton}
+          menuItems={menuItems}
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
+          className={className}
+          headerClassName={headerClassName}
+          contentClassName={contentClassName}
+          fullWidth={fullWidth}
+        >
+          {children}
+          <Toast />
+        </AdminLayout>
+      </ThemeBackground>
     );
   }
 
   if (
     layout === LAYOUT_OPTIONS.MACOS ||
+    layout === LAYOUT_OPTIONS.MACOS_CLEAN ||
     layout === LAYOUT_OPTIONS.MACOS_TAHOE ||
-    layout === LAYOUT_OPTIONS.MACOS_TAHOE_DOCK
+    layout === LAYOUT_OPTIONS.MACOS_TAHOE_DOCK ||
+    layout === LAYOUT_OPTIONS.MACOS_TAHOE_CLEAN
   ) {
     const variant =
-      layout === LAYOUT_OPTIONS.MACOS_TAHOE_DOCK
+      layout === LAYOUT_OPTIONS.MACOS_TAHOE_CLEAN
+        ? 'macos-tahoe-clean'
+        : layout === LAYOUT_OPTIONS.MACOS_TAHOE_DOCK
         ? 'tahoe-dock'
         : layout === LAYOUT_OPTIONS.MACOS_TAHOE
         ? 'tahoe'
+        : layout === LAYOUT_OPTIONS.MACOS_CLEAN
+        ? 'sonoma-clean'
         : 'sonoma';
     return (
       <MacOSLayout
@@ -109,10 +122,12 @@ const LayoutType = ({
   }
 
   return (
-    <CleanLayout className={className || contentClassName}>
-      {children}
-      <Toast />
-    </CleanLayout>
+    <ThemeBackground>
+      <CleanLayout className={className || contentClassName}>
+        {children}
+        <Toast />
+      </CleanLayout>
+    </ThemeBackground>
   );
 };
 

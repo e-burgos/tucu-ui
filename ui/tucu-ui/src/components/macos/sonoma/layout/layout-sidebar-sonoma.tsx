@@ -176,7 +176,7 @@ export function MacOSSonomaLayoutSidebar({
             )}
 
             {hasChildren && isExpanded && (
-              <ul className="mt-[2px] ml-[16px] space-y-[2px] border-l border-gray-200/60 pl-[8px] dark:border-gray-700/60">
+              <ul className="mt-[2px] ml-[16px] space-y-[2px] border-l border-border/60 pl-[8px] dark:border-border/60">
                 {childItems.map((child) => {
                   const childHref = child.href ?? child.path;
                   const childActive = isItemActive(
@@ -220,11 +220,12 @@ export function MacOSSonomaLayoutSidebar({
     <aside
       data-tucu="macos-sonoma-sidebar"
       className={cn(
-        'flex h-full flex-col w-[var(--macos-sidebar-width,300px)] shrink-0 border-r border-black/10 dark:border-white/8 bg-(--macos-material-toolbar,rgba(255,255,255,0.72)) backdrop-blur-xl',
+        'flex h-full flex-col w-[var(--macos-sidebar-width,300px)] shrink-0 border-r border-border',
+        'bg-transparent sm:bg-(--macos-glass-regular-bg) sm:backdrop-blur-xl ',
         className
       )}
     >
-      <div className="flex h-[58px] shrink-0 items-center border-b border-black/10 dark:border-white/8 px-[12px]">
+      <div className="hidden sm:flex h-[58px] shrink-0 items-center border-b border-border px-[12px]">
         {logo && <Logo {...logo} size="small" />}
       </div>
 

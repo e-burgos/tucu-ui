@@ -184,7 +184,7 @@ const LiveDemonstrationsSection: React.FC = () => {
               </div>
             </div>
 
-            <div className="bg-light-dark p-4 rounded-xl border dark:border-gray-700 overflow-x-auto">
+            <div className="bg-light-dark p-4 rounded-xl border dark:border-border overflow-x-auto">
               <CodeBlock
                 language="tsx"
                 noExpand={true}
@@ -267,7 +267,7 @@ const { isMobile } = useIsMobile();
               </div>
             </div>
 
-            <div className="bg-light-dark p-4 rounded-xl border dark:border-gray-700 overflow-x-auto">
+            <div className="bg-light-dark p-4 rounded-xl border dark:border-border overflow-x-auto">
               <CodeBlock
                 language="tsx"
                 noExpand={true}
@@ -340,7 +340,7 @@ const [ref, bounds] = useMeasure<HTMLDivElement>();
                     type="text"
                     value={copyText}
                     onChange={(e) => setCopyText(e.target.value)}
-                    className="w-full px-3 py-2 border rounded-lg dark:bg-gray-800 dark:border-gray-600"
+                    className="w-full px-3 py-2 border rounded-lg dark:bg-gray-800 dark:border-border"
                     placeholder="Enter text to copy"
                   />
                   <Button onClick={handleCopy} className="w-full">
@@ -359,7 +359,7 @@ const [ref, bounds] = useMeasure<HTMLDivElement>();
               </div>
             </div>
 
-            <div className="bg-light-dark p-4 rounded-xl border dark:border-gray-700 overflow-x-auto">
+            <div className="bg-light-dark p-4 rounded-xl border dark:border-border overflow-x-auto">
               <CodeBlock
                 language="tsx"
                 noExpand={true}
@@ -463,7 +463,7 @@ useClickAway(ref, () => setIsOpen(false));`}
               </div>
             </div>
 
-            <div className="bg-light-dark p-4 rounded-xl border dark:border-gray-700 overflow-x-auto">
+            <div className="bg-light-dark p-4 rounded-xl border dark:border-border overflow-x-auto">
               <CodeBlock
                 language="tsx"
                 noExpand={true}

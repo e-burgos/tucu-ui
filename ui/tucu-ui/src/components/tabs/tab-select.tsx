@@ -216,7 +216,7 @@ export const TabSelect = forwardRef(
           }
           style={dropdownStyle}
           className={cn(
-            'max-h-52 overflow-auto rounded-xl border border-gray-200 bg-white p-1.5 shadow-large dark:border-gray-700 dark:bg-gray-800',
+            'max-h-52 overflow-auto rounded-xl border border-border bg-white p-1.5 shadow-large dark:bg-gray-800',
             'transition ease-in duration-100',
             isClosing ? 'opacity-0 -translate-y-1' : 'opacity-100 translate-y-0'
           )}
@@ -268,7 +268,7 @@ export const TabSelect = forwardRef(
           aria-controls="tab-select-listbox"
           onClick={toggleDropdown}
           onKeyDown={handleKeyDown}
-          className="flex w-full items-center justify-between rounded-lg border-2 border-gray-200 px-4 py-2.5 text-sm font-medium transition-colors hover:bg-gray-100 dark:border-gray-700 dark:hover:bg-gray-800 sm:px-5 sm:py-3.5"
+          className="flex w-full items-center justify-between rounded-lg border-2 border-border px-4 py-2.5 text-sm font-medium transition-colors hover:bg-gray-100 dark:hover:bg-gray-800 sm:px-5 sm:py-3.5"
         >
           <span className="text-gray-900 dark:text-gray-100">
             {tabMenu[selectedTabIndex]?.title ?? tabMenu[0]?.title}

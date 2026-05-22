@@ -277,7 +277,8 @@ html.light.macos-tahoe {
   --macos-tahoe-sidebar-bg: rgba(227, 241, 249, 0.72);
   --macos-tahoe-panel-bg: rgba(255, 255, 255, 0.58);
   --macos-tahoe-toolbar-bg: rgba(255, 255, 255, 0.32);
-  --macos-tahoe-border: rgba(130, 161, 183, 0.28);
+  --macos-separator: var(--color-semantic-line-primary-subtle);
+  --macos-tahoe-border: var(--color-semantic-line-primary-subtle);
   --macos-tahoe-text: #273642;
   --macos-tahoe-text-muted: rgba(39, 54, 66, 0.66);
   --macos-tahoe-accent: var(--color-brand, #0b84ff);
@@ -329,7 +330,8 @@ html.dark.macos-tahoe {
   --macos-tahoe-sidebar-bg: rgba(14, 20, 30, 0.76);
   --macos-tahoe-panel-bg: rgba(34, 40, 47, 0.74);
   --macos-tahoe-toolbar-bg: rgba(19, 24, 30, 0.48);
-  --macos-tahoe-border: rgba(152, 175, 194, 0.13);
+  --macos-separator: var(--color-semantic-dark-line-primary-subtle);
+  --macos-tahoe-border: var(--color-semantic-dark-line-primary-subtle);
   --macos-tahoe-text: rgba(255, 255, 255, 0.92);
   --macos-tahoe-text-muted: rgba(255, 255, 255, 0.5);
   --macos-tahoe-accent: var(--color-brand, #3aa5ff);
@@ -361,7 +363,7 @@ html.dark.macos-tahoe {
 }
 
 html.macos-tahoe [data-tucu='macos-tahoe-root'] {
-  background: var(--macos-tahoe-root-bg);
+  background: transparent !important;
 }
 
 /* Override --color-body so the fixed theme-wrapper becomes transparent in Tahoe,

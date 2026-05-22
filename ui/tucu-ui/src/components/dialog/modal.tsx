@@ -187,7 +187,7 @@ export const Modal: React.FC<ModalProps> = ({
               'flex w-full h-fit justify-between items-start pb-3 dark:text-white text-current',
               !text?.title
                 ? 'text-transparent dark:text-transparent'
-                : ' border-b border-gray-200 dark:border-gray-700',
+                : ' border-b border-border',
               titleContainerClassName
             )}
             tabIndex={-1}

@@ -90,13 +90,13 @@ export function InfoCard({
   return (
     <div
       className={cn(
-        'rounded-xl border border-gray-200/50 dark:border-gray-700/50 bg-light-dark overflow-hidden flex flex-col',
+        'rounded-xl border border-border bg-light-dark overflow-hidden flex flex-col',
         className
       )}
     >
       {/* Header */}
       {(title || icon || headerRight) && (
-        <div className="flex items-center gap-3 px-5 py-3.5 border-b border-gray-200/50 dark:border-gray-700/50 bg-brand/10">
+        <div className="flex items-center gap-3 px-5 py-3.5 border-b border-border bg-brand/10">
           {icon && (
             <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-brand/10 border border-brand/20">
               {icon}
@@ -110,7 +110,7 @@ export function InfoCard({
                 </span>
               )}
               {subtitle && (
-                <span className="text-[10px] text-gray-500 dark:text-gray-500 leading-tight">
+                <span className="text-[10px] text-gray-500 dark:text-gray-400 leading-tight">
                   {subtitle}
                 </span>
               )}
@@ -121,14 +121,14 @@ export function InfoCard({
       )}
 
       {/* Column grid */}
-      {columns && columns.length > 0 && (
+      {columns && columns?.length > 0 && (
         <div
           className={cn(
-            'grid sm:grid-cols-2 divide-y sm:divide-y-0 sm:divide-x divide-gray-200/30 dark:divide-gray-700/30',
+            'grid sm:grid-cols-2 divide-y sm:divide-y-0 sm:divide-x divide-border',
             GRID_COLS[effectiveCols]
           )}
         >
-          {columns.map((col) => (
+          {columns?.map((col) => (
             <div key={col.key} className="p-4 flex flex-col gap-3">
               {/* Group header */}
               <div className="flex items-center gap-2">
@@ -157,24 +157,26 @@ export function InfoCard({
 
               {/* Items */}
               <div className="space-y-2.5">
-                {col.items.map((item, idx) => (
-                  <div
-                    key={`${item.label}-${idx}`}
-                    className="flex items-start justify-between gap-3"
-                  >
-                    <span className="text-[11px] text-gray-500 dark:text-gray-500 shrink-0 leading-tight">
-                      {item.label}
-                    </span>
-                    <span
-                      className={cn(
-                        'text-[11px] font-semibold text-right font-mono leading-tight',
-                        item.color ?? 'text-gray-900 dark:text-gray-100'
-                      )}
+                {col &&
+                  col?.items &&
+                  col.items.map((item, idx) => (
+                    <div
+                      key={`${item.label}-${idx}`}
+                      className="flex items-start justify-between gap-3"
                     >
-                      {item.value}
-                    </span>
-                  </div>
-                ))}
+                      <span className="text-[11px] text-gray-500 dark:text-gray-400 shrink-0 leading-tight">
+                        {item.label}
+                      </span>
+                      <span
+                        className={cn(
+                          'text-[11px] font-semibold text-right font-mono leading-tight',
+                          item.color ?? 'text-gray-900 dark:text-gray-100'
+                        )}
+                      >
+                        {item.value}
+                      </span>
+                    </div>
+                  ))}
               </div>
             </div>
           ))}
@@ -189,33 +191,38 @@ export function InfoCard({
         {footer
           ? footer
           : footerTags &&
-            footerTags.length > 0 && (
-              <div className="px-5 py-3 border-t border-gray-200/40 dark:border-gray-700/40 bg-gray-100 dark:bg-gray-800/20 flex flex-wrap gap-2 items-center">
+            footerTags?.length > 0 && (
+              <div className="px-5 py-3 border-t border-border bg-gray-100 dark:bg-gray-800/20 flex flex-wrap gap-2 items-center">
                 {footerLabel && (
                   <span className="text-[10px] uppercase tracking-wide text-gray-500 dark:text-gray-400 font-bold mr-1">
                     {footerLabel}
                   </span>
                 )}
-                {footerTags.map((tag, i) => {
+                {footerTags?.map((tag, i) => {
+                  const spanClassName = cn(
+                    'flex items-center gap-1 rounded-full px-2.5 py-0.5 text-[10px]',
+                    tag.className ??
+                      'bg-gray-100 dark:bg-gray-800 border border-border text-gray-600 dark:text-gray-400'
+                  );
                   const tagEl = (
-                    <span
-                      key={i}
-                      className={cn(
-                        'flex items-center gap-1 rounded-full px-2.5 py-0.5 text-[10px]',
-                        tag.className ??
-                          'bg-gray-100 dark:bg-gray-800 border border-gray-200/50 dark:border-gray-700/50 text-gray-600 dark:text-gray-400'
-                      )}
-                    >
+                    <span className={spanClassName}>
                       {tag.icon}
                       {tag.label}
                     </span>
                   );
                   return tag.tooltip ? (
-                    <Tooltip key={i} content={tag.tooltip} placement="top">
+                    <Tooltip
+                      key={`tag-${i}`}
+                      content={tag.tooltip}
+                      placement="top"
+                    >
                       {tagEl}
                     </Tooltip>
                   ) : (
-                    tagEl
+                    <span key={`tag-${i}`} className={spanClassName}>
+                      {tag.icon}
+                      {tag.label}
+                    </span>
                   );
                 })}
               </div>

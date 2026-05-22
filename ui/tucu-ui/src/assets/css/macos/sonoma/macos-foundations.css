@@ -15,12 +15,12 @@ html.macos {
   /* ── Tucu-UI Semantic Token Overrides ───────────────────────
      Map macOS Sonoma system colors to the tucu-ui semantic token system.
   */
+  --color-light-dark: var(--macos-content-bg);
   --color-semantic-bg-tertiary: #e5e5ea;
   --color-semantic-elevation-1: #ffffff;
   --color-semantic-elevation-2: #f2f2f7;
 
-  /* Borders (Sonoma separator: rgba(60,60,67,0.24)) */
-  --color-semantic-line-primary-subtle: rgba(60, 60, 67, 0.18);
+  /* Borders (uses same color-mix as Default Theme) */
   --color-semantic-line-primary: var(--color-brand, #0088ff);
 
   /* Shadows — tucu-ui shared shadow tokens (diffuse, dual-layer, Sonoma style) */
@@ -145,10 +145,12 @@ html.macos {
   --macos-secondary-label: rgba(60, 60, 67, 0.68);
   --macos-tertiary-label: rgba(60, 60, 67, 0.42);
   --macos-quaternary-label: rgba(60, 60, 67, 0.24);
-  --macos-separator: rgba(60, 60, 67, 0.24);
+  --macos-separator: var(--color-semantic-line-primary-subtle);
   --macos-opaque-separator: #c6c6c8;
-  --macos-window-bg: #f5f5f7;
-  --macos-content-bg: #ffffff;
+  /* --macos-window-bg: #f5f5f7; */
+  --macos-window-bg: var(--macos-material-toolbar);
+  /* --macos-content-bg: #ffffff; */
+  --macos-content-bg: var(--macos-material-toolbar);
   --macos-grouped-bg: #f2f2f7;
   --macos-control-bg: rgba(255, 255, 255, 0.72);
   --macos-control-bg-hover: rgba(255, 255, 255, 0.86);
@@ -275,10 +277,15 @@ html.macos {
 */
 html.macos.dark {
   /* Tucu-UI semantic tokens — dark (Sonoma baseline) */
+  --color-light-dark: var(--macos-content-bg);
   --color-semantic-bg-tertiary: #3a3a3c;
   --color-semantic-elevation-1: #2c2c2e;
   --color-semantic-elevation-2: #3a3a3c;
-  --color-semantic-line-primary-subtle: rgba(84, 84, 88, 0.65);
+  --color-semantic-dark-line-primary-subtle: color-mix(
+    in oklab,
+    var(--color-white) 8%,
+    transparent
+  );
   --color-semantic-line-primary: var(--color-brand, #0091ff);
 
   /* Shadows — heavier in dark for depth */
@@ -292,10 +299,12 @@ html.macos.dark {
   --macos-secondary-label: rgba(235, 235, 245, 0.72);
   --macos-tertiary-label: rgba(235, 235, 245, 0.44);
   --macos-quaternary-label: rgba(235, 235, 245, 0.26);
-  --macos-separator: rgba(84, 84, 88, 0.6);
+  --macos-separator: var(--color-semantic-dark-line-primary-subtle);
   --macos-opaque-separator: #38383a;
-  --macos-window-bg: #1c1c1e;
-  --macos-content-bg: #151516;
+  /* --macos-window-bg: #1c1c1e; */
+  --macos-window-bg: var(--macos-material-toolbar);
+  /* --macos-content-bg: #151516; */
+  --macos-content-bg: var(--macos-material-toolbar);
   --macos-grouped-bg: #1c1c1e;
   --macos-control-bg: rgba(255, 255, 255, 0.1);
   --macos-control-bg-hover: rgba(255, 255, 255, 0.16);
@@ -416,8 +425,7 @@ html.macos [data-tucu] {
     --macos-label: rgba(0, 0, 0, 1);
     --macos-secondary-label: rgba(0, 0, 0, 0.8);
     --macos-tertiary-label: rgba(0, 0, 0, 0.6);
-    --macos-separator: rgba(0, 0, 0, 0.48);
-    --color-semantic-line-primary-subtle: #8e8e93;
+    --macos-separator: var(--color-semantic-line-primary-subtle);
     --macos-focus-ring: rgba(0, 0, 0, 1);
     --macos-shadow-focus: 0 0 0 2px #000000;
     /* High-contrast system colors — light */
@@ -445,8 +453,7 @@ html.macos [data-tucu] {
     --macos-label: rgba(255, 255, 255, 1);
     --macos-secondary-label: rgba(255, 255, 255, 0.82);
     --macos-tertiary-label: rgba(255, 255, 255, 0.64);
-    --macos-separator: rgba(255, 255, 255, 0.48);
-    --color-semantic-line-primary-subtle: #aeaeb2;
+    --macos-separator: var(--color-semantic-dark-line-primary-subtle);
     --macos-focus-ring: rgba(255, 255, 255, 1);
     --macos-shadow-focus: 0 0 0 2px #ffffff;
     /* High-contrast system colors — dark */
