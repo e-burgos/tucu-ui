@@ -108,8 +108,11 @@ interface ThemeWrapperBaseProps extends Omit<LayoutTypeProps, 'layout'> {
 
 // ─── Conditional layout types per theme style ───────────────────
 type DefaultLayoutType = 'clean' | 'admin' | 'horizontal';
-type MacOSLayoutType = 'macos';
-type MacOSTahoeLayoutType = 'macos-tahoe' | 'macos-tahoe-dock';
+type MacOSLayoutType = 'macos' | 'macos-clean';
+type MacOSTahoeLayoutType =
+  | 'macos-tahoe'
+  | 'macos-tahoe-dock'
+  | 'macos-tahoe-clean';
 
 interface DefaultThemeWrapperProps extends ThemeWrapperBaseProps {
   themeStyle?: 'default';

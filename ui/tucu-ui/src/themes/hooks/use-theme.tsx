@@ -102,7 +102,7 @@ const defaultState = {
   showSettings: false,
   isSettingsOpen: false,
   lang: defaultLang,
-  backgroundVariant: 'radial' as TahoeBackgroundVariant,
+  backgroundVariant: 'none' as TahoeBackgroundVariant,
 } as const;
 
 // ─── Types ─────────────────────────────────────────────────────
