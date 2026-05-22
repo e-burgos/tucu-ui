@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useCallback, useEffect } from 'react';
 import cn from 'classnames';
 import { ChevronDown } from '../icons/chevron-down';
 import ListItem from './list-Item';
@@ -16,6 +16,8 @@ export interface ListContainerProps {
   onOpenChange?: (isOpen: boolean) => void;
   keepOpen?: boolean;
   trigger?: 'hover' | 'click';
+  /** Delay in ms before closing on mouse leave (default: 1000) */
+  closeDelay?: number;
 }
 
 // Default three dots vertical icon
@@ -46,8 +48,12 @@ export const ListContainer: React.FC<ListContainerProps> = ({
   onOpenChange,
   keepOpen = false,
   trigger = 'hover',
+  closeDelay = 500,
 }) => {
   const [internalIsOpen, setInternalIsOpen] = useState(false);
+  const [dropdownStyle, setDropdownStyle] = useState<React.CSSProperties>({});
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Use controlled state if provided, otherwise use internal state
   const isOpen =
@@ -61,52 +67,113 @@ export const ListContainer: React.FC<ListContainerProps> = ({
     }
   };
 
+  const clearCloseTimer = () => {
+    if (closeTimerRef.current) {
+      clearTimeout(closeTimerRef.current);
+      closeTimerRef.current = null;
+    }
+  };
+
+  // Compute dropdown position using fixed positioning (same as Select)
+  const updateDropdownPosition = useCallback(() => {
+    if (!triggerRef.current) return;
+    const rect = triggerRef.current.getBoundingClientRect();
+    const dropdownHeight = 300;
+    const dropdownWidth = 280;
+    const spaceBelow = window.innerHeight - rect.bottom;
+    const spaceAbove = rect.top;
+
+    const shouldDropUp =
+      position === 'top' ||
+      (position === 'bottom' &&
+        spaceBelow < dropdownHeight &&
+        spaceAbove > spaceBelow);
+
+    const style: React.CSSProperties = {
+      position: 'fixed',
+      zIndex: 9999,
+    };
+
+    if (position === 'left' || position === 'right') {
+      // Horizontal positioning
+      if (position === 'left') {
+        style.right = window.innerWidth - rect.left + 4;
+      } else {
+        style.left = rect.right + 4;
+      }
+      // Vertical alignment
+      if (align === 'start') style.top = rect.top;
+      else if (align === 'end') style.bottom = window.innerHeight - rect.bottom;
+      else style.top = rect.top + rect.height / 2;
+    } else {
+      // Vertical positioning (top/bottom)
+      if (shouldDropUp) {
+        style.bottom = window.innerHeight - rect.top + 4;
+      } else {
+        style.top = rect.bottom + 4;
+      }
+      // Horizontal alignment
+      if (align === 'start') {
+        style.left = rect.left;
+      } else if (align === 'end') {
+        style.right = window.innerWidth - rect.right;
+      } else {
+        style.left = rect.left + rect.width / 2;
+        style.transform = 'translateX(-50%)';
+      }
+
+      // Ensure dropdown doesn't overflow right edge
+      if (align !== 'end' && style.left !== undefined) {
+        const left = typeof style.left === 'number' ? style.left : 0;
+        if (left + dropdownWidth > window.innerWidth) {
+          style.left = undefined;
+          style.right = 8;
+        }
+      }
+    }
+
+    // Ensure it doesn't overflow left
+    if (
+      style.left !== undefined &&
+      typeof style.left === 'number' &&
+      style.left < 0
+    ) {
+      style.left = 8;
+    }
+
+    setDropdownStyle(style);
+  }, [position, align]);
+
   const handleMouseEnter = () => {
     if (trigger === 'hover') {
+      clearCloseTimer();
+      updateDropdownPosition();
       handleOpenChange(true);
     }
   };
 
   const handleMouseLeave = () => {
     if (trigger === 'hover' && !keepOpen) {
-      handleOpenChange(false);
+      clearCloseTimer();
+      closeTimerRef.current = setTimeout(() => {
+        handleOpenChange(false);
+      }, closeDelay);
     }
   };
 
   const handleClick = () => {
     if (trigger === 'click') {
+      if (!isOpen) {
+        updateDropdownPosition();
+      }
       handleOpenChange(!isOpen);
     }
   };
-  const getPositionClasses = () => {
-    const baseClasses = 'absolute';
-    const positionMap = {
-      bottom: {
-        start: 'top-full left-0 mt-[2px]',
-        end: 'top-full right-0 mt-[2px]',
-        center: 'top-full left-1/2 -translate-x-1/2 mt-[2px]',
-      },
-      top: {
-        start: 'bottom-full left-0 mb-[2px]',
-        end: 'bottom-full right-0 mb-[2px]',
-        center: 'bottom-full left-1/2 -translate-x-1/2 mb-[2px]',
-      },
-      left: {
-        start: 'right-full top-0 mr-[2px]',
-        end: 'right-full bottom-0 mr-[2px]',
-        center: 'right-full top-1/2 -translate-y-1/2 mr-[2px]',
-      },
-      right: {
-        start: 'left-full top-0 ml-[2px]',
-        end: 'left-full bottom-0 ml-[2px]',
-        center: 'left-full top-1/2 -translate-y-1/2 ml-[2px]',
-      },
-    };
 
-    return `${baseClasses} ${
-      positionMap[position]?.[align] || positionMap.bottom.end
-    }`;
-  };
+  // Clean up timer on unmount
+  useEffect(() => {
+    return () => clearCloseTimer();
+  }, []);
 
   return (
     <div
@@ -115,17 +182,18 @@ export const ListContainer: React.FC<ListContainerProps> = ({
       onMouseLeave={handleMouseLeave}
     >
       <button
+        ref={triggerRef}
         type="button"
         data-tucu="list-trigger"
         onClick={handleClick}
-        className="flex items-center justify-center w-full h-[32px] border border-gray-200 dark:border-gray-700 rounded-full transition-colors hover:bg-gray-200 dark:hover:bg-gray-800 focus:outline-none focus:ring-[2px] focus:ring-offset-[2px] focus:ring-brand/50"
+        className="flex items-center justify-center w-full h-[32px] border border-border bg-light-dark rounded-full transition-colors hover:bg-gray-200 dark:hover:bg-gray-800 focus:outline-none focus:ring-[2px] focus:ring-offset-[2px] focus:ring-brand/50"
         aria-label="Options menu"
         aria-haspopup="true"
         aria-expanded={isOpen}
       >
         {label && (
           <div className="flex items-center justify-between gap-[8px] w-full px-[12px]">
-            <span className="text-[14px font-medium">{label}</span>
+            <span className="text-[14px] font-medium">{label}</span>
             <ChevronDown
               className={cn(
                 'w-[10px] h-[10px] transition-transform duration-200',
@@ -139,10 +207,23 @@ export const ListContainer: React.FC<ListContainerProps> = ({
 
       <ul
         data-tucu="list-dropdown"
+        style={
+          isOpen
+            ? dropdownStyle
+            : {
+                position: 'fixed',
+                zIndex: 9999,
+                visibility: 'hidden',
+                pointerEvents: 'none',
+              }
+        }
+        onMouseEnter={clearCloseTimer}
+        onMouseLeave={handleMouseLeave}
         className={cn(
-          'absolute w-auto min-w-[200px] max-w-[280px] overflow-hidden rounded-lg bg-light-dark p-[8px] shadow-large transition-all z-50',
-          getPositionClasses(),
-          isOpen ? 'visible opacity-100' : 'invisible opacity-0',
+          'w-auto min-w-[200px] max-w-[280px] border border-border overflow-hidden rounded-lg bg-light-dark p-[8px] shadow-large transition-opacity duration-200',
+          isOpen
+            ? 'visible opacity-100'
+            : 'invisible opacity-0 pointer-events-none',
           dropdownClassName
         )}
         role="menu"
