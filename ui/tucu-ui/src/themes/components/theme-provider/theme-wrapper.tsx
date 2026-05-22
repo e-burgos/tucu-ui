@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef } from 'react';
 import { SettingsButton, SettingsDrawer } from '../settings';
 import { useTheme } from '../../hooks/use-theme';
-import type { ITheme } from '../../hooks/use-theme';
+import type { ITheme, BackgroundVariant } from '../../hooks/use-theme';
 
 import {
   colorPreset,
@@ -40,6 +40,18 @@ const PALETTE_MAP: readonly [string, string, string][] = [
   ['lightBg', 'lightBgPreset', 'CustomLightBg'],
   ['lightDark', 'lightDarkPreset', 'CustomLightDark'],
   ['darkLightDark', 'darkLightDarkPreset', 'CustomDarkLightDark'],
+  ['success', 'successPreset', 'CustomSuccess'],
+  ['darkSuccess', 'darkSuccessPreset', 'CustomDarkSuccess'],
+  ['warning', 'warningPreset', 'CustomWarning'],
+  ['darkWarning', 'darkWarningPreset', 'CustomDarkWarning'],
+  ['error', 'errorPreset', 'CustomError'],
+  ['darkError', 'darkErrorPreset', 'CustomDarkError'],
+  ['info', 'infoPreset', 'CustomInfo'],
+  ['darkInfo', 'darkInfoPreset', 'CustomDarkInfo'],
+  ['fg', 'fgPreset', 'CustomFg'],
+  ['darkFg', 'darkFgPreset', 'CustomDarkFg'],
+  ['border', 'borderPreset', 'CustomBorder'],
+  ['darkBorder', 'darkBorderPreset', 'CustomDarkBorder'],
 ];
 
 /** Resolve a color string or preset name into an IThemeItem */
@@ -59,6 +71,7 @@ interface ThemeWrapperBaseProps extends Omit<LayoutTypeProps, 'layout'> {
   menuItems: IMenuItem[];
   brandColor?: PresetColorType;
   mode?: MODE;
+  background?: BackgroundVariant;
   headerClassName?: string;
   contentClassName?: string;
   fullWidth?: boolean;
@@ -77,6 +90,18 @@ interface ThemeWrapperBaseProps extends Omit<LayoutTypeProps, 'layout'> {
     lightBg?: PresetColorType | string;
     lightDark?: PresetColorType | string;
     darkLightDark?: PresetColorType | string;
+    success?: PresetColorType | string;
+    darkSuccess?: PresetColorType | string;
+    warning?: PresetColorType | string;
+    darkWarning?: PresetColorType | string;
+    error?: PresetColorType | string;
+    darkError?: PresetColorType | string;
+    info?: PresetColorType | string;
+    darkInfo?: PresetColorType | string;
+    fg?: PresetColorType | string;
+    darkFg?: PresetColorType | string;
+    border?: PresetColorType | string;
+    darkBorder?: PresetColorType | string;
   };
   setCurrentPathname?: (pathname: string) => void;
 }
@@ -117,6 +142,7 @@ export function ThemeWrapper({
   themeStyle,
   brandColor,
   customPaletteColor,
+  background,
   showSettings,
   className,
   headerClassName,
@@ -179,6 +205,7 @@ export function ThemeWrapper({
       ...(appMode && { mode: appMode }),
       ...(resolvedLayout && { layout: resolvedLayout }),
       ...(brandPreset && { primaryPreset: brandPreset }),
+      ...(background && { backgroundVariant: background }),
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

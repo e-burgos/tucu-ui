@@ -21,6 +21,18 @@ interface IUseThemeColorProps {
   lightBgPreset: string;
   lightDarkPreset: string;
   darkLightDarkPreset: string;
+  successPreset: string;
+  darkSuccessPreset: string;
+  warningPreset: string;
+  darkWarningPreset: string;
+  errorPreset: string;
+  darkErrorPreset: string;
+  infoPreset: string;
+  darkInfoPreset: string;
+  fgPreset: string;
+  darkFgPreset: string;
+  borderPreset: string;
+  darkBorderPreset: string;
 }
 
 export function useThemeColor({
@@ -36,6 +48,18 @@ export function useThemeColor({
   lightBgPreset,
   lightDarkPreset,
   darkLightDarkPreset,
+  successPreset,
+  darkSuccessPreset,
+  warningPreset,
+  darkWarningPreset,
+  errorPreset,
+  darkErrorPreset,
+  infoPreset,
+  darkInfoPreset,
+  fgPreset,
+  darkFgPreset,
+  borderPreset,
+  darkBorderPreset,
 }: IUseThemeColorProps) {
   useEffect(() => {
     // Use hex format for consistency with CSS default
@@ -92,6 +116,57 @@ export function useThemeColor({
       '--color-semantic-dark-bg-secondary-wash',
       darkLightDarkPreset
     );
+
+    // Status colors
+    document.documentElement.style.setProperty(
+      '--color-semantic-bg-positive',
+      successPreset
+    );
+    document.documentElement.style.setProperty(
+      '--color-semantic-dark-bg-positive',
+      darkSuccessPreset
+    );
+    document.documentElement.style.setProperty(
+      '--color-semantic-bg-warning',
+      warningPreset
+    );
+    document.documentElement.style.setProperty(
+      '--color-semantic-dark-bg-warning',
+      darkWarningPreset
+    );
+    document.documentElement.style.setProperty(
+      '--color-semantic-bg-negative',
+      errorPreset
+    );
+    document.documentElement.style.setProperty(
+      '--color-semantic-dark-bg-negative',
+      darkErrorPreset
+    );
+    document.documentElement.style.setProperty(
+      '--color-semantic-bg-info',
+      infoPreset
+    );
+    document.documentElement.style.setProperty(
+      '--color-semantic-dark-bg-info',
+      darkInfoPreset
+    );
+
+    // Foreground / text color
+    document.documentElement.style.setProperty('--color-semantic-fg', fgPreset);
+    document.documentElement.style.setProperty(
+      '--color-semantic-dark-fg',
+      darkFgPreset
+    );
+
+    // Border color
+    document.documentElement.style.setProperty(
+      '--color-semantic-line-primary-subtle',
+      borderPreset
+    );
+    document.documentElement.style.setProperty(
+      '--color-semantic-dark-line-primary-subtle',
+      darkBorderPreset
+    );
   }, [
     accentPreset,
     darkAccentPreset,
@@ -105,5 +180,17 @@ export function useThemeColor({
     mutedPreset,
     primaryPreset,
     secondaryPreset,
+    successPreset,
+    darkSuccessPreset,
+    warningPreset,
+    darkWarningPreset,
+    errorPreset,
+    darkErrorPreset,
+    infoPreset,
+    darkInfoPreset,
+    fgPreset,
+    darkFgPreset,
+    borderPreset,
+    darkBorderPreset,
   ]);
 }

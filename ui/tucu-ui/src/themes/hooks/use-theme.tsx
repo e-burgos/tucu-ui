@@ -24,10 +24,26 @@ import {
   defaultLightBgPreset,
   defaultLightDarkPreset,
   defaultDarkLightDarkPreset,
+  defaultSuccessPreset,
+  defaultDarkSuccessPreset,
+  defaultWarningPreset,
+  defaultDarkWarningPreset,
+  defaultErrorPreset,
+  defaultDarkErrorPreset,
+  defaultInfoPreset,
+  defaultDarkInfoPreset,
+  defaultFgPreset,
+  defaultDarkFgPreset,
+  defaultBorderPreset,
+  defaultDarkBorderPreset,
   macosLightPresets,
   LangType,
   defaultLang,
   THEME_STYLE_LAYOUTS,
+  TAHOE_ACCENT_BUNDLES,
+  SONOMA_ACCENT_BUNDLES,
+  buildTahoePresets,
+  buildSonomaPresets,
 } from '../config/index';
 
 // ─── Default State ─────────────────────────────────────────────
@@ -47,10 +63,34 @@ const defaultPresets = {
   lightBgPreset: defaultLightBgPreset,
   lightDarkPreset: defaultLightDarkPreset,
   darkLightDarkPreset: defaultDarkLightDarkPreset,
+  successPreset: defaultSuccessPreset,
+  darkSuccessPreset: defaultDarkSuccessPreset,
+  warningPreset: defaultWarningPreset,
+  darkWarningPreset: defaultDarkWarningPreset,
+  errorPreset: defaultErrorPreset,
+  darkErrorPreset: defaultDarkErrorPreset,
+  infoPreset: defaultInfoPreset,
+  darkInfoPreset: defaultDarkInfoPreset,
+  fgPreset: defaultFgPreset,
+  darkFgPreset: defaultDarkFgPreset,
+  borderPreset: defaultBorderPreset,
+  darkBorderPreset: defaultDarkBorderPreset,
 } as const;
 
 // ─── Background Variant Type ───────────────────────────────────
-export type TahoeBackgroundVariant = 'base' | 'wave' | 'wallpaper' | 'mobile';
+export type BackgroundVariant =
+  | 'none'
+  | 'base'
+  | 'sonoma'
+  | 'wave'
+  | 'wallpaper'
+  | 'mobile'
+  | 'radial'
+  | 'window'
+  | 'aurora'
+  | 'depth'
+  | 'demo';
+export type TahoeBackgroundVariant = BackgroundVariant;
 
 const defaultState = {
   ...defaultPresets,
@@ -62,7 +102,7 @@ const defaultState = {
   showSettings: false,
   isSettingsOpen: false,
   lang: defaultLang,
-  backgroundVariant: 'base' as TahoeBackgroundVariant,
+  backgroundVariant: 'radial' as TahoeBackgroundVariant,
 } as const;
 
 // ─── Types ─────────────────────────────────────────────────────
@@ -86,6 +126,18 @@ interface IThemeState {
   lightBgPreset: IThemeItem;
   lightDarkPreset: IThemeItem;
   darkLightDarkPreset: IThemeItem;
+  successPreset: IThemeItem;
+  darkSuccessPreset: IThemeItem;
+  warningPreset: IThemeItem;
+  darkWarningPreset: IThemeItem;
+  errorPreset: IThemeItem;
+  darkErrorPreset: IThemeItem;
+  infoPreset: IThemeItem;
+  darkInfoPreset: IThemeItem;
+  fgPreset: IThemeItem;
+  darkFgPreset: IThemeItem;
+  borderPreset: IThemeItem;
+  darkBorderPreset: IThemeItem;
   direction: DIRECTION;
   layout: LAYOUT_OPTIONS;
   mode: MODE;
@@ -94,7 +146,7 @@ interface IThemeState {
   isSettingsOpen: boolean;
   showSettings: boolean;
   lang: LangType;
-  backgroundVariant: TahoeBackgroundVariant;
+  backgroundVariant: BackgroundVariant;
 }
 
 /** Full store interface: state + auto-generated setters + actions */
@@ -126,7 +178,7 @@ function createSetters(
 
 export const useTheme = create<ITheme>()(
   persist(
-    (set) => ({
+    (set, get) => ({
       // State with defaults
       ...defaultState,
 
@@ -134,24 +186,60 @@ export const useTheme = create<ITheme>()(
       ...createSetters(set),
 
       // Actions
-      restoreDefaultColors: () =>
-        set({
-          ...defaultPresets,
-          direction: defaultDirection,
-          layout: defaultLayout,
-          mode: defaultMode,
-          colorScheme: defaultThemeVariant,
-          logo: defaultLogo,
-          isSettingsOpen: false,
-          lang: defaultLang,
-          backgroundVariant: 'base',
-        }),
+      restoreDefaultColors: () => {
+        const currentScheme = get().colorScheme;
+
+        if (currentScheme === 'macos-tahoe') {
+          const glassBundle = TAHOE_ACCENT_BUNDLES.find(
+            (b) => b.id === 'glass-neutral'
+          );
+          if (!glassBundle) return;
+          set({
+            ...buildTahoePresets(glassBundle),
+            direction: defaultDirection,
+            layout: LAYOUT_OPTIONS.MACOS_TAHOE,
+            mode: 'dark' as MODE,
+            colorScheme: 'macos-tahoe',
+            logo: defaultLogo,
+            isSettingsOpen: false,
+            lang: defaultLang,
+            backgroundVariant: 'radial' as TahoeBackgroundVariant,
+          });
+        } else if (currentScheme === 'macos') {
+          const blueBundle = SONOMA_ACCENT_BUNDLES.find((b) => b.id === 'blue');
+          if (!blueBundle) return;
+          set({
+            ...buildSonomaPresets(blueBundle),
+            direction: defaultDirection,
+            layout: LAYOUT_OPTIONS.MACOS,
+            mode: 'dark' as MODE,
+            colorScheme: 'macos',
+            logo: defaultLogo,
+            isSettingsOpen: false,
+            lang: defaultLang,
+            backgroundVariant: 'sonoma' as TahoeBackgroundVariant,
+          });
+        } else {
+          set({
+            ...defaultPresets,
+            direction: defaultDirection,
+            layout: defaultLayout,
+            mode: defaultMode,
+            colorScheme: defaultThemeVariant,
+            logo: defaultLogo,
+            isSettingsOpen: false,
+            lang: defaultLang,
+            backgroundVariant: 'none' as TahoeBackgroundVariant,
+          });
+        }
+      },
 
       applyMacOSTheme: () =>
         set({
           ...macosLightPresets,
           colorScheme: 'macos',
           layout: LAYOUT_OPTIONS.MACOS,
+          backgroundVariant: 'sonoma' as TahoeBackgroundVariant,
         }),
 
       applyMacOSTahoeTheme: () =>
@@ -159,6 +247,7 @@ export const useTheme = create<ITheme>()(
           ...macosLightPresets,
           colorScheme: 'macos-tahoe',
           layout: LAYOUT_OPTIONS.MACOS_TAHOE,
+          backgroundVariant: 'radial' as TahoeBackgroundVariant,
         }),
 
       applyDefaultTheme: () =>
@@ -166,16 +255,24 @@ export const useTheme = create<ITheme>()(
           ...defaultPresets,
           colorScheme: 'default',
           layout: defaultLayout,
+          backgroundVariant: 'none' as TahoeBackgroundVariant,
         }),
 
       applyThemeStyle: (themeStyle: THEME_VARIANT) => {
         const config = THEME_STYLE_LAYOUTS[themeStyle];
         const presets =
           themeStyle === 'default' ? defaultPresets : macosLightPresets;
+        const bg: BackgroundVariant =
+          themeStyle === 'macos-tahoe'
+            ? 'radial'
+            : themeStyle === 'macos'
+            ? 'sonoma'
+            : 'none';
         set({
           ...presets,
           colorScheme: themeStyle,
           layout: config.defaultLayout,
+          backgroundVariant: bg,
         });
       },
     }),
