@@ -17,6 +17,18 @@ import {
   defaultLightBgPreset,
   defaultLightDarkPreset,
   defaultDarkLightDarkPreset,
+  defaultSuccessPreset,
+  defaultDarkSuccessPreset,
+  defaultWarningPreset,
+  defaultDarkWarningPreset,
+  defaultErrorPreset,
+  defaultDarkErrorPreset,
+  defaultInfoPreset,
+  defaultDarkInfoPreset,
+  defaultFgPreset,
+  defaultDarkFgPreset,
+  defaultBorderPreset,
+  defaultDarkBorderPreset,
   IThemeItem,
   LAYOUT_OPTIONS,
   layoutOptions,
@@ -38,8 +50,19 @@ import { DrawerContainer } from '../../../components/dialog/drawer-container';
 import { Scrollbar } from '../../../components/common/scrollbar';
 import { Close } from '../../../components/icons/close';
 import { Input } from '../../../components/inputs/input';
-import { Select, SelectOption } from '../../../components/inputs/select';
-import { Circle, Waves, Image, Smartphone } from 'lucide-react';
+import {
+  Circle,
+  Waves,
+  Image,
+  Smartphone,
+  Sparkles,
+  Layers,
+  Palette,
+  Monitor,
+  Square,
+  Ban,
+} from 'lucide-react';
+import { LucideIcons } from '../../../..';
 
 // ─── Color Configuration Map ───────────────────────────────────
 // Single source of truth: eliminates repetitive ternary chains.
@@ -56,7 +79,19 @@ type ColorType =
   | 'darkBg'
   | 'lightBg'
   | 'lightDark'
-  | 'darkLightDark';
+  | 'darkLightDark'
+  | 'success'
+  | 'darkSuccess'
+  | 'warning'
+  | 'darkWarning'
+  | 'error'
+  | 'darkError'
+  | 'info'
+  | 'darkInfo'
+  | 'fg'
+  | 'darkFg'
+  | 'border'
+  | 'darkBorder';
 
 interface ColorConfig {
   presetKey: keyof ITheme;
@@ -138,9 +173,79 @@ const COLOR_CONFIG: Record<ColorType, ColorConfig> = {
     defaultValue: defaultDarkLightDarkPreset,
     label: 'Dark Light Dark Color',
   },
+  success: {
+    presetKey: 'successPreset',
+    setterKey: 'setSuccessPreset',
+    defaultValue: defaultSuccessPreset,
+    label: 'Success Color',
+  },
+  darkSuccess: {
+    presetKey: 'darkSuccessPreset',
+    setterKey: 'setDarkSuccessPreset',
+    defaultValue: defaultDarkSuccessPreset,
+    label: 'Dark Success Color',
+  },
+  warning: {
+    presetKey: 'warningPreset',
+    setterKey: 'setWarningPreset',
+    defaultValue: defaultWarningPreset,
+    label: 'Warning Color',
+  },
+  darkWarning: {
+    presetKey: 'darkWarningPreset',
+    setterKey: 'setDarkWarningPreset',
+    defaultValue: defaultDarkWarningPreset,
+    label: 'Dark Warning Color',
+  },
+  error: {
+    presetKey: 'errorPreset',
+    setterKey: 'setErrorPreset',
+    defaultValue: defaultErrorPreset,
+    label: 'Error Color',
+  },
+  darkError: {
+    presetKey: 'darkErrorPreset',
+    setterKey: 'setDarkErrorPreset',
+    defaultValue: defaultDarkErrorPreset,
+    label: 'Dark Error Color',
+  },
+  info: {
+    presetKey: 'infoPreset',
+    setterKey: 'setInfoPreset',
+    defaultValue: defaultInfoPreset,
+    label: 'Info Color',
+  },
+  darkInfo: {
+    presetKey: 'darkInfoPreset',
+    setterKey: 'setDarkInfoPreset',
+    defaultValue: defaultDarkInfoPreset,
+    label: 'Dark Info Color',
+  },
+  fg: {
+    presetKey: 'fgPreset',
+    setterKey: 'setFgPreset',
+    defaultValue: defaultFgPreset,
+    label: 'Primary',
+  },
+  darkFg: {
+    presetKey: 'darkFgPreset',
+    setterKey: 'setDarkFgPreset',
+    defaultValue: defaultDarkFgPreset,
+    label: 'Primary',
+  },
+  border: {
+    presetKey: 'borderPreset',
+    setterKey: 'setBorderPreset',
+    defaultValue: defaultBorderPreset,
+    label: 'Border Color',
+  },
+  darkBorder: {
+    presetKey: 'darkBorderPreset',
+    setterKey: 'setDarkBorderPreset',
+    defaultValue: defaultDarkBorderPreset,
+    label: 'Dark Border Color',
+  },
 };
-
-const COLOR_TYPES = Object.keys(COLOR_CONFIG) as ColorType[];
 
 // ─── Shared Components ─────────────────────────────────────────
 
@@ -386,24 +491,48 @@ function DirectionSwitcher() {
 const LayoutIcons: Record<string, JSX.Element> = {
   [LAYOUT_OPTIONS.HORIZONTAL]: <MinimalLayoutIcon />,
   [LAYOUT_OPTIONS.ADMIN]: <ClassicLayoutIcon />,
-  [LAYOUT_OPTIONS.CLEAN]: <MinimalLayoutIcon />,
+  [LAYOUT_OPTIONS.CLEAN]: <LucideIcons.Square className="w-[34px] h-[34px]" />,
   [LAYOUT_OPTIONS.MACOS]: <MacOSThemeIcon />,
+  [LAYOUT_OPTIONS.MACOS_CLEAN]: <LucideIcons.Square />,
   [LAYOUT_OPTIONS.MACOS_TAHOE]: <MacOSThemeIcon />,
   [LAYOUT_OPTIONS.MACOS_TAHOE_DOCK]: <MacOSTahoeThemeIcon />,
+  [LAYOUT_OPTIONS.MACOS_TAHOE_CLEAN]: <LucideIcons.Square />,
 };
 
 function LayoutSwitcher() {
   const { layout, setLayout, colorScheme } = useTheme();
 
   // Hide layout switcher if macOS Sonoma theme is active, since layout is forced
-  if (colorScheme === 'macos') return null;
-
-  // For Tahoe, show Sidebar vs Dock layout options
-  if (colorScheme === 'macos-tahoe') {
+  if (colorScheme === 'macos') {
     return (
       <div className="px-6 pt-8">
         <SettingsSectionHeading>Layout</SettingsSectionHeading>
         <div role="radiogroup" className="grid grid-cols-2 gap-5">
+          <SwitcherButton
+            onClick={() => setLayout(LAYOUT_OPTIONS.MACOS)}
+            title="macOS"
+            checked={layout === LAYOUT_OPTIONS.MACOS}
+          >
+            <MacOSThemeIcon />
+          </SwitcherButton>
+          <SwitcherButton
+            onClick={() => setLayout(LAYOUT_OPTIONS.MACOS_CLEAN)}
+            title="Clean"
+            checked={layout === LAYOUT_OPTIONS.MACOS_CLEAN}
+          >
+            {LayoutIcons[LAYOUT_OPTIONS.MACOS_CLEAN]}
+          </SwitcherButton>
+        </div>
+      </div>
+    );
+  }
+
+  // For Tahoe, show Sidebar vs Dock vs Clean layout options
+  if (colorScheme === 'macos-tahoe') {
+    return (
+      <div className="px-6 pt-8">
+        <SettingsSectionHeading>Layout</SettingsSectionHeading>
+        <div role="radiogroup" className="grid grid-cols-3 gap-5">
           <SwitcherButton
             onClick={() => setLayout(LAYOUT_OPTIONS.MACOS_TAHOE)}
             title="Sidebar"
@@ -417,6 +546,13 @@ function LayoutSwitcher() {
             checked={layout === LAYOUT_OPTIONS.MACOS_TAHOE_DOCK}
           >
             <MacOSTahoeThemeIcon />
+          </SwitcherButton>
+          <SwitcherButton
+            onClick={() => setLayout(LAYOUT_OPTIONS.MACOS_TAHOE_CLEAN)}
+            title="Clean"
+            checked={layout === LAYOUT_OPTIONS.MACOS_TAHOE_CLEAN}
+          >
+            {LayoutIcons[LAYOUT_OPTIONS.MACOS_TAHOE_CLEAN]}
           </SwitcherButton>
         </div>
       </div>
@@ -442,82 +578,308 @@ function LayoutSwitcher() {
   );
 }
 
-// ─── ColorSwitcher ─────────────────────────────────────────────
+// ─── Color Groups for Visual Picker ───────────────────────────
 
-function ColorSwitcher({ type }: { type: ColorType }) {
-  const [colorValue, setColorValue] = useState('');
+interface ColorGroup {
+  title: string;
+  items: { light: ColorType; dark: ColorType }[];
+}
+
+const COLOR_GROUPS: ColorGroup[] = [
+  {
+    title: 'Brand',
+    items: [
+      { light: 'primary', dark: 'darkPrimary' },
+      { light: 'accent', dark: 'darkAccent' },
+    ],
+  },
+  {
+    title: 'Surfaces',
+    items: [
+      { light: 'secondary', dark: 'darkSecondary' },
+      { light: 'lightBg', dark: 'darkBg' },
+      { light: 'lightDark', dark: 'darkLightDark' },
+    ],
+  },
+  {
+    title: 'Text',
+    items: [
+      { light: 'muted', dark: 'darkMuted' },
+      { light: 'fg', dark: 'darkFg' },
+      { light: 'border', dark: 'darkBorder' },
+    ],
+  },
+  {
+    title: 'Status',
+    items: [
+      { light: 'success', dark: 'darkSuccess' },
+      { light: 'warning', dark: 'darkWarning' },
+      { light: 'error', dark: 'darkError' },
+      { light: 'info', dark: 'darkInfo' },
+    ],
+  },
+];
+
+// ─── ColorSwatchModal ──────────────────────────────────────────
+
+function ColorSwatchModal({
+  type,
+  isOpen,
+  onClose,
+}: {
+  type: ColorType;
+  isOpen: boolean;
+  onClose: () => void;
+}) {
+  const [customValue, setCustomValue] = useState('');
+  const [opacity, setOpacity] = useState(100);
   const { presetKey, setterKey, defaultValue, label } = COLOR_CONFIG[type];
-
-  // Dynamic Zustand selectors — only subscribes to the 2 needed slices
   const color = useTheme((s) => s[presetKey] as IThemeItem);
   const setColor = useTheme((s) => s[setterKey] as (value: IThemeItem) => void);
+  const mode = useTheme((s) => s.mode);
+  const setMode = useTheme((s) => s.setMode);
 
-  const selectOptions = colorPreset.map((item) => ({
-    name: item.label,
-    value: item.value,
-  }));
+  // Parse opacity from current color (supports 8-digit hex)
+  React.useEffect(() => {
+    const val = color?.value || '';
+    if (val.length === 9 && val.startsWith('#')) {
+      const alpha = parseInt(val.slice(7, 9), 16);
+      setOpacity(Math.round((alpha / 255) * 100));
+    } else {
+      setOpacity(100);
+    }
+  }, [color?.value]);
 
-  const matchedPreset = colorPreset.find((item) => item.value === color?.value);
-
-  const handleSelectChange = (option: SelectOption) => {
-    // Map SelectOption back to IThemeItem (preserves label + value)
-    const preset = colorPreset.find((item) => item.value === option.value);
-    if (preset) setColor(preset);
+  const applyOpacity = (hex: string, opacityPercent: number): string => {
+    const base = hex.slice(0, 7);
+    if (opacityPercent >= 100) return base;
+    const alpha = Math.round((opacityPercent / 100) * 255)
+      .toString(16)
+      .padStart(2, '0');
+    return `${base}${alpha}`;
   };
 
-  const handleCustomColor = () => {
-    setColor({
-      label: colorValue ? `Custom ${type}` : defaultValue.label,
-      value: colorValue || defaultValue.value,
-    });
+  const handlePresetClick = (preset: IThemeItem) => {
+    const val = applyOpacity(preset.value, opacity);
+    setColor({ label: preset.label, value: val });
   };
+
+  const handleNativeColor = (hex: string) => {
+    const val = applyOpacity(hex, opacity);
+    setCustomValue(val);
+    setColor({ label: `Custom`, value: val });
+  };
+
+  const handleOpacityChange = (newOpacity: number) => {
+    setOpacity(newOpacity);
+    const base = (color?.value || '#000000').slice(0, 7);
+    const val = applyOpacity(base, newOpacity);
+    setColor({ label: color?.label || 'Custom', value: val });
+  };
+
+  const handleCustomSubmit = () => {
+    if (customValue) {
+      setColor({ label: `Custom`, value: customValue });
+    } else {
+      setColor(defaultValue);
+    }
+  };
+
+  if (!isOpen) return null;
 
   return (
-    <div className="px-6 pt-8">
-      <div className="flex items-start flex-col h-8 justify-between mb-4">
-        <span className="text-sm font-medium text-gray-900 dark:text-white">
-          {label}
-        </span>
-        <span className="text-current text-xs font-medium rounded-md">
-          Currently:{' '}
-          <span className="text-brand">
-            {color?.label}{' '}
+    <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4">
+      <div
+        className="absolute inset-0 bg-black/40 backdrop-blur-sm"
+        onClick={onClose}
+      />
+      <div className="relative w-full max-w-xs rounded-2xl bg-white dark:bg-gray-800 shadow-2xl border border-border overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+        {/* Header */}
+        <div className="flex items-center justify-between px-4 py-3 border-b border-border dark:border-border">
+          <div className="flex items-center gap-2">
             <span
               style={{ backgroundColor: color?.value }}
-              className="min-h-4 min-w-4 h-4 w-4 inline-block rounded-full ml-1 border border-gray-200 dark:border-gray-700"
+              className="h-5 w-5 rounded-full border border-border"
             />
-          </span>
-        </span>
-      </div>
-      <div className="flex flex-col w-full gap-2">
-        <Select
-          options={selectOptions}
-          selectedOption={{
-            name: color?.label?.includes('Custom')
-              ? color.label
-              : matchedPreset?.label || '',
-            value: matchedPreset?.value || '',
-          }}
-          onChange={handleSelectChange}
-        />
-        <div className="flex items-center gap-2">
-          <Input
-            placeholder="Enter color code"
-            type="text"
-            value={colorValue}
-            onChange={(e) => setColorValue(e.target.value)}
-          />
-          <Button
-            size="small"
-            className="w-35 h-12 mt-1"
-            variant="ghost"
-            onClick={handleCustomColor}
+            <span className="text-sm font-semibold text-gray-900 dark:text-white">
+              {label}
+            </span>
+          </div>
+          <button
+            type="button"
+            onClick={onClose}
+            className="flex h-6 w-6 items-center justify-center rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
           >
-            {colorValue ? 'Set Color' : 'Set Default'}
-          </Button>
+            <Close className="h-3 w-3" width={12} height={12} />
+          </button>
+        </div>
+
+        {/* Mode Switcher */}
+        <div className="px-4 py-2 border-b border-border dark:border-border">
+          <div className="flex items-center gap-1 rounded-lg bg-gray-100 dark:bg-gray-700 p-0.5">
+            <button
+              type="button"
+              onClick={() => setMode('light')}
+              className={cn(
+                'flex-1 flex items-center justify-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-medium transition-all',
+                mode === 'light'
+                  ? 'bg-white dark:bg-gray-600 text-gray-900 dark:text-white shadow-sm'
+                  : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'
+              )}
+            >
+              <Sun className="h-3 w-3" />
+              Light
+            </button>
+            <button
+              type="button"
+              onClick={() => setMode('dark')}
+              className={cn(
+                'flex-1 flex items-center justify-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-medium transition-all',
+                mode === 'dark'
+                  ? 'bg-white dark:bg-gray-600 text-gray-900 dark:text-white shadow-sm'
+                  : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'
+              )}
+            >
+              <Moon className="h-3 w-3" />
+              Dark
+            </button>
+          </div>
+        </div>
+
+        {/* Preset Swatches */}
+        <div className="px-4 py-3">
+          <span className="text-[10px] font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">
+            Presets
+          </span>
+          <div className="grid grid-cols-7 gap-2 mt-2">
+            {colorPreset.map((preset) => {
+              const isActive = color?.value === preset.value;
+              return (
+                <button
+                  key={preset.label}
+                  type="button"
+                  title={preset.label}
+                  onClick={() => handlePresetClick(preset)}
+                  className={cn(
+                    'h-7 w-7 rounded-full border-2 transition-all cursor-pointer hover:scale-110',
+                    isActive
+                      ? 'border-gray-900 dark:border-white scale-110 shadow-lg'
+                      : 'border-transparent hover:border-border dark:hover:border-gray-500'
+                  )}
+                  style={{ backgroundColor: preset.value }}
+                />
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Custom Color */}
+        <div className="px-4 py-3 border-t border-border dark:border-border">
+          <span className="text-[10px] font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">
+            Custom Color
+          </span>
+          <div className="flex items-center gap-2 mt-2">
+            <input
+              type="color"
+              value={(color?.value || '#000000').slice(0, 7)}
+              onChange={(e) => handleNativeColor(e.target.value)}
+              className="h-9 w-9 cursor-pointer rounded-lg border border-border p-0.5 bg-transparent"
+            />
+            <Input
+              placeholder="#hex"
+              type="text"
+              value={customValue}
+              onChange={(e) => setCustomValue(e.target.value)}
+              className="flex-1"
+            />
+            <Button size="mini" variant="ghost" onClick={handleCustomSubmit}>
+              {customValue ? 'Set' : 'Reset'}
+            </Button>
+          </div>
+        </div>
+
+        {/* Opacity */}
+        <div className="px-4 py-3 border-t border-border dark:border-border">
+          <div className="flex items-center justify-between">
+            <span className="text-[10px] font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">
+              Opacity
+            </span>
+            <span className="text-[11px] font-medium text-gray-700 dark:text-gray-300">
+              {opacity}%
+            </span>
+          </div>
+          <input
+            type="range"
+            min={0}
+            max={100}
+            value={opacity}
+            onChange={(e) => handleOpacityChange(Number(e.target.value))}
+            className="mt-2 w-full h-1.5 rounded-full appearance-none cursor-pointer bg-gray-200 dark:bg-gray-600 accent-current"
+            style={{ accentColor: (color?.value || '#000000').slice(0, 7) }}
+          />
         </div>
       </div>
     </div>
+  );
+}
+
+// ─── ColorSwitcher (Visual) ────────────────────────────────────
+
+function ColorDot({ type }: { type: ColorType }) {
+  const [modalOpen, setModalOpen] = useState(false);
+  const { presetKey, label } = COLOR_CONFIG[type];
+  const color = useTheme((s) => s[presetKey] as IThemeItem);
+
+  // Short friendly label
+  const shortLabel = label
+    .replace(' Color', '')
+    .replace('Dark ', '')
+    .replace('Light ', '');
+
+  return (
+    <>
+      <button
+        type="button"
+        onClick={() => setModalOpen(true)}
+        className="group flex flex-col items-center gap-1.5 cursor-pointer"
+        title={label}
+      >
+        <span
+          style={{ backgroundColor: color?.value }}
+          className="h-9 w-9 rounded-full border border-border/40 dark:border-border/40 transition-all group-hover:scale-110 group-hover:border-gray-400 dark:group-hover:border-gray-400 shadow-sm"
+        />
+        <span className="text-[9px] font-medium text-gray-500 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white transition-colors text-center leading-tight max-w-[56px]">
+          {shortLabel}
+        </span>
+      </button>
+      <ColorSwatchModal
+        type={type}
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+      />
+    </>
+  );
+}
+
+// ─── DefaultColorSettings ──────────────────────────────────────
+
+function DefaultColorSettings() {
+  const mode = useTheme((s) => s.mode);
+
+  return (
+    <>
+      {COLOR_GROUPS.map((group) => (
+        <div key={group.title} className="px-6 pt-6">
+          <SettingsSectionHeading>{group.title}</SettingsSectionHeading>
+          <div className="grid grid-cols-4 gap-3">
+            {group.items.map((pair) => {
+              const type = mode === 'dark' ? pair.dark : pair.light;
+              return <ColorDot key={pair.light} type={type} />;
+            })}
+          </div>
+        </div>
+      ))}
+    </>
   );
 }
 
@@ -526,10 +888,76 @@ function ColorSwitcher({ type }: { type: ColorType }) {
 export function RestoreDefaults() {
   const { restoreDefaultColors } = useTheme();
   return (
-    <div className="flex justify-center items-center p-4 absolute bg-white dark:bg-gray-800 bottom-0 left-0 right-0 border-t border-gray-200 dark:border-gray-700">
+    <div className="flex justify-center items-center p-4 absolute bg-white dark:bg-gray-800 bottom-0 left-0 right-0 border-t border-border">
       <Button fullWidth size="small" onClick={restoreDefaultColors}>
         Restore Theme
       </Button>
+    </div>
+  );
+}
+
+// ─── BackgroundPicker (shared across all themes) ───────────────
+
+const ALL_BACKGROUNDS = [
+  { id: 'none', label: 'None', Icon: Ban },
+  { id: 'base', label: 'Base', Icon: Circle },
+  { id: 'sonoma', label: 'Sonoma', Icon: Square },
+  { id: 'radial', label: 'Radial', Icon: Sun },
+  { id: 'wave', label: 'Wave', Icon: Waves },
+  { id: 'wallpaper', label: 'Wallpaper', Icon: Image },
+  { id: 'mobile', label: 'Mobile', Icon: Smartphone },
+  { id: 'window', label: 'Window', Icon: Monitor },
+  { id: 'aurora', label: 'Aurora', Icon: Sparkles },
+  { id: 'depth', label: 'Depth', Icon: Layers },
+  { id: 'demo', label: 'Demo', Icon: Palette },
+] as const;
+
+function BackgroundPicker() {
+  const { backgroundVariant, setBackgroundVariant } = useTheme();
+
+  return (
+    <div className="px-6 pt-8">
+      <SettingsSectionHeading>Background</SettingsSectionHeading>
+      <div className="grid grid-cols-4 gap-3">
+        {ALL_BACKGROUNDS.map((bg) => {
+          const isActive = backgroundVariant === bg.id;
+          return (
+            <button
+              key={bg.id}
+              type="button"
+              aria-label={`${bg.label} background`}
+              onClick={() => setBackgroundVariant(bg.id)}
+              className={cn(
+                'group flex flex-col items-center gap-1.5 rounded-xl p-2 transition-all cursor-pointer',
+                isActive
+                  ? 'bg-black/8 ring-1 ring-black/15 dark:bg-white/10 dark:ring-white/20'
+                  : 'text-gray-900 dark:text-white hover:bg-black/5 dark:hover:bg-white/5'
+              )}
+            >
+              <span
+                className={cn(
+                  'flex h-7 w-7 items-center bg-brand/30 justify-center rounded-full border-2 transition-transform',
+                  isActive
+                    ? 'border-gray-900 dark:border-white scale-110 shadow-lg'
+                    : 'border-transparent group-hover:scale-105'
+                )}
+              >
+                <bg.Icon className="h-4 w-4" />
+              </span>
+              <span
+                className={cn(
+                  'text-[10px] font-medium transition-colors',
+                  isActive
+                    ? 'text-gray-900 dark:text-white'
+                    : 'text-gray-500 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white'
+                )}
+              >
+                {bg.label}
+              </span>
+            </button>
+          );
+        })}
+      </div>
     </div>
   );
 }
@@ -570,7 +998,7 @@ function TahoeAccentPicker() {
               aria-label={`${bundle.label} accent`}
               onClick={() => handleAccentSelect(bundle.id)}
               className={cn(
-                'group flex flex-col items-center gap-1.5 rounded-xl p-2 transition-all cursor-pointer',
+                'group flex text-gray-900 dark:text-white flex-col items-center gap-1.5 rounded-xl p-2 transition-all cursor-pointer',
                 isActive
                   ? 'bg-black/8 ring-1 ring-black/15 dark:bg-white/10 dark:ring-white/20'
                   : 'hover:bg-black/5 dark:hover:bg-white/5'
@@ -598,65 +1026,6 @@ function TahoeAccentPicker() {
                 )}
               >
                 {bundle.label}
-              </span>
-            </button>
-          );
-        })}
-      </div>
-    </div>
-  );
-}
-
-// ─── TahoeBackgroundPicker ─────────────────────────────────────
-
-const TAHOE_BACKGROUNDS = [
-  { id: 'base', label: 'Base', Icon: Circle },
-  { id: 'wave', label: 'Wave', Icon: Waves },
-  { id: 'wallpaper', label: 'Wallpaper', Icon: Image },
-  { id: 'mobile', label: 'Mobile', Icon: Smartphone },
-] as const;
-
-function TahoeBackgroundPicker() {
-  const { backgroundVariant, setBackgroundVariant } = useTheme();
-
-  return (
-    <div className="px-6 pt-8">
-      <SettingsSectionHeading>Background</SettingsSectionHeading>
-      <div className="grid grid-cols-4 gap-3">
-        {TAHOE_BACKGROUNDS.map((bg) => {
-          const isActive = backgroundVariant === bg.id;
-          return (
-            <button
-              key={bg.id}
-              type="button"
-              aria-label={`${bg.label} background`}
-              onClick={() => setBackgroundVariant(bg.id)}
-              className={cn(
-                'group flex flex-col items-center gap-1.5 rounded-xl p-2 transition-all cursor-pointer',
-                isActive
-                  ? 'bg-black/8 ring-1 ring-black/15 dark:bg-white/10 dark:ring-white/20'
-                  : 'hover:bg-black/5 dark:hover:bg-white/5'
-              )}
-            >
-              <span
-                className={cn(
-                  'flex h-7 w-7 items-center bg-brand/30 justify-center rounded-full border-2 transition-transform',
-                  isActive
-                    ? 'border-gray-900 dark:border-white scale-110 shadow-lg'
-                    : 'border-transparent group-hover:scale-105'
-                )}
-              >
-                <bg.Icon className="h-4 w-4" />
-              </span>
-              <span
-                className={cn(
-                  'text-[10px] font-medium transition-colors',
-                  isActive
-                    ? 'text-gray-900 dark:text-white'
-                    : 'text-(--macos-tahoe-text-muted) group-hover:text-(--macos-tahoe-text)'
-                )}
-              >
-                {bg.label}
               </span>
             </button>
           );
@@ -753,12 +1122,20 @@ export function SettingsDrawer() {
       {isTahoe ? (
         <>
           <TahoeAccentPicker />
-          <TahoeBackgroundPicker />
+          <DefaultColorSettings />
+          <BackgroundPicker />
         </>
       ) : isSonoma ? (
-        <SonomaAccentPicker />
+        <>
+          <SonomaAccentPicker />
+          <DefaultColorSettings />
+          <BackgroundPicker />
+        </>
       ) : (
-        COLOR_TYPES.map((type) => <ColorSwitcher key={type} type={type} />)
+        <>
+          <DefaultColorSettings />
+          <BackgroundPicker />
+        </>
       )}
       <RestoreDefaults />
     </div>
@@ -776,7 +1153,7 @@ export function SettingsDrawer() {
         <div className="pointer-events-none relative z-10 flex h-full w-full items-stretch justify-end p-3 min-[500px]:p-4">
           <aside
             data-tucu="macos-tahoe-sidebar"
-            className="pointer-events-auto flex h-full w-80 max-w-[calc(100vw-24px)] flex-col overflow-hidden rounded-[30px] border border-(--macos-tahoe-border) bg-(--macos-tahoe-sidebar-bg) backdrop-blur-[30px]"
+            className="pointer-events-auto flex h-full w-80 max-w-[calc(100vw-24px)] flex-col overflow-hidden rounded-[30px] border border-border bg-(--macos-tahoe-sidebar-bg) backdrop-blur-[30px]"
           >
             <div className="shrink-0 px-5 pb-3 pt-5 flex items-center justify-between gap-3">
               <span className="text-[16px] font-semibold text-(--macos-tahoe-text) dark:text-white/90">
@@ -786,7 +1163,7 @@ export function SettingsDrawer() {
                 type="button"
                 onClick={() => setIsSettingsOpen(false)}
                 aria-label="Close settings"
-                className="flex h-7 w-7 items-center justify-center rounded-full border border-white/10 bg-black/8 text-(--macos-tahoe-text-muted) transition-colors hover:bg-black/12 hover:text-(--macos-tahoe-text) dark:bg-white/6 dark:hover:bg-white/10"
+                className="flex h-7 w-7 items-center justify-center rounded-full border border-border bg-black/8 text-(--macos-tahoe-text-muted) transition-colors hover:bg-black/12 hover:text-(--macos-tahoe-text) dark:bg-white/6 dark:hover:bg-white/10"
               >
                 <Close className="h-3.5 w-3.5" width={14} height={14} />
               </button>
