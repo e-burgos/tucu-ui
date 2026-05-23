@@ -1,0 +1,26 @@
+name: Deploy MCP Server
+on:
+  push:
+    branches: [main]
+    paths: ['tools/mcp-server/**']
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'pnpm'
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm nx build tucu-ui-mcp
+
+      - uses: superfly/flyctl-actions/setup-flyctl@master
+      - run: flyctl deploy --remote-only
+        working-directory: tools/mcp-server
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}

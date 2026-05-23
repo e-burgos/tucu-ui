@@ -1,0 +1,15 @@
+version: '3.8'
+services:
+  tucu-ui-mcp:
+    build: .
+    ports:
+      - '3100:3100'
+    environment:
+      - PORT=3100
+      - MCP_API_KEY=${MCP_API_KEY:-}
+    restart: unless-stopped
+    healthcheck:
+      test: ['CMD', 'wget', '--spider', 'http://localhost:3100/health']
+      interval: 30s
+      timeout: 3s
+      retries: 3

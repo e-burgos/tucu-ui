@@ -18,10 +18,38 @@
         "cwd": "tools/mcp-server"
       }
     },
+    "serve:http": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "tsx src/http-server.ts",
+        "cwd": "tools/mcp-server"
+      }
+    },
     "test": {
       "executor": "nx:run-commands",
       "options": {
         "command": "vitest run",
+        "cwd": "tools/mcp-server"
+      }
+    },
+    "docker:build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "docker build -t tucu-ui-mcp .",
+        "cwd": "tools/mcp-server"
+      }
+    },
+    "docker:run": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "docker run -p 3100:3100 tucu-ui-mcp",
+        "cwd": "tools/mcp-server"
+      }
+    },
+    "publish": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npm publish --access public",
         "cwd": "tools/mcp-server"
       }
     }

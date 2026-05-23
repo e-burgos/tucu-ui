@@ -1,0 +1,20 @@
+app = "tucu-ui-mcp"
+primary_region = "iad"
+
+[build]
+  dockerfile = "Dockerfile"
+
+[http_service]
+  internal_port = 3100
+  force_https = true
+  auto_stop_machines = "stop"
+  auto_start_machines = true
+  min_machines_running = 0
+
+[checks]
+  [checks.health]
+    port = 3100
+    type = "http"
+    interval = "30s"
+    timeout = "3s"
+    path = "/health"

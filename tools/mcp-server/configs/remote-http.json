@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "tucu-ui-remote": {
+      "url": "https://tucu-ui-mcp.fly.dev/mcp",
+      "headers": {
+        "Authorization": "Bearer ${input:tucu-ui-mcp-token}"
+      }
+    }
+  }
+}
