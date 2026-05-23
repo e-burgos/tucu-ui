@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "tucu-ui": {
+      "command": "npx",
+      "args": ["@e-burgos/tucu-ui-mcp"]
+    }
+  }
+}
