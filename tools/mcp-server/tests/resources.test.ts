@@ -66,7 +66,10 @@ describe('Resource Content', () => {
   it('all resources return non-empty content', () => {
     for (const { name, fn } of contentFns) {
       const content = fn();
-      expect(content.length, `${name} content should not be empty`).toBeGreaterThan(100);
+      expect(
+        content.length,
+        `${name} content should not be empty`
+      ).toBeGreaterThan(100);
     }
   });
 
@@ -170,7 +173,10 @@ describe('Resource Content', () => {
     for (const { name, fn } of contentFns) {
       const content = fn();
       for (const pattern of invalidRecommendations) {
-        expect(content, `${name} should not recommend "${pattern}"`).not.toContain(pattern);
+        expect(
+          content,
+          `${name} should not recommend "${pattern}"`
+        ).not.toContain(pattern);
       }
     }
   });

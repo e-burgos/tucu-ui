@@ -1,9 +1,21 @@
 import { describe, it, expect } from 'vitest';
 import { createMcpServer } from '../src/server.js';
-import { getFormPatternByName, getAvailableFormPatterns } from '../src/data/form-patterns.js';
+import {
+  getFormPatternByName,
+  getAvailableFormPatterns,
+} from '../src/data/form-patterns.js';
 import { searchIcons, getIconCategories } from '../src/data/icon-registry.js';
-import { themePresets, getPresetByName, getLayoutByName } from '../src/data/theme-registry.js';
-import { formatProps, generateImportStatement, toPascalCase, toCamelCase } from '../src/utils/code-generator.js';
+import {
+  themePresets,
+  getPresetByName,
+  getLayoutByName,
+} from '../src/data/theme-registry.js';
+import {
+  formatProps,
+  generateImportStatement,
+  toPascalCase,
+  toCamelCase,
+} from '../src/utils/code-generator.js';
 
 // ─── Invalid variant patterns to check against ─────────────────────────────
 const INVALID_VARIANTS = [
@@ -143,8 +155,13 @@ describe('Code Generator Utilities', () => {
   });
 
   it('generateImportStatement produces sorted imports', () => {
-    const result = generateImportStatement(['Button', 'Alert', 'Card'], '@e-burgos/tucu-ui');
-    expect(result).toBe("import { Alert, Button, Card } from '@e-burgos/tucu-ui';");
+    const result = generateImportStatement(
+      ['Button', 'Alert', 'Card'],
+      '@e-burgos/tucu-ui'
+    );
+    expect(result).toBe(
+      "import { Alert, Button, Card } from '@e-burgos/tucu-ui';"
+    );
   });
 
   it('toPascalCase converts strings', () => {
@@ -202,7 +219,8 @@ describe('Generation Tools', () => {
         const pattern = getFormPatternByName(name);
         if (pattern!.fullExample.includes('variant=')) {
           // All variant values should be valid
-          const variantMatches = pattern!.fullExample.match(/variant="(\w+)"/g) || [];
+          const variantMatches =
+            pattern!.fullExample.match(/variant="(\w+)"/g) || [];
           for (const match of variantMatches) {
             const value = match.replace('variant="', '').replace('"', '');
             expect(['solid', 'ghost', 'transparent']).toContain(value);

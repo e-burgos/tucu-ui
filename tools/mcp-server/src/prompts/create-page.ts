@@ -1,6 +1,10 @@
 // ─── Prompt: create-page ─────────────────────────────────────────────────────
 
-export function getCreatePagePrompt(name: string, layout: string, sections?: string): string {
+export function getCreatePagePrompt(
+  name: string,
+  layout: string,
+  sections?: string
+): string {
   return `You are creating a page for a @e-burgos/tucu-ui application.
 
 PAGE NAME: ${name}

@@ -1,6 +1,9 @@
 // ─── Prompt: create-component ────────────────────────────────────────────────
 
-export function getCreateComponentPrompt(component: string, context?: string): string {
+export function getCreateComponentPrompt(
+  component: string,
+  context?: string
+): string {
   return `You are generating code for the @e-burgos/tucu-ui component library.
 
 COMPONENT: ${component}

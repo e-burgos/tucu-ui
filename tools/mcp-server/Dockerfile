@@ -1,10 +1,10 @@
 FROM node:22-alpine AS builder
 WORKDIR /app
-COPY package.json pnpm-lock.yaml ./
-RUN corepack enable && pnpm install --frozen-lockfile
-COPY tsconfig*.json ./
+COPY package.json ./
+RUN npm install
+COPY tsconfig.docker.json ./tsconfig.json
 COPY src/ ./src/
-RUN pnpm build
+RUN npx tsc -p tsconfig.json
 
 FROM node:22-alpine AS runtime
 WORKDIR /app

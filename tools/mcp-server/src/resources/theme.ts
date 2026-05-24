@@ -10,7 +10,7 @@ Central hook for programmatic theme access. Powered by Zustand with persist midd
 \`\`\`typescript
 interface IThemeState {
   mode: 'light' | 'dark';
-  colorScheme: 'default' | 'macos';
+  colorScheme: 'default' | 'macos' | 'macos-tahoe';
   layout: LAYOUT_OPTIONS;
   direction: 'ltr' | 'rtl';
   lang: 'en' | 'es' | 'fr';
@@ -101,12 +101,25 @@ function App() {
 | Variant | Description |
 |---------|-------------|
 | default | Standard design system |
-| macos | Apple-inspired with vibrancy, blur materials |
+| macos | Apple Sonoma-inspired with vibrancy, blur materials |
+| macos-tahoe | Apple Tahoe-inspired with rounded corners, modern UI |
 
 \`\`\`tsx
-const { colorScheme } = useTheme(); // 'default' | 'macos'
+const { colorScheme } = useTheme(); // 'default' | 'macos' | 'macos-tahoe'
 const { applyMacOSTheme } = useTheme();
 applyMacOSTheme(); // applies colors + MACOS_TAHOE layout
 \`\`\`
+
+## Color Token Semantics
+| Token | Light Mode Label | Dark Mode Label | Purpose |
+|-------|-----------------|-----------------|---------|
+| primary | Primary (Brand) Color | Dark Primary (Brand) Color | Main brand color |
+| secondary | Auxiliary Background Color | Dark Auxiliary Background Color | Secondary backgrounds |
+| accent | Secondary (Accent) Color | Dark Secondary (Accent) Color | Accent highlights |
+| muted | Muted Color | Dark Muted Color | Muted/disabled elements |
+| darkBg | — | Dark Primary Background Color | Dark mode main bg |
+| lightBg | Light Primary Background Color | — | Light mode main bg |
+| lightDark | Light Secondary Background Color | — | Light mode secondary bg |
+| darkLightDark | — | Dark Secondary Background Color | Dark mode secondary bg |
 `;
 }

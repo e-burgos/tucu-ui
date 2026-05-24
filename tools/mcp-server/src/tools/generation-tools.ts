@@ -31,11 +31,15 @@ export function registerGenerationTools(server: McpServer): void {
     'generate_component',
     'Generate ready-to-use JSX code for a tucu-ui component with correct variants and imports.',
     {
-      component: z.string().describe('Component name (e.g. Button, Card, Alert)'),
+      component: z
+        .string()
+        .describe('Component name (e.g. Button, Card, Alert)'),
       props: z
         .record(z.string())
         .optional()
-        .describe('Custom props as key-value pairs (e.g. { variant: "solid", size: "medium" })'),
+        .describe(
+          'Custom props as key-value pairs (e.g. { variant: "solid", size: "medium" })'
+        ),
       withWrapper: z
         .boolean()
         .optional()
@@ -44,7 +48,9 @@ export function registerGenerationTools(server: McpServer): void {
         .string()
         .optional()
         .describe(
-          `Theme preset to apply. Available: ${themePresets.map((p) => p.name).join(', ')}`
+          `Theme preset to apply. Available: ${themePresets
+            .map((p) => p.name)
+            .join(', ')}`
         ),
     },
     async ({ component, props, withWrapper, theme }) => {
@@ -78,7 +84,9 @@ export function registerGenerationTools(server: McpServer): void {
         for (const [key, allowed] of Object.entries(entry.variants)) {
           if (safeProps?.[key] && !allowed.includes(safeProps[key])) {
             warnings.push(
-              `Invalid ${key}="${safeProps[key]}". Corrected to "${allowed[0]}". Allowed: ${allowed.join(', ')}`
+              `Invalid ${key}="${safeProps[key]}". Corrected to "${
+                allowed[0]
+              }". Allowed: ${allowed.join(', ')}`
             );
             safeProps[key] = allowed[0];
           }
@@ -86,10 +94,24 @@ export function registerGenerationTools(server: McpServer): void {
       }
 
       // Build JSX
-      const propsStr = safeProps && Object.keys(safeProps).length > 0
-        ? ' ' + formatProps(safeProps)
-        : '';
-      const hasChildren = !['Input', 'Select', 'InputSearcher', 'Switch', 'Checkbox', 'Spinner', 'Skeleton', 'DatePicker', 'RangeSlider', 'ColorPicker', 'FileInput', 'IconButton'].includes(entry.name);
+      const propsStr =
+        safeProps && Object.keys(safeProps).length > 0
+          ? ' ' + formatProps(safeProps)
+          : '';
+      const hasChildren = ![
+        'Input',
+        'Select',
+        'InputSearcher',
+        'Switch',
+        'Checkbox',
+        'Spinner',
+        'Skeleton',
+        'DatePicker',
+        'RangeSlider',
+        'ColorPicker',
+        'FileInput',
+        'IconButton',
+      ].includes(entry.name);
 
       let jsx: string;
       if (hasChildren) {
@@ -102,7 +124,9 @@ export function registerGenerationTools(server: McpServer): void {
         jsx = `<div className="p-4">\n  ${jsx}\n</div>`;
       }
 
-      const imports = [generateImportStatement([entry.name], '@e-burgos/tucu-ui')];
+      const imports = [
+        generateImportStatement([entry.name], '@e-burgos/tucu-ui'),
+      ];
 
       // Add theme wrapper if requested
       if (theme) {
@@ -115,7 +139,9 @@ export function registerGenerationTools(server: McpServer): void {
           );
         } else {
           warnings.push(
-            `Theme "${theme}" not found. Available: ${themePresets.map((p) => p.name).join(', ')}`
+            `Theme "${theme}" not found. Available: ${themePresets
+              .map((p) => p.name)
+              .join(', ')}`
           );
         }
       }
@@ -129,11 +155,7 @@ export function registerGenerationTools(server: McpServer): void {
         content: [
           {
             type: 'text' as const,
-            text: JSON.stringify(
-              { code: jsx, imports, warnings },
-              null,
-              2
-            ),
+            text: JSON.stringify({ code: jsx, imports, warnings }, null, 2),
           },
         ],
       };
@@ -149,7 +171,9 @@ export function registerGenerationTools(server: McpServer): void {
         .string()
         .optional()
         .describe(
-          `Predefined pattern name. Available: ${getAvailableFormPatterns().join(', ')}`
+          `Predefined pattern name. Available: ${getAvailableFormPatterns().join(
+            ', '
+          )}`
         ),
       fields: z
         .array(
@@ -179,7 +203,9 @@ export function registerGenerationTools(server: McpServer): void {
       variant: z
         .string()
         .optional()
-        .describe('Input variant for all fields. Default: ghost. Allowed: solid, ghost, transparent.'),
+        .describe(
+          'Input variant for all fields. Default: ghost. Allowed: solid, ghost, transparent.'
+        ),
     },
     async ({ pattern, fields, withValidation = true, variant = 'ghost' }) => {
       // Validate variant
@@ -239,8 +265,7 @@ export function registerGenerationTools(server: McpServer): void {
               type: 'text' as const,
               text: JSON.stringify(
                 {
-                  error:
-                    'Either "pattern" or "fields" must be provided.',
+                  error: 'Either "pattern" or "fields" must be provided.',
                   availablePatterns: getAvailableFormPatterns(),
                 },
                 null,
@@ -265,13 +290,24 @@ export function registerGenerationTools(server: McpServer): void {
         switch (field.type) {
           case 'textarea':
             comp = 'Textarea';
-            fieldJsx = `          <Textarea\n            label="${field.label}"\n            variant="${safeVariant}"\n            placeholder="Enter ${field.label.toLowerCase()}"\n            rows={3}\n            {...register('${field.name}')}\n            error={errors.${field.name}?.message}\n          />`;
+            fieldJsx = `          <Textarea\n            label="${
+              field.label
+            }"\n            variant="${safeVariant}"\n            placeholder="Enter ${field.label.toLowerCase()}"\n            rows={3}\n            {...register('${
+              field.name
+            }')}\n            error={errors.${
+              field.name
+            }?.message}\n          />`;
             break;
           case 'select':
             comp = 'Select';
             {
               const opts = (field.options || ['Option 1', 'Option 2'])
-                .map((o) => `{ name: '${o}', value: '${o.toLowerCase().replace(/\s+/g, '-')}' }`)
+                .map(
+                  (o) =>
+                    `{ name: '${o}', value: '${o
+                      .toLowerCase()
+                      .replace(/\s+/g, '-')}' }`
+                )
                 .join(', ');
               fieldJsx = `          <Select\n            label="${field.label}"\n            variant="${safeVariant}"\n            options={[${opts}]}\n            value={watch('${field.name}')}\n            onSelect={(val) => setValue('${field.name}', val)}\n          />`;
             }
@@ -286,7 +322,15 @@ export function registerGenerationTools(server: McpServer): void {
             break;
           default:
             comp = 'Input';
-            fieldJsx = `          <Input\n            label="${field.label}"\n            type="${field.type}"\n            variant="${safeVariant}"\n            placeholder="Enter ${field.label.toLowerCase()}"\n            {...register('${field.name}')}\n            error={errors.${field.name}?.message}\n          />`;
+            fieldJsx = `          <Input\n            label="${
+              field.label
+            }"\n            type="${
+              field.type
+            }"\n            variant="${safeVariant}"\n            placeholder="Enter ${field.label.toLowerCase()}"\n            {...register('${
+              field.name
+            }')}\n            error={errors.${
+              field.name
+            }?.message}\n          />`;
             break;
         }
 
@@ -295,22 +339,33 @@ export function registerGenerationTools(server: McpServer): void {
 
         // Schema generation
         if (field.type === 'checkbox') {
-          schemaFields.push(`  ${field.name}: z.boolean()${field.required ? '' : '.optional()'},`);
+          schemaFields.push(
+            `  ${field.name}: z.boolean()${
+              field.required ? '' : '.optional()'
+            },`
+          );
           defaultValues.push(`${field.name}: false`);
           typeFields.push(`  ${field.name}: boolean;`);
         } else if (field.type === 'date') {
-          schemaFields.push(`  ${field.name}: z.date()${field.required ? '' : '.optional()'},`);
+          schemaFields.push(
+            `  ${field.name}: z.date()${field.required ? '' : '.optional()'},`
+          );
           defaultValues.push(`${field.name}: undefined`);
           typeFields.push(`  ${field.name}?: Date;`);
         } else if (field.type === 'number') {
           schemaFields.push(
-            `  ${field.name}: z.number()${field.required ? '.min(0)' : '.optional()'},`
+            `  ${field.name}: z.number()${
+              field.required ? '.min(0)' : '.optional()'
+            },`
           );
           defaultValues.push(`${field.name}: 0`);
           typeFields.push(`  ${field.name}: number;`);
         } else {
-          const minRule = field.required ? '.min(1, "Required")' : '.optional()';
-          const emailRule = field.type === 'email' ? '.email("Invalid email")' : minRule;
+          const minRule = field.required
+            ? '.min(1, "Required")'
+            : '.optional()';
+          const emailRule =
+            field.type === 'email' ? '.email("Invalid email")' : minRule;
           schemaFields.push(`  ${field.name}: z.string()${emailRule},`);
           defaultValues.push(`${field.name}: ''`);
           typeFields.push(`  ${field.name}: string;`);
@@ -322,18 +377,33 @@ export function registerGenerationTools(server: McpServer): void {
       const typeName = 'CustomFormData';
 
       const validationCode = withValidation
-        ? `import { z } from 'zod';\n\nconst ${schemaName} = z.object({\n${schemaFields.join('\n')}\n});\n\ntype ${typeName} = z.infer<typeof ${schemaName}>;`
+        ? `import { z } from 'zod';\n\nconst ${schemaName} = z.object({\n${schemaFields.join(
+            '\n'
+          )}\n});\n\ntype ${typeName} = z.infer<typeof ${schemaName}>;`
         : '';
 
-      const componentCode = `${generateImportStatement([...componentSet], '@e-burgos/tucu-ui')}${withValidation ? `\nimport { z } from 'zod';\n\nconst ${schemaName} = z.object({\n${schemaFields.join('\n')}\n});\n\ntype ${typeName} = z.infer<typeof ${schemaName}>;` : ''}
+      const componentCode = `${generateImportStatement(
+        [...componentSet],
+        '@e-burgos/tucu-ui'
+      )}${
+        withValidation
+          ? `\nimport { z } from 'zod';\n\nconst ${schemaName} = z.object({\n${schemaFields.join(
+              '\n'
+            )}\n});\n\ntype ${typeName} = z.infer<typeof ${schemaName}>;`
+          : ''
+      }
 
 export function ${formName}() {
-  const handleSubmit = (data: ${withValidation ? typeName : 'Record<string, unknown>'}) => {
+  const handleSubmit = (data: ${
+    withValidation ? typeName : 'Record<string, unknown>'
+  }) => {
     console.log(data);
   };
 
   return (
-    <Form onSubmit={handleSubmit} defaultValues={{ ${defaultValues.join(', ')} }}>
+    <Form onSubmit={handleSubmit} defaultValues={{ ${defaultValues.join(
+      ', '
+    )} }}>
       {({ register, setValue, watch, formState: { errors } }) => (
         <>
 ${fieldLines.join('\n')}
@@ -381,7 +451,9 @@ ${fieldLines.join('\n')}
       name: z.string().describe('Page name (e.g. Dashboard, Settings, Users)'),
       layout: z
         .enum(['dashboard', 'sidebar', 'fullpage', 'stacked'])
-        .describe('Layout type. dashboard=AdminLayout, fullpage=MacOSLayout, stacked=ThemeProvider.'),
+        .describe(
+          'Layout type. dashboard=AdminLayout, fullpage=MacOSLayout, stacked=ThemeProvider.'
+        ),
       sections: z
         .array(
           z.object({
@@ -399,7 +471,13 @@ ${fieldLines.join('\n')}
         .optional()
         .describe('Architecture mode. Default: standalone.'),
     },
-    async ({ name, layout, sections, withRouting, architecture = 'standalone' }) => {
+    async ({
+      name,
+      layout,
+      sections,
+      withRouting,
+      architecture = 'standalone',
+    }) => {
       const pageName = toPascalCase(name) + 'Page';
       const layoutDef = getLayoutByName(layout);
       const imports = new Set<string>();
@@ -488,23 +566,29 @@ ${fieldLines.join('\n')}
         }
       }
 
-      const importLine = generateImportStatement([...imports], '@e-burgos/tucu-ui');
+      const importLine = generateImportStatement(
+        [...imports],
+        '@e-burgos/tucu-ui'
+      );
 
       const pageCode = `${importLine}
 
 export function ${pageName}() {
   return (
     <div className="flex flex-col gap-6 p-6">
-      <Title>${sections.length > 0 && sections[0].type !== 'hero' ? name : ''}</Title>
+      <Title>${
+        sections.length > 0 && sections[0].type !== 'hero' ? name : ''
+      }</Title>
 ${sectionCode.join('\n\n')}
     </div>
   );
 }`;
 
       // Fix: remove redundant Title if hero exists
-      const finalPageCode = sections[0]?.type === 'hero'
-        ? pageCode.replace(`      <Title></Title>\n`, '')
-        : pageCode.replace(`<Title></Title>`, `<Title>${name}</Title>`);
+      const finalPageCode =
+        sections[0]?.type === 'hero'
+          ? pageCode.replace(`      <Title></Title>\n`, '')
+          : pageCode.replace(`<Title></Title>`, `<Title>${name}</Title>`);
 
       let routeConfig = '';
       if (withRouting) {
@@ -527,7 +611,9 @@ ${sectionCode.join('\n\n')}
 
       const allImports = [importLine];
       if (layoutDef) {
-        allImports.push(`// Layout: Use ${layoutDef.component} as the parent layout`);
+        allImports.push(
+          `// Layout: Use ${layoutDef.component} as the parent layout`
+        );
       }
 
       return {
@@ -540,7 +626,10 @@ ${sectionCode.join('\n\n')}
                 routeConfig,
                 imports: allImports,
                 layout: layoutDef
-                  ? { component: layoutDef.component, example: layoutDef.example }
+                  ? {
+                      component: layoutDef.component,
+                      example: layoutDef.example,
+                    }
                   : null,
               },
               null,
@@ -558,7 +647,16 @@ ${sectionCode.join('\n\n')}
     'Generate a Recharts chart component with tucu-ui theme integration and responsive container.',
     {
       type: z
-        .enum(['line', 'bar', 'area', 'pie', 'donut', 'composed', 'radar', 'scatter'])
+        .enum([
+          'line',
+          'bar',
+          'area',
+          'pie',
+          'donut',
+          'composed',
+          'radar',
+          'scatter',
+        ])
         .describe('Chart type.'),
       dataShape: z
         .object({
@@ -570,12 +668,31 @@ ${sectionCode.join('\n\n')}
             .describe('Sample data array. Auto-generated if not provided.'),
         })
         .describe('Data shape configuration.'),
-      responsive: z.boolean().optional().describe('Wrap in ResponsiveContainer. Default: true.'),
-      withTheme: z.boolean().optional().describe('Use tucu-ui theme CSS variables for colors. Default: true.'),
-      withTooltip: z.boolean().optional().describe('Include Tooltip component. Default: true.'),
-      withLegend: z.boolean().optional().describe('Include Legend component. Default: true.'),
+      responsive: z
+        .boolean()
+        .optional()
+        .describe('Wrap in ResponsiveContainer. Default: true.'),
+      withTheme: z
+        .boolean()
+        .optional()
+        .describe('Use tucu-ui theme CSS variables for colors. Default: true.'),
+      withTooltip: z
+        .boolean()
+        .optional()
+        .describe('Include Tooltip component. Default: true.'),
+      withLegend: z
+        .boolean()
+        .optional()
+        .describe('Include Legend component. Default: true.'),
     },
-    async ({ type, dataShape, responsive = true, withTheme = true, withTooltip = true, withLegend = true }) => {
+    async ({
+      type,
+      dataShape,
+      responsive = true,
+      withTheme = true,
+      withTooltip = true,
+      withLegend = true,
+    }) => {
       const { xKey, yKeys, sampleData } = dataShape;
 
       // Generate sample data if not provided
@@ -586,66 +703,153 @@ ${sectionCode.join('\n\n')}
       const themeColors = withTheme
         ? yKeys.map(
             (_, i) =>
-              `hsl(var(--${i === 0 ? 'primary' : i === 1 ? 'secondary' : 'accent'}))`
+              `hsl(var(--${
+                i === 0 ? 'primary' : i === 1 ? 'secondary' : 'accent'
+              }))`
           )
-        : yKeys.map((_, i) => ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6'][i % 5]);
+        : yKeys.map(
+            (_, i) =>
+              ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6'][i % 5]
+          );
 
       const rechartsImports = new Set<string>(['ResponsiveContainer']);
       let chartJsx = '';
 
       switch (type) {
         case 'line':
-          rechartsImports.add('LineChart').add('Line').add('XAxis').add('YAxis').add('CartesianGrid');
+          rechartsImports
+            .add('LineChart')
+            .add('Line')
+            .add('XAxis')
+            .add('YAxis')
+            .add('CartesianGrid');
           if (withTooltip) rechartsImports.add('Tooltip');
           if (withLegend) rechartsImports.add('Legend');
-          chartJsx = buildLineChart(xKey, yKeys, themeColors, withTooltip, withLegend);
+          chartJsx = buildLineChart(
+            xKey,
+            yKeys,
+            themeColors,
+            withTooltip,
+            withLegend
+          );
           break;
         case 'bar':
-          rechartsImports.add('BarChart').add('Bar').add('XAxis').add('YAxis').add('CartesianGrid');
+          rechartsImports
+            .add('BarChart')
+            .add('Bar')
+            .add('XAxis')
+            .add('YAxis')
+            .add('CartesianGrid');
           if (withTooltip) rechartsImports.add('Tooltip');
           if (withLegend) rechartsImports.add('Legend');
-          chartJsx = buildBarChart(xKey, yKeys, themeColors, withTooltip, withLegend);
+          chartJsx = buildBarChart(
+            xKey,
+            yKeys,
+            themeColors,
+            withTooltip,
+            withLegend
+          );
           break;
         case 'area':
-          rechartsImports.add('AreaChart').add('Area').add('XAxis').add('YAxis').add('CartesianGrid');
+          rechartsImports
+            .add('AreaChart')
+            .add('Area')
+            .add('XAxis')
+            .add('YAxis')
+            .add('CartesianGrid');
           if (withTooltip) rechartsImports.add('Tooltip');
           if (withLegend) rechartsImports.add('Legend');
-          chartJsx = buildAreaChart(xKey, yKeys, themeColors, withTooltip, withLegend);
+          chartJsx = buildAreaChart(
+            xKey,
+            yKeys,
+            themeColors,
+            withTooltip,
+            withLegend
+          );
           break;
         case 'pie':
         case 'donut':
           rechartsImports.add('PieChart').add('Pie').add('Cell');
           if (withTooltip) rechartsImports.add('Tooltip');
           if (withLegend) rechartsImports.add('Legend');
-          chartJsx = buildPieChart(yKeys[0], themeColors, type === 'donut', withTooltip, withLegend);
+          chartJsx = buildPieChart(
+            yKeys[0],
+            themeColors,
+            type === 'donut',
+            withTooltip,
+            withLegend
+          );
           break;
         case 'composed':
-          rechartsImports.add('ComposedChart').add('Line').add('Bar').add('Area').add('XAxis').add('YAxis').add('CartesianGrid');
+          rechartsImports
+            .add('ComposedChart')
+            .add('Line')
+            .add('Bar')
+            .add('Area')
+            .add('XAxis')
+            .add('YAxis')
+            .add('CartesianGrid');
           if (withTooltip) rechartsImports.add('Tooltip');
           if (withLegend) rechartsImports.add('Legend');
-          chartJsx = buildComposedChart(xKey, yKeys, themeColors, withTooltip, withLegend);
+          chartJsx = buildComposedChart(
+            xKey,
+            yKeys,
+            themeColors,
+            withTooltip,
+            withLegend
+          );
           break;
         case 'radar':
-          rechartsImports.add('RadarChart').add('Radar').add('PolarGrid').add('PolarAngleAxis').add('PolarRadiusAxis');
+          rechartsImports
+            .add('RadarChart')
+            .add('Radar')
+            .add('PolarGrid')
+            .add('PolarAngleAxis')
+            .add('PolarRadiusAxis');
           if (withTooltip) rechartsImports.add('Tooltip');
           if (withLegend) rechartsImports.add('Legend');
-          chartJsx = buildRadarChart(xKey, yKeys, themeColors, withTooltip, withLegend);
+          chartJsx = buildRadarChart(
+            xKey,
+            yKeys,
+            themeColors,
+            withTooltip,
+            withLegend
+          );
           break;
         case 'scatter':
-          rechartsImports.add('ScatterChart').add('Scatter').add('XAxis').add('YAxis').add('CartesianGrid');
+          rechartsImports
+            .add('ScatterChart')
+            .add('Scatter')
+            .add('XAxis')
+            .add('YAxis')
+            .add('CartesianGrid');
           if (withTooltip) rechartsImports.add('Tooltip');
           if (withLegend) rechartsImports.add('Legend');
-          chartJsx = buildScatterChart(xKey, yKeys, themeColors, withTooltip, withLegend);
+          chartJsx = buildScatterChart(
+            xKey,
+            yKeys,
+            themeColors,
+            withTooltip,
+            withLegend
+          );
           break;
       }
 
-      const wrapperStart = responsive ? '<ResponsiveContainer width="100%" height={300}>\n  ' : '';
+      const wrapperStart = responsive
+        ? '<ResponsiveContainer width="100%" height={300}>\n  '
+        : '';
       const wrapperEnd = responsive ? '\n</ResponsiveContainer>' : '';
 
-      const componentCode = `import { ${[...rechartsImports].sort().join(', ')} } from 'recharts';
+      const componentCode = `import { ${[...rechartsImports]
+        .sort()
+        .join(', ')} } from 'recharts';
 
 const data = ${dataStr};
-${withTheme ? `\nconst COLORS = [${themeColors.map((c) => `'${c}'`).join(', ')}];` : ''}
+${
+  withTheme
+    ? `\nconst COLORS = [${themeColors.map((c) => `'${c}'`).join(', ')}];`
+    : ''
+}
 
 export function Chart() {
   return (
@@ -660,7 +864,11 @@ export function Chart() {
             text: JSON.stringify(
               {
                 componentCode,
-                imports: [`import { ${[...rechartsImports].sort().join(', ')} } from 'recharts';`],
+                imports: [
+                  `import { ${[...rechartsImports]
+                    .sort()
+                    .join(', ')} } from 'recharts';`,
+                ],
                 sampleData: dataStr,
               },
               null,
@@ -677,7 +885,9 @@ export function Chart() {
     'search_icons',
     'Search for Lucide React icons by keyword, name, or category. Returns import statements and usage examples.',
     {
-      query: z.string().describe('Search query (e.g. "arrow", "delete", "notification")'),
+      query: z
+        .string()
+        .describe('Search query (e.g. "arrow", "delete", "notification")'),
       category: z
         .string()
         .optional()
@@ -699,7 +909,8 @@ export function Chart() {
                   query,
                   resultsCount: 0,
                   results: [],
-                  suggestion: 'Try a more general keyword or browse by category.',
+                  suggestion:
+                    'Try a more general keyword or browse by category.',
                   availableCategories: getIconCategories(),
                 },
                 null,
@@ -823,7 +1034,9 @@ function buildPieChart(
         <Cell key={index} fill={COLORS[index % COLORS.length]} />
       ))}
     </Pie>
-${tooltip ? '    <Tooltip />\n' : ''}${legend ? '    <Legend />\n' : ''}  </PieChart>`;
+${tooltip ? '    <Tooltip />\n' : ''}${
+    legend ? '    <Legend />\n' : ''
+  }  </PieChart>`;
 }
 
 function buildComposedChart(
@@ -836,7 +1049,8 @@ function buildComposedChart(
   const elements = yKeys
     .map((key, i) => {
       if (i === 0) return `    <Bar dataKey="${key}" fill="${colors[i]}" />`;
-      if (i === 1) return `    <Line type="monotone" dataKey="${key}" stroke="${colors[i]}" />`;
+      if (i === 1)
+        return `    <Line type="monotone" dataKey="${key}" stroke="${colors[i]}" />`;
       return `    <Area type="monotone" dataKey="${key}" stroke="${colors[i]}" fill="${colors[i]}" fillOpacity={0.3} />`;
     })
     .join('\n');
@@ -844,7 +1058,9 @@ function buildComposedChart(
     <CartesianGrid strokeDasharray="3 3" />
     <XAxis dataKey="${xKey}" />
     <YAxis />
-${tooltip ? '    <Tooltip />\n' : ''}${legend ? '    <Legend />\n' : ''}${elements}
+${tooltip ? '    <Tooltip />\n' : ''}${
+    legend ? '    <Legend />\n' : ''
+  }${elements}
   </ComposedChart>`;
 }
 
@@ -865,7 +1081,9 @@ function buildRadarChart(
     <PolarGrid />
     <PolarAngleAxis dataKey="${xKey}" />
     <PolarRadiusAxis />
-${tooltip ? '    <Tooltip />\n' : ''}${legend ? '    <Legend />\n' : ''}${radars}
+${tooltip ? '    <Tooltip />\n' : ''}${
+    legend ? '    <Legend />\n' : ''
+  }${radars}
   </RadarChart>`;
 }
 
@@ -886,6 +1104,8 @@ function buildScatterChart(
     <CartesianGrid strokeDasharray="3 3" />
     <XAxis dataKey="${xKey}" name="${xKey}" />
     <YAxis dataKey="${yKeys[0]}" name="${yKeys[0]}" />
-${tooltip ? '    <Tooltip cursor={{ strokeDasharray: "3 3" }} />\n' : ''}${legend ? '    <Legend />\n' : ''}${scatters}
+${tooltip ? '    <Tooltip cursor={{ strokeDasharray: "3 3" }} />\n' : ''}${
+    legend ? '    <Legend />\n' : ''
+  }${scatters}
   </ScatterChart>`;
 }

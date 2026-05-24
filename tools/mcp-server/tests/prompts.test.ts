@@ -154,7 +154,10 @@ describe('accessibility-check prompt', () => {
   });
 
   it('includes code when provided', () => {
-    const result = getAccessibilityCheckPrompt('Button', '<Button>Click</Button>');
+    const result = getAccessibilityCheckPrompt(
+      'Button',
+      '<Button>Click</Button>'
+    );
     expect(result).toContain('<Button>Click</Button>');
   });
 

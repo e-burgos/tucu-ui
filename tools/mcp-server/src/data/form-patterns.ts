@@ -97,7 +97,8 @@ export function LoginForm() {
   // ─── Registration ─────────────────────────────────────────
   {
     name: 'registration',
-    description: 'Registration form with name, email, password, and confirmation.',
+    description:
+      'Registration form with name, email, password, and confirmation.',
     fields: [
       {
         name: 'name',
@@ -322,7 +323,8 @@ export function ContactForm() {
   // ─── Settings ─────────────────────────────────────────────
   {
     name: 'settings',
-    description: 'Settings form with various input types — text, select, switch.',
+    description:
+      'Settings form with various input types — text, select, switch.',
     fields: [
       {
         name: 'displayName',
@@ -432,7 +434,8 @@ export function SettingsForm() {
   // ─── Search / Filter ──────────────────────────────────────
   {
     name: 'search-filter',
-    description: 'Search and filter form with InputSearcher, Select, and DatePicker.',
+    description:
+      'Search and filter form with InputSearcher, Select, and DatePicker.',
     fields: [
       {
         name: 'query',
@@ -550,7 +553,11 @@ export function SearchFilterForm({ onFilter }: { onFilter: (data: SearchFilterFo
         type: 'textarea',
         label: 'Description',
         validation: 'z.string().optional()',
-        props: { variant: 'ghost', placeholder: 'Enter description', rows: '3' },
+        props: {
+          variant: 'ghost',
+          placeholder: 'Enter description',
+          rows: '3',
+        },
       },
       {
         name: 'status',
@@ -631,9 +638,7 @@ export function CrudForm({ initialData, onSubmit, isEditing }: CrudFormProps) {
 // ─── Helper functions ───────────────────────────────────────────────────────
 
 export function getFormPatternByName(name: string): FormPattern | undefined {
-  return formPatterns.find(
-    (p) => p.name.toLowerCase() === name.toLowerCase()
-  );
+  return formPatterns.find((p) => p.name.toLowerCase() === name.toLowerCase());
 }
 
 export function getAvailableFormPatterns(): string[] {

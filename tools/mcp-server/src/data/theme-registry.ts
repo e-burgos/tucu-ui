@@ -272,7 +272,8 @@ export const layoutVariants: LayoutVariant[] = [
   {
     name: 'fullpage',
     component: 'MacOSLayout',
-    description: 'macOS-inspired layout with dock navigation and window management.',
+    description:
+      'macOS-inspired layout with dock navigation and window management.',
     supportsDarkMode: true,
     example: `import { MacOSLayout } from '@e-burgos/tucu-ui';
 
@@ -283,7 +284,8 @@ export const layoutVariants: LayoutVariant[] = [
   {
     name: 'stacked',
     component: 'ThemeProvider',
-    description: 'Minimal stacked layout — just ThemeProvider wrapping content vertically.',
+    description:
+      'Minimal stacked layout — just ThemeProvider wrapping content vertically.',
     supportsDarkMode: true,
     example: `import { ThemeProvider } from '@e-burgos/tucu-ui';
 
@@ -295,6 +297,30 @@ export const layoutVariants: LayoutVariant[] = [
     </div>
   </main>
 </ThemeProvider>`,
+  },
+  {
+    name: 'macos-navbar',
+    component: 'MacOSLayout',
+    description:
+      'macOS Sonoma-inspired layout with top horizontal navigation bar instead of sidebar.',
+    supportsDarkMode: true,
+    example: `import { MacOSLayout } from '@e-burgos/tucu-ui';
+
+<MacOSLayout variant="sonoma-navbar" menuItems={[{ label: 'Home', path: '/', icon: 'home' }]}>
+  <Outlet />
+</MacOSLayout>`,
+  },
+  {
+    name: 'macos-tahoe-navbar',
+    component: 'MacOSLayout',
+    description:
+      'macOS Tahoe-inspired layout with top horizontal navigation bar and rounded design language.',
+    supportsDarkMode: true,
+    example: `import { MacOSLayout } from '@e-burgos/tucu-ui';
+
+<MacOSLayout variant="tahoe-navbar" menuItems={[{ label: 'Home', path: '/', icon: 'home' }]}>
+  <Outlet />
+</MacOSLayout>`,
   },
 ];
 
@@ -345,9 +371,7 @@ export const spacingScale: Record<string, string> = {
 // ─── Helper functions ───────────────────────────────────────────────────────
 
 export function getPresetByName(name: string): ThemePreset | undefined {
-  return themePresets.find(
-    (p) => p.name.toLowerCase() === name.toLowerCase()
-  );
+  return themePresets.find((p) => p.name.toLowerCase() === name.toLowerCase());
 }
 
 export function getLayoutByName(name: string): LayoutVariant | undefined {

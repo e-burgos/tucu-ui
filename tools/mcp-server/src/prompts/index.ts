@@ -18,14 +18,22 @@ export function registerPrompts(server: McpServer): void {
     'create-component',
     'Generate a tucu-ui component usage with correct variants and imports',
     {
-      component: z.string().describe('Component name (e.g. Button, Card, Alert)'),
-      context: z.string().optional().describe('Usage context or description of what you need'),
+      component: z
+        .string()
+        .describe('Component name (e.g. Button, Card, Alert)'),
+      context: z
+        .string()
+        .optional()
+        .describe('Usage context or description of what you need'),
     },
     async ({ component, context }) => ({
       messages: [
         {
           role: 'user' as const,
-          content: { type: 'text' as const, text: getCreateComponentPrompt(component, context) },
+          content: {
+            type: 'text' as const,
+            text: getCreateComponentPrompt(component, context),
+          },
         },
       ],
     })
@@ -36,14 +44,24 @@ export function registerPrompts(server: McpServer): void {
     'create-form',
     'Generate a form with Form component, inputs, and validation',
     {
-      fields: z.string().describe('Comma-separated field names (e.g. "name, email, password")'),
-      validation: z.string().optional().describe('Validation requirements (e.g. "email required, password min 8")'),
+      fields: z
+        .string()
+        .describe('Comma-separated field names (e.g. "name, email, password")'),
+      validation: z
+        .string()
+        .optional()
+        .describe(
+          'Validation requirements (e.g. "email required, password min 8")'
+        ),
     },
     async ({ fields, validation }) => ({
       messages: [
         {
           role: 'user' as const,
-          content: { type: 'text' as const, text: getCreateFormPrompt(fields, validation) },
+          content: {
+            type: 'text' as const,
+            text: getCreateFormPrompt(fields, validation),
+          },
         },
       ],
     })
@@ -54,15 +72,25 @@ export function registerPrompts(server: McpServer): void {
     'create-page',
     'Generate a page component with layout and routing configuration',
     {
-      name: z.string().describe('Page name (PascalCase, e.g. "Dashboard", "UserProfile")'),
-      layout: z.string().describe('Layout type: admin, horizontal, clean, macos, macos-tahoe'),
-      sections: z.string().optional().describe('Page sections (e.g. "header, stats cards, table, chart")'),
+      name: z
+        .string()
+        .describe('Page name (PascalCase, e.g. "Dashboard", "UserProfile")'),
+      layout: z
+        .string()
+        .describe('Layout type: admin, horizontal, clean, macos, macos-tahoe'),
+      sections: z
+        .string()
+        .optional()
+        .describe('Page sections (e.g. "header, stats cards, table, chart")'),
     },
     async ({ name, layout, sections }) => ({
       messages: [
         {
           role: 'user' as const,
-          content: { type: 'text' as const, text: getCreatePagePrompt(name, layout, sections) },
+          content: {
+            type: 'text' as const,
+            text: getCreatePagePrompt(name, layout, sections),
+          },
         },
       ],
     })
@@ -74,13 +102,19 @@ export function registerPrompts(server: McpServer): void {
     'Diagnose "Cannot read properties of undefined" errors caused by invalid variants',
     {
       error: z.string().describe('The error message or stack trace'),
-      component: z.string().optional().describe('Component where the error occurs (if known)'),
+      component: z
+        .string()
+        .optional()
+        .describe('Component where the error occurs (if known)'),
     },
     async ({ error, component }) => ({
       messages: [
         {
           role: 'user' as const,
-          content: { type: 'text' as const, text: getDebugVariantPrompt(error, component) },
+          content: {
+            type: 'text' as const,
+            text: getDebugVariantPrompt(error, component),
+          },
         },
       ],
     })
@@ -91,7 +125,9 @@ export function registerPrompts(server: McpServer): void {
     'migrate-component',
     'Guide migration of a component between tucu-ui versions',
     {
-      component: z.string().describe('Component to migrate (e.g. "Button", "Badge")'),
+      component: z
+        .string()
+        .describe('Component to migrate (e.g. "Button", "Badge")'),
       fromVersion: z.string().describe('Source version (e.g. "1.x")'),
       toVersion: z.string().describe('Target version (e.g. "2.x")'),
     },
@@ -99,7 +135,10 @@ export function registerPrompts(server: McpServer): void {
       messages: [
         {
           role: 'user' as const,
-          content: { type: 'text' as const, text: getMigrateComponentPrompt(component, fromVersion, toVersion) },
+          content: {
+            type: 'text' as const,
+            text: getMigrateComponentPrompt(component, fromVersion, toVersion),
+          },
         },
       ],
     })
@@ -110,14 +149,23 @@ export function registerPrompts(server: McpServer): void {
     'theme-setup',
     'Configure ThemeProvider with presets, dark mode, and layout',
     {
-      preset: z.string().optional().describe('Color preset (e.g. "Blue", "macOS", "Green")'),
-      darkMode: z.string().optional().describe('Dark mode strategy: "system", "light", "dark"'),
+      preset: z
+        .string()
+        .optional()
+        .describe('Color preset (e.g. "Blue", "macOS", "Green")'),
+      darkMode: z
+        .string()
+        .optional()
+        .describe('Dark mode strategy: "system", "light", "dark"'),
     },
     async ({ preset, darkMode }) => ({
       messages: [
         {
           role: 'user' as const,
-          content: { type: 'text' as const, text: getThemeSetupPrompt(preset, darkMode) },
+          content: {
+            type: 'text' as const,
+            text: getThemeSetupPrompt(preset, darkMode),
+          },
         },
       ],
     })
@@ -129,13 +177,19 @@ export function registerPrompts(server: McpServer): void {
     'Audit a component for WCAG accessibility compliance',
     {
       component: z.string().describe('Component or page name to audit'),
-      code: z.string().optional().describe('The code to audit (optional, paste full component)'),
+      code: z
+        .string()
+        .optional()
+        .describe('The code to audit (optional, paste full component)'),
     },
     async ({ component, code }) => ({
       messages: [
         {
           role: 'user' as const,
-          content: { type: 'text' as const, text: getAccessibilityCheckPrompt(component, code) },
+          content: {
+            type: 'text' as const,
+            text: getAccessibilityCheckPrompt(component, code),
+          },
         },
       ],
     })
@@ -152,7 +206,10 @@ export function registerPrompts(server: McpServer): void {
       messages: [
         {
           role: 'user' as const,
-          content: { type: 'text' as const, text: getPerformanceReviewPrompt(code) },
+          content: {
+            type: 'text' as const,
+            text: getPerformanceReviewPrompt(code),
+          },
         },
       ],
     })

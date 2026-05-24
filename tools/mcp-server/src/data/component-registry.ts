@@ -303,7 +303,23 @@ export const componentRegistry: ComponentRegistryEntry[] = [
 <MacOSLayout menuItems={[{ label: 'Home', path: '/', icon: 'home' }]}>
   <Outlet />
 </MacOSLayout>`,
-    relatedComponents: ['AdminLayout', 'ThemeProvider'],
+    relatedComponents: ['AdminLayout', 'ThemeProvider', 'HorizontalNavMenu'],
+    themeAware: true,
+  },
+  {
+    name: 'HorizontalNavMenu',
+    category: 'layouts',
+    description:
+      'Horizontal navigation menu used inside navbar layout variants. Renders menu items as a top bar with dropdown support.',
+    importPath: '@e-burgos/tucu-ui',
+    example: `import { HorizontalNavMenu } from '@e-burgos/tucu-ui';
+
+<HorizontalNavMenu
+  menuItems={[{ label: 'Home', path: '/', icon: 'home' }]}
+  className="custom-nav"
+  dropboxClassName="custom-dropdown"
+/>`,
+    relatedComponents: ['MacOSLayout', 'AdminLayout'],
     themeAware: true,
   },
   {

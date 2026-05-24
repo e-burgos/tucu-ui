@@ -26,25 +26,29 @@ const resources: ResourceDef[] = [
   {
     name: 'component-catalog',
     uri: 'tucu://catalog',
-    description: 'Complete component catalog with variants, props, and examples',
+    description:
+      'Complete component catalog with variants, props, and examples',
     getContent: getCatalogContent,
   },
   {
     name: 'design-tokens',
     uri: 'tucu://tokens',
-    description: 'Design tokens: CSS variables, semantic colors, breakpoints, typography',
+    description:
+      'Design tokens: CSS variables, semantic colors, breakpoints, typography',
     getContent: getTokensContent,
   },
   {
     name: 'form-system',
     uri: 'tucu://forms',
-    description: 'Form patterns: Form component, validation, useFormContext, all inputs',
+    description:
+      'Form patterns: Form component, validation, useFormContext, all inputs',
     getContent: getFormsContent,
   },
   {
     name: 'routing-guide',
     uri: 'tucu://routing',
-    description: 'Routing guide: standalone, MFE, nested routes, ReactRouter namespace',
+    description:
+      'Routing guide: standalone, MFE, nested routes, ReactRouter namespace',
     getContent: getRoutingContent,
   },
   {
@@ -56,13 +60,15 @@ const resources: ResourceDef[] = [
   {
     name: 'theme-system',
     uri: 'tucu://theme',
-    description: 'Theme system: useTheme hook, presets, dark/light, ThemeProvider setup',
+    description:
+      'Theme system: useTheme hook, presets, dark/light, ThemeProvider setup',
     getContent: getThemeContent,
   },
   {
     name: 'charts',
     uri: 'tucu://charts',
-    description: 'Charts: Recharts wrappers, types, components, theming, performance',
+    description:
+      'Charts: Recharts wrappers, types, components, theming, performance',
     getContent: getChartsContent,
   },
   {
@@ -74,7 +80,8 @@ const resources: ResourceDef[] = [
   {
     name: 'migration-guide',
     uri: 'tucu://migration',
-    description: 'Migration guide: breaking changes between versions, variant mapping',
+    description:
+      'Migration guide: breaking changes between versions, variant mapping',
     getContent: getMigrationContent,
   },
   {

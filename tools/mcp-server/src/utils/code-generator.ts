@@ -8,10 +8,7 @@ export interface TemplateContext {
   children?: string;
 }
 
-export function renderTemplate(
-  template: string,
-  ctx: TemplateContext
-): string {
+export function renderTemplate(template: string, ctx: TemplateContext): string {
   return template
     .replace(/\{\{componentName\}\}/g, ctx.componentName)
     .replace(/\{\{props\}\}/g, formatProps(ctx.props || {}))

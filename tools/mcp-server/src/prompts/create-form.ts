@@ -1,6 +1,9 @@
 // ─── Prompt: create-form ─────────────────────────────────────────────────────
 
-export function getCreateFormPrompt(fields: string, validation?: string): string {
+export function getCreateFormPrompt(
+  fields: string,
+  validation?: string
+): string {
   return `You are generating a form using @e-burgos/tucu-ui's Form system.
 
 FIELDS: ${fields}
