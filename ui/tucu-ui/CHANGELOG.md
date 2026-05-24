@@ -5,6 +5,147 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.0] - 2026-05-24
+
+### Added
+
+- add macOS Tahoe components, update demo pages, and improve theming
+- update MCP server resources, tools, generation, and agentic capabilities
+- add HTTP transport, auth, Docker + CI/CD (Plan D)
+- add resources, prompts + distribution config (Plan C)
+- add generation tools + theme registry (Plan B)
+- add MCP foundation — core + component discovery (Plan A)
+- rewrite settings drawer with visual color editor
+- extend color presets, BackgroundVariant, and theme store
+- add clean layout variants for Sonoma and Tahoe
+- add ThemeBackground component and background variants CSS
+- add macOS Tahoe and Sonoma demo sections with playground examples
+- add macOS Tahoe components, ColorCard, FeatureCard and theme variants
+- add macOS Tahoe styles and update base CSS utilities
+- sticky header, resizable columns, border fixes & theme improvements
+- add macOS Tahoe showcase pages and Sonoma split
+- add MacOSTahoeDockLayout and update component integrations
+- add Tahoe components suite
+- reorganize CSS into sonoma/ and tahoe/ subdirectories
+- add macOS showcase sections and update demo components
+- add data-tucu attributes to UI components
+- update theme store, config, and providers
+- add MacOSSonomaLayout and MacOSTahoeLayout
+- add macOS components (toolbar, background, command-palette, window, sidebar)
+- implement Sonoma & Tahoe CSS overrides
+- add Inter and JetBrains Mono variable fonts
+- other changes
+- implement tahoe 26 design system
+- update demo documentation for macOS Tahoe components
+- update UI components for macOS Tahoe design language
+- refactor all input components with macOS-aware styling helpers
+- add macOS Tahoe variant to theme system
+- implement macOS Sonoma 14 design system — Fases A-D
+- add MacOS Showcase route to menu items
+- add macOS component showcase page with all 8 sections
+- implement Sonoma widget system and macOS layout
+- add macOS theme variant as a switchable color scheme
+- apply macOS/Apple design system tokens (v2)
+- add charts system with 6 chart components
+- add new UI components
+- component improvements, Storybook removal, docs refactor & build optimization
+- add 2.0.0 version - mfe support
+- update input components
+- update storybook
+- publish tucu-ui beta version
+- update ui documentation
+- upgrade tucu-ui
+- update text classes
+- update tw utilities
+- update tucu-ui tw classes
+- add collapse classname prop
+- improve mobile actions
+- add test-lib app for testing lib purposes
+- color system fixed
+- improve code-block component
+- migrate to pnpm
+- update layout config
+- update favicon 3 demo app
+- update favicon 2 demo app
+- update favicon demo app
+- update redirect demo app
+- update demo app
+- resolve dependecies
+- clean dependencies, add tailwind styles compatibility
+- publish documetation
+- update package
+- migrate to tailwind v4
+
+### Changed
+
+- release @e-burgos/tucu-ui-mcp@0.4.2
+- update publish skill and mcp publish script
+- release @e-burgos/tucu-ui-mcp@0.4.1
+- update agents, skills, README, and add prompt docs
+- update workspace config, dependencies, and add publish scripts
+- update menu items, eslint config, and vite setup
+- clean up .cursor config and remove deprecated skills
+- add MCP agentic server spec and aligned plans
+- bump @e-burgos/tucu-ui dependency to ^2.0.11
+- bump version to 2.0.11 and update CHANGELOG
+- migrate demo pages to theme tokens + add BackgroundsSection
+- migrate macOS components to theme tokens
+- migrate border classes to border-border token
+- wrap all layout variants with ThemeBackground
+- bump version to 2.0.9
+- add utility scripts for demo section generation
+- update routing, redirects and menu items
+- update dependencies, config and skill docs
+- update READMEs with macOS Tahoe design system and 5 layouts
+- add version 2.0.9 entry with macOS Tahoe changes
+- update agent skills and IDE config files
+- replace zip assets with extracted SVG files for Dock and Menu Bar
+- update test-lib menu items and eslint config
+- remove unused image assets from library
+- update macOS Tahoe spec, plan, and resource files
+- update skills, agents, and copilot instructions
+- implement macOS Tahoe (Sequoia 15) CSS design tokens
+- add dependencies required by macOS Tahoe design system demo
+- add spec and plan for macOS Tahoe (Sequoia 15) design system
+- add v2.0.8 changelog and update README import-order notes
+- bump version to 2.0.8, update dependencies and build config
+- update breakpoints in MFE and standalone examples
+- replace custom breakpoints in theme pages and providers
+- replace custom breakpoints with arbitrary values
+- update dependencies, tooling, and documentation
+- add charts demo page and new component sections
+- remove @headlessui/react dependency
+- modal and drawer components
+- gitignore
+- new tucu-ui version
+- nx version
+- resolve tailwind 3
+- update lib
+- update lib
+- add tucutable project
+
+### Fixed
+
+- add clean layout types and default backgroundVariant to none
+- fix border color variables and remove circular references
+- fix dropdown clipping in default theme
+- rewrite with fixed positioning strategy
+- update lockfile to use npm registry for tucu-ui
+- use npm registry version for demo deploy on Netlify
+- update auth forms, layouts, menus and misc components
+- update line tokens to neutral gray scale for light/dark mode
+- resolve tucu-ui build errors and add macOS to test-lib
+- align macOS tokens with official Apple system color values
+- update color references, breakpoints, and improve ToC button
+- update hardcoded gray hex values to match new palette
+- remove @theme namespace collisions and align gray palette with Tailwind v4
+- component improvements and bug fixes
+- layout components
+- demo build
+- tucu-ui router system
+- resolve arbitrary values
+- resolve responsive layout
+- minor fix
 ## [2.0.11] - 2026-05-22
 
 ### Added
