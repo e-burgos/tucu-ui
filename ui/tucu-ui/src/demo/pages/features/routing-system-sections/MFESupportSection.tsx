@@ -180,7 +180,7 @@ function MfeApp() {
         </div>
         <CardContainer>
           <CardTitle title="Interface Definition">
-            <CodeBlock language="typescript" code={mfeRouteConfig} />
+            <CodeBlock language="TS" code={mfeRouteConfig} />
           </CardTitle>
         </CardContainer>
         <Alert variant="warning" dismissible={false}>

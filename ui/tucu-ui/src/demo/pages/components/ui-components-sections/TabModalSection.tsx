@@ -141,26 +141,42 @@ const TabModalSection: React.FC = () => {
         componentName="TabModal"
         title="TabModal Playground"
         defaultValues={{
-          'title': 'Modal Title',
-          'subtitle': 'Modal subtitle',
-          'footerLabel': 'Footer text',
-          'closeLabel': 'Cancel'
-}}
-        excludeProps={['onClose', 'tabs', 'content', 'icon', 'className', 'closeButton', 'successButton', 'badgeHeader', 'badgeHeaderClassName']}
+          title: 'Modal Title',
+          subtitle: 'Modal subtitle',
+          footerLabel: 'Footer text',
+          closeLabel: 'Cancel',
+        }}
+        excludeProps={[
+          'onClose',
+          'tabs',
+          'content',
+          'icon',
+          'className',
+          'closeButton',
+          'successButton',
+          'badgeHeader',
+          'badgeHeaderClassName',
+        ]}
       >
         {(props) => (
           <TabModal
             {...props}
-            onClose={() => {}}
+            onClose={() => {
+              /* noop */
+            }}
             tabs={[
-              { title: 'Tab 1', content: <Typography tag="p">Content 1</Typography> },
-              { title: 'Tab 2', content: <Typography tag="p">Content 2</Typography> },
+              {
+                title: 'Tab 1',
+                content: <Typography tag="p">Content 1</Typography>,
+              },
+              {
+                title: 'Tab 2',
+                content: <Typography tag="p">Content 2</Typography>,
+              },
             ]}
           />
         )}
       </PropPlayground>
-
-
 
       <AutoPropsTable componentName="TabModal" />
 

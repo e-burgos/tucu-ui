@@ -80,7 +80,7 @@ function App() {
         </div>
         <CardContainer>
           <CardTitle title="Interface Definition">
-            <CodeBlock language="typescript" code={routingStructure} />
+            <CodeBlock language="TS" code={routingStructure} />
           </CardTitle>
         </CardContainer>
       </section>

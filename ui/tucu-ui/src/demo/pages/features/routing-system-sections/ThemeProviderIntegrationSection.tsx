@@ -113,7 +113,7 @@ function App() {
         </div>
         <CardContainer>
           <CardTitle title="Interface Definition">
-            <CodeBlock language="typescript" code={themeProviderProps} />
+            <CodeBlock language="TS" code={themeProviderProps} />
           </CardTitle>
         </CardContainer>
       </section>

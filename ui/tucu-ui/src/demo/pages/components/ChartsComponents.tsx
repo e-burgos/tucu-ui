@@ -1,4 +1,4 @@
-import React, { lazy } from 'react';
+import { lazy } from 'react';
 import { LucideIcons, HeroCard } from '../../../index';
 import { DynamicSectionsPage, type SectionConfig } from '../../components';
 

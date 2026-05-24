@@ -38,3 +38,4 @@ export * from './tailwind/TypographyUtilities';
 export * from './macos/MacOSShowcase';
 export * from './macos/MacOSSonomaShowcase';
 export * from './macos/MacOSTahoeShowcase';
+export * from './mcp/MCPServerPage';

@@ -1,5 +1,11 @@
 import React from 'react';
-import { LucideIcons, Scrollbar, DrawerContainer } from '../../../index';
+import {
+  LucideIcons,
+  Scrollbar,
+  DrawerContainer,
+  useTheme,
+  LAYOUT_OPTIONS,
+} from '../../../index';
 import cn from 'classnames';
 import type { TableOfContentsProps } from './types';
 import { useToc } from './use-toc';
@@ -14,6 +20,8 @@ export const TocTahoe: React.FC<TableOfContentsProps> = ({
   navigationMode = 'anchor',
   activeSectionId,
 }) => {
+  const { layout } = useTheme();
+  const isNavbarLayout = layout === LAYOUT_OPTIONS.MACOS_TAHOE_NAVBAR;
   const {
     isSidebarOpen,
     setIsSidebarOpen,
@@ -140,16 +148,16 @@ export const TocTahoe: React.FC<TableOfContentsProps> = ({
 
   return (
     <>
-      {/* Floating Toggle Button */}
-      <div className="fixed top-25 z-10 right-0">
+      {/* Floating Toggle Button — positioned just above the Settings button */}
+      <div className="fixed top-[calc(50%-80px)] z-40 ltr:right-0 rtl:left-0">
         {!isSidebarOpen && (
           <button
-            className="flex items-center justify-center h-10 w-10 rounded-l-2xl border border-r-0 border-border bg-(--macos-tahoe-sidebar-bg) backdrop-blur-[30px] text-white/60 hover:text-white/90 transition-colors shadow-(--macos-tahoe-sidebar-shadow)"
+            className="flex h-[48px] w-[48px] items-center justify-center ltr:rounded-l-lg rtl:rounded-r-lg border border-r-0 border-border bg-light-dark text-gray-600 dark:text-gray-200/70 shadow-large backdrop-blur-sm transition-colors hover:text-white/90"
             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
             aria-label="Toggle table of contents"
             title="Toggle table of contents"
           >
-            <LucideIcons.Menu className="w-5 h-5" />
+            <LucideIcons.Menu className="w-6 h-6" />
           </button>
         )}
       </div>
@@ -195,8 +203,11 @@ export const TocTahoe: React.FC<TableOfContentsProps> = ({
         <aside
           data-tucu="macos-tahoe-toc"
           className={cn(
-            'fixed top-[70px] right-4 bottom-4 w-[240px] xl:w-[var(--macos-tahoe-sidebar-width,280px)] rounded-3xl border border-border/50 bg-white dark:bg-light-dark shadow-card z-10',
+            'fixed w-[240px] xl:w-[var(--macos-tahoe-sidebar-width,280px)] rounded-3xl border border-border/50 bg-white dark:bg-light-dark shadow-card z-10',
             'transition-all duration-300 ease-in-out overflow-y-hidden',
+            isNavbarLayout
+              ? 'top-[90px] bottom-[32px] right-[32px]'
+              : 'top-[70px] bottom-4 right-4',
             className
           )}
         >
@@ -213,7 +224,11 @@ export const TocTahoe: React.FC<TableOfContentsProps> = ({
           </div>
 
           <Scrollbar
-            style={{ height: 'calc(100vh - 68px - 16px - 52px - 16px)' }}
+            style={{
+              height: isNavbarLayout
+                ? 'calc(100vh - 90px - 32px - 52px)'
+                : 'calc(100vh - 68px - 16px - 52px - 16px)',
+            }}
             className="h-full"
           >
             {navContent}

@@ -12,12 +12,18 @@ export const TableOfContents: React.FC<TableOfContentsProps> = (props) => {
 
   if (
     layout === LAYOUT_OPTIONS.MACOS_TAHOE ||
-    layout === LAYOUT_OPTIONS.MACOS_TAHOE_DOCK
+    layout === LAYOUT_OPTIONS.MACOS_TAHOE_DOCK ||
+    layout === LAYOUT_OPTIONS.MACOS_TAHOE_NAVBAR ||
+    layout === LAYOUT_OPTIONS.MACOS_TAHOE_CLEAN
   ) {
     return <TocTahoe {...props} />;
   }
 
-  if (layout === LAYOUT_OPTIONS.MACOS) {
+  if (
+    layout === LAYOUT_OPTIONS.MACOS ||
+    layout === LAYOUT_OPTIONS.MACOS_CLEAN ||
+    layout === LAYOUT_OPTIONS.MACOS_NAVBAR
+  ) {
     return <TocSonoma {...props} />;
   }
 

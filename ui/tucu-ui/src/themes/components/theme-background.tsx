@@ -103,9 +103,7 @@ export const ThemeBackground: React.FC<ThemeBackgroundProps> = ({
       data-tucu="theme-background"
       data-variant={variant}
       className={cn(
-        isFixed
-          ? 'fixed inset-0 z-0 h-screen w-screen'
-          : 'absolute inset-0 -z-[1]',
+        isFixed ? 'fixed inset-0 z-0 h-dvh' : 'absolute inset-0 -z-[1]',
         variantClass,
         className
       )}
@@ -139,7 +137,7 @@ export const ThemeBackground: React.FC<ThemeBackgroundProps> = ({
   return (
     <>
       {bgElement}
-      <div className="relative z-10 min-h-screen">{children}</div>
+      <div className="relative z-10 min-h-dvh">{children}</div>
     </>
   );
 };

@@ -15,14 +15,24 @@ import {
   MacOSSonomaCleanLayout,
   MacOSSonomaCleanLayoutProps,
 } from './macos-sonoma-clean-layout';
+import {
+  MacOSTahoeNavbarLayout,
+  MacOSTahoeNavbarLayoutProps,
+} from './macos-tahoe-navbar-layout';
+import {
+  MacOSSonomaNavbarLayout,
+  MacOSSonomaNavbarLayoutProps,
+} from './macos-sonoma-navbar-layout';
 
 // ─── Types ─────────────────────────────────────────────────────
 
 type MacOSLayoutVariant =
   | 'sonoma'
   | 'sonoma-clean'
+  | 'sonoma-navbar'
   | 'tahoe'
   | 'tahoe-dock'
+  | 'tahoe-navbar'
   | 'macos-tahoe-clean';
 
 export interface MacOSLayoutProps {
@@ -46,11 +56,17 @@ export function MacOSLayout({
   if (variant === 'tahoe-dock') {
     return <MacOSTahoeDockLayout {...props} />;
   }
+  if (variant === 'tahoe-navbar') {
+    return <MacOSTahoeNavbarLayout {...props} />;
+  }
   if (variant === 'macos-tahoe-clean') {
     return <MacOSTahoeCleanLayout {...props} />;
   }
   if (variant === 'sonoma-clean') {
     return <MacOSSonomaCleanLayout {...props} />;
+  }
+  if (variant === 'sonoma-navbar') {
+    return <MacOSSonomaNavbarLayout {...props} />;
   }
   if (variant === 'tahoe') {
     return <MacOSTahoeLayout {...props} />;
@@ -62,15 +78,19 @@ export default MacOSLayout;
 export {
   MacOSSonomaLayout,
   MacOSSonomaCleanLayout,
+  MacOSSonomaNavbarLayout,
   MacOSTahoeLayout,
   MacOSTahoeDockLayout,
   MacOSTahoeCleanLayout,
+  MacOSTahoeNavbarLayout,
 };
 export type {
   MacOSSonomaLayoutProps,
   MacOSSonomaCleanLayoutProps,
+  MacOSSonomaNavbarLayoutProps,
   MacOSTahoeLayoutProps,
   MacOSTahoeDockLayoutProps,
   MacOSTahoeCleanLayoutProps,
+  MacOSTahoeNavbarLayoutProps,
   MacOSLayoutVariant,
 };

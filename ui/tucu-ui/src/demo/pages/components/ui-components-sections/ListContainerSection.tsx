@@ -96,27 +96,47 @@ const ListContainerSection: React.FC = () => {
         componentName="ListContainer"
         title="ListContainer Playground"
         defaultValues={{
-          'label': 'Select an option',
-          'position': 'bottom',
-          'align': 'start',
-          'trigger': 'click',
-          'isOpen': true,
-          'keepOpen': false
-}}
-        excludeProps={['items', 'onOpenChange', 'triggerIcon', 'className', 'dropdownClassName']}
+          label: 'Select an option',
+          position: 'bottom',
+          align: 'start',
+          trigger: 'click',
+          isOpen: true,
+          keepOpen: false,
+        }}
+        excludeProps={[
+          'items',
+          'onOpenChange',
+          'triggerIcon',
+          'className',
+          'dropdownClassName',
+        ]}
       >
         {(props) => (
           <ListContainer
             {...props}
             items={[
-              { label: 'Option 1', onClick: () => {} },
-              { label: 'Option 2', onClick: () => {} },
-              { label: 'Option 3', onClick: () => {} },
+              {
+                label: 'Option 1',
+                onClick: () => {
+                  /* noop */
+                },
+              },
+              {
+                label: 'Option 2',
+                onClick: () => {
+                  /* noop */
+                },
+              },
+              {
+                label: 'Option 3',
+                onClick: () => {
+                  /* noop */
+                },
+              },
             ]}
           />
         )}
       </PropPlayground>
-
 
       <AutoPropsTable componentName="ListContainer" />
 

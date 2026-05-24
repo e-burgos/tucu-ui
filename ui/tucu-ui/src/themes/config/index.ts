@@ -16,9 +16,11 @@ export enum LAYOUT_OPTIONS {
   HORIZONTAL = 'horizontal',
   MACOS = 'macos',
   MACOS_CLEAN = 'macos-clean',
+  MACOS_NAVBAR = 'macos-navbar',
   MACOS_TAHOE = 'macos-tahoe',
   MACOS_TAHOE_DOCK = 'macos-tahoe-dock',
   MACOS_TAHOE_CLEAN = 'macos-tahoe-clean',
+  MACOS_TAHOE_NAVBAR = 'macos-tahoe-navbar',
 }
 
 // ─── Theme Style → Layout Mapping ─────────────────────────────────────────
@@ -39,7 +41,11 @@ export const THEME_STYLE_LAYOUTS: Record<THEME_VARIANT, ThemeStyleConfig> = {
     defaultLayout: LAYOUT_OPTIONS.HORIZONTAL,
   },
   macos: {
-    validLayouts: [LAYOUT_OPTIONS.MACOS, LAYOUT_OPTIONS.MACOS_CLEAN],
+    validLayouts: [
+      LAYOUT_OPTIONS.MACOS,
+      LAYOUT_OPTIONS.MACOS_CLEAN,
+      LAYOUT_OPTIONS.MACOS_NAVBAR,
+    ],
     defaultLayout: LAYOUT_OPTIONS.MACOS,
   },
   'macos-tahoe': {
@@ -47,6 +53,7 @@ export const THEME_STYLE_LAYOUTS: Record<THEME_VARIANT, ThemeStyleConfig> = {
       LAYOUT_OPTIONS.MACOS_TAHOE,
       LAYOUT_OPTIONS.MACOS_TAHOE_DOCK,
       LAYOUT_OPTIONS.MACOS_TAHOE_CLEAN,
+      LAYOUT_OPTIONS.MACOS_TAHOE_NAVBAR,
     ],
     defaultLayout: LAYOUT_OPTIONS.MACOS_TAHOE,
   },
@@ -62,9 +69,11 @@ export type LayoutOptionType =
   | 'horizontal'
   | 'macos'
   | 'macos-clean'
+  | 'macos-navbar'
   | 'macos-tahoe'
   | 'macos-tahoe-dock'
-  | 'macos-tahoe-clean';
+  | 'macos-tahoe-clean'
+  | 'macos-tahoe-navbar';
 
 export const layoutOptions: IThemeItem[] = [
   { label: 'Clean', value: LAYOUT_OPTIONS.CLEAN },

@@ -7,9 +7,7 @@ export function CleanLayout({
   children: React.ReactNode;
   className?: string;
 }) {
-  return (
-    <div className={cn('flex h-[100vh] flex-col', className)}>{children}</div>
-  );
+  return <div className={cn('flex h-dvh flex-col', className)}>{children}</div>;
 }
 
 export default CleanLayout;

@@ -130,7 +130,7 @@ const ThemeArchitectureSection: React.FC = () => {
           </Typography>
         </div>
         <CodeBlock
-          language="typescript"
+          language="TS"
           code={`// THEME_STYLE_LAYOUTS mapping
 const THEME_STYLE_LAYOUTS: Record<THEME_VARIANT, ThemeStyleConfig> = {
   default: {

@@ -373,7 +373,9 @@ const TabSelectSection: React.FC = () => {
         {(props) => (
           <TabSelect
             {...props}
-            onChange={() => {}}
+            onChange={() => {
+              /* noop */
+            }}
             tabMenu={[
               { title: 'Option A' },
               { title: 'Option B' },

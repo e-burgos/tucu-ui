@@ -2,7 +2,6 @@ import React from 'react';
 import {
   CardContainer,
   CardTitle,
-  Typography,
   CodeBlock,
   LucideIcons,
   HeroCard,

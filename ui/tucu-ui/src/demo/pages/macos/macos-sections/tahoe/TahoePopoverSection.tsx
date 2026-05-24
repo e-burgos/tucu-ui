@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import {
   CardContainer,
   CardTitle,
-  Typography,
   CodeBlock,
   LucideIcons,
   HeroCard,

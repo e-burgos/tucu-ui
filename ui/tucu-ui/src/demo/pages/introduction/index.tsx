@@ -43,9 +43,9 @@ pnpm install @e-burgos/tucu-ui
       icon: (
         <LucideIcons.Layout className="w-6 h-6 text-white filter drop-shadow-sm" />
       ),
-      title: '3 Themes & 6 Layouts',
+      title: '3 Themes & 10 Layouts',
       description:
-        'Default (Admin, Horizontal, Clean), macOS, and macOS Tahoe (with Dock variant) — each with integrated routing',
+        'Default (Admin, Horizontal, Clean), macOS Sonoma (Sidebar, Clean, Navbar), and macOS Tahoe (Sidebar, Dock, Clean, Navbar) — each with integrated routing',
       iconBgClassName: 'from-blue-500 via-cyan-500 to-teal-500',
     },
     {
@@ -111,12 +111,21 @@ pnpm install @e-burgos/tucu-ui
         'Mobile-first approach with seamless responsive behavior, breakpoint system, and optimized for all devices',
       iconBgClassName: 'from-pink-500 via-rose-500 to-red-500',
     },
+    {
+      icon: (
+        <LucideIcons.BrainCircuit className="w-6 h-6 text-white filter drop-shadow-sm" />
+      ),
+      title: 'MCP Agentic Server',
+      description:
+        'Built-in Model Context Protocol server that enables AI agents to generate UI code using your design system tokens, components, and patterns',
+      iconBgClassName: 'from-emerald-500 via-teal-500 to-cyan-500',
+    },
   ];
 
   const technologyStack = [
     {
       icon: <LucideIcons.Atom className="w-6 h-6" />,
-      title: 'React 18+',
+      title: 'React 19+',
       description: 'Modern hooks and concurrent features',
       color: 'blue' as const,
     },
@@ -220,22 +229,22 @@ pnpm install @e-burgos/tucu-ui
         <LucideIcons.AppWindowMac className="w-6 h-6 text-white filter drop-shadow-sm" />
       ),
       title: 'macOS',
-      badge: '1 layout',
+      badge: '3 layouts',
       description:
-        'Apple-inspired design with macOS window chrome, sidebar navigation, toolbar, command palette, search bar, widgets, notifications, and segmented controls.',
+        'Apple-inspired design with macOS Sonoma window chrome, sidebar navigation, toolbar, command palette, search bar, widgets, notifications, segmented controls. Includes Clean and Navbar layout variants.',
       iconBgClassName: 'from-gray-600 to-gray-800',
-      tags: ['macOS'],
+      tags: ['Sonoma', 'Sonoma Clean', 'Sonoma Navbar'],
     },
     {
       icon: (
         <LucideIcons.MountainSnow className="w-6 h-6 text-white filter drop-shadow-sm" />
       ),
       title: 'macOS Tahoe',
-      badge: '2 layouts',
+      badge: '4 layouts',
       description:
-        'Next-generation macOS Tahoe design with liquid glass effects, dock navigation, dialog system, progress bars, command palette, and advanced window management with translucent materials.',
+        'Next-generation macOS Tahoe design with liquid glass effects, dock navigation, dialog system, progress bars, command palette, and advanced window management with translucent materials. Includes Dock, Clean, and Navbar layout variants.',
       iconBgClassName: 'from-purple-500 to-indigo-600',
-      tags: ['macOS Tahoe', 'Dock'],
+      tags: ['Tahoe', 'Tahoe Dock', 'Tahoe Clean', 'Tahoe Navbar'],
     },
   ];
 
@@ -290,9 +299,9 @@ pnpm install @e-burgos/tucu-ui
         <LucideIcons.Layout className="w-6 h-6 text-white filter drop-shadow-sm" />
       ),
       title: 'Layout Systems',
-      badge: '6',
+      badge: '10',
       description:
-        '6 layouts across 3 themes: Admin, Horizontal, Clean, macOS, macOS Tahoe, Dock',
+        '10 layouts across 3 themes: Default (3), macOS Sonoma (3), macOS Tahoe (4)',
       iconBgClassName: 'from-blue-500 to-cyan-500',
     },
     {
@@ -394,17 +403,28 @@ pnpm install @e-burgos/tucu-ui
       description: 'Text components, headings, code blocks, links',
       iconBgClassName: 'from-amber-500 to-orange-500',
     },
+    {
+      icon: (
+        <LucideIcons.BrainCircuit className="w-6 h-6 text-white filter drop-shadow-sm" />
+      ),
+      title: 'MCP Server',
+      badge: '7 tools',
+      description:
+        'AI agent integration via Model Context Protocol with resources, tools, and prompts',
+      iconBgClassName: 'from-emerald-500 to-teal-500',
+    },
   ];
 
   const nextSteps = [
     '12-layer theming system with 34+ color presets and independent layer control',
-    '3 theme variants (Default, macOS, macOS Tahoe) with 6 layouts and integrated routing',
+    '3 theme variants (Default, macOS Sonoma, macOS Tahoe) with 10 layouts and integrated routing',
     'React Hook Form integration with 14+ form components and validation',
     'Component API with detailed props, examples, and live demos',
     'Accessibility features with WCAG 2.1 AA compliance and keyboard navigation',
     'Design system principles with spacing, typography, and color guidelines',
     'Granular theme configuration with persistent user preferences',
     'Custom hooks and utilities for advanced use cases',
+    'MCP Agentic Server for AI-powered code generation with design system awareness',
   ];
 
   const standaloneUseCases = [
@@ -425,7 +445,7 @@ pnpm install @e-burgos/tucu-ui
     <div className="space-y-8 max-w-6xl sm:space-y-12 w-full mx-auto px-4 sm:px-6 lg:px-8 relative pt-8 lg:pt-12">
       {/* Hero Section */}
       <HeroCard
-        description="A modern, comprehensive React component library built with TypeScript and Tailwind CSS v4. Features 3 theme variants (Default, macOS, macOS Tahoe), 6 layout systems, 34+ color presets with 12-layer color architecture, integrated routing, powerful form system with React Hook Form, and granular theme control. Designed for production-ready applications with sophisticated theming and full accessibility support."
+        description="A modern, comprehensive React component library built with TypeScript and Tailwind CSS v4. Features 3 theme variants (Default, macOS, macOS Tahoe), 10 layout systems, 34+ color presets with 12-layer color architecture, integrated routing, powerful form system with React Hook Form, granular theme control, and a built-in MCP Agentic Server for AI-powered development. Designed for production-ready applications with sophisticated theming and full accessibility support."
         githubButton
         getStartedButton
         backgroundAnimation
@@ -706,7 +726,7 @@ pnpm install tailwindcss @tailwindcss/vite`}
                       </Typography>
                       <CodeBlock
                         noExpand={true}
-                        language="typescript"
+                        language="TS"
                         code={`import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
@@ -1026,6 +1046,107 @@ export default defineConfig({
             />
           ))}
         </div>
+      </section>
+
+      {/* MCP Agentic Server */}
+      <section className="space-y-8">
+        <div className="text-center">
+          <Typography tag="h2" className="mb-2">
+            MCP Agentic Server
+          </Typography>
+          <Typography
+            tag="p"
+            className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto"
+          >
+            AI agents can use our built-in Model Context Protocol server to
+            generate code that respects your design system out of the box
+          </Typography>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <ColorCard
+            icon={<LucideIcons.Database className="w-6 h-6" />}
+            title="Resources"
+            description="Exposes component catalog, design tokens, form patterns, and routing guides as structured resources that agents can read at any time."
+            color="emerald"
+          />
+          <ColorCard
+            icon={<LucideIcons.Wrench className="w-6 h-6" />}
+            title="7 Tools"
+            description="Generate components, full pages, forms, theme configs, and refactored code — all aligned with Tucu UI conventions and best practices."
+            color="blue"
+          />
+          <ColorCard
+            icon={<LucideIcons.MessageSquare className="w-6 h-6" />}
+            title="8 Prompts"
+            description="Pre-built prompt templates for dashboards, CRUD pages, landing pages, settings panels, and more — ready to use from any MCP client."
+            color="purple"
+          />
+        </div>
+
+        <CardContainer>
+          <CardTitle title="How It Works">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="space-y-4">
+                <div className="flex items-start gap-3">
+                  <div className="flex items-center justify-center w-8 h-8 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-bold text-sm shrink-0">
+                    1
+                  </div>
+                  <div>
+                    <Typography tag="h6">Agent reads context</Typography>
+                    <Typography tag="caption" className="text-foreground/60">
+                      Reads component catalog, tokens, and patterns via MCP
+                      resources
+                    </Typography>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <div className="flex items-center justify-center w-8 h-8 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 font-bold text-sm shrink-0">
+                    2
+                  </div>
+                  <div>
+                    <Typography tag="h6">Calls generation tools</Typography>
+                    <Typography tag="caption" className="text-foreground/60">
+                      Uses tools like generate_component or generate_page with
+                      your requirements
+                    </Typography>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <div className="flex items-center justify-center w-8 h-8 rounded-full bg-purple-500/10 text-purple-600 dark:text-purple-400 font-bold text-sm shrink-0">
+                    3
+                  </div>
+                  <div>
+                    <Typography tag="h6">Production-ready output</Typography>
+                    <Typography tag="caption" className="text-foreground/60">
+                      Returns TypeScript + Tailwind code using real Tucu UI
+                      components and design tokens
+                    </Typography>
+                  </div>
+                </div>
+              </div>
+              <CodeBlock
+                code={`// Connect from VS Code, Cursor, or Claude Desktop
+{
+  "mcpServers": {
+    "tucu-ui": {
+      "command": "tucu-ui-mcp"
+    }
+  }
+}
+
+// Or use the remote HTTP server
+{
+  "mcpServers": {
+    "tucu-ui": {
+      "url": "https://tucu-ui-mcp.fly.dev/mcp"
+    }
+  }
+}`}
+              />
+            </div>
+          </CardTitle>
+        </CardContainer>
       </section>
 
       {/* Next Steps */}

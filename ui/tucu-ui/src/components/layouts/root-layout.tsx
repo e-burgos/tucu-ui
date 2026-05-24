@@ -91,17 +91,23 @@ const LayoutType = ({
   if (
     layout === LAYOUT_OPTIONS.MACOS ||
     layout === LAYOUT_OPTIONS.MACOS_CLEAN ||
+    layout === LAYOUT_OPTIONS.MACOS_NAVBAR ||
     layout === LAYOUT_OPTIONS.MACOS_TAHOE ||
     layout === LAYOUT_OPTIONS.MACOS_TAHOE_DOCK ||
-    layout === LAYOUT_OPTIONS.MACOS_TAHOE_CLEAN
+    layout === LAYOUT_OPTIONS.MACOS_TAHOE_CLEAN ||
+    layout === LAYOUT_OPTIONS.MACOS_TAHOE_NAVBAR
   ) {
     const variant =
       layout === LAYOUT_OPTIONS.MACOS_TAHOE_CLEAN
         ? 'macos-tahoe-clean'
         : layout === LAYOUT_OPTIONS.MACOS_TAHOE_DOCK
         ? 'tahoe-dock'
+        : layout === LAYOUT_OPTIONS.MACOS_TAHOE_NAVBAR
+        ? 'tahoe-navbar'
         : layout === LAYOUT_OPTIONS.MACOS_TAHOE
         ? 'tahoe'
+        : layout === LAYOUT_OPTIONS.MACOS_NAVBAR
+        ? 'sonoma-navbar'
         : layout === LAYOUT_OPTIONS.MACOS_CLEAN
         ? 'sonoma-clean'
         : 'sonoma';
