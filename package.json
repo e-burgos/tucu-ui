@@ -6,7 +6,17 @@
   "private": true,
   "scripts": {
     "tucu-ui:build": "pnpm nx run tucu-ui:build",
-    "tucu-ui:publish": "pnpm nx run tucu-ui:publish:lib",
+    "tucu-ui:publish": "node scripts/publish.mjs",
+    "tucu-ui:publish:patch": "node scripts/publish.mjs patch",
+    "tucu-ui:publish:minor": "node scripts/publish.mjs minor",
+    "tucu-ui:publish:major": "node scripts/publish.mjs major",
+    "tucu-ui:publish:dry": "node scripts/publish.mjs --dry-run patch",
+    "tucu-ui:publish:legacy": "pnpm nx run tucu-ui:publish:lib",
+    "mcp:publish": "node scripts/publish-mcp.mjs",
+    "mcp:publish:patch": "node scripts/publish-mcp.mjs patch",
+    "mcp:publish:minor": "node scripts/publish-mcp.mjs minor",
+    "mcp:publish:major": "node scripts/publish-mcp.mjs major",
+    "mcp:publish:dry": "node scripts/publish-mcp.mjs --dry-run patch",
     "tucu-ui:install": "pnpm nx run tucu-ui:install:lib",
     "tucu-ui:pack": "pnpm exec nx run tucu-ui:pack:lib ",
     "tucu-ui:lint": "pnpm nx run tucu-ui:lint --verbose",
@@ -19,10 +29,7 @@
     "demo:build": "pnpm nx run demo:build",
     "test-lib": "pnpm nx run test-lib:serve",
     "test-lib:install": "pnpm nx run test-lib:app:install",
-    "test-lib:build": "pnpm nx run test-lib:build",
-    "design-system": "pnpm nx run design-system:serve",
-    "design-system:install": "pnpm nx run design-system:app:install",
-    "design-system:build": "pnpm nx run design-system:build"
+    "test-lib:build": "pnpm nx run test-lib:build"
   },
   "devDependencies": {
     "@babel/core": "^7.14.5",
@@ -39,6 +46,7 @@
     "@swc/cli": "0.7.10",
     "@swc/core": "1.15.8",
     "@swc/helpers": "0.5.19",
+    "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "16.1.0",
     "@types/node": "18.16.9",
     "@types/react": "^19.2.14",
@@ -79,6 +87,5 @@
     "node": ">=22.0.0",
     "pnpm": ">=9.0.0"
   },
-  "packageManager": "pnpm@9.15.1",
-  "dependencies": {}
+  "packageManager": "pnpm@9.15.1"
 }
