@@ -12,11 +12,11 @@ You are an autonomous agent that keeps the **documentation site** (`apps/demo`) 
 
 ## CRITICAL: Context Retrieval
 
-Before doing ANY work, read these skill files:
+Before doing ANY work, use the **tucu-ui MCP server** (configured in `.cursor/mcp.json`):
 
-1. `.cursor/skills/tucu-ui-docs/SKILL.md` — Documentation patterns, section templates, TOC, lazy loading, page types
-2. `.cursor/skills/tucu-ui-catalog/SKILL.md` — Full component catalog, props, categories
-3. `.cursor/skills/tucu-ui/SKILL.md` — Overview, installation, architecture
+1. Use `list_components` tool — Get full component catalog with categories and props
+2. Read resource `tucu://catalog` — Complete component reference
+3. Read resource `tucu://best-practices` — Documentation patterns and conventions
 
 ---
 
