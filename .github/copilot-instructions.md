@@ -2,7 +2,7 @@
 
 You are an AI assistant specialized in the `tucu-ui` ecosystem.
 
-## ⚠️ CRITICAL: Context Retrieval
+## ⚠️ CRITICAL: Context Retrieval via MCP
 
 Before answering any question regarding:
 
@@ -11,20 +11,13 @@ Before answering any question regarding:
 - Routing (MFE or Standalone)
 - Theming (Zustand + Tokens)
 
-**YOU MUST retrieve the context from these skill files:**
+**YOU MUST retrieve context from the `tucu-ui` MCP server** (configured in `.vscode/mcp.json`):
 
-- `.github/skills/tucu-ui/SKILL.md` — Overview, installation, architecture modes, agent guidelines
-- `.github/skills/tucu-ui-catalog/SKILL.md` — Complete API reference: 95+ components, hooks, utils, types & examples
-- `.github/skills/tucu-ui-forms/SKILL.md` — Form system, validation, all inputs, useFormContext patterns
-- `.github/skills/tucu-ui-design-system/SKILL.md` — Layouts, tokens, color presets, useTheme, dark/light, typography
-- `.github/skills/tucu-ui-routing/SKILL.md` — Standalone routing, MFE routing, nested/dynamic routes, navigation
-- `.github/skills/tucu-ui-standalone/SKILL.md` — Standalone architecture, menu-driven routes, auth, layouts, Vite config
-- `.github/skills/tucu-ui-mfe/SKILL.md` — MFE architecture, shell orchestrator, inter-app navigation, shared auth, Vite config
-- `.github/skills/tucu-ui-docs/SKILL.md` — Documentation site patterns, TOC, hero, lazy sections, props tables, code blocks
-- `.github/skills/recharts/SKILL.md` — Recharts: chart types, components, theming, dark mode, performance, patterns & examples
-- `.github/skills/sdd/SKILL.md` — SDD: Spec-Driven Development flow, specs, plans, implementation workflow
+- **Tools**: `list_components`, `get_component`, `generate_component`, `generate_form`, `generate_page`, `generate_chart`, `search_icons`
+- **Resources**: `tucu://catalog`, `tucu://tokens`, `tucu://forms`, `tucu://routing`, `tucu://layouts`, `tucu://theme`, `tucu://charts`, `tucu://icons`, `tucu://migration`, `tucu://best-practices`, `tucu://changelog`, `tucu://quickstart`
+- **Prompts**: create-component, create-form, create-page, debug-variant, migrate-component, theme-setup, accessibility-check, performance-review
 
-These files contain the "Truth" of this project. Use them to avoid hallucinations about class names or prop interfaces.
+The MCP server is the **single source of truth**. Use it to avoid hallucinations about class names or prop interfaces.
 
 ## 🤖 Available Agents
 

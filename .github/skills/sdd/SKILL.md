@@ -149,7 +149,6 @@ pnpm nx lint tucu-ui
 | Planes de implementación     | `docs/plans/NN-nombre.md`                  |
 | Skills (contexto de agentes) | `.github/skills/<nombre>/SKILL.md`         |
 | Agentes GitHub Copilot       | `.github/agents/<nombre>.agent.md`         |
-| Agentes Cursor               | `.cursor/agents/<nombre>.md`               |
 | Índice principal             | `AGENTS.md`                                |
 
 ---
