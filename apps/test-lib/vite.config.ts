@@ -28,7 +28,7 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: {
-          'tucu-ui': ['tucu-ui'],
+          'tucu-ui': ['@tucu-ui'],
         },
       },
     },

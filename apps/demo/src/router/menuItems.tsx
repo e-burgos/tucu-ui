@@ -15,6 +15,7 @@ import {
   MacOSShowcase,
   MacOSSonomaShowcase,
   MacOSTahoeShowcase,
+  MCPServerPage,
 } from '@e-burgos/tucu-ui';
 
 // Design System
@@ -61,6 +62,10 @@ import {
 // Components
 export const APP_PATHS = {
   INTRODUCTION: { path: '/', name: 'Home' },
+  MCP_SERVER: {
+    path: '/mcp-server',
+    name: 'MCP Server',
+  },
   DESIGN_SYSTEM: {
     path: '/design-system',
     name: 'Design System',
@@ -299,6 +304,13 @@ export const useMenuItems = () => {
         path: APP_PATHS.INTRODUCTION.path,
         icon: <LucideIcons.Home />,
         component: <Introduction />,
+      },
+      {
+        name: APP_PATHS.MCP_SERVER.name,
+        path: APP_PATHS.MCP_SERVER.path,
+        icon: <LucideIcons.BrainCircuit />,
+        component: <MCPServerPage />,
+        enableNestedRoutes: true,
       },
       {
         name: APP_PATHS.MACOS.name,
