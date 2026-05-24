@@ -2,6 +2,11 @@
 
 All notable changes to `@e-burgos/tucu-ui-mcp` will be documented in this file.
 
+## [0.4.2] - 2026-05-24
+
+### Changed
+
+- update publish skill and mcp publish script
 ## [0.4.1] - 2026-05-24
 
 ### Added
