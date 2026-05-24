@@ -63,7 +63,25 @@ git commit -m "descripción de los cambios"
 
 ---
 
-## Paso 4 — Ejecutar el publish
+## Paso 4 — Verificar autenticación en npm
+
+El script publica en npm con tus credenciales. Verifica que estás logueado:
+
+```bash
+npm whoami   # debe mostrar tu usuario de npm (ej: e-burgos)
+```
+
+Si no estás autenticado:
+
+```bash
+npm login    # abre el browser para autenticarte via npm.com
+```
+
+> ℹ️ Para publicar bajo el scope `@e-burgos` necesitas pertenecer a la organización `e-burgos` en npmjs.com.
+
+---
+
+## Paso 5 — Ejecutar el publish
 
 ### Para `@e-burgos/tucu-ui`
 
@@ -110,6 +128,7 @@ pnpm mcp:publish:dry
 7. **Publica en npm**
 8. **Crea commit de release** — `git commit -m "chore: release @pkg@version"`
 9. **Crea git tag** — `tucu-ui-vX.Y.Z` o `mcp-vX.Y.Z`
+10. _(solo mcp)_ **Deploya a fly.io** — `flyctl deploy` desde `tools/mcp-server/`
 
 ---
 
@@ -124,7 +143,7 @@ El script `getLastTag(prefix)` filtra por el prefijo correspondiente, por lo que
 
 ---
 
-## Paso 5 — Verificar post-publish
+## Paso 6 — Verificar post-publish
 
 Después de que el script finalice con éxito:
 
@@ -133,14 +152,35 @@ Después de que el script finalice con éxito:
    - tucu-ui: `https://www.npmjs.com/package/@e-burgos/tucu-ui`
    - mcp: `https://www.npmjs.com/package/@e-burgos/tucu-ui-mcp`
 
-2. Confirma el tag local:
+   O desde terminal:
+
+   ```bash
+   npm view @e-burgos/tucu-ui version          # versión publicada de tucu-ui
+   npm view @e-burgos/tucu-ui-mcp version       # versión publicada del mcp
+   ```
+
+2. _(solo mcp)_ Confirma que el servidor está activo en fly.io:
+
+   ```bash
+   curl https://tucu-ui-mcp.fly.dev/health     # debe responder 200 OK
+   ```
+
+   O abre en el browser: `https://tucu-ui-mcp.fly.dev/health`
+
+   También puedes revisar el estado del deploy:
+
+   ```bash
+   flyctl status --app tucu-ui-mcp
+   ```
+
+3. Confirma el tag local:
 
    ```bash
    git tag -l "tucu-ui-v*" | tail -5   # para tucu-ui
    git tag -l "mcp-v*" | tail -5        # para mcp
    ```
 
-3. Si el usuario quiere subir el tag a origin:
+4. Si el usuario quiere subir el tag a origin:
    ```bash
    git push origin --tags
    ```
@@ -166,10 +206,12 @@ node scripts/publish-mcp.mjs --dry-run patch
 
 ## Troubleshooting
 
-| Problema                              | Solución                                                                     |
-| ------------------------------------- | ---------------------------------------------------------------------------- |
-| `Working tree must be clean`          | Commitear o hacer stash de los cambios pendientes                            |
-| `Version X.Y.Z already exists on npm` | Elegir un tipo de bump diferente o verificar que la versión es correcta      |
-| Build falla (`nx run ... failed`)     | Revisar errores de TypeScript con `pnpm nx run tucu-ui:lint`                 |
-| `git tag` ya existe                   | El tag fue creado manualmente; borrarlo con `git tag -d <tag>` y re-ejecutar |
-| Publicación exitosa pero sin commit   | Verificar con `git log --oneline -3` y `git tag -l "prefix-v*"`              |
+| Problema                              | Solución                                                                      |
+| ------------------------------------- | ----------------------------------------------------------------------------- |
+| `Working tree must be clean`          | Commitear o hacer stash de los cambios pendientes                             |
+| `Version X.Y.Z already exists on npm` | Elegir un tipo de bump diferente o verificar que la versión es correcta       |
+| `403 Forbidden` / `401 Unauthorized`  | Correr `npm login` y verificar pertenencia a la org `e-burgos` en npm         |
+| Build falla (`nx run ... failed`)     | Revisar errores de TypeScript con `pnpm nx run tucu-ui:lint`                  |
+| `git tag` ya existe                   | El tag fue creado manualmente; borrarlo con `git tag -d <tag>` y re-ejecutar  |
+| Publicación exitosa pero sin commit   | Verificar con `git log --oneline -3` y `git tag -l "prefix-v*"`               |
+| `flyctl: command not found`           | Instalar flyctl: `brew install flyctl` y autenticarse con `flyctl auth login` |

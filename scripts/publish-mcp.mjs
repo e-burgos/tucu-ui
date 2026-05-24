@@ -17,6 +17,8 @@
  *   7. Update version in tools/mcp-server/package.json
  *   8. Build the MCP server (pnpm nx run tucu-ui-mcp:build)
  *   9. Publish to npm from tools/mcp-server
+ *  10. Commit and tag the release (mcp-vX.Y.Z)
+ *  11. Deploy to fly.io (flyctl deploy from tools/mcp-server)
  */
 import { execSync } from 'node:child_process';
 import { readFileSync, writeFileSync } from 'node:fs';
@@ -304,9 +306,8 @@ if (dryRun) {
     console.log(`  README:  @${currentVersion} refs → @${nextVersion}`);
   }
   console.log(`\n  Build:   pnpm nx run tucu-ui-mcp:build`);
-  console.log(
-    `  Publish: cd tools/mcp-server && npm publish --access public\n`
-  );
+  console.log(`  Publish: cd tools/mcp-server && npm publish --access public`);
+  console.log(`  Deploy:  flyctl deploy  (cwd: tools/mcp-server)\n`);
   process.exit(0);
 }
 
@@ -348,6 +349,11 @@ const releaseTag = `mcp-v${nextVersion}`;
 exec(`git tag ${releaseTag}`);
 success(`Release commit created and tagged: ${releaseTag}`);
 
+// 11. Deploy to fly.io
+log('Deploying to fly.io (tucu-ui-mcp)...');
+exec('flyctl deploy', { cwd: MCP_DIR });
+success('Deployed to fly.io: https://tucu-ui-mcp.fly.dev');
+
 console.log(`
 \x1b[35m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\x1b[0m
   🤖  ${packageName}@${nextVersion} published!
@@ -355,6 +361,7 @@ console.log(`
   Bump type:  ${bumpType}
   Previous:   ${currentVersion}
   Published:  ${nextVersion}
+  Deployed:   https://tucu-ui-mcp.fly.dev
   Commits:    ${commitCount} processed into CHANGELOG
 \x1b[35m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\x1b[0m
 `);
