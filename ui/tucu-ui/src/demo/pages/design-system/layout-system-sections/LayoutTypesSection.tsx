@@ -277,13 +277,80 @@ const LayoutTypesSection: React.FC = () => {
         useWhen: 'Auth pages, standalone content within Tahoe theme',
       },
     },
+    {
+      name: 'macOS Sonoma Navbar Layout',
+      description:
+        'macOS Sonoma layout with horizontal top navigation bar instead of sidebar, providing a streamlined navigation experience.',
+      icon: (
+        <LucideIcons.PanelTop className="w-8 h-8 text-white filter drop-shadow-sm" />
+      ),
+      color: 'from-gray-500 via-slate-400 to-zinc-500',
+      value: LAYOUT_OPTIONS.MACOS_NAVBAR,
+      useCases: [
+        'Content-focused macOS-style apps',
+        'Documentation sites with macOS aesthetics',
+        'Applications preferring horizontal navigation',
+        'Portfolio and showcase sites with Sonoma theme',
+        'Simple apps without sidebar complexity',
+        'Landing pages with macOS visual identity',
+      ],
+      features: [
+        'Top horizontal navigation bar',
+        'Sonoma visual styling and effects',
+        'No sidebar — navbar-only navigation',
+        'Responsive layout adapts to screen size',
+        'Background effects from Sonoma theme',
+        'Seamless transition to/from Sonoma layouts',
+        'AccentBundles support (9 color presets)',
+      ],
+      technical: {
+        component: 'MacOSNavbarLayout or MacOSLayout variant="sonoma-navbar"',
+        navbar: 'Horizontal top navigation with Sonoma styling',
+        content: 'Full-width content area without sidebar',
+        navigation: 'Navbar items act as primary navigation',
+      },
+    },
+    {
+      name: 'macOS Tahoe Navbar Layout',
+      description:
+        'macOS Tahoe layout with horizontal top navigation bar combining Liquid Glass aesthetics with streamlined navigation.',
+      icon: (
+        <LucideIcons.GalleryHorizontalEnd className="w-8 h-8 text-white filter drop-shadow-sm" />
+      ),
+      color: 'from-indigo-400 via-violet-500 to-purple-500',
+      value: LAYOUT_OPTIONS.MACOS_TAHOE_NAVBAR,
+      useCases: [
+        'Content-focused Tahoe-style apps',
+        'Modern desktop applications preferring horizontal nav',
+        'Portfolio and showcase sites',
+        'Applications with few top-level sections',
+        'Documentation and knowledge bases',
+        'Creative tools with immersive content areas',
+      ],
+      features: [
+        'Liquid Glass top navigation bar',
+        'Tahoe visual styling and effects',
+        'No sidebar or dock — navbar-only navigation',
+        'Dynamic mesh backgrounds',
+        'Full-width content area',
+        'Seamless transition to/from Tahoe layouts',
+        'Accent color bundles support',
+      ],
+      technical: {
+        component:
+          'MacOSTahoeNavbarLayout or MacOSLayout variant="tahoe-navbar"',
+        navbar: 'Liquid Glass horizontal navigation bar',
+        content: 'Full viewport content area without sidebar or dock',
+        navigation: 'Navbar items act as primary navigation',
+      },
+    },
   ];
 
   return (
     <>
       <HeroCard
         title="Layout Types"
-        description="Eight layout patterns spanning classic admin panels, modern horizontal menus, and macOS-inspired desktop experiences with Sonoma and Tahoe aesthetics."
+        description="Ten layout patterns spanning classic admin panels, modern horizontal menus, and macOS-inspired desktop experiences with Sonoma and Tahoe aesthetics."
         icon={
           <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 bg-linear-to-br from-cyan-500 via-teal-500 to-emerald-500 rounded-full flex items-center justify-center shadow-lg">
             <LucideIcons.LayoutGrid className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 text-white filter drop-shadow-lg" />
@@ -299,8 +366,8 @@ const LayoutTypesSection: React.FC = () => {
           tag="p"
           className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto"
         >
-          Eight layout patterns for every use case — from classic admin panels
-          to macOS-inspired desktop experiences with Liquid Glass aesthetics.
+          Ten layout patterns for every use case — from classic admin panels to
+          macOS-inspired desktop experiences with Liquid Glass aesthetics.
         </Typography>
       </div>
 

@@ -90,16 +90,21 @@ const PaginationSection: React.FC = () => {
         componentName="Pagination"
         title="Pagination Playground"
         defaultValues={{
-          'currentPage': 1,
-          'totalPages': 10,
-          'windowSize': 5
-}}
+          currentPage: 1,
+          totalPages: 10,
+          windowSize: 5,
+        }}
         excludeProps={['onPageChange', 'className']}
       >
-        {(props) => <Pagination {...props} onPageChange={() => {}} />}
+        {(props) => (
+          <Pagination
+            {...props}
+            onPageChange={() => {
+              /* noop */
+            }}
+          />
+        )}
       </PropPlayground>
-
-
 
       <AutoPropsTable componentName="Pagination" />
 

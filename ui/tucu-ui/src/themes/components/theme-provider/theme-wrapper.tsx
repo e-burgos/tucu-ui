@@ -252,7 +252,9 @@ export function ThemeWrapper({
   useEffect(() => {
     document.documentElement.classList.toggle(
       'macos',
-      colorScheme === 'macos' || layout === LAYOUT_OPTIONS.MACOS
+      colorScheme === 'macos' ||
+        layout === LAYOUT_OPTIONS.MACOS ||
+        layout === LAYOUT_OPTIONS.MACOS_NAVBAR
     );
   }, [colorScheme, layout]);
 
@@ -261,7 +263,8 @@ export function ThemeWrapper({
       'macos-tahoe',
       colorScheme === 'macos-tahoe' ||
         layout === LAYOUT_OPTIONS.MACOS_TAHOE ||
-        layout === LAYOUT_OPTIONS.MACOS_TAHOE_DOCK
+        layout === LAYOUT_OPTIONS.MACOS_TAHOE_DOCK ||
+        layout === LAYOUT_OPTIONS.MACOS_TAHOE_NAVBAR
     );
   }, [colorScheme, layout]);
 
@@ -275,7 +278,7 @@ export function ThemeWrapper({
 
   return (
     <div
-      className={`fixed inset-0 h-screen w-screen overflow-auto bg-body ${className}`}
+      className={`fixed inset-0 h-dvh overflow-y-auto overflow-x-hidden bg-body ${className}`}
     >
       <RootLayout
         layout={effectiveLayout}

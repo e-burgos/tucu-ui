@@ -152,7 +152,7 @@ function StandaloneApp() {
         </div>
         <CardContainer>
           <CardTitle title="Interface Definition">
-            <CodeBlock language="typescript" code={standaloneRouteConfig} />
+            <CodeBlock language="TS" code={standaloneRouteConfig} />
           </CardTitle>
         </CardContainer>
         <Alert variant="info" dismissible={false}>

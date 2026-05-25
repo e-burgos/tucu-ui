@@ -308,7 +308,6 @@ export const BasicTable = <
                             ? column.render(value, row, rowIndex)
                             : String(value ?? '');
 
-                          const isFirstCol = colIndex === 0;
                           const isLastCol = colIndex === columns.length - 1;
 
                           return (

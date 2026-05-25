@@ -49,19 +49,37 @@ const handleMenuItems = (layoutMenuItems: IMenuItem[], pathname: string) => {
   }));
 };
 
-export function HorizontalNavMenu({ menuItems }: { menuItems: IMenuItem[] }) {
+export function HorizontalNavMenu({
+  menuItems,
+  className,
+  dropboxClassName,
+}: {
+  menuItems: IMenuItem[];
+  className?: string;
+  dropboxClassName?: string;
+}) {
   const location = useLocation();
   const pathname = location.pathname;
 
   return (
-    <div className="flex items-center min-w-0 overflow-visible xl:px-[36px] 2xl:px-[56px] min-[1780px]:px-[64px]">
+    <div
+      className={cn(
+        'flex items-center min-w-0 overflow-visible xl:px-[36px] 2xl:px-[56px] min-[1780px]:px-[64px]',
+        className
+      )}
+    >
       <ul className="relative flex items-center min-w-0 gap-[16px] 2xl:gap-[24px]">
         {handleMenuItems(menuItems, pathname).map((item, index) => {
           const hrefToUse = item.href ? item.href : item.path;
           return (
             <Fragment key={`layout-${item.name}-${index}`}>
               {item.dropdownItems && !item.hide ? (
-                <li className="group/parent relative min-w-0">
+                <li
+                  className={cn(
+                    'group/parent relative min-w-0',
+                    item.isActive && 'text-brand'
+                  )}
+                >
                   <ActiveLink
                     path={item.path}
                     href={item.href}
@@ -95,7 +113,12 @@ export function HorizontalNavMenu({ menuItems }: { menuItems: IMenuItem[] }) {
                       />
                     </span>
                   </ActiveLink>
-                  <ul className="invisible absolute right-0 z-50 border border-border top-[130%] mt-[8px] w-[256px] rounded-[8px] bg-light-dark p-[12px] opacity-0 shadow-large transition-all group-hover/parent:visible group-hover/parent:top-full group-hover/parent:opacity-100 ltr:right-0 rtl:left-0">
+                  <ul
+                    className={cn(
+                      'invisible absolute right-0 z-50 border border-border top-[130%] mt-[8px] w-[256px] rounded-[8px] bg-light-dark p-[12px] opacity-0 shadow-large transition-all group-hover/parent:visible group-hover/parent:top-full group-hover/parent:opacity-100 ltr:right-0 rtl:left-0',
+                      dropboxClassName
+                    )}
+                  >
                     {item.dropdownItems.map((dropDownItem, index) => (
                       <li
                         className={cn(
@@ -181,7 +204,10 @@ export function HorizontalNavMenu({ menuItems }: { menuItems: IMenuItem[] }) {
                   </ul>
                 </li>
               ) : (
-                <li className="min-w-0">
+                <li
+                  className={cn('min-w-0', item.isActive && 'text-brand')}
+                  data-active={item.isActive}
+                >
                   <ActiveLink
                     path={item.path}
                     href={item.href}

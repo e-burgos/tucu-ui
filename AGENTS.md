@@ -1,37 +1,47 @@
 # Agent Context & Skills Index
 
-This repository uses a "Skills" system to provide AI agents with specific context.
-Before answering complex questions or generating code, please check the relevant skill document below.
+This repository uses an **MCP server** (`@e-burgos/tucu-ui-mcp`) as the primary source of truth for AI agents working with the tucu-ui component library. The MCP provides tools, resources, and prompts that cover the complete API surface.
 
-## 📚 Available Skills
+## 🔌 MCP Server (Primary Context Source)
 
-| Topic                 | Description                                                         | Skill File                                                             |
-| --------------------- | ------------------------------------------------------------------- | ---------------------------------------------------------------------- |
-| **Overview**          | Installation, architecture modes, quick start, agent guidelines     | [tucu-ui](.github/skills/tucu-ui/SKILL.md)                             |
-| **Component Catalog** | Full API reference: 95+ components, hooks, utils, types & examples  | [tucu-ui-catalog](.github/skills/tucu-ui-catalog/SKILL.md)             |
-| **Form System**       | Form component, validation, all inputs, useFormContext patterns     | [tucu-ui-forms](.github/skills/tucu-ui-forms/SKILL.md)                 |
-| **Design System**     | Layouts, tokens, color presets, useTheme, dark/light, typography    | [tucu-ui-design-system](.github/skills/tucu-ui-design-system/SKILL.md) |
-| **Routing**           | Standalone routing, MFE routing, nested/dynamic routes, navigation  | [tucu-ui-routing](.github/skills/tucu-ui-routing/SKILL.md)             |
-| **Standalone**        | Standalone architecture, menu-driven routes, auth, layouts, vite    | [tucu-ui-standalone](.github/skills/tucu-ui-standalone/SKILL.md)       |
-| **Micro Frontends**   | MFE architecture, shell, inter-app nav, shared auth, Vite config    | [tucu-ui-mfe](.github/skills/tucu-ui-mfe/SKILL.md)                     |
-| **Documentation**     | Doc site patterns, TOC, hero, sections, props tables, code blocks   | [tucu-ui-docs](.github/skills/tucu-ui-docs/SKILL.md)                   |
-| **Recharts**          | Chart types, components, theming, performance, patterns & examples  | [recharts](.github/skills/recharts/SKILL.md)                           |
-| **SDD**               | Spec-Driven Development flow, specs, plans, implementation workflow | [sdd](.github/skills/sdd/SKILL.md)                                     |
+All component knowledge (catalog, forms, routing, theming, charts, icons, best practices) is served via the **tucu-ui MCP server**:
+
+```bash
+npx @e-burgos/tucu-ui-mcp
+```
+
+### Configuration
+
+- **VS Code**: [.vscode/mcp.json](.vscode/mcp.json)
+
+### MCP Capabilities
+
+| Category         | Details                                                                                                                                                                                                                      |
+| ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **7 Tools**      | `list_components`, `get_component`, `generate_component`, `generate_form`, `generate_page`, `generate_chart`, `search_icons`                                                                                                 |
+| **12 Resources** | `tucu://catalog`, `tucu://tokens`, `tucu://forms`, `tucu://routing`, `tucu://layouts`, `tucu://theme`, `tucu://charts`, `tucu://icons`, `tucu://migration`, `tucu://best-practices`, `tucu://changelog`, `tucu://quickstart` |
+| **8 Prompts**    | create-component, create-form, create-page, debug-variant, migrate-component, theme-setup, accessibility-check, performance-review                                                                                           |
+
+## 📚 Remaining Skills (non-library)
+
+| Topic       | Description                                                         | Skill File                                 |
+| ----------- | ------------------------------------------------------------------- | ------------------------------------------ |
+| **SDD**     | Spec-Driven Development flow, specs, plans, implementation workflow | [sdd](.github/skills/sdd/SKILL.md)         |
+| **Publish** | Full publish workflow for tucu-ui and tucu-ui-mcp packages          | [publish](.github/skills/publish/SKILL.md) |
 
 ## 🤖 Available Agents
 
-| Agent                 | Platform       | Description                                               | File                                               |
-| --------------------- | -------------- | --------------------------------------------------------- | -------------------------------------------------- |
-| **tucu-ui-expert**    | GitHub Copilot | Expert consultant for component selection & examples      | [agent](.github/agents/tucu-ui-expert.agent.md)    |
-| **tucu-ui-expert**    | Cursor         | Expert consultant for component selection & examples      | [agent](.cursor/agents/tucu-ui-expert.md)          |
-| **tucu-ui-docs-sync** | GitHub Copilot | Syncs documentation (demo) when library components change | [agent](.github/agents/tucu-ui-docs-sync.agent.md) |
-| **tucu-ui-docs-sync** | Cursor         | Syncs documentation (demo) when library components change | [agent](.cursor/agents/tucu-ui-docs-sync.md)       |
+| Agent                 | Description                                               | File                                               |
+| --------------------- | --------------------------------------------------------- | -------------------------------------------------- |
+| **tucu-ui-expert**    | Expert consultant for component selection & examples      | [agent](.github/agents/tucu-ui-expert.agent.md)    |
+| **tucu-ui-docs-sync** | Syncs documentation (demo) when library components change | [agent](.github/agents/tucu-ui-docs-sync.agent.md) |
 
 ## 🚀 Quick Start for Agents
 
-1.  **Analyze**: Determine if the task involves UI, Forms, Logic, or specific Architecture.
-2.  **Retrieve**: Read the corresponding Skill file from the table above.
-3.  **Execute**: Apply the patterns found in the skill.
+1.  **Connect**: Ensure the `tucu-ui` MCP server is active (configured via `.vscode/mcp.json`).
+2.  **Query**: Use MCP tools (`list_components`, `get_component`) or read resources (`tucu://catalog`, `tucu://forms`, etc.) for context.
+3.  **Generate**: Use MCP generation tools (`generate_component`, `generate_form`, `generate_page`) for code output.
+4.  **Execute**: Apply patterns from MCP resources to implement features.
 
 ---
 

@@ -95,7 +95,6 @@ const ALL_VARIANTS: BgVariantInfo[] = [
 ];
 
 const CSS_VARIANTS = ALL_VARIANTS.filter((v) => v.type === 'css');
-const SVG_VARIANTS = ALL_VARIANTS.filter((v) => v.type === 'svg');
 
 // ─── Component ─────────────────────────────────────────────────
 

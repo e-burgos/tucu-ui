@@ -105,37 +105,37 @@ const COLOR_CONFIG: Record<ColorType, ColorConfig> = {
     presetKey: 'primaryPreset',
     setterKey: 'setPrimaryPreset',
     defaultValue: defaultPrimaryPreset,
-    label: 'Primary Color',
+    label: 'Primary (Brand) Color',
   },
   darkPrimary: {
     presetKey: 'darkPrimaryPreset',
     setterKey: 'setDarkPrimaryPreset',
     defaultValue: defaultDarkPrimaryPreset,
-    label: 'Dark Primary Color',
+    label: 'Dark Primary (Brand) Color',
   },
   secondary: {
     presetKey: 'secondaryPreset',
     setterKey: 'setSecondaryPreset',
     defaultValue: defaultSecondaryPreset,
-    label: 'Secondary Color',
+    label: 'Auxiliary Background Color',
   },
   darkSecondary: {
     presetKey: 'darkSecondaryPreset',
     setterKey: 'setDarkSecondaryPreset',
     defaultValue: defaultDarkSecondaryPreset,
-    label: 'Dark Secondary Color',
+    label: 'Dark Auxiliary Background Color',
   },
   accent: {
     presetKey: 'accentPreset',
     setterKey: 'setAccentPreset',
     defaultValue: defaultAccentPreset,
-    label: 'Accent Color',
+    label: 'Secondary (Accent) Color',
   },
   darkAccent: {
     presetKey: 'darkAccentPreset',
     setterKey: 'setDarkAccentPreset',
     defaultValue: defaultDarkAccentPreset,
-    label: 'Dark Accent Color',
+    label: 'Dark Secondary (Accent) Color',
   },
   muted: {
     presetKey: 'mutedPreset',
@@ -153,25 +153,25 @@ const COLOR_CONFIG: Record<ColorType, ColorConfig> = {
     presetKey: 'darkBgPreset',
     setterKey: 'setDarkBgPreset',
     defaultValue: defaultDarkBgPreset,
-    label: 'Dark Background Color',
+    label: 'Dark Primary Background Color',
   },
   lightBg: {
     presetKey: 'lightBgPreset',
     setterKey: 'setLightBgPreset',
     defaultValue: defaultLightBgPreset,
-    label: 'Light Background Color',
+    label: 'Light Primary Background Color',
   },
   lightDark: {
     presetKey: 'lightDarkPreset',
     setterKey: 'setLightDarkPreset',
     defaultValue: defaultLightDarkPreset,
-    label: 'Light Dark Color',
+    label: 'Light Secondary Background Color',
   },
   darkLightDark: {
     presetKey: 'darkLightDarkPreset',
     setterKey: 'setDarkLightDarkPreset',
     defaultValue: defaultDarkLightDarkPreset,
-    label: 'Dark Light Dark Color',
+    label: 'Dark Secondary Background Color',
   },
   success: {
     presetKey: 'successPreset',
@@ -298,8 +298,10 @@ function SettingsSectionHeading({ children }: { children: React.ReactNode }) {
     colorScheme === 'macos' ||
     colorScheme === 'macos-tahoe' ||
     layout === LAYOUT_OPTIONS.MACOS ||
+    layout === LAYOUT_OPTIONS.MACOS_NAVBAR ||
     layout === LAYOUT_OPTIONS.MACOS_TAHOE ||
-    layout === LAYOUT_OPTIONS.MACOS_TAHOE_DOCK;
+    layout === LAYOUT_OPTIONS.MACOS_TAHOE_DOCK ||
+    layout === LAYOUT_OPTIONS.MACOS_TAHOE_NAVBAR;
 
   if (isMacOS) {
     return (
@@ -494,9 +496,11 @@ const LayoutIcons: Record<string, JSX.Element> = {
   [LAYOUT_OPTIONS.CLEAN]: <LucideIcons.Square className="w-[34px] h-[34px]" />,
   [LAYOUT_OPTIONS.MACOS]: <MacOSThemeIcon />,
   [LAYOUT_OPTIONS.MACOS_CLEAN]: <LucideIcons.Square />,
+  [LAYOUT_OPTIONS.MACOS_NAVBAR]: <MinimalLayoutIcon />,
   [LAYOUT_OPTIONS.MACOS_TAHOE]: <MacOSThemeIcon />,
   [LAYOUT_OPTIONS.MACOS_TAHOE_DOCK]: <MacOSTahoeThemeIcon />,
   [LAYOUT_OPTIONS.MACOS_TAHOE_CLEAN]: <LucideIcons.Square />,
+  [LAYOUT_OPTIONS.MACOS_TAHOE_NAVBAR]: <MinimalLayoutIcon />,
 };
 
 function LayoutSwitcher() {
@@ -507,13 +511,20 @@ function LayoutSwitcher() {
     return (
       <div className="px-6 pt-8">
         <SettingsSectionHeading>Layout</SettingsSectionHeading>
-        <div role="radiogroup" className="grid grid-cols-2 gap-5">
+        <div role="radiogroup" className="grid grid-cols-3 gap-5">
           <SwitcherButton
             onClick={() => setLayout(LAYOUT_OPTIONS.MACOS)}
-            title="macOS"
+            title="Sidebar"
             checked={layout === LAYOUT_OPTIONS.MACOS}
           >
             <MacOSThemeIcon />
+          </SwitcherButton>
+          <SwitcherButton
+            onClick={() => setLayout(LAYOUT_OPTIONS.MACOS_NAVBAR)}
+            title="Navbar"
+            checked={layout === LAYOUT_OPTIONS.MACOS_NAVBAR}
+          >
+            <MinimalLayoutIcon />
           </SwitcherButton>
           <SwitcherButton
             onClick={() => setLayout(LAYOUT_OPTIONS.MACOS_CLEAN)}
@@ -527,12 +538,12 @@ function LayoutSwitcher() {
     );
   }
 
-  // For Tahoe, show Sidebar vs Dock vs Clean layout options
+  // For Tahoe, show Sidebar vs Dock vs Navbar vs Clean layout options
   if (colorScheme === 'macos-tahoe') {
     return (
       <div className="px-6 pt-8">
         <SettingsSectionHeading>Layout</SettingsSectionHeading>
-        <div role="radiogroup" className="grid grid-cols-3 gap-5">
+        <div role="radiogroup" className="grid grid-cols-4 gap-5">
           <SwitcherButton
             onClick={() => setLayout(LAYOUT_OPTIONS.MACOS_TAHOE)}
             title="Sidebar"
@@ -546,6 +557,13 @@ function LayoutSwitcher() {
             checked={layout === LAYOUT_OPTIONS.MACOS_TAHOE_DOCK}
           >
             <MacOSTahoeThemeIcon />
+          </SwitcherButton>
+          <SwitcherButton
+            onClick={() => setLayout(LAYOUT_OPTIONS.MACOS_TAHOE_NAVBAR)}
+            title="Navbar"
+            checked={layout === LAYOUT_OPTIONS.MACOS_TAHOE_NAVBAR}
+          >
+            <MinimalLayoutIcon />
           </SwitcherButton>
           <SwitcherButton
             onClick={() => setLayout(LAYOUT_OPTIONS.MACOS_TAHOE_CLEAN)}
@@ -1121,13 +1139,11 @@ export function SettingsDrawer() {
       <LayoutSwitcher />
       {isTahoe ? (
         <>
-          <TahoeAccentPicker />
           <DefaultColorSettings />
           <BackgroundPicker />
         </>
       ) : isSonoma ? (
         <>
-          <SonomaAccentPicker />
           <DefaultColorSettings />
           <BackgroundPicker />
         </>

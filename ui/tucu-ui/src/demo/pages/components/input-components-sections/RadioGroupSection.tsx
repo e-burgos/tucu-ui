@@ -269,7 +269,7 @@ const RadioGroupSection: React.FC = () => {
         <CardTitle title="Code Example" className="mt-2 mb-2">
           <div className="w-full p-4 sm:p-6">
             <CodeBlock
-              language="typescript"
+              language="TS"
               code={`import { RadioGroup } from '@e-burgos/tucu-ui';
 
 const options = [

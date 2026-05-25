@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import {
   CardContainer,
   CardTitle,
@@ -81,7 +81,10 @@ const sampleItems = [
 ];
 
 // ─── PropPlayground sub-component (avoids hooks-in-render-prop violation) ──────
-function CommandPlayground(props: { placeholder?: string; triggerKey?: string }) {
+function CommandPlayground(props: {
+  placeholder?: string;
+  triggerKey?: string;
+}) {
   const [open, setOpen] = useState(false);
   return (
     <div className="space-y-3">
