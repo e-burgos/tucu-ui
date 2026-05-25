@@ -1,7 +1,7 @@
 {
   "name": "@e-burgos/tucu-ui",
   "description": "Tucu UI Library",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "main": "./index.js",
   "module": "./index.mjs",
   "types": "./index.d.ts",
@@ -44,6 +44,7 @@
     "pack:lib": "cd ../../ui/tucu-ui && pnpm npm pack"
   },
   "dependencies": {
+    "@e-burgos/tucu-ui-mcp": "^0.4.3",
     "@tailwindcss/typography": "0.0.0-insiders.0339c42",
     "classnames": "^2.5.1",
     "framer-motion": "12.23.3",
