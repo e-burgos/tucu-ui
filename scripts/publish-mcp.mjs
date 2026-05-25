@@ -2,11 +2,12 @@
 /**
  * tucu-ui-mcp publish script
  * Usage:
- *   node scripts/publish-mcp.mjs patch        # 0.4.0 → 0.4.1
- *   node scripts/publish-mcp.mjs minor        # 0.4.0 → 0.5.0
- *   node scripts/publish-mcp.mjs major        # 0.4.0 → 1.0.0
- *   node scripts/publish-mcp.mjs --dry-run patch   # simula todo sin publicar
- *   node scripts/publish-mcp.mjs --skip-docs patch # salta actualización de docs
+ *   node scripts/publish-mcp.mjs patch              # 0.4.0 → 0.4.1
+ *   node scripts/publish-mcp.mjs minor              # 0.4.0 → 0.5.0
+ *   node scripts/publish-mcp.mjs major              # 0.4.0 → 1.0.0
+ *   node scripts/publish-mcp.mjs --dry-run patch    # simula todo sin publicar
+ *   node scripts/publish-mcp.mjs --skip-docs patch  # salta actualización de docs
+ *   node scripts/publish-mcp.mjs --skip-git patch   # salta verificación working tree y commit/tag
  * Steps:
  *   1. Validate bump type
  *   2. Read current version from tools/mcp-server/package.json
@@ -17,7 +18,7 @@
  *   7. Update version in tools/mcp-server/package.json
  *   8. Build the MCP server (pnpm nx run tucu-ui-mcp:build)
  *   9. Publish to npm from tools/mcp-server
- *  10. Commit and tag the release (mcp-vX.Y.Z)
+ *  10. (unless --skip-git) Commit and tag the release (mcp-vX.Y.Z)
  *  11. Deploy to fly.io (flyctl deploy from tools/mcp-server)
  */
 import { execSync } from 'node:child_process';
@@ -261,16 +262,17 @@ function checkCleanWorkingTree() {
 const args = process.argv.slice(2);
 const dryRun = args.includes('--dry-run');
 const skipDocs = args.includes('--skip-docs');
+const skipGit = args.includes('--skip-git');
 const bumpType = args.find((a) => ['major', 'minor', 'patch'].includes(a));
 
 if (!bumpType) {
   error(
-    'Missing bump type.\nUsage: node scripts/publish-mcp.mjs [--dry-run] [--skip-docs] <patch|minor|major>'
+    'Missing bump type.\nUsage: node scripts/publish-mcp.mjs [--dry-run] [--skip-docs] [--skip-git] <patch|minor|major>'
   );
 }
 
 // 0. Guard: working tree must be clean before making any changes
-if (!dryRun) checkCleanWorkingTree();
+if (!dryRun && !skipGit) checkCleanWorkingTree();
 
 const pkgPath = resolve(MCP_DIR, 'package.json');
 const pkg = JSON.parse(readFileSync(pkgPath, 'utf-8'));
@@ -335,19 +337,24 @@ log(`Publishing ${packageName}@${nextVersion} to npm...`);
 exec('npm publish --access public', { cwd: MCP_DIR });
 success(`Published ${packageName}@${nextVersion} to npm!`);
 
-// 10. Commit and tag the release
-log('Creating release commit and git tag...');
-const filesToCommit = [
-  'tools/mcp-server/package.json',
-  ...(skipDocs
-    ? []
-    : ['tools/mcp-server/CHANGELOG.md', 'tools/mcp-server/README.md']),
-];
-exec(`git add ${filesToCommit.map((f) => `"${f}"`).join(' ')}`);
-exec(`git commit -m "chore: release ${packageName}@${nextVersion}"`);
-const releaseTag = `mcp-v${nextVersion}`;
-exec(`git tag ${releaseTag}`);
-success(`Release commit created and tagged: ${releaseTag}`);
+// 10. Commit and tag the release (unless --skip-git)
+if (!skipGit) {
+  log('Creating release commit and git tag...');
+  const filesToCommit = [
+    'tools/mcp-server/package.json',
+    ...(skipDocs
+      ? []
+      : ['tools/mcp-server/CHANGELOG.md', 'tools/mcp-server/README.md']),
+  ];
+  exec(`git add ${filesToCommit.map((f) => `"${f}"`).join(' ')}`);
+  exec(`git commit -m "chore: release ${packageName}@${nextVersion}"`);
+  const releaseTag = `mcp-v${nextVersion}`;
+  exec(`git tag ${releaseTag}`);
+  success(`Release commit created and tagged: ${releaseTag}`);
+} else {
+  warn('--skip-git: skipping commit and tag creation.');
+  log(`Remember to commit and tag manually: git tag mcp-v${nextVersion}`);
+}
 
 // 11. Deploy to fly.io
 log('Deploying to fly.io (tucu-ui-mcp)...');

@@ -4,11 +4,12 @@
  * tucu-ui publish script
  *
  * Usage:
- *   node scripts/publish.mjs patch        # 2.0.11 → 2.0.12
- *   node scripts/publish.mjs minor        # 2.0.11 → 2.1.0
- *   node scripts/publish.mjs major        # 2.0.11 → 3.0.0
- *   node scripts/publish.mjs --dry-run patch   # simula todo sin publicar
- *   node scripts/publish.mjs --skip-docs patch # salta actualización de docs
+ *   node scripts/publish.mjs patch              # 2.0.11 → 2.0.12
+ *   node scripts/publish.mjs minor              # 2.0.11 → 2.1.0
+ *   node scripts/publish.mjs major              # 2.0.11 → 3.0.0
+ *   node scripts/publish.mjs --dry-run patch    # simula todo sin publicar
+ *   node scripts/publish.mjs --skip-docs patch  # salta actualización de docs
+ *   node scripts/publish.mjs --skip-git patch   # salta verificación working tree y commit/tag
  *
  * Steps:
  *   1. Validate bump type
@@ -21,6 +22,7 @@
  *   8. Build the library (pnpm nx run tucu-ui:build)
  *   9. Sync version in dist/ui/tucu-ui/package.json
  *  10. Publish to npm from dist/ui/tucu-ui
+ *  11. (unless --skip-git) Commit and tag the release
  */
 
 import { execSync } from 'node:child_process';
@@ -296,16 +298,17 @@ function checkCleanWorkingTree() {
 const args = process.argv.slice(2);
 const dryRun = args.includes('--dry-run');
 const skipDocs = args.includes('--skip-docs');
+const skipGit = args.includes('--skip-git');
 const bumpType = args.find((a) => ['major', 'minor', 'patch'].includes(a));
 
 if (!bumpType) {
   error(
-    'Missing bump type.\nUsage: node scripts/publish.mjs [--dry-run] [--skip-docs] <patch|minor|major>'
+    'Missing bump type.\nUsage: node scripts/publish.mjs [--dry-run] [--skip-docs] [--skip-git] <patch|minor|major>'
   );
 }
 
 // 0. Guard: working tree must be clean before making any changes
-if (!dryRun) checkCleanWorkingTree();
+if (!dryRun && !skipGit) checkCleanWorkingTree();
 
 // 1. Read current version
 const pkgPath = resolve(ROOT, 'ui/tucu-ui/package.json');
@@ -340,6 +343,16 @@ log(`Commits since ${lastTag ?? 'beginning'}: ${commitCount}`);
 if (dryRun) {
   log('--dry-run mode: showing planned changes without applying them.\n');
   console.log(`  Bump:    ${currentVersion} → ${nextVersion}`);
+  // Check MCP dependency
+  const mcpDepName = '@e-burgos/tucu-ui-mcp';
+  const currentMcpDep = pkg.dependencies?.[mcpDepName] ?? 'N/A';
+  let latestMcpVersion = 'unknown';
+  try {
+    latestMcpVersion = execSync(`npm view ${mcpDepName} version 2>/dev/null`, {
+      encoding: 'utf-8', stdio: 'pipe', cwd: ROOT,
+    }).trim();
+  } catch { /* ignore */ }
+  console.log(`  MCP dep: ${currentMcpDep} (latest on npm: ${latestMcpVersion})`);
   if (!skipDocs) {
     console.log('\n  CHANGELOG entry preview:\n');
     console.log(buildChangelogEntry(nextVersion, sections));
@@ -368,6 +381,34 @@ if (!skipDocs) {
 
 // 7. Update version in source package.json
 pkg.version = nextVersion;
+
+// 7b. Ensure @e-burgos/tucu-ui-mcp dependency points to latest published version
+log('Checking @e-burgos/tucu-ui-mcp dependency...');
+const mcpDepName = '@e-burgos/tucu-ui-mcp';
+if (pkg.dependencies && pkg.dependencies[mcpDepName]) {
+  let latestMcpVersion;
+  try {
+    latestMcpVersion = execSync(`npm view ${mcpDepName} version 2>/dev/null`, {
+      encoding: 'utf-8',
+      stdio: 'pipe',
+      cwd: ROOT,
+    }).trim();
+  } catch {
+    warn(`Could not fetch latest ${mcpDepName} version from npm — skipping sync.`);
+    latestMcpVersion = null;
+  }
+  if (latestMcpVersion) {
+    const currentMcpDep = pkg.dependencies[mcpDepName];
+    const expectedDep = `^${latestMcpVersion}`;
+    if (currentMcpDep !== expectedDep) {
+      pkg.dependencies[mcpDepName] = expectedDep;
+      success(`Updated ${mcpDepName} dependency: ${currentMcpDep} → ${expectedDep}`);
+    } else {
+      success(`${mcpDepName} dependency already up to date (${currentMcpDep})`);
+    }
+  }
+}
+
 writeFileSync(pkgPath, JSON.stringify(pkg, null, 2) + '\n');
 success(`Updated ui/tucu-ui/package.json → ${nextVersion}`);
 
@@ -394,17 +435,22 @@ exec('pnpm npm publish --access public --no-git-checks', {
 });
 success(`Published ${packageName}@${nextVersion} to npm!`);
 
-// 11. Commit and tag the release
-log('Creating release commit and git tag...');
-const filesToCommit = [
-  'ui/tucu-ui/package.json',
-  ...(skipDocs ? [] : ['ui/tucu-ui/CHANGELOG.md', 'README.md']),
-];
-exec(`git add ${filesToCommit.map((f) => `"${f}"`).join(' ')}`);
-exec(`git commit -m "chore: release ${packageName}@${nextVersion}"`);
-const releaseTag = `tucu-ui-v${nextVersion}`;
-exec(`git tag ${releaseTag}`);
-success(`Release commit created and tagged: ${releaseTag}`);
+// 11. Commit and tag the release (unless --skip-git)
+if (!skipGit) {
+  log('Creating release commit and git tag...');
+  const filesToCommit = [
+    'ui/tucu-ui/package.json',
+    ...(skipDocs ? [] : ['ui/tucu-ui/CHANGELOG.md', 'README.md']),
+  ];
+  exec(`git add ${filesToCommit.map((f) => `"${f}"`).join(' ')}`);
+  exec(`git commit -m "chore: release ${packageName}@${nextVersion}"`);
+  const releaseTag = `tucu-ui-v${nextVersion}`;
+  exec(`git tag ${releaseTag}`);
+  success(`Release commit created and tagged: ${releaseTag}`);
+} else {
+  warn('--skip-git: skipping commit and tag creation.');
+  log(`Remember to commit and tag manually: git tag tucu-ui-v${nextVersion}`);
+}
 
 console.log(`
 \x1b[32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\x1b[0m

@@ -2,6 +2,13 @@
 
 All notable changes to `@e-burgos/tucu-ui-mcp` will be documented in this file.
 
+## [0.4.3] - 2026-05-25
+
+### Changed
+
+- Improve publish scripts with `--skip-git` flag support
+- Update publish skill documentation
+
 ## [0.4.2] - 2026-05-24
 
 ### Changed

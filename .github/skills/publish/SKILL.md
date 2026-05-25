@@ -5,201 +5,290 @@ description: "Full publish workflow for @e-burgos/tucu-ui and @e-burgos/tucu-ui-
 
 # Publish Skill — tucu-ui & tucu-ui-mcp
 
-Guía paso a paso para publicar cualquiera de los dos paquetes del monorepo.
+Workflow completo y orquestado para publicar uno o ambos paquetes del monorepo.
 
 ---
 
-## Paquetes disponibles
+## Paquetes
 
-| Paquete                 | Directorio          | Script                    |
-| ----------------------- | ------------------- | ------------------------- |
-| `@e-burgos/tucu-ui`     | `ui/tucu-ui/`       | `scripts/publish.mjs`     |
-| `@e-burgos/tucu-ui-mcp` | `tools/mcp-server/` | `scripts/publish-mcp.mjs` |
-
----
-
-## Paso 1 — Identificar qué publicar
-
-Determina qué paquete debe publicarse según el pedido del usuario:
-
-- Menciona "tucu-ui", "biblioteca", "library", "componentes" → `@e-burgos/tucu-ui`
-- Menciona "mcp", "mcp server", "servidor mcp", "tucu-ui-mcp" → `@e-burgos/tucu-ui-mcp`
-- Si no está claro, **pregunta al usuario** antes de continuar.
+| Paquete                 | Directorio          | Tag prefix   | npm                                              |
+| ----------------------- | ------------------- | ------------ | ------------------------------------------------ |
+| `@e-burgos/tucu-ui`     | `ui/tucu-ui/`       | `tucu-ui-v`  | https://www.npmjs.com/package/@e-burgos/tucu-ui   |
+| `@e-burgos/tucu-ui-mcp` | `tools/mcp-server/` | `mcp-v`      | https://www.npmjs.com/package/@e-burgos/tucu-ui-mcp |
 
 ---
 
-## Paso 2 — Determinar el tipo de bump
+## Workflow Completo (pasos obligatorios en orden)
 
-Si el usuario no lo especificó, determínalo usando esta guía:
+### Paso A — Consultar qué publicar
 
-| Tipo    | Cuándo usarlo                                                |
-| ------- | ------------------------------------------------------------ |
-| `patch` | Bugfixes, correcciones de docs, cambios de config, refactors |
-| `minor` | Nuevas features compatibles hacia atrás (nuevos componentes) |
-| `major` | Breaking changes: API rota, props renombradas, eliminaciones |
+**Pregunta al usuario** (si no lo indicó explícitamente):
 
-Si no está claro, **pregunta al usuario**: `¿patch, minor o major?`
+> ¿Qué deseas publicar?
+> - `tucu-ui` — Solo la librería de componentes
+> - `mcp` — Solo el MCP server
+> - `ambas` — Ambos paquetes (MCP primero, luego tucu-ui)
+
+**Regla de orden**: Si se publican ambas, SIEMPRE se publica **MCP primero** y luego **tucu-ui**.
 
 ---
 
-## Paso 3 — Verificar estado del repositorio
+### Paso 1 — Revisar cambios y actualizar documentación
 
-**El script rechaza publicar si hay cambios sin commitear.**
+Para cada paquete seleccionado:
 
-Verifica el estado antes de correr el script:
+1. Obtener commits desde el último tag del paquete:
+   ```bash
+   git log $(git tag -l "<prefix>*" --sort=-version:refname | head -1)..HEAD --pretty=format:"%s" --no-merges
+   ```
+2. Clasificar commits según conventional commits (feat→Added, fix→Fixed, etc.)
+3. Generar entrada en `CHANGELOG.md` del paquete correspondiente:
+   - tucu-ui: `ui/tucu-ui/CHANGELOG.md`
+   - mcp: `tools/mcp-server/CHANGELOG.md`
+4. Actualizar badges de versión y comandos de install en README:
+   - tucu-ui: `README.md` (root)
+   - mcp: `tools/mcp-server/README.md`
+
+---
+
+### Paso 2 — Sincronizar MCP con la librería (solo si se publica MCP o ambas)
+
+Si se está publicando el MCP (solo o junto con tucu-ui):
+
+1. Revisar los cambios recientes en `ui/tucu-ui/src/` para identificar:
+   - Componentes nuevos
+   - Props modificadas
+   - Componentes eliminados o renombrados
+2. Verificar que los archivos de contexto del MCP están actualizados:
+   - `tools/mcp-server/src/resources/` — resources con catálogo, tokens, etc.
+   - `tools/mcp-server/src/tools/` — tools de generación
+3. Si hay desincronización, **informar al usuario** qué archivos del MCP necesitan actualización y preguntar si desea actualizar ahora o publicar tal cual.
+
+> ⚠️ No actualizar automáticamente sin confirmación — los cambios en el MCP deben ser validados.
+
+---
+
+### Paso 3 — Determinar versionado
+
+Para cada paquete seleccionado:
+
+1. Leer la versión actual desde `package.json`:
+   ```bash
+   node -p "require('./ui/tucu-ui/package.json').version"       # tucu-ui
+   node -p "require('./tools/mcp-server/package.json').version"  # mcp
+   ```
+2. Mostrar la versión actual al usuario
+3. **Preguntar tipo de bump** (si no lo indicó):
+
+   | Tipo    | Cuándo                                                       |
+   | ------- | ------------------------------------------------------------ |
+   | `patch` | Bugfixes, docs, config, refactors internos                   |
+   | `minor` | Nuevas features compatibles hacia atrás                      |
+   | `major` | Breaking changes: API rota, props renombradas, eliminaciones |
+
+4. Calcular y mostrar la versión resultante al usuario para confirmación
+5. Verificar que la versión no exista en npm:
+   ```bash
+   npm view @e-burgos/tucu-ui@<version> version 2>/dev/null
+   npm view @e-burgos/tucu-ui-mcp@<version> version 2>/dev/null
+   ```
+
+---
+
+### Paso 4 — Commitear cambios pendientes
+
+1. Revisar el estado del repositorio:
+   ```bash
+   git status
+   git diff --stat          # cambios no staged
+   git diff --cached --stat # cambios staged
+   ```
+2. Si hay cambios sin commitear:
+   - Agrupar archivos por contexto lógico (library, mcp, docs, config)
+   - Crear commits con mensajes descriptivos usando conventional commits
+   - Ejemplo de agrupación:
+     ```bash
+     git add ui/tucu-ui/...
+     git commit -m "feat(tucu-ui): add new Button variants"
+     
+     git add tools/mcp-server/...
+     git commit -m "feat(mcp): sync catalog with library changes"
+     
+     git add docs/ README.md CHANGELOG.md
+     git commit -m "docs: update changelog and readme for release"
+     ```
+3. Si todos los cambios son del release (CHANGELOG, README, version bumps), commitearlos juntos:
+   ```bash
+   git add -A
+   git commit -m "chore: prepare release <package>@<version>"
+   ```
+
+---
+
+### Paso 5 — Verificar autenticación npm
+
+1. Verificar login:
+   ```bash
+   npm whoami
+   ```
+2. Si falla o no muestra `e-burgos`:
+   - **Informar al usuario** que debe loguearse
+   - Indicar que ejecute en la terminal:
+     ```bash
+     npm login
+     ```
+   - **NUNCA ejecutar npm login desde el agente** — requiere interacción del usuario (OTP por email/authenticator)
+   - Esperar a que el usuario confirme que se logueó
+   - Verificar nuevamente con `npm whoami`
+
+---
+
+### Paso 5b — Verificar versión del MCP en tucu-ui (solo si se publica tucu-ui)
+
+Antes de publicar tucu-ui, verificar que `ui/tucu-ui/package.json` referencia la **última versión publicada** del MCP:
+
+1. Obtener la versión más reciente del MCP en npm:
+   ```bash
+   npm view @e-burgos/tucu-ui-mcp version
+   ```
+2. Comparar con la dependencia en `ui/tucu-ui/package.json`:
+   ```bash
+   node -p "require('./ui/tucu-ui/package.json').dependencies['@e-burgos/tucu-ui-mcp']"
+   ```
+3. Si no coincide (ej: `^0.4.2` pero la última es `0.5.0`):
+   - Actualizar la referencia en `ui/tucu-ui/package.json`:
+     ```json
+     "@e-burgos/tucu-ui-mcp": "^<latest_version>"
+     ```
+   - Informar al usuario del cambio
+   - Si se publican ambas en este mismo workflow, usar la nueva versión del MCP que se va a publicar
+
+> ⚠️ Esta verificación es OBLIGATORIA. Nunca publicar tucu-ui con una referencia al MCP desactualizada.
+
+---
+
+### Paso 6 — Publicar en npm
+
+**Orden**: Si son ambos paquetes → MCP primero, luego tucu-ui.
+
+#### Publicar `@e-burgos/tucu-ui-mcp`:
 
 ```bash
-git status
+# 1. Build
+pnpm nx run tucu-ui-mcp:build
+
+# 2. Publish (npm solicita OTP automáticamente si 2FA está habilitado)
+cd tools/mcp-server && npm publish --access public
 ```
 
-Si hay cambios pendientes no relacionados con el release, ayuda al usuario a commitearlos primero:
+#### Publicar `@e-burgos/tucu-ui`:
 
 ```bash
-git add <archivos>
-git commit -m "descripción de los cambios"
+# 1. Build
+pnpm nx run tucu-ui:build
+
+# 2. Sync version en dist/ui/tucu-ui/package.json
+node -e "
+const fs = require('fs');
+const p = './dist/ui/tucu-ui/package.json';
+const pkg = JSON.parse(fs.readFileSync(p));
+pkg.version = '<NEW_VERSION>';
+fs.writeFileSync(p, JSON.stringify(pkg, null, 2) + '\n');
+"
+
+# 3. Publish desde dist
+cd dist/ui/tucu-ui && npm publish --access public
 ```
 
-> ⚠️ El script `checkCleanWorkingTree()` abortará si `git status --porcelain` no está limpio (excepto en `--dry-run`).
+> El publish con OTP funciona automáticamente — npm solicita el código en la terminal.
+
+**Después de cada publicación exitosa**, crear commit y tag:
+```bash
+git add <archivos modificados>
+git commit -m "chore: release @e-burgos/<package>@<version>"
+git tag <prefix><version>
+```
 
 ---
 
-## Paso 4 — Verificar autenticación en npm
+### Paso 7 — Deploy a fly.io (solo MCP)
 
-El script publica en npm con tus credenciales. Verifica que estás logueado:
-
-```bash
-npm whoami   # debe mostrar tu usuario de npm (ej: e-burgos)
-```
-
-Si no estás autenticado:
+Si se publicó el MCP:
 
 ```bash
-npm login    # abre el browser para autenticarte via npm.com
+cd tools/mcp-server && flyctl deploy
 ```
 
-> ℹ️ Para publicar bajo el scope `@e-burgos` necesitas pertenecer a la organización `e-burgos` en npmjs.com.
+Verificar deploy:
+```bash
+curl https://tucu-ui-mcp.fly.dev/health
+```
+
+Si `flyctl` no está disponible:
+```bash
+brew install flyctl
+flyctl auth login
+```
 
 ---
 
-## Paso 5 — Ejecutar el publish
+### Paso 8 — Verificación final y push
 
-### Para `@e-burgos/tucu-ui`
+1. Verificar publicación:
+   ```bash
+   npm view @e-burgos/tucu-ui version          # si se publicó tucu-ui
+   npm view @e-burgos/tucu-ui-mcp version       # si se publicó mcp
+   ```
+
+2. Mostrar resumen al usuario:
+   ```
+   ✅ Publicación completada:
+   - @e-burgos/tucu-ui: X.Y.Z → A.B.C (npm ✓)
+   - @e-burgos/tucu-ui-mcp: X.Y.Z → A.B.C (npm ✓, fly.io ✓)
+   ```
+
+3. **Preguntar al usuario** si desea push a origin:
+   ```bash
+   git push origin <branch> --tags
+   ```
+   > ⚠️ Acción irreversible en remoto — SIEMPRE pedir confirmación.
+
+---
+
+## Scripts de soporte
+
+Los scripts individuales están disponibles para uso directo o desde el agente:
 
 ```bash
-# Patch (bug fixes, docs, config)
+# tucu-ui (gestión completa)
+node scripts/publish.mjs [--dry-run] [--skip-docs] [--skip-git] <patch|minor|major>
+
+# mcp (gestión completa)
+node scripts/publish-mcp.mjs [--dry-run] [--skip-docs] [--skip-git] <patch|minor|major>
+```
+
+### Flags
+
+| Flag          | Efecto                                              |
+| ------------- | --------------------------------------------------- |
+| `--dry-run`   | Simula todo sin aplicar cambios ni publicar         |
+| `--skip-docs` | Salta la actualización de CHANGELOG y README        |
+| `--skip-git`  | Salta verificación de working tree limpio y commit/tag final |
+
+### pnpm shortcuts
+
+```bash
+# tucu-ui
 pnpm tucu-ui:publish:patch
-
-# Minor (nuevas features)
 pnpm tucu-ui:publish:minor
-
-# Major (breaking changes)
 pnpm tucu-ui:publish:major
-
-# Simular sin publicar (útil para previsualizar)
 pnpm tucu-ui:publish:dry
-```
 
-### Para `@e-burgos/tucu-ui-mcp`
-
-```bash
-# Patch
+# mcp
 pnpm mcp:publish:patch
-
-# Minor
 pnpm mcp:publish:minor
-
-# Major
 pnpm mcp:publish:major
-
-# Simular sin publicar
 pnpm mcp:publish:dry
-```
-
----
-
-## Qué hace el script automáticamente
-
-1. **Verifica tree limpio** (`git status --porcelain`) — aborta si hay cambios sin commitear
-2. **Valida en npm registry** — aborta si la versión ya existe
-3. **Genera entrada CHANGELOG** desde commits git desde el último tag del paquete
-4. **Actualiza README** — reemplaza referencias `@oldVersion` → `@newVersion`
-5. **Bumps `package.json`** con la nueva versión
-6. **Builda** — `pnpm nx run tucu-ui:build` o `pnpm nx run tucu-ui-mcp:build`
-7. **Publica en npm**
-8. **Crea commit de release** — `git commit -m "chore: release @pkg@version"`
-9. **Crea git tag** — `tucu-ui-vX.Y.Z` o `mcp-vX.Y.Z`
-10. _(solo mcp)_ **Deploya a fly.io** — `flyctl deploy` desde `tools/mcp-server/`
-
----
-
-## Tags de git por paquete
-
-Cada paquete usa un prefijo de tag para evitar colisiones en el monorepo:
-
-- `@e-burgos/tucu-ui` → tags `tucu-ui-v2.0.12`, `tucu-ui-v2.1.0`, etc.
-- `@e-burgos/tucu-ui-mcp` → tags `mcp-v0.4.1`, `mcp-v0.5.0`, etc.
-
-El script `getLastTag(prefix)` filtra por el prefijo correspondiente, por lo que el CHANGELOG de cada paquete solo incluye commits desde el último release **de ese paquete**.
-
----
-
-## Paso 6 — Verificar post-publish
-
-Después de que el script finalice con éxito:
-
-1. Confirma que el paquete se publicó en npm:
-
-   - tucu-ui: `https://www.npmjs.com/package/@e-burgos/tucu-ui`
-   - mcp: `https://www.npmjs.com/package/@e-burgos/tucu-ui-mcp`
-
-   O desde terminal:
-
-   ```bash
-   npm view @e-burgos/tucu-ui version          # versión publicada de tucu-ui
-   npm view @e-burgos/tucu-ui-mcp version       # versión publicada del mcp
-   ```
-
-2. _(solo mcp)_ Confirma que el servidor está activo en fly.io:
-
-   ```bash
-   curl https://tucu-ui-mcp.fly.dev/health     # debe responder 200 OK
-   ```
-
-   O abre en el browser: `https://tucu-ui-mcp.fly.dev/health`
-
-   También puedes revisar el estado del deploy:
-
-   ```bash
-   flyctl status --app tucu-ui-mcp
-   ```
-
-3. Confirma el tag local:
-
-   ```bash
-   git tag -l "tucu-ui-v*" | tail -5   # para tucu-ui
-   git tag -l "mcp-v*" | tail -5        # para mcp
-   ```
-
-4. Si el usuario quiere subir el tag a origin:
-   ```bash
-   git push origin --tags
-   ```
-   > ⚠️ **Acción irreversible sobre origin** — pide confirmación antes de ejecutar.
-
----
-
-## Flags opcionales
-
-| Flag          | Efecto                                       |
-| ------------- | -------------------------------------------- |
-| `--dry-run`   | Simula todo, no aplica cambios ni publica    |
-| `--skip-docs` | Salta la actualización de CHANGELOG y README |
-
-Ejemplo de dry-run manual:
-
-```bash
-node scripts/publish.mjs --dry-run minor
-node scripts/publish-mcp.mjs --dry-run patch
 ```
 
 ---
@@ -208,10 +297,20 @@ node scripts/publish-mcp.mjs --dry-run patch
 
 | Problema                              | Solución                                                                      |
 | ------------------------------------- | ----------------------------------------------------------------------------- |
-| `Working tree must be clean`          | Commitear o hacer stash de los cambios pendientes                             |
-| `Version X.Y.Z already exists on npm` | Elegir un tipo de bump diferente o verificar que la versión es correcta       |
-| `403 Forbidden` / `401 Unauthorized`  | Correr `npm login` y verificar pertenencia a la org `e-burgos` en npm         |
-| Build falla (`nx run ... failed`)     | Revisar errores de TypeScript con `pnpm nx run tucu-ui:lint`                  |
-| `git tag` ya existe                   | El tag fue creado manualmente; borrarlo con `git tag -d <tag>` y re-ejecutar  |
-| Publicación exitosa pero sin commit   | Verificar con `git log --oneline -3` y `git tag -l "prefix-v*"`               |
-| `flyctl: command not found`           | Instalar flyctl: `brew install flyctl` y autenticarse con `flyctl auth login` |
+| `Version X.Y.Z already exists on npm` | Elegir un tipo de bump diferente                                              |
+| `403 Forbidden` / `401 Unauthorized`  | `npm login` y verificar pertenencia a org `e-burgos`                          |
+| Build falla                           | Revisar errores: `pnpm nx run <project>:lint`                                 |
+| `git tag` ya existe                   | Borrar: `git tag -d <tag>` y re-ejecutar                                      |
+| `flyctl: command not found`           | `brew install flyctl && flyctl auth login`                                    |
+| OTP no llega                          | Verificar email/authenticator configurado en npmjs.com                         |
+| Publish exitoso sin tag               | Crear tag manual: `git tag <prefix>v<version> && git push origin --tags`      |
+
+---
+
+## Notas importantes
+
+- **El agente NUNCA ejecuta `npm login`** — siempre lo hace el usuario interactivamente
+- **El agente NUNCA hace `git push`** sin confirmación explícita del usuario
+- **Si se publican ambas**: MCP primero, tucu-ui después
+- **Los scripts con `--skip-git`** permiten que el agente maneje commits de forma granular antes de publicar
+- **OTP**: npm solicita el código automáticamente durante `npm publish` si 2FA está habilitado — el agente debe ejecutar el publish en modo interactivo para que el usuario pueda ingresar el OTP
