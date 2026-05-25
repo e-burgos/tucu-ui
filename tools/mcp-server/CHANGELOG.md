@@ -14,6 +14,7 @@ All notable changes to `@e-burgos/tucu-ui-mcp` will be documented in this file.
 ### Changed
 
 - update publish skill and mcp publish script
+
 ## [0.4.1] - 2026-05-24
 
 ### Added
@@ -152,9 +153,11 @@ All notable changes to `@e-burgos/tucu-ui-mcp` will be documented in this file.
 - resolve arbitrary values
 - resolve responsive layout
 - minor fix
+
 ## [0.4.0] - 2025-05-23
 
 ### Added
+
 - **Generation tools**: `generate_component`, `generate_form`, `generate_page`, `generate_chart`, `search_icons`
 - **8 MCP prompts**: create-component, create-form, create-page, debug-variant, migrate-component, theme-setup, accessibility-check, performance-review
 - **12 resources** with `tucu://` URI scheme covering catalog, tokens, forms, routing, layouts, theme, charts, icons, migration, best-practices, changelog, and quickstart
@@ -164,12 +167,14 @@ All notable changes to `@e-burgos/tucu-ui-mcp` will be documented in this file.
 - Theme-aware code generation (ThemeProvider wrapping)
 
 ### Security
+
 - Bearer token authentication (`MCP_API_KEY`)
 - Timing-safe token comparison
 - Rate limiting (100 req/min per IP)
 - Non-root Docker user
 
 ### Infrastructure
+
 - Docker multi-stage build (node:22-alpine)
 - Fly.io configuration with auto-stop/start machines
 - Health check endpoint (`GET /health`)
@@ -178,6 +183,7 @@ All notable changes to `@e-burgos/tucu-ui-mcp` will be documented in this file.
 ## [0.3.0] - 2025-05-15
 
 ### Added
+
 - HTTP server with Express 5 (`http-server.ts`)
 - Rate limiter middleware
 - Auth middleware with constant-time comparison
@@ -188,6 +194,7 @@ All notable changes to `@e-burgos/tucu-ui-mcp` will be documented in this file.
 ## [0.2.0] - 2025-05-10
 
 ### Added
+
 - Component tools: `list_components`, `get_component`
 - Component registry with 95+ entries
 - Theme registry with color presets and layout variants
@@ -198,6 +205,7 @@ All notable changes to `@e-burgos/tucu-ui-mcp` will be documented in this file.
 ## [0.1.0] - 2025-05-05
 
 ### Added
+
 - Initial MCP server scaffold
 - Stdio transport entry point
 - Server factory (`createMcpServer`)

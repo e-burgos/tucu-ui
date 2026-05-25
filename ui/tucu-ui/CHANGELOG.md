@@ -14,11 +14,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Improve publish scripts with `--skip-git` flag support
+
 ## [2.2.0] - 2026-05-24
 
 ### Changed
 
 - Version bump
+
 ## [2.1.0] - 2026-05-24
 
 ### Added
@@ -160,6 +162,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - resolve arbitrary values
 - resolve responsive layout
 - minor fix
+
 ## [2.0.11] - 2026-05-22
 
 ### Added
