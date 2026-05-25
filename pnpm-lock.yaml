@@ -162,8 +162,8 @@ importers:
   apps/demo:
     dependencies:
       '@e-burgos/tucu-ui':
-        specifier: ^2.0.11
-        version: 2.0.11(@types/react@19.2.14)(immer@11.1.7)(react-dom@19.2.5(react@19.2.5))(react-is@18.3.1)(react@19.2.5)(tailwindcss@4.1.18)(use-sync-external-store@1.6.0(react@19.2.5))
+        specifier: ^2.3.0
+        version: 2.3.0(@types/react@19.2.14)(immer@11.1.7)(react-dom@19.2.5(react@19.2.5))(react-is@18.3.1)(react@19.2.5)(tailwindcss@4.1.18)(use-sync-external-store@1.6.0(react@19.2.5))
       react:
         specifier: ^19.2.5
         version: 19.2.5
@@ -289,10 +289,13 @@ importers:
         version: 5.7.3
       vitest:
         specifier: ^2.0.0
-        version: 2.1.9(@types/node@18.16.9)(@vitest/ui@1.6.1(vitest@1.6.1))(jsdom@22.1.0)(lightningcss@1.30.2)(terser@5.44.1)
+        version: 2.1.9(@types/node@18.16.9)(@vitest/ui@1.6.1)(jsdom@22.1.0)(lightningcss@1.30.2)(terser@5.44.1)
 
   ui/tucu-ui:
     dependencies:
+      '@e-burgos/tucu-ui-mcp':
+        specifier: ^0.4.3
+        version: 0.4.3
       '@tailwindcss/typography':
         specifier: 0.0.0-insiders.0339c42
         version: 0.0.0-insiders.0339c42(tailwindcss@4.1.18)
@@ -958,8 +961,13 @@ packages:
     resolution: {integrity: sha512-IchNf6dN4tHoMFIn/7OE8LWZ19Y6q/67Bmf6vnGREv8RSbBVb9LPJxEcnwrcwX6ixSvaiGoomAUvu4YSxXrVgw==}
     engines: {node: '>=12'}
 
-  '@e-burgos/tucu-ui@2.0.11':
-    resolution: {integrity: sha512-/fItCC3bPBImsR9en3dKsoJFbgXWGTvZRnNrxdyDJUcTbm7NcOBTE+0msNLOnJCwK/jSPAeMJJEo9T3FSfYbOg==}
+  '@e-burgos/tucu-ui-mcp@0.4.3':
+    resolution: {integrity: sha512-3Jn6LvFqM91zQzdUJKzPyxiNHfJKfvz1HxJydD037eQF6lOBKHqDiPPuIKqkAkul8Y7PIUJ5Zk6FkvamlDKJlg==}
+    engines: {node: '>=20'}
+    hasBin: true
+
+  '@e-burgos/tucu-ui@2.3.0':
+    resolution: {integrity: sha512-UwrgBdTZAzPCSn/eNK7ElGRHKTZVaj0AieevnjqwCrSOECc03jCkcw50BouqENWQ2Jji7fIThVvoRXsL0yrl4A==}
     peerDependencies:
       react: '>=18.0.0'
       react-dom: '>=18.0.0'
@@ -8268,8 +8276,18 @@ snapshots:
     dependencies:
       '@jridgewell/trace-mapping': 0.3.9
 
-  '@e-burgos/tucu-ui@2.0.11(@types/react@19.2.14)(immer@11.1.7)(react-dom@19.2.5(react@19.2.5))(react-is@18.3.1)(react@19.2.5)(tailwindcss@4.1.18)(use-sync-external-store@1.6.0(react@19.2.5))':
+  '@e-burgos/tucu-ui-mcp@0.4.3':
     dependencies:
+      '@modelcontextprotocol/sdk': 1.29.0(zod@3.25.76)
+      express: 5.2.1
+      zod: 3.25.76
+    transitivePeerDependencies:
+      - '@cfworker/json-schema'
+      - supports-color
+
+  '@e-burgos/tucu-ui@2.3.0(@types/react@19.2.14)(immer@11.1.7)(react-dom@19.2.5(react@19.2.5))(react-is@18.3.1)(react@19.2.5)(tailwindcss@4.1.18)(use-sync-external-store@1.6.0(react@19.2.5))':
+    dependencies:
+      '@e-burgos/tucu-ui-mcp': 0.4.3
       '@tailwindcss/typography': 0.0.0-insiders.0339c42(tailwindcss@4.1.18)
       classnames: 2.5.1
       framer-motion: 12.23.3(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
@@ -8285,11 +8303,13 @@ snapshots:
       tailwindcss: 4.1.18
       zustand: 5.0.9(@types/react@19.2.14)(immer@11.1.7)(react@19.2.5)(use-sync-external-store@1.6.0(react@19.2.5))
     transitivePeerDependencies:
+      - '@cfworker/json-schema'
       - '@emotion/is-prop-valid'
       - '@types/react'
       - immer
       - react-is
       - redux
+      - supports-color
       - use-sync-external-store
 
   '@emnapi/core@1.8.1':
@@ -15519,7 +15539,7 @@ snapshots:
       - supports-color
       - terser
 
-  vitest@2.1.9(@types/node@18.16.9)(@vitest/ui@1.6.1(vitest@1.6.1))(jsdom@22.1.0)(lightningcss@1.30.2)(terser@5.44.1):
+  vitest@2.1.9(@types/node@18.16.9)(@vitest/ui@1.6.1)(jsdom@22.1.0)(lightningcss@1.30.2)(terser@5.44.1):
     dependencies:
       '@vitest/expect': 2.1.9
       '@vitest/mocker': 2.1.9(vite@5.4.21(@types/node@18.16.9)(lightningcss@1.30.2)(terser@5.44.1))
