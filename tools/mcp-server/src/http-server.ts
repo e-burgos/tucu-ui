@@ -8,8 +8,6 @@ const PORT = parseInt(process.env.PORT || '3100', 10);
 const app: Express = express();
 const limiter = new RateLimiter(100, 60_000);
 
-app.use(express.json());
-
 // Welcome page
 app.get('/', (_req, res) => {
   res.setHeader('Content-Type', 'text/html');
@@ -18,7 +16,7 @@ app.get('/', (_req, res) => {
 
 // Health check — no auth required
 app.get('/health', (_req, res) => {
-  res.json({ status: 'ok', version: '0.4.0' });
+  res.json({ status: 'ok', version: '0.5.0' });
 });
 
 // Rate limiting middleware
@@ -171,7 +169,7 @@ function getWelcomePage(): string {
   <div class="container">
     <div class="logo">T</div>
     <h1>tucu-ui MCP Server</h1>
-    <span class="version">v0.4.0</span>
+    <span class="version">v0.5.0</span>
     <p>
       Model Context Protocol server for the
       <strong>@e-burgos/tucu-ui</strong> component library.

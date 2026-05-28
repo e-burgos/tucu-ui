@@ -149,6 +149,7 @@ Para cada paquete seleccionado:
    git diff --cached --stat # cambios staged
    ```
 2. Si hay cambios sin commitear:
+
    - Agrupar archivos por contexto lógico (library, mcp, docs, config)
    - Crear commits con mensajes descriptivos usando conventional commits
    - Ejemplo de agrupación:
@@ -163,6 +164,7 @@ Para cada paquete seleccionado:
      git add docs/ README.md CHANGELOG.md
      git commit -m "docs: update changelog and readme for release"
      ```
+
 3. Si todos los cambios son del release (CHANGELOG, README, version bumps), commitearlos juntos:
    ```bash
    git add -A
@@ -220,10 +222,22 @@ Antes de publicar tucu-ui, verificar que `ui/tucu-ui/package.json` referencia la
 #### Publicar `@e-burgos/tucu-ui-mcp`:
 
 ```bash
-# 1. Build
+# 1. Actualizar versión en http-server.ts (welcome page y health check)
+node -e "
+const fs = require('fs');
+const v = '<NEW_VERSION>';
+const file = './tools/mcp-server/src/http-server.ts';
+let src = fs.readFileSync(file, 'utf8');
+src = src.replace(/<span class=\\\"version\\\">v[^<]+<\/span>/, '<span class=\\\"version\\\">v' + v + '<\/span>');
+src = src.replace(/res\.json\(\{ status: 'ok', version: '[^']+' \}\)/, \"res.json({ status: 'ok', version: '\" + v + \"' })\");
+fs.writeFileSync(file, src);
+console.log('http-server.ts actualizado a v' + v);
+"
+
+# 2. Build
 pnpm nx run tucu-ui-mcp:build
 
-# 2. Publish (npm solicita OTP automáticamente si 2FA está habilitado)
+# 3. Publish (npm solicita OTP automáticamente si 2FA está habilitado)
 cd tools/mcp-server && npm publish --access public
 ```
 
