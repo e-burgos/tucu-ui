@@ -162,8 +162,8 @@ importers:
   apps/demo:
     dependencies:
       '@e-burgos/tucu-ui':
-        specifier: ^2.4.0
-        version: 2.4.0(@types/react@19.2.14)(immer@11.1.7)(react-dom@19.2.5(react@19.2.5))(react-is@18.3.1)(react@19.2.5)(tailwindcss@4.1.18)(use-sync-external-store@1.6.0(react@19.2.5))
+        specifier: ^2.4.1
+        version: 2.4.1(@types/react@19.2.14)(immer@11.1.7)(react-dom@19.2.5(react@19.2.5))(react-is@18.3.1)(react@19.2.5)(tailwindcss@4.1.18)(use-sync-external-store@1.6.0(react@19.2.5))
       react:
         specifier: ^19.2.5
         version: 19.2.5
@@ -966,8 +966,8 @@ packages:
     engines: {node: '>=20'}
     hasBin: true
 
-  '@e-burgos/tucu-ui@2.4.0':
-    resolution: {integrity: sha512-/xpelvyst4rqTKUHbFTfHX1E4n1x8DWEopProej6JTpAnXASHDRRXAhI9WzfWOYvVLFjbLWozVuWYP1N4paUlw==}
+  '@e-burgos/tucu-ui@2.4.1':
+    resolution: {integrity: sha512-AzlKB2hNU9Rk+sx/VoZPGc+gWw/RPK3mfuw4JjWSX1PqWxzJdvDbQqEU6iXAJs2nEu21u0sl0HMecipfh/wlag==}
     peerDependencies:
       react: '>=18.0.0'
       react-dom: '>=18.0.0'
@@ -8285,7 +8285,7 @@ snapshots:
       - '@cfworker/json-schema'
       - supports-color
 
-  '@e-burgos/tucu-ui@2.4.0(@types/react@19.2.14)(immer@11.1.7)(react-dom@19.2.5(react@19.2.5))(react-is@18.3.1)(react@19.2.5)(tailwindcss@4.1.18)(use-sync-external-store@1.6.0(react@19.2.5))':
+  '@e-burgos/tucu-ui@2.4.1(@types/react@19.2.14)(immer@11.1.7)(react-dom@19.2.5(react@19.2.5))(react-is@18.3.1)(react@19.2.5)(tailwindcss@4.1.18)(use-sync-external-store@1.6.0(react@19.2.5))':
     dependencies:
       '@e-burgos/tucu-ui-mcp': 0.5.0
       '@tailwindcss/typography': 0.0.0-insiders.0339c42(tailwindcss@4.1.18)

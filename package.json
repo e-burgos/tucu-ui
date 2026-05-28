@@ -6,6 +6,7 @@
   "private": true,
   "scripts": {
     "tucu-ui:build": "pnpm nx run tucu-ui:build",
+    "tucu-ui:npm:publish": "cd dist/ui/tucu-ui && npm publish --access public",
     "tucu-ui:publish": "node scripts/publish.mjs",
     "tucu-ui:publish:patch": "node scripts/publish.mjs patch",
     "tucu-ui:publish:minor": "node scripts/publish.mjs minor",

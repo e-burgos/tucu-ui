@@ -6,6 +6,7 @@ export interface CardTitleProps {
   title?: string;
   children?: React.ReactNode;
   className?: string;
+  titleClassName?: string;
 }
 
 export const CardTitle: React.FC<CardTitleProps> = ({
@@ -13,6 +14,7 @@ export const CardTitle: React.FC<CardTitleProps> = ({
   title,
   children,
   className,
+  titleClassName,
 }) => {
   return (
     <fieldset
@@ -30,7 +32,8 @@ export const CardTitle: React.FC<CardTitleProps> = ({
           data-tucu="card-title-label"
           className={cn(
             'font-bold sm:text-xl text-lg dark:text-white text-current px-2 w-fit',
-            border ? 'ml-4' : 'absolute -top-4 left-4 m-0'
+            border ? 'ml-4' : 'absolute -top-4 left-4 m-0',
+            titleClassName
           )}
         >
           {title}
