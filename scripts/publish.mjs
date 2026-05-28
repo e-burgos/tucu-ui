@@ -340,7 +340,9 @@ if (publishOnly) {
   }
 
   log(`Publishing ${packageName}@${currentVersion} to npm...`);
-  const publishCmd = `pnpm npm publish --access public --no-git-checks${otp ? ` --otp=${otp}` : ''}`;
+  const publishCmd = `pnpm npm publish --access public --no-git-checks${
+    otp ? ` --otp=${otp}` : ''
+  }`;
   exec(publishCmd, {
     cwd: resolve(ROOT, 'dist/ui/tucu-ui'),
   });
@@ -402,10 +404,16 @@ if (dryRun) {
   let latestMcpVersion = 'unknown';
   try {
     latestMcpVersion = execSync(`npm view ${mcpDepName} version 2>/dev/null`, {
-      encoding: 'utf-8', stdio: 'pipe', cwd: ROOT,
+      encoding: 'utf-8',
+      stdio: 'pipe',
+      cwd: ROOT,
     }).trim();
-  } catch { /* ignore */ }
-  console.log(`  MCP dep: ${currentMcpDep} (latest on npm: ${latestMcpVersion})`);
+  } catch {
+    /* ignore */
+  }
+  console.log(
+    `  MCP dep: ${currentMcpDep} (latest on npm: ${latestMcpVersion})`
+  );
   if (!skipDocs) {
     console.log('\n  CHANGELOG entry preview:\n');
     console.log(buildChangelogEntry(nextVersion, sections));
@@ -447,7 +455,9 @@ if (pkg.dependencies && pkg.dependencies[mcpDepName]) {
       cwd: ROOT,
     }).trim();
   } catch {
-    warn(`Could not fetch latest ${mcpDepName} version from npm — skipping sync.`);
+    warn(
+      `Could not fetch latest ${mcpDepName} version from npm — skipping sync.`
+    );
     latestMcpVersion = null;
   }
   if (latestMcpVersion) {
@@ -455,7 +465,9 @@ if (pkg.dependencies && pkg.dependencies[mcpDepName]) {
     const expectedDep = `^${latestMcpVersion}`;
     if (currentMcpDep !== expectedDep) {
       pkg.dependencies[mcpDepName] = expectedDep;
-      success(`Updated ${mcpDepName} dependency: ${currentMcpDep} → ${expectedDep}`);
+      success(
+        `Updated ${mcpDepName} dependency: ${currentMcpDep} → ${expectedDep}`
+      );
     } else {
       success(`${mcpDepName} dependency already up to date (${currentMcpDep})`);
     }
