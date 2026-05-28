@@ -5,6 +5,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.4.0] - 2026-05-28
+
+### Added
+
+- Modular settings system: `SettingsDrawer` has been split into dedicated sub-components for improved composability — `BackgroundPicker`, `ColorDot`, `ColorSwatchModal`, `DefaultColorSettings`, `DirectionSwitcher`, `LayoutSwitcher`, `RestoreDefaults`, `SettingsSectionHeading`, `SonomaAccentPicker`, `SwitcherButton`, `TahoeAccentPicker`, `ThemeIcons`, `ThemeSwitcher`, and `ThemeVariantSwitcher` are now individually exported from `@e-burgos/tucu-ui`
+- `settings/index.ts` now exports all new settings sub-components
+
+### Changed
+
+- Refactored `SettingsDrawer` into thin orchestrator that composes the new modular sub-components
+- Improved macOS Sonoma CSS: `macos-foundations.css` and `macos-inputs.css` updated with refined design tokens
+- Improved macOS Tahoe CSS: `macos-foundations.css`, `macos-inputs.css`, and `macos-layouts.css` with layout consistency fixes
+- Enhanced `DockTahoe` component with improved dock interactions, icons, and hover behaviors
+- Improved `DrawerContainer`, `SidebarMenu`, and `Sidebar` dialog components for better macOS-aware behavior
+- Simplified `CollapsibleMenu` — removed redundant logic for lighter bundle
+- Improved `MenuItem` with updated aria and styling patterns
+- Updated `CardTitle` with improved typography spacing
+- Updated `MacOSTahoeDockLayout` and `LayoutContentTahoe` for alignment consistency
+
 ## [2.3.0] - 2026-05-25
 
 ### Added
