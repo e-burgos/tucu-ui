@@ -3,11 +3,15 @@ import { registerComponentTools } from './tools/component-tools.js';
 import { registerGenerationTools } from './tools/generation-tools.js';
 import { registerResources } from './resources/index.js';
 import { registerPrompts } from './prompts/index.js';
+import { createRequire } from 'module';
+
+const require = createRequire(import.meta.url);
+const { version } = require('../package.json') as { version: string };
 
 export function createMcpServer(): McpServer {
   const server = new McpServer({
     name: 'tucu-ui-mcp',
-    version: '0.5.0',
+    version,
   });
 
   registerComponentTools(server);

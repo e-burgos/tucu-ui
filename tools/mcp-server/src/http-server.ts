@@ -3,6 +3,10 @@ import { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/
 import { createMcpServer } from './server.js';
 import { authMiddleware } from './middleware/auth.js';
 import { RateLimiter } from './middleware/rate-limiter.js';
+import { createRequire } from 'module';
+
+const require = createRequire(import.meta.url);
+const { version } = require('../package.json') as { version: string };
 
 const PORT = parseInt(process.env.PORT || '3100', 10);
 const app: Express = express();
@@ -16,7 +20,7 @@ app.get('/', (_req, res) => {
 
 // Health check — no auth required
 app.get('/health', (_req, res) => {
-  res.json({ status: 'ok', version: '0.5.0' });
+  res.json({ status: 'ok', version });
 });
 
 // Rate limiting middleware
@@ -169,7 +173,7 @@ function getWelcomePage(): string {
   <div class="container">
     <div class="logo">T</div>
     <h1>tucu-ui MCP Server</h1>
-    <span class="version">v0.5.0</span>
+    <span class="version">v${version}</span>
     <p>
       Model Context Protocol server for the
       <strong>@e-burgos/tucu-ui</strong> component library.
