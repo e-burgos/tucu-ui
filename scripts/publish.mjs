@@ -7,6 +7,8 @@
  *   node scripts/publish.mjs patch              # 2.0.11 → 2.0.12
  *   node scripts/publish.mjs minor              # 2.0.11 → 2.1.0
  *   node scripts/publish.mjs major              # 2.0.11 → 3.0.0
+ *   node scripts/publish.mjs publish            # publica la versión actual sin bump ni git
+ *   node scripts/publish.mjs publish --skip-build  # igual pero salta el build
  *   node scripts/publish.mjs --dry-run patch    # simula todo sin publicar
  *   node scripts/publish.mjs --skip-docs patch  # salta actualización de docs
  *   node scripts/publish.mjs --skip-git patch   # salta verificación working tree y commit/tag
@@ -299,11 +301,62 @@ const args = process.argv.slice(2);
 const dryRun = args.includes('--dry-run');
 const skipDocs = args.includes('--skip-docs');
 const skipGit = args.includes('--skip-git');
+const skipBuild = args.includes('--skip-build');
+const publishOnly = args.includes('publish');
 const bumpType = args.find((a) => ['major', 'minor', 'patch'].includes(a));
+const otpArg = args.find((a) => a.startsWith('--otp='));
+const otp = otpArg ? otpArg.split('=')[1] : null;
+
+// ─── PUBLISH-ONLY MODE ─────────────────────────────────────
+// Publishes the current version as-is: no bump, no docs, no git commit/tag.
+if (publishOnly) {
+  const pkgPath = resolve(ROOT, 'ui/tucu-ui/package.json');
+  const pkg = JSON.parse(readFileSync(pkgPath, 'utf-8'));
+  const currentVersion = pkg.version;
+  const packageName = pkg.name;
+
+  log(`Package:  ${packageName}`);
+  log(`Version:  ${currentVersion}  (no bump — publish only)`);
+
+  if (!skipBuild) {
+    log('Building library...');
+    exec('pnpm nx run tucu-ui:build');
+    success('Build complete.');
+  } else {
+    warn('--skip-build: using existing build artifacts.');
+  }
+
+  // Sync version in dist package.json in case the build copied an older version
+  const distPkgPath = resolve(ROOT, 'dist/ui/tucu-ui/package.json');
+  try {
+    const distPkg = JSON.parse(readFileSync(distPkgPath, 'utf-8'));
+    if (distPkg.version !== currentVersion) {
+      distPkg.version = currentVersion;
+      writeFileSync(distPkgPath, JSON.stringify(distPkg, null, 2) + '\n');
+      success(`Synced dist/ui/tucu-ui/package.json → ${currentVersion}`);
+    }
+  } catch (e) {
+    error(`Could not sync dist/ui/tucu-ui/package.json: ${e.message}`);
+  }
+
+  log(`Publishing ${packageName}@${currentVersion} to npm...`);
+  const publishCmd = `pnpm npm publish --access public --no-git-checks${otp ? ` --otp=${otp}` : ''}`;
+  exec(publishCmd, {
+    cwd: resolve(ROOT, 'dist/ui/tucu-ui'),
+  });
+  success(`Published ${packageName}@${currentVersion} to npm!`);
+
+  console.log(`
+\x1b[32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\x1b[0m
+  📦  ${packageName}@${currentVersion} published!
+\x1b[32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\x1b[0m
+`);
+  process.exit(0);
+}
 
 if (!bumpType) {
   error(
-    'Missing bump type.\nUsage: node scripts/publish.mjs [--dry-run] [--skip-docs] [--skip-git] <patch|minor|major>'
+    'Missing bump type.\nUsage: node scripts/publish.mjs [--dry-run] [--skip-docs] [--skip-git] <patch|minor|major>\n       node scripts/publish.mjs publish [--skip-build]'
   );
 }
 

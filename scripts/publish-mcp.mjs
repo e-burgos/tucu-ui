@@ -5,6 +5,8 @@
  *   node scripts/publish-mcp.mjs patch              # 0.4.0 → 0.4.1
  *   node scripts/publish-mcp.mjs minor              # 0.4.0 → 0.5.0
  *   node scripts/publish-mcp.mjs major              # 0.4.0 → 1.0.0
+ *   node scripts/publish-mcp.mjs publish            # publica la versión actual sin bump ni git
+ *   node scripts/publish-mcp.mjs publish --skip-build  # igual pero salta el build
  *   node scripts/publish-mcp.mjs --dry-run patch    # simula todo sin publicar
  *   node scripts/publish-mcp.mjs --skip-docs patch  # salta actualización de docs
  *   node scripts/publish-mcp.mjs --skip-git patch   # salta verificación working tree y commit/tag
@@ -263,11 +265,47 @@ const args = process.argv.slice(2);
 const dryRun = args.includes('--dry-run');
 const skipDocs = args.includes('--skip-docs');
 const skipGit = args.includes('--skip-git');
+const skipBuild = args.includes('--skip-build');
+const publishOnly = args.includes('publish');
 const bumpType = args.find((a) => ['major', 'minor', 'patch'].includes(a));
+const otpArg = args.find((a) => a.startsWith('--otp='));
+const otp = otpArg ? otpArg.split('=')[1] : null;
+
+// ─── PUBLISH-ONLY MODE ─────────────────────────────────────
+// Publishes the current version as-is: no bump, no docs, no git commit/tag.
+if (publishOnly) {
+  const pkgPath = resolve(MCP_DIR, 'package.json');
+  const pkg = JSON.parse(readFileSync(pkgPath, 'utf-8'));
+  const currentVersion = pkg.version;
+  const packageName = pkg.name;
+
+  log(`Package:  ${packageName}`);
+  log(`Version:  ${currentVersion}  (no bump — publish only)`);
+
+  if (!skipBuild) {
+    log('Building MCP server...');
+    exec('pnpm nx run tucu-ui-mcp:build');
+    success('Build complete.');
+  } else {
+    warn('--skip-build: using existing build artifacts.');
+  }
+
+  log(`Publishing ${packageName}@${currentVersion} to npm...`);
+  const publishCmd = `npm publish --access public${otp ? ` --otp=${otp}` : ''}`;
+  exec(publishCmd, { cwd: MCP_DIR });
+  success(`Published ${packageName}@${currentVersion} to npm!`);
+
+  console.log(`
+\x1b[35m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\x1b[0m
+  🤖  ${packageName}@${currentVersion} published!
+\x1b[35m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\x1b[0m
+`);
+  process.exit(0);
+}
 
 if (!bumpType) {
   error(
-    'Missing bump type.\nUsage: node scripts/publish-mcp.mjs [--dry-run] [--skip-docs] [--skip-git] <patch|minor|major>'
+    'Missing bump type.\nUsage: node scripts/publish-mcp.mjs [--dry-run] [--skip-docs] [--skip-git] <patch|minor|major>\n       node scripts/publish-mcp.mjs publish [--skip-build]'
   );
 }
 
@@ -334,7 +372,7 @@ exec('pnpm nx run tucu-ui-mcp:build');
 success('Build complete.');
 
 log(`Publishing ${packageName}@${nextVersion} to npm...`);
-exec('npm publish --access public', { cwd: MCP_DIR });
+exec(`npm publish --access public`, { cwd: MCP_DIR });
 success(`Published ${packageName}@${nextVersion} to npm!`);
 
 // 10. Commit and tag the release (unless --skip-git)
