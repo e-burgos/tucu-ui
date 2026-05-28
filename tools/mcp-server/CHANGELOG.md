@@ -1,6 +1,7 @@
 # Changelog
 
 All notable changes to `@e-burgos/tucu-ui-mcp` will be documented in this file.
+<!-- Last updated: 2026-05-28 -->
 
 ## [0.5.0] - 2026-05-28
 
