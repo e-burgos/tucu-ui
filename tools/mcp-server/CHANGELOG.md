@@ -2,6 +2,18 @@
 
 All notable changes to `@e-burgos/tucu-ui-mcp` will be documented in this file.
 
+## [0.5.0] - 2026-05-28
+
+### Added
+
+- Registered 14 new settings-related components in the component registry: `SettingsButton`, `SettingsDrawer`, `SwitchMode`, `ThemeSwitcher`, `DefaultColorSettings`, `ColorDot`, `ColorSwatchModal`, `BackgroundPicker`, `DirectionSwitcher`, `LayoutSwitcher`, `RestoreDefaults`, `SettingsSectionHeading`, `SonomaAccentPicker`, `TahoeAccentPicker`, `ThemeVariantSwitcher`, and `SwitcherButton`
+
+### Changed
+
+- Expanded `routing` resource with comprehensive documentation: MFE routing patterns, standalone routing guide, route guards, lazy loading, nested routes, and integration examples
+- Expanded `theme` resource with detailed token documentation, dark/light mode guide, macOS Sonoma/Tahoe theming patterns, and custom theme creation examples
+- Updated `catalog` resource to reflect new settings components category
+
 ## [0.4.3] - 2026-05-25
 
 ### Changed
