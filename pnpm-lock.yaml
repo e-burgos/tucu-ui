@@ -162,8 +162,8 @@ importers:
   apps/demo:
     dependencies:
       '@e-burgos/tucu-ui':
-        specifier: ^2.3.0
-        version: 2.3.0(@types/react@19.2.14)(immer@11.1.7)(react-dom@19.2.5(react@19.2.5))(react-is@18.3.1)(react@19.2.5)(tailwindcss@4.1.18)(use-sync-external-store@1.6.0(react@19.2.5))
+        specifier: ^2.4.0
+        version: 2.4.0(@types/react@19.2.14)(immer@11.1.7)(react-dom@19.2.5(react@19.2.5))(react-is@18.3.1)(react@19.2.5)(tailwindcss@4.1.18)(use-sync-external-store@1.6.0(react@19.2.5))
       react:
         specifier: ^19.2.5
         version: 19.2.5
@@ -294,8 +294,8 @@ importers:
   ui/tucu-ui:
     dependencies:
       '@e-burgos/tucu-ui-mcp':
-        specifier: ^0.4.3
-        version: 0.4.3
+        specifier: ^0.5.0
+        version: 0.5.0
       '@tailwindcss/typography':
         specifier: 0.0.0-insiders.0339c42
         version: 0.0.0-insiders.0339c42(tailwindcss@4.1.18)
@@ -961,13 +961,13 @@ packages:
     resolution: {integrity: sha512-IchNf6dN4tHoMFIn/7OE8LWZ19Y6q/67Bmf6vnGREv8RSbBVb9LPJxEcnwrcwX6ixSvaiGoomAUvu4YSxXrVgw==}
     engines: {node: '>=12'}
 
-  '@e-burgos/tucu-ui-mcp@0.4.3':
-    resolution: {integrity: sha512-3Jn6LvFqM91zQzdUJKzPyxiNHfJKfvz1HxJydD037eQF6lOBKHqDiPPuIKqkAkul8Y7PIUJ5Zk6FkvamlDKJlg==}
+  '@e-burgos/tucu-ui-mcp@0.5.0':
+    resolution: {integrity: sha512-r8JZ6MKWk7dMA2jj+qJi+GKWSWpkMehB2Fik+4ll62RKYGUc/RhI4YVDW10DMGi8Av0IUzMftAVTZxRick8hPg==}
     engines: {node: '>=20'}
     hasBin: true
 
-  '@e-burgos/tucu-ui@2.3.0':
-    resolution: {integrity: sha512-UwrgBdTZAzPCSn/eNK7ElGRHKTZVaj0AieevnjqwCrSOECc03jCkcw50BouqENWQ2Jji7fIThVvoRXsL0yrl4A==}
+  '@e-burgos/tucu-ui@2.4.0':
+    resolution: {integrity: sha512-/xpelvyst4rqTKUHbFTfHX1E4n1x8DWEopProej6JTpAnXASHDRRXAhI9WzfWOYvVLFjbLWozVuWYP1N4paUlw==}
     peerDependencies:
       react: '>=18.0.0'
       react-dom: '>=18.0.0'
@@ -8276,7 +8276,7 @@ snapshots:
     dependencies:
       '@jridgewell/trace-mapping': 0.3.9
 
-  '@e-burgos/tucu-ui-mcp@0.4.3':
+  '@e-burgos/tucu-ui-mcp@0.5.0':
     dependencies:
       '@modelcontextprotocol/sdk': 1.29.0(zod@3.25.76)
       express: 5.2.1
@@ -8285,9 +8285,9 @@ snapshots:
       - '@cfworker/json-schema'
       - supports-color
 
-  '@e-burgos/tucu-ui@2.3.0(@types/react@19.2.14)(immer@11.1.7)(react-dom@19.2.5(react@19.2.5))(react-is@18.3.1)(react@19.2.5)(tailwindcss@4.1.18)(use-sync-external-store@1.6.0(react@19.2.5))':
+  '@e-burgos/tucu-ui@2.4.0(@types/react@19.2.14)(immer@11.1.7)(react-dom@19.2.5(react@19.2.5))(react-is@18.3.1)(react@19.2.5)(tailwindcss@4.1.18)(use-sync-external-store@1.6.0(react@19.2.5))':
     dependencies:
-      '@e-burgos/tucu-ui-mcp': 0.4.3
+      '@e-burgos/tucu-ui-mcp': 0.5.0
       '@tailwindcss/typography': 0.0.0-insiders.0339c42(tailwindcss@4.1.18)
       classnames: 2.5.1
       framer-motion: 12.23.3(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
