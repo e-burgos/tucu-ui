@@ -11,20 +11,65 @@ Workflow completo y orquestado para publicar uno o ambos paquetes del monorepo.
 
 ## Paquetes
 
-| Paquete                 | Directorio          | Tag prefix   | npm                                              |
-| ----------------------- | ------------------- | ------------ | ------------------------------------------------ |
-| `@e-burgos/tucu-ui`     | `ui/tucu-ui/`       | `tucu-ui-v`  | https://www.npmjs.com/package/@e-burgos/tucu-ui   |
-| `@e-burgos/tucu-ui-mcp` | `tools/mcp-server/` | `mcp-v`      | https://www.npmjs.com/package/@e-burgos/tucu-ui-mcp |
+| Paquete                 | Directorio          | Tag prefix  | npm                                                 |
+| ----------------------- | ------------------- | ----------- | --------------------------------------------------- |
+| `@e-burgos/tucu-ui`     | `ui/tucu-ui/`       | `tucu-ui-v` | https://www.npmjs.com/package/@e-burgos/tucu-ui     |
+| `@e-burgos/tucu-ui-mcp` | `tools/mcp-server/` | `mcp-v`     | https://www.npmjs.com/package/@e-burgos/tucu-ui-mcp |
 
 ---
 
 ## Workflow Completo (pasos obligatorios en orden)
+
+### Paso 0 — Verificar y preparar rama de trabajo
+
+**Antes de cualquier otra acción**, verificar en qué rama se está trabajando:
+
+```bash
+git branch --show-current
+```
+
+#### Si la rama actual es `main`:
+
+1. Determinar la versión del release (puede hacerse a continuación en el Paso 3, pero si el usuario ya la indicó, usarla aquí directamente).
+2. Crear una nueva rama de release **a partir de `main`** con el formato `release/v<version>`:
+
+   ```bash
+   git checkout -b release/v<version>
+   ```
+
+   Ejemplo: `git checkout -b release/v2.5.0`
+
+   > Si aún no se conoce la versión exacta (porque el tipo de bump se pregunta en el Paso 3), crear la rama con un nombre provisional como `release/next` y **renombrarla** al confirmar la versión:
+   >
+   > ```bash
+   > git checkout -b release/next
+   > # ... tras determinar la versión ...
+   > git branch -m release/next release/v<version>
+   > ```
+
+3. Informar al usuario:
+   ```
+   ⚠️  Estabas en 'main'. Se creó la rama 'release/v<version>' a partir de main.
+   Todos los commits del release irán a esta rama y se abrirá un PR hacia main al finalizar.
+   ```
+
+#### Si la rama actual ya es una rama de release o feature:
+
+- Continuar sin crear ninguna rama nueva.
+- Informar al usuario la rama activa: `ℹ️  Trabajando en la rama '<branch>'.`
+
+#### Nunca commitear directamente en `main`:
+
+> ⚠️ REGLA ABSOLUTA: Todos los commits del proceso de release (CHANGELOG, bump de versión, tags) deben ir en una rama dedicada. **Nunca** en `main` directamente.
+
+---
 
 ### Paso A — Consultar qué publicar
 
 **Pregunta al usuario** (si no lo indicó explícitamente):
 
 > ¿Qué deseas publicar?
+>
 > - `tucu-ui` — Solo la librería de componentes
 > - `mcp` — Solo el MCP server
 > - `ambas` — Ambos paquetes (MCP primero, luego tucu-ui)
@@ -107,13 +152,14 @@ Para cada paquete seleccionado:
    - Agrupar archivos por contexto lógico (library, mcp, docs, config)
    - Crear commits con mensajes descriptivos usando conventional commits
    - Ejemplo de agrupación:
+
      ```bash
      git add ui/tucu-ui/...
      git commit -m "feat(tucu-ui): add new Button variants"
-     
+
      git add tools/mcp-server/...
      git commit -m "feat(mcp): sync catalog with library changes"
-     
+
      git add docs/ README.md CHANGELOG.md
      git commit -m "docs: update changelog and readme for release"
      ```
@@ -203,6 +249,7 @@ cd dist/ui/tucu-ui && npm publish --access public
 > El publish con OTP funciona automáticamente — npm solicita el código en la terminal.
 
 **Después de cada publicación exitosa**, crear commit y tag:
+
 ```bash
 git add <archivos modificados>
 git commit -m "chore: release @e-burgos/<package>@<version>"
@@ -220,11 +267,13 @@ cd tools/mcp-server && flyctl deploy
 ```
 
 Verificar deploy:
+
 ```bash
 curl https://tucu-ui-mcp.fly.dev/health
 ```
 
 Si `flyctl` no está disponible:
+
 ```bash
 brew install flyctl
 flyctl auth login
@@ -235,12 +284,14 @@ flyctl auth login
 ### Paso 8 — Verificación final y push
 
 1. Verificar publicación:
+
    ```bash
    npm view @e-burgos/tucu-ui version          # si se publicó tucu-ui
    npm view @e-burgos/tucu-ui-mcp version       # si se publicó mcp
    ```
 
 2. Mostrar resumen al usuario:
+
    ```
    ✅ Publicación completada:
    - @e-burgos/tucu-ui: X.Y.Z → A.B.C (npm ✓)
@@ -248,10 +299,31 @@ flyctl auth login
    ```
 
 3. **Preguntar al usuario** si desea push a origin:
+
    ```bash
    git push origin <branch> --tags
    ```
+
    > ⚠️ Acción irreversible en remoto — SIEMPRE pedir confirmación.
+
+4. Si la rama fue creada desde `main` (Paso 0), **crear un PR** hacia `main` al finalizar el push:
+
+   ```bash
+   gh pr create \
+     --title "release: @e-burgos/<package>@<version>" \
+     --body "Release automático generado por el agente de publish.
+
+   ## Cambios incluidos
+   - Bump de versión: X.Y.Z → A.B.C
+   - CHANGELOG actualizado
+   - README actualizado
+
+   Ver detalles completos en CHANGELOG.md" \
+     --base main \
+     --head <branch>
+   ```
+
+   Informar al usuario con la URL del PR creado.
 
 ---
 
@@ -269,10 +341,10 @@ node scripts/publish-mcp.mjs [--dry-run] [--skip-docs] [--skip-git] <patch|minor
 
 ### Flags
 
-| Flag          | Efecto                                              |
-| ------------- | --------------------------------------------------- |
-| `--dry-run`   | Simula todo sin aplicar cambios ni publicar         |
-| `--skip-docs` | Salta la actualización de CHANGELOG y README        |
+| Flag          | Efecto                                                       |
+| ------------- | ------------------------------------------------------------ |
+| `--dry-run`   | Simula todo sin aplicar cambios ni publicar                  |
+| `--skip-docs` | Salta la actualización de CHANGELOG y README                 |
 | `--skip-git`  | Salta verificación de working tree limpio y commit/tag final |
 
 ### pnpm shortcuts
@@ -295,15 +367,15 @@ pnpm mcp:publish:dry
 
 ## Troubleshooting
 
-| Problema                              | Solución                                                                      |
-| ------------------------------------- | ----------------------------------------------------------------------------- |
-| `Version X.Y.Z already exists on npm` | Elegir un tipo de bump diferente                                              |
-| `403 Forbidden` / `401 Unauthorized`  | `npm login` y verificar pertenencia a org `e-burgos`                          |
-| Build falla                           | Revisar errores: `pnpm nx run <project>:lint`                                 |
-| `git tag` ya existe                   | Borrar: `git tag -d <tag>` y re-ejecutar                                      |
-| `flyctl: command not found`           | `brew install flyctl && flyctl auth login`                                    |
-| OTP no llega                          | Verificar email/authenticator configurado en npmjs.com                         |
-| Publish exitoso sin tag               | Crear tag manual: `git tag <prefix>v<version> && git push origin --tags`      |
+| Problema                              | Solución                                                                 |
+| ------------------------------------- | ------------------------------------------------------------------------ |
+| `Version X.Y.Z already exists on npm` | Elegir un tipo de bump diferente                                         |
+| `403 Forbidden` / `401 Unauthorized`  | `npm login` y verificar pertenencia a org `e-burgos`                     |
+| Build falla                           | Revisar errores: `pnpm nx run <project>:lint`                            |
+| `git tag` ya existe                   | Borrar: `git tag -d <tag>` y re-ejecutar                                 |
+| `flyctl: command not found`           | `brew install flyctl && flyctl auth login`                               |
+| OTP no llega                          | Verificar email/authenticator configurado en npmjs.com                   |
+| Publish exitoso sin tag               | Crear tag manual: `git tag <prefix>v<version> && git push origin --tags` |
 
 ---
 
