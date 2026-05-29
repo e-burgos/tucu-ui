@@ -14,6 +14,7 @@
     "tucu-ui:publish:dry": "node scripts/publish.mjs --dry-run patch",
     "tucu-ui:publish:legacy": "pnpm nx run tucu-ui:publish:lib",
     "mcp:publish": "node scripts/publish-mcp.mjs",
+    "mcp:npm:publish": "cd tools/mcp-server && npm publish --access public",
     "mcp:publish:patch": "node scripts/publish-mcp.mjs patch",
     "mcp:publish:minor": "node scripts/publish-mcp.mjs minor",
     "mcp:publish:major": "node scripts/publish-mcp.mjs major",
