@@ -3,15 +3,32 @@
 export function getChangelogContent(): string {
   return `# Changelog — @e-burgos/tucu-ui
 
-## v2.0.8 (Current)
+## v2.5.0 (Current)
+- Fix: macOS theme active/inactive menu color inconsistencies on sidebar, navbar, and TOC items
+- Fix: Preserved theme settings configuration per colorScheme using Zustand themeConfigInterceptor middleware
+
+## v2.4.0
+- Add: Modular settings system (SettingsDrawer split into dedicated sub-components like BackgroundPicker, ColorDot, etc.)
+- Perf: Refactored SettingsDrawer to compose the new modular sub-components
+- Refine: macOS Sonoma and Tahoe layout, foundations, and dock styles
+
+## v2.3.0
+- Add: \`@e-burgos/tucu-ui-mcp\` dependency to the library for agentic tooling
+
+## v2.1.0 - v2.2.0
+- Add: macOS Tahoe components suite, showcase pages, and demo sections
+- Add: HTTP transport, Docker, and CI/CD pipelines
+- Add: Component theme registry and generation tools
+
+## v2.0.11
+- Add: \`ThemeBackground\` component with 10 background variants (replacing \`MacOSBackground\`)
+- Add: Settings Drawer Visual Color Editor (\`ColorSwatchModal\` and \`ColorDot\`)
+- Add: Status, foreground, and border presets in the theme store
+
+## v2.0.8
 - Fix: InputSearcher multiple selection edge cases
 - Fix: Modal backdrop z-index on nested modals
 - Perf: Reduced bundle size for icon re-exports
-
-## v2.0.7
-- Add: macOS Tahoe layout with rounded corners
-- Add: applyMacOSTheme() and applyDefaultTheme() actions on useTheme
-- Fix: Dark mode token inconsistencies on macOS presets
 
 ## v2.0.6
 - Add: InfoCard component with multi-column support

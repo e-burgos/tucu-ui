@@ -2,7 +2,19 @@
 
 All notable changes to `@e-burgos/tucu-ui-mcp` will be documented in this file.
 
-<!-- Last updated: 2026-05-28 -->
+<!-- Last updated: 2026-05-29 -->
+
+## [0.5.1] - 2026-05-29
+
+### Changed
+
+- Updated `theme` resource to document `themeConfigs` schema and state persistence
+- Added `macos-tahoe` theme variant to `theme-setup` prompt
+- Updated `catalog` resource with updated tucu-ui library version reference (`2.4.1` -> `2.5.0`)
+
+### Fixed
+
+- Resolved test failure in HTTP health check test by reading version dynamically from `package.json`
 
 ## [0.5.0] - 2026-05-28
 
