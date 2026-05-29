@@ -4,6 +4,13 @@ All notable changes to `@e-burgos/tucu-ui-mcp` will be documented in this file.
 
 <!-- Last updated: 2026-05-29 -->
 
+## [0.5.2] - 2026-05-29
+
+### Fixed
+
+- Resolved timingSafeEqual parameter type mismatch in express auth middleware
+- Fixed out-of-rootDir compilation error by mapping library path directly to index.ts in base tsconfig
+
 ## [0.5.1] - 2026-05-29
 
 ### Changed

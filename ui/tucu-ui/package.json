@@ -44,7 +44,7 @@
     "pack:lib": "cd ../../ui/tucu-ui && pnpm npm pack"
   },
   "dependencies": {
-    "@e-burgos/tucu-ui-mcp": "^0.5.1",
+    "@e-burgos/tucu-ui-mcp": "^0.5.2",
     "@tailwindcss/typography": "0.0.0-insiders.0339c42",
     "classnames": "^2.5.1",
     "framer-motion": "12.23.3",
