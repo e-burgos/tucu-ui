@@ -56,7 +56,8 @@ COLOR PRESETS (34 total):
 
 THEME VARIANTS:
 - 'default' — Standard design system
-- 'macos' — Apple-inspired with vibrancy
+- 'macos' — Apple-inspired with vibrancy (Sonoma)
+- 'macos-tahoe' — Apple-inspired with rounded corners (Tahoe)
 
 RULES:
 - Always use semantic tokens (bg-primary, text-secondary, etc.)

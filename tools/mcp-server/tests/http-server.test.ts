@@ -1,16 +1,20 @@
 import { describe, it, expect, afterEach } from 'vitest';
 import request from 'supertest';
+import { createRequire } from 'module';
+
+const require = createRequire(import.meta.url);
+const { version } = require('../package.json') as { version: string };
 
 describe('HTTP Server', () => {
   afterEach(() => {
     delete process.env.MCP_API_KEY;
   });
 
-  it('GET /health returns status ok and version 0.4.0', async () => {
+  it('GET /health returns status ok and correct version', async () => {
     const { app } = await import('../src/http-server.js');
     const res = await request(app).get('/health');
     expect(res.status).toBe(200);
-    expect(res.body).toEqual({ status: 'ok', version: '0.4.0' });
+    expect(res.body).toEqual({ status: 'ok', version });
   });
 
   it('GET /health does not require auth', async () => {
