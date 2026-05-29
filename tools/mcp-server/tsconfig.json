@@ -9,8 +9,7 @@
     "resolveJsonModule": true,
     "outDir": "./dist",
     "rootDir": "./src",
-    "skipLibCheck": true,
-    "paths": {}
+    "skipLibCheck": true
   },
   "include": ["src/**/*"]
 }
