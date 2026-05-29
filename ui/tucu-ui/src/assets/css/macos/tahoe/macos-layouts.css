@@ -279,8 +279,8 @@ html.light.macos-tahoe {
   --macos-tahoe-toolbar-bg: rgba(255, 255, 255, 0.32);
   --macos-separator: var(--color-semantic-line-primary-subtle);
   --macos-tahoe-border: var(--color-semantic-line-primary-subtle);
-  --macos-tahoe-text: #273642;
-  --macos-tahoe-text-muted: rgba(39, 54, 66, 0.66);
+  --macos-tahoe-text: var(--color-semantic-fg, #273642);
+  --macos-tahoe-text-muted: var(--color-semantic-fg-muted, rgba(39, 54, 66, 0.66));
   --macos-tahoe-accent: var(--color-brand, #0b84ff);
   --macos-tahoe-selection: color-mix(
     in srgb,
@@ -288,8 +288,8 @@ html.light.macos-tahoe {
     transparent
   );
   --macos-tahoe-hover: rgba(255, 255, 255, 0.3);
-  --macos-tahoe-sidebar-item-text: rgba(41, 54, 65, 0.9);
-  --macos-tahoe-sidebar-item-icon: rgba(67, 82, 95, 0.82);
+  --macos-tahoe-sidebar-item-text: var(--color-semantic-fg, rgba(41, 54, 65, 0.9));
+  --macos-tahoe-sidebar-item-icon: var(--color-semantic-fg-muted, rgba(67, 82, 95, 0.82));
   --macos-tahoe-sidebar-item-active-bg: rgba(231, 237, 243, 0.88);
   --macos-tahoe-sidebar-item-active-text: color-mix(
     in srgb,
@@ -332,8 +332,8 @@ html.dark.macos-tahoe {
   --macos-tahoe-toolbar-bg: rgba(19, 24, 30, 0.48);
   --macos-separator: var(--color-semantic-dark-line-primary-subtle);
   --macos-tahoe-border: var(--color-semantic-dark-line-primary-subtle);
-  --macos-tahoe-text: rgba(255, 255, 255, 0.92);
-  --macos-tahoe-text-muted: rgba(255, 255, 255, 0.5);
+  --macos-tahoe-text: var(--color-semantic-dark-fg, rgba(255, 255, 255, 0.92));
+  --macos-tahoe-text-muted: var(--color-semantic-dark-fg-muted, rgba(255, 255, 255, 0.5));
   --macos-tahoe-accent: var(--color-brand, #3aa5ff);
   --macos-tahoe-selection: color-mix(
     in srgb,
@@ -341,8 +341,8 @@ html.dark.macos-tahoe {
     transparent
   );
   --macos-tahoe-hover: rgba(255, 255, 255, 0.06);
-  --macos-tahoe-sidebar-item-text: rgba(255, 255, 255, 0.88);
-  --macos-tahoe-sidebar-item-icon: rgba(255, 255, 255, 0.5);
+  --macos-tahoe-sidebar-item-text: var(--color-semantic-dark-fg, rgba(255, 255, 255, 0.88));
+  --macos-tahoe-sidebar-item-icon: var(--color-semantic-dark-fg-muted, rgba(255, 255, 255, 0.5));
   --macos-tahoe-sidebar-item-active-bg: color-mix(
     in srgb,
     var(--color-brand, #3aa5ff) 15%,

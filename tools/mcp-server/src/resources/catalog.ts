@@ -5,7 +5,7 @@ export function getCatalogContent(): string {
 
 ## Package Info
 - **Name**: @e-burgos/tucu-ui
-- **Version**: 2.0.8
+- **Version**: 2.4.1
 - **Peer Deps**: react >=18, react-dom >=18, tailwindcss >=4
 - **Dependencies**: framer-motion, lucide-react, react-hook-form, react-router-dom v7.9, recharts v3.8, swiper v11.2, zustand v5, classnames, react-use, prismjs
 

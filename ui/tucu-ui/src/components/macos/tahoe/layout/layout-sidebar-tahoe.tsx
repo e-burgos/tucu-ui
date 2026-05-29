@@ -85,11 +85,11 @@ export function MacOSTahoeLayoutSidebar({
       'group flex w-full items-center gap-[8px] transition-colors duration-150 select-none',
       compact
         ? active
-          ? 'h-[32px] rounded-[12px] border border-(--macos-tahoe-sidebar-item-active-stroke) px-[12px] text-[12px] font-semibold bg-(--macos-tahoe-sidebar-item-active-bg) text-(--macos-tahoe-sidebar-item-active-text)'
-          : 'h-[32px] rounded-[12px] px-[12px] text-[12px] font-normal text-(--macos-tahoe-sidebar-item-text) dark:text-white/[.88] hover:bg-(--macos-tahoe-sidebar-item-hover-bg)'
+          ? 'h-[32px] rounded-[12px] border border-(--macos-tahoe-sidebar-item-active-stroke) px-[12px] text-[12px] font-semibold bg-(--macos-tahoe-sidebar-item-active-bg) text-brand!'
+          : 'h-[32px] rounded-[12px] px-[12px] text-[12px] font-normal text-foreground! hover:bg-(--macos-tahoe-sidebar-item-hover-bg)'
         : active
-        ? 'h-[36px] rounded-[12px] border border-(--macos-tahoe-sidebar-item-active-stroke) px-[12px] text-[13px] font-semibold bg-(--macos-tahoe-sidebar-item-active-bg) text-(--macos-tahoe-sidebar-item-active-text)'
-        : 'h-[36px] rounded-[12px] px-[12px] text-[13px] font-normal text-(--macos-tahoe-sidebar-item-text) dark:text-white/[.88] hover:bg-(--macos-tahoe-sidebar-item-hover-bg)'
+        ? 'h-[36px] rounded-[12px] border border-(--macos-tahoe-sidebar-item-active-stroke) px-[12px] text-[13px] font-semibold bg-(--macos-tahoe-sidebar-item-active-bg) text-brand!'
+        : 'h-[36px] rounded-[12px] px-[12px] text-[13px] font-normal text-foreground! hover:bg-(--macos-tahoe-sidebar-item-hover-bg)'
     );
 
   const getSidebarIconClassName = (active: boolean, compact = false) =>
@@ -98,8 +98,8 @@ export function MacOSTahoeLayoutSidebar({
         ? 'h-[14px] w-[14px] shrink-0 [&>svg]:h-[14px] [&>svg]:w-[14px]'
         : 'h-[16px] w-[16px] shrink-0 [&>svg]:h-[16px] [&>svg]:w-[16px]',
       active
-        ? 'text-(--macos-tahoe-sidebar-item-active-icon)'
-        : 'text-(--macos-tahoe-sidebar-item-icon) dark:text-white/50 group-hover:text-(--macos-tahoe-sidebar-item-text) dark:group-hover:text-white/[.88]'
+        ? 'text-brand!'
+        : 'text-foreground/50! group-hover:text-foreground/80'
     );
 
   const renderSidebarItems = () =>

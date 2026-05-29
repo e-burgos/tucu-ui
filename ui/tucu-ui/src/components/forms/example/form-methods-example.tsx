@@ -56,7 +56,7 @@ export const FormMethodsExample: React.FC = () => {
   };
 
   return (
-    <div className="mt-[32px] border border-border bg-white rounded-lg p-[16px]">
+    <div className="mt-[32px] border border-border bg-light-dark rounded-lg p-[16px]">
       <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-[16px]">
         Form Methods Example
       </h3>

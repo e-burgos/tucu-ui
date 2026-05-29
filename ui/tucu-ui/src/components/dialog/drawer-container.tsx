@@ -137,13 +137,13 @@ export function DrawerContainer({
   }
 
   const backdropClasses = cn(
-    'fixed inset-0 w-screen h-screen transition-opacity duration-300 ease-out',
+    'fixed inset-0 w-screen h-dvh transition-opacity duration-300 ease-out',
     isAnimating ? 'opacity-100' : 'opacity-0',
     backdropClassName ?? (backdrop ? 'bg-gray-700/10 backdrop-blur-xs' : '')
   );
 
   const drawerClasses = cn(
-    'fixed inset-y-0 h-screen w-full max-w-full min-[500px]:w-auto pointer-events-none transition-transform duration-300 ease-out',
+    'fixed inset-y-0 h-dvh max-h-dvh w-full max-w-full min-[500px]:w-auto pointer-events-none transition-transform duration-300 ease-out',
     position === 'left'
       ? cn(
           'ltr:left-0 rtl:right-0',

@@ -122,6 +122,9 @@ importers:
       nx:
         specifier: 22.5.2
         version: 22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.8(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.8(@swc/helpers@0.5.19))
+      playwright:
+        specifier: ^1.60.0
+        version: 1.60.0
       postcss:
         specifier: 8.4.38
         version: 8.4.38
@@ -162,8 +165,8 @@ importers:
   apps/demo:
     dependencies:
       '@e-burgos/tucu-ui':
-        specifier: ^2.4.1
-        version: 2.4.1(@types/react@19.2.14)(immer@11.1.7)(react-dom@19.2.5(react@19.2.5))(react-is@18.3.1)(react@19.2.5)(tailwindcss@4.1.18)(use-sync-external-store@1.6.0(react@19.2.5))
+        specifier: ^2.5.0
+        version: 2.5.0(@types/react@19.2.14)(immer@11.1.7)(react-dom@19.2.5(react@19.2.5))(react-is@18.3.1)(react@19.2.5)(tailwindcss@4.1.18)(use-sync-external-store@1.6.0(react@19.2.5))
       react:
         specifier: ^19.2.5
         version: 19.2.5
@@ -294,8 +297,8 @@ importers:
   ui/tucu-ui:
     dependencies:
       '@e-burgos/tucu-ui-mcp':
-        specifier: ^0.5.0
-        version: 0.5.0
+        specifier: ^0.5.2
+        version: 0.5.2
       '@tailwindcss/typography':
         specifier: 0.0.0-insiders.0339c42
         version: 0.0.0-insiders.0339c42(tailwindcss@4.1.18)
@@ -961,13 +964,18 @@ packages:
     resolution: {integrity: sha512-IchNf6dN4tHoMFIn/7OE8LWZ19Y6q/67Bmf6vnGREv8RSbBVb9LPJxEcnwrcwX6ixSvaiGoomAUvu4YSxXrVgw==}
     engines: {node: '>=12'}
 
-  '@e-burgos/tucu-ui-mcp@0.5.0':
-    resolution: {integrity: sha512-r8JZ6MKWk7dMA2jj+qJi+GKWSWpkMehB2Fik+4ll62RKYGUc/RhI4YVDW10DMGi8Av0IUzMftAVTZxRick8hPg==}
+  '@e-burgos/tucu-ui-mcp@0.5.1':
+    resolution: {integrity: sha512-kmIBxyF0cNrQhTIXmJ+1Ua3pjRvhLsHbJs3NshF4udVOud5TouAeNGq02YZcAntMNico5bKIrwMSuNTFlZBUJw==}
     engines: {node: '>=20'}
     hasBin: true
 
-  '@e-burgos/tucu-ui@2.4.1':
-    resolution: {integrity: sha512-AzlKB2hNU9Rk+sx/VoZPGc+gWw/RPK3mfuw4JjWSX1PqWxzJdvDbQqEU6iXAJs2nEu21u0sl0HMecipfh/wlag==}
+  '@e-burgos/tucu-ui-mcp@0.5.2':
+    resolution: {integrity: sha512-EJrRSgJrDOgvDuPv1SJ8vpvtH2H/Gi5XhHYplVks0CPXvW7VIhEtZqohZyC4Z81hZDgCggnyfk6DIlffPrND9A==}
+    engines: {node: '>=20'}
+    hasBin: true
+
+  '@e-burgos/tucu-ui@2.5.0':
+    resolution: {integrity: sha512-pZK32FGK5j2TuzgR026qlTZJ8G84uUheBVf2vA02S+G6x4aVkxGpdBO6yctROcUCoZro2U0RdgIQmzs5wIyY1w==}
     peerDependencies:
       react: '>=18.0.0'
       react-dom: '>=18.0.0'
@@ -4708,6 +4716,11 @@ packages:
   fs.realpath@1.0.0:
     resolution: {integrity: sha512-OO0pH2lK6a0hZnAdau5ItzHPI6pUlvI7jMVnxUQRtw4owF2wk8lOSabtGDCTP4Ggrg2MbGnWO9X8K1t4+fGMDw==}
 
+  fsevents@2.3.2:
+    resolution: {integrity: sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA==}
+    engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
+    os: [darwin]
+
   fsevents@2.3.3:
     resolution: {integrity: sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==}
     engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
@@ -6014,6 +6027,16 @@ packages:
 
   pkg-types@2.3.0:
     resolution: {integrity: sha512-SIqCzDRg0s9npO5XQ3tNZioRY1uK06lA41ynBC1YmFTmnY6FjUjVt6s4LoADmwoig1qqD0oK8h1p/8mlMx8Oig==}
+
+  playwright-core@1.60.0:
+    resolution: {integrity: sha512-9bW6zvX/m0lEbgTKJ6YppOKx8H3VOPBMOCFh2irXFOT4BbHgrx5hPjwJYLT40Lu+4qtD36qKc/Hn56StUW57IA==}
+    engines: {node: '>=18'}
+    hasBin: true
+
+  playwright@1.60.0:
+    resolution: {integrity: sha512-hheHdokM8cdqCb0lcE3s+zT4t4W+vvjpGxsZlDnikarzx8tSzMebh3UiFtgqwFwnTnjYQcsyMF8ei2mCO/tpeA==}
+    engines: {node: '>=18'}
+    hasBin: true
 
   portfinder@1.0.38:
     resolution: {integrity: sha512-rEwq/ZHlJIKw++XtLAO8PPuOQA/zaPJOZJ37BVuN97nLpMJeuDVLVGRwbFoBgLudgdTMP2hdRJP++H+8QOA3vg==}
@@ -8276,7 +8299,7 @@ snapshots:
     dependencies:
       '@jridgewell/trace-mapping': 0.3.9
 
-  '@e-burgos/tucu-ui-mcp@0.5.0':
+  '@e-burgos/tucu-ui-mcp@0.5.1':
     dependencies:
       '@modelcontextprotocol/sdk': 1.29.0(zod@3.25.76)
       express: 5.2.1
@@ -8285,9 +8308,18 @@ snapshots:
       - '@cfworker/json-schema'
       - supports-color
 
-  '@e-burgos/tucu-ui@2.4.1(@types/react@19.2.14)(immer@11.1.7)(react-dom@19.2.5(react@19.2.5))(react-is@18.3.1)(react@19.2.5)(tailwindcss@4.1.18)(use-sync-external-store@1.6.0(react@19.2.5))':
+  '@e-burgos/tucu-ui-mcp@0.5.2':
     dependencies:
-      '@e-burgos/tucu-ui-mcp': 0.5.0
+      '@modelcontextprotocol/sdk': 1.29.0(zod@3.25.76)
+      express: 5.2.1
+      zod: 3.25.76
+    transitivePeerDependencies:
+      - '@cfworker/json-schema'
+      - supports-color
+
+  '@e-burgos/tucu-ui@2.5.0(@types/react@19.2.14)(immer@11.1.7)(react-dom@19.2.5(react@19.2.5))(react-is@18.3.1)(react@19.2.5)(tailwindcss@4.1.18)(use-sync-external-store@1.6.0(react@19.2.5))':
+    dependencies:
+      '@e-burgos/tucu-ui-mcp': 0.5.1
       '@tailwindcss/typography': 0.0.0-insiders.0339c42(tailwindcss@4.1.18)
       classnames: 2.5.1
       framer-motion: 12.23.3(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
@@ -12736,6 +12768,9 @@ snapshots:
 
   fs.realpath@1.0.0: {}
 
+  fsevents@2.3.2:
+    optional: true
+
   fsevents@2.3.3:
     optional: true
 
@@ -14122,6 +14157,14 @@ snapshots:
       confbox: 0.2.2
       exsolve: 1.0.8
       pathe: 2.0.3
+
+  playwright-core@1.60.0: {}
+
+  playwright@1.60.0:
+    dependencies:
+      playwright-core: 1.60.0
+    optionalDependencies:
+      fsevents: 2.3.2
 
   portfinder@1.0.38:
     dependencies:

@@ -41,7 +41,7 @@ export const TocSonoma: React.FC<TableOfContentsProps> = ({
     <div
       role="heading"
       aria-level={3}
-      className="text-[16px] font-semibold text-gray-700 dark:text-gray-200"
+      className="text-[16px] font-semibold text-foreground"
     >
       {title}
     </div>
@@ -57,7 +57,7 @@ export const TocSonoma: React.FC<TableOfContentsProps> = ({
                 <button
                   type="button"
                   onClick={() => handleCategoryToggle(category, categoryItems)}
-                  className="w-full flex items-center transition-colors select-none group h-8 gap-2 rounded-md px-2 text-[13px] font-normal text-gray-700 hover:bg-gray-500/8 dark:text-gray-300 dark:hover:bg-white/6"
+                  className="w-full flex items-center transition-colors select-none group h-8 gap-2 rounded-md px-2 text-[13px] font-normal text-foreground! hover:bg-gray-500/8 dark:hover:bg-white/6"
                   aria-expanded={isOpen}
                   aria-label={`${
                     isOpen ? 'Close' : 'Open'
@@ -104,8 +104,8 @@ export const TocSonoma: React.FC<TableOfContentsProps> = ({
                               'group flex h-8 w-full items-center gap-2 rounded-xl px-3',
                               'text-[12px] transition-colors select-none',
                               isActive
-                                ? 'bg-(--color-semantic-bg-primary)/12 font-medium text-(--color-semantic-bg-primary)'
-                                : 'text-gray-600 hover:bg-gray-500/8 dark:text-gray-400 dark:hover:bg-white/6'
+                                ? 'bg-brand/12 font-medium text-brand!'
+                                : 'text-foreground! hover:bg-gray-500/8 dark:hover:bg-white/6'
                             )}
                             onClick={(e) => handleItemClick(e, item)}
                           >
@@ -131,8 +131,8 @@ export const TocSonoma: React.FC<TableOfContentsProps> = ({
                   'group flex h-9 w-full items-center gap-2 rounded-xl px-3',
                   'text-[13px] transition-colors select-none',
                   isActive
-                    ? 'bg-(--color-semantic-bg-primary)/12 font-medium text-(--color-semantic-bg-primary)'
-                    : 'text-gray-700 hover:bg-gray-500/8 dark:text-gray-300 dark:hover:bg-white/6'
+                    ? 'bg-brand/12 font-medium text-brand!'
+                    : 'text-foreground! hover:bg-gray-500/8 dark:hover:bg-white/6'
                 )}
                 onClick={(e) => handleItemClick(e, item)}
               >

@@ -141,8 +141,8 @@ html.macos {
   /* ── Semantic Colors — Light (Sonoma / macOS 14 HIG) ────────
      Source: Apple HIG > Color > macOS 26 system colors
   */
-  --macos-label: rgba(0, 0, 0, 0.88);
-  --macos-secondary-label: rgba(60, 60, 67, 0.68);
+  --macos-label: var(--color-semantic-fg, rgba(0, 0, 0, 0.88));
+  --macos-secondary-label: var(--color-semantic-fg-muted, rgba(60, 60, 67, 0.68));
   --macos-tertiary-label: rgba(60, 60, 67, 0.42);
   --macos-quaternary-label: rgba(60, 60, 67, 0.24);
   --macos-separator: var(--color-semantic-line-primary-subtle);
@@ -295,8 +295,8 @@ html.macos.dark {
   --drop-shadow-main: 0px 2px 12px rgba(0, 0, 0, 0.45);
 
   /* Semantic label colors — dark */
-  --macos-label: rgba(255, 255, 255, 0.92);
-  --macos-secondary-label: rgba(235, 235, 245, 0.72);
+  --macos-label: var(--color-semantic-dark-fg, rgba(255, 255, 255, 0.92));
+  --macos-secondary-label: var(--color-semantic-dark-fg-muted, rgba(235, 235, 245, 0.72));
   --macos-tertiary-label: rgba(235, 235, 245, 0.44);
   --macos-quaternary-label: rgba(235, 235, 245, 0.26);
   --macos-separator: var(--color-semantic-dark-line-primary-subtle);

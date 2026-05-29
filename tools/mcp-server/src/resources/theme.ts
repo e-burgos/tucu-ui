@@ -29,18 +29,44 @@ interface IThemeState {
   logo: LogoType;
   showSettings: boolean;
   isSettingsOpen: boolean;
+  backgroundVariant: 'none' | 'base' | 'sonoma' | 'wave' | 'wallpaper' | 'mobile' | 'radial' | 'window' | 'aurora' | 'depth' | 'demo';
+  themeConfigs: Record<'default' | 'macos' | 'macos-tahoe', IThemeConfig>;
+}
+
+interface IThemeConfig {
+  primaryPreset: IThemeItem;
+  darkPrimaryPreset: IThemeItem;
+  secondaryPreset: IThemeItem;
+  darkSecondaryPreset: IThemeItem;
+  accentPreset: IThemeItem;
+  darkAccentPreset: IThemeItem;
+  mutedPreset: IThemeItem;
+  darkMutedPreset: IThemeItem;
+  darkBgPreset: IThemeItem;
+  lightBgPreset: IThemeItem;
+  lightDarkPreset: IThemeItem;
+  darkLightDarkPreset: IThemeItem;
+  layout: LAYOUT_OPTIONS;
+  mode: 'light' | 'dark';
+  direction: 'ltr' | 'rtl';
+  backgroundVariant: BackgroundVariant;
 }
 \`\`\`
 
-### Setters (auto-generated for every property)
-setMode, setLayout, setColorScheme, setDirection, setLang, setPrimaryPreset, setDarkPrimaryPreset, setSecondaryPreset, etc.
+### Setters (auto-generated for every property except themeConfigs)
+setMode, setLayout, setColorScheme, setDirection, setLang, setPrimaryPreset, setDarkPrimaryPreset, setSecondaryPreset, setBackgroundVariant, etc.
 
 ### Actions
 | Method | Description |
 |--------|-------------|
-| restoreDefaultColors() | Resets all presets, direction, layout, and mode |
-| applyMacOSTheme() | Applies macOS system colors + sets colorScheme: 'macos' + MACOS_TAHOE layout |
-| applyDefaultTheme() | Restores standard presets + sets colorScheme: 'default' + default layout |
+| restoreDefaultColors() | Resets configuration (presets, layout, mode, backgroundVariant) for the active colorScheme to their default values |
+| applyMacOSTheme() | Switches colorScheme to 'macos' (loads its config) |
+| applyMacOSTahoeTheme() | Switches colorScheme to 'macos-tahoe' (loads its config) |
+| applyDefaultTheme() | Switches colorScheme to 'default' (loads its config) |
+| applyThemeStyle(style) | Switches colorScheme to style (loads its config) |
+
+### Theme Configuration State Sync
+The store uses a Zustand middleware (\`themeConfigInterceptor\`) to intercept updates to configuration keys (presets, layout, mode, direction, backgroundVariant) and automatically synchronize/save them into \`themeConfigs[activeColorScheme]\`. When switching the \`colorScheme\` (e.g., via actions like \`applyMacOSTheme()\`), the stored configuration for the target theme is loaded automatically into the active state.
 
 ### Usage
 \`\`\`tsx

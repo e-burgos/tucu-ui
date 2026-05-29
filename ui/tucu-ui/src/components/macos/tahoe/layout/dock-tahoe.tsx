@@ -164,7 +164,7 @@ function DockItem({
             'flex items-center justify-center [&>svg]:w-[20px] [&>svg]:h-[20px] transition-colors duration-150',
             isActive
               ? 'text-white'
-              : 'text-(--macos-tahoe-sidebar-item-icon) dark:text-white/50'
+              : 'text-foreground/50!'
           )}
         >
           {item.icon}
@@ -233,8 +233,8 @@ function DockPopoverItem({ item, onClose }: DockPopoverItemProps) {
       className={cn(
         'flex w-full items-center gap-[10px] rounded-[8px] px-[10px] py-[6px] text-left text-[13px] transition-colors',
         isActive
-          ? 'bg-(--macos-tahoe-sidebar-item-active-bg) text-(--macos-tahoe-sidebar-item-active-text) font-semibold'
-          : 'text-(--macos-tahoe-text) hover:bg-(--macos-tahoe-sidebar-item-hover-bg)'
+          ? 'bg-(--macos-tahoe-sidebar-item-active-bg) text-brand! font-semibold'
+          : 'text-foreground! hover:bg-(--macos-tahoe-sidebar-item-hover-bg)'
       )}
     >
       {item.icon && (
@@ -242,8 +242,8 @@ function DockPopoverItem({ item, onClose }: DockPopoverItemProps) {
           className={cn(
             'flex h-[16px] w-[16px] shrink-0 items-center justify-center [&>svg]:h-[16px] [&>svg]:w-[16px]',
             isActive
-              ? 'text-(--macos-tahoe-sidebar-item-active-icon)'
-              : 'text-(--macos-tahoe-sidebar-item-icon)'
+              ? 'text-brand!'
+              : 'text-foreground/50!'
           )}
         >
           {item.icon}
