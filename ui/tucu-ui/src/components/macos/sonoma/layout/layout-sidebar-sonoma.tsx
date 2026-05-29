@@ -79,11 +79,11 @@ export function MacOSSonomaLayoutSidebar({
       'group flex w-full items-center gap-[8px] transition-colors duration-150 select-none',
       compact
         ? active
-          ? 'h-[28px] rounded-[6px] px-[8px] text-[12px] font-medium bg-[var(--color-semantic-bg-primary)]/12 text-[var(--color-semantic-bg-primary)]'
-          : 'h-[28px] rounded-[6px] px-[8px] text-[12px] text-gray-600 hover:bg-gray-500/8 dark:text-gray-400 dark:hover:bg-white/6'
+          ? 'h-[28px] rounded-[6px] px-[8px] text-[12px] font-medium bg-brand/12 text-brand!'
+          : 'h-[28px] rounded-[6px] px-[8px] text-[12px] text-foreground! hover:text-foreground hover:bg-foreground/5'
         : active
-        ? 'h-[32px] rounded-[6px] px-[8px] text-[13px] font-medium bg-[var(--color-semantic-bg-primary)]/12 text-[var(--color-semantic-bg-primary)]'
-        : 'h-[32px] rounded-[6px] px-[8px] text-[13px] font-normal text-gray-700 hover:bg-gray-500/8 dark:text-gray-300 dark:hover:bg-white/6'
+        ? 'h-[32px] rounded-[6px] px-[8px] text-[13px] font-medium bg-brand/12 text-brand!'
+        : 'h-[32px] rounded-[6px] px-[8px] text-[13px] font-normal text-foreground! hover:text-foreground hover:bg-foreground/5'
     );
 
   const getSidebarIconClassName = (active: boolean, compact = false) =>
@@ -92,10 +92,8 @@ export function MacOSSonomaLayoutSidebar({
         ? 'h-[14px] w-[14px] shrink-0 [&>svg]:h-[14px] [&>svg]:w-[14px]'
         : 'h-[16px] w-[16px] shrink-0 [&>svg]:h-[16px] [&>svg]:w-[16px]',
       active
-        ? 'text-[var(--color-semantic-bg-primary)]'
-        : compact
-        ? 'text-gray-400 group-hover:text-gray-600 dark:text-gray-500 dark:group-hover:text-gray-300'
-        : 'text-gray-500 group-hover:text-gray-700 dark:text-gray-400 dark:group-hover:text-gray-200'
+        ? 'text-brand!'
+        : 'text-foreground/50! group-hover:text-foreground/80'
     );
 
   const renderSidebarItems = () =>
@@ -112,6 +110,7 @@ export function MacOSSonomaLayoutSidebar({
           isItemActive(item.path, item.isActive) && !hasActiveDescendant;
         const parentActive = isParentActive(item);
         const itemHref = item.href ?? item.path;
+        const isParentItemActiveColor = exactParentActive || hasActiveDescendant;
 
         return (
           <li key={item.path}>
@@ -121,11 +120,14 @@ export function MacOSSonomaLayoutSidebar({
                   to={itemHref}
                   aria-current={exactParentActive ? 'page' : undefined}
                   onClick={() => handleMenuItemClick(item.onClick)}
-                  className="flex min-w-0 flex-1 items-center gap-[8px]"
+                  className={cn(
+                    'flex min-w-0 flex-1 items-center gap-[8px]',
+                    isParentItemActiveColor ? 'text-brand!' : 'text-foreground!'
+                  )}
                 >
                   {item.icon && (
                     <span
-                      className={getSidebarIconClassName(exactParentActive)}
+                      className={getSidebarIconClassName(isParentItemActiveColor)}
                     >
                       {item.icon}
                     </span>
@@ -143,7 +145,7 @@ export function MacOSSonomaLayoutSidebar({
                 >
                   <svg
                     className={cn(
-                      'h-[12px] w-[12px] shrink-0 transition-transform duration-150 text-gray-400',
+                      'h-[12px] w-[12px] shrink-0 transition-transform duration-150 text-foreground/40',
                       isExpanded && 'rotate-90'
                     )}
                     fill="none"

@@ -474,7 +474,7 @@ export const langOptions: IThemeItem[] = [
 export const defaultLang: LangType = 'en';
 
 export const defaultLogo: LogoType = {
-  path: '/onboarding',
+  path: '/',
   name: '',
 };
 
@@ -632,6 +632,18 @@ export const macosLightPresets = {
     label: PRESET_LABEL_COLORS.MACOS_DARK_LIGHT_DARK,
     value: PRESET_COLORS.MACOS_DARK_LIGHT_DARK,
   },
+  fgPreset: defaultFgPreset,
+  darkFgPreset: defaultDarkFgPreset,
+  borderPreset: defaultBorderPreset,
+  darkBorderPreset: defaultDarkBorderPreset,
+  successPreset: defaultSuccessPreset,
+  darkSuccessPreset: defaultDarkSuccessPreset,
+  warningPreset: defaultWarningPreset,
+  darkWarningPreset: defaultDarkWarningPreset,
+  errorPreset: defaultErrorPreset,
+  darkErrorPreset: defaultDarkErrorPreset,
+  infoPreset: defaultInfoPreset,
+  darkInfoPreset: defaultDarkInfoPreset,
 } as const;
 
 // ─── macOS Tahoe Accent Color Bundles ─────────────────────────────────────
@@ -769,6 +781,16 @@ export function buildTahoePresets(bundle: TahoeAccentBundle) {
       label: PRESET_LABEL_COLORS.DEFAULT_DARK_BORDER,
       value: PRESET_COLORS.DEFAULT_DARK_BORDER,
     },
+    fgPreset: defaultFgPreset,
+    darkFgPreset: defaultDarkFgPreset,
+    successPreset: defaultSuccessPreset,
+    darkSuccessPreset: defaultDarkSuccessPreset,
+    warningPreset: defaultWarningPreset,
+    darkWarningPreset: defaultDarkWarningPreset,
+    errorPreset: defaultErrorPreset,
+    darkErrorPreset: defaultDarkErrorPreset,
+    infoPreset: defaultInfoPreset,
+    darkInfoPreset: defaultDarkInfoPreset,
   };
 }
 
@@ -886,5 +908,15 @@ export function buildSonomaPresets(bundle: TahoeAccentBundle) {
       label: PRESET_LABEL_COLORS.DEFAULT_DARK_BORDER,
       value: PRESET_COLORS.DEFAULT_DARK_BORDER,
     },
+    fgPreset: defaultFgPreset,
+    darkFgPreset: defaultDarkFgPreset,
+    successPreset: defaultSuccessPreset,
+    darkSuccessPreset: defaultDarkSuccessPreset,
+    warningPreset: defaultWarningPreset,
+    darkWarningPreset: defaultDarkWarningPreset,
+    errorPreset: defaultErrorPreset,
+    darkErrorPreset: defaultDarkErrorPreset,
+    infoPreset: defaultInfoPreset,
+    darkInfoPreset: defaultDarkInfoPreset,
   };
 }

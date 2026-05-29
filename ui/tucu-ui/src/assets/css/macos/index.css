@@ -6,3 +6,10 @@
 
 @import './sonoma/index.css';
 @import './tahoe/index.css';
+
+/* ── Navbar typography overrides ────────────────────────────────── */
+html.macos [data-tucu*='navbar-toolbar'] a,
+html.macos [data-tucu*='navbar-toolbar'] span {
+  font-family: var(--macos-font-family) !important;
+  text-transform: none !important;
+}

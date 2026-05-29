@@ -18,7 +18,7 @@ export function FormExamplePage() {
       />
 
       {/* Form Example Section */}
-      <section className="space-y-8">
+      <section className="space-y-8 max-w-7xl w-full mx-auto">
         <FormExample />
       </section>
     </div>

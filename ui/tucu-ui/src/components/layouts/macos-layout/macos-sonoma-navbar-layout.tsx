@@ -90,7 +90,7 @@ export function MacOSSonomaNavbarLayout({
           <div className="flex-1 min-w-0 flex justify-center">
             <HorizontalNavMenu
               menuItems={menuItems}
-              className="[&_a:not(.active)]:!text-gray-600 dark:[&_a:not(.active)]:!text-gray-300 dark:[&_a:not(.active):hover]:!text-white [&_a:not(.active):hover]:!text-black [&_a.active]:!text-brand [&_li_a.active]:!text-white dark:[&_li_a.active]:!text-white [&_span.text-brand]:!text-brand"
+              className="[&_a:not(.active)]:!text-foreground/60 [&_a:not(.active):hover]:!text-foreground [&_a.active]:!text-brand [&_li_li_a.active]:!text-white dark:[&_li_li_a.active]:!text-white [&_span.text-brand]:!text-brand"
               dropboxClassName="bg-(--macos-glass-regular-bg)! backdrop-blur-xl!"
             />
           </div>

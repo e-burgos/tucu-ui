@@ -44,7 +44,7 @@ export const TocTahoe: React.FC<TableOfContentsProps> = ({
     <div
       role="heading"
       aria-level={3}
-      className="text-[16px] font-semibold text-(--macos-tahoe-text) dark:text-white/90"
+      className="text-[16px] font-semibold text-foreground"
     >
       {title}
     </div>
@@ -60,7 +60,7 @@ export const TocTahoe: React.FC<TableOfContentsProps> = ({
                 <button
                   type="button"
                   onClick={() => handleCategoryToggle(category, categoryItems)}
-                  className="w-full flex items-center transition-colors select-none group h-9 gap-2 rounded-xl px-3 text-[13px] font-normal text-(--macos-tahoe-sidebar-item-text) dark:text-white/88 hover:bg-(--macos-tahoe-sidebar-item-hover-bg)"
+                  className="w-full flex items-center transition-colors select-none group h-9 gap-2 rounded-xl px-3 text-[13px] font-normal text-foreground! hover:bg-(--macos-tahoe-sidebar-item-hover-bg)"
                   aria-expanded={isOpen}
                   aria-label={`${
                     isOpen ? 'Close' : 'Open'
@@ -69,7 +69,7 @@ export const TocTahoe: React.FC<TableOfContentsProps> = ({
                   <span className="flex-1 truncate text-left">{category}</span>
                   <svg
                     className={cn(
-                      'h-3 w-3 shrink-0 transition-transform duration-150 text-white/40',
+                      'h-3 w-3 shrink-0 transition-transform duration-150 text-foreground/40',
                       isOpen && 'rotate-90'
                     )}
                     fill="none"
@@ -107,8 +107,8 @@ export const TocTahoe: React.FC<TableOfContentsProps> = ({
                               'group flex h-8 w-full items-center gap-2 rounded-xl px-3',
                               'text-[12px] transition-colors select-none',
                               isActive
-                                ? 'border border-(--macos-tahoe-sidebar-item-active-stroke) bg-(--macos-tahoe-sidebar-item-active-bg) font-semibold text-(--macos-tahoe-sidebar-item-active-text)'
-                                : 'font-normal text-(--macos-tahoe-sidebar-item-text) dark:text-white/80 hover:bg-(--macos-tahoe-sidebar-item-hover-bg)'
+                                ? 'border border-(--macos-tahoe-sidebar-item-active-stroke) bg-(--macos-tahoe-sidebar-item-active-bg) font-semibold text-brand!'
+                                : 'font-normal text-foreground! hover:bg-(--macos-tahoe-sidebar-item-hover-bg)'
                             )}
                             onClick={(e) => handleItemClick(e, item)}
                           >
@@ -134,8 +134,8 @@ export const TocTahoe: React.FC<TableOfContentsProps> = ({
                   'group flex h-9 w-full items-center gap-2 rounded-xl px-3',
                   'text-[13px] transition-colors select-none',
                   isActive
-                    ? 'border border-(--macos-tahoe-sidebar-item-active-stroke) bg-(--macos-tahoe-sidebar-item-active-bg) font-semibold text-(--macos-tahoe-sidebar-item-active-text)'
-                    : 'font-normal text-(--macos-tahoe-sidebar-item-text) dark:text-white/88 hover:bg-(--macos-tahoe-sidebar-item-hover-bg)'
+                    ? 'border border-(--macos-tahoe-sidebar-item-active-stroke) bg-(--macos-tahoe-sidebar-item-active-bg) font-semibold text-brand!'
+                    : 'font-normal text-foreground! hover:bg-(--macos-tahoe-sidebar-item-hover-bg)'
                 )}
                 onClick={(e) => handleItemClick(e, item)}
               >

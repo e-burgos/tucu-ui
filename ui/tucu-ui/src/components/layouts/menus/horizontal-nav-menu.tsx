@@ -212,8 +212,8 @@ export function HorizontalNavMenu({
                     path={item.path}
                     href={item.href}
                     to={item.href ? item.href : item.path}
-                    className="mx-[8px] text-[13px] font-medium uppercase transition first:ml-[0px] last:mr-[0px] hover:text-brand text-gray-600 dark:text-gray-300 dark:hover:text-brand 2xl:mx-[12px] 2xl:text-sm min-[1780px]:mx-[16px]"
-                    activeClassName={cn('!text-brand dark:!text-brand')}
+                    className="mx-[8px] text-[13px] font-medium uppercase transition first:ml-[0px] last:mr-[0px] text-foreground/60 hover:text-foreground 2xl:mx-[12px] 2xl:text-sm min-[1780px]:mx-[16px]"
+                    activeClassName={cn('active', 'text-brand!')}
                   >
                     <span className="z-1 flex items-center ltr:mr-[12px] rtl:ml-[12px]">
                       {item.icon && (
