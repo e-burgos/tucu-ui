@@ -25,7 +25,7 @@ export function authMiddleware(
   // Constant-time comparison to prevent timing attacks
   if (
     token.length !== MCP_API_KEY.length ||
-    !timingSafeEqual(Buffer.from(token), Buffer.from(MCP_API_KEY))
+    !timingSafeEqual(new Uint8Array(Buffer.from(token)), new Uint8Array(Buffer.from(MCP_API_KEY)))
   ) {
     res.status(403).json({ error: 'Forbidden — invalid token' });
     return;
