@@ -113,7 +113,10 @@ interface ComponentMeta {
 // ─── Extraction ────────────────────────────────────────────────
 
 function extractProps(): Map<string, ComponentMeta> {
-  const componentFiles = findComponentFiles(COMPONENTS_DIR);
+  const componentFiles = [
+    ...findComponentFiles(COMPONENTS_DIR),
+    ...findComponentFiles(path.resolve(ROOT, 'ui/tucu-ui/src/datatable/components')),
+  ];
   const metadata = new Map<string, ComponentMeta>();
 
   console.log(`\n📦 Scanning ${componentFiles.length} component files...\n`);
