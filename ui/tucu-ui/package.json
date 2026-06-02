@@ -1,7 +1,7 @@
 {
   "name": "@e-burgos/tucu-ui",
   "description": "Tucu UI Library",
-  "version": "2.5.0",
+  "version": "2.6.0",
   "main": "./index.js",
   "module": "./index.mjs",
   "types": "./index.d.ts",
@@ -44,24 +44,32 @@
     "pack:lib": "cd ../../ui/tucu-ui && pnpm npm pack"
   },
   "dependencies": {
-    "@e-burgos/tucu-ui-mcp": "^0.5.2",
-    "@tailwindcss/typography": "0.0.0-insiders.0339c42",
+    "@dnd-kit/core": "^6.3.1",
+    "@dnd-kit/modifiers": "^9.0.0",
+    "@dnd-kit/sortable": "^10.0.0",
+    "@dnd-kit/utilities": "^3.2.2",
+    "@e-burgos/tucu-ui-mcp": "^0.6.0",
+    "@tailwindcss/typography": "^0.5.19",
+    "@tanstack/react-table": "^8.21.3",
+    "@tanstack/table-core": "^8.21.3",
     "classnames": "^2.5.1",
-    "framer-motion": "12.23.3",
-    "lucide-react": "^0.460.0",
-    "react-hook-form": "7.60.0",
-    "react-router-dom": "7.9.1",
-    "react-router": "7.9.1",
+    "framer-motion": "^12.40.0",
+    "lodash": "^4.18.1",
+    "lucide-react": "^1.17.0",
+    "react-hook-form": "^7.77.0",
+    "react-router-dom": "^7.16.0",
+    "react-router": "^7.16.0",
     "react-use": "^17.6.0",
-    "recharts": "3.8.1",
-    "swiper": "11.2.8",
-    "zustand": "^5.0.8"
+    "recharts": "^3.8.1",
+    "swiper": "^12.2.0",
+    "zustand": "^5.0.14"
   },
   "devDependencies": {
-    "@tailwindcss/vite": "^4.1.18",
-    "tailwindcss": "^4.1.18",
+    "@tailwindcss/vite": "^4.3.0",
+    "tailwindcss": "^4.3.0",
     "prismjs": "^1.30.0",
-    "@types/prismjs": "^1.26.5"
+    "@types/prismjs": "^1.26.6",
+    "@types/lodash": "^4.17.24"
   },
   "peerDependencies": {
     "react": ">=18.0.0",

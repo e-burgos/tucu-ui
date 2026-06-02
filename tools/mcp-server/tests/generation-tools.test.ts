@@ -16,6 +16,7 @@ import {
   toPascalCase,
   toCamelCase,
 } from '../src/utils/code-generator.js';
+import { generateDocumentation } from '../src/tools/generation-tools.js';
 
 // ─── Invalid variant patterns to check against ─────────────────────────────
 const INVALID_VARIANTS = [
@@ -176,12 +177,48 @@ describe('Code Generator Utilities', () => {
 
 // ─── Generation Tools (Integration) ────────────────────────────────────────
 describe('Generation Tools', () => {
-  it('server creates successfully with 9 tools registered', () => {
+  it('server creates successfully with 10 tools registered', () => {
     // This just verifies that the server can be created without errors.
     // The McpServer doesn't expose a public tool list, but if registration
     // throws, this test will fail.
     const server = createMcpServer();
     expect(server).toBeDefined();
+  });
+
+  describe('generateDocumentation helper', () => {
+    it('generates documentation templates with correct names and paths', () => {
+      const output = generateDocumentation('DataTable');
+      expect(output.component).toBe('DataTable');
+      expect(output.suggestedPaths.hubPage).toBe('ui/tucu-ui/src/demo/pages/datatable/DataTablePage.tsx');
+      expect(output.suggestedPaths.docsSection).toBe('ui/tucu-ui/src/demo/pages/datatable/datatable-sections/DocumentationSection.tsx');
+      expect(output.suggestedPaths.examplesSection).toBe('ui/tucu-ui/src/demo/pages/datatable/datatable-sections/ExamplesSection.tsx');
+      expect(output.suggestedPaths.playgroundSection).toBe('ui/tucu-ui/src/demo/pages/datatable/datatable-sections/PlaygroundSection.tsx');
+
+      expect(output.hubPageCode).toContain('export function DataTablePage()');
+      expect(output.docsSectionCode).toContain('const DocumentationSection: React.FC');
+      expect(output.docsSectionCode).toContain('<AutoPropsTable componentName="DataTable" showFilePath={true} />');
+      expect(output.examplesSectionCode).toContain('const ExamplesSection: React.FC');
+      expect(output.examplesSectionCode).toContain('<DataTable />');
+      expect(output.playgroundSectionCode).toContain('const PlaygroundSection: React.FC');
+      expect(output.playgroundSectionCode).toContain('<PropPlayground');
+      expect(output.playgroundSectionCode).toContain('componentName="DataTable"');
+    });
+
+    it('respects optional description and features', () => {
+      const customDesc = 'This is a custom DataTable component.';
+      const customFeatures = ['Custom feature 1', 'Custom feature 2'];
+      const output = generateDocumentation('DataTable', customDesc, customFeatures);
+
+      expect(output.hubPageCode).toContain(customDesc);
+      expect(output.docsSectionCode).toContain('Custom feature 1');
+      expect(output.docsSectionCode).toContain('Custom feature 2');
+    });
+
+    it('generates documentation for custom components not in registry', () => {
+      const output = generateDocumentation('MyCustomComponent');
+      expect(output.component).toBe('MyCustomComponent');
+      expect(output.suggestedPaths.hubPage).toBe('ui/tucu-ui/src/demo/pages/mycustomcomponent/MyCustomComponentPage.tsx');
+    });
   });
 
   describe('generate_component determinism', () => {

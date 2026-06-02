@@ -6,7 +6,6 @@ import {
   CodeBlock,
   HeroCard,
   LucideIcons,
-  Badge,
   ColorCard,
 } from '../../../../index';
 

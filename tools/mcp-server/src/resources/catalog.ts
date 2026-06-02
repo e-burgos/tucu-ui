@@ -5,7 +5,7 @@ export function getCatalogContent(): string {
 
 ## Package Info
 - **Name**: @e-burgos/tucu-ui
-- **Version**: 2.4.1
+- **Version**: 2.5.0
 - **Peer Deps**: react >=18, react-dom >=18, tailwindcss >=4
 - **Dependencies**: framer-motion, lucide-react, react-hook-form, react-router-dom v7.9, recharts v3.8, swiper v11.2, zustand v5, classnames, react-use, prismjs
 
@@ -112,6 +112,22 @@ import { Button, CardContainer, Form, Input, Select, ThemeProvider, useTheme, us
 | Component | Description |
 |-----------|-------------|
 | BasicTable<T> | Generic table with custom render |
+| DataTable | Advanced table with state persistence, sorting, global search/filtering, paging, pinning, resizing, selection, column visibility drawer, and custom header actions |
+| DataTableComponent | Low-level table component parameterized by TanStack Table |
+
+**DataTable Key Props:**
+- \`tableId\`: string (required unique key for state persistence)
+- \`columns\`: Array of ColumnDef
+- \`data\`: Array of objects
+- \`showHeader\`: boolean (default: \`true\`)
+- \`showFooter\`: boolean (default: \`true\`)
+- \`enableHideColumns\`: boolean (shows a drawer button to toggle columns visibility)
+- \`searchableColumns\`: string[] (list of column accessor keys/IDs to include in the global search filter)
+- \`rightActions\`: React.ReactNode (renders custom buttons/dropdowns next to the column visibility controls)
+- \`rowSelection\`: \`{ type: 'checkbox' | 'radio', getSelection?: (rows) => void }\` (enables row selection)
+- \`rowActions\`: \`Array<{ action, label, onClick, ... }>\` (enables row action menus)
+- \`renderSubComponent\`: React component to render when a row is expanded
+
 
 ### Tabs
 | Component | Description |

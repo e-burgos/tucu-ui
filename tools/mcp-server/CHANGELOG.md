@@ -2,7 +2,16 @@
 
 All notable changes to `@e-burgos/tucu-ui-mcp` will be documented in this file.
 
-<!-- Last updated: 2026-05-29 -->
+<!-- Last updated: 2026-06-02 -->
+
+## [0.6.0] - 2026-06-02
+
+### Added
+
+- Registered `DataTable` component in the component registry with full prop documentation
+- Extended `generation-tools` with DataTable code generation support: table scaffold, column definitions, pagination, sorting, and row actions patterns
+- Updated `catalog` resource with DataTable component entry and updated tucu-ui library version reference (`2.5.0` → `2.6.0`)
+- Updated `changelog` resource to reflect current release state
 
 ## [0.5.2] - 2026-05-29
 

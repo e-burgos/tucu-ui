@@ -1,0 +1,471 @@
+/* @source ensures only classes used in ui-components are generated */
+@source "./src/**/*.{ts,tsx,html,css}";
+
+@theme {
+  /* Primary Colors - Harmonized with tucu-ui theme */
+  --color-table-primary: var(--color-brand);
+  --color-table-secondary: var(--color-secondary);
+
+  /* Text Colors - Harmonized with tucu-ui theme */
+  --color-table-primary-text: var(--color-foreground);
+  --color-table-secondary-text: var(--color-muted);
+  --color-table-disabled: color-mix(in oklab, var(--color-foreground) 30%, transparent);
+
+  /* Background Colors - Harmonized with tucu-ui theme */
+  --color-table-paper-bg: var(--color-body);
+  --color-table-default-bg: var(--color-light-dark);
+  --color-table-box-bg: var(--color-body);
+  --color-table-row-bg: var(--color-body);
+  --color-table-row-expanded-bg: var(--color-light-dark);
+  --color-table-row-pinned: var(--color-light-dark);
+  --color-table-row-pinned-hover: color-mix(in oklab, var(--color-light-dark) 90%, var(--color-foreground));
+
+  /* Header Colors - Harmonized with tucu-ui theme */
+  --color-table-header-bg: var(--color-light-dark);
+  --color-table-header-expanded-bg: var(--color-light-dark);
+  --color-table-header-pinned: color-mix(in oklab, var(--color-light-dark) 95%, var(--color-foreground));
+
+  /* Action Colors - Harmonized with tucu-ui theme */
+  --color-table-action-bg: var(--color-body);
+  --color-table-action-hover: var(--color-light-dark);
+  --color-table-button-bg: transparent;
+  --color-table-button-bg-hover: var(--color-light-dark);
+
+  /* Row Hover - Harmonized with tucu-ui theme */
+  --color-table-row-hover: var(--color-light-dark);
+
+  /* Divider Colors - Harmonized with tucu-ui theme */
+  --color-table-divider: var(--color-border);
+  --color-table-divider-columns: var(--color-border);
+
+  /* Dragged Background - Harmonized with tucu-ui theme */
+  --color-table-dragged-bg: color-mix(in oklab, var(--color-brand) 10%, var(--color-body));
+
+  /* Legacy/Additional Colors */
+  --color-table-blue: var(--color-brand);
+  --color-bg-hover-color: var(--color-light-dark);
+  --color-dark: #000000;
+  --font-family-base: var(
+    --font-family,
+    'Inter',
+    'Roboto',
+    system-ui,
+    sans-serif
+  );
+
+  /* Modern font stack for tables - Inter will be used if available, otherwise falls back to system fonts */
+  --font-family-table: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
+    'Helvetica Neue', sans-serif;
+
+  /* Animation utilities */
+  --animate-fade-in: fadeInAnimation 0.3s ease-in-out;
+  --animate-slide-top: slideTop 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --animate-slide-out-top: slideOutTop 0.5s
+    cubic-bezier(0.55, 0.085, 0.68, 0.53);
+
+  /* Animation keyframes */
+  --keyframes-fadeInAnimation: fadeInAnimation;
+  --keyframes-slideTop: slideTop;
+  --keyframes-slideOutTop: slideOutTop;
+}
+
+/* @source is defined at the top of the file */
+@variant dark (.dark &);
+
+/* Apply modern font to all table elements */
+[data-testid='table'],
+[data-testid='table-wrapper'],
+[data-testid='table-container'],
+[data-testid='table-row'],
+[data-testid='table-cell'],
+[data-testid='table-header'],
+[data-testid='table-rowheader'] {
+  font-family: var(--font-family-table);
+}
+
+/* Custom animation keyframes */
+@keyframes fadeInAnimation {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes slideTop {
+  0% {
+    -webkit-transform: translateY(-1000px);
+    transform: translateY(-1000px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOutTop {
+  0% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: translateY(-1000px);
+    transform: translateY(-1000px);
+    opacity: 0;
+  }
+}
+
+/* Custom utility classes for DataTable */
+@layer utilities {
+  /* Background color utilities */
+  .bg-table-primary-text {
+    background-color: var(--color-table-primary-text);
+  }
+  .bg-table-secondary-text {
+    background-color: var(--color-table-secondary-text);
+  }
+  .bg-table-disabled {
+    background-color: var(--color-table-disabled);
+  }
+  .bg-table-paper-bg {
+    background-color: var(--color-table-paper-bg);
+  }
+  .bg-table-default-bg {
+    background-color: var(--color-table-default-bg);
+  }
+  .bg-table-box-bg {
+    background-color: var(--color-table-box-bg);
+  }
+  .bg-table-row-bg {
+    background-color: var(--color-table-row-bg);
+  }
+  .bg-table-row-expanded-bg {
+    background-color: var(--color-table-row-expanded-bg);
+  }
+  .bg-table-row-pinned {
+    background-color: var(--color-table-row-pinned);
+  }
+  .bg-table-row-pinned-hover {
+    background-color: var(--color-table-row-pinned-hover);
+  }
+  .bg-table-header-bg {
+    background-color: var(--color-table-header-bg);
+  }
+  .bg-table-header-expanded-bg {
+    background-color: var(--color-table-header-expanded-bg);
+  }
+  .bg-table-header-pinned {
+    background-color: var(--color-table-header-pinned);
+  }
+  .bg-table-action-bg {
+    background-color: var(--color-table-action-bg);
+  }
+  .bg-table-action-hover {
+    background-color: var(--color-table-action-hover);
+  }
+  .bg-table-button-bg {
+    background-color: var(--color-table-button-bg);
+  }
+  .bg-table-button-bg-hover {
+    background-color: var(--color-table-button-bg-hover);
+  }
+  .bg-table-row-hover {
+    background-color: var(--color-table-row-hover);
+  }
+  .bg-table-divider {
+    background-color: var(--color-table-divider);
+  }
+  .bg-table-divider-columns {
+    background-color: var(--color-table-divider-columns);
+  }
+  .bg-table-dragged-bg {
+    background-color: var(--color-table-dragged-bg);
+  }
+  .bg-table-dragged-bg-important {
+    background-color: var(--color-table-dragged-bg) !important;
+  }
+  .bg-bg-hover-color {
+    background-color: var(--color-bg-hover-color) !important;
+  }
+
+  /* Text color utilities */
+  .text-table-primary-text {
+    color: var(--color-table-primary-text);
+  }
+  .text-table-secondary-text {
+    color: var(--color-table-secondary-text);
+  }
+  .text-table-disabled {
+    color: var(--color-table-disabled);
+  }
+
+  /* Border color utilities */
+  .border-table-divider {
+    border-color: var(--color-table-divider);
+  }
+  .border-table-divider-columns {
+    border-color: var(--color-table-divider-columns);
+  }
+  .border-t-table-primary {
+    border-top-color: var(--color-table-primary);
+  }
+
+  /* Spinner animation */
+  .animate-spin {
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .table-sticky-header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background-color: var(--color-table-header-bg);
+    border-bottom: 1px solid var(--color-table-divider);
+  }
+
+  .table-fixed-height-40 {
+    height: 40px;
+    max-height: 40px;
+    min-height: 40px;
+  }
+
+  .table-fixed-height-52 {
+    height: 52px;
+    max-height: 52px;
+    min-height: 52px;
+  }
+
+  .table-fixed-height-56 {
+    height: 56px;
+    max-height: 56px;
+    min-height: 56px;
+  }
+
+  .table-scrollable {
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .table-scrollable::-webkit-scrollbar {
+    display: none;
+  }
+
+  .table-border-radius {
+    border-radius: 4px;
+  }
+
+  .table-box-shadow {
+    box-shadow: -1px -1px 2px 0px #10121714, 1px 1px 2px 0px #10121714,
+      0px 1px 2px 0px #f5f8ff05 inset;
+  }
+
+  .table-transition {
+    transition: background-color 0.2s ease, all 0.2s ease-in-out;
+  }
+
+  .table-text-ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .table-row-pinned-hover {
+    background-color: var(--color-table-row-pinned-hover);
+  }
+
+  .table-row-expanded-bg {
+    background-color: var(--color-table-row-expanded-bg);
+  }
+
+  .table-row-dragged-bg {
+    background-color: var(--color-table-dragged-bg);
+  }
+
+  .table-resizer {
+    width: 12px;
+    height: 100%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+    touch-action: none;
+    z-index: 100;
+    cursor: col-resize;
+  }
+
+  .table-resizer:hover .table-resizer-line {
+    width: 3px;
+    height: 20px;
+    background-color: var(--color-table-primary-text);
+  }
+
+  .table-resizer-line {
+    width: 2px;
+    height: 14px;
+    border-radius: 5px;
+    background-color: var(--color-table-divider);
+    transition: background-color, height 0.15s ease-in-out;
+  }
+
+  .table-dropdown-shadow {
+    box-shadow: 0px 3px 14px 2px #0000001f, 0px 8px 10px 1px #00000024,
+      0px 5px 5px -3px #00000033;
+  }
+
+  .table-row-hover-shadow {
+    box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.15),
+      0px 1px 3px 0px rgba(0, 0, 0, 0.1);
+  }
+
+  .table-pin-column .table-resizer {
+    right: -5px;
+  }
+
+  /* Icon Button styles */
+  .icon-button-wrapper {
+    width: 28px;
+    height: 28px;
+    border-radius: 28px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    padding: 0;
+    margin: 0;
+    border: none;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: var(--color-table-secondary-text);
+    background-color: var(--color-table-button-bg);
+    transition: background-color 0.2s ease-in-out;
+    cursor: pointer;
+    user-select: none;
+    touch-action: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+  }
+
+  .icon-button-wrapper:hover {
+    background-color: var(--color-table-button-bg-hover);
+    color: var(--color-table-primary-text);
+  }
+
+  .icon-button-wrapper:hover:disabled {
+    background-color: var(--color-table-button-bg);
+    cursor: not-allowed;
+  }
+
+  .icon-button-wrapper:disabled {
+    color: var(--color-table-disabled);
+  }
+
+  .icon-button-wrapper svg {
+    fill: currentColor;
+  }
+
+  .icon-button-pinned {
+    color: var(--color-table-primary-text);
+  }
+
+  .icon-button-pinned svg path {
+    fill: currentColor !important;
+  }
+
+  /* Checkbox and Radio styles */
+  .table-checkbox {
+    position: relative;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 2px;
+    border: 1px solid var(--color-table-secondary-text);
+    box-sizing: border-box;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .table-checkbox:checked {
+    background: var(--color-table-primary);
+    border: 1px solid var(--color-table-primary);
+  }
+
+  .table-checkbox:focus {
+    outline: none;
+  }
+
+  .table-checkbox:checked:after {
+    content: '\2713';
+    font-family: var(--font-family-base);
+    font-size: 13px;
+    color: var(--color-white);
+    position: absolute;
+    top: -1px;
+    left: 2px;
+  }
+
+  .table-checkbox:disabled {
+    background: var(--color-table-secondary-text);
+  }
+
+  .table-checkbox:disabled:checked {
+    background: var(--color-table-secondary-text);
+  }
+
+  .table-radio {
+    position: relative;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border: 1px solid var(--color-table-secondary-text);
+    border-radius: 50%;
+    box-sizing: border-box;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .table-radio:checked {
+    border: 1px solid var(--color-table-primary);
+  }
+
+  .table-radio:focus {
+    outline: none;
+  }
+
+  .table-radio:checked:after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--color-table-primary);
+  }
+
+  .table-radio:disabled {
+    background: var(--color-table-secondary-text);
+  }
+}

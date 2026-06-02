@@ -13,6 +13,7 @@ import {
   MacOSSonomaShowcase,
   MacOSTahoeShowcase,
   MCPServerPage,
+  DataTablePage,
 } from '@tucu-ui';
 
 // Design System
@@ -183,6 +184,13 @@ export const useMenuItems = () => {
             path: APP_PATHS.COMPONENTS.path + '/inputs-components',
             icon: <LucideIcons.Keyboard />,
             component: <InputsComponents />,
+            enableNestedRoutes: true,
+          },
+          {
+            name: 'DataTable',
+            path: APP_PATHS.COMPONENTS.path + '/datatable',
+            icon: <LucideIcons.Table />,
+            component: <DataTablePage />,
             enableNestedRoutes: true,
           },
         ],

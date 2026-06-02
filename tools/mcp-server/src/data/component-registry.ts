@@ -276,6 +276,67 @@ export const componentRegistry: ComponentRegistryEntry[] = [
     relatedComponents: ['Card'],
     themeAware: true,
   },
+  {
+    name: 'DataTable',
+    category: 'tables',
+    description:
+      'Advanced data table with sorting, global searching/filtering, pagination, pinning, resizing, state persistence, sub-components, row selection, columns visibility toggling, and custom header actions. Built on @tanstack/react-table and automatically theme-aware (uses CSS variables/tokens for light/dark mode).',
+    importPath: '@e-burgos/tucu-ui',
+    variants: {
+      mode: ['light', 'dark'],
+    },
+    example: `import { DataTable, Button, ListContainer } from '@e-burgos/tucu-ui';
+
+const columns = [
+  { header: 'ID', accessorKey: 'id' },
+  { header: 'Name', accessorKey: 'name' },
+  { header: 'Role', accessorKey: 'role' }
+];
+
+const data = [
+  { id: '1', name: 'John Doe', role: 'Admin' },
+  { id: '2', name: 'Jane Smith', role: 'User' }
+];
+
+const rightActions = (
+  <ListContainer
+    label="Export"
+    position="bottom"
+    align="end"
+    trigger="click"
+    items={[
+      { id: 'csv', label: 'Export CSV', onClick: () => console.log('CSV') },
+      { id: 'pdf', label: 'Export PDF', onClick: () => console.log('PDF') }
+    ]}
+  />
+);
+
+<DataTable
+  tableId="users-table"
+  columns={columns}
+  data={data}
+  showHeader={true}
+  showFooter={true}
+  enableHideColumns={true}
+  searchableColumns={['name', 'role']}
+  rightActions={rightActions}
+/>`,
+    relatedComponents: ['BasicTable', 'DataTableComponent'],
+    themeAware: true,
+  },
+  {
+    name: 'DataTableComponent',
+    category: 'tables',
+    description:
+      'Internal low-level table component parameterized by TanStack Table instance, supporting advanced layouts.',
+    importPath: '@e-burgos/tucu-ui',
+    example: `import { DataTableComponent } from '@e-burgos/tucu-ui';
+
+// Used internally by DataTable or for custom TanStack integration
+<DataTableComponent data={data} />`,
+    relatedComponents: ['DataTable'],
+    themeAware: true,
+  },
 
   // ─── LAYOUTS ─────────────────────────────────────────────
   {
