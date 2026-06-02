@@ -1,5 +1,6 @@
 import {
   Button,
+  Github,
   ListContainer,
   LucideIcons,
   SwitchMode,
@@ -47,7 +48,7 @@ export const RightButton = ({
                 window.open('https://github.com/e-burgos/tucu-ui', '_blank')
               }
             >
-              <LucideIcons.Github className="w-4 h-4" />
+              <Github className="w-4 h-4" />
               <Typography tag="span" className="text-sm font-medium">
                 View on GitHub
               </Typography>
