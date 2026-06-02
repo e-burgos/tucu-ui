@@ -165,8 +165,8 @@ importers:
   apps/demo:
     dependencies:
       '@e-burgos/tucu-ui':
-        specifier: file:/Users/macbookprom2/github/UI/tucu-ui/dist/ui/tucu-ui/e-burgos-tucu-ui-2.5.0.tgz
-        version: file:dist/ui/tucu-ui/e-burgos-tucu-ui-2.5.0.tgz(@types/react@19.2.14)(immer@11.1.7)(react-dom@19.2.5(react@19.2.5))(react-is@18.3.1)(react@19.2.5)(tailwindcss@4.1.18)(use-sync-external-store@1.6.0(react@19.2.5))
+        specifier: ^2.6.0
+        version: 2.6.0(@types/react@19.2.14)(immer@11.1.7)(react-dom@19.2.5(react@19.2.5))(react-is@18.3.1)(react@19.2.5)(tailwindcss@4.1.18)(use-sync-external-store@1.6.0(react@19.2.5))
       react:
         specifier: ^19.2.5
         version: 19.2.5
@@ -309,8 +309,8 @@ importers:
         specifier: ^3.2.2
         version: 3.2.2(react@19.2.5)
       '@e-burgos/tucu-ui-mcp':
-        specifier: ^0.5.2
-        version: 0.5.2
+        specifier: ^0.6.0
+        version: 0.6.0
       '@tailwindcss/typography':
         specifier: ^0.5.19
         version: 0.5.19(tailwindcss@4.3.0)
@@ -1016,14 +1016,13 @@ packages:
     peerDependencies:
       react: '>=16.8.0'
 
-  '@e-burgos/tucu-ui-mcp@0.5.2':
-    resolution: {integrity: sha512-EJrRSgJrDOgvDuPv1SJ8vpvtH2H/Gi5XhHYplVks0CPXvW7VIhEtZqohZyC4Z81hZDgCggnyfk6DIlffPrND9A==}
+  '@e-burgos/tucu-ui-mcp@0.6.0':
+    resolution: {integrity: sha512-DE/IHrZqlx+oBF/H1oeww5KOoGH9werRbwShbopOk3MGqY5F8lEHxXiDCcP/soSiimZ5jNxefa62fnWWXgWIeA==}
     engines: {node: '>=20'}
     hasBin: true
 
-  '@e-burgos/tucu-ui@file:dist/ui/tucu-ui/e-burgos-tucu-ui-2.5.0.tgz':
-    resolution: {integrity: sha512-vVpHwLPO8sebW91jxV0HkABSeqs80Jwo+mB2wAs4YiBDZe800N7lG1VlRV3uOXlxf9VNxMht4yNs9ODEKn4r2g==, tarball: file:dist/ui/tucu-ui/e-burgos-tucu-ui-2.5.0.tgz}
-    version: 2.5.0
+  '@e-burgos/tucu-ui@2.6.0':
+    resolution: {integrity: sha512-DwylreJfwGYLlvUotl3W5JbIeKBw1P9tepK3QLcmY7GNfNEQl/GwDhLC/EJgVeNGalZMfXgQfWQhGK/EZ5xBaA==}
     peerDependencies:
       react: '>=18.0.0'
       react-dom: '>=18.0.0'
@@ -8561,7 +8560,7 @@ snapshots:
       react: 19.2.5
       tslib: 2.8.1
 
-  '@e-burgos/tucu-ui-mcp@0.5.2':
+  '@e-burgos/tucu-ui-mcp@0.6.0':
     dependencies:
       '@modelcontextprotocol/sdk': 1.29.0(zod@3.25.76)
       express: 5.2.1
@@ -8570,13 +8569,13 @@ snapshots:
       - '@cfworker/json-schema'
       - supports-color
 
-  '@e-burgos/tucu-ui@file:dist/ui/tucu-ui/e-burgos-tucu-ui-2.5.0.tgz(@types/react@19.2.14)(immer@11.1.7)(react-dom@19.2.5(react@19.2.5))(react-is@18.3.1)(react@19.2.5)(tailwindcss@4.1.18)(use-sync-external-store@1.6.0(react@19.2.5))':
+  '@e-burgos/tucu-ui@2.6.0(@types/react@19.2.14)(immer@11.1.7)(react-dom@19.2.5(react@19.2.5))(react-is@18.3.1)(react@19.2.5)(tailwindcss@4.1.18)(use-sync-external-store@1.6.0(react@19.2.5))':
     dependencies:
       '@dnd-kit/core': 6.3.1(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       '@dnd-kit/modifiers': 9.0.0(@dnd-kit/core@6.3.1(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(react@19.2.5)
       '@dnd-kit/sortable': 10.0.0(@dnd-kit/core@6.3.1(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(react@19.2.5)
       '@dnd-kit/utilities': 3.2.2(react@19.2.5)
-      '@e-burgos/tucu-ui-mcp': 0.5.2
+      '@e-burgos/tucu-ui-mcp': 0.6.0
       '@tailwindcss/typography': 0.5.19(tailwindcss@4.1.18)
       '@tanstack/react-table': 8.21.3(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       '@tanstack/table-core': 8.21.3
