@@ -69,6 +69,22 @@ describe('Component Registry', () => {
     expect(button!.warnings!.length).toBeGreaterThan(0);
     expect(button!.warnings!.some((w) => w.includes('NEVER'))).toBe(true);
   });
+
+  it('DataTable is registered under tables category with correct data', () => {
+    const datatable = getComponentByName('DataTable');
+    expect(datatable).toBeDefined();
+    expect(datatable!.category).toBe('tables');
+    expect(datatable!.variants?.mode).toEqual(['light', 'dark']);
+    expect(datatable!.example).toContain('import { DataTable }');
+    expect(datatable!.example).toContain('<DataTable');
+  });
+
+  it('DataTableComponent is registered under tables category', () => {
+    const dtComp = getComponentByName('DataTableComponent');
+    expect(dtComp).toBeDefined();
+    expect(dtComp!.category).toBe('tables');
+    expect(dtComp!.example).toContain('<DataTableComponent');
+  });
 });
 
 describe('Component Tools Registration', () => {

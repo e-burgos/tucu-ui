@@ -942,6 +942,36 @@ export function Chart() {
       };
     }
   );
+
+  // ─── Tool 6: generate_documentation ──────────────────────────
+  server.tool(
+    'generate_documentation',
+    'Generate a complete documentation hub page and sections (General, Examples, Playground) for a tucu-ui component, matching the style of the src/demo pages.',
+    {
+      component: z
+        .string()
+        .describe('Component name (e.g. Button, Card, Alert, DataTable)'),
+      description: z
+        .string()
+        .optional()
+        .describe('Brief description of the component to display in the hub page header.'),
+      features: z
+        .array(z.string())
+        .optional()
+        .describe('List of key features to highlight in the documentation section.'),
+    },
+    async ({ component, description, features }) => {
+      const result = generateDocumentation(component, description, features);
+      return {
+        content: [
+          {
+            type: 'text' as const,
+            text: JSON.stringify(result, null, 2),
+          },
+        ],
+      };
+    }
+  );
 }
 
 // ─── Chart Builder Helpers ──────────────────────────────────────────────────
@@ -1108,4 +1138,286 @@ ${tooltip ? '    <Tooltip cursor={{ strokeDasharray: "3 3" }} />\n' : ''}${
     legend ? '    <Legend />\n' : ''
   }${scatters}
   </ScatterChart>`;
+}
+
+export interface DocumentationOutput {
+  component: string;
+  hubPageCode: string;
+  docsSectionCode: string;
+  examplesSectionCode: string;
+  playgroundSectionCode: string;
+  suggestedPaths: {
+    hubPage: string;
+    docsSection: string;
+    examplesSection: string;
+    playgroundSection: string;
+  };
+}
+
+export function generateDocumentation(
+  component: string,
+  description?: string,
+  features?: string[]
+): DocumentationOutput {
+  const compPascal = toPascalCase(component);
+  const compLower = compPascal.toLowerCase();
+  const entry = getComponentByName(compPascal);
+
+  const compDesc = description || entry?.description || `${compPascal} component description.`;
+  const compFeatures = features || [
+    'Highly customizable styling and theme-aware presets.',
+    'Accessible layout structure complying with WCAG guidelines.',
+    'Micro-animations for fluid state transitions.'
+  ];
+
+  // 1. Generate Hub Page Code
+  const hubPageCode = `import { lazy } from 'react';
+import { LucideIcons, HeroCard } from '../../../index';
+import { DynamicSectionsPage, type SectionConfig } from '../../components';
+
+const sections: SectionConfig[] = [
+  { id: 'documentation', label: 'General Documentation', component: lazy(() => import('./${compLower}-sections/DocumentationSection')) },
+  { id: 'examples', label: 'Usage Examples', component: lazy(() => import('./${compLower}-sections/ExamplesSection')) },
+  { id: 'playground', label: 'Playground', component: lazy(() => import('./${compLower}-sections/PlaygroundSection')) },
+];
+
+export function ${compPascal}Page() {
+  return (
+    <DynamicSectionsPage
+      hideHeroInSubSections
+      sections={sections}
+      hero={
+        <HeroCard
+          title="${compPascal} Hub"
+          description="${compDesc}"
+          githubButton
+          getStartedButton
+          docsButton="introduction"
+          icon={
+            <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 bg-linear-to-br from-indigo-500 via-purple-500 to-pink-500 rounded-full flex items-center justify-center shadow-lg border border-indigo-500/50">
+              <LucideIcons.BookOpen className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-white filter drop-shadow-lg" />
+            </div>
+          }
+        />
+      }
+    />
+  );
+}
+
+export default ${compPascal}Page;`;
+
+  // 2. Generate Docs Section Code
+  const featureCards = compFeatures.map((feat, index) => {
+    const icons = ['FolderHeart', 'MoveHorizontal', 'Pin', 'FileSpreadsheet', 'Settings', 'Layers'];
+    const icon = icons[index % icons.length];
+    const colors = ['indigo', 'purple', 'pink', 'blue', 'emerald', 'orange'];
+    const color = colors[index % colors.length];
+    return `          <CardContainer className="p-5" key={${index}}>
+            <div className="flex gap-4 items-start">
+              <div className="p-2.5 bg-${color}-500/10 rounded-lg text-${color}-500">
+                <LucideIcons.${icon} className="w-6 h-6" />
+              </div>
+              <div>
+                <Typography tag="h5" className="font-semibold mb-1">Feature ${index + 1}</Typography>
+                <Typography className="text-xs text-foreground/60">
+                  ${feat}
+                </Typography>
+              </div>
+            </div>
+          </CardContainer>`;
+  }).join('\n\n');
+
+  const docsSectionCode = `import React from 'react';
+import {
+  CardContainer,
+  CardTitle,
+  Typography,
+  HeroCard,
+  LucideIcons,
+} from '../../../../index';
+import { AutoPropsTable } from '../../../components/auto-props-table';
+
+const DocumentationSection: React.FC = () => {
+  return (
+    <div className="flex flex-col gap-8">
+      <HeroCard
+        title="${compPascal} Documentation"
+        description="A comprehensive reference guide for the ${compPascal} component. Learn how to configure variants and customize properties."
+        icon={
+          <div className="w-16 h-16 sm:w-20 sm:h-20 bg-linear-to-br from-indigo-500 via-purple-500 to-pink-500 rounded-full flex items-center justify-center shadow-lg">
+            <LucideIcons.BookOpen className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
+          </div>
+        }
+      />
+
+      <CardContainer>
+        <CardTitle title="Introduction">
+          <Typography className="text-sm text-foreground/70 mb-4">
+            The <code>${compPascal}</code> component is a premium, flexible element designed for modern UI layouts in the tucu-ui ecosystem.
+          </Typography>
+          <Typography className="text-sm text-foreground/70">
+            It supports fluid responsiveness, accessibility standards, and semantic color presets that align with dark and light theme context providers automatically.
+          </Typography>
+        </CardTitle>
+      </CardContainer>
+
+      <section className="space-y-6">
+        <div className="text-center">
+          <Typography tag="h2" className="mb-2">
+            Key Features
+          </Typography>
+          <Typography tag="p" className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
+            Explore the main capabilities of the ${compPascal} component.
+          </Typography>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+${featureCards}
+        </div>
+      </section>
+
+      {/* ─── Auto Generated Props ─────────────────────────────────── */}
+      <AutoPropsTable componentName="${compPascal}" showFilePath={true} />
+    </div>
+  );
+};
+
+export default DocumentationSection;`;
+
+  // 3. Generate Examples Section Code
+  const exampleCodeSnippet = entry?.example || `import { ${compPascal} } from '@e-burgos/tucu-ui';\\n\\n<${compPascal} />`;
+
+  const examplesSectionCode = `import React from 'react';
+import {
+  CardContainer,
+  CardTitle,
+  Typography,
+  CodeBlock,
+  HeroCard,
+  LucideIcons,
+  ${compPascal}
+} from '../../../../index';
+
+const ExamplesSection: React.FC = () => {
+  return (
+    <div className="flex flex-col gap-8">
+      <HeroCard
+        title="${compPascal} Examples"
+        description="Explore basic and advanced examples to integrate the ${compPascal} component into your application."
+        icon={
+          <div className="w-16 h-16 sm:w-20 sm:h-20 bg-linear-to-br from-indigo-500 via-purple-500 to-pink-500 rounded-full flex items-center justify-center shadow-lg">
+            <LucideIcons.TableProperties className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
+          </div>
+        }
+      />
+
+      <CardContainer className="p-6">
+        <CardTitle title="Standard Example" className="mb-4">
+          <Typography tag="p" className="text-sm text-gray-500 dark:text-gray-400 mb-6">
+            A standard showcase showing the default state and options of the ${compPascal} component.
+          </Typography>
+
+          <div className="p-4 bg-gray-50 dark:bg-gray-800/40 rounded-lg flex justify-center">
+            {/* Component preview */}
+            <${compPascal} />
+          </div>
+        </CardTitle>
+      </CardContainer>
+
+      <CardContainer className="p-6">
+        <CardTitle title="Implementation Code" className="mb-4">
+          <CodeBlock
+            language="tsx"
+            code={\`${exampleCodeSnippet.replace(/`/g, '\\`').replace(/\${/g, '\\${')}\`}
+          />
+        </CardTitle>
+      </CardContainer>
+    </div>
+  );
+};
+
+export default ExamplesSection;`;
+
+  // 4. Generate Playground Section Code
+  const playgroundProps = entry?.variants ? Object.keys(entry.variants) : [];
+  const playgroundPropsObj = entry?.variants
+    ? Object.entries(entry.variants).map(([k, v]) => `          ${k}: '${v[0]}',`).join('\n')
+    : '';
+
+  const playgroundControls = entry?.variants
+    ? Object.entries(entry.variants).map(([k, v]) => `          {
+        name: '${k}',
+        type: 'select',
+        options: [${v.map(val => `'${val}'`).join(', ')}],
+        description: '${k} variant option',
+      },`).join('\n')
+    : '';
+
+  const playgroundPropsBinding = entry?.variants
+    ? Object.keys(entry.variants).map(k => `                ${k}={props.${k}}`).join('\n')
+    : '';
+
+  const playgroundSectionCode = `/* eslint-disable @typescript-eslint/no-explicit-any */
+import React from 'react';
+import {
+  HeroCard,
+  LucideIcons,
+  ${compPascal}
+} from '../../../../index';
+import { PropPlayground } from '../../../components/prop-playground';
+
+const PlaygroundSection: React.FC = () => {
+  return (
+    <div className="flex flex-col gap-8">
+      <HeroCard
+        title="${compPascal} Playground"
+        description="Interact with the props controls below to modify the ${compPascal} component in real-time."
+        icon={
+          <div className="w-16 h-16 sm:w-20 sm:h-20 bg-linear-to-br from-indigo-500 via-purple-500 to-pink-500 rounded-full flex items-center justify-center shadow-lg">
+            <LucideIcons.Wand2 className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
+          </div>
+        }
+      />
+
+      <PropPlayground
+        componentName="${compPascal}"
+        defaultValues={{
+${playgroundPropsObj}
+        }}
+        controlOverrides={[
+${playgroundControls}
+        ]}
+        includeProps={[
+          ${playgroundProps.map(p => `'${p}'`).join(', ')}
+        ]}
+      >
+        {(props: any) => {
+          return (
+            <div className="w-full flex justify-center p-6 bg-gray-50 dark:bg-gray-800/40 rounded-lg">
+              <${compPascal}
+${playgroundPropsBinding}
+              />
+            </div>
+          );
+        }}
+      </PropPlayground>
+    </div>
+  );
+};
+
+export default PlaygroundSection;`;
+
+  return {
+    component: compPascal,
+    hubPageCode,
+    docsSectionCode,
+    examplesSectionCode,
+    playgroundSectionCode,
+    suggestedPaths: {
+      hubPage: `ui/tucu-ui/src/demo/pages/${compLower}/${compPascal}Page.tsx`,
+      docsSection: `ui/tucu-ui/src/demo/pages/${compLower}/${compLower}-sections/DocumentationSection.tsx`,
+      examplesSection: `ui/tucu-ui/src/demo/pages/${compLower}/${compLower}-sections/ExamplesSection.tsx`,
+      playgroundSection: `ui/tucu-ui/src/demo/pages/${compLower}/${compLower}-sections/PlaygroundSection.tsx`
+    }
+  };
 }

@@ -6,6 +6,9 @@ export function getChangelogContent(): string {
 ## v2.5.0 (Current)
 - Fix: macOS theme active/inactive menu color inconsistencies on sidebar, navbar, and TOC items
 - Fix: Preserved theme settings configuration per colorScheme using Zustand themeConfigInterceptor middleware
+- Add: DataTable component new features including Columns Visibility Toggle (enableHideColumns), Global Search/Filter (searchableColumns), rightActions slot for custom header actions, and restructured header container layout
+- Refine: Harmonized DataTable component colors using global CSS design tokens for automated light/dark mode styling
+
 
 ## v2.4.0
 - Add: Modular settings system (SettingsDrawer split into dedicated sub-components like BackgroundPicker, ColorDot, etc.)
