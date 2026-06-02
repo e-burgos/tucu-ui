@@ -16,6 +16,7 @@ import {
   MacOSSonomaShowcase,
   MacOSTahoeShowcase,
   MCPServerPage,
+  DataTablePage,
 } from '@e-burgos/tucu-ui';
 
 // Design System
@@ -154,6 +155,13 @@ export const APP_PATHS = {
         path: '/components/inputs-components',
         icon: <LucideIcons.Keyboard />,
         component: <InputsComponents />,
+        enableNestedRoutes: true,
+      },
+      {
+        name: 'DataTable',
+        path: '/components/datatable',
+        icon: <LucideIcons.Table />,
+        component: <DataTablePage />,
         enableNestedRoutes: true,
       },
     ],

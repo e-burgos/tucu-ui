@@ -6,6 +6,7 @@ import {
   AnchorLink,
   LucideIcons,
   ScrollToTop,
+  Github,
 } from '../../index';
 
 import { INTRODUCTION_DOCS_URL, GITHUB_URL } from '../utils/constants';
@@ -139,7 +140,7 @@ export const HeroCard: React.FC<HeroCardProps> = ({
                   target="_blank"
                   className="flex items-center text-inherit no-underline"
                 >
-                  <LucideIcons.Github className="w-5 h-5 mr-2" />
+                  <Github className="w-5 h-5 mr-2" />
                   View on GitHub
                 </AnchorLink>
               </Button>
