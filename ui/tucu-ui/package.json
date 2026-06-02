@@ -1,7 +1,7 @@
 {
   "name": "@e-burgos/tucu-ui",
   "description": "Tucu UI Library",
-  "version": "2.5.0",
+  "version": "2.6.0",
   "main": "./index.js",
   "module": "./index.mjs",
   "types": "./index.d.ts",
@@ -48,7 +48,7 @@
     "@dnd-kit/modifiers": "^9.0.0",
     "@dnd-kit/sortable": "^10.0.0",
     "@dnd-kit/utilities": "^3.2.2",
-    "@e-burgos/tucu-ui-mcp": "^0.5.2",
+    "@e-burgos/tucu-ui-mcp": "^0.6.0",
     "@tailwindcss/typography": "^0.5.19",
     "@tanstack/react-table": "^8.21.3",
     "@tanstack/table-core": "^8.21.3",

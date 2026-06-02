@@ -5,7 +5,37 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.6.0] - 2026-06-02
+
+### Added
+
+- **`DataTable` Component**: Full-featured data table module built on TanStack Table v8
+  - `DataTable` — main generic component with `T extends TData` constraint
+  - `DataTableProvider` — context provider (Zustand-backed) for table state management
+  - `DataTableComponent` — inner rendering engine with full column/row virtualization support
+  - `TableWrapper` — smart header container with title, search, column visibility manager, and right actions slots
+  - `TableHead`, `TableRow`, `TableCell` — composable table structure components
+  - `Pagination`, `ManualPagination`, `Footer` — pagination controls supporting client-side and server-side modes
+  - `ColumnsVisibilityManager` — column show/hide dropdown with ghost button style
+  - `StateTableHandler` — loading/empty/error state rendering
+  - `SubComponentDataTable` — nested sub-table support within expanded rows
+  - Column features: sorting, pinning (left/right), resizing, drag-and-drop reorder, visibility toggle, column search
+  - Row features: row actions (view, edit, delete, download, open-new-tab, more), row selection (checkbox/radio), expandable rows with sub-components
+  - Drag-and-drop contexts: `DragDropTableContext`, `DragDropContentContext`
+  - Hooks: `useDataTableStore` (Zustand persist), `useColumns`, `useScrollableTable`, `useGetCommonPinningStyles`, `useComponentEventListener`
+  - Helpers: `ExpandedColumn`, `RowActionsColumn`, `RowSelectionColumn`, `OffsetColumn`, `cn`, `convertColumns`, `theme`, `parseNumericValueToExport`
+  - CSS module: `datatable.css` and `datatable/styles.css` with `--color-table-*` design tokens
+  - TypeScript exports: `TData`, `DataTableProps`, `IOptionalDataTableProps`, `DataTableStore`, and 20+ additional interfaces and types
+- **DataTable Demo Page**: Interactive documentation with 6 sections — Playground, Columns, Examples, DataFetching, Search, Documentation
+- Updated `@e-burgos/tucu-ui-mcp` dependency to `^0.6.0`
+
+### Fixed
+
+- `DataTable` generic constraint changed from unconstrained `<TData>` to `<T extends TData>` to align with `DataTableComponent` type expectations
+- `memo()` export cast updated to `as unknown as typeof DataTable` to resolve `IntrinsicAttributes` TypeScript resolution issue
+
 ## [2.5.0] - 2026-05-29
+
 
 ### Added
 
