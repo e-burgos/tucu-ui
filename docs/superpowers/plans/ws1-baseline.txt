@@ -6,3 +6,12 @@ npm notice total files: 1092
 npm notice
  16M	dist/ui/tucu-ui
      698
+== WS1 after 2026-07-14 ==
+npm notice unpacked size: 12.2 MB
+npm notice shasum: f6a87af207e49e9a77ecca941ed531be2ef07601
+npm notice integrity: sha512-WjMJUGau9YOPE[...]0V14qNekg3XOg==
+npm notice total files: 1092
+npm notice
+ 16M	dist/ui/tucu-ui
+     698
+NOTE: d.ts rollup deferred (Task 6) — count remains ~698 as expected; size reduction comes only from removed deps (MCP dep, react-router/table-core dedupe, lodash-es).
