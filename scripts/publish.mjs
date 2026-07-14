@@ -28,7 +28,7 @@
  */
 
 import { execSync } from 'node:child_process';
-import { readFileSync, writeFileSync } from 'node:fs';
+import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -90,6 +90,22 @@ function versionExistsOnNpm(packageName, version) {
   } catch {
     return false;
   }
+}
+
+/**
+ * Aborts the publish when any required build artifact is missing from dist.
+ */
+function verifyDistArtifacts() {
+  const distDir = resolve(ROOT, 'dist/ui/tucu-ui');
+  const required = ['index.js', 'index.mjs', 'index.d.ts', 'index.css', 'package.json'];
+  const missing = required.filter((f) => !existsSync(resolve(distDir, f)));
+  if (missing.length > 0) {
+    error(
+      `dist/ui/tucu-ui is missing required artifacts: ${missing.join(', ')}.\n` +
+        '  Run "pnpm nx run tucu-ui:build" and retry.'
+    );
+  }
+  success('Dist artifacts verified (index.js, index.mjs, index.d.ts, index.css, package.json).');
 }
 
 // ─── GIT CHANGELOG GENERATOR ───────────────────────────────
@@ -339,6 +355,7 @@ if (publishOnly) {
     error(`Could not sync dist/ui/tucu-ui/package.json: ${e.message}`);
   }
 
+  verifyDistArtifacts();
   log(`Publishing ${packageName}@${currentVersion} to npm...`);
   const publishCmd = `pnpm npm publish --access public --no-git-checks${
     otp ? ` --otp=${otp}` : ''
@@ -494,6 +511,7 @@ try {
 }
 
 // 10. Publish to npm
+verifyDistArtifacts();
 log(`Publishing ${packageName}@${nextVersion} to npm...`);
 exec('pnpm npm publish --access public --no-git-checks', {
   cwd: resolve(ROOT, 'dist/ui/tucu-ui'),
