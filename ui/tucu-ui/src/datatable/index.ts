@@ -1,5 +1,8 @@
 import type {} from './overrides';
-import * as TanstackTableImport from './tanstack-table';
+// Imported from the external package directly (not ./tanstack-table):
+// api-extractor cannot roll up a namespace built from a local module
+// that star-exports another module.
+import * as TanstackTableImport from '@tanstack/react-table';
 
 export { default as DataTableComponent } from './components/DataTable/DataTableComponent';
 export { default as DataTable } from './components/DataTable/DataTable';
@@ -12,4 +15,4 @@ export * from './common/types';
 export * from './hooks';
 
 export { TanstackTableImport as TanstackTable };
-export * from '../assets/css/datatable.css';
+import '../assets/css/datatable.css';

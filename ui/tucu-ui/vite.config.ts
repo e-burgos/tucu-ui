@@ -41,7 +41,12 @@ export default defineConfig({
     nxViteTsPaths(),
     dts({
       entryRoot: 'src',
-      tsconfigPath: path.join(__dirname, 'tsconfig.lib.json'),
+      tsconfigPath: path.join(__dirname, 'tsconfig.dts.json'),
+      rollupTypes: true,
+      // tsconfig.dts.json's paths exist only so api-extractor can resolve
+      // bare specifiers from dist/; they must not be rewritten to relative
+      // node_modules paths in the emitted declarations.
+      pathsToAliases: false,
     }),
     copyReadmePlugin(),
     copyChangelogPlugin(),
