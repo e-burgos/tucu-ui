@@ -1,0 +1,8 @@
+== WS1 baseline 2026-07-14 ==
+npm notice unpacked size: 12.3 MB
+npm notice shasum: 8e20adcca08026f5c90c79990d19d225a1cb8e31
+npm notice integrity: sha512-DwylreJfwGYLl[...]WQhGK/EZ5xBaA==
+npm notice total files: 1092
+npm notice
+ 16M	dist/ui/tucu-ui
+     698
