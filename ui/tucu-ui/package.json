@@ -5,7 +5,6 @@
   "main": "./index.js",
   "module": "./index.mjs",
   "types": "./index.d.ts",
-  "style": "./index.css",
   "author": "Esteban Burgos",
   "license": "MIT",
   "repository": {
@@ -27,7 +26,6 @@
   "exports": {
     ".": {
       "types": "./index.d.ts",
-      "style": "./index.css",
       "import": "./index.mjs",
       "require": "./index.js"
     },
