@@ -314,9 +314,6 @@ importers:
       '@tanstack/react-table':
         specifier: ^8.21.3
         version: 8.21.3(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
-      '@tanstack/table-core':
-        specifier: ^8.21.3
-        version: 8.21.3
       classnames:
         specifier: ^2.5.1
         version: 2.5.1
@@ -338,9 +335,6 @@ importers:
       react-hook-form:
         specifier: ^7.77.0
         version: 7.77.0(react@19.2.5)
-      react-router:
-        specifier: ^7.16.0
-        version: 7.16.0(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       react-router-dom:
         specifier: ^7.16.0
         version: 7.16.0(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
