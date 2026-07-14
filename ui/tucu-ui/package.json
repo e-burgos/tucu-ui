@@ -36,7 +36,7 @@
   "files": [
     "**/*"
   ],
-  "sideEffects": true,
+  "sideEffects": ["**/*.css"],
   "scripts": {
     "generate-props": "tsx ../../scripts/generate-props.ts",
     "publish:lib": "cd ../../dist/ui/tucu-ui && pnpm npm publish --access public --no-git-checks",
