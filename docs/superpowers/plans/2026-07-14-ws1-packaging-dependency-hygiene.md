@@ -453,7 +453,7 @@ mv dist/ui/tucu-ui/index.mjs /tmp/ws1-index.mjs
 node scripts/publish.mjs publish --skip-build --dry-run; echo "exit=$?"
 mv /tmp/ws1-index.mjs dist/ui/tucu-ui/index.mjs
 ```
-Expected: script aborts with the "missing required artifacts: index.mjs" message and non-zero exit BEFORE any npm command runs. (If `--dry-run` is not honored in publish-only mode, do NOT run without it — inspect the code path instead and rely on the missing-file abort happening before the publish exec.)
+Expected: script aborts with the "missing required artifacts: index.mjs" message and non-zero exit BEFORE any npm command runs. (Publish-only mode honors `--dry-run` — fixed during execution after review — so this can be run safely as written.)
 
 - [ ] **Step 4: Verify the success path (dry)**
 

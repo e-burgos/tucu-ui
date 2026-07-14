@@ -356,10 +356,20 @@ if (publishOnly) {
   }
 
   verifyDistArtifacts();
-  log(`Publishing ${packageName}@${currentVersion} to npm...`);
+
   const publishCmd = `pnpm npm publish --access public --no-git-checks${
     otp ? ` --otp=${otp}` : ''
   }`;
+
+  if (dryRun) {
+    log('--dry-run mode: showing planned changes without applying them.\n');
+    console.log(
+      `  Publish: cd dist/ui/tucu-ui && ${publishCmd}`
+    );
+    process.exit(0);
+  }
+
+  log(`Publishing ${packageName}@${currentVersion} to npm...`);
   exec(publishCmd, {
     cwd: resolve(ROOT, 'dist/ui/tucu-ui'),
   });
