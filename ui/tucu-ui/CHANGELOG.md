@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.7.3] - 2026-07-15
+
+### Changed
+
+- replace react-use with native React implementations
+- bump @e-burgos/tucu-ui to ^2.7.2
+
+### Fixed
+
+- resolve typecheck errors in CodeBlock's lazy prismjs loading
 ## [2.7.2] - 2026-07-15
 
 ### Fixed
