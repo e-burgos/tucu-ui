@@ -812,11 +812,11 @@
    =================================================================== */
 /* Capture all source files in src/ directory (components, demo, hooks, themes, libs, etc.) */
 @source "../../**/*.{ts,tsx,html,css}";
-/* Third-party libraries in node_modules */
-@source "../../../node_modules/framer-motion/**/*.{ts,tsx}";
-@source "../../../node_modules/lucide-react/**/*.{ts,tsx}";
-@source "../../../node_modules/swiper/**/*.{ts,tsx}";
-@source "../../../node_modules/recharts/**/*.{ts,tsx}";
+/* node_modules of framer-motion/lucide-react/swiper/recharts are NOT scanned:
+   none of them author Tailwind class names in their own source — framer-motion
+   and recharts apply styles via inline style props, lucide-react renders raw
+   SVG, and swiper ships its own hand-written CSS files (imported separately).
+   Scanning them only produced junk utilities and inflated the compiled CSS. */
 
 /* ===================================================================
    CUSTOM UTILITIES
