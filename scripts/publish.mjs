@@ -1,30 +1,46 @@
 #!/usr/bin/env node
 
 /**
- * tucu-ui publish script
+ * Unified publish script for @e-burgos/tucu-ui and @e-burgos/tucu-ui-mcp.
+ *
+ * Publishing to npm normally happens in CI: this script prepares the
+ * release (bump, changelog, README, build, verify, commit, tag) and stops.
+ * Pushing the resulting tag (tucu-ui-v*.*.* or mcp-v*.*.*) triggers the
+ * matching GitHub Actions workflow, which publishes with an npm automation
+ * token (see .github/workflows/publish-tucu-ui.yml / publish-mcp.yml).
  *
  * Usage:
- *   node scripts/publish.mjs patch              # 2.0.11 → 2.0.12
- *   node scripts/publish.mjs minor              # 2.0.11 → 2.1.0
- *   node scripts/publish.mjs major              # 2.0.11 → 3.0.0
- *   node scripts/publish.mjs publish            # publica la versión actual sin bump ni git
- *   node scripts/publish.mjs publish --skip-build  # igual pero salta el build
- *   node scripts/publish.mjs --dry-run patch    # simula todo sin publicar
- *   node scripts/publish.mjs --skip-docs patch  # salta actualización de docs
- *   node scripts/publish.mjs --skip-git patch   # salta verificación working tree y commit/tag
+ *   node scripts/publish.mjs <tucu-ui|mcp> <patch|minor|major> [flags]
+ *   node scripts/publish.mjs <tucu-ui|mcp> publish [--skip-build] [flags]
  *
- * Steps:
- *   1. Validate bump type
- *   2. Read current version from ui/tucu-ui/package.json
+ * Flags:
+ *   --dry-run        Simulate everything without writing files, building, or publishing
+ *   --skip-docs      Skip CHANGELOG.md / README.md updates
+ *   --skip-git       Skip clean-working-tree check and the release commit/tag
+ *   --skip-build     (publish subcommand only) reuse existing build artifacts
+ *   --local-publish  Also run `npm publish` (and, for mcp, `flyctl deploy`) from
+ *                    this machine — the emergency/manual escape hatch for when
+ *                    CI can't run. Requires interactive npm OTP if 2FA is on.
+ *   --otp=123456     OTP to pass through to `npm publish` with --local-publish
+ *
+ * Steps (bump mode):
+ *   1. Validate target and bump type
+ *   2. Read current version from the package's package.json
  *   3. Calculate next version
- *   4. Check if version already exists on npm registry
- *   5. Auto-generate CHANGELOG entry from git commits since last tag
- *   6. Update version badge and install command in README.md
- *   7. Update version in ui/tucu-ui/package.json
- *   8. Build the library (pnpm nx run tucu-ui:build)
- *   9. Sync version in dist/ui/tucu-ui/package.json
- *  10. Publish to npm from dist/ui/tucu-ui
- *  11. (unless --skip-git) Commit and tag the release
+ *   4. Check the next version doesn't already exist on npm
+ *   5. Auto-generate a CHANGELOG entry from git commits since the last matching tag
+ *   6. Update the version badge / install snippets in the package's README
+ *   7. Update version in the package's package.json (tucu-ui also re-syncs its
+ *      @e-burgos/tucu-ui-mcp dependency to the latest published mcp version)
+ *   8. Build (pnpm nx run <project>:build)
+ *   9. (tucu-ui only) sync dist/ui/tucu-ui/package.json and verify build artifacts
+ *  10. Commit and tag the release (unless --skip-git)
+ *  11. (--local-publish only) publish to npm, and for mcp, deploy to fly.io
+ *
+ * Steps (publish subcommand — publishes the current version as-is):
+ *   1. Build (unless --skip-build)
+ *   2. (tucu-ui only) sync dist package.json and verify build artifacts
+ *   3. Publish to npm, and for mcp, deploy to fly.io
  */
 
 import { execSync } from 'node:child_process';
@@ -36,10 +52,52 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const ROOT = resolve(__dirname, '..');
 
+// ─── PACKAGE REGISTRY ──────────────────────────────────────
+
+const PACKAGES = {
+  'tucu-ui': {
+    label: '[publish:tucu-ui]',
+    pkgDir: resolve(ROOT, 'ui/tucu-ui'),
+    // tucu-ui builds to dist/ and publishes from there; mcp publishes in place.
+    publishDir: resolve(ROOT, 'dist/ui/tucu-ui'),
+    tagPrefix: 'tucu-ui-v',
+    buildTarget: 'tucu-ui:build',
+    publishCmd: 'pnpm npm publish --access public --no-git-checks',
+    requiredDistArtifacts: [
+      'index.js',
+      'index.mjs',
+      'index.d.ts',
+      'index.css',
+      'package.json',
+    ],
+    changelogPath: resolve(ROOT, 'ui/tucu-ui/CHANGELOG.md'),
+    readmePath: resolve(ROOT, 'README.md'),
+    syncMcpDependency: true,
+    deployToFly: false,
+    emoji: '📦',
+    color: '\x1b[32m', // green
+  },
+  mcp: {
+    label: '[publish:mcp]',
+    pkgDir: resolve(ROOT, 'tools/mcp-server'),
+    publishDir: resolve(ROOT, 'tools/mcp-server'),
+    tagPrefix: 'mcp-v',
+    buildTarget: 'tucu-ui-mcp:build',
+    publishCmd: 'npm publish --access public',
+    requiredDistArtifacts: null,
+    changelogPath: resolve(ROOT, 'tools/mcp-server/CHANGELOG.md'),
+    readmePath: resolve(ROOT, 'tools/mcp-server/README.md'),
+    syncMcpDependency: false,
+    deployToFly: true,
+    emoji: '🤖',
+    color: '\x1b[35m', // magenta
+  },
+};
+
 // ─── HELPERS ───────────────────────────────────────────────
 
-function log(msg) {
-  console.log(`\x1b[36m[publish]\x1b[0m ${msg}`);
+function log(label, msg) {
+  console.log(`\x1b[36m${label}\x1b[0m ${msg}`);
 }
 function success(msg) {
   console.log(`\x1b[32m✓\x1b[0m ${msg}`);
@@ -55,7 +113,7 @@ function error(msg) {
 function exec(cmd, opts = {}) {
   try {
     return execSync(cmd, {
-      cwd: ROOT,
+      cwd: opts.cwd ?? ROOT,
       encoding: 'utf-8',
       stdio: opts.silent ? 'pipe' : 'inherit',
       ...opts,
@@ -92,46 +150,34 @@ function versionExistsOnNpm(packageName, version) {
   }
 }
 
-/**
- * Aborts the publish when any required build artifact is missing from dist.
- */
-function verifyDistArtifacts() {
-  const distDir = resolve(ROOT, 'dist/ui/tucu-ui');
-  const required = ['index.js', 'index.mjs', 'index.d.ts', 'index.css', 'package.json'];
-  const missing = required.filter((f) => !existsSync(resolve(distDir, f)));
+/** Aborts if any required build artifact is missing (tucu-ui only). */
+function verifyDistArtifacts(pkg) {
+  if (!pkg.requiredDistArtifacts) return;
+  const missing = pkg.requiredDistArtifacts.filter(
+    (f) => !existsSync(resolve(pkg.publishDir, f))
+  );
   if (missing.length > 0) {
     error(
-      `dist/ui/tucu-ui is missing required artifacts: ${missing.join(', ')}.\n` +
-        '  Run "pnpm nx run tucu-ui:build" and retry.'
+      `${pkg.publishDir} is missing required artifacts: ${missing.join(', ')}.\n` +
+        `  Run "pnpm nx run ${pkg.buildTarget}" and retry.`
     );
   }
-  success('Dist artifacts verified (index.js, index.mjs, index.d.ts, index.css, package.json).');
+  success(
+    `Dist artifacts verified (${pkg.requiredDistArtifacts.join(', ')}).`
+  );
 }
 
 // ─── GIT CHANGELOG GENERATOR ───────────────────────────────
 
-/**
- * Returns the most recent git tag matching the given prefix, or null if none.
- * If no prefix is given, returns the nearest tag from git describe.
- */
-function getLastTag(prefix = '') {
-  if (prefix) {
-    const out = exec(`git tag -l "${prefix}*" --sort=-version:refname`, {
-      silent: true,
-      ignoreError: true,
-    });
-    return out ? out.trim().split('\n')[0] || null : null;
-  }
-  const out = exec('git describe --tags --abbrev=0 2>/dev/null', {
+/** Most recent tag matching the given prefix, or null if none exists. */
+function getLastTag(prefix) {
+  const out = exec(`git tag -l "${prefix}*" --sort=-version:refname`, {
     silent: true,
     ignoreError: true,
   });
-  return out ? out.trim() : null;
+  return out ? out.trim().split('\n')[0] || null : null;
 }
 
-/**
- * Conventional commit prefixes → CHANGELOG section mapping.
- */
 const SECTION_MAP = {
   feat: 'Added',
   feature: 'Added',
@@ -154,19 +200,9 @@ const SECTION_MAP = {
   security: 'Security',
 };
 
-/**
- * Parses raw git commit subjects into grouped CHANGELOG sections.
- * Supports conventional commits: "feat(scope): message" or "feat: message".
- */
+/** Parses conventional-commit subjects ("feat(scope): message") into CHANGELOG sections. */
 function parseCommits(rawLog) {
-  const sections = {
-    Added: [],
-    Changed: [],
-    Fixed: [],
-    Removed: [],
-    Security: [],
-  };
-
+  const sections = { Added: [], Changed: [], Fixed: [], Removed: [], Security: [] };
   if (!rawLog.trim()) return sections;
 
   for (const line of rawLog.trim().split('\n')) {
@@ -181,13 +217,9 @@ function parseCommits(rawLog) {
       sections['Changed'].push(trimmed);
     }
   }
-
   return sections;
 }
 
-/**
- * Gets all commit subjects since lastTag (or all commits if no tag exists).
- */
 function getCommitsSinceTag(lastTag) {
   const range = lastTag ? `${lastTag}..HEAD` : 'HEAD';
   const out = exec(`git log ${range} --pretty=format:"%s" --no-merges`, {
@@ -197,9 +229,6 @@ function getCommitsSinceTag(lastTag) {
   return out ? out.trim() : '';
 }
 
-/**
- * Builds the new CHANGELOG entry string for the given version.
- */
 function buildChangelogEntry(version, sections) {
   const today = new Date().toISOString().slice(0, 10);
   const lines = [`## [${version}] - ${today}`, ''];
@@ -212,84 +241,66 @@ function buildChangelogEntry(version, sections) {
     for (const item of items) lines.push(`- ${item}`);
     lines.push('');
   }
-
-  if (!hasContent) {
-    lines.push('### Changed', '', '- Version bump', '');
-  }
+  if (!hasContent) lines.push('### Changed', '', '- Version bump', '');
 
   return lines.join('\n');
 }
 
-/**
- * Prepends the new entry to ui/tucu-ui/CHANGELOG.md.
- */
-function updateChangelog(version, sections) {
-  const changelogPath = resolve(ROOT, 'ui/tucu-ui/CHANGELOG.md');
+/** Prepends the new entry to the package's CHANGELOG.md, creating it if needed. */
+function updateChangelog(pkg, version, sections) {
   const newEntry = buildChangelogEntry(version, sections);
 
   let existing = '';
   try {
-    existing = readFileSync(changelogPath, 'utf-8');
+    existing = readFileSync(pkg.changelogPath, 'utf-8');
   } catch {
     existing =
       '# Changelog\n\nAll notable changes to this project will be documented in this file.\n\nThe format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),\nand this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).\n\n';
   }
 
-  // Insert new entry right before the first existing ## section
   const firstSectionIdx = existing.indexOf('\n## ');
   if (firstSectionIdx !== -1) {
-    const updated =
+    writeFileSync(
+      pkg.changelogPath,
       existing.slice(0, firstSectionIdx + 1) +
-      newEntry +
-      existing.slice(firstSectionIdx + 1);
-    writeFileSync(changelogPath, updated);
+        newEntry +
+        existing.slice(firstSectionIdx + 1)
+    );
   } else {
-    writeFileSync(changelogPath, existing.trimEnd() + '\n\n' + newEntry);
+    writeFileSync(pkg.changelogPath, existing.trimEnd() + '\n\n' + newEntry);
   }
-
-  return changelogPath;
+  return pkg.changelogPath;
 }
 
-/**
- * Updates version references in README.md:
- *   - shields.io badge URLs
- *   - Versioned install snippets like: pnpm add @e-burgos/tucu-ui@2.0.11
- */
-function updateReadme(packageName, oldVersion, newVersion) {
-  const readmePath = resolve(ROOT, 'README.md');
+/** Updates version badges and versioned install snippets in the package's README. */
+function updateReadme(pkg, packageName, oldVersion, newVersion) {
   let content;
   try {
-    content = readFileSync(readmePath, 'utf-8');
+    content = readFileSync(pkg.readmePath, 'utf-8');
   } catch {
-    warn('README.md not found — skipping.');
+    warn(`${pkg.readmePath} not found — skipping.`);
     return null;
   }
 
   const escapedName = packageName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   const escapedOld = oldVersion.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
-  // Replace versioned install commands: packageName@oldVersion → packageName@newVersion
   content = content.replace(
     new RegExp(`(${escapedName})@${escapedOld}`, 'g'),
     `$1@${newVersion}`
   );
-
-  // Replace pinned version in shields.io badge URLs
   content = content.replace(
     /(\[!\[npm version\].*?\/npm\/v\/[^/\s)]+\/)[\d]+\.[\d]+\.[\d]+/g,
     `$1${newVersion}`
   );
 
-  writeFileSync(readmePath, content);
-  return readmePath;
+  writeFileSync(pkg.readmePath, content);
+  return pkg.readmePath;
 }
 
 // ─── GIT RELEASE ───────────────────────────────────────────
 
-/**
- * Aborts if the working tree has uncommitted changes.
- * Skipped in --dry-run mode.
- */
+/** Aborts if the working tree has uncommitted changes. */
 function checkCleanWorkingTree() {
   const status = exec('git status --porcelain', {
     silent: true,
@@ -311,13 +322,51 @@ function checkCleanWorkingTree() {
   success('Working tree is clean.');
 }
 
+// ─── PUBLISH + DEPLOY (shared by --local-publish and the `publish` subcommand) ─
+
+function publishToNpm(pkg, packageName, version, otp) {
+  verifyDistArtifacts(pkg);
+  const cmd = `${pkg.publishCmd}${otp ? ` --otp=${otp}` : ''}`;
+  log(pkg.label, `Publishing ${packageName}@${version} to npm...`);
+  exec(cmd, { cwd: pkg.publishDir });
+  success(`Published ${packageName}@${version} to npm!`);
+}
+
+function deployToFly(pkg) {
+  if (!pkg.deployToFly) return;
+  log(pkg.label, 'Deploying to fly.io (tucu-ui-mcp)...');
+  exec('flyctl deploy', { cwd: pkg.pkgDir });
+  success('Deployed to fly.io: https://tucu-ui-mcp.fly.dev');
+}
+
+function printBanner(pkg, packageName, version, extraLines = []) {
+  console.log(`
+${pkg.color}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\x1b[0m
+  ${pkg.emoji}  ${packageName}@${version} published!
+${extraLines.map((l) => `\n  ${l}`).join('')}
+${pkg.color}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\x1b[0m
+`);
+}
+
 // ─── MAIN ──────────────────────────────────────────────────
 
 const args = process.argv.slice(2);
+const target = args.find((a) => a in PACKAGES);
+const pkg = target && PACKAGES[target];
+
+if (!pkg) {
+  error(
+    'Missing or invalid target.\n' +
+      'Usage: node scripts/publish.mjs <tucu-ui|mcp> <patch|minor|major> [flags]\n' +
+      '       node scripts/publish.mjs <tucu-ui|mcp> publish [--skip-build] [flags]'
+  );
+}
+
 const dryRun = args.includes('--dry-run');
 const skipDocs = args.includes('--skip-docs');
 const skipGit = args.includes('--skip-git');
 const skipBuild = args.includes('--skip-build');
+const localPublish = args.includes('--local-publish');
 const publishOnly = args.includes('publish');
 const bumpType = args.find((a) => ['major', 'minor', 'patch'].includes(a));
 const otpArg = args.find((a) => a.startsWith('--otp='));
@@ -325,67 +374,59 @@ const otp = otpArg ? otpArg.split('=')[1] : null;
 
 // ─── PUBLISH-ONLY MODE ─────────────────────────────────────
 // Publishes the current version as-is: no bump, no docs, no git commit/tag.
+// This mode always publishes directly (that is its entire purpose), so it
+// ignores --local-publish.
 if (publishOnly) {
-  const pkgPath = resolve(ROOT, 'ui/tucu-ui/package.json');
-  const pkg = JSON.parse(readFileSync(pkgPath, 'utf-8'));
-  const currentVersion = pkg.version;
-  const packageName = pkg.name;
+  const pkgPath = resolve(pkg.pkgDir, 'package.json');
+  const pkgJson = JSON.parse(readFileSync(pkgPath, 'utf-8'));
+  const currentVersion = pkgJson.version;
+  const packageName = pkgJson.name;
 
-  log(`Package:  ${packageName}`);
-  log(`Version:  ${currentVersion}  (no bump — publish only)`);
+  log(pkg.label, `Package:  ${packageName}`);
+  log(pkg.label, `Version:  ${currentVersion}  (no bump — publish only)`);
 
   if (!skipBuild) {
-    log('Building library...');
-    exec('pnpm nx run tucu-ui:build');
+    log(pkg.label, 'Building...');
+    exec(`pnpm nx run ${pkg.buildTarget}`);
     success('Build complete.');
   } else {
     warn('--skip-build: using existing build artifacts.');
   }
 
-  // Sync version in dist package.json in case the build copied an older version
-  const distPkgPath = resolve(ROOT, 'dist/ui/tucu-ui/package.json');
-  try {
-    const distPkg = JSON.parse(readFileSync(distPkgPath, 'utf-8'));
-    if (distPkg.version !== currentVersion) {
-      distPkg.version = currentVersion;
-      writeFileSync(distPkgPath, JSON.stringify(distPkg, null, 2) + '\n');
-      success(`Synced dist/ui/tucu-ui/package.json → ${currentVersion}`);
+  // tucu-ui builds into dist/, whose package.json may still carry an older
+  // version if the build step copied it before this run's edits.
+  if (pkg === PACKAGES['tucu-ui']) {
+    const distPkgPath = resolve(pkg.publishDir, 'package.json');
+    try {
+      const distPkg = JSON.parse(readFileSync(distPkgPath, 'utf-8'));
+      if (distPkg.version !== currentVersion) {
+        distPkg.version = currentVersion;
+        writeFileSync(distPkgPath, JSON.stringify(distPkg, null, 2) + '\n');
+        success(`Synced ${distPkgPath} → ${currentVersion}`);
+      }
+    } catch (e) {
+      error(`Could not sync ${distPkgPath}: ${e.message}`);
     }
-  } catch (e) {
-    error(`Could not sync dist/ui/tucu-ui/package.json: ${e.message}`);
   }
 
-  verifyDistArtifacts();
-
-  const publishCmd = `pnpm npm publish --access public --no-git-checks${
-    otp ? ` --otp=${otp}` : ''
-  }`;
-
   if (dryRun) {
-    log('--dry-run mode: showing planned changes without applying them.\n');
-    console.log(
-      `  Publish: cd dist/ui/tucu-ui && ${publishCmd}`
-    );
+    log(pkg.label, '--dry-run mode: showing planned changes without applying them.\n');
+    console.log(`  Publish: cd ${pkg.publishDir} && ${pkg.publishCmd}`);
+    if (pkg.deployToFly) console.log(`  Deploy:  flyctl deploy  (cwd: ${pkg.pkgDir})`);
     process.exit(0);
   }
 
-  log(`Publishing ${packageName}@${currentVersion} to npm...`);
-  exec(publishCmd, {
-    cwd: resolve(ROOT, 'dist/ui/tucu-ui'),
-  });
-  success(`Published ${packageName}@${currentVersion} to npm!`);
-
-  console.log(`
-\x1b[32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\x1b[0m
-  📦  ${packageName}@${currentVersion} published!
-\x1b[32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\x1b[0m
-`);
+  publishToNpm(pkg, packageName, currentVersion, otp);
+  deployToFly(pkg);
+  printBanner(pkg, packageName, currentVersion);
   process.exit(0);
 }
 
 if (!bumpType) {
   error(
-    'Missing bump type.\nUsage: node scripts/publish.mjs [--dry-run] [--skip-docs] [--skip-git] <patch|minor|major>\n       node scripts/publish.mjs publish [--skip-build]'
+    'Missing bump type.\n' +
+      'Usage: node scripts/publish.mjs <tucu-ui|mcp> <patch|minor|major> [flags]\n' +
+      '       node scripts/publish.mjs <tucu-ui|mcp> publish [--skip-build]'
   );
 }
 
@@ -393,42 +434,37 @@ if (!bumpType) {
 if (!dryRun && !skipGit) checkCleanWorkingTree();
 
 // 1. Read current version
-const pkgPath = resolve(ROOT, 'ui/tucu-ui/package.json');
-const pkg = JSON.parse(readFileSync(pkgPath, 'utf-8'));
-const currentVersion = pkg.version;
-const packageName = pkg.name;
+const pkgPath = resolve(pkg.pkgDir, 'package.json');
+const pkgJson = JSON.parse(readFileSync(pkgPath, 'utf-8'));
+const currentVersion = pkgJson.version;
+const packageName = pkgJson.name;
 
-log(`Package:         ${packageName}`);
-log(`Current version: ${currentVersion}`);
+log(pkg.label, `Package:         ${packageName}`);
+log(pkg.label, `Current version: ${currentVersion}`);
 
 // 2. Calculate next version
 const nextVersion = bumpVersion(currentVersion, bumpType);
-log(`Next version:    ${nextVersion} (${bumpType})`);
+log(pkg.label, `Next version:    ${nextVersion} (${bumpType})`);
 
 // 3. Check npm registry
-log(`Checking npm registry for ${packageName}@${nextVersion}...`);
+log(pkg.label, `Checking npm registry for ${packageName}@${nextVersion}...`);
 if (versionExistsOnNpm(packageName, nextVersion)) {
-  error(
-    `Version ${nextVersion} already exists on npm! Choose a different bump type.`
-  );
+  error(`Version ${nextVersion} already exists on npm! Choose a different bump type.`);
 }
 success(`Version ${nextVersion} is available on npm.`);
 
 // 4. Gather git commits for docs
-const lastTag = getLastTag('tucu-ui-v');
+const lastTag = getLastTag(pkg.tagPrefix);
 const rawLog = getCommitsSinceTag(lastTag);
 const sections = parseCommits(rawLog);
 const commitCount = Object.values(sections).flat().length;
+log(pkg.label, `Commits since ${lastTag ?? 'beginning'}: ${commitCount}`);
 
-log(`Commits since ${lastTag ?? 'beginning'}: ${commitCount}`);
-
-if (dryRun) {
-  log('--dry-run mode: showing planned changes without applying them.\n');
-  console.log(`  Bump:    ${currentVersion} → ${nextVersion}`);
-  // Check MCP dependency
+// Latest published mcp version, used both for --dry-run preview and the
+// actual sync step below (tucu-ui only).
+let latestMcpVersion = null;
+if (pkg.syncMcpDependency) {
   const mcpDepName = '@e-burgos/tucu-ui-mcp';
-  const currentMcpDep = pkg.dependencies?.[mcpDepName] ?? 'N/A';
-  let latestMcpVersion = 'unknown';
   try {
     latestMcpVersion = execSync(`npm view ${mcpDepName} version 2>/dev/null`, {
       encoding: 'utf-8',
@@ -438,120 +474,129 @@ if (dryRun) {
   } catch {
     /* ignore */
   }
-  console.log(
-    `  MCP dep: ${currentMcpDep} (latest on npm: ${latestMcpVersion})`
-  );
+}
+
+if (dryRun) {
+  log(pkg.label, '--dry-run mode: showing planned changes without applying them.\n');
+  console.log(`  Bump:    ${currentVersion} → ${nextVersion}`);
+  if (pkg.syncMcpDependency) {
+    const mcpDepName = '@e-burgos/tucu-ui-mcp';
+    const currentMcpDep = pkgJson.dependencies?.[mcpDepName] ?? 'N/A';
+    console.log(
+      `  MCP dep: ${currentMcpDep} (latest on npm: ${latestMcpVersion ?? 'unknown'})`
+    );
+  }
   if (!skipDocs) {
     console.log('\n  CHANGELOG entry preview:\n');
     console.log(buildChangelogEntry(nextVersion, sections));
     console.log(`  README:  @${currentVersion} refs → @${nextVersion}`);
   }
-  console.log(`\n  Build:   pnpm nx run tucu-ui:build`);
-  console.log(
-    `  Publish: cd dist/ui/tucu-ui && pnpm npm publish --access public --no-git-checks\n`
-  );
+  console.log(`\n  Build:   pnpm nx run ${pkg.buildTarget}`);
+  console.log(`  Tag:     ${pkg.tagPrefix}${nextVersion}`);
+  if (localPublish) {
+    console.log(`  Publish: cd ${pkg.publishDir} && ${pkg.publishCmd}  (--local-publish)`);
+    if (pkg.deployToFly) console.log(`  Deploy:  flyctl deploy  (cwd: ${pkg.pkgDir})`);
+  } else {
+    console.log(
+      `  Publish: NOT run locally — push the tag to trigger CI publish\n`
+    );
+  }
   process.exit(0);
 }
 
 // 5. Update CHANGELOG.md
 if (!skipDocs) {
-  log('Updating CHANGELOG.md...');
-  const changelogPath = updateChangelog(nextVersion, sections);
+  log(pkg.label, 'Updating CHANGELOG.md...');
+  const changelogPath = updateChangelog(pkg, nextVersion, sections);
   success(`Updated ${changelogPath}`);
 
   // 6. Update README.md
-  log('Updating README.md...');
-  const readmePath = updateReadme(packageName, currentVersion, nextVersion);
+  log(pkg.label, 'Updating README.md...');
+  const readmePath = updateReadme(pkg, packageName, currentVersion, nextVersion);
   if (readmePath) success(`Updated ${readmePath}`);
 } else {
   warn('--skip-docs: skipping CHANGELOG and README update.');
 }
 
 // 7. Update version in source package.json
-pkg.version = nextVersion;
+pkgJson.version = nextVersion;
 
-// 7b. Ensure @e-burgos/tucu-ui-mcp dependency points to latest published version
-log('Checking @e-burgos/tucu-ui-mcp dependency...');
-const mcpDepName = '@e-burgos/tucu-ui-mcp';
-if (pkg.dependencies && pkg.dependencies[mcpDepName]) {
-  let latestMcpVersion;
-  try {
-    latestMcpVersion = execSync(`npm view ${mcpDepName} version 2>/dev/null`, {
-      encoding: 'utf-8',
-      stdio: 'pipe',
-      cwd: ROOT,
-    }).trim();
-  } catch {
-    warn(
-      `Could not fetch latest ${mcpDepName} version from npm — skipping sync.`
-    );
-    latestMcpVersion = null;
-  }
-  if (latestMcpVersion) {
-    const currentMcpDep = pkg.dependencies[mcpDepName];
+// 7b. (tucu-ui only) ensure @e-burgos/tucu-ui-mcp dependency points to latest published version
+if (pkg.syncMcpDependency) {
+  log(pkg.label, 'Checking @e-burgos/tucu-ui-mcp dependency...');
+  const mcpDepName = '@e-burgos/tucu-ui-mcp';
+  if (pkgJson.dependencies?.[mcpDepName] && latestMcpVersion) {
+    const currentMcpDep = pkgJson.dependencies[mcpDepName];
     const expectedDep = `^${latestMcpVersion}`;
     if (currentMcpDep !== expectedDep) {
-      pkg.dependencies[mcpDepName] = expectedDep;
-      success(
-        `Updated ${mcpDepName} dependency: ${currentMcpDep} → ${expectedDep}`
-      );
+      pkgJson.dependencies[mcpDepName] = expectedDep;
+      success(`Updated ${mcpDepName} dependency: ${currentMcpDep} → ${expectedDep}`);
     } else {
       success(`${mcpDepName} dependency already up to date (${currentMcpDep})`);
     }
+  } else if (pkgJson.dependencies?.[mcpDepName]) {
+    warn(`Could not fetch latest ${mcpDepName} version from npm — skipping sync.`);
   }
 }
 
-writeFileSync(pkgPath, JSON.stringify(pkg, null, 2) + '\n');
-success(`Updated ui/tucu-ui/package.json → ${nextVersion}`);
+writeFileSync(pkgPath, JSON.stringify(pkgJson, null, 2) + '\n');
+success(`Updated ${pkgPath} → ${nextVersion}`);
 
-// 8. Build the library
-log('Building library...');
-exec('pnpm nx run tucu-ui:build');
+// 8. Build
+log(pkg.label, 'Building...');
+exec(`pnpm nx run ${pkg.buildTarget}`);
 success('Build complete.');
 
-// 9. Sync version in dist package.json (build may have copied an older version)
-const distPkgPath = resolve(ROOT, 'dist/ui/tucu-ui/package.json');
-try {
-  const distPkg = JSON.parse(readFileSync(distPkgPath, 'utf-8'));
-  distPkg.version = nextVersion;
-  writeFileSync(distPkgPath, JSON.stringify(distPkg, null, 2) + '\n');
-  success(`Updated dist/ui/tucu-ui/package.json → ${nextVersion}`);
-} catch (e) {
-  error(`Could not update dist/ui/tucu-ui/package.json: ${e.message}`);
+// 9. (tucu-ui only) sync dist package.json and verify build artifacts
+if (pkg === PACKAGES['tucu-ui']) {
+  const distPkgPath = resolve(pkg.publishDir, 'package.json');
+  try {
+    const distPkg = JSON.parse(readFileSync(distPkgPath, 'utf-8'));
+    distPkg.version = nextVersion;
+    writeFileSync(distPkgPath, JSON.stringify(distPkg, null, 2) + '\n');
+    success(`Updated ${distPkgPath} → ${nextVersion}`);
+  } catch (e) {
+    error(`Could not update ${distPkgPath}: ${e.message}`);
+  }
 }
+verifyDistArtifacts(pkg);
 
-// 10. Publish to npm
-verifyDistArtifacts();
-log(`Publishing ${packageName}@${nextVersion} to npm...`);
-exec('pnpm npm publish --access public --no-git-checks', {
-  cwd: resolve(ROOT, 'dist/ui/tucu-ui'),
-});
-success(`Published ${packageName}@${nextVersion} to npm!`);
-
-// 11. Commit and tag the release (unless --skip-git)
+// 10. Commit and tag the release (unless --skip-git)
+const releaseTag = `${pkg.tagPrefix}${nextVersion}`;
 if (!skipGit) {
-  log('Creating release commit and git tag...');
+  log(pkg.label, 'Creating release commit and git tag...');
+  const relFromRoot = (p) => p.replace(`${ROOT}/`, '');
   const filesToCommit = [
-    'ui/tucu-ui/package.json',
-    ...(skipDocs ? [] : ['ui/tucu-ui/CHANGELOG.md', 'README.md']),
+    relFromRoot(pkgPath),
+    ...(skipDocs ? [] : [relFromRoot(pkg.changelogPath), relFromRoot(pkg.readmePath)]),
   ];
   exec(`git add ${filesToCommit.map((f) => `"${f}"`).join(' ')}`);
   exec(`git commit -m "chore: release ${packageName}@${nextVersion}"`);
-  const releaseTag = `tucu-ui-v${nextVersion}`;
   exec(`git tag ${releaseTag}`);
   success(`Release commit created and tagged: ${releaseTag}`);
 } else {
   warn('--skip-git: skipping commit and tag creation.');
-  log(`Remember to commit and tag manually: git tag tucu-ui-v${nextVersion}`);
+  log(pkg.label, `Remember to commit and tag manually: git tag ${releaseTag}`);
 }
 
-console.log(`
-\x1b[32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\x1b[0m
-  📦  ${packageName}@${nextVersion} published!
+// 11. --local-publish: publish directly instead of waiting for CI
+if (localPublish) {
+  publishToNpm(pkg, packageName, nextVersion, otp);
+  deployToFly(pkg);
+} else {
+  log(
+    pkg.label,
+    `Not publishing locally. Push "${releaseTag}" to trigger the CI publish workflow:\n` +
+      `  git push origin ${releaseTag}`
+  );
+}
 
-  Bump type:  ${bumpType}
-  Previous:   ${currentVersion}
-  Published:  ${nextVersion}
-  Commits:    ${commitCount} processed into CHANGELOG
-\x1b[32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\x1b[0m
-`);
+printBanner(pkg, packageName, nextVersion, [
+  `Bump type:  ${bumpType}`,
+  `Previous:   ${currentVersion}`,
+  `Published:  ${nextVersion}`,
+  `Commits:    ${commitCount} processed into CHANGELOG`,
+  ...(localPublish
+    ? []
+    : [`Next step:  git push origin ${releaseTag}  (triggers CI publish)`]),
+]);

@@ -173,7 +173,11 @@ Para cada paquete seleccionado:
 
 ---
 
-### Paso 5 — Verificar autenticación npm
+### Paso 5 — Verificar autenticación npm (solo si se usará `--local-publish`)
+
+> El flujo normal (Paso 6 sin `--local-publish` + push del tag en Paso 8)
+> **no necesita esto** — el pipeline publica con su propio token de CI. Este
+> paso solo aplica al modo de emergencia.
 
 1. Verificar login:
    ```bash
@@ -215,102 +219,109 @@ Antes de publicar tucu-ui, verificar que `ui/tucu-ui/package.json` referencia la
 
 ---
 
-### Paso 6 — Publicar en npm
+### Paso 6 — Preparar el release (bump + build + tag, SIN publicar)
 
-**Orden**: Si son ambos paquetes → MCP primero, luego tucu-ui.
+**El publish real a npm ahora lo hace un pipeline de GitHub Actions, disparado
+por el push del tag.** Este paso solo prepara todo localmente y crea el tag —
+no toca npm.
 
-#### Publicar `@e-burgos/tucu-ui-mcp`:
-
-> ℹ️ La versión en `http-server.ts` y `server.ts` se lee dinámicamente desde `package.json` — no requiere cambios manuales en el código fuente.
-
-```bash
-# 1. Build
-pnpm nx run tucu-ui-mcp:build
-
-# 2. Publish (npm solicita OTP automáticamente si 2FA está habilitado)
-cd tools/mcp-server && npm publish --access public
-```
-
-#### Publicar `@e-burgos/tucu-ui`:
+**Orden**: Si son ambos paquetes → MCP primero, luego tucu-ui (igual que antes,
+por la sincronización de la dependencia `@e-burgos/tucu-ui-mcp` en Paso 5b).
 
 ```bash
-# 1. Build
-pnpm nx run tucu-ui:build
+# MCP
+node scripts/publish.mjs mcp <patch|minor|major>
 
-# 2. Sync version en dist/ui/tucu-ui/package.json
-node -e "
-const fs = require('fs');
-const p = './dist/ui/tucu-ui/package.json';
-const pkg = JSON.parse(fs.readFileSync(p));
-pkg.version = '<NEW_VERSION>';
-fs.writeFileSync(p, JSON.stringify(pkg, null, 2) + '\n');
-"
-
-# 3. Publish desde dist
-cd dist/ui/tucu-ui && npm publish --access public
+# tucu-ui
+node scripts/publish.mjs tucu-ui <patch|minor|major>
 ```
 
-> El publish con OTP funciona automáticamente — npm solicita el código en la terminal.
+Cada corrida: bump de versión, CHANGELOG, README, build, verificación de
+artifacts, commit y `git tag <prefix><version>`. No publica nada en npm ni
+hace deploy — eso lo dispara el push del tag en el Paso 8.
 
-**Después de cada publicación exitosa**, crear commit y tag:
+> ℹ️ La versión en `http-server.ts` / `server.ts` del MCP se lee dinámicamente
+> desde `package.json` — no requiere cambios manuales en el código fuente.
+
+#### Modo emergencia: publicar directo desde la máquina local
+
+Si el pipeline no está disponible o hay una emergencia, agregar
+`--local-publish` para que el script publique directo (con OTP interactivo si
+2FA está habilitado) y, para el MCP, haga `flyctl deploy` al final:
 
 ```bash
-git add <archivos modificados>
-git commit -m "chore: release @e-burgos/<package>@<version>"
-git tag <prefix><version>
+node scripts/publish.mjs mcp <patch|minor|major> --local-publish
+node scripts/publish.mjs tucu-ui <patch|minor|major> --local-publish
 ```
+
+Este modo requiere `npm whoami` autenticado (ver Paso 5) y `flyctl` instalado
+para el MCP (`brew install flyctl && flyctl auth login`).
 
 ---
 
-### Paso 7 — Deploy a fly.io (solo MCP)
+### Paso 7 — (Automático) Publish y deploy vía pipeline
 
-Si se publicó el MCP:
+Al pushear el tag en el Paso 8, GitHub Actions se encarga solo:
+
+| Tag pusheado    | Workflow                                | Qué hace                                                    |
+| --------------- | ---------------------------------------- | ------------------------------------------------------------ |
+| `tucu-ui-v*.*.*` | `.github/workflows/publish-tucu-ui.yml` | build → verifica versión y artifacts → `npm publish`         |
+| `mcp-v*.*.*`     | `.github/workflows/publish-mcp.yml`     | build → verifica versión → `npm publish` → `flyctl deploy`   |
+
+Ambos workflows publican con un **npm automation token** guardado en el
+secret `NPM_TOKEN` del repo — no piden OTP porque los automation tokens de
+npm están pensados para CI (ver sección "Setup de infraestructura" al final
+de este skill para crear el token si aún no existe).
+
+Seguir el progreso en la pestaña **Actions** del repo, o con:
 
 ```bash
-cd tools/mcp-server && flyctl deploy
+gh run watch
 ```
 
-Verificar deploy:
-
-```bash
-curl https://tucu-ui-mcp.fly.dev/health
-```
-
-Si `flyctl` no está disponible:
-
-```bash
-brew install flyctl
-flyctl auth login
-```
+> Nota: `deploy-mcp.yml` sigue existiendo por separado y redeploya fly.io en
+> cada push a `main` (mantiene el servidor vivo sincronizado con el código más
+> reciente, independiente de si hubo un release de npm). El deploy de
+> `publish-mcp.yml` es el mismo `flyctl deploy`, pero anclado específicamente
+> a la versión recién publicada.
 
 ---
 
-### Paso 8 — Verificación final y push
+### Paso 8 — Push del tag (dispara el pipeline) y PR
 
-1. Verificar publicación:
+1. **Preguntar al usuario** antes de pushear — acción irreversible en remoto:
+
+   ```bash
+   git push origin <branch>
+   git push origin <prefix><version>   # este push dispara el publish en CI
+   ```
+
+   > ⚠️ Empujar el tag es lo que efectivamente publica el paquete. No hay
+   > vuelta atrás sencilla una vez que el workflow corre `npm publish`.
+
+2. Verificar que el workflow correspondiente terminó bien:
+
+   ```bash
+   gh run list --workflow=publish-tucu-ui.yml --limit 1   # si se publicó tucu-ui
+   gh run list --workflow=publish-mcp.yml --limit 1       # si se publicó mcp
+   ```
+
+3. Verificar publicación en el registro:
 
    ```bash
    npm view @e-burgos/tucu-ui version          # si se publicó tucu-ui
    npm view @e-burgos/tucu-ui-mcp version       # si se publicó mcp
    ```
 
-2. Mostrar resumen al usuario:
+4. Mostrar resumen al usuario:
 
    ```
-   ✅ Publicación completada:
+   ✅ Publicación completada (vía pipeline):
    - @e-burgos/tucu-ui: X.Y.Z → A.B.C (npm ✓)
    - @e-burgos/tucu-ui-mcp: X.Y.Z → A.B.C (npm ✓, fly.io ✓)
    ```
 
-3. **Preguntar al usuario** si desea push a origin:
-
-   ```bash
-   git push origin <branch> --tags
-   ```
-
-   > ⚠️ Acción irreversible en remoto — SIEMPRE pedir confirmación.
-
-4. Si la rama fue creada desde `main` (Paso 0), **crear un PR** hacia `main` al finalizar el push:
+5. Si la rama fue creada desde `main` (Paso 0), **crear un PR** hacia `main`:
 
    ```bash
    gh pr create \
@@ -333,23 +344,22 @@ flyctl auth login
 
 ## Scripts de soporte
 
-Los scripts individuales están disponibles para uso directo o desde el agente:
+Un único script consolidado, parametrizado por paquete:
 
 ```bash
-# tucu-ui (gestión completa)
-node scripts/publish.mjs [--dry-run] [--skip-docs] [--skip-git] <patch|minor|major>
-
-# mcp (gestión completa)
-node scripts/publish-mcp.mjs [--dry-run] [--skip-docs] [--skip-git] <patch|minor|major>
+node scripts/publish.mjs <tucu-ui|mcp> <patch|minor|major> [flags]
+node scripts/publish.mjs <tucu-ui|mcp> publish [--skip-build] [flags]  # publica la versión actual, sin bump
 ```
 
 ### Flags
 
-| Flag          | Efecto                                                       |
-| ------------- | ------------------------------------------------------------ |
-| `--dry-run`   | Simula todo sin aplicar cambios ni publicar                  |
-| `--skip-docs` | Salta la actualización de CHANGELOG y README                 |
-| `--skip-git`  | Salta verificación de working tree limpio y commit/tag final |
+| Flag              | Efecto                                                              |
+| ----------------- | --------------------------------------------------------------------- |
+| `--dry-run`       | Simula todo sin aplicar cambios ni publicar                           |
+| `--skip-docs`     | Salta la actualización de CHANGELOG y README                          |
+| `--skip-git`      | Salta verificación de working tree limpio y commit/tag final          |
+| `--local-publish` | Publica directo desde la máquina local (con OTP) en vez de vía CI     |
+| `--otp=123456`    | OTP a pasar a `npm publish` cuando se usa `--local-publish`           |
 
 ### pnpm shortcuts
 
@@ -371,22 +381,55 @@ pnpm mcp:publish:dry
 
 ## Troubleshooting
 
-| Problema                              | Solución                                                                 |
-| ------------------------------------- | ------------------------------------------------------------------------ |
-| `Version X.Y.Z already exists on npm` | Elegir un tipo de bump diferente                                         |
-| `403 Forbidden` / `401 Unauthorized`  | `npm login` y verificar pertenencia a org `e-burgos`                     |
-| Build falla                           | Revisar errores: `pnpm nx run <project>:lint`                            |
-| `git tag` ya existe                   | Borrar: `git tag -d <tag>` y re-ejecutar                                 |
-| `flyctl: command not found`           | `brew install flyctl && flyctl auth login`                               |
-| OTP no llega                          | Verificar email/authenticator configurado en npmjs.com                   |
-| Publish exitoso sin tag               | Crear tag manual: `git tag <prefix>v<version> && git push origin --tags` |
+| Problema                                  | Solución                                                                          |
+| ------------------------------------------ | ------------------------------------------------------------------------------------ |
+| `Version X.Y.Z already exists on npm`      | Elegir un tipo de bump diferente                                                     |
+| Workflow falla en "Verify tag matches..."  | El tag no coincide con la versión del `package.json` — revisar que se pusheó el tag correcto |
+| Workflow falla en `npm publish` (401/403)  | El secret `NPM_TOKEN` expiró o no tiene permisos — regenerar (ver Setup más abajo)   |
+| `403 Forbidden` / `401 Unauthorized` (local) | `npm login` y verificar pertenencia a org `e-burgos` (solo aplica a `--local-publish`) |
+| Build falla                                | Revisar errores: `pnpm nx run <project>:lint`                                        |
+| `git tag` ya existe                        | Borrar: `git tag -d <tag>` y re-ejecutar                                             |
+| `flyctl: command not found` (local)        | `brew install flyctl && flyctl auth login`                                          |
+| OTP no llega (solo `--local-publish`)      | Verificar email/authenticator configurado en npmjs.com                              |
+| Tag pusheado pero el workflow no corrió    | Revisar que el nombre del tag matchea el patrón exacto (`tucu-ui-v*.*.*` / `mcp-v*.*.*`) |
+
+---
+
+## Setup de infraestructura (una sola vez)
+
+El pipeline necesita un secret `NPM_TOKEN` en el repo de GitHub. Si aún no
+existe (o expiró), crearlo así:
+
+1. En [npmjs.com](https://www.npmjs.com) → perfil → **Access Tokens** →
+   **Generate New Token** → **Granular Access Token**.
+2. Tipo: **Automation** (no requiere OTP en cada publish, pensado para CI).
+   Scope: publish en `@e-burgos/tucu-ui` y `@e-burgos/tucu-ui-mcp` (o toda la
+   org `e-burgos` si se prefiere no tener que regenerarlo al agregar paquetes).
+3. Copiar el token generado (solo se muestra una vez).
+4. Agregarlo como secret del repo:
+
+   ```bash
+   gh secret set NPM_TOKEN
+   # pega el token cuando lo pida — o hacerlo desde
+   # GitHub → Settings → Secrets and variables → Actions → New repository secret
+   ```
+
+> ⚠️ **El agente nunca debe generar, ver, ni pegar el valor de este token.**
+> Es una acción 100% manual del usuario — crear el token requiere su login y
+> 2FA en npmjs.com, y pegarlo en `gh secret set` expone el valor en la
+> terminal del agente si este ejecuta el comando.
+
+`FLY_API_TOKEN` (usado tanto por `deploy-mcp.yml` como por
+`publish-mcp.yml`) ya debería existir si el deploy a fly.io funciona hoy —
+no requiere ninguna acción adicional.
 
 ---
 
 ## Notas importantes
 
-- **El agente NUNCA ejecuta `npm login`** — siempre lo hace el usuario interactivamente
-- **El agente NUNCA hace `git push`** sin confirmación explícita del usuario
-- **Si se publican ambas**: MCP primero, tucu-ui después
+- **El agente NUNCA ejecuta `npm login`, ni genera/pega tokens de npm o GitHub** — siempre lo hace el usuario interactivamente
+- **El agente NUNCA hace `git push`** sin confirmación explícita del usuario — y pushear el tag de release es lo que dispara el publish real, así que la confirmación es doblemente importante
+- **Publish real = CI, no local**: por defecto el script solo prepara (bump, changelog, build, tag). `--local-publish` es exclusivamente para emergencias con el pipeline caído
+- **Si se publican ambas**: MCP primero, tucu-ui después (por la sincronización de dependencia en Paso 5b)
 - **Los scripts con `--skip-git`** permiten que el agente maneje commits de forma granular antes de publicar
-- **OTP**: npm solicita el código automáticamente durante `npm publish` si 2FA está habilitado — el agente debe ejecutar el publish en modo interactivo para que el usuario pueda ingresar el OTP
+- **OTP**: solo aparece con `--local-publish`; el flujo normal vía CI no lo necesita porque el `NPM_TOKEN` es un automation token

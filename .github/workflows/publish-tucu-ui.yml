@@ -1,0 +1,57 @@
+name: Publish tucu-ui to npm
+
+# Triggered by pushing a version tag created by `pnpm tucu-ui:publish:<bump>`
+# (scripts/publish.mjs) — that script bumps the version, updates docs, builds,
+# commits, and tags, but does not publish. This workflow does the actual
+# `npm publish`, using an npm automation token so no interactive OTP is needed.
+on:
+  push:
+    tags:
+      - 'tucu-ui-v*.*.*'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'pnpm'
+          registry-url: 'https://registry.npmjs.org'
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Build tucu-ui
+        run: pnpm nx run tucu-ui:build
+        env:
+          NX_NO_CLOUD: 'true'
+
+      - name: Verify the pushed tag matches the built package version
+        run: |
+          TAG_VERSION="${GITHUB_REF_NAME#tucu-ui-v}"
+          PKG_VERSION=$(node -p "require('./dist/ui/tucu-ui/package.json').version")
+          if [ "$TAG_VERSION" != "$PKG_VERSION" ]; then
+            echo "::error::Tag $GITHUB_REF_NAME (version $TAG_VERSION) does not match dist/ui/tucu-ui/package.json version $PKG_VERSION"
+            exit 1
+          fi
+          echo "Tag version $TAG_VERSION matches package version."
+
+      - name: Verify build artifacts exist
+        run: |
+          cd dist/ui/tucu-ui
+          for f in index.js index.mjs index.d.ts index.css package.json; do
+            test -f "$f" || { echo "::error::Missing dist artifact: $f"; exit 1; }
+          done
+          echo "All required artifacts present."
+
+      - name: Publish to npm
+        run: npm publish --access public
+        working-directory: dist/ui/tucu-ui
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

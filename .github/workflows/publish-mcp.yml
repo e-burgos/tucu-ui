@@ -1,0 +1,62 @@
+name: Publish tucu-ui-mcp to npm
+
+# Triggered by pushing a version tag created by `pnpm mcp:publish:<bump>`
+# (scripts/publish.mjs) — that script bumps the version, updates docs, builds,
+# commits, and tags, but does not publish. This workflow does the actual
+# `npm publish`, using an npm automation token so no interactive OTP is
+# needed, then redeploys the fly.io server with the newly published version.
+#
+# Note: deploy-mcp.yml separately redeploys fly.io on every push to main —
+# that keeps the live server in sync with the latest source regardless of
+# npm releases. This workflow's fly.io deploy step re-runs the same deploy
+# specifically pinned to a published version tag.
+on:
+  push:
+    tags:
+      - 'mcp-v*.*.*'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'pnpm'
+          registry-url: 'https://registry.npmjs.org'
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Build tucu-ui-mcp
+        run: pnpm nx run tucu-ui-mcp:build
+        env:
+          NX_NO_CLOUD: 'true'
+
+      - name: Verify the pushed tag matches the built package version
+        run: |
+          TAG_VERSION="${GITHUB_REF_NAME#mcp-v}"
+          PKG_VERSION=$(node -p "require('./tools/mcp-server/package.json').version")
+          if [ "$TAG_VERSION" != "$PKG_VERSION" ]; then
+            echo "::error::Tag $GITHUB_REF_NAME (version $TAG_VERSION) does not match tools/mcp-server/package.json version $PKG_VERSION"
+            exit 1
+          fi
+          echo "Tag version $TAG_VERSION matches package version."
+
+      - name: Publish to npm
+        run: npm publish --access public
+        working-directory: tools/mcp-server
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - uses: superfly/flyctl-actions/setup-flyctl@master
+      - name: Deploy published version to fly.io
+        run: flyctl deploy --remote-only
+        working-directory: tools/mcp-server
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
