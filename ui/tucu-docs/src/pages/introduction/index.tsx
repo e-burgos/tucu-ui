@@ -674,20 +674,60 @@ pnpm install @e-burgos/tucu-ui
                   />
                 </div>
 
-                {/* Tailwind CSS Installation (Optional) */}
+                {/* CSS integration path */}
                 <div className="space-y-3">
                   <Typography tag="h5">
-                    1.1. Installing Tailwind CSS (Optional)
+                    1.1. Choosing a CSS Integration Path
                   </Typography>
-                  <Alert variant="info" dismissible={false}>
-                    <Typography tag="p">
-                      <strong>Note:</strong> If you require all Tailwind CSS
-                      utility classes (not just the ones included in Tucu UI),
-                      you should also install Tailwind CSS as a dependency.
-                    </Typography>
-                  </Alert>
+                  <Typography
+                    tag="p"
+                    className="text-gray-600 dark:text-gray-400"
+                  >
+                    Tucu UI ships two separate CSS entry points. Pick the one
+                    that matches your project —{' '}
+                    <strong>do not import both</strong> in the same app, since
+                    that runs two independent Tailwind builds whose layers can
+                    conflict and leak styles into each other.
+                  </Typography>
 
                   <div className="space-y-4">
+                    <div className="space-y-2">
+                      <Typography tag="label-1" className="text-brand">
+                        Option A — Your project has no Tailwind CSS build
+                      </Typography>
+                      <Typography
+                        tag="caption"
+                        className="text-gray-600 dark:text-gray-400 mb-2"
+                      >
+                        Use <code className="px-1 py-0.5 border border-border rounded text-xs">./styles</code>{' '}
+                        — a complete, pre-compiled stylesheet (Tailwind
+                        included). Nothing else to install or configure.
+                      </Typography>
+                      <CodeBlock
+                        noExpand={true}
+                        language="css"
+                        code={`@import '@e-burgos/tucu-ui/styles';`}
+                      />
+                    </div>
+
+                    <div className="space-y-2">
+                      <Typography tag="label-1" className="text-brand">
+                        Option B — Your project already runs Tailwind CSS v4
+                        (or you need Tailwind utility classes Tucu UI doesn't
+                        already use internally)
+                      </Typography>
+                      <Typography
+                        tag="caption"
+                        className="text-gray-600 dark:text-gray-400 mb-2"
+                      >
+                        Use <code className="px-1 py-0.5 border border-border rounded text-xs">./theme</code>{' '}
+                        instead — design tokens and component styles only, no
+                        bundled Tailwind — and let your own Tailwind build
+                        generate every utility class, including Tucu UI's,
+                        from a single instance.
+                      </Typography>
+                    </div>
+
                     <div className="space-y-2">
                       <Typography
                         tag="label-1"
@@ -726,7 +766,7 @@ pnpm install tailwindcss @tailwindcss/vite`}
                       </Typography>
                       <CodeBlock
                         noExpand={true}
-                        language="TS"
+                        language="typescript"
                         code={`import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
@@ -745,7 +785,8 @@ export default defineConfig({
                         tag="label-1"
                         className="text-gray-700 dark:text-gray-300"
                       >
-                        Step 3: Import Tailwind CSS in your main CSS file
+                        Step 3: Import Tucu UI's theme (not styles) alongside
+                        Tailwind, and tell Tailwind to scan Tucu UI's source
                       </Typography>
                       <Typography
                         tag="caption"
@@ -764,10 +805,37 @@ export default defineConfig({
                       <CodeBlock
                         noExpand={true}
                         language="css"
-                        code={`@import '@e-burgos/tucu-ui/styles';
-@import 'tailwindcss';`}
+                        code={`@import 'tailwindcss';
+@import '@e-burgos/tucu-ui/theme';
+@source '../node_modules/@e-burgos/tucu-ui';`}
                       />
+                      <Alert variant="info" dismissible={false}>
+                        <Typography tag="p">
+                          Import order between these three lines doesn't
+                          matter — Tailwind fixes their relative cascade
+                          priority regardless of which comes first, so your
+                          app's own utility classes always win over Tucu UI's
+                          defaults.
+                        </Typography>
+                      </Alert>
                     </div>
+
+                    <Alert variant="warning" dismissible={false}>
+                      <Typography tag="p">
+                        <strong>Don't mix the two.</strong> Importing{' '}
+                        <code className="px-1 py-0.5 border border-border rounded text-xs">
+                          ./styles
+                        </code>{' '}
+                        together with your own{' '}
+                        <code className="px-1 py-0.5 border border-border rounded text-xs">
+                          @import 'tailwindcss'
+                        </code>{' '}
+                        creates two separate compiled Tailwind builds in the
+                        same page — their base styles and generated utilities
+                        can override each other unpredictably depending on
+                        import order. Pick Option A or Option B, not both.
+                      </Typography>
+                    </Alert>
                   </div>
                 </div>
 
