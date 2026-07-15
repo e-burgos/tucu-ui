@@ -83,7 +83,6 @@ export default defineConfig({
           'react-dom',
           'lucide-react',
           'react-router-dom',
-          'react-use',
           '@dnd-kit/core',
           '@dnd-kit/modifiers',
           '@dnd-kit/sortable',
@@ -117,11 +116,8 @@ export default defineConfig({
           // check the external module's `__esModule` flag). Rollup's own
           // default interop instead checks for a `.default` property, which
           // disagrees with how a consumer's bundler (esbuild/Vite) re-derives
-          // that same external CJS module's namespace shape — e.g. `import
-          // createBreakpoint from 'react-use/lib/factory/createBreakpoint'`
-          // resolved to a non-callable value at runtime in a real npm
-          // install. 'auto' matches the interop the source was compiled
-          // against.
+          // an external CJS module's namespace shape. 'auto' matches the
+          // interop the source was compiled against.
           interop: 'auto',
           globals: {
             react: 'React',
