@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@e-burgos/tucu-docs": "workspace:*",
-    "@e-burgos/tucu-ui": "^2.7.3",
+    "@e-burgos/tucu-ui": "^2.8.0",
     "react": "^19.2.5",
     "react-dom": "^19.2.5"
   },
