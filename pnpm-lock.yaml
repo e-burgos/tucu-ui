@@ -175,8 +175,8 @@ importers:
         specifier: workspace:*
         version: link:../../ui/tucu-docs
       '@e-burgos/tucu-ui':
-        specifier: ^2.6.0
-        version: 2.6.0(@types/react@19.2.14)(immer@11.1.7)(react-dom@19.2.5(react@19.2.5))(react-is@18.3.1)(react@19.2.5)(tailwindcss@4.1.18)(use-sync-external-store@1.6.0(react@19.2.5))
+        specifier: ^2.7.0
+        version: 2.7.0(@types/react@19.2.14)(immer@11.1.7)(react-dom@19.2.5(react@19.2.5))(react-is@18.3.1)(react@19.2.5)(tailwindcss@4.1.18)(use-sync-external-store@1.6.0(react@19.2.5))
       react:
         specifier: ^19.2.5
         version: 19.2.5
@@ -398,8 +398,8 @@ packages:
     resolution: {integrity: sha512-cjQ7ZlQ0Mv3b47hABuTevyTuYN4i+loJKGeV9flcCgIK37cCXRh+L1bd3iBHlynerhQ7BhCkn2BPbQUL+rGqFg==}
     engines: {node: '>=6.9.0'}
 
-  '@babel/code-frame@7.29.0':
-    resolution: {integrity: sha512-9NhCeYjq9+3uxgdtp20LSiJXJvN0FeCtNGpJxuMFZ1Kv3cWUNb6DOhJwUvcVCzKGR66cw4njwM6hrJLqgOwbcw==}
+  '@babel/code-frame@7.29.7':
+    resolution: {integrity: sha512-Aup7aUOfpbAUg2ROOJN6Iw5f9DMBlzu0mIkm/malLQFN/YQgO48wCj0Kxa3sEHJvPVFg7siR+qRInwXd2qhQKw==}
     engines: {node: '>=6.9.0'}
 
   '@babel/compat-data@7.28.5':
@@ -988,6 +988,10 @@ packages:
     resolution: {integrity: sha512-JiDShH45zKHWyGe4ZNVRrCjBz8Nh9TMmZG1kh4QTK8hCBTWBi8Da+i7s1fJw7/lYpM4ccepSNfqzZ/QvABBi5g==}
     engines: {node: '>=6.9.0'}
 
+  '@babel/runtime@7.29.7':
+    resolution: {integrity: sha512-Nq8OhGWiZIZGV6hLHoyAKLLcJihP/xFeBMGJoUrxTX2psI8dCifzLhZISFb+VWS3wFMRDmCGw5R+dOySCqPLhw==}
+    engines: {node: '>=6.9.0'}
+
   '@babel/template@7.27.2':
     resolution: {integrity: sha512-LPDZ85aEJyYSd18/DkjNh4/y1ntkE5KwUHWTiqgRxruuZL2F1yuHligVHLvcHY2vMHXttKFpJn6LwfI7cw7ODw==}
     engines: {node: '>=6.9.0'}
@@ -1050,6 +1054,13 @@ packages:
 
   '@e-burgos/tucu-ui@2.6.0':
     resolution: {integrity: sha512-DwylreJfwGYLlvUotl3W5JbIeKBw1P9tepK3QLcmY7GNfNEQl/GwDhLC/EJgVeNGalZMfXgQfWQhGK/EZ5xBaA==}
+    peerDependencies:
+      react: '>=18.0.0'
+      react-dom: '>=18.0.0'
+      tailwindcss: '>=4.0.0'
+
+  '@e-burgos/tucu-ui@2.7.0':
+    resolution: {integrity: sha512-sQRd/oR3deKlMQgBg7Pm+bsIRriHcH+mkCWN/XVLm5YrPxBcOBfMO9gKOq+TscNRiWZqdaAyJnPdkZDk03Ul0w==}
     peerDependencies:
       react: '>=18.0.0'
       react-dom: '>=18.0.0'
@@ -7603,7 +7614,7 @@ snapshots:
       js-tokens: 4.0.0
       picocolors: 1.1.1
 
-  '@babel/code-frame@7.29.0':
+  '@babel/code-frame@7.29.7':
     dependencies:
       '@babel/helper-validator-identifier': 7.29.7
       js-tokens: 4.0.0
@@ -8358,6 +8369,8 @@ snapshots:
 
   '@babel/runtime@7.29.2': {}
 
+  '@babel/runtime@7.29.7': {}
+
   '@babel/template@7.27.2':
     dependencies:
       '@babel/code-frame': 7.27.1
@@ -8435,40 +8448,6 @@ snapshots:
       - '@cfworker/json-schema'
       - supports-color
 
-  '@e-burgos/tucu-ui@2.6.0(@types/react@19.2.14)(immer@11.1.7)(react-dom@19.2.5(react@19.2.5))(react-is@18.3.1)(react@19.2.5)(tailwindcss@4.1.18)(use-sync-external-store@1.6.0(react@19.2.5))':
-    dependencies:
-      '@dnd-kit/core': 6.3.1(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
-      '@dnd-kit/modifiers': 9.0.0(@dnd-kit/core@6.3.1(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(react@19.2.5)
-      '@dnd-kit/sortable': 10.0.0(@dnd-kit/core@6.3.1(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(react@19.2.5)
-      '@dnd-kit/utilities': 3.2.2(react@19.2.5)
-      '@e-burgos/tucu-ui-mcp': 0.6.0
-      '@tailwindcss/typography': 0.5.19(tailwindcss@4.1.18)
-      '@tanstack/react-table': 8.21.3(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
-      '@tanstack/table-core': 8.21.3
-      classnames: 2.5.1
-      framer-motion: 12.40.0(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
-      lodash: 4.18.1
-      lucide-react: 1.17.0(react@19.2.5)
-      react: 19.2.5
-      react-dom: 19.2.5(react@19.2.5)
-      react-hook-form: 7.77.0(react@19.2.5)
-      react-router: 7.16.0(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
-      react-router-dom: 7.16.0(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
-      react-use: 17.6.0(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
-      recharts: 3.8.1(@types/react@19.2.14)(react-dom@19.2.5(react@19.2.5))(react-is@18.3.1)(react@19.2.5)(redux@5.0.1)
-      swiper: 12.2.0
-      tailwindcss: 4.1.18
-      zustand: 5.0.14(@types/react@19.2.14)(immer@11.1.7)(react@19.2.5)(use-sync-external-store@1.6.0(react@19.2.5))
-    transitivePeerDependencies:
-      - '@cfworker/json-schema'
-      - '@emotion/is-prop-valid'
-      - '@types/react'
-      - immer
-      - react-is
-      - redux
-      - supports-color
-      - use-sync-external-store
-
   '@e-burgos/tucu-ui@2.6.0(@types/react@19.2.14)(immer@11.1.7)(react-dom@19.2.5(react@19.2.5))(react-is@18.3.1)(react@19.2.5)(tailwindcss@4.3.0)(use-sync-external-store@1.6.0(react@19.2.5))':
     dependencies:
       '@dnd-kit/core': 6.3.1(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
@@ -8501,6 +8480,36 @@ snapshots:
       - react-is
       - redux
       - supports-color
+      - use-sync-external-store
+
+  '@e-burgos/tucu-ui@2.7.0(@types/react@19.2.14)(immer@11.1.7)(react-dom@19.2.5(react@19.2.5))(react-is@18.3.1)(react@19.2.5)(tailwindcss@4.1.18)(use-sync-external-store@1.6.0(react@19.2.5))':
+    dependencies:
+      '@dnd-kit/core': 6.3.1(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
+      '@dnd-kit/modifiers': 9.0.0(@dnd-kit/core@6.3.1(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(react@19.2.5)
+      '@dnd-kit/sortable': 10.0.0(@dnd-kit/core@6.3.1(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(react@19.2.5)
+      '@dnd-kit/utilities': 3.2.2(react@19.2.5)
+      '@tailwindcss/typography': 0.5.19(tailwindcss@4.1.18)
+      '@tanstack/react-table': 8.21.3(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
+      classnames: 2.5.1
+      framer-motion: 12.40.0(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
+      lodash-es: 4.18.1
+      lucide-react: 1.17.0(react@19.2.5)
+      prismjs: 1.30.0
+      react: 19.2.5
+      react-dom: 19.2.5(react@19.2.5)
+      react-hook-form: 7.77.0(react@19.2.5)
+      react-router-dom: 7.16.0(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
+      react-use: 17.6.0(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
+      recharts: 3.8.1(@types/react@19.2.14)(react-dom@19.2.5(react@19.2.5))(react-is@18.3.1)(react@19.2.5)(redux@5.0.1)
+      swiper: 12.2.0
+      tailwindcss: 4.1.18
+      zustand: 5.0.14(@types/react@19.2.14)(immer@11.1.7)(react@19.2.5)(use-sync-external-store@1.6.0(react@19.2.5))
+    transitivePeerDependencies:
+      - '@emotion/is-prop-valid'
+      - '@types/react'
+      - immer
+      - react-is
+      - redux
       - use-sync-external-store
 
   '@emnapi/core@1.4.5':
@@ -10373,8 +10382,8 @@ snapshots:
 
   '@testing-library/dom@10.4.1':
     dependencies:
-      '@babel/code-frame': 7.29.0
-      '@babel/runtime': 7.29.2
+      '@babel/code-frame': 7.29.7
+      '@babel/runtime': 7.29.7
       '@types/aria-query': 5.0.4
       aria-query: 5.3.0
       dom-accessibility-api: 0.5.16
@@ -10876,7 +10885,7 @@ snapshots:
       obug: 2.1.3
       std-env: 4.2.0
       tinyrainbow: 3.1.0
-      vitest: 4.1.10(@types/node@22.20.1)(@vitest/coverage-v8@4.1.10)(@vitest/ui@4.1.10)(jsdom@22.1.0)(vite@7.3.6(@types/node@22.20.1)(jiti@2.6.1)(lightningcss@1.32.0)(terser@5.44.1)(tsx@4.21.0)(yaml@2.9.0))
+      vitest: 4.1.10(@types/node@22.20.1)(@vitest/coverage-v8@4.1.10)(@vitest/ui@4.1.10)(jsdom@22.1.0)(vite@7.3.6(@types/node@22.20.1)(jiti@2.4.2)(lightningcss@1.32.0)(terser@5.44.1)(tsx@4.21.0)(yaml@2.9.0))
 
   '@vitest/expect@4.1.10':
     dependencies:
@@ -10930,7 +10939,7 @@ snapshots:
       sirv: 3.0.2
       tinyglobby: 0.2.15
       tinyrainbow: 3.1.0
-      vitest: 4.1.10(@types/node@22.20.1)(@vitest/coverage-v8@4.1.10)(@vitest/ui@4.1.10)(jsdom@22.1.0)(vite@7.3.6(@types/node@22.20.1)(jiti@2.6.1)(lightningcss@1.32.0)(terser@5.44.1)(tsx@4.21.0)(yaml@2.9.0))
+      vitest: 4.1.10(@types/node@22.20.1)(@vitest/coverage-v8@4.1.10)(@vitest/ui@4.1.10)(jsdom@22.1.0)(vite@7.3.6(@types/node@22.20.1)(jiti@2.4.2)(lightningcss@1.32.0)(terser@5.44.1)(tsx@4.21.0)(yaml@2.9.0))
 
   '@vitest/utils@4.1.10':
     dependencies:

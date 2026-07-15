@@ -1,4 +1,9 @@
-import createBreakpoint from 'react-use/lib/factory/createBreakpoint';
+import * as createBreakpointModule from 'react-use/lib/factory/createBreakpoint';
+import { unwrapCjsDefault } from './internal/cjs-esm-interop';
+
+const createBreakpoint = unwrapCjsDefault<
+  (breakpoints?: Record<string, number>) => () => string
+>(createBreakpointModule);
 
 const breakPoints = {
   xs: 480,

@@ -113,6 +113,16 @@ export default defineConfig({
           preserveModules: true,
           preserveModulesRoot: 'src',
           entryFileNames: '[name].mjs',
+          // Source compiles with TypeScript's esModuleInterop (Babel-style:
+          // check the external module's `__esModule` flag). Rollup's own
+          // default interop instead checks for a `.default` property, which
+          // disagrees with how a consumer's bundler (esbuild/Vite) re-derives
+          // that same external CJS module's namespace shape — e.g. `import
+          // createBreakpoint from 'react-use/lib/factory/createBreakpoint'`
+          // resolved to a non-callable value at runtime in a real npm
+          // install. 'auto' matches the interop the source was compiled
+          // against.
+          interop: 'auto',
           globals: {
             react: 'React',
             'react-dom': 'ReactDOM',
@@ -126,6 +136,7 @@ export default defineConfig({
           // single bundle for require() compatibility.
           format: 'cjs',
           entryFileNames: 'index.js',
+          interop: 'auto',
           globals: {
             react: 'React',
             'react-dom': 'ReactDOM',
