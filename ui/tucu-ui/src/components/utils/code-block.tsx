@@ -1,21 +1,78 @@
 import { useState, useEffect } from 'react';
 import Scrollbar from '../common/scrollbar';
 import { Check, Copy, ChevronUp, ChevronDown } from 'lucide-react';
-import Prism from 'prismjs';
 import cn from 'classnames';
-
-// Import Prism languages
-import 'prismjs/components/prism-javascript';
-import 'prismjs/components/prism-typescript';
-import 'prismjs/components/prism-jsx';
-import 'prismjs/components/prism-tsx';
-import 'prismjs/components/prism-css';
-import 'prismjs/components/prism-bash';
-import 'prismjs/components/prism-json';
-import 'prismjs/components/prism-python';
-import 'prismjs/components/prism-java';
-import 'prismjs/components/prism-sql';
 import { useIsMobile } from '../../hooks/use-is-mobile';
+
+// Loaded lazily (not as static top-level imports) so bundlers that eagerly
+// evaluate this whole package (e.g. Vite's dev-mode dep optimizer) never
+// execute prismjs's language files before its core sets up the shared
+// `Prism` object they rely on as a global. Each loader is a literal
+// specifier (not a template string) so bundlers can statically analyze
+// and code-split it. Some languages extend others (e.g. tsx extends jsx
+// and typescript) and throw if their dependency isn't registered first,
+// so each entry also lists the languages it requires.
+const languageLoaders: Record<
+  string,
+  { deps?: string[]; load: () => Promise<unknown> }
+> = {
+  markup: { load: () => import('prismjs/components/prism-markup') },
+  clike: { load: () => import('prismjs/components/prism-clike') },
+  javascript: {
+    deps: ['clike'],
+    load: () => import('prismjs/components/prism-javascript'),
+  },
+  typescript: {
+    deps: ['javascript'],
+    load: () => import('prismjs/components/prism-typescript'),
+  },
+  jsx: {
+    deps: ['markup', 'javascript'],
+    load: () => import('prismjs/components/prism-jsx'),
+  },
+  tsx: {
+    deps: ['jsx', 'typescript'],
+    load: () => import('prismjs/components/prism-tsx'),
+  },
+  css: { load: () => import('prismjs/components/prism-css') },
+  bash: { load: () => import('prismjs/components/prism-bash') },
+  json: { load: () => import('prismjs/components/prism-json') },
+  python: { load: () => import('prismjs/components/prism-python') },
+  java: {
+    deps: ['clike'],
+    load: () => import('prismjs/components/prism-java'),
+  },
+  sql: { load: () => import('prismjs/components/prism-sql') },
+};
+
+let prismCorePromise: Promise<typeof import('prismjs')> | null = null;
+const languagePromises = new Map<string, Promise<unknown>>();
+
+function loadLanguage(language: string): Promise<unknown> {
+  const entry = languageLoaders[language];
+  if (!entry) return Promise.resolve();
+  let promise = languagePromises.get(language);
+  if (!promise) {
+    promise = Promise.all((entry.deps ?? []).map(loadLanguage)).then(() =>
+      entry.load()
+    );
+    languagePromises.set(language, promise);
+  }
+  return promise;
+}
+
+async function loadPrism(language?: string) {
+  if (!prismCorePromise) {
+    prismCorePromise = import('prismjs');
+  }
+  const { default: Prism } = await prismCorePromise;
+  if (language && languageLoaders[language]) {
+    await loadLanguage(language).catch(() => {
+      languagePromises.delete(language);
+    });
+  }
+  return Prism;
+}
 
 export const CodeBlock = ({
   code,
@@ -38,16 +95,20 @@ export const CodeBlock = ({
   const [highlightedCode, setHighlightedCode] = useState<string>('');
 
   useEffect(() => {
-    if (language && Prism.languages[language]) {
-      const highlighted = Prism.highlight(
-        code,
-        Prism.languages[language],
-        language
-      );
-      setHighlightedCode(highlighted);
-    } else {
-      setHighlightedCode(code);
-    }
+    let cancelled = false;
+    loadPrism(language).then((Prism) => {
+      if (cancelled) return;
+      if (language && Prism.languages[language]) {
+        setHighlightedCode(
+          Prism.highlight(code, Prism.languages[language], language)
+        );
+      } else {
+        setHighlightedCode(code);
+      }
+    });
+    return () => {
+      cancelled = true;
+    };
   }, [code, language]);
 
   const handleCopy = () => {
