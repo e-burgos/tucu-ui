@@ -179,6 +179,14 @@ Para cada paquete seleccionado:
 > **no necesita esto** — el pipeline publica con su propio token de CI. Este
 > paso solo aplica al modo de emergencia.
 
+Si existe un `NPM_TOKEN` en la raíz del repo en `.env.local` (gitignored, el
+mismo automation token que ya está en el secret `NPM_TOKEN` de GitHub
+Actions) o exportado en el shell, `--local-publish` lo usa automáticamente
+para autenticar — **sin pedir OTP**, igual que en CI. En ese caso este Paso 5
+no aplica; saltar directo al Paso 6.
+
+Si no hay `NPM_TOKEN` disponible, `--local-publish` cae al login interactivo:
+
 1. Verificar login:
    ```bash
    npm whoami
@@ -192,6 +200,11 @@ Para cada paquete seleccionado:
    - **NUNCA ejecutar npm login desde el agente** — requiere interacción del usuario (OTP por email/authenticator)
    - Esperar a que el usuario confirme que se logueó
    - Verificar nuevamente con `npm whoami`
+
+> ⚠️ **El agente nunca lee, imprime ni repite el valor de `NPM_TOKEN`** —
+> ni desde `.env.local` ni desde el entorno. El script lo usa internamente
+> (variable de entorno del subproceso `npm publish`), pero jamás debe
+> aparecer en la salida de una terminal que el agente vea.
 
 ---
 
@@ -246,13 +259,16 @@ hace deploy — eso lo dispara el push del tag en el Paso 8.
 #### Modo emergencia: publicar directo desde la máquina local
 
 Si el pipeline no está disponible o hay una emergencia, agregar
-`--local-publish` para que el script publique directo (con OTP interactivo si
-2FA está habilitado) y, para el MCP, haga `flyctl deploy` al final:
+`--local-publish` para que el script publique directo y, para el MCP, haga
+`flyctl deploy` al final:
 
 ```bash
 node scripts/publish.mjs mcp <patch|minor|major> --local-publish
 node scripts/publish.mjs tucu-ui <patch|minor|major> --local-publish
 ```
+
+Autentica con `NPM_TOKEN` (de `.env.local` o del entorno) si está disponible
+— sin OTP. Si no, cae a la sesión de `npm login` del Paso 5 (con OTP).
 
 Este modo requiere `npm whoami` autenticado (ver Paso 5) y `flyctl` instalado
 para el MCP (`brew install flyctl && flyctl auth login`).
@@ -358,8 +374,8 @@ node scripts/publish.mjs <tucu-ui|mcp> publish [--skip-build] [flags]  # publica
 | `--dry-run`       | Simula todo sin aplicar cambios ni publicar                           |
 | `--skip-docs`     | Salta la actualización de CHANGELOG y README                          |
 | `--skip-git`      | Salta verificación de working tree limpio y commit/tag final          |
-| `--local-publish` | Publica directo desde la máquina local (con OTP) en vez de vía CI     |
-| `--otp=123456`    | OTP a pasar a `npm publish` cuando se usa `--local-publish`           |
+| `--local-publish` | Publica directo desde la máquina local en vez de vía CI (usa `NPM_TOKEN` sin OTP si está disponible; si no, cae a `npm login` con OTP) |
+| `--otp=123456`    | OTP a pasar a `npm publish` cuando se usa `--local-publish` sin `NPM_TOKEN` |
 
 ### pnpm shortcuts
 

@@ -20,8 +20,13 @@
  *   --skip-build     (publish subcommand only) reuse existing build artifacts
  *   --local-publish  Also run `npm publish` (and, for mcp, `flyctl deploy`) from
  *                    this machine — the emergency/manual escape hatch for when
- *                    CI can't run. Requires interactive npm OTP if 2FA is on.
+ *                    CI can't run. If NPM_TOKEN is set (in the environment or
+ *                    in a root .env.local — never committed) it authenticates
+ *                    with that token, same as CI, no OTP prompt. Otherwise
+ *                    falls back to your logged-in npm session (`npm login`),
+ *                    which does prompt for OTP if 2FA is on.
  *   --otp=123456     OTP to pass through to `npm publish` with --local-publish
+ *                    when no NPM_TOKEN is available
  *
  * Steps (bump mode):
  *   1. Validate target and bump type
@@ -44,7 +49,12 @@
  */
 
 import { execSync } from 'node:child_process';
-import { readFileSync, writeFileSync, existsSync } from 'node:fs';
+import {
+  readFileSync,
+  writeFileSync,
+  existsSync,
+  unlinkSync,
+} from 'node:fs';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -148,6 +158,37 @@ function versionExistsOnNpm(packageName, version) {
   } catch {
     return false;
   }
+}
+
+/**
+ * Returns an npm automation token for --local-publish, checked in order:
+ * an already-exported NPM_TOKEN env var, then a `NPM_TOKEN=` line in the
+ * repo-root .env.local (gitignored, never committed). Returns null if
+ * neither is set — callers fall back to interactive npm-login auth.
+ * Never logs the value.
+ */
+function getLocalNpmToken() {
+  if (process.env.NPM_TOKEN) return process.env.NPM_TOKEN;
+
+  const envLocalPath = resolve(ROOT, '.env.local');
+  if (!existsSync(envLocalPath)) return null;
+
+  const lines = readFileSync(envLocalPath, 'utf-8').split('\n');
+  for (const line of lines) {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith('#')) continue;
+    const eqIdx = trimmed.indexOf('=');
+    if (eqIdx === -1 || trimmed.slice(0, eqIdx).trim() !== 'NPM_TOKEN') continue;
+    let value = trimmed.slice(eqIdx + 1).trim();
+    if (
+      (value.startsWith('"') && value.endsWith('"')) ||
+      (value.startsWith("'") && value.endsWith("'"))
+    ) {
+      value = value.slice(1, -1);
+    }
+    return value || null;
+  }
+  return null;
 }
 
 /** Aborts if any required build artifact is missing (tucu-ui only). */
@@ -326,6 +367,41 @@ function checkCleanWorkingTree() {
 
 function publishToNpm(pkg, packageName, version, otp) {
   verifyDistArtifacts(pkg);
+
+  const token = getLocalNpmToken();
+  if (token) {
+    log(pkg.label, 'Using NPM_TOKEN for authentication (no OTP prompt).');
+    // npm/pnpm resolve ${NPM_TOKEN} from the environment at read time — the
+    // file on disk only ever holds the variable reference, never the value.
+    const npmrcPath = resolve(pkg.publishDir, '.npmrc');
+    const previousContent = existsSync(npmrcPath)
+      ? readFileSync(npmrcPath, 'utf-8')
+      : null;
+    writeFileSync(
+      npmrcPath,
+      (previousContent ?? '') + '//registry.npmjs.org/:_authToken=${NPM_TOKEN}\n'
+    );
+    try {
+      log(pkg.label, `Publishing ${packageName}@${version} to npm...`);
+      exec(pkg.publishCmd, {
+        cwd: pkg.publishDir,
+        env: { ...process.env, NPM_TOKEN: token },
+      });
+      success(`Published ${packageName}@${version} to npm!`);
+    } finally {
+      if (previousContent === null) {
+        try {
+          unlinkSync(npmrcPath);
+        } catch {
+          /* best-effort cleanup */
+        }
+      } else {
+        writeFileSync(npmrcPath, previousContent);
+      }
+    }
+    return;
+  }
+
   const cmd = `${pkg.publishCmd}${otp ? ` --otp=${otp}` : ''}`;
   log(pkg.label, `Publishing ${packageName}@${version} to npm...`);
   exec(cmd, { cwd: pkg.publishDir });
@@ -411,7 +487,8 @@ if (publishOnly) {
 
   if (dryRun) {
     log(pkg.label, '--dry-run mode: showing planned changes without applying them.\n');
-    console.log(`  Publish: cd ${pkg.publishDir} && ${pkg.publishCmd}`);
+    const authMode = getLocalNpmToken() ? 'NPM_TOKEN (no OTP)' : 'npm login (OTP)';
+    console.log(`  Publish: cd ${pkg.publishDir} && ${pkg.publishCmd}  (auth: ${authMode})`);
     if (pkg.deployToFly) console.log(`  Deploy:  flyctl deploy  (cwd: ${pkg.pkgDir})`);
     process.exit(0);
   }
@@ -494,7 +571,10 @@ if (dryRun) {
   console.log(`\n  Build:   pnpm nx run ${pkg.buildTarget}`);
   console.log(`  Tag:     ${pkg.tagPrefix}${nextVersion}`);
   if (localPublish) {
-    console.log(`  Publish: cd ${pkg.publishDir} && ${pkg.publishCmd}  (--local-publish)`);
+    const authMode = getLocalNpmToken() ? 'NPM_TOKEN (no OTP)' : 'npm login (OTP)';
+    console.log(
+      `  Publish: cd ${pkg.publishDir} && ${pkg.publishCmd}  (--local-publish, auth: ${authMode})`
+    );
     if (pkg.deployToFly) console.log(`  Deploy:  flyctl deploy  (cwd: ${pkg.pkgDir})`);
   } else {
     console.log(
