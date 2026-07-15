@@ -65,7 +65,7 @@ async function loadPrism(language?: string) {
   if (!prismCorePromise) {
     prismCorePromise = import('prismjs');
   }
-  const { default: Prism } = await prismCorePromise;
+  const Prism = await prismCorePromise;
   if (language && languageLoaders[language]) {
     await loadLanguage(language).catch(() => {
       languagePromises.delete(language);
