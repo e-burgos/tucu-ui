@@ -40,9 +40,16 @@ export default defineConfig(async ({ mode }) => {
           },
     ],
     resolve: {
-      alias: {
-        '@': path.resolve(__dirname, './src'),
-      },
+      alias: [
+        { find: '@', replacement: path.resolve(__dirname, './src') },
+        {
+          // tucu-docs pages reach into tucu-ui internals not part of its
+          // public API (raw source snippets via ?raw, docs-kit helpers).
+          find: /^@tucu-ui-internal\/(.*)$/,
+          replacement:
+            path.resolve(__dirname, '../../ui/tucu-ui/src') + '/$1',
+        },
+      ],
     },
     server: {
       port,

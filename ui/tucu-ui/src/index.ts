@@ -10,7 +10,7 @@ import * as SwiperModulesImport from 'swiper/modules';
 
 export * from './components';
 export * from './datatable';
-export * from './demo';
+export * from './docs-kit';
 export * from './hooks';
 export * from './libs';
 export * from './themes';
