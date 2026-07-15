@@ -5,6 +5,43 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.7.0] - 2026-07-15
+
+### Added
+
+- auto-detect NPM_TOKEN for --local-publish, no OTP needed
+- consolidate publish scripts, move npm publish to CI
+- extract demo/documentation pages into ui/tucu-docs
+- add DataTable demo page and update navigation
+- add DataTable component module to tucu-ui
+
+### Changed
+
+- add demo app preview launch config
+- bump Nx to 22.7.7 (latest patch on the current major)
+- resolve peer dependency warnings, bump to latest compatible
+- record post-remediation packaging metrics
+- record packaging baseline metrics
+- add WS1 packaging & dependency hygiene implementation plan
+- add tucu-ui audit remediation spec (37 findings, 6 workstreams)
+- update @e-burgos/tucu-ui dependency to published ^2.6.0
+- prepare release @e-burgos/tucu-ui@2.6.0 and @e-burgos/tucu-ui-mcp@0.6.0
+- add DataTable to component registry and generation tools
+- regenerate props metadata for datatable components
+
+### Fixed
+
+- enable per-module output so unused components tree-shake
+- move datatable.css import to top of module
+- roll up type definitions into a single index.d.ts
+- honor --dry-run in publish-only mode
+- verify dist artifacts exist before publishing
+- drop non-standard style field and exports condition
+- scope sideEffects to CSS files to enable tree-shaking
+- replace lodash with lodash-es for ESM tree-shaking
+- remove redundant react-router and @tanstack/table-core dependencies
+- drop @e-burgos/tucu-ui-mcp from library runtime dependencies
+- right button demo app
 ## [2.6.0] - 2026-06-02
 
 ### Added

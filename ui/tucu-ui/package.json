@@ -1,7 +1,7 @@
 {
   "name": "@e-burgos/tucu-ui",
   "description": "Tucu UI Library",
-  "version": "2.6.0",
+  "version": "2.7.0",
   "main": "./index.js",
   "module": "./index.mjs",
   "types": "./index.d.ts",
@@ -37,7 +37,9 @@
   "files": [
     "**/*"
   ],
-  "sideEffects": ["**/*.css"],
+  "sideEffects": [
+    "**/*.css"
+  ],
   "scripts": {
     "generate-props": "tsx ../../scripts/generate-props.ts",
     "publish:lib": "cd ../../dist/ui/tucu-ui && pnpm npm publish --access public --no-git-checks",
