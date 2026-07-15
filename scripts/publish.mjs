@@ -6,8 +6,9 @@
  * Publishing to npm normally happens in CI: this script prepares the
  * release (bump, changelog, README, build, verify, commit, tag) and stops.
  * Pushing the resulting tag (tucu-ui-v*.*.* or mcp-v*.*.*) triggers the
- * matching GitHub Actions workflow, which publishes with an npm automation
- * token (see .github/workflows/publish-tucu-ui.yml / publish-mcp.yml).
+ * matching GitHub Actions workflow, which publishes via npm Trusted
+ * Publishing (OIDC) — no stored token, no OTP (see
+ * .github/workflows/publish-tucu-ui.yml / publish-mcp.yml).
  *
  * Usage:
  *   node scripts/publish.mjs <tucu-ui|mcp> <patch|minor|major> [flags]
@@ -370,7 +371,13 @@ function publishToNpm(pkg, packageName, version, otp) {
 
   const token = getLocalNpmToken();
   if (token) {
-    log(pkg.label, 'Using NPM_TOKEN for authentication (no OTP prompt).');
+    // npm still requires a per-publish OTP for tokens that don't have 2FA
+    // explicitly bypassed (npmjs.com discourages disabling that, so most
+    // tokens will need it) — --otp=, if given, is passed through either way.
+    log(
+      pkg.label,
+      `Using NPM_TOKEN for authentication${otp ? ' (with OTP)' : ' (no OTP)'}.`
+    );
     // npm/pnpm resolve ${NPM_TOKEN} from the environment at read time — the
     // file on disk only ever holds the variable reference, never the value.
     const npmrcPath = resolve(pkg.publishDir, '.npmrc');
@@ -383,7 +390,8 @@ function publishToNpm(pkg, packageName, version, otp) {
     );
     try {
       log(pkg.label, `Publishing ${packageName}@${version} to npm...`);
-      exec(pkg.publishCmd, {
+      const cmd = `${pkg.publishCmd}${otp ? ` --otp=${otp}` : ''}`;
+      exec(cmd, {
         cwd: pkg.publishDir,
         env: { ...process.env, NPM_TOKEN: token },
       });
@@ -487,7 +495,9 @@ if (publishOnly) {
 
   if (dryRun) {
     log(pkg.label, '--dry-run mode: showing planned changes without applying them.\n');
-    const authMode = getLocalNpmToken() ? 'NPM_TOKEN (no OTP)' : 'npm login (OTP)';
+    const authMode = getLocalNpmToken()
+      ? `NPM_TOKEN${otp ? ' + OTP' : ' (no OTP)'}`
+      : 'npm login (OTP)';
     console.log(`  Publish: cd ${pkg.publishDir} && ${pkg.publishCmd}  (auth: ${authMode})`);
     if (pkg.deployToFly) console.log(`  Deploy:  flyctl deploy  (cwd: ${pkg.pkgDir})`);
     process.exit(0);
@@ -571,7 +581,9 @@ if (dryRun) {
   console.log(`\n  Build:   pnpm nx run ${pkg.buildTarget}`);
   console.log(`  Tag:     ${pkg.tagPrefix}${nextVersion}`);
   if (localPublish) {
-    const authMode = getLocalNpmToken() ? 'NPM_TOKEN (no OTP)' : 'npm login (OTP)';
+    const authMode = getLocalNpmToken()
+      ? `NPM_TOKEN${otp ? ' + OTP' : ' (no OTP)'}`
+      : 'npm login (OTP)';
     console.log(
       `  Publish: cd ${pkg.publishDir} && ${pkg.publishCmd}  (--local-publish, auth: ${authMode})`
     );

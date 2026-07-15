@@ -267,11 +267,19 @@ node scripts/publish.mjs mcp <patch|minor|major> --local-publish
 node scripts/publish.mjs tucu-ui <patch|minor|major> --local-publish
 ```
 
-Autentica con `NPM_TOKEN` (de `.env.local` o del entorno) si está disponible
-— sin OTP. Si no, cae a la sesión de `npm login` del Paso 5 (con OTP).
+Autentica con `NPM_TOKEN` (de `.env.local` o del entorno) si está disponible.
+Ese token igual puede pedir OTP — npm desalienta crear tokens que lo salteen
+("There are security risks with this option") — en cuyo caso pasar
+`--otp=123456` (se reenvía a `npm publish` aunque haya token). Sin token
+disponible, cae a la sesión de `npm login` del Paso 5 (con OTP).
 
 Este modo requiere `npm whoami` autenticado (ver Paso 5) y `flyctl` instalado
 para el MCP (`brew install flyctl && flyctl auth login`).
+
+> Nota: Trusted Publishing (Paso 7) solo funciona **desde dentro de un run
+> real de GitHub Actions** — el token OIDC lo emite GitHub para ese workflow
+> específico. No hay forma de usarlo para publicar localmente; `--local-publish`
+> siempre depende de `NPM_TOKEN` o de `npm login`.
 
 ---
 
@@ -284,10 +292,12 @@ Al pushear el tag en el Paso 8, GitHub Actions se encarga solo:
 | `tucu-ui-v*.*.*` | `.github/workflows/publish-tucu-ui.yml` | build → verifica versión y artifacts → `npm publish`         |
 | `mcp-v*.*.*`     | `.github/workflows/publish-mcp.yml`     | build → verifica versión → `npm publish` → `flyctl deploy`   |
 
-Ambos workflows publican con un **npm automation token** guardado en el
-secret `NPM_TOKEN` del repo — no piden OTP porque los automation tokens de
-npm están pensados para CI (ver sección "Setup de infraestructura" al final
-de este skill para crear el token si aún no existe).
+Ambos workflows publican vía **npm Trusted Publishing (OIDC)** — GitHub
+emite un token de corta duración específico para ese workflow y npm lo
+valida contra un "Trusted Publisher" configurado en cada paquete. No hay
+ningún secret de npm que guardar ni rotar, y npm genera provenance
+automáticamente. Ver la sección "Setup de infraestructura" al final de este
+skill para la configuración inicial (una vez por paquete).
 
 Seguir el progreso en la pestaña **Actions** del repo, o con:
 
@@ -401,8 +411,9 @@ pnpm mcp:publish:dry
 | ------------------------------------------ | ------------------------------------------------------------------------------------ |
 | `Version X.Y.Z already exists on npm`      | Elegir un tipo de bump diferente                                                     |
 | Workflow falla en "Verify tag matches..."  | El tag no coincide con la versión del `package.json` — revisar que se pusheó el tag correcto |
-| Workflow falla en `npm publish` (401/403)  | El secret `NPM_TOKEN` expiró o no tiene permisos — regenerar (ver Setup más abajo)   |
-| `403 Forbidden` / `401 Unauthorized` (local) | `npm login` y verificar pertenencia a org `e-burgos` (solo aplica a `--local-publish`) |
+| Workflow falla en `npm publish` con `ENEEDAUTH` / "no configured publisher" | El Trusted Publisher no está configurado (o no matchea exacto) para ese paquete — ver Setup más abajo |
+| Workflow falla en `npm publish` con `EOTP` | Señal de que **no** está usando Trusted Publishing — revisar que el workflow tenga `permissions: id-token: write` y que el paquete tenga el Trusted Publisher bien configurado en npmjs.com |
+| `403 Forbidden` / `401 Unauthorized` (local) | `npm login` y verificar pertenencia a org `e-burgos` (solo aplica a `--local-publish`, que no usa Trusted Publishing) |
 | Build falla                                | Revisar errores: `pnpm nx run <project>:lint`                                        |
 | `git tag` ya existe                        | Borrar: `git tag -d <tag>` y re-ejecutar                                             |
 | `flyctl: command not found` (local)        | `brew install flyctl && flyctl auth login`                                          |
@@ -411,33 +422,44 @@ pnpm mcp:publish:dry
 
 ---
 
-## Setup de infraestructura (una sola vez)
+## Setup de infraestructura (una sola vez por paquete)
 
-El pipeline necesita un secret `NPM_TOKEN` en el repo de GitHub. Si aún no
-existe (o expiró), crearlo así:
+El pipeline publica con **npm Trusted Publishing (OIDC)** — no hay ningún
+secret de npm que crear ni guardar para CI. Configurar así, **una vez por
+paquete**, en npmjs.com (requiere ser maintainer/owner del paquete):
 
-1. En [npmjs.com](https://www.npmjs.com) → perfil → **Access Tokens** →
-   **Generate New Token** → **Granular Access Token**.
-2. Tipo: **Automation** (no requiere OTP en cada publish, pensado para CI).
-   Scope: publish en `@e-burgos/tucu-ui` y `@e-burgos/tucu-ui-mcp` (o toda la
-   org `e-burgos` si se prefiere no tener que regenerarlo al agregar paquetes).
-3. Copiar el token generado (solo se muestra una vez).
-4. Agregarlo como secret del repo:
+1. Entrar a la página del paquete en npmjs.com → **Settings** → sección
+   **Trusted Publisher** → elegir **GitHub Actions**.
+2. Completar exactamente (sensible a mayúsculas/espacios):
+   - **Organization or user**: `e-burgos`
+   - **Repository**: `tucu-ui`
+   - **Workflow filename**: `publish-tucu-ui.yml` (para `@e-burgos/tucu-ui`)
+     o `publish-mcp.yml` (para `@e-burgos/tucu-ui-mcp`) — solo el nombre del
+     archivo, no la ruta completa.
+   - **Environment name**: dejar vacío (no usamos GitHub Environments).
+   - **Allowed actions**: `npm publish`.
+3. Guardar. Repetir para el segundo paquete con su propio workflow filename.
 
-   ```bash
-   gh secret set NPM_TOKEN
-   # pega el token cuando lo pida — o hacerlo desde
-   # GitHub → Settings → Secrets and variables → Actions → New repository secret
-   ```
+> Cada paquete solo puede tener **un** Trusted Publisher configurado a la
+> vez. Si en el futuro se agrega un tercer paquete al monorepo, necesita su
+> propia configuración.
 
-> ⚠️ **El agente nunca debe generar, ver, ni pegar el valor de este token.**
-> Es una acción 100% manual del usuario — crear el token requiere su login y
-> 2FA en npmjs.com, y pegarlo en `gh secret set` expone el valor en la
-> terminal del agente si este ejecuta el comando.
+Requisitos ya cubiertos por los workflows (nada que hacer):
+`permissions: id-token: write` en el job, y un paso que fuerza
+`npm install -g npm@latest` (Trusted Publishing pide npm CLI ≥ 11.5.1).
 
 `FLY_API_TOKEN` (usado tanto por `deploy-mcp.yml` como por
-`publish-mcp.yml`) ya debería existir si el deploy a fly.io funciona hoy —
-no requiere ninguna acción adicional.
+`publish-mcp.yml`) sigue siendo un secret normal — ya debería existir si el
+deploy a fly.io funciona hoy, no requiere ninguna acción adicional.
+
+### `--local-publish` sigue necesitando un token o `npm login`
+
+Trusted Publishing **solo funciona dentro de un run real de GitHub
+Actions** — el token OIDC lo emite GitHub para ese workflow específico, no
+hay forma de usarlo desde una máquina local. Para el modo de emergencia
+(`--local-publish`), seguí necesitando `npm login` (con OTP) o un
+`NPM_TOKEN` en `.env.local`/entorno (que probablemente también pida OTP —
+npm desalienta crear tokens sin ese requisito).
 
 ---
 
@@ -446,6 +468,6 @@ no requiere ninguna acción adicional.
 - **El agente NUNCA ejecuta `npm login`, ni genera/pega tokens de npm o GitHub** — siempre lo hace el usuario interactivamente
 - **El agente NUNCA hace `git push`** sin confirmación explícita del usuario — y pushear el tag de release es lo que dispara el publish real, así que la confirmación es doblemente importante
 - **Publish real = CI, no local**: por defecto el script solo prepara (bump, changelog, build, tag). `--local-publish` es exclusivamente para emergencias con el pipeline caído
+- **CI usa Trusted Publishing (OIDC), no un secret de npm** — sin token que rotar ni pueda filtrarse; `--local-publish` es la única vía que sigue necesitando `npm login`/OTP o un `NPM_TOKEN` propio
 - **Si se publican ambas**: MCP primero, tucu-ui después (por la sincronización de dependencia en Paso 5b)
 - **Los scripts con `--skip-git`** permiten que el agente maneje commits de forma granular antes de publicar
-- **OTP**: solo aparece con `--local-publish`; el flujo normal vía CI no lo necesita porque el `NPM_TOKEN` es un automation token

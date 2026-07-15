@@ -3,7 +3,10 @@ name: Publish tucu-ui to npm
 # Triggered by pushing a version tag created by `pnpm tucu-ui:publish:<bump>`
 # (scripts/publish.mjs) — that script bumps the version, updates docs, builds,
 # commits, and tags, but does not publish. This workflow does the actual
-# `npm publish`, using an npm automation token so no interactive OTP is needed.
+# `npm publish`, authenticating via npm Trusted Publishing (OIDC) — no
+# stored token, no OTP. Requires a one-time setup on npmjs.com: package
+# Settings → Trusted Publisher → GitHub Actions, with
+# org=e-burgos, repo=tucu-ui, workflow filename=publish-tucu-ui.yml.
 on:
   push:
     tags:
@@ -14,6 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
+      id-token: write # required for npm OIDC trusted publishing
     steps:
       - uses: actions/checkout@v4
 
@@ -26,6 +30,11 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
 
       - run: pnpm install --frozen-lockfile
+
+      # Trusted publishing needs npm CLI >= 11.5.1; pin explicitly rather
+      # than relying on whatever setup-node's bundled version happens to be.
+      - name: Ensure npm CLI supports trusted publishing
+        run: npm install -g npm@latest && npm --version
 
       - name: Build tucu-ui
         run: pnpm nx run tucu-ui:build
@@ -53,5 +62,3 @@ jobs:
       - name: Publish to npm
         run: npm publish --access public
         working-directory: dist/ui/tucu-ui
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
