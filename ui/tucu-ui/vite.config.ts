@@ -72,28 +72,69 @@ export default defineConfig({
       formats: ['es', 'cjs'],
     },
     rollupOptions: {
-      external: [
-        'react',
-        'react-dom',
-        'react/jsx-runtime',
-        'lucide-react',
-        'react-router-dom',
-      ],
-      output: {
-        globals: {
-          react: 'React',
-          'react-dom': 'ReactDOM',
-          'react/jsx-runtime': 'jsxRuntime',
-          'lucide-react': 'LucideReact',
-          'react-router-dom': 'ReactRouter',
-        },
-        chunkFileNames: (chunkInfo) => {
-          if (chunkInfo.name && /Section/.test(chunkInfo.name)) {
-            return 'documentation/[name]-[hash].js';
-          }
-          return '[name]-[hash].js';
-        },
+      // Every real runtime dependency is externalized (not bundled): with
+      // preserveModules below, an inlined third-party package would keep
+      // its dist/out-of-tree node_modules path in the output, which npm
+      // silently strips from the published tarball (nested node_modules
+      // are never packed), breaking the import for consumers.
+      external: (id) => {
+        const externalPackages = [
+          'react',
+          'react-dom',
+          'lucide-react',
+          'react-router-dom',
+          'react-use',
+          '@dnd-kit/core',
+          '@dnd-kit/modifiers',
+          '@dnd-kit/sortable',
+          '@dnd-kit/utilities',
+          '@tanstack/react-table',
+          'classnames',
+          'framer-motion',
+          'lodash-es',
+          'react-hook-form',
+          'recharts',
+          'swiper',
+          'zustand',
+          'prismjs',
+        ];
+        return externalPackages.some(
+          (pkg) => id === pkg || id.startsWith(`${pkg}/`)
+        );
       },
+      output: [
+        {
+          // Per-module ESM output lets consumer bundlers drop unused
+          // components (DataTable, charts, carousel, etc.) instead of
+          // pulling in the single monolithic chunk a bundled build would
+          // produce, where importing one component drags in every
+          // dependency the whole library uses.
+          format: 'es',
+          preserveModules: true,
+          preserveModulesRoot: 'src',
+          entryFileNames: '[name].mjs',
+          globals: {
+            react: 'React',
+            'react-dom': 'ReactDOM',
+            'react/jsx-runtime': 'jsxRuntime',
+            'lucide-react': 'LucideReact',
+            'react-router-dom': 'ReactRouter',
+          },
+        },
+        {
+          // CJS consumers don't tree-shake regardless, so this stays a
+          // single bundle for require() compatibility.
+          format: 'cjs',
+          entryFileNames: 'index.js',
+          globals: {
+            react: 'React',
+            'react-dom': 'ReactDOM',
+            'react/jsx-runtime': 'jsxRuntime',
+            'lucide-react': 'LucideReact',
+            'react-router-dom': 'ReactRouter',
+          },
+        },
+      ],
     },
   },
 });
