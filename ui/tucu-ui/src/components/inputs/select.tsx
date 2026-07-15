@@ -535,7 +535,7 @@ export function Select({
         onClick={toggleDropdown}
         onKeyDown={handleButtonKeyDown}
         className={cn(
-          'text-case-inherit letter-space-inherit flex w-full items-center justify-between font-medium outline-hidden duration-200',
+          'tucu-text-case-inherit tucu-letter-space-inherit flex w-full items-center justify-between font-medium outline-hidden duration-200',
           textControlSizeClasses.select[size],
           selectVariantClasses[variant],
           color && textControlColorClasses[variant][color],

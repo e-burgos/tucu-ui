@@ -4,7 +4,7 @@ import react from '@vitejs/plugin-react';
 import dts from 'vite-plugin-dts';
 import * as path from 'path';
 import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin';
-import { copyFileSync, mkdirSync } from 'fs';
+import { copyFileSync, cpSync, mkdirSync } from 'fs';
 import tailwindcss from '@tailwindcss/vite';
 
 const copyReadmePlugin = () => {
@@ -33,6 +33,40 @@ const copyChangelogPlugin = () => {
   };
 };
 
+// theme.css (the `./theme` export) must reach consumers as the exact
+// source text authored in src/assets/css/theme.css — untouched `@theme`/
+// `@layer`/`@utility` directives for THEIR Tailwind build to process, not
+// this library's own compiled output. Copying it verbatim, rather than
+// letting it flow through the same Vite/Tailwind pipeline as globals.css,
+// is what keeps it a second raw entry point instead of a second compiled
+// stylesheet. Its relative `@import`s (./base.css, ./macos/index.css, …)
+// need those files copied alongside it at the same relative paths — only
+// the ones theme.css actually reaches, not the rest of assets/css (e.g.
+// globals.css, fonts.css), to avoid re-bloating the tarball PKG-3 trimmed.
+const copyThemeCssPlugin = () => {
+  return {
+    name: 'copy-theme-css',
+    closeBundle: () => {
+      const cssDir = path.join(__dirname, 'src/assets/css');
+      const destDir = path.join(__dirname, '../../dist/ui/tucu-ui');
+      mkdirSync(destDir, { recursive: true });
+      copyFileSync(
+        path.join(cssDir, 'theme.css'),
+        path.join(destDir, 'theme.css')
+      );
+      for (const file of ['base.css', 'third-party.css', 'utilities.css']) {
+        copyFileSync(path.join(cssDir, file), path.join(destDir, file));
+      }
+      cpSync(path.join(cssDir, 'macos'), path.join(destDir, 'macos'), {
+        recursive: true,
+      });
+      console.log(
+        'theme.css (+ its relative imports) copied to distribution directory'
+      );
+    },
+  };
+};
+
 export default defineConfig({
   root: __dirname,
   cacheDir: '../../node_modules/.vite/ui/tucu-ui',
@@ -50,6 +84,7 @@ export default defineConfig({
     }),
     copyReadmePlugin(),
     copyChangelogPlugin(),
+    copyThemeCssPlugin(),
     tailwindcss() as PluginOption,
   ],
   resolve: {

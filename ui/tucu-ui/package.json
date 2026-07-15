@@ -32,7 +32,8 @@
       "import": "./index.mjs",
       "require": "./index.js"
     },
-    "./styles": "./index.css"
+    "./styles": "./index.css",
+    "./theme": "./theme.css"
   },
   "files": [
     "**/*"

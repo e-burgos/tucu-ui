@@ -2,12 +2,12 @@ import cn from 'classnames';
 import { Tooltip, TooltipPlacement, TooltipColor } from '../common/tooltip';
 
 const classes = {
-  h1: 'text-h1',
-  h2: 'text-h2',
-  h3: 'text-h3',
-  h4: 'text-h4',
-  h5: 'text-h5',
-  h6: 'text-h6',
+  h1: 'tucu-text-h1',
+  h2: 'tucu-text-h2',
+  h3: 'tucu-text-h3',
+  h4: 'tucu-text-h4',
+  h5: 'tucu-text-h5',
+  h6: 'tucu-text-h6',
   p: '',
   i: '',
   b: '',
@@ -25,12 +25,12 @@ const classes = {
   blockquote: 'border-l-4 border-border text-quote py-3 px-4',
   sub: 'p-3 text-sx text-bottom',
   sup: 'p-3 text-sx text-top',
-  headline: 'text-headline',
-  body: 'text-body',
-  'label-1': 'text-label-1',
-  'label-2': 'text-label-2',
-  caption: 'text-caption',
-  legal: 'text-legal',
+  headline: 'tucu-text-headline',
+  body: 'tucu-text-body',
+  'label-1': 'tucu-text-label-1',
+  'label-2': 'tucu-text-label-2',
+  caption: 'tucu-text-caption',
+  legal: 'tucu-text-legal',
 };
 
 const textColorClasses = {

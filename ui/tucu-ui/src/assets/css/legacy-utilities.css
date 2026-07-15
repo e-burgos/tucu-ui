@@ -1,0 +1,89 @@
+/* ===================================================================
+   TUCU-UI — DEPRECATED UTILITY ALIASES
+   ===================================================================
+
+   Unprefixed names for the utilities in utilities.css, kept only for
+   backwards compatibility with consumers already using them through
+   the `./styles` (non-Tailwind) entry point. Not included in `./theme`
+   — a Tailwind consumer should use the `tucu-` prefixed versions to
+   avoid colliding with their own utility names, which is the whole
+   point of the prefix.
+
+   Imported by globals.css only.
+   =================================================================== */
+
+@utility text-case-inherit {
+  @apply tucu-text-case-inherit;
+}
+
+@utility letter-space-inherit {
+  @apply tucu-letter-space-inherit;
+}
+
+@utility word-break-all {
+  @apply tucu-word-break-all;
+}
+
+@utility text-vertical {
+  @apply tucu-text-vertical;
+}
+
+@utility animation-delay-200 {
+  @apply tucu-animation-delay-200;
+}
+
+@utility animation-delay-500 {
+  @apply tucu-animation-delay-500;
+}
+
+@utility animation-delay-700 {
+  @apply tucu-animation-delay-700;
+}
+
+@utility text-h1 {
+  @apply tucu-text-h1;
+}
+
+@utility text-h2 {
+  @apply tucu-text-h2;
+}
+
+@utility text-h3 {
+  @apply tucu-text-h3;
+}
+
+@utility text-h4 {
+  @apply tucu-text-h4;
+}
+
+@utility text-h5 {
+  @apply tucu-text-h5;
+}
+
+@utility text-h6 {
+  @apply tucu-text-h6;
+}
+
+@utility text-headline {
+  @apply tucu-text-headline;
+}
+
+@utility text-body {
+  @apply tucu-text-body;
+}
+
+@utility text-label-1 {
+  @apply tucu-text-label-1;
+}
+
+@utility text-label-2 {
+  @apply tucu-text-label-2;
+}
+
+@utility text-caption {
+  @apply tucu-text-caption;
+}
+
+@utility text-legal {
+  @apply tucu-text-legal;
+}

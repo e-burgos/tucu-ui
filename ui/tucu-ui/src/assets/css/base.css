@@ -2,219 +2,224 @@
    TUCU-UI — BASE STYLES
    ===================================================================
 
-   Structural mode styles (html:root, html.dark) are intentionally
-   UNLAYERED (outside any @layer). This gives them the highest cascade
-   priority, ensuring they always win over:
-     - Consumer's @layer theme (Tailwind color resets)
-     - Consumer's @layer base  (Tailwind preflight)
-   regardless of import order.
+   Structural mode styles (html:root, html.dark) live in Tailwind's own
+   `base` layer. Tailwind v4 fixes the layer order — theme < base <
+   components < utilities — the moment `@import 'tailwindcss'` runs
+   ANYWHERE in a build, regardless of where relative to that import this
+   file's `@layer base { ... }` block appears. That means any utility
+   class (the consumer's own, or one of ours) reliably wins over these
+   rules, while they still win over Tailwind's own preflight/theme reset
+   — without needing to be unlayered.
 
-   Imported by globals.css — processed by the same Tailwind instance.
+   Imported by globals.css and theme.css.
    =================================================================== */
 
-/* ===================================================================
-   UNLAYERED — HIGHEST CASCADE PRIORITY
-   Wins over any named CSS layer (including consumer's Tailwind layers).
-   =================================================================== */
+@layer base {
+  /* =================================================================
+     LIGHT MODE (default)
+     ================================================================= */
+  html:root {
+    @apply antialiased;
+    @apply bg-light;
+    -webkit-tap-highlight-color: transparent;
+    border-color: var(--color-border);
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont,
+      'Segoe UI', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
+      'Helvetica Neue', sans-serif;
+    color: var(--font-primary-color);
 
-/* =================================================================
-   LIGHT MODE (default)
-   ================================================================= */
-html:root {
-  @apply antialiased;
-  @apply bg-light;
-  -webkit-tap-highlight-color: transparent;
-  border-color: var(--color-border);
-  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
-    'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  color: var(--font-primary-color);
+    /* Semantic colors — Foreground */
+    --color-semantic-fg: var(--color-tucu-ui-gray-100);
+    --color-semantic-fg-muted: var(--color-tucu-ui-gray-60);
+    --color-semantic-fg-inverse: var(--color-tucu-ui-gray-0);
+    --color-semantic-fg-primary: var(--color-tucu-ui-blue-60);
+    --color-semantic-fg-warning: var(--color-tucu-ui-orange-60);
+    --color-semantic-fg-positive: var(--color-tucu-ui-green-60);
+    --color-semantic-fg-negative: var(--color-tucu-ui-red-60);
 
-  /* Semantic colors — Foreground */
-  --color-semantic-fg: var(--color-tucu-ui-gray-100);
-  --color-semantic-fg-muted: var(--color-tucu-ui-gray-60);
-  --color-semantic-fg-inverse: var(--color-tucu-ui-gray-0);
-  --color-semantic-fg-primary: var(--color-tucu-ui-blue-60);
-  --color-semantic-fg-warning: var(--color-tucu-ui-orange-60);
-  --color-semantic-fg-positive: var(--color-tucu-ui-green-60);
-  --color-semantic-fg-negative: var(--color-tucu-ui-red-60);
+    /* Semantic colors — Background */
+    --color-semantic-bg: var(--color-tucu-ui-gray-0);
+    --color-semantic-bg-alternate: var(--color-tucu-ui-gray-10);
+    --color-semantic-bg-inverse: var(--color-tucu-ui-gray-100);
+    --color-semantic-bg-primary: var(--color-tucu-ui-blue-60);
+    --color-semantic-bg-primary-wash: var(--color-tucu-ui-blue-0);
+    --color-semantic-bg-secondary: var(--color-tucu-ui-gray-10);
+    --color-semantic-bg-tertiary: var(--color-tucu-ui-gray-20);
+    --color-semantic-bg-secondary-wash: var(--color-tucu-ui-gray-5);
+    --color-semantic-bg-negative: var(--color-tucu-ui-red-60);
+    --color-semantic-bg-negative-wash: var(--color-tucu-ui-red-0);
+    --color-semantic-bg-positive: var(--color-tucu-ui-green-60);
+    --color-semantic-bg-positive-wash: var(--color-tucu-ui-green-0);
+    --color-semantic-bg-warning: var(--color-tucu-ui-orange-40);
+    --color-semantic-bg-warning-wash: var(--color-tucu-ui-orange-0);
+    --color-semantic-bg-info: var(--color-tucu-ui-blue-60);
 
-  /* Semantic colors — Background */
-  --color-semantic-bg: var(--color-tucu-ui-gray-0);
-  --color-semantic-bg-alternate: var(--color-tucu-ui-gray-10);
-  --color-semantic-bg-inverse: var(--color-tucu-ui-gray-100);
-  --color-semantic-bg-primary: var(--color-tucu-ui-blue-60);
-  --color-semantic-bg-primary-wash: var(--color-tucu-ui-blue-0);
-  --color-semantic-bg-secondary: var(--color-tucu-ui-gray-10);
-  --color-semantic-bg-tertiary: var(--color-tucu-ui-gray-20);
-  --color-semantic-bg-secondary-wash: var(--color-tucu-ui-gray-5);
-  --color-semantic-bg-negative: var(--color-tucu-ui-red-60);
-  --color-semantic-bg-negative-wash: var(--color-tucu-ui-red-0);
-  --color-semantic-bg-positive: var(--color-tucu-ui-green-60);
-  --color-semantic-bg-positive-wash: var(--color-tucu-ui-green-0);
-  --color-semantic-bg-warning: var(--color-tucu-ui-orange-40);
-  --color-semantic-bg-warning-wash: var(--color-tucu-ui-orange-0);
-  --color-semantic-bg-info: var(--color-tucu-ui-blue-60);
+    /* Semantic colors — Line */
+    --color-semantic-line-primary: var(--color-tucu-ui-gray-20);
+    --color-semantic-line-primary-subtle: color-mix(
+      in oklab,
+      var(--color-black) 10%,
+      transparent
+    );
+    --color-semantic-line-inverse: var(--color-tucu-ui-gray-0);
 
-  /* Semantic colors — Line */
-  --color-semantic-line-primary: var(--color-tucu-ui-gray-20);
-  --color-semantic-line-primary-subtle: color-mix(
-    in oklab,
-    var(--color-black) 10%,
-    transparent
-  );
-  --color-semantic-line-inverse: var(--color-tucu-ui-gray-0);
+    /* Semantic colors — Elevation */
+    --color-semantic-elevation-1: var(--color-tucu-ui-gray-0);
+    --color-semantic-elevation-2: var(--color-tucu-ui-gray-0);
 
-  /* Semantic colors — Elevation */
-  --color-semantic-elevation-1: var(--color-tucu-ui-gray-0);
-  --color-semantic-elevation-2: var(--color-tucu-ui-gray-0);
+    /* Semantic colors — Accent */
+    --color-semantic-accent-subtle-green: var(--color-tucu-ui-green-0);
+    --color-semantic-accent-bold-green: var(--color-tucu-ui-green-60);
+    --color-semantic-accent-subtle-blue: var(--color-tucu-ui-blue-0);
+    --color-semantic-accent-bold-blue: var(--color-tucu-ui-blue-60);
+    --color-semantic-accent-subtle-purple: var(--color-tucu-ui-purple-0);
+    --color-semantic-accent-bold-purple: var(--color-tucu-ui-purple-80);
+    --color-semantic-accent-subtle-yellow: var(--color-tucu-ui-yellow-0);
+    --color-semantic-accent-bold-yellow: var(--color-tucu-ui-yellow-30);
+    --color-semantic-accent-subtle-red: var(--color-tucu-ui-red-0);
+    --color-semantic-accent-bold-red: var(--color-tucu-ui-red-60);
+    --color-semantic-accent-subtle-gray: var(--color-tucu-ui-gray-10);
+    --color-semantic-accent-bold-gray: var(--color-tucu-ui-gray-80);
+  }
 
-  /* Semantic colors — Accent */
-  --color-semantic-accent-subtle-green: var(--color-tucu-ui-green-0);
-  --color-semantic-accent-bold-green: var(--color-tucu-ui-green-60);
-  --color-semantic-accent-subtle-blue: var(--color-tucu-ui-blue-0);
-  --color-semantic-accent-bold-blue: var(--color-tucu-ui-blue-60);
-  --color-semantic-accent-subtle-purple: var(--color-tucu-ui-purple-0);
-  --color-semantic-accent-bold-purple: var(--color-tucu-ui-purple-80);
-  --color-semantic-accent-subtle-yellow: var(--color-tucu-ui-yellow-0);
-  --color-semantic-accent-bold-yellow: var(--color-tucu-ui-yellow-30);
-  --color-semantic-accent-subtle-red: var(--color-tucu-ui-red-0);
-  --color-semantic-accent-bold-red: var(--color-tucu-ui-red-60);
-  --color-semantic-accent-subtle-gray: var(--color-tucu-ui-gray-10);
-  --color-semantic-accent-bold-gray: var(--color-tucu-ui-gray-80);
-}
+  /* =================================================================
+     DARK MODE
+     ================================================================= */
+  html.dark {
+    @apply bg-dark;
+    color: var(--font-primary-dark-color);
 
-/* =================================================================
-   DARK MODE
-   ================================================================= */
-html.dark {
-  @apply bg-dark;
-  color: var(--font-primary-dark-color);
+    --color-brand: var(--color-semantic-dark-bg-primary);
+    --color-primary: var(--color-semantic-dark-bg-primary);
+    --color-secondary: var(--color-semantic-dark-bg-secondary);
+    --color-accent: var(--color-semantic-dark-accent-bold-yellow);
+    --color-muted: var(--color-semantic-dark-fg-muted);
+    --color-border: var(
+      --color-semantic-dark-line-primary-subtle,
+      color-mix(in oklab, var(--color-white) 8%, transparent)
+    ) !important;
 
-  --color-brand: var(--color-semantic-dark-bg-primary);
-  --color-primary: var(--color-semantic-dark-bg-primary);
-  --color-secondary: var(--color-semantic-dark-bg-secondary);
-  --color-accent: var(--color-semantic-dark-accent-bold-yellow);
-  --color-muted: var(--color-semantic-dark-fg-muted);
-  --color-border: var(
-    --color-semantic-dark-line-primary-subtle,
-    color-mix(in oklab, var(--color-white) 8%, transparent)
-  ) !important;
+    /* Status Colors */
+    --color-success: var(--color-semantic-dark-bg-positive);
+    --color-warning: var(--color-semantic-dark-bg-warning);
+    --color-error: var(--color-semantic-dark-bg-negative);
+    --color-info: var(--color-semantic-dark-bg-info);
 
-  /* Status Colors */
-  --color-success: var(--color-semantic-dark-bg-positive);
-  --color-warning: var(--color-semantic-dark-bg-warning);
-  --color-error: var(--color-semantic-dark-bg-negative);
-  --color-info: var(--color-semantic-dark-bg-info);
+    /* Dark/Light Theme Colors */
+    --color-body: var(--color-semantic-dark-bg);
+    --color-light-dark: var(--color-semantic-dark-bg-secondary-wash);
+    --color-foreground: var(--font-primary-dark-color);
+    --hero-grid-color: var(--color-gray-800);
 
-  /* Dark/Light Theme Colors */
-  --color-body: var(--color-semantic-dark-bg);
-  --color-light-dark: var(--color-semantic-dark-bg-secondary-wash);
-  --color-foreground: var(--font-primary-dark-color);
-  --hero-grid-color: var(--color-gray-800);
+    /* Semantic colors — Foreground */
+    --color-semantic-fg: var(--color-semantic-dark-fg);
+    --color-semantic-fg-muted: var(--color-semantic-dark-fg-muted);
+    --color-semantic-fg-inverse: var(--color-semantic-dark-fg-inverse);
+    --color-semantic-fg-primary: var(--color-semantic-dark-fg-primary);
+    --color-semantic-fg-warning: var(--color-semantic-dark-fg-warning);
+    --color-semantic-fg-positive: var(--color-semantic-dark-fg-positive);
+    --color-semantic-fg-negative: var(--color-semantic-dark-fg-negative);
 
-  /* Semantic colors — Foreground */
-  --color-semantic-fg: var(--color-semantic-dark-fg);
-  --color-semantic-fg-muted: var(--color-semantic-dark-fg-muted);
-  --color-semantic-fg-inverse: var(--color-semantic-dark-fg-inverse);
-  --color-semantic-fg-primary: var(--color-semantic-dark-fg-primary);
-  --color-semantic-fg-warning: var(--color-semantic-dark-fg-warning);
-  --color-semantic-fg-positive: var(--color-semantic-dark-fg-positive);
-  --color-semantic-fg-negative: var(--color-semantic-dark-fg-negative);
+    /* Semantic colors — Background */
+    --color-semantic-bg: var(--color-semantic-dark-bg);
+    --color-semantic-bg-alternate: var(--color-semantic-dark-bg-alternate);
+    --color-semantic-bg-inverse: var(--color-semantic-dark-bg-inverse);
+    --color-semantic-bg-primary: var(--color-semantic-dark-bg-primary);
+    --color-semantic-bg-primary-wash: var(
+      --color-semantic-dark-bg-primary-wash
+    );
+    --color-semantic-bg-secondary: var(--color-semantic-dark-bg-secondary);
+    --color-semantic-bg-tertiary: var(--color-semantic-dark-bg-tertiary);
+    --color-semantic-bg-secondary-wash: var(
+      --color-semantic-dark-bg-secondary-wash
+    );
+    --color-semantic-bg-negative: var(--color-semantic-dark-bg-negative);
+    --color-semantic-bg-negative-wash: var(
+      --color-semantic-dark-bg-negative-wash
+    );
+    --color-semantic-bg-positive: var(--color-semantic-dark-bg-positive);
+    --color-semantic-bg-positive-wash: var(
+      --color-semantic-dark-bg-positive-wash
+    );
+    --color-semantic-bg-warning: var(--color-semantic-dark-bg-warning);
+    --color-semantic-bg-warning-wash: var(
+      --color-semantic-dark-bg-warning-wash
+    );
+    --color-semantic-bg-info: var(--color-semantic-dark-bg-info);
 
-  /* Semantic colors — Background */
-  --color-semantic-bg: var(--color-semantic-dark-bg);
-  --color-semantic-bg-alternate: var(--color-semantic-dark-bg-alternate);
-  --color-semantic-bg-inverse: var(--color-semantic-dark-bg-inverse);
-  --color-semantic-bg-primary: var(--color-semantic-dark-bg-primary);
-  --color-semantic-bg-primary-wash: var(--color-semantic-dark-bg-primary-wash);
-  --color-semantic-bg-secondary: var(--color-semantic-dark-bg-secondary);
-  --color-semantic-bg-tertiary: var(--color-semantic-dark-bg-tertiary);
-  --color-semantic-bg-secondary-wash: var(
-    --color-semantic-dark-bg-secondary-wash
-  );
-  --color-semantic-bg-negative: var(--color-semantic-dark-bg-negative);
-  --color-semantic-bg-negative-wash: var(
-    --color-semantic-dark-bg-negative-wash
-  );
-  --color-semantic-bg-positive: var(--color-semantic-dark-bg-positive);
-  --color-semantic-bg-positive-wash: var(
-    --color-semantic-dark-bg-positive-wash
-  );
-  --color-semantic-bg-warning: var(--color-semantic-dark-bg-warning);
-  --color-semantic-bg-warning-wash: var(--color-semantic-dark-bg-warning-wash);
-  --color-semantic-bg-info: var(--color-semantic-dark-bg-info);
+    /* Semantic colors — Line */
+    --color-semantic-line-primary: var(--color-semantic-dark-line-primary);
+    --color-semantic-line-primary-subtle: var(
+      --color-semantic-dark-line-primary-subtle
+    );
+    --color-semantic-line-inverse: var(--color-semantic-dark-line-inverse);
 
-  /* Semantic colors — Line */
-  --color-semantic-line-primary: var(--color-semantic-dark-line-primary);
-  --color-semantic-line-primary-subtle: var(
-    --color-semantic-dark-line-primary-subtle
-  );
-  --color-semantic-line-inverse: var(--color-semantic-dark-line-inverse);
+    /* Semantic colors — Elevation */
+    --color-semantic-elevation-1: var(--color-semantic-dark-elevation-1);
+    --color-semantic-elevation-2: var(--color-semantic-dark-elevation-2);
 
-  /* Semantic colors — Elevation */
-  --color-semantic-elevation-1: var(--color-semantic-dark-elevation-1);
-  --color-semantic-elevation-2: var(--color-semantic-dark-elevation-2);
+    /* Semantic colors — Accent */
+    --color-semantic-accent-subtle-green: var(
+      --color-semantic-dark-accent-subtle-green
+    );
+    --color-semantic-accent-bold-green: var(
+      --color-semantic-dark-accent-bold-green
+    );
+    --color-semantic-accent-subtle-blue: var(
+      --color-semantic-dark-accent-subtle-blue
+    );
+    --color-semantic-accent-bold-blue: var(
+      --color-semantic-dark-accent-bold-blue
+    );
+    --color-semantic-accent-subtle-purple: var(
+      --color-semantic-dark-accent-subtle-purple
+    );
+    --color-semantic-accent-bold-purple: var(
+      --color-semantic-dark-accent-bold-purple
+    );
+    --color-semantic-accent-subtle-yellow: var(
+      --color-semantic-dark-accent-subtle-yellow
+    );
+    --color-semantic-accent-bold-yellow: var(
+      --color-semantic-dark-accent-bold-yellow
+    );
+    --color-semantic-accent-subtle-red: var(
+      --color-semantic-dark-accent-subtle-red
+    );
+    --color-semantic-accent-bold-red: var(
+      --color-semantic-dark-accent-bold-red
+    );
+    --color-semantic-accent-subtle-gray: var(
+      --color-semantic-dark-accent-subtle-gray
+    );
+    --color-semantic-accent-bold-gray: var(
+      --color-semantic-dark-accent-bold-gray
+    );
+  }
 
-  /* Semantic colors — Accent */
-  --color-semantic-accent-subtle-green: var(
-    --color-semantic-dark-accent-subtle-green
-  );
-  --color-semantic-accent-bold-green: var(
-    --color-semantic-dark-accent-bold-green
-  );
-  --color-semantic-accent-subtle-blue: var(
-    --color-semantic-dark-accent-subtle-blue
-  );
-  --color-semantic-accent-bold-blue: var(
-    --color-semantic-dark-accent-bold-blue
-  );
-  --color-semantic-accent-subtle-purple: var(
-    --color-semantic-dark-accent-subtle-purple
-  );
-  --color-semantic-accent-bold-purple: var(
-    --color-semantic-dark-accent-bold-purple
-  );
-  --color-semantic-accent-subtle-yellow: var(
-    --color-semantic-dark-accent-subtle-yellow
-  );
-  --color-semantic-accent-bold-yellow: var(
-    --color-semantic-dark-accent-bold-yellow
-  );
-  --color-semantic-accent-subtle-red: var(
-    --color-semantic-dark-accent-subtle-red
-  );
-  --color-semantic-accent-bold-red: var(--color-semantic-dark-accent-bold-red);
-  --color-semantic-accent-subtle-gray: var(
-    --color-semantic-dark-accent-subtle-gray
-  );
-  --color-semantic-accent-bold-gray: var(
-    --color-semantic-dark-accent-bold-gray
-  );
-}
-
-/* ===================================================================
-   NO FOCUS RINGS ON INPUTS (all themes)
-   Uses html:root to match specificity of theme-scoped rules
-   (html.macos-tahoe / html.macos) and wins by cascade order.
-   =================================================================== */
-html:root [data-tucu='input-control']:focus,
-html:root [data-tucu='input']:focus-within,
-html:root [data-tucu='textarea']:focus,
-html:root [data-tucu='select']:focus-within,
-html:root [data-tucu='select-trigger']:focus,
-html:root [data-tucu='select-search']:focus,
-html:root [data-tucu='input-searcher']:focus-within,
-html:root [data-tucu='input-calendar']:focus,
-html:root [data-tucu='checkbox']:focus,
-html:root [data-tucu='checkbox']:focus-visible,
-html:root [data-tucu='radio']:focus,
-html:root [data-tucu='radio']:focus-visible,
-html:root [data-tucu='switch-control']:focus-visible,
-html:root [data-tucu='pin-code-input']:focus,
-html:root [data-tucu='file-input-dropzone']:focus,
-html:root [data-tucu='file-input-dropzone']:focus-within {
-  outline: none !important;
-  box-shadow: none !important;
-  --tw-ring-shadow: 0 0 #0000 !important;
+  /* ===================================================================
+     NO FOCUS RINGS ON INPUTS (all themes)
+     Uses html:root to match specificity of theme-scoped rules
+     (html.macos-tahoe / html.macos) and wins by cascade order.
+     =================================================================== */
+  html:root [data-tucu='input-control']:focus,
+  html:root [data-tucu='input']:focus-within,
+  html:root [data-tucu='textarea']:focus,
+  html:root [data-tucu='select']:focus-within,
+  html:root [data-tucu='select-trigger']:focus,
+  html:root [data-tucu='select-search']:focus,
+  html:root [data-tucu='input-searcher']:focus-within,
+  html:root [data-tucu='input-calendar']:focus,
+  html:root [data-tucu='checkbox']:focus,
+  html:root [data-tucu='checkbox']:focus-visible,
+  html:root [data-tucu='radio']:focus,
+  html:root [data-tucu='radio']:focus-visible,
+  html:root [data-tucu='switch-control']:focus-visible,
+  html:root [data-tucu='pin-code-input']:focus,
+  html:root [data-tucu='file-input-dropzone']:focus,
+  html:root [data-tucu='file-input-dropzone']:focus-within {
+    outline: none !important;
+    box-shadow: none !important;
+    --tw-ring-shadow: 0 0 #0000 !important;
+  }
 }
