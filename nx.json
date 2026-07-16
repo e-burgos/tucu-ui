@@ -56,5 +56,6 @@
         "unitTestRunner": "none"
       }
     }
-  }
+  },
+  "analytics": true
 }

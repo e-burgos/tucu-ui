@@ -13,6 +13,12 @@ name: Publish tucu-ui-mcp to npm
 # that keeps the live server in sync with the latest source regardless of
 # npm releases. This workflow's fly.io deploy step re-runs the same deploy
 # specifically pinned to a published version tag.
+#
+# After publishing, it also creates a GitHub Release — but only when the
+# release is "significant": a major or minor version bump, or a patch that
+# contains a conventional-commit breaking-change marker (`feat!:`, `fix!:`,
+# etc. or a `BREAKING CHANGE:` footer). Plain patch releases with no breaking
+# marker stay as tags only, no GitHub Release.
 on:
   push:
     tags:
@@ -22,10 +28,12 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write # read for checkout, write for creating the GitHub Release
       id-token: write # required for npm OIDC trusted publishing
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # full history needed to diff against the previous mcp-v* tag
 
       - uses: pnpm/action-setup@v4
 
@@ -67,3 +75,41 @@ jobs:
         working-directory: tools/mcp-server
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+
+      - name: Check whether this release is significant (major/minor bump or breaking commit)
+        id: significance
+        run: |
+          PREFIX="mcp-v"
+          CURRENT_TAG="$GITHUB_REF_NAME"
+          CURRENT_VERSION="${CURRENT_TAG#$PREFIX}"
+          PREV_TAG=$(git tag -l "${PREFIX}*" --sort=-version:refname | grep -vx "$CURRENT_TAG" | head -n1)
+
+          SHOULD_RELEASE=false
+
+          if [ -z "$PREV_TAG" ]; then
+            SHOULD_RELEASE=true # no prior tag to compare against — first release of this prefix
+          else
+            PREV_VERSION="${PREV_TAG#$PREFIX}"
+            if [ "$(echo "$CURRENT_VERSION" | cut -d. -f1)" != "$(echo "$PREV_VERSION" | cut -d. -f1)" ] || \
+               [ "$(echo "$CURRENT_VERSION" | cut -d. -f2)" != "$(echo "$PREV_VERSION" | cut -d. -f2)" ]; then
+              SHOULD_RELEASE=true # major or minor bump
+            fi
+          fi
+
+          RANGE="${PREV_TAG:+$PREV_TAG..}$CURRENT_TAG"
+          LOG=$(git log $RANGE --pretty=format:'%s%n%b' --no-merges)
+          if echo "$LOG" | grep -qE '^[a-zA-Z]+(\([^)]*\))?!:|BREAKING[ -]CHANGE:'; then
+            SHOULD_RELEASE=true # explicit breaking-change marker, even on a patch bump
+          fi
+
+          echo "should_release=$SHOULD_RELEASE" >> "$GITHUB_OUTPUT"
+
+      - name: Create GitHub Release
+        if: steps.significance.outputs.should_release == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" \
+            --title "@e-burgos/tucu-ui-mcp $GITHUB_REF_NAME" \
+            --generate-notes \
+            --latest=false
