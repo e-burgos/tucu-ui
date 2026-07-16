@@ -1,6 +1,6 @@
 {
   "name": "@e-burgos/tucu-ui-mcp",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "MCP Agentic Server for @e-burgos/tucu-ui component library",
   "license": "MIT",
   "type": "module",
