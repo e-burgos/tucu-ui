@@ -4,6 +4,17 @@ All notable changes to `@e-burgos/tucu-ui-mcp` will be documented in this file.
 
 <!-- Last updated: 2026-06-02 -->
 
+## [0.6.2] - 2026-07-16
+
+### Changed
+
+- bump @e-burgos/tucu-ui to ^2.8.1
+- release @e-burgos/tucu-ui@2.8.1
+
+### Fixed
+
+- sync catalog/changelog with tucu-ui 2.8.1
+- stop uncontrolled-to-controlled warning on date picker
 ## [0.6.1] - 2026-07-16
 
 ### Added
