@@ -3,7 +3,10 @@
 export function getChangelogContent(): string {
   return `# Changelog — @e-burgos/tucu-ui
 
-## v2.8.0 (Current)
+## v2.8.1 (Current)
+- Fix: Input's date picker no longer warns "changing an uncontrolled input to be controlled" when used without an explicit value/onChange (e.g. plain \`register()\`) and a date is picked from the calendar
+
+## v2.8.0
 - Add: Tokens-only \`./theme\` export for Tailwind v4 consumers — apps with their own Tailwind build import just tucu-ui's design tokens + prefixed utilities, without duplicating Tailwind's base layer
 - Fix: Stopped scanning third-party node_modules for Tailwind classes
 - Changed: CSS architecture migrated to Tailwind v4 native layers (\`@layer base\`/\`@layer components\`); custom utilities re-registered via \`@utility\` with a \`tucu-\` prefix (legacy unprefixed names kept as aliases in the \`./styles\` path only)
