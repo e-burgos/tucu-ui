@@ -51,12 +51,12 @@ const OverviewSection: React.FC = () => {
               <LucideIcons.Wrench className="w-6 h-6 text-blue-500" />
             </div>
             <Badge variant="soft" className="bg-blue-500/10 text-blue-500">
-              7 Tools
+              10 Tools
             </Badge>
             <Typography className="text-sm font-semibold">Tools</Typography>
             <Typography className="text-xs text-foreground/60">
-              Generate components, forms, pages, charts. Search icons. List &
-              inspect the full catalog.
+              Generate components, forms, pages, charts, docs. Search
+              components & icons. List & inspect the full catalog.
             </Typography>
           </div>
         </CardContainer>

@@ -32,7 +32,7 @@ const tools = [
       'Get full details for a specific component: all props with types, valid variants, default values, and a complete usage example.',
     icon: <LucideIcons.Search className="w-5 h-5 text-emerald-500" />,
     input: `{
-  "name": "string"  // Component name, e.g. "Button"
+  "name": "string"  // Component name, e.g. "Button" (fuzzy matched)
 }`,
     example: `// Agent request
 { "name": "Button" }
@@ -42,6 +42,36 @@ const tools = [
 // - size: "large" | "medium" | "small" | "mini" | "tiny"
 // - Full TypeScript interface
 // - Ready-to-use example code`,
+  },
+  {
+    name: 'search_components',
+    description:
+      'Fuzzy-search components by keyword across names, descriptions, and categories. Use when the exact component name is unknown.',
+    icon: <LucideIcons.ListFilter className="w-5 h-5 text-teal-500" />,
+    input: `{
+  "query": "string",      // name, keyword, or description fragment
+  "category?": "string",  // narrow to one category
+  "limit?": "number"      // max results (default: 10)
+}`,
+    example: `// Agent request
+{ "query": "table" }
+
+// Response includes:
+// DataTable, BasicTable — each with score and matchType`,
+  },
+  {
+    name: 'get_props',
+    description:
+      'Get just the variants, warnings, and a usage snippet for a component (fuzzy matched) — a lighter-weight alternative to get_component.',
+    icon: <LucideIcons.Settings2 className="w-5 h-5 text-sky-500" />,
+    input: `{
+  "component": "string"  // Component name to get props for (fuzzy matched)
+}`,
+    example: `// Agent request
+{ "component": "Badge" }
+
+// Response includes:
+// importPath, variants, themeAware, warnings, example, relatedComponents`,
   },
   {
     name: 'generate_component',
@@ -83,40 +113,54 @@ const tools = [
   {
     name: 'generate_page',
     description:
-      'Generate a full page component with layout, navigation integration, and optional sections.',
+      'Generate a full page component with layout, sections, and optional routing configuration.',
     icon: <LucideIcons.Layout className="w-5 h-5 text-pink-500" />,
     input: `{
-  "name": "string",         // page name, e.g. "Dashboard"
-  "layout": "string",       // "sidebar" | "top-nav" | "full-width"
-  "sections?": "string[]"   // e.g. ["stats", "chart", "table"]
+  "name": "string",           // page name, e.g. "Dashboard"
+  "layout": "string",         // "dashboard" | "sidebar" | "fullpage" | "stacked"
+  "sections": [{              // page sections to include
+    "type": "string",         // "hero" | "cards" | "table" | "form" | "chart" | "list"
+    "title?": "string"
+  }],
+  "withRouting?": "boolean",  // include route configuration (default: false)
+  "architecture?": "string"  // "standalone" | "mfe" (default: "standalone")
 }`,
     example: `// Agent request
-{ "name": "Dashboard", "layout": "sidebar", "sections": ["stats", "chart"] }
+{ "name": "Dashboard", "layout": "dashboard", "sections": [{ "type": "cards" }, { "type": "chart" }] }
 
-// Generates: DashboardPage with MainLayout, StatsGrid, Chart sections`,
+// Generates: DashboardPage with StatsCard grid and a chart placeholder section`,
   },
   {
     name: 'generate_chart',
     description:
-      'Generate a Recharts chart component with tucu-ui theming integration and responsive container.',
+      'Generate a Recharts chart component with tucu-ui theme CSS variables and a responsive container.',
     icon: <LucideIcons.BarChart3 className="w-5 h-5 text-cyan-500" />,
     input: `{
-  "type": "string",     // "line" | "bar" | "area" | "pie" | "radar"
-  "data?": "object[]"   // sample data array
+  "type": "string",          // "line" | "bar" | "area" | "pie" | "donut" | "composed" | "radar" | "scatter"
+  "dataShape": {
+    "xKey": "string",        // x-axis data key
+    "yKeys": ["string"],     // y-axis data keys (series)
+    "sampleData?": "object[]" // auto-generated if omitted
+  },
+  "responsive?": "boolean",   // wrap in ResponsiveContainer (default: true)
+  "withTheme?": "boolean",    // use tucu-ui CSS variable colors (default: true)
+  "withTooltip?": "boolean",  // include Tooltip (default: true)
+  "withLegend?": "boolean"    // include Legend (default: true)
 }`,
     example: `// Agent request
-{ "type": "bar", "data": [{ name: "Jan", value: 400 }, { name: "Feb", value: 300 }] }
+{ "type": "bar", "dataShape": { "xKey": "month", "yKeys": ["revenue"] } }
 
-// Generates: BarChart with ResponsiveContainer, theme colors, tooltips`,
+// Generates: BarChart with ResponsiveContainer, theme colors, tooltip, legend`,
   },
   {
     name: 'search_icons',
     description:
-      'Search the Lucide icon catalog by keyword. Returns matching icon names that can be used with LucideIcons component.',
+      'Search for Lucide React icons by keyword, name, or category. Returns import statements and usage examples.',
     icon: <LucideIcons.Sparkles className="w-5 h-5 text-orange-500" />,
     input: `{
-  "query": "string",    // search term, e.g. "arrow"
-  "limit?": "number"    // max results (default: 20)
+  "query": "string",     // search term, e.g. "arrow"
+  "category?": "string", // filter by icon category
+  "limit?": "number"     // max results (default: 10)
 }`,
     example: `// Agent request
 { "query": "chart", "limit": 5 }
@@ -124,13 +168,40 @@ const tools = [
 // Response:
 // BarChart3, LineChart, PieChart, AreaChart, TrendingUp`,
   },
+  {
+    name: 'generate_documentation',
+    description:
+      'Generate a full documentation hub page (General, Examples, Playground sections) for a component, matching the style of the demo pages.',
+    icon: <LucideIcons.FileText className="w-5 h-5 text-fuchsia-500" />,
+    input: `{
+  "component": "string",     // e.g. "Button", "DataTable"
+  "description?": "string",  // shown in the hub page header
+  "features?": "string[]"    // key features to highlight
+}`,
+    example: `// Agent request
+{ "component": "Alert" }
+
+// Response includes:
+// hubPageCode, docsSectionCode, examplesSectionCode, playgroundSectionCode,
+// and suggestedPaths under ui/tucu-ui/src/demo/pages/`,
+  },
 ];
 
 const toolSummary: {
   icon: React.ReactNode;
   title: string;
   description: string;
-  color: 'blue' | 'emerald' | 'violet' | 'amber' | 'pink' | 'cyan' | 'orange';
+  color:
+    | 'blue'
+    | 'emerald'
+    | 'violet'
+    | 'amber'
+    | 'pink'
+    | 'cyan'
+    | 'orange'
+    | 'teal'
+    | 'sky'
+    | 'rose';
 }[] = [
   {
     icon: <LucideIcons.List className="w-5 h-5" />,
@@ -143,6 +214,18 @@ const toolSummary: {
     title: 'get_component',
     description: 'Get full details, props, and usage example',
     color: 'emerald',
+  },
+  {
+    icon: <LucideIcons.ListFilter className="w-5 h-5" />,
+    title: 'search_components',
+    description: 'Fuzzy-search components by keyword',
+    color: 'teal',
+  },
+  {
+    icon: <LucideIcons.Settings2 className="w-5 h-5" />,
+    title: 'get_props',
+    description: 'Get variants, warnings, and example for a component',
+    color: 'sky',
   },
   {
     icon: <LucideIcons.Code className="w-5 h-5" />,
@@ -159,7 +242,7 @@ const toolSummary: {
   {
     icon: <LucideIcons.Layout className="w-5 h-5" />,
     title: 'generate_page',
-    description: 'Full page with layout and navigation',
+    description: 'Full page with layout and sections',
     color: 'pink',
   },
   {
@@ -174,6 +257,12 @@ const toolSummary: {
     description: 'Search Lucide icon catalog by keyword',
     color: 'orange',
   },
+  {
+    icon: <LucideIcons.FileText className="w-5 h-5" />,
+    title: 'generate_documentation',
+    description: 'Generate a full docs hub page for a component',
+    color: 'rose',
+  },
 ];
 
 const ToolsSection: React.FC = () => {
@@ -181,7 +270,7 @@ const ToolsSection: React.FC = () => {
     <div className="flex flex-col gap-8">
       <HeroCard
         title="Tools"
-        description="7 executable tools that agents can call to generate code, inspect components, and search the library."
+        description="10 executable tools that agents can call to generate code, inspect components, and search the library."
         icon={
           <div className="w-16 h-16 sm:w-20 sm:h-20 bg-linear-to-br from-blue-500 to-indigo-500 rounded-full flex items-center justify-center shadow-lg">
             <LucideIcons.Wrench className="w-8 h-8 sm:w-10 sm:h-10 text-white" />

@@ -408,7 +408,7 @@ pnpm install @e-burgos/tucu-ui
         <LucideIcons.BrainCircuit className="w-6 h-6 text-white filter drop-shadow-sm" />
       ),
       title: 'MCP Server',
-      badge: '7 tools',
+      badge: '10 tools',
       description:
         'AI agent integration via Model Context Protocol with resources, tools, and prompts',
       iconBgClassName: 'from-emerald-500 to-teal-500',
