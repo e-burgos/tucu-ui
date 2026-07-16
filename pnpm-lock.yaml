@@ -175,8 +175,8 @@ importers:
         specifier: workspace:*
         version: link:../../ui/tucu-docs
       '@e-burgos/tucu-ui':
-        specifier: ^2.8.0
-        version: 2.8.0(@types/react@19.2.14)(immer@11.1.7)(react-dom@19.2.5(react@19.2.5))(react-is@18.3.1)(react@19.2.5)(tailwindcss@4.1.18)(use-sync-external-store@1.6.0(react@19.2.5))
+        specifier: ^2.8.1
+        version: 2.8.1(@types/react@19.2.14)(immer@11.1.7)(react-dom@19.2.5(react@19.2.5))(react-is@18.3.1)(react@19.2.5)(tailwindcss@4.1.18)(use-sync-external-store@1.6.0(react@19.2.5))
       react:
         specifier: ^19.2.5
         version: 19.2.5
@@ -1056,8 +1056,8 @@ packages:
       react-dom: '>=18.0.0'
       tailwindcss: '>=4.0.0'
 
-  '@e-burgos/tucu-ui@2.8.0':
-    resolution: {integrity: sha512-m8BlpO9GIkflg88jPDIwOj+j0uu65gtpJjW0OPMNx6xn7V4QHTEmSBlxBOUI57dsq15vrMTisX+upZ7oQG1GlQ==}
+  '@e-burgos/tucu-ui@2.8.1':
+    resolution: {integrity: sha512-SdMKdRtty4/3AdCD824yEzencaMGJbXT8N+g6qM0x6qOuLSZ4ws26NxkdSnUiMZIDByLscSTXQE2XNhLBh5dVA==}
     peerDependencies:
       react: '>=18.0.0'
       react-dom: '>=18.0.0'
@@ -8479,7 +8479,7 @@ snapshots:
       - supports-color
       - use-sync-external-store
 
-  '@e-burgos/tucu-ui@2.8.0(@types/react@19.2.14)(immer@11.1.7)(react-dom@19.2.5(react@19.2.5))(react-is@18.3.1)(react@19.2.5)(tailwindcss@4.1.18)(use-sync-external-store@1.6.0(react@19.2.5))':
+  '@e-burgos/tucu-ui@2.8.1(@types/react@19.2.14)(immer@11.1.7)(react-dom@19.2.5(react@19.2.5))(react-is@18.3.1)(react@19.2.5)(tailwindcss@4.1.18)(use-sync-external-store@1.6.0(react@19.2.5))':
     dependencies:
       '@dnd-kit/core': 6.3.1(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       '@dnd-kit/modifiers': 9.0.0(@dnd-kit/core@6.3.1(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(react@19.2.5)
