@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.8.1] - 2026-07-16
+
+### Changed
+
+- release @e-burgos/tucu-ui-mcp@0.6.1
+- fix stale MCP tool count and schemas on the MCP Server page
+- document the ./theme export and fix the Home page's CSS setup guide
+- bump @e-burgos/tucu-ui to ^2.8.0
+
+### Fixed
+
+- stop uncontrolled-to-controlled warning on date picker
+- sync catalog/quickstart/changelog resources with tucu-ui 2.8.0
+- scan ui/tucu-docs for Tailwind classes too
 ## [2.8.0] - 2026-07-15
 
 ### Added
