@@ -14,10 +14,10 @@ import {
   MacOSTahoeShowcase,
   MCPServerPage,
   DataTablePage,
-} from '@tucu-ui';
+} from '@tucu-docs';
 
 // Design System
-import { DesignSystem, LayoutSystem, ThemingGuide } from '@tucu-ui';
+import { DesignSystem, LayoutSystem, ThemingGuide } from '@tucu-docs';
 
 // Features
 import {
@@ -26,13 +26,13 @@ import {
   HooksUtilities,
   IconsSystem,
   RoutingSystem,
-} from '@tucu-ui';
+} from '@tucu-docs';
 
 // Form System
-import { FormExamplePage, CodeExamplePage, FormSystem } from '@tucu-ui';
+import { FormExamplePage, CodeExamplePage, FormSystem } from '@tucu-docs';
 
 // Introduction
-import { Introduction } from '@tucu-ui';
+import { Introduction } from '@tucu-docs';
 
 // Tailwind Utilities
 import {
@@ -51,7 +51,7 @@ import {
   InteractivityUtilities,
   SVGUtilities,
   AccessibilityUtilities,
-} from '@tucu-ui';
+} from '@tucu-docs';
 
 // Components
 export const APP_PATHS = {

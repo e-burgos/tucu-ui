@@ -2,30 +2,34 @@
    TUCU-UI — CUSTOM UTILITIES
    ===================================================================
 
-   Custom @utility classes for the Tucu UI library.
-   These extend Tailwind's utility system without conflicting with
-   Tailwind's own generated classes.
+   Custom @utility classes for the Tucu UI library, prefixed with
+   `tucu-` so they can't collide with a consumer's own utility names —
+   this is the canonical set, included in both the `./styles` and
+   `./theme` exports. Unprefixed deprecated aliases (./styles only)
+   live in legacy-utilities.css.
 
-   Imported by globals.css — processed by the same Tailwind instance.
+   Imported by globals.css and theme.css — processed by whichever
+   Tailwind instance imports them (this library's own build for
+   `./styles`, or the consumer's build for `./theme`).
    =================================================================== */
 
 /* ===================================================================
    GENERAL UTILITIES
    =================================================================== */
 
-@utility text-case-inherit {
+@utility tucu-text-case-inherit {
   text-transform: inherit;
 }
 
-@utility letter-space-inherit {
+@utility tucu-letter-space-inherit {
   letter-spacing: inherit;
 }
 
-@utility word-break-all {
+@utility tucu-word-break-all {
   word-break: break-all;
 }
 
-@utility text-vertical {
+@utility tucu-text-vertical {
   writing-mode: tb;
   text-orientation: upright;
 }
@@ -34,15 +38,15 @@
    ANIMATION DELAY UTILITIES
    =================================================================== */
 
-@utility animation-delay-200 {
+@utility tucu-animation-delay-200 {
   animation-delay: 200ms;
 }
 
-@utility animation-delay-500 {
+@utility tucu-animation-delay-500 {
   animation-delay: 500ms;
 }
 
-@utility animation-delay-700 {
+@utility tucu-animation-delay-700 {
   animation-delay: 700ms;
 }
 
@@ -50,52 +54,52 @@
    TYPOGRAPHY SCALE UTILITIES
    =================================================================== */
 
-@utility text-h1 {
+@utility tucu-text-h1 {
   @apply text-3xl font-bold leading-tight tracking-tight;
 }
 
-@utility text-h2 {
+@utility tucu-text-h2 {
   @apply text-2xl font-bold leading-tight tracking-tight;
 }
 
-@utility text-h3 {
+@utility tucu-text-h3 {
   @apply text-xl font-semibold leading-snug tracking-normal;
 }
 
-@utility text-h4 {
+@utility tucu-text-h4 {
   @apply text-lg font-semibold leading-snug tracking-normal;
 }
 
-@utility text-h5 {
+@utility tucu-text-h5 {
   @apply text-base font-medium leading-normal tracking-normal;
 }
 
-@utility text-h6 {
+@utility tucu-text-h6 {
   @apply text-sm font-medium leading-normal tracking-wide uppercase;
 }
 
-@utility text-headline {
+@utility tucu-text-headline {
   @apply text-xl font-bold leading-tight tracking-tight;
 }
 
-@utility text-body {
+@utility tucu-text-body {
   @apply text-sm font-normal leading-normal tracking-normal;
   color: var(--text-body-color) !important;
   word-wrap: break-word;
 }
 
-@utility text-label-1 {
+@utility tucu-text-label-1 {
   @apply text-xs font-medium leading-normal tracking-normal;
 }
 
-@utility text-label-2 {
+@utility tucu-text-label-2 {
   @apply text-[11px] font-medium leading-normal tracking-normal;
 }
 
-@utility text-caption {
+@utility tucu-text-caption {
   @apply text-[11px] font-normal leading-normal tracking-wide uppercase;
 }
 
-@utility text-legal {
+@utility tucu-text-legal {
   @apply text-[11px] font-normal leading-normal tracking-wide;
 }

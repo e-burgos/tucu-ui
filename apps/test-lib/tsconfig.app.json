@@ -27,7 +27,10 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
     "paths": {
-      "@tucu-ui": ["../../ui/tucu-ui/src/index.ts"]
+      "@tucu-ui": ["../../ui/tucu-ui/src/index.ts"],
+      "@e-burgos/tucu-ui": ["../../ui/tucu-ui/src/index.ts"],
+      "@tucu-docs": ["../../ui/tucu-docs/src/index.ts"],
+      "@tucu-ui-internal/*": ["../../ui/tucu-ui/src/*"]
     }
   },
   "include": ["src"]

@@ -3,7 +3,32 @@
 export function getChangelogContent(): string {
   return `# Changelog — @e-burgos/tucu-ui
 
-## v2.5.0 (Current)
+## v2.8.1 (Current)
+- Fix: Input's date picker no longer warns "changing an uncontrolled input to be controlled" when used without an explicit value/onChange (e.g. plain \`register()\`) and a date is picked from the calendar
+
+## v2.8.0
+- Add: Tokens-only \`./theme\` export for Tailwind v4 consumers — apps with their own Tailwind build import just tucu-ui's design tokens + prefixed utilities, without duplicating Tailwind's base layer
+- Fix: Stopped scanning third-party node_modules for Tailwind classes
+- Changed: CSS architecture migrated to Tailwind v4 native layers (\`@layer base\`/\`@layer components\`); custom utilities re-registered via \`@utility\` with a \`tucu-\` prefix (legacy unprefixed names kept as aliases in the \`./styles\` path only)
+
+## v2.7.3
+- Changed: Replaced react-use with native React implementations for \`useBreakpoint\`, \`useMeasure\`, \`useClickAway\`, \`useCopyToClipboard\` — the react-use dependency was removed entirely
+- Fixed: Resolved typecheck errors in CodeBlock's lazy prismjs loading
+
+## v2.7.2
+- Fix: Lazy-load prismjs language modules in CodeBlock — fixes a dev-mode crash (\`ReferenceError: Prism is not defined\`) that broke dev servers for any consumer
+
+## v2.7.1
+- Fix: Worked around an esbuild CJS-interop bug breaking react-use hooks (superseded by the native rewrite in 2.7.3)
+
+## v2.7.0
+- Add: DataTable demo page and generation-tool support
+- Fixed: Per-module output for proper tree-shaking; rolled up type definitions into a single \`index.d.ts\`; replaced lodash with lodash-es for ESM tree-shaking; dropped \`@e-burgos/tucu-ui-mcp\` from runtime dependencies
+
+## v2.6.0
+- Add: \`DataTable\` component — full-featured data table built on TanStack Table v8 (sorting, pinning, resizing, drag-and-drop reorder, row selection, expandable rows, column visibility, global search/filter)
+
+## v2.5.0
 - Fix: macOS theme active/inactive menu color inconsistencies on sidebar, navbar, and TOC items
 - Fix: Preserved theme settings configuration per colorScheme using Zustand themeConfigInterceptor middleware
 - Add: DataTable component new features including Columns Visibility Toggle (enableHideColumns), Global Search/Filter (searchableColumns), rightActions slot for custom header actions, and restructured header container layout

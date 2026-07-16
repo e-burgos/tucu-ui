@@ -76,7 +76,7 @@ export function Loader({
       />
       <span
         className={cn(
-          'animation-delay-200 rounded-full',
+          'tucu-animation-delay-200 rounded-full',
           handleVariantClasses(variant, size),
           sizes[size],
           colors[color]
@@ -84,7 +84,7 @@ export function Loader({
       />
       <span
         className={cn(
-          'animation-delay-500 rounded-full',
+          'tucu-animation-delay-500 rounded-full',
           handleVariantClasses(variant, size),
           sizes[size],
           colors[color]
@@ -93,7 +93,7 @@ export function Loader({
       {variant === 'moveUp' && !showOnlyThreeDots ? (
         <span
           className={cn(
-            'animation-delay-700 rounded-full',
+            'tucu-animation-delay-700 rounded-full',
             handleVariantClasses(variant, size),
             sizes[size],
             colors[color]

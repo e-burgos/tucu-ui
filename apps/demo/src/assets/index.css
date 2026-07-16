@@ -1,2 +1,4 @@
-@import '@e-burgos/tucu-ui/styles';
 @import 'tailwindcss';
+@import '@e-burgos/tucu-ui/theme';
+@source '../../node_modules/@e-burgos/tucu-ui';
+@source '../../../../ui/tucu-docs/src';

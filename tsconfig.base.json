@@ -15,7 +15,9 @@
     "skipDefaultLibCheck": true,
     "paths": {
       "@/lucide-react": ["./ui/tucu-ui/src/lucide-react/index.ts"],
-      "@e-burgos/tucu-ui": ["./ui/tucu-ui/src/index.ts"]
+      "@e-burgos/tucu-ui": ["./ui/tucu-ui/src/index.ts"],
+      "@e-burgos/tucu-docs": ["./ui/tucu-docs/src/index.ts"],
+      "@tucu-ui-internal/*": ["./ui/tucu-ui/src/*"]
     }
   },
   "exclude": ["node_modules", "tmp"]

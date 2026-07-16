@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { ReactNode } from 'react';
-import { ColumnDef } from '@tanstack/react-table';
-import { RowData } from '@tanstack/table-core';
+import { ColumnDef, RowData } from '@tanstack/react-table';
 
 /**
  * Basic interface of columns

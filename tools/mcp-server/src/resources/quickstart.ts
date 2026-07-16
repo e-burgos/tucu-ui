@@ -82,10 +82,29 @@ navigate('/users');
 - Invalid variants cause: "Cannot read properties of undefined (reading '0')"
 
 ## Tailwind CSS Setup
+
+There are TWO ways to bring in tucu-ui's CSS — pick ONE, never both.
+
+**Option A — \`./styles\` (no Tailwind of your own)**
+Use this if your app doesn't run its own Tailwind build.
 \`\`\`css
-/* Import tucu-ui styles in your main CSS */
 @import '@e-burgos/tucu-ui/styles';
 \`\`\`
+This ships tokens + base/component styles + all utilities, prefixed (\`tucu-text-h1\`, etc.)
+and unprefixed legacy aliases (\`text-h1\`, etc.) for backward compatibility.
+
+**Option B — \`./theme\` (you already run your own Tailwind v4)**
+Use this if your app has its own \`@import 'tailwindcss'\` — do NOT combine it with \`./styles\`,
+that duplicates Tailwind's base layer and causes conflicts.
+\`\`\`css
+@import 'tailwindcss';
+@import '@e-burgos/tucu-ui/theme';
+@source '../../node_modules/@e-burgos/tucu-ui/dist';
+\`\`\`
+\`./theme\` is tokens-only: \`@theme\` variables + base/component styles re-scoped to Tailwind's
+native \`@layer base\`/\`@layer components\` + utilities registered via \`@utility\` — all prefixed
+with \`tucu-\` (e.g. \`tucu-text-h1\`, \`tucu-animation-delay-200\`). No legacy unprefixed aliases
+in this path, so it never collides with your own utility classes regardless of import order.
 
 ## Project Structure (Standalone)
 \`\`\`

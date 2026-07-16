@@ -550,8 +550,10 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
               aria-required={props.required ? 'true' : undefined}
               readOnly={type === 'date'}
               value={
-                type === 'date' && selectedDate
-                  ? formatDate(selectedDate)
+                type === 'date'
+                  ? selectedDate
+                    ? formatDate(selectedDate)
+                    : value ?? ''
                   : value
               }
               onChange={type !== 'date' ? onChange : undefined}

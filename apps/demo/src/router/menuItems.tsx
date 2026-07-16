@@ -17,10 +17,10 @@ import {
   MacOSTahoeShowcase,
   MCPServerPage,
   DataTablePage,
-} from '@e-burgos/tucu-ui';
+} from '@e-burgos/tucu-docs';
 
 // Design System
-import { DesignSystem, LayoutSystem, ThemingGuide } from '@e-burgos/tucu-ui';
+import { DesignSystem, LayoutSystem, ThemingGuide } from '@e-burgos/tucu-docs';
 
 // Features
 import {
@@ -29,17 +29,17 @@ import {
   HooksUtilities,
   IconsSystem,
   RoutingSystem,
-} from '@e-burgos/tucu-ui';
+} from '@e-burgos/tucu-docs';
 
 // Form System
 import {
   FormExamplePage,
   CodeExamplePage,
   FormSystem,
-} from '@e-burgos/tucu-ui';
+} from '@e-burgos/tucu-docs';
 
 // Introduction
-import { Introduction } from '@e-burgos/tucu-ui';
+import { Introduction } from '@e-burgos/tucu-docs';
 
 // Tailwind Utilities
 import {
@@ -58,7 +58,7 @@ import {
   InteractivityUtilities,
   SVGUtilities,
   AccessibilityUtilities,
-} from '@e-burgos/tucu-ui';
+} from '@e-burgos/tucu-docs';
 
 // Components
 export const APP_PATHS = {

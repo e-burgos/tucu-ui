@@ -11,10 +11,27 @@ export default defineConfig({
     port: 4000,
   },
   resolve: {
-    alias: {
-      '@': path.resolve(__dirname, './src'),
-      '@tucu-ui': path.resolve(__dirname, '../../ui/tucu-ui/src/index.ts'),
-    },
+    alias: [
+      { find: '@', replacement: path.resolve(__dirname, './src') },
+      {
+        find: '@tucu-ui',
+        replacement: path.resolve(__dirname, '../../ui/tucu-ui/src/index.ts'),
+      },
+      {
+        find: '@e-burgos/tucu-ui',
+        replacement: path.resolve(__dirname, '../../ui/tucu-ui/src/index.ts'),
+      },
+      {
+        find: '@tucu-docs',
+        replacement: path.resolve(__dirname, '../../ui/tucu-docs/src/index.ts'),
+      },
+      {
+        // tucu-docs pages reach into tucu-ui internals not part of its
+        // public API (raw source snippets via ?raw, docs-kit helpers).
+        find: /^@tucu-ui-internal\/(.*)$/,
+        replacement: path.resolve(__dirname, '../../ui/tucu-ui/src') + '/$1',
+      },
+    ],
   },
   build: {
     sourcemap: true,
@@ -29,6 +46,7 @@ export default defineConfig({
       output: {
         manualChunks: {
           'tucu-ui': ['@tucu-ui'],
+          'tucu-docs': ['@tucu-docs'],
         },
       },
     },

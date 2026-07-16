@@ -1,0 +1,87 @@
+== WS1 baseline 2026-07-14 ==
+npm notice unpacked size: 12.3 MB
+npm notice shasum: 8e20adcca08026f5c90c79990d19d225a1cb8e31
+npm notice integrity: sha512-DwylreJfwGYLl[...]WQhGK/EZ5xBaA==
+npm notice total files: 1092
+npm notice
+ 16M	dist/ui/tucu-ui
+     698
+== WS1 after 2026-07-14 ==
+npm notice unpacked size: 12.2 MB
+npm notice shasum: f6a87af207e49e9a77ecca941ed531be2ef07601
+npm notice integrity: sha512-WjMJUGau9YOPE[...]0V14qNekg3XOg==
+npm notice total files: 1092
+npm notice
+ 16M	dist/ui/tucu-ui
+     698
+NOTE: d.ts rollup deferred (Task 6) — count remains ~698 as expected; size reduction comes only from removed deps (MCP dep, react-router/table-core dedupe, lodash-es).
+== WS1 after Task 6 (d.ts rollup) 2026-07-15 ==
+npm notice unpacked size: 12.2 MB
+npm notice shasum: 7961ced3c0b1d71ba965a302c3feab1086bdf172
+npm notice integrity: sha512-I3rU/IHC59I78[...]KwEjFe1EBIH3Q==
+npm notice total files: 395
+npm notice
+ 13M	dist/ui/tucu-ui
+       1
+NOTE: Task 6 landed (commit 81dc42b): 698 mirrored .d.ts -> 1 rolled index.d.ts (198K).
+Package file count 1092 -> 395; dist directory 16M -> 13M. Unpacked npm size is
+unchanged (12.2 MB) because JS chunks dominate; declaration payload shrank from
+~698 small files to one.
+
+== Task 8 tree-shaking smoke test 2026-07-15 ==
+RESULT: FAILED. A Vite consumer importing only { Button } bundles ~2.8 MB of
+synchronous JS (DataTable/tanstack, recharts, swiper, framer-motion, and the
+internal documentation/props registry all present in the entry chunk), plus
+~1.7 MB of unused documentation chunks and 3.85 MB of monolithic CSS.
+ROOT CAUSE: the library compiles to a single monolithic chunk that index.mjs
+barrel re-exports, so consumers' bundlers have no module boundaries to shake.
+The sideEffects allowlist (Task 4) is necessary but not sufficient.
+REMEDIATION (out of WS1 scope, needs its own workstream/decision): emit
+per-module output (rollupOptions.output.preserveModules) or split entries,
+and stop shipping demo/documentation sections in the production package.
+
+== Tree-shaking remediation 2026-07-15 ==
+Both remediation moves landed in the same cycle:
+
+1. Extracted ui/tucu-docs (new internal-only workspace lib, never published):
+   demo/pages, generated/props-metadata, utils, assets (~3.4 MB source) moved
+   out of tucu-ui entirely. Reusable doc-page-building primitives (8 files,
+   112K: auto-props-table, prop-playground, table-of-contents, hero-card,
+   nav-options, playground-button, dynamic-sections-page,
+   lazy-component-section) stayed in tucu-ui under src/docs-kit/ (renamed
+   from src/demo/), still exported from the root barrel. apps/demo consumes
+   tucu-docs via a `workspace:*` dependency (it can only ever be workspace-
+   linked — there is no registry copy); apps/test-lib via a Vite alias,
+   matching its existing @tucu-ui source-alias pattern. A new
+   @tucu-ui-internal/* alias (tsconfig paths + Vite resolve.alias in both
+   consuming apps) lets tucu-docs pages reach non-public tucu-ui internals
+   they need (raw source snippets via ?raw, docs-kit helpers) without
+   depending on the public API surface.
+
+2. rollupOptions.output.preserveModules (ES build only; CJS stays a single
+   bundle for require() consumers, who don't tree-shake regardless). This
+   requires every real runtime dependency to be externalized (not just
+   react/react-dom/lucide-react/react-router-dom as before) — an inlined
+   third-party package under preserveModules keeps its node_modules-relative
+   path in the output, which npm silently strips from the published tarball
+   (nested node_modules are never packed), breaking the import for
+   consumers. Full external list: react-use, @dnd-kit/*, @tanstack/react-table,
+   classnames, framer-motion, lodash-es, react-hook-form, recharts, swiper,
+   zustand, prismjs (prismjs was also promoted from devDependencies to
+   dependencies — CodeBlock imports it at runtime, so it was already a
+   latent packaging bug).
+
+RESULT: unpacked size 12.2 MB -> 6.3 MB; file count 395 -> 384 (many small
+per-module files replace fewer large bundled chunks). Re-ran the tree-shaking
+smoke test: importing only { Button } now shows ZERO occurrences of
+DataTableComponent, useDataTableContext, tanstack, recharts, SwiperSlide, or
+framer-motion in the consumer's bundle (previously all six were present in a
+single ~2.8 MB synchronous chunk). Consumer JS payload for that same import
+dropped to 525 KB (gzip 102 KB). CSS still ships as one 3.4 MB file
+(unaffected — that is PERF-3 from the original audit spec, a separate,
+not-yet-scheduled finding).
+Verified: tucu-ui type rollup still emits a single 188K index.d.ts (Task 6
+unaffected), all 471 tests pass, tucu-ui and tucu-docs lint clean (same 28
+pre-existing tucu-ui errors as before, unrelated to this change; tucu-docs
+0 errors), apps/test-lib and apps/demo both build successfully against the
+new package shape.

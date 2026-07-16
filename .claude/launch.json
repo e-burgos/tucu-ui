@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "test-lib",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["-C", "apps/test-lib", "dev"],
+      "port": 4000
+    },
+    {
+      "name": "demo",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["-C", "apps/demo", "dev"],
+      "port": 4200
+    }
+  ]
+}

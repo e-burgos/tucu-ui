@@ -23,7 +23,9 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
     "rootDir": ".",
-    "paths": {}
+    "paths": {
+      "@tucu-ui-internal/*": ["../../ui/tucu-ui/src/*"]
+    }
   },
   "include": ["src", "!node_modules", "!**/*.spec.ts", "!**/*.test.ts"],
   "exclude": ["node_modules"]

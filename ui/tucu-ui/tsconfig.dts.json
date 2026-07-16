@@ -1,0 +1,73 @@
+{
+  // Used only by vite-plugin-dts (rollupTypes). api-extractor analyzes the
+  // emitted d.ts under dist/, from where Node-style resolution cannot reach
+  // ui/tucu-ui/node_modules, so bare specifiers are mapped explicitly. Each
+  // entry lists candidates for both base paths the config is read against
+  // (workspace root by api-extractor, this directory by tsc). Keep these
+  // paths out of tsconfig.lib.json: nxViteTsPaths feeds that file's paths
+  // into Vite's JS resolution, where the wildcard breaks pnpm isolation.
+  "extends": "./tsconfig.lib.json",
+  "compilerOptions": {
+    "paths": {
+      "@/lucide-react": [
+        "./ui/tucu-ui/src/lucide-react/index.ts",
+        "./src/lucide-react/index.ts"
+      ],
+      // Self-imports must hit the emitted d.ts entry during rollup —
+      // mapping them to src would drag TS sources (and their CSS imports)
+      // into api-extractor's analysis. The dist candidate only exists from
+      // the workspace root, so tsc emit falls through to ./src/index.ts.
+      "@e-burgos/tucu-ui": [
+        "./dist/ui/tucu-ui/index.d.ts",
+        "./src/index.ts"
+      ],
+      // Packages typed via @types must be mapped explicitly: the "*"
+      // fallback would resolve them to their untyped runtime entry and
+      // suppress the @types lookup.
+      "react": [
+        "./node_modules/@types/react/index.d.ts",
+        "../../node_modules/@types/react/index.d.ts"
+      ],
+      "react/jsx-runtime": [
+        "./node_modules/@types/react/jsx-runtime.d.ts",
+        "../../node_modules/@types/react/jsx-runtime.d.ts"
+      ],
+      "react-dom": [
+        "./node_modules/@types/react-dom/index.d.ts",
+        "../../node_modules/@types/react-dom/index.d.ts"
+      ],
+      "react-dom/*": [
+        "./node_modules/@types/react-dom/*",
+        "../../node_modules/@types/react-dom/*"
+      ],
+      "prismjs": [
+        "./node_modules/@types/prismjs/index.d.ts",
+        "./ui/tucu-ui/node_modules/@types/prismjs/index.d.ts"
+      ],
+      "lodash-es": [
+        "./node_modules/@types/lodash-es/index.d.ts",
+        "./ui/tucu-ui/node_modules/@types/lodash-es/index.d.ts"
+      ],
+      "lodash-es/*": [
+        "./node_modules/@types/lodash-es/*",
+        "./ui/tucu-ui/node_modules/@types/lodash-es/*"
+      ],
+      // swiper declares its types only through the package "exports" map,
+      // which paths-mapped candidates do not consult — map each used
+      // subpath to its d.ts directly.
+      "swiper": [
+        "./node_modules/swiper/swiper.d.ts",
+        "./ui/tucu-ui/node_modules/swiper/swiper.d.ts"
+      ],
+      "swiper/react": [
+        "./node_modules/swiper/swiper-react.d.ts",
+        "./ui/tucu-ui/node_modules/swiper/swiper-react.d.ts"
+      ],
+      "swiper/modules": [
+        "./node_modules/swiper/types/modules/index.d.ts",
+        "./ui/tucu-ui/node_modules/swiper/types/modules/index.d.ts"
+      ],
+      "*": ["./ui/tucu-ui/node_modules/*", "./node_modules/*"]
+    }
+  }
+}

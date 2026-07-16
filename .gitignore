@@ -57,3 +57,8 @@ CLAUDE.md
 *.tar.gz
 .claude/worktrees
 .claude/settings.local.json
+
+# temp auth config written by scripts/publish.mjs --local-publish
+# (only ever contains an env-var reference, never a real token — this is
+# just a safety net in case cleanup doesn't run, e.g. process killed mid-publish)
+tools/mcp-server/.npmrc

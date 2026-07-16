@@ -3,33 +3,37 @@
    ===================================================================
 
    CSS overrides and integration styles for third-party libraries:
-   Swiper and Recharts.
+   Swiper and Recharts. Lives in Tailwind's own `components` layer so
+   any utility class (consumer's own, or one of ours) reliably wins —
+   see base.css for why `components` specifically, over a custom name.
 
    Plain CSS only — no Tailwind directives (@apply allowed since
    this file is part of the Tailwind processing chain).
    =================================================================== */
 
-/* ===================================================================
-   SWIPER
-   =================================================================== */
+@layer components {
+  /* ===================================================================
+     SWIPER
+     =================================================================== */
 
-.swiper-pagination-bullet {
-  --swiper-pagination-bullet-width: 8px;
-  --swiper-pagination-bullet-height: 8px;
-  --swiper-pagination-bullet-inactive-color: #e5e7eb;
-  --swiper-pagination-color: #9ca3af;
-  --swiper-pagination-bullet-inactive-opacity: 1;
-  border-radius: 10px;
-}
+  .swiper-pagination-bullet {
+    --swiper-pagination-bullet-width: 8px;
+    --swiper-pagination-bullet-height: 8px;
+    --swiper-pagination-bullet-inactive-color: #e5e7eb;
+    --swiper-pagination-color: #9ca3af;
+    --swiper-pagination-bullet-inactive-opacity: 1;
+    border-radius: 10px;
+  }
 
-/* ===================================================================
-   RECHARTS
-   =================================================================== */
+  /* ===================================================================
+     RECHARTS
+     =================================================================== */
 
-.recharts-tooltip-wrapper .recharts-default-tooltip {
-  @apply rounded-xs border-0! bg-white! px-4! shadow-card dark:bg-light-dark!;
-}
+  .recharts-tooltip-wrapper .recharts-default-tooltip {
+    @apply rounded-xs border-0! bg-white! px-4! shadow-card dark:bg-light-dark!;
+  }
 
-.recharts-tooltip-wrapper .recharts-default-tooltip .recharts-tooltip-item {
-  @apply text-xs uppercase dark:text-gray-400! lg:text-sm;
+  .recharts-tooltip-wrapper .recharts-default-tooltip .recharts-tooltip-item {
+    @apply text-xs uppercase dark:text-gray-400! lg:text-sm;
+  }
 }

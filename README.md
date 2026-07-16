@@ -44,6 +44,23 @@ In your main CSS file:
 
 > Includes full Tailwind CSS v4 — no additional Tailwind setup required.
 
+### Already using Tailwind CSS v4 in your project?
+
+Don't import `./styles` alongside your own `@import 'tailwindcss'` — that
+runs two separate Tailwind builds in the same page, and their layers can
+override each other unpredictably. Use `./theme` instead: tokens and
+component styles only, no bundled Tailwind, so your own build generates
+every utility class (yours and Tucu UI's) from one instance.
+
+```css
+@import 'tailwindcss';
+@import '@e-burgos/tucu-ui/theme';
+@source '../node_modules/@e-burgos/tucu-ui';
+```
+
+Import order between these three lines doesn't matter — your own utility
+classes always win over Tucu UI's defaults either way.
+
 ---
 
 ## Quick Start
