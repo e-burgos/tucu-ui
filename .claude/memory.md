@@ -4,6 +4,20 @@ Durable, checked-in log of *why* things are the way they are — not a restateme
 
 ---
 
+## 2026-07-17 — Harness content audit: found real drift against the current codebase
+
+**Why:** After building `harness/`, checked whether its content actually still matched the repo (not just internal consistency between symlinks) — found real drift because the MCP server and the docs site had both changed after `harness/agents/tucu-ui-docs-sync.md` and the MCP tool list were originally written.
+
+**Found and fixed:**
+- MCP server actually has **10 tools**, not 7 — `search_components`, `get_props`, `generate_documentation` were added (in `tools/mcp-server/src/tools/component-tools.ts` and `generation-tools.ts`) but never reflected in `AGENTS.md`, `.github/copilot-instructions.md`, or `harness/agents|prompts/tucu-ui-expert.md`. Resource count (12) and prompt count (8) were already accurate.
+- `harness/agents/tucu-ui-docs-sync.md` described a documentation architecture from *before* PR #11's `ui/tucu-docs` extraction: `apps/demo`/`ui/tucu-ui/src/demo` (removed), a 3-step parent-page registration (lazy import + separate TOC array + separate JSX line — replaced by a single `sections: SectionConfig[]` array feeding `DynamicSectionsPage`), and demo-local `AutoPropsTable`/`PropPlayground` imports (now `@tucu-ui-internal/docs-kit/components/...`, an internal-only path alias into `ui/tucu-ui/src/docs-kit/`, not published in the package's `exports` map). Rewrote it end to end against the real current section files (e.g. `ui/tucu-docs/src/pages/components/ui-components-sections/AnchorLinkSection.tsx`) and parent pages (`UiComponents.tsx`).
+
+**Found and fixed (follow-up, same day):** `scripts/generate-props.ts` hardcoded its output to `ui/tucu-ui/src/demo/generated/props-metadata.ts`, a directory that no longer existed post-`ui/tucu-docs` extraction — `AutoPropsTable`/`PropPlayground` actually read `ui/tucu-ui/src/docs-kit/generated/props-metadata.ts`, so the script was silently updating a file nothing consumed. Fixed the hardcoded path (`OUTPUT_DIR` + header comment) and re-ran it: correctly wrote to `docs-kit/generated/` this time, and in doing so surfaced 3 real `DataTable` props (`enableHideColumns`, `rightActions`, `searchableColumns`) that existed in source since before 2026-06-01 but had never made it into the generated metadata because of this bug.
+
+**How to apply:** When something in `harness/` describes a workflow or API surface, periodically diff it against the actual source (`tools/mcp-server/src/`, `ui/tucu-docs/src/pages/`) rather than assuming it stayed accurate — nothing currently re-validates `harness/` content against the rest of the codebase automatically (unlike the symlink structure itself, which `pnpm harness:check`/`pnpm evals` do verify).
+
+---
+
 ## 2026-07-16 — Removed `.agents/` (dead Nx-skill mirror)
 
 **Why:** `.agents/skills/{nx-workspace,nx-generate,monitor-ci,link-workspace-packages,nx-plugins,nx-import,nx-run-tasks}/` was a local copy of skills bundled in the `nx@nx-claude-plugins` Claude Code marketplace plugin, originally written there (alongside now-retired `.cursor/`, `.codex/`, `.opencode/` copies) for tools without a marketplace concept. Checked empirically across this session: these skills never once appeared as invocable in Claude Code, unlike `.claude/skills/sdd`/`publish` which did the moment they were created — meaning the marketplace path wasn't actually surfacing them here, and the local mirror wasn't being read either. With Cursor/Codex/OpenCode retired and Copilot having no Skills concept, nothing was reading `.agents/` anymore.
