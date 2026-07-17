@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.8.2] - 2026-07-17
+
+### Changed
+
+- sync canonical agent/prompt content with current implementation
+- migrate to three-harness setup and clean up retired tool configs
+- release @e-burgos/tucu-ui-mcp@0.6.2
+- bump @e-burgos/tucu-ui to ^2.8.1
+
+### Fixed
+
+- point generate-props.ts at docs-kit/generated
+- sync catalog/changelog with tucu-ui 2.8.1
 ## [2.8.1] - 2026-07-16
 
 ### Changed
