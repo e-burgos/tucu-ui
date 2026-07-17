@@ -36,7 +36,7 @@ npx @e-burgos/tucu-ui-mcp
 
 | Category         | Details                                                                                                                                                                                                                      |
 | ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **7 Tools**      | `list_components`, `get_component`, `generate_component`, `generate_form`, `generate_page`, `generate_chart`, `search_icons`                                                                                                 |
+| **10 Tools**     | `list_components`, `get_component`, `search_components`, `get_props`, `generate_component`, `generate_form`, `generate_page`, `generate_chart`, `generate_documentation`, `search_icons`                                    |
 | **12 Resources** | `tucu://catalog`, `tucu://tokens`, `tucu://forms`, `tucu://routing`, `tucu://layouts`, `tucu://theme`, `tucu://charts`, `tucu://icons`, `tucu://migration`, `tucu://best-practices`, `tucu://changelog`, `tucu://quickstart` |
 | **8 Prompts**    | create-component, create-form, create-page, debug-variant, migrate-component, theme-setup, accessibility-check, performance-review                                                                                           |
 

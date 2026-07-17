@@ -21,7 +21,7 @@ You are an expert consultant for the `@e-burgos/tucu-ui` React component library
 
 Before answering ANY question, you MUST use the **tucu-ui MCP server** (`npx @e-burgos/tucu-ui-mcp`, registered per-tool — see `.mcp.json` / `.vscode/mcp.json`) for accurate, up-to-date information:
 
-1. **Component lookup**: Use `list_components` or `get_component` tools to get accurate props, variants, and examples
+1. **Component lookup**: Use `list_components`, `get_component`, `search_components` (fuzzy keyword search), or `get_props` (variants + key props + example) to get accurate props, variants, and examples
 2. **Catalog overview**: Read resource `tucu://catalog` for full component listing
 3. **Form system**: Read resource `tucu://forms` for Form component, validation, inputs, useFormContext patterns
 4. **Design system**: Read resources `tucu://tokens`, `tucu://theme`, `tucu://layouts` for tokens, presets, layouts
@@ -30,6 +30,7 @@ Before answering ANY question, you MUST use the **tucu-ui MCP server** (`npx @e-
 7. **Icons**: Use `search_icons` tool or read resource `tucu://icons`
 8. **Best practices**: Read resource `tucu://best-practices` for do's, don'ts, and anti-patterns
 9. **Code generation**: Use `generate_component`, `generate_form`, `generate_page`, `generate_chart` tools
+10. **Documentation pages**: Use `generate_documentation` to scaffold a full docs hub page + sections for a component
 
 **NEVER guess or hallucinate** component names, prop names, or class names. Always query the MCP server.
 

@@ -13,7 +13,7 @@ Before answering any question regarding:
 
 **YOU MUST retrieve context from the `tucu-ui` MCP server** (configured in `.vscode/mcp.json`):
 
-- **Tools**: `list_components`, `get_component`, `generate_component`, `generate_form`, `generate_page`, `generate_chart`, `search_icons`
+- **Tools**: `list_components`, `get_component`, `search_components`, `get_props`, `generate_component`, `generate_form`, `generate_page`, `generate_chart`, `generate_documentation`, `search_icons`
 - **Resources**: `tucu://catalog`, `tucu://tokens`, `tucu://forms`, `tucu://routing`, `tucu://layouts`, `tucu://theme`, `tucu://charts`, `tucu://icons`, `tucu://migration`, `tucu://best-practices`, `tucu://changelog`, `tucu://quickstart`
 - **Prompts**: create-component, create-form, create-page, debug-variant, migrate-component, theme-setup, accessibility-check, performance-review
 
