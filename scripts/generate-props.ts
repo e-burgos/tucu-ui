@@ -7,7 +7,7 @@
  *
  * Usage: pnpm tsx scripts/generate-props.ts
  *
- * Output: ui/tucu-ui/src/demo/generated/props-metadata.ts
+ * Output: ui/tucu-ui/src/docs-kit/generated/props-metadata.ts
  */
 
 import * as path from 'path';
@@ -22,7 +22,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const ROOT = path.resolve(__dirname, '..');
 const COMPONENTS_DIR = path.resolve(ROOT, 'ui/tucu-ui/src/components');
-const OUTPUT_DIR = path.resolve(ROOT, 'ui/tucu-ui/src/demo/generated');
+const OUTPUT_DIR = path.resolve(ROOT, 'ui/tucu-ui/src/docs-kit/generated');
 const OUTPUT_FILE = path.resolve(OUTPUT_DIR, 'props-metadata.ts');
 const TSCONFIG_PATH = path.resolve(ROOT, 'ui/tucu-ui/tsconfig.lib.json');
 
