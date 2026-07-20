@@ -22,5 +22,10 @@
         ]
       }
     ]
+  },
+  "sandbox": {
+    "network": {
+      "allowedDomains": ["www.google-analytics.com"]
+    }
   }
 }
