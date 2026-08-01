@@ -8,7 +8,11 @@ describe('FeatureCard', () => {
   it('renders without crashing', () => {
     const { container } = render(
       <FeatureCard
-        icon={<span>⚡</span>}
+        icon={
+          <span role="img" aria-label="lightning">
+            ⚡
+          </span>
+        }
         title="Fast"
         description="Lightning fast performance"
       />
@@ -19,7 +23,11 @@ describe('FeatureCard', () => {
   it('displays title and description', () => {
     const { getByText } = render(
       <FeatureCard
-        icon={<span>⚡</span>}
+        icon={
+          <span role="img" aria-label="lightning">
+            ⚡
+          </span>
+        }
         title="Fast"
         description="Lightning fast performance"
       />

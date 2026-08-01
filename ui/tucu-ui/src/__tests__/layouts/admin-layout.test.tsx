@@ -17,8 +17,24 @@ vi.mock('framer-motion', () => ({
 }));
 
 const mockMenuItems = [
-  { name: 'Home', icon: <span>🏠</span>, path: '/' },
-  { name: 'Settings', icon: <span>⚙️</span>, path: '/settings' },
+  {
+    name: 'Home',
+    icon: (
+      <span role="img" aria-label="home">
+        🏠
+      </span>
+    ),
+    path: '/',
+  },
+  {
+    name: 'Settings',
+    icon: (
+      <span role="img" aria-label="settings">
+        ⚙️
+      </span>
+    ),
+    path: '/settings',
+  },
 ];
 
 describe('AdminLayout', () => {

@@ -17,7 +17,11 @@ describe('MacOSNotificationBanner', () => {
     render(
       <MacOSNotificationBanner
         title="Test"
-        icon={<span data-testid="custom-icon">🔔</span>}
+        icon={
+          <span role="img" aria-label="bell" data-testid="custom-icon">
+            🔔
+          </span>
+        }
       />
     );
     expect(screen.getByTestId('custom-icon')).toBeInTheDocument();

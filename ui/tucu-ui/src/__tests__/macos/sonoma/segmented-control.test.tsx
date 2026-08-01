@@ -11,7 +11,7 @@ describe('MacOSSegmentedControl', () => {
 
   it('renders all options', () => {
     render(
-      <MacOSSegmentedControl options={options} value="a" onChange={() => {}} />
+      <MacOSSegmentedControl options={options} value="a" onChange={vi.fn()} />
     );
     expect(screen.getByText('Option A')).toBeInTheDocument();
     expect(screen.getByText('Option B')).toBeInTheDocument();
@@ -20,7 +20,7 @@ describe('MacOSSegmentedControl', () => {
 
   it('marks active option with aria-checked', () => {
     render(
-      <MacOSSegmentedControl options={options} value="b" onChange={() => {}} />
+      <MacOSSegmentedControl options={options} value="b" onChange={vi.fn()} />
     );
     const activeBtn = screen.getByRole('radio', { name: 'Option B' });
     expect(activeBtn).toHaveAttribute('aria-checked', 'true');
@@ -50,7 +50,7 @@ describe('MacOSSegmentedControl', () => {
 
   it('has role=group', () => {
     render(
-      <MacOSSegmentedControl options={options} value="a" onChange={() => {}} />
+      <MacOSSegmentedControl options={options} value="a" onChange={vi.fn()} />
     );
     expect(screen.getByRole('group')).toBeInTheDocument();
   });

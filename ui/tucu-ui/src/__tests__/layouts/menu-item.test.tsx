@@ -30,7 +30,11 @@ describe('MenuItem', () => {
         <MenuItem
           name="Home"
           path="/"
-          icon={<span data-testid="icon">🏠</span>}
+          icon={
+            <span role="img" aria-label="home" data-testid="icon">
+              🏠
+            </span>
+          }
         />
       </MemoryRouter>
     );

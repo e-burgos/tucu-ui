@@ -30,7 +30,9 @@ describe('Input', () => {
     });
 
     it('does not warn about switching from uncontrolled to controlled when a date is picked', () => {
-      const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+      const errorSpy = vi
+        .spyOn(console, 'error')
+        .mockImplementation(() => undefined);
       render(<Input label="Date" type="date" />);
 
       fireEvent.click(screen.getByLabelText('Open date picker'));

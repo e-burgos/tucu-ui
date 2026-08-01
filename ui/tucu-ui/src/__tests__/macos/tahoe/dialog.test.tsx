@@ -8,7 +8,7 @@ import {
 describe('MacOSTahoeDialog', () => {
   it('renders nothing when closed', () => {
     render(
-      <MacOSTahoeDialog open={false} onClose={() => {}}>
+      <MacOSTahoeDialog open={false} onClose={vi.fn()}>
         Hidden
       </MacOSTahoeDialog>
     );
@@ -17,7 +17,7 @@ describe('MacOSTahoeDialog', () => {
 
   it('renders children when open', () => {
     render(
-      <MacOSTahoeDialog open={true} onClose={() => {}}>
+      <MacOSTahoeDialog open={true} onClose={vi.fn()}>
         Dialog Content
       </MacOSTahoeDialog>
     );
@@ -26,7 +26,7 @@ describe('MacOSTahoeDialog', () => {
 
   it('renders title when provided', () => {
     render(
-      <MacOSTahoeDialog open={true} title="Confirm" onClose={() => {}}>
+      <MacOSTahoeDialog open={true} title="Confirm" onClose={vi.fn()}>
         Content
       </MacOSTahoeDialog>
     );
@@ -37,7 +37,7 @@ describe('MacOSTahoeDialog', () => {
     render(
       <MacOSTahoeDialog
         open={true}
-        onClose={() => {}}
+        onClose={vi.fn()}
         footer={<button>Save</button>}
       >
         Content

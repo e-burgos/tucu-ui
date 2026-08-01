@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import {
   MacOSTahoePopover,
   MacOSTahoePopoverItem,
@@ -11,7 +11,7 @@ describe('MacOSTahoePopover', () => {
       <MacOSTahoePopover
         isOpen={false}
         content={<p>Content</p>}
-        onClose={() => {}}
+        onClose={vi.fn()}
       >
         <button>Trigger</button>
       </MacOSTahoePopover>
@@ -24,7 +24,7 @@ describe('MacOSTahoePopover', () => {
       <MacOSTahoePopover
         isOpen={false}
         content={<p>Hidden</p>}
-        onClose={() => {}}
+        onClose={vi.fn()}
       >
         <button>Trigger</button>
       </MacOSTahoePopover>
@@ -37,7 +37,7 @@ describe('MacOSTahoePopover', () => {
       <MacOSTahoePopover
         isOpen={true}
         content={<p>Visible</p>}
-        onClose={() => {}}
+        onClose={vi.fn()}
       >
         <button>Trigger</button>
       </MacOSTahoePopover>
@@ -47,7 +47,7 @@ describe('MacOSTahoePopover', () => {
 
   it('has data-tucu=tahoe-popover when open', () => {
     const { container } = render(
-      <MacOSTahoePopover isOpen={true} content={<p>D</p>} onClose={() => {}}>
+      <MacOSTahoePopover isOpen={true} content={<p>D</p>} onClose={vi.fn()}>
         <button>T</button>
       </MacOSTahoePopover>
     );
