@@ -13,5 +13,8 @@
    docs pages are invisible to it and their utilities never get emitted. */
 @import 'tailwindcss';
 @import '../../../../ui/tucu-ui/src/assets/css/theme.css';
+/* Fonts are opt-in (the `./theme` entry deliberately excludes them). This
+   mirrors what an npm consumer does with `@import '@e-burgos/tucu-ui/fonts'`. */
+@import '../../../../ui/tucu-ui/src/assets/css/fonts.css';
 @source '../../../../ui/tucu-ui/src';
 @source '../../../../ui/tucu-docs/src';
