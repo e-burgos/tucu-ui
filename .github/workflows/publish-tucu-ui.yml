@@ -62,7 +62,8 @@ jobs:
       - name: Verify build artifacts exist
         run: |
           cd dist/ui/tucu-ui
-          for f in index.js index.mjs index.d.ts index.css package.json; do
+          # Keep in sync with requiredDistArtifacts in scripts/publish.mjs
+          for f in index.js index.mjs index.d.ts index.css theme.css fonts.css fonts/Inter-Variable.woff2 fonts/JetBrainsMono-Variable.woff2 package.json; do
             test -f "$f" || { echo "::error::Missing dist artifact: $f"; exit 1; }
           done
           echo "All required artifacts present."
