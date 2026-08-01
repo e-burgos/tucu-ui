@@ -118,10 +118,48 @@ function App() {
 | Component | Description |
 |-----------|-------------|
 | ThemeProvider | Entry point — wraps app with theme context |
-| SettingsDrawer | Full settings panel (mode, preset, layout, direction) |
+| SettingsDrawer | Full settings panel (mode, preset, layout, direction, background) |
 | SettingsButton | Floating gear button |
 | SwitchMode | Inline light/dark toggle |
 | LangSelector | Language dropdown (en, es, fr) |
+
+## Backgrounds
+
+\`backgroundVariant\` drives a decorative full-viewport layer rendered by
+\`ThemeBackground\` behind every layout. Variants:
+
+| Variant | Rendering |
+|---------|-----------|
+| none | No background layer at all |
+| base, sonoma, radial, window, aurora, depth, demo | Pure CSS (gradients / materials) |
+| wave, wallpaper, mobile | CSS class + an SVG image loaded from CDN (theme-aware: \`dark-\`/\`light-\` prefixed asset per mode) |
+
+\`\`\`tsx
+const { backgroundVariant, setBackgroundVariant } = useTheme();
+setBackgroundVariant('wallpaper');
+
+// Standalone usage (custom layouts):
+import { ThemeBackground } from '@e-burgos/tucu-ui';
+<ThemeBackground mode="fixed">{content}</ThemeBackground>      // reads the store
+<ThemeBackground mode="absolute" variant="aurora" />            // explicit override
+\`\`\`
+
+Self-hosted assets: pass \`cdnBase\` to ThemeBackground to serve the SVG
+variants from your own origin instead of jsDelivr.
+
+## Persistence
+
+The whole store persists to localStorage under the \`theme-storage\` key
+(everything except transient UI state like the open/closed settings drawer),
+and each theme variant keeps its own saved configuration in
+\`themeConfigs[colorScheme]\` — switching variants restores that variant's
+last-used layout, presets, mode and background automatically.
+
+ThemeProvider props interact with persistence like this: \`mode\`, \`layout\`,
+\`background\` and \`brandColor\` are re-applied on EVERY page load, so passing
+them pins the value and silently overrides whatever the user saved in the
+settings drawer. Omit them (and pass \`showSettings\`) when user preferences
+should win.
 
 ## Theme Variants
 | Variant | Description |
