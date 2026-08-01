@@ -54,7 +54,13 @@ const copyThemeCssPlugin = () => {
         path.join(cssDir, 'theme.css'),
         path.join(destDir, 'theme.css')
       );
-      for (const file of ['base.css', 'third-party.css', 'utilities.css']) {
+      for (const file of [
+        'base.css',
+        'third-party.css',
+        'utilities.css',
+        'animations.css',
+        'hero-card.css',
+      ]) {
         copyFileSync(path.join(cssDir, file), path.join(destDir, file));
       }
       cpSync(path.join(cssDir, 'macos'), path.join(destDir, 'macos'), {

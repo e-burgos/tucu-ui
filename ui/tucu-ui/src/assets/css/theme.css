@@ -29,6 +29,11 @@
 @import './base.css';
 @import './third-party.css';
 @import './utilities.css';
+/* Component-support styles Tailwind consumers also need (keyframes + hero
+   section utilities). Without these the HeroCard's floating circles and other
+   animations don't run for consumers of the `./theme` entry. */
+@import './animations.css';
+@import './hero-card.css';
 
 @theme {
   /* Screens/Breakpoints — removed custom definitions to avoid conflicts
