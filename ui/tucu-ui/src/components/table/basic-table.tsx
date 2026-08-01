@@ -3,33 +3,97 @@ import cn from 'classnames';
 import { useTheme } from '../../themes';
 import { LAYOUT_OPTIONS } from '../../themes/config';
 
+/**
+ * Describes a single column of a {@link BasicTable}.
+ *
+ * Note this is **not** the `@tanstack/react-table` column shape — `BasicTable`
+ * is a standalone, dependency-free table. Use `DataTable` when you need
+ * sorting, filtering, pagination or column pinning.
+ *
+ * @template T - Shape of a single row of data.
+ */
 export interface TableColumn<T = Record<string, unknown>> {
+  /** Key of the row property this column reads its value from. */
   key: string;
+  /** Text rendered in the column's header cell. */
   label: string;
+  /**
+   * Custom renderer for the cell body. Receives the raw value, the whole row
+   * and the row index. When omitted, the value is coerced with `String()`.
+   */
   render?: (value: unknown, row: T, index: number) => ReactNode;
+  /** Extra class names applied to every body cell of this column. */
   className?: string;
+  /** Extra class names applied to this column's header cell. */
   headerClassName?: string;
+  /** Initial column width in pixels. Used as the starting size when resizing. */
   width?: number;
+  /** Smallest width in pixels the column can be dragged down to. Defaults to 40px. */
   minWidth?: number;
 }
 
+/**
+ * Props of the {@link BasicTable} component.
+ *
+ * @template T - Shape of a single row of data.
+ */
 export interface BasicTableProps<T = Record<string, unknown>> {
+  /** Column definitions, rendered left to right in array order. */
   columns: TableColumn<T>[];
+  /** Rows to render. Each entry is looked up by each column's `key`. */
   data: T[];
+  /** Round the outer corners of the table. */
   rounded?: boolean;
+  /** Draw the outer border and the cell dividers. */
   border?: boolean;
+  /** Extra class names for the scrollable outer wrapper. */
   className?: string;
+  /** Extra class names for the `<table>` element itself. */
   tableClassName?: string;
+  /** Extra class names for the header row. */
   headerClassName?: string;
+  /**
+   * Class names for body rows. Pass a function to vary them per row — it
+   * receives the row and its index.
+   */
   rowClassName?: string | ((row: T, index: number) => string);
+  /** Extra class names for the scroll container. Applied before `className`. */
   containerClassName?: string;
+  /** Render the header row. */
   showHeader?: boolean;
+  /** Highlight rows on hover. */
   hoverable?: boolean;
+  /** Shade alternating rows. */
   striped?: boolean;
+  /**
+   * Number of rows visible before the body starts scrolling. Drives the
+   * container's max height at roughly 40px per row.
+   */
   maxRows?: number;
+  /** Let columns be resized by dragging their header edge. */
   resizable?: boolean;
 }
 
+/**
+ * A lightweight, dependency-free table with custom cell rendering, optional
+ * striping, hover highlighting, a sticky header and drag-to-resize columns.
+ *
+ * Columns are declared as `{ key, label, render? }`. For sorting, filtering,
+ * pagination, row selection or column pinning, use `DataTable` instead.
+ *
+ * @example
+ * ```tsx
+ * const columns = [
+ *   { key: 'name', label: 'Name' },
+ *   { key: 'age', label: 'Age' },
+ * ];
+ * const data = [{ name: 'John Doe', age: 30 }];
+ *
+ * <BasicTable columns={columns} data={data} striped />
+ * ```
+ *
+ * @template T - Shape of a single row of data.
+ */
 export const BasicTable = <
   T extends Record<string, unknown> = Record<string, unknown>
 >({
