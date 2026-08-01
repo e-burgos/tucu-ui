@@ -3,17 +3,20 @@ import { Column } from '@tanstack/react-table';
 import { TData } from '../common/types';
 
 /**
- * useGetCommonPinningStyles
+ * getCommonPinningStyles
  * @category libs/datatable
- * @subcategory Hooks
+ * @subcategory Helpers
+ *
+ * Derives the sticky positioning styles for a pinned column. This is a plain
+ * function, not a React hook — it calls no hooks and can be used anywhere,
+ * including inside a `.map()` callback.
  *
  * @param {Column<TData>} column - The column of the table.
  * @returns {Object} The object with the pin styles, is pinned, is last left pinned column, and is first right pinned column.
  *
  * @template TData - The type of the data in the table.
  */
-
-export const useGetCommonPinningStyles = (column: Column<TData>) => {
+export const getCommonPinningStyles = (column: Column<TData>) => {
   const isPinned = column.getIsPinned();
   const isLastLeftPinnedColumn =
     isPinned === 'left' && column.getIsLastColumn('left');
@@ -49,4 +52,10 @@ export const useGetCommonPinningStyles = (column: Column<TData>) => {
   };
 };
 
-export default useGetCommonPinningStyles;
+/**
+ * @deprecated Renamed to `getCommonPinningStyles` — it is a plain function, not
+ * a React hook. Kept as an alias so the public API stays backwards compatible.
+ */
+export const useGetCommonPinningStyles = getCommonPinningStyles;
+
+export default getCommonPinningStyles;

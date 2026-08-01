@@ -31,7 +31,7 @@ import {
 } from '../../../common/types';
 import DragIndicator from '../../Assets/DragIndicator';
 import { useComponentEventListener } from '../../../hooks/useComponentEventListener';
-import useGetCommonPinningStyles from '../../../hooks/useGetCommonPinningStyles';
+import getCommonPinningStyles from '../../../hooks/getCommonPinningStyles';
 import ColumnPin from './ColumnPin';
 import ColumnSearcher from './ColumnSearcher';
 import ColumnSort from './ColumnSort';
@@ -84,7 +84,7 @@ const TableHeader: FC<TableHeaderProps> = ({
 
   const { actions, tableState } = useDataTableContext() || {};
 
-  const { pinStyles, isPinned } = useGetCommonPinningStyles(header.column);
+  const { pinStyles, isPinned } = getCommonPinningStyles(header.column);
   const { active } = useDndContext();
   const { attributes, listeners, setNodeRef, transform } =
     useSortable({
