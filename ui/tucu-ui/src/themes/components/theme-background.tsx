@@ -1,4 +1,4 @@
-import { useState, useEffect, CSSProperties } from 'react';
+import { useState, useEffect, useRef, CSSProperties } from 'react';
 import cn from 'classnames';
 import { useTheme, BackgroundVariant } from '../hooks/use-theme';
 
@@ -81,6 +81,7 @@ export const ThemeBackground: React.FC<ThemeBackgroundProps> = ({
 
   const [imgFailed, setImgFailed] = useState(false);
   const [imgLoaded, setImgLoaded] = useState(false);
+  const imgRef = useRef<HTMLImageElement>(null);
 
   const assetUrl = getAssetUrl(variant, isDark, cdnBase);
   const variantClass = VARIANT_CLASSES[variant] || '';
@@ -90,6 +91,22 @@ export const ThemeBackground: React.FC<ThemeBackgroundProps> = ({
     setImgFailed(false);
     setImgLoaded(false);
   }, [variant, isDark, cdnBase]);
+
+  // A browser-cached image (typical on a full page refresh, since the SVG was
+  // fetched on the previous visit) can finish loading before React attaches
+  // the onLoad handler — the event never fires, imgLoaded stays false and the
+  // background sits at opacity-0 forever. Check the element directly after
+  // every commit that could have swapped the src.
+  useEffect(() => {
+    const img = imgRef.current;
+    if (!img || !img.complete) return;
+    if (img.naturalWidth > 0) {
+      setImgLoaded(true);
+    } else {
+      // complete but no dimensions: the load already failed silently
+      setImgFailed(true);
+    }
+  }, [assetUrl]);
 
   // When 'none', render children directly without any background layer
   if (variant === 'none') {
@@ -113,6 +130,7 @@ export const ThemeBackground: React.FC<ThemeBackgroundProps> = ({
       {/* SVG image layer */}
       {assetUrl && !imgFailed && (
         <img
+          ref={imgRef}
           src={assetUrl}
           alt=""
           aria-hidden="true"
