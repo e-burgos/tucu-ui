@@ -1,4 +1,7 @@
 @import 'tailwindcss';
 @import '@e-burgos/tucu-ui/theme';
+/* Bundled Inter + JetBrains Mono (new opt-in export in tucu-ui 3.0.0 — the
+   theme entry deliberately ships no fonts). */
+@import '@e-burgos/tucu-ui/fonts';
 @source '../../node_modules/@e-burgos/tucu-ui';
 @source '../../../../ui/tucu-docs/src';
