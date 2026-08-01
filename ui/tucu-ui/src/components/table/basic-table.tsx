@@ -72,11 +72,104 @@ export interface BasicTableProps<T = Record<string, unknown>> {
   maxRows?: number;
   /** Let columns be resized by dragging their header edge. */
   resizable?: boolean;
+  /**
+   * Render each row as a stacked card on small screens instead of forcing a
+   * horizontally scrolling table. On by default — set `false` to always
+   * render the table at every width.
+   *
+   * The switch is pure CSS: the same table markup is restyled by a media
+   * query, so there is no resize listener, no server/client mismatch, and each
+   * cell's content stays in the DOM exactly once. Note `maxRows` only caps the
+   * table layout — the card list grows with the page.
+   */
+  mobileCards?: boolean;
+  /** Width at which cards give way to the table. */
+  cardBreakpoint?: 'sm' | 'md' | 'lg';
+  /** Extra class names applied to each row, which is the card on small screens. */
+  cardClassName?: string;
 }
+
+/** Tailwind's default breakpoints, in px — the card layout ends just below these. */
+const BREAKPOINT_PX: Record<
+  NonNullable<BasicTableProps['cardBreakpoint']>,
+  number
+> = { sm: 640, md: 768, lg: 1024 };
+
+/**
+ * CSS that restyles the single `<table>` into stacked cards below `breakpoint`.
+ *
+ * Restyling one tree — rather than rendering a table and a card list and
+ * hiding one — keeps every cell's text in the DOM exactly once. Duplicating it
+ * would double the node count, invoke each column's `render` twice, and make
+ * `getByText` ambiguous in consumers' tests.
+ */
+const cardLayoutCss = (
+  breakpoint: NonNullable<BasicTableProps['cardBreakpoint']>
+) => `
+  @media (max-width: ${BREAKPOINT_PX[breakpoint] - 0.02}px) {
+    [data-tucu='table-scroll'][data-cards='${breakpoint}'] {
+      overflow-x: visible;
+    }
+    [data-tucu='table-scroll'][data-cards='${breakpoint}'] [data-tucu='table'],
+    [data-tucu='table-scroll'][data-cards='${breakpoint}'] [data-tucu='table'] > div {
+      max-height: none !important;
+      overflow: visible !important;
+      border: 0 !important;
+      border-radius: 0 !important;
+    }
+    [data-tucu='table-scroll'][data-cards='${breakpoint}'] table,
+    [data-tucu='table-scroll'][data-cards='${breakpoint}'] tbody,
+    [data-tucu='table-scroll'][data-cards='${breakpoint}'] tr {
+      display: block;
+      width: 100% !important;
+      min-width: 0 !important;
+      table-layout: auto !important;
+    }
+    [data-tucu='table-scroll'][data-cards='${breakpoint}'] colgroup,
+    [data-tucu='table-scroll'][data-cards='${breakpoint}'] thead,
+    [data-tucu='table-scroll'][data-cards='${breakpoint}'] .basic-table-resize-handle {
+      display: none !important;
+    }
+    [data-tucu='table-scroll'][data-cards='${breakpoint}'] tr {
+      margin-bottom: 0.75rem;
+      border: 1px solid var(--color-border);
+      border-radius: 0.5rem;
+      overflow: hidden;
+    }
+    [data-tucu='table-scroll'][data-cards='${breakpoint}'] tr:last-child {
+      margin-bottom: 0;
+    }
+    [data-tucu='table-scroll'][data-cards='${breakpoint}'] td {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 0.75rem;
+      width: auto !important;
+      max-width: none !important;
+      white-space: normal !important;
+      overflow: visible !important;
+      text-overflow: clip !important;
+      text-align: right;
+      border-right: 0 !important;
+      border-left: 0 !important;
+    }
+    [data-tucu='table-scroll'][data-cards='${breakpoint}'] td:last-child {
+      border-bottom: 0 !important;
+    }
+    [data-tucu='table-scroll'][data-cards='${breakpoint}'] .basic-table-cell-label {
+      display: inline;
+    }
+  }
+`;
 
 /**
  * A lightweight, dependency-free table with custom cell rendering, optional
  * striping, hover highlighting, a sticky header and drag-to-resize columns.
+ *
+ * On small screens each row collapses into a stacked card instead of forcing a
+ * horizontally scrolling table. That is on by default — pass
+ * `mobileCards={false}` to keep the table at every width, or `cardBreakpoint`
+ * to move the switch.
  *
  * Columns are declared as `{ key, label, render? }`. For sorting, filtering,
  * pagination, row selection or column pinning, use `DataTable` instead.
@@ -89,7 +182,11 @@ export interface BasicTableProps<T = Record<string, unknown>> {
  * ];
  * const data = [{ name: 'John Doe', age: 30 }];
  *
+ * // Cards below md, table from md up
  * <BasicTable columns={columns} data={data} striped />
+ *
+ * // Always a table
+ * <BasicTable columns={columns} data={data} mobileCards={false} />
  * ```
  *
  * @template T - Shape of a single row of data.
@@ -111,6 +208,9 @@ export const BasicTable = <
   striped = false,
   maxRows = 10,
   resizable = true,
+  mobileCards = true,
+  cardBreakpoint = 'md',
+  cardClassName,
 }: BasicTableProps<T>) => {
   const { layout } = useTheme();
   const isTahoe =
@@ -194,6 +294,19 @@ export const BasicTable = <
     return row['selected'] === true || row['isSelected'] === true;
   };
 
+  // Shared by both layouts so a column's `render` behaves identically in a
+  // table cell and in a card field.
+  const getCellContent = (
+    column: TableColumn<T>,
+    row: T,
+    rowIndex: number
+  ): ReactNode => {
+    const value = getCellValue(column, row);
+    return column.render
+      ? column.render(value, row, rowIndex)
+      : String(value ?? '');
+  };
+
   // Calculate max height: approximately 40px per row (p-3 = 12px top + 12px bottom = 24px + content ~16px)
   const maxHeight = maxRows * 40; // 40px per row
 
@@ -253,11 +366,24 @@ export const BasicTable = <
         .dark .basic-table-resize-handle:hover::after {
           background: rgba(255, 255, 255, 0.25);
         }
+        /* Per-cell labels only exist for the card layout. */
+        .basic-table-cell-label {
+          display: none;
+          font-size: 11px;
+          font-weight: 600;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+          opacity: 0.7;
+          text-align: left;
+          flex-shrink: 0;
+        }
+        ${mobileCards ? cardLayoutCss(cardBreakpoint) : ''}
       `,
         }}
       />
       <div
         data-tucu="table-scroll"
+        data-cards={mobileCards ? cardBreakpoint : undefined}
         className={cn(
           'overflow-x-auto basic-table-scroll min-w-0',
           containerClassName,
@@ -364,13 +490,17 @@ export const BasicTable = <
                         key={rowIndex}
                         data-tucu="table-row"
                         data-selected={isRowSelected(row) ? 'true' : undefined}
-                        className={getRowClassName(row, rowIndex)}
+                        className={cn(
+                          getRowClassName(row, rowIndex),
+                          cardClassName
+                        )}
                       >
                         {columns.map((column, colIndex) => {
-                          const value = getCellValue(column, row);
-                          const cellContent = column.render
-                            ? column.render(value, row, rowIndex)
-                            : String(value ?? '');
+                          const cellContent = getCellContent(
+                            column,
+                            row,
+                            rowIndex
+                          );
 
                           const isLastCol = colIndex === columns.length - 1;
 
@@ -389,6 +519,11 @@ export const BasicTable = <
                                 column.className
                               )}
                             >
+                              {mobileCards && (
+                                <span className="basic-table-cell-label">
+                                  {column.label}
+                                </span>
+                              )}
                               {cellContent}
                             </td>
                           );
@@ -487,13 +622,17 @@ export const BasicTable = <
                       key={rowIndex}
                       data-tucu="table-row"
                       data-selected={isRowSelected(row) ? 'true' : undefined}
-                      className={getRowClassName(row, rowIndex)}
+                      className={cn(
+                        getRowClassName(row, rowIndex),
+                        cardClassName
+                      )}
                     >
                       {columns.map((column, colIndex) => {
-                        const value = getCellValue(column, row);
-                        const cellContent = column.render
-                          ? column.render(value, row, rowIndex)
-                          : String(value ?? '');
+                        const cellContent = getCellContent(
+                          column,
+                          row,
+                          rowIndex
+                        );
 
                         const isLastCol = colIndex === columns.length - 1;
 
@@ -510,6 +649,11 @@ export const BasicTable = <
                               column.className
                             )}
                           >
+                            {mobileCards && (
+                              <span className="basic-table-cell-label">
+                                {column.label}
+                              </span>
+                            )}
                             {cellContent}
                           </td>
                         );
