@@ -4,6 +4,18 @@ All notable changes to `@e-burgos/tucu-ui-mcp` will be documented in this file.
 
 <!-- Last updated: 2026-06-02 -->
 
+## [0.6.3] - 2026-08-01
+
+### Changed
+
+- add from-scratch app setup, backgrounds and persistence
+- document the ./fonts export and theme entry contents
+- allow extra named imports in the DataTable example
+
+### Fixed
+
+- document BasicTable's mobile card layout
+- describe BasicTable with its real column API
 ## [0.6.2] - 2026-07-16
 
 ### Changed
