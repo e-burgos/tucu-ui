@@ -34,6 +34,20 @@
    animations don't run for consumers of the `./theme` entry. */
 @import './animations.css';
 @import './hero-card.css';
+/* Component-support styles that used to be injected from the JS module graph
+   (import './x.css' inside components). That delivery only ever reached the
+   compiled `./styles` bundle — `./theme` consumers silently lost them:
+   DataTable's entire `--color-table-*` token set, the carousel's active
+   bullet color, prism syntax colors, themed scrollbars, the range slider and
+   the decorative backgrounds. They live in this entry now so BOTH entries
+   ship them, exactly once. All are copied to dist alongside this file (see
+   copyThemeCssPlugin in vite.config.ts). */
+@import './datatable.css';
+@import './carousel.css';
+@import './scrollbar.css';
+@import './range-slider.css';
+@import './prism-theme.css';
+@import './default-backgrounds.css';
 
 @theme {
   /* Screens/Breakpoints — removed custom definitions to avoid conflicts
@@ -810,8 +824,9 @@
   --hero-grid-color: var(--color-gray-200);
 }
 
-/* Configure dark mode to only use class strategy */
-@variant dark (.dark &);
+/* Configure dark mode to only use class strategy. @custom-variant is the
+   stable Tailwind v4 directive; bare @variant for definitions is deprecated. */
+@custom-variant dark (.dark &);
 
 /* Plugin for Typography */
 @plugin "@tailwindcss/typography";

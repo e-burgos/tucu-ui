@@ -33,7 +33,8 @@
       "require": "./index.js"
     },
     "./styles": "./index.css",
-    "./theme": "./theme.css"
+    "./theme": "./theme.css",
+    "./fonts": "./fonts.css"
   },
   "files": [
     "**/*"

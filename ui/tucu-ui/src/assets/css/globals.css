@@ -15,12 +15,26 @@
 @import 'tailwindcss';
 @import './theme.css';
 @import './legacy-utilities.css';
+/* Fonts ship only through this compiled entry (and the opt-in `./fonts`
+   export) — `./theme` deliberately excludes them so Tailwind consumers
+   decide themselves whether to pay ~1 MB of woff2 for Inter/JetBrains Mono. */
+@import './fonts.css';
 
 /* ===================================================================
-   SOURCE DIRECTIVES (Generate Tailwind CSS utilities from all source files in the monorepo)
+   SOURCE DIRECTIVES (Generate Tailwind CSS utilities from library source)
    =================================================================== */
-/* Capture all source files in src/ directory (components, demo, hooks, themes, libs, etc.) */
-@source "../../**/*.{ts,tsx,html,css}";
+/* Scan only the directories that ship in the package. __tests__ (test
+   fixtures), docs-kit (docs-site-only components) and lucide-react (~1500
+   icon re-export files with no class names) are deliberately NOT scanned:
+   their classes don't belong in the published stylesheet, and every stray
+   token that parses as a utility bloats it for all `./styles` consumers. */
+@source "../../components/**/*.{ts,tsx,html,css}";
+@source "../../datatable/**/*.{ts,tsx,html,css}";
+@source "../../hooks/**/*.{ts,tsx,html,css}";
+@source "../../libs/**/*.{ts,tsx,html,css}";
+@source "../../themes/**/*.{ts,tsx,html,css}";
+@source "../../swiper-react/**/*.{ts,tsx}";
+@source "../../react-router-dom/**/*.{ts,tsx}";
 /* ===================================================================
    SEMANTIC UTILITY SAFELIST
    Force-generate the app-level semantic color utilities so they ALWAYS

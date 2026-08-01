@@ -27,7 +27,11 @@ import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import 'swiper/css/effect-fade';
 import 'swiper/css/effect-coverflow';
-import './carousel-styles.css';
+// Carousel skin (bullet colors) lives in assets/css/carousel.css, reached via
+// both CSS entries (`./styles` and `./theme`) — not imported from JS, so it
+// can't be duplicated into consumers' bundles. The bare swiper/css imports
+// above are fine: swiper is externalized, so they survive in the built output
+// and resolve through the consumer's bundler exactly once.
 
 export type CarouselDirection = 'horizontal' | 'vertical';
 export type CarouselEffect =
