@@ -265,15 +265,19 @@ export const componentRegistry: ComponentRegistryEntry[] = [
     name: 'BasicTable',
     category: 'tables',
     description:
-      'Data table with sorting, filtering, pagination, and row actions. Built on @tanstack/react-table.',
+      'Lightweight generic table (no @tanstack/react-table). Columns are declared as { key, label, render? }. Supports striped/hoverable rows, borders, rounded corners, a sticky header, column resizing and a maxRows scroll cap. For sorting, filtering, pagination and row selection use DataTable instead.',
     importPath: '@e-burgos/tucu-ui',
     example: `import { BasicTable } from '@e-burgos/tucu-ui';
 
 <BasicTable
-  columns={[{ header: 'Name', accessorKey: 'name' }]}
-  data={[{ name: 'Alice' }]}
+  columns={[
+    { key: 'name', label: 'Name' },
+    { key: 'status', label: 'Status', render: (value) => <Badge>{String(value)}</Badge> },
+  ]}
+  data={[{ name: 'Alice', status: 'Active' }]}
+  striped
 />`,
-    relatedComponents: ['Card'],
+    relatedComponents: ['Card', 'DataTable'],
     themeAware: true,
   },
   {
