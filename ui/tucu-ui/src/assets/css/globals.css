@@ -21,6 +21,17 @@
    =================================================================== */
 /* Capture all source files in src/ directory (components, demo, hooks, themes, libs, etc.) */
 @source "../../**/*.{ts,tsx,html,css}";
+/* ===================================================================
+   SEMANTIC UTILITY SAFELIST
+   Force-generate the app-level semantic color utilities so they ALWAYS
+   ship in the compiled stylesheet, even when no component in src/ uses
+   them as a literal class (Tailwind v4 JIT only emits utilities it sees
+   used). Without this, bg-primary/bg-secondary/bg-accent/bg-muted etc.
+   are missing for consumers of the compiled `./styles` entry.
+   =================================================================== */
+@source inline("bg-{brand,primary,secondary,accent,muted,success,warning,error,info,body,dark,light,light-dark}");
+@source inline("text-{brand,primary,secondary,muted,foreground}");
+@source inline("border-border");
 /* node_modules of framer-motion/lucide-react/swiper/recharts are NOT scanned:
    none of them author Tailwind class names in their own source — framer-motion
    and recharts apply styles via inline style props, lucide-react renders raw
