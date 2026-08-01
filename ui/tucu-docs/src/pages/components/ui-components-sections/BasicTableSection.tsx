@@ -167,7 +167,8 @@ const BasicTableSection: React.FC = () => {
       <HeroCard
         title="BasicTable"
         description="A lightweight, dependency-free table with custom cell rendering, striping,
-          hover highlighting, a sticky header and drag-to-resize columns."
+          hover highlighting, a sticky header, drag-to-resize columns and a
+          mobile card layout that is on by default."
         icon={
           <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 bg-linear-to-br from-teal-500 to-cyan-500 rounded-full flex items-center justify-center shadow-lg">
             <LucideIcons.Table2 className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-white filter drop-shadow-lg" />
@@ -295,6 +296,42 @@ const BasicTableSection: React.FC = () => {
       </CardContainer>
 
       <CardContainer className="overflow-hidden">
+        <CardTitle title="Mobile Card Layout" className="mt-2 mb-2">
+          <div className="w-full p-4 sm:p-6 space-y-4">
+            <Typography tag="p" className="text-gray-600 dark:text-gray-400">
+              On narrow screens a table either overflows sideways or squeezes
+              its columns to nothing. Instead, each row collapses into a card
+              that stacks every column as a <code>label</code> / value pair.
+              This is <strong>on by default</strong> below <code>md</code>.
+            </Typography>
+            <Typography tag="p" className="text-gray-600 dark:text-gray-400">
+              It is a pure-CSS switch over the same markup — no resize listener,
+              no hydration mismatch, and each cell stays in the DOM once. The
+              table below uses <code>cardBreakpoint=&quot;lg&quot;</code> so you
+              can see the card layout without a phone: narrow the window past
+              1024px.
+            </Typography>
+            <BasicTable
+              columns={renderedColumns}
+              data={teamData}
+              cardBreakpoint="lg"
+              striped
+            />
+            <Typography tag="p" className="text-gray-600 dark:text-gray-400">
+              Pass <code>mobileCards={'{false}'}</code> to keep a real table at
+              every width — useful when the data is genuinely tabular and
+              horizontal scrolling is acceptable.
+            </Typography>
+            <BasicTable
+              columns={renderedColumns}
+              data={teamData}
+              mobileCards={false}
+            />
+          </div>
+        </CardTitle>
+      </CardContainer>
+
+      <CardContainer className="overflow-hidden">
         <CardTitle title="Column Options (TableColumn)" className="mt-2 mb-2">
           <div className="w-full p-4 sm:p-6 space-y-4">
             <Typography tag="p" className="text-gray-600 dark:text-gray-400">
@@ -321,6 +358,8 @@ const BasicTableSection: React.FC = () => {
           showHeader: true,
           resizable: true,
           maxRows: 10,
+          mobileCards: true,
+          cardBreakpoint: 'md',
         }}
         excludeProps={[
           'columns',
@@ -328,6 +367,7 @@ const BasicTableSection: React.FC = () => {
           'containerClassName',
           'headerClassName',
           'tableClassName',
+          'cardClassName',
         ]}
       >
         {(props) => (
@@ -399,7 +439,19 @@ const sizedColumns = [
   { key: 'role', label: 'Role', width: 140, minWidth: 80 },
 ];
 <BasicTable columns={sizedColumns} data={data} />
-<BasicTable columns={columns} data={data} resizable={false} />`}
+<BasicTable columns={columns} data={data} resizable={false} />
+
+// Mobile card layout — rows become stacked cards below md by default
+<BasicTable columns={columns} data={data} />
+
+// Switch to cards earlier or later
+<BasicTable columns={columns} data={data} cardBreakpoint="lg" />
+
+// Style the card (the class lands on the row)
+<BasicTable columns={columns} data={data} cardClassName="shadow-sm" />
+
+// Opt out and keep a real table at every width
+<BasicTable columns={columns} data={data} mobileCards={false} />`}
             />
           </div>
         </CardTitle>
