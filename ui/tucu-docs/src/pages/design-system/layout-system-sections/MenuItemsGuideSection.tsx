@@ -113,8 +113,8 @@ const MenuItemsGuideSection: React.FC = () => {
       required: 'No',
       description: (
         <>
-          When <code>true</code>, appends <code>/*</code> to the route path so
-          the page can handle internal sub-routes. Only used in standalone
+          When <code>true</code>, appends <code>{'/*'}</code> to the route path
+          so the page can handle internal sub-routes. Only used in standalone
           routing mode.
         </>
       ),
