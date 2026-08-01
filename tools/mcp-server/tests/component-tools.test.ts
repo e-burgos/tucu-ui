@@ -75,7 +75,8 @@ describe('Component Registry', () => {
     expect(datatable).toBeDefined();
     expect(datatable!.category).toBe('tables');
     expect(datatable!.variants?.mode).toEqual(['light', 'dark']);
-    expect(datatable!.example).toContain('import { DataTable }');
+    // The example may import extra components alongside DataTable
+    expect(datatable!.example).toMatch(/^import \{ DataTable[,\s}]/);
     expect(datatable!.example).toContain('<DataTable');
   });
 
