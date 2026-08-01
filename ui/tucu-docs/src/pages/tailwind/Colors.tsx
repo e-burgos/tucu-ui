@@ -102,12 +102,6 @@ export function Colors() {
       description: 'Light dark mode background',
     },
     {
-      name: 'Sidebar Body',
-      class: 'bg-sidebar-body',
-      textClass: 'text-sidebar-body',
-      description: 'Sidebar background',
-    },
-    {
       name: 'White',
       class: 'bg-white',
       textClass: 'text-white',
