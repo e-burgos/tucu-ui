@@ -83,6 +83,10 @@ const PACKAGES = {
     ],
     changelogPath: resolve(ROOT, 'ui/tucu-ui/CHANGELOG.md'),
     readmePath: resolve(ROOT, 'README.md'),
+    // Only commits touching these paths land in this package's CHANGELOG —
+    // the two packages share a repo, so an unfiltered `git log` would credit
+    // each release with the other package's work.
+    changelogScope: ['ui/tucu-ui'],
     syncMcpDependency: true,
     deployToFly: false,
     emoji: '📦',
@@ -98,6 +102,7 @@ const PACKAGES = {
     requiredDistArtifacts: null,
     changelogPath: resolve(ROOT, 'tools/mcp-server/CHANGELOG.md'),
     readmePath: resolve(ROOT, 'tools/mcp-server/README.md'),
+    changelogScope: ['tools/mcp-server'],
     syncMcpDependency: false,
     deployToFly: true,
     emoji: '🤖',
@@ -262,12 +267,18 @@ function parseCommits(rawLog) {
   return sections;
 }
 
-function getCommitsSinceTag(lastTag) {
+function getCommitsSinceTag(lastTag, scope) {
   const range = lastTag ? `${lastTag}..HEAD` : 'HEAD';
-  const out = exec(`git log ${range} --pretty=format:"%s" --no-merges`, {
-    silent: true,
-    ignoreError: true,
-  });
+  // Restrict to the package's own paths so a monorepo release does not claim
+  // the sibling package's commits.
+  const pathspec = scope?.length ? ` -- ${scope.join(' ')}` : '';
+  const out = exec(
+    `git log ${range} --pretty=format:"%s" --no-merges${pathspec}`,
+    {
+      silent: true,
+      ignoreError: true,
+    }
+  );
   return out ? out.trim() : '';
 }
 
@@ -542,7 +553,7 @@ success(`Version ${nextVersion} is available on npm.`);
 
 // 4. Gather git commits for docs
 const lastTag = getLastTag(pkg.tagPrefix);
-const rawLog = getCommitsSinceTag(lastTag);
+const rawLog = getCommitsSinceTag(lastTag, pkg.changelogScope);
 const sections = parseCommits(rawLog);
 const commitCount = Object.values(sections).flat().length;
 log(pkg.label, `Commits since ${lastTag ?? 'beginning'}: ${commitCount}`);
