@@ -68,8 +68,9 @@ export function MacOSTahoeCommandPalette({
     const map = new Map<string, MacOSTahoeCommandPaletteItem[]>();
     for (const item of filtered) {
       const g = item.group || '';
-      if (!map.has(g)) map.set(g, []);
-      map.get(g)!.push(item);
+      const group = map.get(g);
+      if (group) group.push(item);
+      else map.set(g, [item]);
     }
     return map;
   }, [filtered]);
@@ -209,13 +210,22 @@ export function MacOSTahoeCommandPalette({
         {/* Footer hints */}
         <div className="flex items-center gap-[16px] border-t border-(--macos-glass-border-subtle) px-[16px] py-[8px] text-[11px] text-(--macos-tahoe-text-muted)">
           <span>
-            <kbd className="rounded border border-(--macos-glass-border) px-[4px] py-px text-[10px]">↑↓</kbd> Navigate
+            <kbd className="rounded border border-(--macos-glass-border) px-[4px] py-px text-[10px]">
+              ↑↓
+            </kbd>{' '}
+            Navigate
           </span>
           <span>
-            <kbd className="rounded border border-(--macos-glass-border) px-[4px] py-px text-[10px]">↵</kbd> Select
+            <kbd className="rounded border border-(--macos-glass-border) px-[4px] py-px text-[10px]">
+              ↵
+            </kbd>{' '}
+            Select
           </span>
           <span>
-            <kbd className="rounded border border-(--macos-glass-border) px-[4px] py-px text-[10px]">Esc</kbd> Close
+            <kbd className="rounded border border-(--macos-glass-border) px-[4px] py-px text-[10px]">
+              Esc
+            </kbd>{' '}
+            Close
           </span>
         </div>
       </div>
