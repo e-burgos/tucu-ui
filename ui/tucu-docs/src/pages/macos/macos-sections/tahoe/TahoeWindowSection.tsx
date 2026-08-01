@@ -96,10 +96,19 @@ export const TahoeWindowSection: React.FC = () => {
             tag="p"
             className="text-sm text-gray-500 dark:text-gray-400 mb-4"
           >
-            🔴 Close hides the window &nbsp;·&nbsp; 🟡 Minimize collapses to
-            header only &nbsp;·&nbsp; 🟢 Maximize restores or toggles fullscreen
-            (with <code>fullSize</code>). Use <code>defaultState</code> to
-            restore programmatically.
+            <span role="img" aria-label="Red traffic light">
+              🔴
+            </span>{' '}
+            Close hides the window &nbsp;·&nbsp;{' '}
+            <span role="img" aria-label="Yellow traffic light">
+              🟡
+            </span>{' '}
+            Minimize collapses to header only &nbsp;·&nbsp;{' '}
+            <span role="img" aria-label="Green traffic light">
+              🟢
+            </span>{' '}
+            Maximize restores or toggles fullscreen (with <code>fullSize</code>
+            ). Use <code>defaultState</code> to restore programmatically.
           </Typography>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="rounded-xl bg-linear-to-br from-indigo-500/20 to-blue-500/20 p-6">
@@ -112,7 +121,19 @@ export const TahoeWindowSection: React.FC = () => {
                 onClose={behaviorWin.onClose}
               >
                 <div className="p-4 text-[13px] text-(--macos-tahoe-text)">
-                  Click 🔴 to close, 🟡 to minimize, 🟢 to fullscreen.
+                  Click{' '}
+                  <span role="img" aria-label="Red traffic light">
+                    🔴
+                  </span>{' '}
+                  to close,{' '}
+                  <span role="img" aria-label="Yellow traffic light">
+                    🟡
+                  </span>{' '}
+                  to minimize,{' '}
+                  <span role="img" aria-label="Green traffic light">
+                    🟢
+                  </span>{' '}
+                  to fullscreen.
                 </div>
               </MacOSTahoeWindow>
               {behaviorWin.closed && (

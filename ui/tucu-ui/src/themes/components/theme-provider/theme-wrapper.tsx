@@ -19,8 +19,6 @@ import {
 } from '../../../components/layouts/root-layout';
 import { IMenuItem } from '../../../components/layouts/menus/menu-item';
 
-// base css file
-import '../../../assets/css/index.css';
 import { useLocation } from 'react-router-dom';
 
 // ─── Palette Mapping ───────────────────────────────────────────

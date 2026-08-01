@@ -1,6 +1,9 @@
 import { describe, it, expect, vi } from 'vitest';
 import { render } from '@testing-library/react';
 import React from 'react';
+// Vitest hoists the vi.mock calls below above every import, so the component
+// under test can be imported here with the rest of the imports.
+import { Carousel } from '../../components/carousel/carousel-component';
 
 vi.mock('swiper/react', () => ({
   Swiper: ({ children }: { children: unknown }) => children,
@@ -29,8 +32,6 @@ vi.mock('swiper/css/pagination', () => ({}));
 vi.mock('swiper/css/scrollbar', () => ({}));
 vi.mock('swiper/css/effect-fade', () => ({}));
 vi.mock('swiper/css/effect-coverflow', () => ({}));
-
-import { Carousel } from '../../components/carousel/carousel-component';
 
 describe('Carousel', () => {
   it('renders without crashing', () => {

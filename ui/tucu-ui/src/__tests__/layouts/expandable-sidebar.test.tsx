@@ -16,7 +16,15 @@ vi.mock('framer-motion', () => ({
 }));
 
 const mockMenuItems = [
-  { name: 'Dashboard', icon: <span>📊</span>, path: '/dashboard' },
+  {
+    name: 'Dashboard',
+    icon: (
+      <span role="img" aria-label="chart">
+        📊
+      </span>
+    ),
+    path: '/dashboard',
+  },
   { name: 'Users', icon: <span>👥</span>, path: '/users' },
 ];
 

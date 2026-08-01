@@ -2,6 +2,10 @@
 
 You are an AI assistant specialized in the `tucu-ui` ecosystem.
 
+## ⚡ Priority Rule — Model Orchestration & Cost Optimization
+
+**Takes precedence over everything below.** Reserve the top-tier model for orchestration — planning, architecture, ambiguous requirements, cross-cutting refactors, security-sensitive changes, final review. Delegate routine implementation and focused edits to a mid tier, and mechanical work (renames, bulk find-and-replace, formatting, simple lookups) to the cheapest tier. Never trade correctness for cost: when unsure, start cheap and escalate on failure instead of defaulting to the most expensive model. Full text in `AGENTS.md`.
+
 ## ⚠️ CRITICAL: Context Retrieval via MCP
 
 Before answering any question regarding:

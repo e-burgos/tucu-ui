@@ -1,5 +1,8 @@
-/* @source ensures only classes used in ui-components are generated */
-@source "./src/**/*.{ts,tsx,html,css}";
+/* No @source here: this file is reached from theme.css, which is copied
+   verbatim to dist — a relative @source would point at a directory that does
+   not exist in the consumer's tree. Utility generation is the entry points'
+   job: globals.css scans the library source, and `./theme` consumers scan
+   node_modules/@e-burgos/tucu-ui themselves (see the quickstart). */
 
 @theme {
   /* Primary Colors - Harmonized with tucu-ui theme */
@@ -70,8 +73,8 @@
   --keyframes-slideOutTop: slideOutTop;
 }
 
-/* @source is defined at the top of the file */
-@variant dark (.dark &);
+/* The `dark` variant is defined once for the whole tree in theme.css
+   (@custom-variant dark) — this file is always reached through it. */
 
 /* Apply modern font to all table elements */
 [data-testid='table'],

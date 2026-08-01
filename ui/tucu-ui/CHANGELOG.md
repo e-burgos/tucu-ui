@@ -5,6 +5,28 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.0] - 2026-08-01
+
+### Added
+
+- ship CSS only through explicit entry points
+- collapse BasicTable rows into cards on small screens
+
+### Changed
+
+- regenerate props metadata for the BasicTable card props
+- regenerate props metadata
+- document BasicTable props with TSDoc
+- tidy the @tanstack/react-table module augmentation
+- drop non-null assertions in favour of real narrowing
+- make the tucu-ui test suite lint-clean
+- rename useGetCommonPinningStyles to getCommonPinningStyles
+
+### Fixed
+
+- show cached background images after a full refresh
+- ship animation styles with the ./theme entry
+- safelist semantic color utilities in compiled stylesheet
 ## [2.8.2] - 2026-07-17
 
 ### Changed

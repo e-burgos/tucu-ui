@@ -265,15 +265,24 @@ export const componentRegistry: ComponentRegistryEntry[] = [
     name: 'BasicTable',
     category: 'tables',
     description:
-      'Data table with sorting, filtering, pagination, and row actions. Built on @tanstack/react-table.',
+      'Lightweight generic table (no @tanstack/react-table). Columns are declared as { key, label, render? }. Supports striped/hoverable rows, borders, rounded corners, a sticky header, column resizing and a maxRows scroll cap. Responsive by default: below the cardBreakpoint (md) each row collapses into a stacked card of label/value pairs — pass mobileCards={false} to keep a table at every width. For sorting, filtering, pagination and row selection use DataTable instead.',
     importPath: '@e-burgos/tucu-ui',
     example: `import { BasicTable } from '@e-burgos/tucu-ui';
 
+// Rows become stacked cards below md automatically
 <BasicTable
-  columns={[{ header: 'Name', accessorKey: 'name' }]}
-  data={[{ name: 'Alice' }]}
-/>`,
-    relatedComponents: ['Card'],
+  columns={[
+    { key: 'name', label: 'Name' },
+    { key: 'status', label: 'Status', render: (value) => <Badge>{String(value)}</Badge> },
+  ]}
+  data={[{ name: 'Alice', status: 'Active' }]}
+  striped
+/>
+
+// Opt out, or move the breakpoint
+<BasicTable columns={columns} data={data} mobileCards={false} />
+<BasicTable columns={columns} data={data} cardBreakpoint="lg" />`,
+    relatedComponents: ['Card', 'DataTable'],
     themeAware: true,
   },
   {

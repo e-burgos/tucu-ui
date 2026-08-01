@@ -1,2 +1,20 @@
-@import '../../../../dist/ui/tucu-ui/index.css';
+/* test-lib runs its own Tailwind (@tailwindcss/vite), so it uses tucu-ui's
+   `./theme` entry — tokens, base/component layers and `tucu-` utilities — and
+   generates the utility classes itself. Importing the compiled `./styles`
+   entry (dist/index.css) instead would bundle a second, full Tailwind build:
+   duplicate preflight and duplicate theme variables.
+
+   Everything is read from `ui/tucu-ui/src`, not from `dist/`, because this app
+   exists to exercise unpublished library changes — pointing at a build
+   artifact would mean a stale stylesheet until someone remembers to rebuild.
+
+   Both @source roots are required: Tailwind's automatic detection only walks
+   the Vite root (apps/test-lib), so classes that live in the library or in the
+   docs pages are invisible to it and their utilities never get emitted. */
 @import 'tailwindcss';
+@import '../../../../ui/tucu-ui/src/assets/css/theme.css';
+/* Fonts are opt-in (the `./theme` entry deliberately excludes them). This
+   mirrors what an npm consumer does with `@import '@e-burgos/tucu-ui/fonts'`. */
+@import '../../../../ui/tucu-ui/src/assets/css/fonts.css';
+@source '../../../../ui/tucu-ui/src';
+@source '../../../../ui/tucu-docs/src';

@@ -3,7 +3,6 @@ import type {} from './overrides';
 // api-extractor cannot roll up a namespace built from a local module
 // that star-exports another module.
 import * as TanstackTableImport from '@tanstack/react-table';
-import '../assets/css/datatable.css';
 
 export { default as DataTableComponent } from './components/DataTable/DataTableComponent';
 export { default as DataTable } from './components/DataTable/DataTable';

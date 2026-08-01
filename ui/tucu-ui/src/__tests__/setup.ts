@@ -115,9 +115,22 @@ if (!globalThis.crypto?.randomUUID) {
 
 // --- Module Mocks ---
 
+// Props that only mean something to framer-motion — they must not reach the
+// plain DOM element the mock renders, or React warns about unknown attributes.
+const MOTION_ONLY_PROPS = [
+  'initial',
+  'animate',
+  'exit',
+  'transition',
+  'variants',
+  'whileHover',
+  'whileTap',
+  'whileInView',
+];
+
 // Mock framer-motion
-vi.mock('framer-motion', () => {
-  const React = require('react');
+vi.mock('framer-motion', async () => {
+  const React = await import('react');
   const motion = new Proxy(
     {},
     {
@@ -125,22 +138,16 @@ vi.mock('framer-motion', () => {
         if (prop === 'custom') return () => ({});
         return React.forwardRef(
           (props: Record<string, unknown>, ref: unknown) => {
-            const {
-              children,
-              initial,
-              animate,
-              exit,
-              transition,
-              variants,
-              whileHover,
-              whileTap,
-              whileInView,
-              ...rest
-            } = props;
+            const { children, ...allRest } = props;
+            const rest = Object.fromEntries(
+              Object.entries(allRest).filter(
+                ([key]) => !MOTION_ONLY_PROPS.includes(key)
+              )
+            );
             return React.createElement(
               prop as string,
               { ...rest, ref },
-              children
+              children as React.ReactNode
             );
           }
         );
@@ -165,8 +172,8 @@ vi.mock('framer-motion', () => {
 });
 
 // Mock swiper modules
-vi.mock('swiper/react', () => {
-  const React = require('react');
+vi.mock('swiper/react', async () => {
+  const React = await import('react');
   return {
     Swiper: ({ children }: { children: React.ReactNode }) =>
       React.createElement('div', { 'data-testid': 'swiper' }, children),
@@ -192,8 +199,8 @@ vi.mock('swiper/css/thumbs', () => ({}));
 vi.mock('swiper/css/free-mode', () => ({}));
 
 // Mock recharts
-vi.mock('recharts', () => {
-  const React = require('react');
+vi.mock('recharts', async () => {
+  const React = await import('react');
   const createMockComponent = (name: string) => {
     return ({
       children,

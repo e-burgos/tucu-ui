@@ -197,10 +197,11 @@ function createStore(tableId: string) {
 
 export const useDataTableStore = (tableId: string) => {
   // Get or create store singleton for this tableId
-  if (!storeMap.has(tableId)) {
-    storeMap.set(tableId, createStore(tableId));
+  let useTableStore = storeMap.get(tableId);
+  if (!useTableStore) {
+    useTableStore = createStore(tableId);
+    storeMap.set(tableId, useTableStore);
   }
-  const useTableStore = storeMap.get(tableId)!;
 
   const {
     tableData: {

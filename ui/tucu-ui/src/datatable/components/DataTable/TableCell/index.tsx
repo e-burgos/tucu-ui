@@ -23,7 +23,7 @@ import {
   IRowSelection,
   TData,
 } from '../../../common/types';
-import useGetCommonPinningStyles from '../../../hooks/useGetCommonPinningStyles';
+import getCommonPinningStyles from '../../../hooks/getCommonPinningStyles';
 import ExpandedRowCell from './ExpandedRowCell';
 import RowActionsCell from './RowActionsCell';
 import RowSelectionCell from './RowSelectionCell';
@@ -83,7 +83,7 @@ const TableCell: React.FC<TableCellProps> = ({
   setOpenActions,
 }) => {
   const { actions } = useDataTableContext() || {};
-  const { pinStyles, isPinned } = useGetCommonPinningStyles(cell.column);
+  const { pinStyles, isPinned } = getCommonPinningStyles(cell.column);
   const { active } = useDndContext();
   const { setNodeRef, transform } = useSortable({
     id: cell.column.id,

@@ -1,5 +1,21 @@
 # Agent Context & Skills Index
 
+## ⚡ Priority Rule — Model Orchestration & Cost Optimization
+
+**This rule takes precedence and applies to every task in this repository.**
+
+Use **Opus** as the **orchestrator** (planning, architecture decisions, non-trivial reasoning, final review, and coordinating subagents). For **simpler, well-scoped, or mechanical work, always delegate to cheaper models and lower reasoning efforts** to optimize tokens and context — **without degrading quality**.
+
+- **Opus (orchestrator / high effort)**: architecture, ambiguous requirements, cross-cutting refactors, security-sensitive changes, final verification.
+- **Sonnet / cheaper models (medium effort)**: routine implementation, focused edits, code that follows an established pattern, moderate research.
+- **Haiku / cheapest models (low effort)**: mechanical/repetitive tasks — bulk find-and-replace, renames, formatting, simple lookups, file enumeration, boilerplate.
+- **Prefer subagents** (`Agent` tool with an explicit `model`) for parallelizable or self-contained subtasks, so the orchestrator's context stays lean. When launching a subagent for a simple task, set `model` to the cheapest tier that can do it correctly.
+- **Guardrail**: never trade correctness for cost. If a cheaper tier is likely to miss edge cases, verify its output with the orchestrator, or escalate the tier. When unsure whether a task is "simple enough," start cheap and escalate on failure rather than defaulting to Opus.
+
+Tool-specific notes: Claude Code sets the tier per subagent via the `Agent` tool's `model` field (or `model:` frontmatter in [`harness/agents/`](harness/agents/)); Copilot and Antigravity expose the same choice through their own model pickers — pick the cheapest tier that fits the task.
+
+## 📚 Context Source
+
 This repository uses an **MCP server** (`@e-burgos/tucu-ui-mcp`) as the primary source of truth for AI agents working with the tucu-ui component library. The MCP provides tools, resources, and prompts that cover the complete API surface.
 
 ## 📁 Project Structure (Nx monorepo)

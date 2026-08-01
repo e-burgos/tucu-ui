@@ -38,6 +38,7 @@ import { Introduction } from '@tucu-docs';
 import {
   TailwindIntroduction,
   Colors,
+  CssArchitecture,
   LayoutUtilities,
   FlexboxGridUtilities,
   BackgroundUtilities,
@@ -332,6 +333,12 @@ export const useMenuItems = () => {
             path: APP_PATHS.TAILWIND_UTILITIES.path + '/colors',
             icon: <LucideIcons.Palette />,
             component: <Colors />,
+          },
+          {
+            name: 'CSS Architecture',
+            path: APP_PATHS.TAILWIND_UTILITIES.path + '/css-architecture',
+            icon: <LucideIcons.FileCode2 />,
+            component: <CssArchitecture />,
           },
         ],
       },

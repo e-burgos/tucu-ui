@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { ReactRouter } from '@e-burgos/tucu-ui';
 import {
   type SEOConfig,
@@ -31,7 +31,13 @@ import {
  */
 export function useSEO(config: Partial<SEOConfig> = {}): void {
   const location = ReactRouter.useLocation();
-  const seoConfig: SEOConfig = { ...DEFAULT_SEO, ...config };
+  // Memoized because it is a dependency of the effect below — a fresh object
+  // literal every render would re-run the effect on every render.
+  const seoConfig: SEOConfig = useMemo(
+    () => ({ ...DEFAULT_SEO, ...config }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [JSON.stringify(config)]
+  );
   const canonicalUrl =
     config.canonicalUrl || getCanonicalUrl(location.pathname);
   const pageTitle = getPageTitle(seoConfig.title);

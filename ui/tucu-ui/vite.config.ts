@@ -1,11 +1,24 @@
 /// <reference types='vitest' />
-import { defineConfig, PluginOption } from 'vite';
+import { defineConfig, PluginOption, build as viteBuild } from 'vite';
 import react from '@vitejs/plugin-react';
 import dts from 'vite-plugin-dts';
 import * as path from 'path';
 import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin';
 import { copyFileSync, cpSync, mkdirSync } from 'fs';
 import tailwindcss from '@tailwindcss/vite';
+
+// The CSS artifacts (dist/index.css, dist/fonts.css, dist/fonts/) are built
+// by a second, non-lib Vite pass — see vite.config.styles.ts for why. Chained
+// here so `nx run tucu-ui:build` keeps producing the complete dist in one go.
+const buildStylesPlugin = (): PluginOption => ({
+  name: 'build-styles',
+  closeBundle: async () => {
+    await viteBuild({
+      configFile: path.join(__dirname, 'vite.config.styles.ts'),
+    });
+    console.log('index.css / fonts.css / fonts/ built (vite.config.styles.ts)');
+  },
+});
 
 const copyReadmePlugin = () => {
   return {
@@ -54,7 +67,20 @@ const copyThemeCssPlugin = () => {
         path.join(cssDir, 'theme.css'),
         path.join(destDir, 'theme.css')
       );
-      for (const file of ['base.css', 'third-party.css', 'utilities.css']) {
+      for (const file of [
+        'base.css',
+        'third-party.css',
+        'utilities.css',
+        'animations.css',
+        'hero-card.css',
+        // Component-support styles theme.css imports (see theme.css header).
+        'datatable.css',
+        'carousel.css',
+        'scrollbar.css',
+        'range-slider.css',
+        'prism-theme.css',
+        'default-backgrounds.css',
+      ]) {
         copyFileSync(path.join(cssDir, file), path.join(destDir, file));
       }
       cpSync(path.join(cssDir, 'macos'), path.join(destDir, 'macos'), {
@@ -85,6 +111,7 @@ export default defineConfig({
     copyReadmePlugin(),
     copyChangelogPlugin(),
     copyThemeCssPlugin(),
+    buildStylesPlugin(),
     tailwindcss() as PluginOption,
   ],
   resolve: {

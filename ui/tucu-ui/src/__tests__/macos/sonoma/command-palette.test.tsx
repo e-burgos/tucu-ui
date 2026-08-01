@@ -11,14 +11,14 @@ describe('MacOSCommandPalette', () => {
 
   it('renders nothing when closed', () => {
     const { container } = render(
-      <MacOSCommandPalette items={items} open={false} onOpenChange={() => {}} />
+      <MacOSCommandPalette items={items} open={false} onOpenChange={vi.fn()} />
     );
     expect(container.querySelector('input')).not.toBeInTheDocument();
   });
 
   it('renders input and items when open', () => {
     render(
-      <MacOSCommandPalette items={items} open={true} onOpenChange={() => {}} />
+      <MacOSCommandPalette items={items} open={true} onOpenChange={vi.fn()} />
     );
     expect(screen.getByRole('combobox')).toBeInTheDocument();
     expect(screen.getByText('Open File')).toBeInTheDocument();
@@ -28,7 +28,7 @@ describe('MacOSCommandPalette', () => {
 
   it('filters items based on query', () => {
     render(
-      <MacOSCommandPalette items={items} open={true} onOpenChange={() => {}} />
+      <MacOSCommandPalette items={items} open={true} onOpenChange={vi.fn()} />
     );
     fireEvent.change(screen.getByRole('combobox'), {
       target: { value: 'toggle' },

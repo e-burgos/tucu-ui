@@ -14,7 +14,7 @@ describe('MacOSTahoeCommandPalette', () => {
       <MacOSTahoeCommandPalette
         items={items}
         open={false}
-        onOpenChange={() => {}}
+        onOpenChange={vi.fn()}
       />
     );
     expect(container.querySelector('input')).not.toBeInTheDocument();
@@ -25,7 +25,7 @@ describe('MacOSTahoeCommandPalette', () => {
       <MacOSTahoeCommandPalette
         items={items}
         open={true}
-        onOpenChange={() => {}}
+        onOpenChange={vi.fn()}
       />
     );
     expect(screen.getByText('Open File')).toBeInTheDocument();
@@ -38,7 +38,7 @@ describe('MacOSTahoeCommandPalette', () => {
       <MacOSTahoeCommandPalette
         items={items}
         open={true}
-        onOpenChange={() => {}}
+        onOpenChange={vi.fn()}
       />
     );
     fireEvent.change(screen.getByRole('textbox'), {

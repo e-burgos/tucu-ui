@@ -19,7 +19,11 @@ describe('MacOSTahoeNotificationBanner', () => {
     render(
       <MacOSTahoeNotificationBanner
         title="Test"
-        icon={<span data-testid="ic">🔔</span>}
+        icon={
+          <span role="img" aria-label="bell" data-testid="ic">
+            🔔
+          </span>
+        }
       />
     );
     expect(screen.getByTestId('ic')).toBeInTheDocument();

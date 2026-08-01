@@ -14,7 +14,7 @@ describe('MacOSTahoeSegmentedControl', () => {
       <MacOSTahoeSegmentedControl
         options={options}
         value="tab1"
-        onChange={() => {}}
+        onChange={vi.fn()}
       />
     );
     expect(screen.getByText('Tab 1')).toBeInTheDocument();
@@ -27,7 +27,7 @@ describe('MacOSTahoeSegmentedControl', () => {
       <MacOSTahoeSegmentedControl
         options={options}
         value="tab2"
-        onChange={() => {}}
+        onChange={vi.fn()}
       />
     );
     const active = screen.getByRole('radio', { name: 'Tab 2' });
@@ -69,7 +69,7 @@ describe('MacOSTahoeSegmentedControl', () => {
       <MacOSTahoeSegmentedControl
         options={options}
         value="tab1"
-        onChange={() => {}}
+        onChange={vi.fn()}
       />
     );
     expect(screen.getByRole('radiogroup')).toBeInTheDocument();
@@ -80,7 +80,7 @@ describe('MacOSTahoeSegmentedControl', () => {
       <MacOSTahoeSegmentedControl
         options={options}
         value="tab1"
-        onChange={() => {}}
+        onChange={vi.fn()}
       />
     );
     expect(

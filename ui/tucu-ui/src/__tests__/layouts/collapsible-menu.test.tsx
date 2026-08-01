@@ -30,7 +30,11 @@ describe('CollapsibleMenu', () => {
         <CollapsibleMenu
           name="Section"
           path="/section"
-          icon={<span data-testid="menu-icon">📁</span>}
+          icon={
+            <span role="img" aria-label="folder" data-testid="menu-icon">
+              📁
+            </span>
+          }
         />
       </MemoryRouter>
     );
@@ -66,7 +70,9 @@ describe('CollapsibleMenu', () => {
       </MemoryRouter>
     );
     const trigger = screen.getByText('Toggle');
-    fireEvent.click(trigger.closest('div')!);
+    const clickable = trigger.closest('div');
+    if (!clickable) throw new Error('Expected the trigger to sit inside a div');
+    fireEvent.click(clickable);
     // After click, the dropdown should be toggled
     expect(screen.getByText('Sub')).toBeInTheDocument();
   });

@@ -57,7 +57,11 @@ describe('MacOSTahoeWidgetHeader', () => {
     render(
       <MacOSTahoeWidgetHeader
         title="Test"
-        icon={<span data-testid="icon">☀️</span>}
+        icon={
+          <span role="img" aria-label="sun" data-testid="icon">
+            ☀️
+          </span>
+        }
       />
     );
     expect(screen.getByTestId('icon')).toBeInTheDocument();

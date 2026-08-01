@@ -2,7 +2,7 @@ import React from 'react';
 import { flexRender, Table } from '@tanstack/react-table';
 import { TData } from '../../common/types';
 import { cn } from '../../common/helpers/cn';
-import useGetCommonPinningStyles from '../../hooks/useGetCommonPinningStyles';
+import getCommonPinningStyles from '../../hooks/getCommonPinningStyles';
 
 /**
  * FooterProps
@@ -36,7 +36,7 @@ const Footer: React.FC<FooterProps> = ({ className, sx, table }) => {
           {footerGroup.headers
             .filter((header) => header.column.getIsVisible())
             .map((header, index) => {
-              const { pinStyles, isPinned } = useGetCommonPinningStyles(
+              const { pinStyles, isPinned } = getCommonPinningStyles(
                 header.column
               );
               const width = header.getSize();

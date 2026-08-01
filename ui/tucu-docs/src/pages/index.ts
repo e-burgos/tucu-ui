@@ -24,6 +24,7 @@ export * from './tailwind/AccessibilityUtilities';
 export * from './tailwind/BackgroundUtilities';
 export * from './tailwind/BordersUtilities';
 export * from './tailwind/Colors';
+export * from './tailwind/CssArchitecture';
 export * from './tailwind/EffectsUtilities';
 export * from './tailwind/FiltersUtilities';
 export * from './tailwind/FlexboxGridUtilities';

@@ -1,5 +1,10 @@
 import type {} from './datatable/overrides';
-import './styles.css';
+// NOTE: no global CSS is imported here on purpose. Styles ship exclusively
+// through the package's CSS exports — `./styles` (compiled bundle for
+// non-Tailwind consumers) and `./theme` (tokens + component styles for
+// consumers running their own Tailwind). Importing a compiled Tailwind build
+// from the JS graph used to inject ~1 MB of duplicate CSS into every consumer
+// that bundles this library from source.
 // Namespace re-exports must import the external packages directly:
 // api-extractor cannot roll up a namespace built from a local module
 // that star-exports another module.
