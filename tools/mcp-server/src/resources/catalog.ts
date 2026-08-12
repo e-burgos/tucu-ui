@@ -128,6 +128,11 @@ import { Button, CardContainer, Form, Input, Select, ThemeProvider, useTheme, us
 - \`rowActions\`: \`Array<{ action, label, onClick, ... }>\` (enables row action menus)
 - \`renderSubComponent\`: React component to render when a row is expanded
 
+**Going deeper:** the \`tucu://datatable\` resource documents the FULL DataTable API
+(all optional props, pagination modes, ColumnDef extensions, persistence, row
+actions/selection semantics, export flags, theming, gotchas), and the
+\`generate_datatable\` tool scaffolds a complete typed implementation.
+
 
 ### Tabs
 | Component | Description |

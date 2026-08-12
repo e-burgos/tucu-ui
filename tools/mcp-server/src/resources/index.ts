@@ -1,8 +1,9 @@
 // ─── Resource Registry ───────────────────────────────────────────────────────
-// Registers all 12 MCP resources with tucu:// URIs.
+// Registers all 13 MCP resources with tucu:// URIs.
 
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { getCatalogContent } from './catalog.js';
+import { getDataTableContent } from './datatable.js';
 import { getTokensContent } from './tokens.js';
 import { getFormsContent } from './forms.js';
 import { getRoutingContent } from './routing.js';
@@ -63,6 +64,13 @@ const resources: ResourceDef[] = [
     description:
       'Theme system: useTheme hook, presets, dark/light, ThemeProvider setup',
     getContent: getThemeContent,
+  },
+  {
+    name: 'datatable',
+    uri: 'tucu://datatable',
+    description:
+      'DataTable deep reference: architecture, all props, pagination modes, sorting, filters, pinning, drag/resize, row actions, selection, expansion, persistence, export, theming, gotchas',
+    getContent: getDataTableContent,
   },
   {
     name: 'charts',

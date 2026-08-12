@@ -177,7 +177,7 @@ describe('Code Generator Utilities', () => {
 
 // ─── Generation Tools (Integration) ────────────────────────────────────────
 describe('Generation Tools', () => {
-  it('server creates successfully with 10 tools registered', () => {
+  it('server creates successfully with 11 tools registered', () => {
     // This just verifies that the server can be created without errors.
     // The McpServer doesn't expose a public tool list, but if registration
     // throws, this test will fail.

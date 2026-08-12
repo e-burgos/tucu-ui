@@ -1,6 +1,7 @@
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { registerComponentTools } from './tools/component-tools.js';
 import { registerGenerationTools } from './tools/generation-tools.js';
+import { registerDataTableTools } from './tools/datatable-tools.js';
 import { registerResources } from './resources/index.js';
 import { registerPrompts } from './prompts/index.js';
 import { createRequire } from 'module';
@@ -16,6 +17,7 @@ export function createMcpServer(): McpServer {
 
   registerComponentTools(server);
   registerGenerationTools(server);
+  registerDataTableTools(server);
   registerResources(server);
   registerPrompts(server);
 
