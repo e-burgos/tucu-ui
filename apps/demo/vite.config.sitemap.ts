@@ -126,7 +126,7 @@ export function sitemapPlugin(): Plugin {
       const baseUrl =
         process.env.VITE_APP_BASE_URL ||
         process.env.VITE_APP_URL ||
-        'https://tucu-ui.netlify.app';
+        'https://ui.estebanburgos.com.ar';
       const sitemap = generateSitemap(baseUrl);
       const outputPath = resolve(__dirname, 'dist', 'sitemap.xml');
       writeFileSync(outputPath, sitemap, 'utf-8');

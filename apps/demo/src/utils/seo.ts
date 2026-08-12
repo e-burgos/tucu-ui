@@ -47,16 +47,16 @@ export const DEFAULT_SEO: SEOConfig = {
     'microfrontend',
     'micro-frontend',
   ],
-  ogImage: 'https://tucu-ui.netlify.app/favicon.svg',
+  ogImage: 'https://ui.estebanburgos.com.ar/favicon.svg',
   ogType: 'website',
-  canonicalUrl: 'https://tucu-ui.netlify.app',
+  canonicalUrl: 'https://ui.estebanburgos.com.ar',
 };
 
 /**
  * Get base URL from environment or default
  */
 export function getBaseUrl(): string {
-  return import.meta.env.VITE_APP_URL || 'https://tucu-ui.netlify.app';
+  return import.meta.env.VITE_APP_URL || 'https://ui.estebanburgos.com.ar';
 }
 
 /**

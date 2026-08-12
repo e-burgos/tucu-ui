@@ -4,7 +4,7 @@ A comprehensive demo application showcasing the [Tucu UI](https://github.com/e-b
 
 ## 🌐 Live Demo
 
-- **Production**: [https://tucu-ui.netlify.app/](https://tucu-ui.netlify.app/)
+- **Production**: [https://ui.estebanburgos.com.ar/](https://ui.estebanburgos.com.ar/)
 
 ## ✨ Features
 
@@ -136,7 +136,7 @@ Create a `.env` file in the root directory:
 ```env
 # Application
 VITE_APP_PORT=4200
-VITE_APP_URL=https://tucu-ui.netlify.app
+VITE_APP_URL=https://ui.estebanburgos.com.ar
 
 # Google Analytics
 VITE_GOOGLE_ANALYTICS_TAG_ID=G-XXXXXXXXXX
@@ -231,15 +231,15 @@ export function MyPage() {
 
 ## 🚀 Deployment
 
-The application is configured for deployment on Netlify with:
+The application is deployed to Cloudflare Pages at [https://ui.estebanburgos.com.ar](https://ui.estebanburgos.com.ar) with:
 
-- SPA redirects (`_redirects` file)
+- SPA redirects (`_redirects` file, natively supported by Cloudflare Pages)
 - Automatic sitemap generation
 - Environment variable support
 
-### Netlify Configuration
+### Cloudflare Pages Configuration
 
-The app uses `netlify.toml` at the root of the monorepo for deployment settings.
+Deployment runs via CI on every push to `main` that touches `apps/demo/**` or `ui/tucu-docs/**` (see `.github/workflows/deploy-demo.yml`). The workflow builds with `pnpm nx build demo` and publishes `apps/demo/dist` using `wrangler pages deploy`. Required repository secrets: `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`. DNS (`ui` CNAME) is managed at Hostinger.
 
 ## 📝 License
 
@@ -252,7 +252,7 @@ Contributions are welcome! Please see the main [CONTRIBUTING](../../CONTRIBUTING
 ## 📞 Support
 
 - **GitHub Issues**: [https://github.com/e-burgos/tucu-ui/issues](https://github.com/e-burgos/tucu-ui/issues)
-- **Documentation**: [https://tucu-ui.netlify.app/](https://tucu-ui.netlify.app/)
+- **Documentation**: [https://ui.estebanburgos.com.ar/](https://ui.estebanburgos.com.ar/)
 
 ---
 
