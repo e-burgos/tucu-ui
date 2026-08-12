@@ -16,7 +16,7 @@ export interface SitemapUrl {
   priority?: number;
 }
 
-const BASE_URL = import.meta.env.VITE_APP_URL || 'https://tucu-ui.netlify.app';
+const BASE_URL = import.meta.env.VITE_APP_URL || 'https://ui.estebanburgos.com.ar';
 
 /**
  * Route paths configuration (mirrors APP_PATHS from menuItems)

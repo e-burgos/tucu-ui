@@ -53,7 +53,7 @@ export function MyCustomPage() {
     title: 'My Custom Page Title',
     description: 'A detailed description of this specific page for SEO purposes.',
     keywords: ['custom', 'page', 'specific', 'keywords'],
-    ogImage: 'https://tucu-ui.netlify.app/images/my-custom-og-image.png',
+    ogImage: 'https://ui.estebanburgos.com.ar/images/my-custom-og-image.png',
     ogType: 'article', // or 'website' (default)
   });
 
@@ -92,7 +92,7 @@ The `robots.txt` file is located in `public/robots.txt` and is automatically ser
 ```
 User-agent: *
 Allow: /
-Sitemap: https://tucu-ui.netlify.app/sitemap.xml
+Sitemap: https://ui.estebanburgos.com.ar/sitemap.xml
 ```
 
 To customize, edit `public/robots.txt`.
@@ -102,12 +102,12 @@ To customize, edit `public/robots.txt`.
 You can configure the base URL for SEO using environment variables:
 
 ```env
-VITE_APP_BASE_URL=https://tucu-ui.netlify.app
+VITE_APP_BASE_URL=https://ui.estebanburgos.com.ar
 # or
-VITE_APP_URL=https://tucu-ui.netlify.app
+VITE_APP_URL=https://ui.estebanburgos.com.ar
 ```
 
-If not set, it defaults to `https://tucu-ui.netlify.app`.
+If not set, it defaults to `https://ui.estebanburgos.com.ar`.
 
 ## Best Practices
 
