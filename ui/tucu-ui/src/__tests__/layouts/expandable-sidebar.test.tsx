@@ -234,11 +234,23 @@ describe('ExpandableSidebar', () => {
     const items = [
       {
         name: 'Dashboard',
-        icon: <span>📊</span>,
+        icon: (
+          <span role="img" aria-label="chart">
+            📊
+          </span>
+        ),
         path: '/dashboard',
         hide: true,
       },
-      { name: 'Users', icon: <span>👥</span>, path: '/users' },
+      {
+        name: 'Users',
+        icon: (
+          <span role="img" aria-label="users">
+            👥
+          </span>
+        ),
+        path: '/users',
+      },
     ];
     render(
       <MemoryRouter>
@@ -253,11 +265,23 @@ describe('ExpandableSidebar', () => {
     const items = [
       {
         name: 'Dashboard',
-        icon: <span>📊</span>,
+        icon: (
+          <span role="img" aria-label="chart">
+            📊
+          </span>
+        ),
         path: '/dashboard-page',
         href: '/reports',
       },
-      { name: 'Users', icon: <span>👥</span>, path: '/users' },
+      {
+        name: 'Users',
+        icon: (
+          <span role="img" aria-label="users">
+            👥
+          </span>
+        ),
+        path: '/users',
+      },
     ];
     render(
       <MemoryRouter initialEntries={['/reports']}>
