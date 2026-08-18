@@ -2,7 +2,7 @@
 
 **Fecha:** 2026-08-18
 **Versión:** 1.0
-**Estado:** En progreso
+**Estado:** Completado
 **Branch:** `feat/sidebar-pinning-mcp-reality`
 **Dependencias:** Spec 07 (documenta `collapsedLogo` y el pin del sidebar)
 
