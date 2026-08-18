@@ -51,12 +51,12 @@ const OverviewSection: React.FC = () => {
               <LucideIcons.Wrench className="w-6 h-6 text-blue-500" />
             </div>
             <Badge variant="soft" className="bg-blue-500/10 text-blue-500">
-              10 Tools
+              11 Tools
             </Badge>
             <Typography className="text-sm font-semibold">Tools</Typography>
             <Typography className="text-xs text-foreground/60">
-              Generate components, forms, pages, charts, docs. Search
-              components & icons. List & inspect the full catalog.
+              Generate components, forms, pages, charts, datatables, docs.
+              Search components & icons. List & inspect the full catalog.
             </Typography>
           </div>
         </CardContainer>
@@ -70,12 +70,12 @@ const OverviewSection: React.FC = () => {
               variant="soft"
               className="bg-emerald-500/10 text-emerald-500"
             >
-              12 Resources
+              15 Resources
             </Badge>
             <Typography className="text-sm font-semibold">Resources</Typography>
             <Typography className="text-xs text-foreground/60">
               Static knowledge: catalog, tokens, forms, routing, layouts,
-              charts, icons, and more.
+              theme, datatable, styling overrides, app shell, and more.
             </Typography>
           </div>
         </CardContainer>

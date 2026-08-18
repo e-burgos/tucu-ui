@@ -54,16 +54,30 @@ export const componentRegistry: ComponentRegistryEntry[] = [
   {
     name: 'Input',
     category: 'inputs',
-    description: 'Text input field with label, validation, and variants.',
+    description:
+      'Text input field with label, validation, and variants. `icon` renders in a 40px slot on the left and adds `pl-[40px]` to the input automatically — no manual padding needed. `type="date"` is a fully custom picker: the native input becomes `readOnly` and always displays the formatted value (per `dateFormat`, default `DD/MM/YYYY`), while `onChange` fires with a synthetic event whose value is the ISO string (`YYYY-MM-DD`) from the calendar\'s date selection, never from typing. `locale` (`\'en-US\' | \'es-ES\' | \'fr-FR\' | \'de-DE\' | \'pt-BR\'`, default `\'en-US\'`) only affects the date picker\'s weekday labels, month/year header and "Today" button text — it does not affect number/currency formatting.',
     importPath: '@e-burgos/tucu-ui',
     variants: {
       variant: ['solid', 'ghost', 'transparent'],
     },
     example: `import { Input } from '@e-burgos/tucu-ui';
 
-<Input label="Email" placeholder="you@example.com" variant="ghost" />`,
+<Input label="Email" placeholder="you@example.com" variant="ghost" />
+
+<Input
+  label="Birth date"
+  type="date"
+  dateFormat="DD/MM/YYYY"
+  locale="es-ES"
+  value={value}
+  onChange={(e) => setValue(e.target.value)}
+/>`,
     relatedComponents: ['InputSearcher', 'Form'],
     themeAware: true,
+    warnings: [
+      '`type="date"` makes the visible input `readOnly` — typing a date is not possible, only picking one from the calendar dropdown updates the value.',
+      '`onChange` for `type="date"` always receives the ISO format (`YYYY-MM-DD`) regardless of `dateFormat`, which only controls the display string.',
+    ],
   },
   {
     name: 'InputSearcher',
@@ -297,9 +311,9 @@ export const componentRegistry: ComponentRegistryEntry[] = [
     example: `import { DataTable, Button, ListContainer } from '@e-burgos/tucu-ui';
 
 const columns = [
-  { header: 'ID', accessorKey: 'id' },
-  { header: 'Name', accessorKey: 'name' },
-  { header: 'Role', accessorKey: 'role' }
+  { id: 'id', header: 'ID', accessorKey: 'id' },
+  { id: 'name', header: 'Name', accessorKey: 'name' },
+  { id: 'role', header: 'Role', accessorKey: 'role' }
 ];
 
 const data = [
@@ -332,6 +346,9 @@ const rightActions = (
 />`,
     relatedComponents: ['BasicTable', 'DataTableComponent'],
     themeAware: true,
+    warnings: [
+      "Every column SHOULD declare an explicit `id` (not just `accessorKey`). Internally `initialColumnVisibility`/`initialColumnOrder` are built from the raw column defs as `acc[c?.id ?? ''] = c?.enableVisible ?? true` (ui/tucu-ui/src/datatable/hooks/useInitialState.tsx) — every column missing `id` collapses onto the same empty-string key, so `enableHideColumns` and the per-tableId persisted visibility/order state silently track only one of them.",
+    ],
   },
   {
     name: 'DataTableComponent',
@@ -352,15 +369,51 @@ const rightActions = (
     name: 'AdminLayout',
     category: 'layouts',
     description:
-      'Full admin layout with sidebar navigation, header, and content area.',
+      "Full admin layout with pinnable expandable sidebar, header, and content area. `isOpen`/`setIsOpen` (required) drive the mobile drawer. Sidebar pinning: `sidebarPinned` (controlled), `defaultSidebarPinned`, `onSidebarPinnedChange` — forwarded to the internal ExpandableSidebar's `pinned`/`defaultPinned`/`onPinnedChange`. In uncontrolled mode the pinned state persists automatically via the theme store. While pinned, the content area pads to the expanded sidebar width (288px xl / 320px 2xl) so it is never covered. `collapsedLogo` shows a distinct brand mark on the collapsed 96px rail.",
     importPath: '@e-burgos/tucu-ui',
-    example: `import { AdminLayout } from '@e-burgos/tucu-ui';
+    example: `import { useState } from 'react';
+import { AdminLayout } from '@e-burgos/tucu-ui';
 
-<AdminLayout menuItems={[{ label: 'Home', path: '/' }]}>
+const [isOpen, setIsOpen] = useState(false);
+
+<AdminLayout
+  logo={{ name: 'Acme', secondName: 'Admin' }}
+  collapsedLogo={{ name: 'A' }}
+  menuItems={[{ name: 'Home', path: '/' }]}
+  isOpen={isOpen}
+  setIsOpen={setIsOpen}
+  defaultSidebarPinned
+>
   <Outlet />
 </AdminLayout>`,
-    relatedComponents: ['MacOSLayout', 'ThemeProvider'],
+    relatedComponents: ['ExpandableSidebar', 'MacOSLayout', 'ThemeProvider'],
     themeAware: true,
+    warnings: [
+      '`isOpen` and `setIsOpen` are required — they drive the mobile drawer, not the desktop sidebar pin.',
+      'Menu items use `name`, not `label` (IMenuItem).',
+    ],
+  },
+  {
+    name: 'ExpandableSidebar',
+    category: 'layouts',
+    description:
+      "Collapsible sidebar rail (96px, 112px on 2xl) that expands on hover and can be pinned open via a subtle arrow toggle on its outer edge (aria-pressed, data-tucu=\"sidebar-pin\", titles 'Expand menu'/'Collapse menu'). Pin state: `pinned` (controlled), `defaultPinned`, `onPinnedChange`; uncontrolled mode persists automatically through useTheme().isSidebarPinned (theme-storage localStorage key). Hovering the edge toggle deliberately does not hover-expand the sidebar (the button would move away mid-click). `collapsedLogo` renders a distinct brand in the collapsed rail, falling back to `logo` with isoType. Items with `hide: true` are filtered individually; the active item highlights in both the collapsed rail and the expanded panel. Usually consumed through AdminLayout, which also pads its content while pinned.",
+    importPath: '@e-burgos/tucu-ui',
+    example: `import { ExpandableSidebar } from '@e-burgos/tucu-ui';
+
+<ExpandableSidebar
+  logo={{ name: 'Acme', secondName: 'Admin' }}
+  collapsedLogo={{ name: 'A' }}
+  menuItems={[{ name: 'Home', path: '/' }]}
+  defaultPinned
+  onPinnedChange={(pinned) => console.log('pinned:', pinned)}
+/>`,
+    relatedComponents: ['AdminLayout', 'MenuItem', 'Logo'],
+    themeAware: true,
+    warnings: [
+      'Standalone usage does not shift surrounding content while pinned — that adaptive padding lives in AdminLayout. Compose your own layout padding if you mount it directly.',
+      'Controlled `pinned` bypasses the built-in persistence — pair it with `onPinnedChange` and your own storage.',
+    ],
   },
   {
     name: 'MacOSLayout',
@@ -424,15 +477,61 @@ const rightActions = (
   {
     name: 'Drawer',
     category: 'dialogs',
-    description: 'Side panel that slides in from the edge of the screen.',
+    description:
+      "Side panel that slides in from the edge of the screen. Wraps DrawerContainer and adds the Sidebar/SidebarMenu chrome (title, close button, scrollable body, actionContent slot). `type` is REQUIRED — 'sidebar' renders plain content, 'sidebar-menu' renders menuItems as navigation. `setIsOpen` is also required: it is the real open/close channel. `onClose` only fires from the built-in close button, never from Esc or a backdrop click — those two only call `setIsOpen(false)` internally, so if you need a single close channel for all three (Esc, backdrop, button), use DrawerContainer directly instead.",
     importPath: '@e-burgos/tucu-ui',
-    example: `import { Drawer } from '@e-burgos/tucu-ui';
+    example: `import { useState } from 'react';
+import { Drawer } from '@e-burgos/tucu-ui';
 
-<Drawer isOpen={true} onClose={() => {}} position="right">
+const [isOpen, setIsOpen] = useState(false);
+
+<Drawer
+  type="sidebar"
+  isOpen={isOpen}
+  setIsOpen={setIsOpen}
+  position="right"
+  title="Details"
+>
   <p>Drawer content</p>
 </Drawer>`,
-    relatedComponents: ['Modal', 'ConfirmDialog'],
+    relatedComponents: ['DrawerContainer', 'Modal', 'ConfirmDialog'],
     themeAware: true,
+    warnings: [
+      "`type` is required ('sidebar' | 'sidebar-menu') — omitting it does not compile. `setIsOpen` is required too.",
+      '`onClose` does not cover Esc or backdrop dismissal, only the internal close button. Use `setIsOpen` if you need one channel for all three.',
+      'Does not expose `backdropClassName` — the backdrop always applies `bg-gray-700/10 backdrop-blur-xs` (except on macOS Tahoe layouts, where Drawer swaps in its own) and cannot be restyled through Drawer. Use DrawerContainer directly when the backdrop must not blur (e.g. a filter drawer over a data-heavy table).',
+    ],
+  },
+  {
+    name: 'DrawerContainer',
+    category: 'dialogs',
+    description:
+      'Headless sliding panel: the primitive Drawer wraps. Renders via createPortal into document.body and provides, with zero extra code: focus moved to the first focusable element on open (setTimeout(0)), a focus trap cycling Tab/Shift+Tab inside the panel, Esc closing (calls setIsOpen(false)), backdrop click closing (only when the click target is the backdrop itself, e.target === e.currentTarget), and focus returned to the previously focused element after the close transition (setTimeout(300)). Props: isOpen, setIsOpen, children, position ("left" default | "right"), backdrop (default true), backdropClassName. Use this instead of Drawer whenever you need to compose your own panel chrome or the backdrop must not blur (Drawer hardcodes its backdrop and does not expose backdropClassName).',
+    importPath: '@e-burgos/tucu-ui',
+    example: `import { useState } from 'react';
+import { DrawerContainer } from '@e-burgos/tucu-ui';
+
+const [isOpen, setIsOpen] = useState(false);
+
+<DrawerContainer
+  isOpen={isOpen}
+  setIsOpen={setIsOpen}
+  position="right"
+  backdropClassName="my-scrim"
+>
+  <div className="pointer-events-auto h-full w-96 bg-body p-6">
+    <p>Custom panel content</p>
+  </div>
+</DrawerContainer>`,
+    relatedComponents: ['Drawer', 'Sidebar', 'Modal'],
+    themeAware: true,
+    warnings: [
+      'The panel wrapper itself is `pointer-events-none` — your content container MUST set `pointer-events-auto` or the drawer renders correctly but is completely inert to clicks/focus (no visible bug, no console error).',
+      '`aria-label="Sidebar"` is hardcoded on the panel and there is no prop to override it (no `aria-label`/`aria-labelledby`/`id`). Workaround: render a visually-hidden heading as the first child of your content so it is the first thing announced after the dialog role.',
+      '`backdropClassName`, when set, REPLACES the default appearance classes (`bg-gray-700/10 backdrop-blur-xs`) but keeps positioning/transition (`fixed inset-0 w-screen h-dvh transition-opacity duration-300 ease-out`) — pass a class with no blur to get an opaque/no-filter scrim.',
+      '`backdrop={false}` removes the backdrop node entirely (unless `backdropClassName` is set), which also removes click-to-close — there is no way to keep click-to-close without some backdrop element.',
+      'Closing is driven only by `setIsOpen` (Esc, backdrop click, and any button you wire up all call the same setter) — there is no separate `onClose` callback.',
+    ],
   },
   {
     name: 'ConfirmDialog',

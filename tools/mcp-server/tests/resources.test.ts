@@ -13,11 +13,13 @@ import { getMigrationContent } from '../src/resources/migration.js';
 import { getBestPracticesContent } from '../src/resources/best-practices.js';
 import { getChangelogContent } from '../src/resources/changelog.js';
 import { getQuickStartContent } from '../src/resources/quickstart.js';
+import { getStylingOverridesContent } from '../src/resources/styling-overrides.js';
+import { getShellContent } from '../src/resources/shell.js';
 
 // ─── Resource Registry ──────────────────────────────────────────────────────
 describe('Resource Registry', () => {
-  it('registers exactly 13 resources', () => {
-    expect(resources).toHaveLength(13);
+  it('registers exactly 15 resources', () => {
+    expect(resources).toHaveLength(15);
   });
 
   it('all resources have tucu:// URIs', () => {
@@ -63,6 +65,8 @@ describe('Resource Content', () => {
     { name: 'best-practices', fn: getBestPracticesContent },
     { name: 'changelog', fn: getChangelogContent },
     { name: 'quickstart', fn: getQuickStartContent },
+    { name: 'styling-overrides', fn: getStylingOverridesContent },
+    { name: 'shell', fn: getShellContent },
   ];
 
   it('all resources return non-empty content', () => {
@@ -192,6 +196,79 @@ describe('Resource Content', () => {
     expect(content).toContain('pnpm add @e-burgos/tucu-ui');
     expect(content).toContain('ThemeProvider');
     expect(content).toContain('variant="solid"');
+  });
+
+  it('catalog includes DrawerContainer', () => {
+    const content = getCatalogContent();
+    expect(content).toContain('DrawerContainer');
+  });
+
+  it('catalog documents the required Drawer type prop', () => {
+    const content = getCatalogContent();
+    expect(content).toContain('Drawer');
+    expect(content).toMatch(/Drawer.*REQUIRED/s);
+  });
+
+  it('forms documents the DrawerContainer programmatic-submit pattern', () => {
+    const content = getFormsContent();
+    expect(content).toContain('useFormContext');
+    expect(content).toContain('DrawerContainer');
+    expect(content).toContain('handleSubmit');
+  });
+
+  it('styling-overrides contains the data-tucu anchor map and specificity rule', () => {
+    const content = getStylingOverridesContent();
+    expect(content).toContain('data-tucu');
+    expect(content).toContain('specificity');
+    expect(content).toContain('expandable-sidebar');
+    expect(content).toContain('DrawerContainer');
+  });
+
+  it('styling-overrides documents components with no styling hook', () => {
+    const content = getStylingOverridesContent();
+    expect(content).toContain('CleanLayout');
+    expect(content).toContain('ThemeWrapper');
+    expect(content).toContain('--color-table-');
+  });
+
+  it('shell documents the internal BrowserRouter and real scroll container', () => {
+    const content = getShellContent();
+    expect(content).toContain('BrowserRouter');
+    expect(content).toContain('overflow-y-auto');
+    expect(content).toContain('bg-body');
+    expect(content).toContain('rightButton');
+  });
+
+  it('shell documents cross-app full-page navigation', () => {
+    const content = getShellContent();
+    expect(content).toContain('isExternalUrl');
+    expect(content).toContain('https?');
+  });
+
+  it('theme documents customPaletteColor and its blast radius', () => {
+    const content = getThemeContent();
+    expect(content).toContain('customPaletteColor');
+    expect(content).toContain('Blast radius');
+    expect(content).toContain('successPreset');
+    expect(content).toContain('borderPreset');
+  });
+
+  it('tokens documents bg-body as the real page background and no ghost tokens', () => {
+    const content = getTokensContent();
+    expect(content).toContain('bg-body');
+    expect(content).toContain('bg-light-dark');
+    expect(content).toContain('46 entries');
+    // Ghost tokens must not be published as real table rows / usage examples
+    expect(content).not.toContain('| \`bg-background\`');
+    expect(content).not.toContain('| \`bg-destructive\`');
+    expect(content).not.toContain('text-muted-foreground');
+    expect(content).not.toContain('text-primary-foreground');
+  });
+
+  it('layouts documents the pinnable sidebar and collapsedLogo', () => {
+    const content = getLayoutsContent();
+    expect(content).toContain('sidebar-pin');
+    expect(content).toContain('collapsedLogo');
   });
 
   it('no resource recommends invalid variants as correct usage', () => {

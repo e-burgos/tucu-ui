@@ -86,6 +86,58 @@ describe('Component Registry', () => {
     expect(dtComp!.category).toBe('tables');
     expect(dtComp!.example).toContain('<DataTableComponent');
   });
+
+  it('DataTable warns that every column needs an id', () => {
+    const datatable = getComponentByName('DataTable');
+    expect(datatable!.warnings).toBeDefined();
+    expect(datatable!.warnings!.some((w) => w.includes('id'))).toBe(true);
+    expect(datatable!.example).toContain("id: 'name'");
+  });
+
+  it('DrawerContainer is registered under dialogs with real props and behaviors', () => {
+    const drawerContainer = getComponentByName('DrawerContainer');
+    expect(drawerContainer).toBeDefined();
+    expect(drawerContainer!.category).toBe('dialogs');
+    expect(drawerContainer!.example).toContain('DrawerContainer');
+    expect(drawerContainer!.example).toContain('isOpen');
+    expect(drawerContainer!.example).toContain('setIsOpen');
+    expect(drawerContainer!.description).toContain('createPortal');
+    expect(
+      drawerContainer!.warnings!.some((w) => w.includes('pointer-events'))
+    ).toBe(true);
+  });
+
+  it('Drawer example compiles: includes the required type and setIsOpen props', () => {
+    const drawer = getComponentByName('Drawer');
+    expect(drawer).toBeDefined();
+    expect(drawer!.example).toMatch(/type=["']sidebar(-menu)?["']/);
+    expect(drawer!.example).toContain('setIsOpen');
+    expect(drawer!.relatedComponents).toContain('DrawerContainer');
+  });
+
+  it('ExpandableSidebar is registered with the pinning API', () => {
+    const sidebar = getComponentByName('ExpandableSidebar');
+    expect(sidebar).toBeDefined();
+    expect(sidebar!.category).toBe('layouts');
+    expect(sidebar!.description).toContain('pinned');
+    expect(sidebar!.description).toContain('collapsedLogo');
+    expect(sidebar!.example).toContain('onPinnedChange');
+  });
+
+  it('AdminLayout example compiles: includes required isOpen/setIsOpen and pinning props', () => {
+    const adminLayout = getComponentByName('AdminLayout');
+    expect(adminLayout!.example).toContain('isOpen');
+    expect(adminLayout!.example).toContain('setIsOpen');
+    expect(adminLayout!.description).toContain('sidebarPinned');
+    expect(adminLayout!.relatedComponents).toContain('ExpandableSidebar');
+  });
+
+  it('Drawer warns about onClose not covering Esc/backdrop', () => {
+    const drawer = getComponentByName('Drawer');
+    expect(drawer!.warnings!.some((w) => w.toLowerCase().includes('esc'))).toBe(
+      true
+    );
+  });
 });
 
 describe('Component Tools Registration', () => {

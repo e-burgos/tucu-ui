@@ -5,7 +5,10 @@ import cn from 'classnames';
 import Logo, { LogoPropTypes } from '../../logos/logo';
 import Button from '../../buttons/button';
 import { Close } from '../../icons/close';
+import { ChevronLeft } from '../../icons/chevron-left';
+import { ChevronRight } from '../../icons/chevron-right';
 import { useIsMobile, useClickAway } from '../../../hooks';
+import { useTheme } from '../../../themes/hooks/use-theme';
 import { TagIcon } from '../../icons/tag-icon';
 import { MenuItem, IMenuItem } from '../menus/menu-item';
 
@@ -29,22 +32,57 @@ const sideBarMenuItems = (menuItems: IMenuItem[]) =>
     }),
   }));
 
-export function ExpandableSidebar({
-  logo,
-  className,
-  menuItems,
-}: {
+export interface ExpandableSidebarProps {
   logo?: LogoPropTypes;
+  /**
+   * Logo rendered in the collapsed rail when provided. Falls back to the
+   * default `isoType` rendering of `logo` when omitted.
+   */
+  collapsedLogo?: LogoPropTypes;
   className?: string;
   menuItems: IMenuItem[];
-}) {
+  /**
+   * Controlled pinned state. When set, the edge toggle and the persisted
+   * store value are ignored in favor of this value, and persistence
+   * becomes the consumer's responsibility (pair with `onPinnedChange`).
+   */
+  pinned?: boolean;
+  /**
+   * Initial pinned state for uncontrolled usage, honored until the user
+   * toggles for the first time. In uncontrolled mode the pinned state is
+   * persisted automatically through the theme store (`localStorage`,
+   * `theme-storage` key). Ignored when `pinned` is provided.
+   */
+  defaultPinned?: boolean;
+  /**
+   * Called with the next pinned state on every toggle, both controlled
+   * and uncontrolled. Pair with `pinned` to persist the choice.
+   */
+  onPinnedChange?: (pinned: boolean) => void;
+}
+
+export function ExpandableSidebar({
+  logo,
+  collapsedLogo,
+  className,
+  menuItems,
+  pinned,
+  defaultPinned = false,
+  onPinnedChange,
+}: ExpandableSidebarProps) {
   const pathname = useLocation().pathname;
   const [open, setOpen] = useState(false);
+  const { isSidebarPinned, setIsSidebarPinned } = useTheme();
+  const isPinned =
+    pinned !== undefined ? pinned : isSidebarPinned ?? defaultPinned;
+  const isOpen = open || isPinned;
   const { isMobile } = useIsMobile();
 
   const ref = useRef<HTMLElement>(null);
   useClickAway(ref, () => {
-    setOpen(false);
+    if (!isPinned) {
+      setOpen(false);
+    }
   });
 
   useEffect(() => {
@@ -52,52 +90,99 @@ export function ExpandableSidebar({
       setTimeout(() => {
         setOpen(true);
       }, 100);
-    } else {
+    } else if (!isPinned) {
       setTimeout(() => {
         setOpen(false);
       }, 100);
     }
-  }, [isMobile]);
+  }, [isMobile, isPinned]);
+
+  // The edge toggle flips the persistent pinned state — never the transient
+  // hover state. Reaching the button with a pointer already hover-expands the
+  // sidebar, so keying the toggle on the visual open state would make it
+  // collapse on every click and never pin. Unpinning also closes any
+  // hover-expansion immediately so the click collapses the rail in place.
+  function togglePinned() {
+    const nextPinned = !isPinned;
+    if (pinned === undefined) {
+      setIsSidebarPinned(nextPinned);
+    }
+    if (!nextPinned) {
+      setOpen(false);
+    }
+    onPinnedChange?.(nextPinned);
+  }
 
   function isSubMenuActive(submenu: IMenuItem[]) {
     return submenu?.map((item) => item.href).includes(pathname);
   }
 
+  // Hover-expansion must not fire when the pointer arrives over the edge
+  // toggle: expanding would move the button to the new edge mid-aim, making
+  // it impossible to click. Entering through any other part of the rail
+  // expands as usual.
+  function isEdgeToggleTarget(e: { target: EventTarget }) {
+    return (
+      e.target instanceof Element &&
+      !!e.target.closest('[data-tucu="sidebar-pin"]')
+    );
+  }
+
+  const items = sideBarMenuItems(menuItems).filter((item) => !item.hide);
+
   return (
     <aside
       ref={ref}
       data-tucu="expandable-sidebar"
-      onMouseEnter={() => setOpen(true)}
-      onMouseLeave={() => setOpen(false)}
-      onTouchStart={() => setOpen(true)}
+      onMouseEnter={(e) => !isEdgeToggleTarget(e) && setOpen(true)}
+      onMouseLeave={() => !isPinned && setOpen(false)}
+      onTouchStart={(e) => !isEdgeToggleTarget(e) && setOpen(true)}
       className={cn(
-        open
+        isOpen
           ? 'ltr:border-r rtl:border-l border-dashed border-border min-[500px]:w-[320px] xl:w-[288px] 2xl:w-[320px] bg-light-dark'
           : 'w-[96px] border-dashed border-border ltr:border-r rtl:border-l 2xl:w-[112px]',
-        'top-0 z-40 h-full max-w-full duration-200 ltr:left-0 rtl:right-0 dark:border-border xl:fixed bg-light-dark',
+        'relative top-0 z-40 h-full max-w-full duration-200 ltr:left-0 rtl:right-0 dark:border-border xl:fixed bg-light-dark',
         className
       )}
     >
+      <button
+        type="button"
+        title={isPinned ? 'Collapse menu' : 'Expand menu'}
+        aria-pressed={isPinned}
+        data-tucu="sidebar-pin"
+        onClick={togglePinned}
+        className="absolute top-[36px] z-50 flex h-[24px] w-[24px] items-center justify-center rounded-full border border-border bg-light-dark text-gray-400 opacity-60 shadow-sm transition-all duration-200 hover:opacity-100 hover:text-brand ltr:-right-[12px] rtl:-left-[12px]"
+      >
+        {isPinned ? (
+          <ChevronLeft className="h-auto w-[11px] rtl:rotate-180" />
+        ) : (
+          <ChevronRight className="h-auto w-[11px] rtl:rotate-180" />
+        )}
+      </button>
       <div
         className={cn(
           'relative flex h-[96px] items-center  overflow-hidden px-[24px] py-[16px] pt-[0px] 2xl:px-[32px] min-[1780px]:pt-[24px]',
-          open ? 'flex-start' : 'justify-center'
+          isOpen ? 'flex-start' : 'justify-center'
         )}
       >
-        {!open ? (
+        {!isOpen ? (
           <div onClick={() => setOpen(!open)}>
-            <Logo
-              {...(logo as LogoPropTypes)}
-              isoType={true}
-              name={''}
-              secondName={''}
-            />
+            {collapsedLogo ? (
+              <Logo {...(collapsedLogo as LogoPropTypes)} />
+            ) : (
+              <Logo
+                {...(logo as LogoPropTypes)}
+                isoType={true}
+                name={''}
+                secondName={''}
+              />
+            )}
           </div>
         ) : (
           <Logo {...(logo as LogoPropTypes)} />
         )}
 
-        {open && (
+        {isOpen && (
           <div className="md:hidden">
             <Button
               title="Close"
@@ -116,60 +201,60 @@ export function ExpandableSidebar({
       <div
         className={cn(
           'custom-scrollbar -mt-[16px] overflow-hidden overflow-y-auto 2xl:-mt-[28px]',
-          open ? 'h-[calc(100%-190px)]' : 'h-[calc(100%-170px)]'
+          isOpen ? 'h-[calc(100%-190px)]' : 'h-[calc(100%-170px)]'
         )}
       >
         <div className="px-[24px] pb-[20px] 2xl:px-[32px]">
-          {!open ? (
+          {!isOpen ? (
             <div
               className="mt-[20px] 2xl:mt-[32px]"
               onClick={() => setOpen(!open)}
             >
-              {sideBarMenuItems(menuItems)?.length &&
-                !sideBarMenuItems(menuItems).some((item) => item.hide) &&
-                sideBarMenuItems(menuItems).map((item, index) => (
-                  <MenuItem
-                    path={item.path}
-                    onClick={item.onClick}
-                    isActive={
-                      item.href === pathname ||
-                      (item.dropdownItems &&
-                        isSubMenuActive(item.dropdownItems))
-                    }
-                    key={'drawer' + item.name + index}
-                    href={item.href}
-                    name={''}
-                    icon={
-                      <span className="w-[24px] h-[24px] flex items-center justify-center">
-                        {item?.icon || <TagIcon />}
-                      </span>
-                    }
-                  />
-                ))}
+              {items.map((item, index) => (
+                <MenuItem
+                  path={item.path}
+                  onClick={item.onClick}
+                  isActive={
+                    item.href === pathname ||
+                    (item.dropdownItems && isSubMenuActive(item.dropdownItems))
+                  }
+                  key={'drawer' + item.name + index}
+                  href={item.href}
+                  name={''}
+                  icon={
+                    <span className="w-[24px] h-[24px] flex items-center justify-center">
+                      {item?.icon || <TagIcon />}
+                    </span>
+                  }
+                />
+              ))}
             </div>
           ) : (
             <div className="mt-[20px] 2xl:mt-[32px]">
-              {sideBarMenuItems(menuItems)?.length &&
-                sideBarMenuItems(menuItems).map((item, index) => (
-                  <MenuItem
-                    path={item.path}
-                    // The consumer's handler runs first; collapsing the
-                    // sidebar is layered on top of it, it does not replace it.
-                    onClick={() => {
-                      item.onClick?.();
-                      setOpen(false);
-                    }}
-                    key={'drawer-full' + item.name + index}
-                    name={item.name}
-                    href={item?.href}
-                    icon={
-                      <span className="w-[24px] h-[24px] flex items-center justify-center">
-                        {item?.icon || <TagIcon />}
-                      </span>
-                    }
-                    dropdownItems={item?.dropdownItems}
-                  />
-                ))}
+              {items.map((item, index) => (
+                <MenuItem
+                  path={item.path}
+                  isActive={
+                    item.href === pathname ||
+                    (item.dropdownItems && isSubMenuActive(item.dropdownItems))
+                  }
+                  // The consumer's handler runs first; collapsing the
+                  // sidebar is layered on top of it, it does not replace it.
+                  onClick={() => {
+                    item.onClick?.();
+                    setOpen(false);
+                  }}
+                  key={'drawer-full' + item.name + index}
+                  name={item.name}
+                  href={item?.href}
+                  icon={
+                    <span className="w-[24px] h-[24px] flex items-center justify-center">
+                      {item?.icon || <TagIcon />}
+                    </span>
+                  }
+                  dropdownItems={item?.dropdownItems}
+                />
+              ))}
             </div>
           )}
         </div>
@@ -177,10 +262,10 @@ export function ExpandableSidebar({
       <div
         className={cn(
           'sticky bottom-[20px] mt-[12px] 2xl:mt-[48px]',
-          open && 'px-[32px]'
+          isOpen && 'px-[32px]'
         )}
       >
-        {!open && (
+        {!isOpen && (
           <motion.div
             initial={{ x: 50, y: -5 }}
             animate={{

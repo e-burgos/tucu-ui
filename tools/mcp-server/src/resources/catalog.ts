@@ -72,8 +72,8 @@ import { Button, CardContainer, Form, Input, Select, ThemeProvider, useTheme, us
 | Component | Description |
 |-----------|-------------|
 | Modal | Portal modal with backdrop, escape |
-| Drawer | Configurable side drawer |
-| DrawerContainer | Sliding portal container |
+| Drawer | Side drawer — \`type\` prop is REQUIRED ('sidebar' \\| 'sidebar-menu'), and so is \`setIsOpen\`; wraps DrawerContainer + Sidebar/SidebarMenu chrome |
+| DrawerContainer | Headless portal container: focus trap, Esc, backdrop click, focus return, \`backdropClassName\` override — use this instead of Drawer when you need a custom panel or a non-blurred backdrop |
 | Sidebar | Generic sidebar with scroll |
 | SidebarMenu | Sidebar with navigation menu |
 | TabModal | Portal modal with tab bar |
@@ -101,6 +101,13 @@ import { Button, CardContainer, Form, Input, Select, ThemeProvider, useTheme, us
 
 **Input Variants:** "ghost" | "solid" | "transparent"
 
+**Input notes:** \`icon\` renders in a 40px slot and auto-adds \`pl-[40px]\` to the
+field — no manual padding needed. \`type="date"\` renders a fully custom picker: the
+visible input becomes \`readOnly\` (typing is disabled, only the calendar dropdown sets
+the value) and \`onChange\` always receives ISO format (\`YYYY-MM-DD\`) regardless of
+\`dateFormat\`, which only controls the displayed string. \`locale\` only affects the date
+picker's weekday/month labels and its "Today" button text.
+
 ### Notifications
 | Component | Description |
 |-----------|-------------|
@@ -117,7 +124,7 @@ import { Button, CardContainer, Form, Input, Select, ThemeProvider, useTheme, us
 
 **DataTable Key Props:**
 - \`tableId\`: string (required unique key for state persistence)
-- \`columns\`: Array of ColumnDef
+- \`columns\`: Array of ColumnDef — every column SHOULD declare an explicit \`id\` (not just \`accessorKey\`); columns without it collapse onto the same internal empty-string visibility/order key and break \`enableHideColumns\`/persistence for each other
 - \`data\`: Array of objects
 - \`showHeader\`: boolean (default: \`true\`)
 - \`showFooter\`: boolean (default: \`true\`)
@@ -153,7 +160,8 @@ actions/selection semantics, export flags, theming, gotchas), and the
 | Component | Description |
 |-----------|-------------|
 | RootLayout | Main layout orchestrator |
-| AdminLayout | Collapsible sidebar + fixed header |
+| AdminLayout | Pinnable expandable sidebar + fixed header; content pads to the pinned sidebar width; pin state persists automatically (see \`tucu://layouts\`) |
+| ExpandableSidebar | The pinnable hover-expand sidebar itself — edge arrow toggle, \`collapsedLogo\`, controlled/uncontrolled pin API |
 | CleanLayout | Minimal layout without nav |
 | HorizontalLayout | Top horizontal navigation |
 | MacOSLayout | macOS-style sidebar + toolbar |

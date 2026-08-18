@@ -1,8 +1,13 @@
-import { describe, it, expect, vi } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { render, screen, fireEvent } from '@testing-library/react';
 import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
 import { AdminLayout } from '../../components/layouts/admin-layout';
+import { useTheme } from '../../themes/hooks/use-theme';
+
+beforeEach(() => {
+  useTheme.setState({ isSidebarPinned: undefined });
+});
 
 vi.mock('framer-motion', () => ({
   motion: {
@@ -106,5 +111,77 @@ describe('AdminLayout', () => {
       </MemoryRouter>
     );
     expect(screen.getByText('Action')).toBeInTheDocument();
+  });
+
+  it('CA-7: forwards collapsedLogo to the sidebar collapsed rail', () => {
+    render(
+      <MemoryRouter>
+        <AdminLayout
+          {...defaultProps}
+          collapsedLogo={{
+            logo: <span data-testid="collapsed-logo-marker">CL</span>,
+          }}
+        >
+          Content
+        </AdminLayout>
+      </MemoryRouter>
+    );
+    expect(screen.getByTestId('collapsed-logo-marker')).toBeInTheDocument();
+  });
+
+  it('CA-7: forwards sidebarPinned and onSidebarPinnedChange to the sidebar pin control', () => {
+    const onSidebarPinnedChange = vi.fn();
+    const { container } = render(
+      <MemoryRouter>
+        <AdminLayout
+          {...defaultProps}
+          sidebarPinned={true}
+          onSidebarPinnedChange={onSidebarPinnedChange}
+        >
+          Content
+        </AdminLayout>
+      </MemoryRouter>
+    );
+    const pinButton = container.querySelector('[data-tucu="sidebar-pin"]');
+    expect(pinButton).toHaveAttribute('aria-pressed', 'true');
+
+    fireEvent.click(pinButton as HTMLElement);
+    expect(onSidebarPinnedChange).toHaveBeenCalledWith(false);
+  });
+
+  it('CA-7: forwards defaultSidebarPinned for uncontrolled pin state', () => {
+    const { container } = render(
+      <MemoryRouter>
+        <AdminLayout {...defaultProps} defaultSidebarPinned>
+          Content
+        </AdminLayout>
+      </MemoryRouter>
+    );
+    const pinButton = container.querySelector('[data-tucu="sidebar-pin"]');
+    expect(pinButton).toHaveAttribute('aria-pressed', 'true');
+  });
+
+  it('pads the content for the expanded sidebar width while pinned', () => {
+    const { container } = render(
+      <MemoryRouter>
+        <AdminLayout {...defaultProps} sidebarPinned={true}>
+          Content
+        </AdminLayout>
+      </MemoryRouter>
+    );
+    const root = container.querySelector('[data-tucu="admin-layout"]');
+    expect(root).toHaveClass('xl:ltr:pl-[288px]');
+    expect(root).not.toHaveClass('xl:ltr:pl-[96px]');
+  });
+
+  it('keeps the collapsed-rail padding while unpinned', () => {
+    const { container } = render(
+      <MemoryRouter>
+        <AdminLayout {...defaultProps}>Content</AdminLayout>
+      </MemoryRouter>
+    );
+    const root = container.querySelector('[data-tucu="admin-layout"]');
+    expect(root).toHaveClass('xl:ltr:pl-[96px]');
+    expect(root).not.toHaveClass('xl:ltr:pl-[288px]');
   });
 });

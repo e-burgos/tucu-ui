@@ -69,7 +69,7 @@ const ThemeConfigurationSection: React.FC = () => {
     <>
       <HeroCard
         title="Theme Configuration"
-        description="All available configuration options and the 34 color presets that power the theming system."
+        description="All available configuration options and the 46 color presets that power the theming system."
         icon={
           <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 bg-linear-to-br from-emerald-500 via-teal-500 to-cyan-500 rounded-full flex items-center justify-center shadow-lg">
             <LucideIcons.Settings className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 text-white filter drop-shadow-lg" />
