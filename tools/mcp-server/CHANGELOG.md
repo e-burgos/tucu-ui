@@ -4,6 +4,18 @@ All notable changes to `@e-burgos/tucu-ui-mcp` will be documented in this file.
 
 <!-- Last updated: 2026-06-02 -->
 
+## [0.7.0] - 2026-08-18
+
+### Added
+
+- index ExpandableSidebar and sync AdminLayout catalog entry with pinning API
+- sidebar edge toggle with built-in persistence and adaptive content padding — Spec 07 rev 1.1
+- document tucu-ui integration reality — styling-overrides and shell resources, catalog gaps closed — Spec 08
+- add generate_datatable tool and tucu://datatable resource — Spec 06
+
+### Fixed
+
+- preserve item onClick handlers in menus and list container
 ## [0.6.3] - 2026-08-01
 
 ### Changed
