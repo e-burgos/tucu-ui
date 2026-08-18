@@ -551,16 +551,18 @@ ${fieldLines.join('\n')}
             imports.add('Card');
             break;
           case 'list':
-            imports.add('List');
-            imports.add('ListItem');
+            imports.add('ListContainer');
             imports.add('Card');
             sectionCode.push(`      {/* List Section */}
       <Card title="${section.title || 'Items'}">
-        <List>
-          <ListItem>Item 1</ListItem>
-          <ListItem>Item 2</ListItem>
-          <ListItem>Item 3</ListItem>
-        </List>
+        <ListContainer
+          trigger="click"
+          items={[
+            { id: '1', label: 'Item 1', onClick: () => {} },
+            { id: '2', label: 'Item 2', onClick: () => {} },
+            { id: '3', label: 'Item 3', onClick: () => {} },
+          ]}
+        />
       </Card>`);
             break;
         }

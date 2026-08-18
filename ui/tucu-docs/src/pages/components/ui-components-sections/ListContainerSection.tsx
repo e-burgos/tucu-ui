@@ -13,25 +13,26 @@ import { AutoPropsTable } from '@tucu-ui-internal/docs-kit/components/auto-props
 import { PropPlayground } from '@tucu-ui-internal/docs-kit/components/prop-playground';
 const ListContainerSection: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [lastAction, setLastAction] = useState<string | null>(null);
 
   const listItems = [
     {
       id: '1',
       label: 'Edit',
       icon: <LucideIcons.Edit className="w-4 h-4" />,
-      onClick: () => console.log('Edit clicked'),
+      onClick: () => setLastAction('Edit'),
     },
     {
       id: '2',
       label: 'Delete',
       icon: <LucideIcons.Trash className="w-4 h-4" />,
-      onClick: () => console.log('Delete clicked'),
+      onClick: () => setLastAction('Delete'),
     },
     {
       id: '3',
       label: 'Share',
       icon: <LucideIcons.Share className="w-4 h-4" />,
-      onClick: () => console.log('Share clicked'),
+      onClick: () => setLastAction('Share'),
     },
   ];
 
@@ -88,6 +89,31 @@ const ListContainerSection: React.FC = () => {
                   <ListContainer items={listItems} position="left" />
                 </div>
               </CardContainer>
+              <CardContainer className="p-4 md:col-span-2">
+                <Typography tag="h5" className="mb-3">
+                  Item onClick Contract
+                </Typography>
+                <Typography tag="p" className="mb-3 text-sm">
+                  The item&apos;s own <code>onClick</code> always runs when it
+                  is selected, in every example on this page. Whether the
+                  dropdown closes afterwards depends on the container: with{' '}
+                  <code>trigger=&quot;click&quot;</code> it closes on selection
+                  unless <code>keepOpen</code> is set, and with{' '}
+                  <code>trigger=&quot;hover&quot;</code> it stays open and
+                  closes when the pointer leaves.
+                </Typography>
+                <div className="flex items-center gap-4">
+                  <ListContainer
+                    items={listItems}
+                    trigger="click"
+                    label="Choose an action"
+                  />
+                  <Typography tag="p" className="text-sm">
+                    Last action:{' '}
+                    <span className="font-semibold">{lastAction ?? '—'}</span>
+                  </Typography>
+                </div>
+              </CardContainer>
             </div>
           </div>
         </CardTitle>
@@ -116,18 +142,21 @@ const ListContainerSection: React.FC = () => {
             {...props}
             items={[
               {
+                id: '1',
                 label: 'Option 1',
                 onClick: () => {
                   /* noop */
                 },
               },
               {
+                id: '2',
                 label: 'Option 2',
                 onClick: () => {
                   /* noop */
                 },
               },
               {
+                id: '3',
                 label: 'Option 3',
                 onClick: () => {
                   /* noop */
@@ -182,7 +211,12 @@ const items = [
 // Different positions
 <ListContainer items={items} position="top" />
 <ListContainer items={items} position="right" />
-<ListContainer items={items} position="bottom" />`}
+<ListContainer items={items} position="bottom" />
+
+// The item's own onClick always runs on selection.
+// trigger="click": the dropdown closes after selecting, unless keepOpen is set.
+// trigger="hover": it stays open and closes on mouse leave (after closeDelay).
+<ListContainer items={items} trigger="click" keepOpen />`}
             />
           </div>
         </CardTitle>

@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
 import { ExpandableSidebar } from '../../components/layouts/menus/expandable-sidebar';
@@ -60,5 +60,51 @@ describe('ExpandableSidebar', () => {
     expect(
       container.querySelector('[data-tucu="expandable-sidebar"]')
     ).toHaveClass('sidebar-cls');
+  });
+
+  it('runs the item own onClick when selecting an item in the expanded state', () => {
+    const onItemClick = vi.fn();
+    const { container } = render(
+      <MemoryRouter>
+        <ExpandableSidebar
+          menuItems={[
+            { name: 'Dashboard', path: '/dashboard', onClick: onItemClick },
+          ]}
+        />
+      </MemoryRouter>
+    );
+    const sidebar = container.querySelector('[data-tucu="expandable-sidebar"]');
+    if (!sidebar) throw new Error('Expected the sidebar to render');
+    fireEvent.mouseEnter(sidebar);
+    fireEvent.click(screen.getByText('Dashboard'));
+    expect(onItemClick).toHaveBeenCalledTimes(1);
+  });
+
+  it('runs the dropdown item own onClick when selecting a subitem', () => {
+    const onSubItemClick = vi.fn();
+    const { container } = render(
+      <MemoryRouter>
+        <ExpandableSidebar
+          menuItems={[
+            {
+              name: 'Settings',
+              path: '/settings',
+              dropdownItems: [
+                {
+                  name: 'Profile',
+                  path: '/settings/profile',
+                  onClick: onSubItemClick,
+                },
+              ],
+            },
+          ]}
+        />
+      </MemoryRouter>
+    );
+    const sidebar = container.querySelector('[data-tucu="expandable-sidebar"]');
+    if (!sidebar) throw new Error('Expected the sidebar to render');
+    fireEvent.mouseEnter(sidebar);
+    fireEvent.click(screen.getByText('Profile'));
+    expect(onSubItemClick).toHaveBeenCalledTimes(1);
   });
 });

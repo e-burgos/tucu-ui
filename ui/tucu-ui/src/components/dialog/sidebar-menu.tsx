@@ -94,7 +94,12 @@ export function SidebarMenu({
             {sidebarMenu &&
               sidebarMenu.map((item, index) => (
                 <MenuItem
-                  onClick={onClose}
+                  // The consumer's handler runs first; closing the sidebar is
+                  // layered on top of it, it does not replace it.
+                  onClick={() => {
+                    item.onClick?.();
+                    onClose();
+                  }}
                   key={`menu-item-${index}`}
                   name={item.name}
                   path={item.path}
@@ -106,7 +111,10 @@ export function SidebarMenu({
                     item.dropdownItems &&
                     item.dropdownItems.map((dropdownItem) => ({
                       ...dropdownItem,
-                      onClick: onClose,
+                      onClick: () => {
+                        dropdownItem.onClick?.();
+                        onClose();
+                      },
                     }))
                   }
                 />
@@ -184,7 +192,12 @@ export function SidebarMenu({
           {sidebarMenu &&
             sidebarMenu.map((item, index) => (
               <MenuItem
-                onClick={onClose}
+                // The consumer's handler runs first; closing the sidebar is
+                // layered on top of it, it does not replace it.
+                onClick={() => {
+                  item.onClick?.();
+                  onClose();
+                }}
                 key={`menu-item-${index}`}
                 name={item.name}
                 path={item.path}
@@ -196,7 +209,10 @@ export function SidebarMenu({
                   item.dropdownItems &&
                   item.dropdownItems.map((dropdownItem) => ({
                     ...dropdownItem,
-                    onClick: onClose,
+                    onClick: () => {
+                      dropdownItem.onClick?.();
+                      onClose();
+                    },
                   }))
                 }
               />
