@@ -10,16 +10,35 @@ interface AdminLayoutProps {
   menuItems: IMenuItem[];
   rightButton?: React.ReactNode;
   logo?: LogoPropTypes;
+  /**
+   * Logo forwarded to the sidebar's collapsed rail. See
+   * `ExpandableSidebar`'s `collapsedLogo` prop.
+   */
+  collapsedLogo?: LogoPropTypes;
   className?: string;
   isOpen: boolean;
   headerClassName?: string;
   contentClassName?: string;
   fullWidth?: boolean;
   setIsOpen: (isOpen: boolean) => void;
+  /**
+   * Controlled pinned state forwarded to the sidebar's `pinned` prop.
+   * Persisting the pinned state is the consumer's responsibility.
+   */
+  sidebarPinned?: boolean;
+  /**
+   * Initial pinned state forwarded to the sidebar's `defaultPinned` prop.
+   */
+  defaultSidebarPinned?: boolean;
+  /**
+   * Forwarded to the sidebar's `onPinnedChange` prop.
+   */
+  onSidebarPinnedChange?: (pinned: boolean) => void;
 }
 
 export function AdminLayout({
   logo,
+  collapsedLogo,
   children,
   menuItems,
   rightButton,
@@ -29,6 +48,9 @@ export function AdminLayout({
   contentClassName,
   fullWidth = false,
   setIsOpen,
+  sidebarPinned,
+  defaultSidebarPinned,
+  onSidebarPinnedChange,
 }: AdminLayoutProps) {
   return (
     <div
@@ -47,8 +69,12 @@ export function AdminLayout({
       />
       <ExpandableSidebar
         logo={logo}
+        collapsedLogo={collapsedLogo}
         className="hidden xl:block"
         menuItems={menuItems}
+        pinned={sidebarPinned}
+        defaultPinned={defaultSidebarPinned}
+        onPinnedChange={onSidebarPinnedChange}
       />
       <Drawer
         type="sidebar-menu"
