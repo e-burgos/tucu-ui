@@ -160,7 +160,8 @@ actions/selection semantics, export flags, theming, gotchas), and the
 | Component | Description |
 |-----------|-------------|
 | RootLayout | Main layout orchestrator |
-| AdminLayout | Collapsible sidebar + fixed header |
+| AdminLayout | Pinnable expandable sidebar + fixed header; content pads to the pinned sidebar width; pin state persists automatically (see \`tucu://layouts\`) |
+| ExpandableSidebar | The pinnable hover-expand sidebar itself — edge arrow toggle, \`collapsedLogo\`, controlled/uncontrolled pin API |
 | CleanLayout | Minimal layout without nav |
 | HorizontalLayout | Top horizontal navigation |
 | MacOSLayout | macOS-style sidebar + toolbar |

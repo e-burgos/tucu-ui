@@ -115,6 +115,23 @@ describe('Component Registry', () => {
     expect(drawer!.relatedComponents).toContain('DrawerContainer');
   });
 
+  it('ExpandableSidebar is registered with the pinning API', () => {
+    const sidebar = getComponentByName('ExpandableSidebar');
+    expect(sidebar).toBeDefined();
+    expect(sidebar!.category).toBe('layouts');
+    expect(sidebar!.description).toContain('pinned');
+    expect(sidebar!.description).toContain('collapsedLogo');
+    expect(sidebar!.example).toContain('onPinnedChange');
+  });
+
+  it('AdminLayout example compiles: includes required isOpen/setIsOpen and pinning props', () => {
+    const adminLayout = getComponentByName('AdminLayout');
+    expect(adminLayout!.example).toContain('isOpen');
+    expect(adminLayout!.example).toContain('setIsOpen');
+    expect(adminLayout!.description).toContain('sidebarPinned');
+    expect(adminLayout!.relatedComponents).toContain('ExpandableSidebar');
+  });
+
   it('Drawer warns about onClose not covering Esc/backdrop', () => {
     const drawer = getComponentByName('Drawer');
     expect(drawer!.warnings!.some((w) => w.toLowerCase().includes('esc'))).toBe(

@@ -369,15 +369,51 @@ const rightActions = (
     name: 'AdminLayout',
     category: 'layouts',
     description:
-      'Full admin layout with sidebar navigation, header, and content area.',
+      "Full admin layout with pinnable expandable sidebar, header, and content area. `isOpen`/`setIsOpen` (required) drive the mobile drawer. Sidebar pinning: `sidebarPinned` (controlled), `defaultSidebarPinned`, `onSidebarPinnedChange` — forwarded to the internal ExpandableSidebar's `pinned`/`defaultPinned`/`onPinnedChange`. In uncontrolled mode the pinned state persists automatically via the theme store. While pinned, the content area pads to the expanded sidebar width (288px xl / 320px 2xl) so it is never covered. `collapsedLogo` shows a distinct brand mark on the collapsed 96px rail.",
     importPath: '@e-burgos/tucu-ui',
-    example: `import { AdminLayout } from '@e-burgos/tucu-ui';
+    example: `import { useState } from 'react';
+import { AdminLayout } from '@e-burgos/tucu-ui';
 
-<AdminLayout menuItems={[{ label: 'Home', path: '/' }]}>
+const [isOpen, setIsOpen] = useState(false);
+
+<AdminLayout
+  logo={{ name: 'Acme', secondName: 'Admin' }}
+  collapsedLogo={{ name: 'A' }}
+  menuItems={[{ name: 'Home', path: '/' }]}
+  isOpen={isOpen}
+  setIsOpen={setIsOpen}
+  defaultSidebarPinned
+>
   <Outlet />
 </AdminLayout>`,
-    relatedComponents: ['MacOSLayout', 'ThemeProvider'],
+    relatedComponents: ['ExpandableSidebar', 'MacOSLayout', 'ThemeProvider'],
     themeAware: true,
+    warnings: [
+      '`isOpen` and `setIsOpen` are required — they drive the mobile drawer, not the desktop sidebar pin.',
+      'Menu items use `name`, not `label` (IMenuItem).',
+    ],
+  },
+  {
+    name: 'ExpandableSidebar',
+    category: 'layouts',
+    description:
+      "Collapsible sidebar rail (96px, 112px on 2xl) that expands on hover and can be pinned open via a subtle arrow toggle on its outer edge (aria-pressed, data-tucu=\"sidebar-pin\", titles 'Expand menu'/'Collapse menu'). Pin state: `pinned` (controlled), `defaultPinned`, `onPinnedChange`; uncontrolled mode persists automatically through useTheme().isSidebarPinned (theme-storage localStorage key). Hovering the edge toggle deliberately does not hover-expand the sidebar (the button would move away mid-click). `collapsedLogo` renders a distinct brand in the collapsed rail, falling back to `logo` with isoType. Items with `hide: true` are filtered individually; the active item highlights in both the collapsed rail and the expanded panel. Usually consumed through AdminLayout, which also pads its content while pinned.",
+    importPath: '@e-burgos/tucu-ui',
+    example: `import { ExpandableSidebar } from '@e-burgos/tucu-ui';
+
+<ExpandableSidebar
+  logo={{ name: 'Acme', secondName: 'Admin' }}
+  collapsedLogo={{ name: 'A' }}
+  menuItems={[{ name: 'Home', path: '/' }]}
+  defaultPinned
+  onPinnedChange={(pinned) => console.log('pinned:', pinned)}
+/>`,
+    relatedComponents: ['AdminLayout', 'MenuItem', 'Logo'],
+    themeAware: true,
+    warnings: [
+      'Standalone usage does not shift surrounding content while pinned — that adaptive padding lives in AdminLayout. Compose your own layout padding if you mount it directly.',
+      'Controlled `pinned` bypasses the built-in persistence — pair it with `onPinnedChange` and your own storage.',
+    ],
   },
   {
     name: 'MacOSLayout',
