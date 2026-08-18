@@ -97,31 +97,42 @@ export function CollapsibleMenu({
             className="ease-[cubic-bezier(0.33, 1, 0.68, 1)] overflow-hidden transition-all duration-[350ms]"
           >
             <ul ref={ref}>
-              {dropdownItems.map((item, index) => (
-                <li className="first:pt-[8px]" key={index}>
-                  <ActiveLink
-                    onClick={() => {
-                      handleNavigation(
-                        item.href ? item.href : item.path,
-                        onClick
-                      );
-                    }}
-                    onTouchStart={() => {
-                      handleTouchStart(
-                        item.href ? item.href : item.path,
-                        onClick
-                      );
-                    }}
-                    path={item.path}
-                    href={item.href}
-                    to={item.href ? item.href : item.path}
-                    className="flex items-center rounded-[8px] p-[12px] text-sm text-gray-500 transition-all before:h-[4px] before:w-[4px] before:rounded-full before:bg-gray-500 hover:text-brand ltr:pl-[24px] before:ltr:mr-[20px] rtl:pr-[24px] before:rtl:ml-[20px] dark:hover:text-white"
-                    activeClassName="!text-brand dark:!text-white dark:before:!bg-white before:!bg-brand before:!w-[8px] before:!h-[8px] before:-ml-[2px] before:ltr:!mr-[18px] before:rtl:!ml-[18px] !font-medium"
-                  >
-                    {item.name}
-                  </ActiveLink>
-                </li>
-              ))}
+              {dropdownItems.map((item, index) => {
+                // The item's own handler runs first; the menu-level onClick
+                // (typically closing the drawer) is layered on top of it —
+                // passing only the menu-level one would silently drop the
+                // consumer's item.onClick.
+                const handleItemActivate = () => {
+                  item.onClick?.();
+                  onClick?.();
+                };
+
+                return (
+                  <li className="first:pt-[8px]" key={index}>
+                    <ActiveLink
+                      onClick={() => {
+                        handleNavigation(
+                          item.href ? item.href : item.path,
+                          handleItemActivate
+                        );
+                      }}
+                      onTouchStart={() => {
+                        handleTouchStart(
+                          item.href ? item.href : item.path,
+                          handleItemActivate
+                        );
+                      }}
+                      path={item.path}
+                      href={item.href}
+                      to={item.href ? item.href : item.path}
+                      className="flex items-center rounded-[8px] p-[12px] text-sm text-gray-500 transition-all before:h-[4px] before:w-[4px] before:rounded-full before:bg-gray-500 hover:text-brand ltr:pl-[24px] before:ltr:mr-[20px] rtl:pr-[24px] before:rtl:ml-[20px] dark:hover:text-white"
+                      activeClassName="!text-brand dark:!text-white dark:before:!bg-white before:!bg-brand before:!w-[8px] before:!h-[8px] before:-ml-[2px] before:ltr:!mr-[18px] before:rtl:!ml-[18px] !font-medium"
+                    >
+                      {item.name}
+                    </ActiveLink>
+                  </li>
+                );
+              })}
             </ul>
           </div>
         </>

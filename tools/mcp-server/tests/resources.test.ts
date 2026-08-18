@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { resources, registerResources } from '../src/resources/index.js';
 import { getCatalogContent } from '../src/resources/catalog.js';
+import { getDataTableContent } from '../src/resources/datatable.js';
 import { getTokensContent } from '../src/resources/tokens.js';
 import { getFormsContent } from '../src/resources/forms.js';
 import { getRoutingContent } from '../src/resources/routing.js';
@@ -15,8 +16,8 @@ import { getQuickStartContent } from '../src/resources/quickstart.js';
 
 // ─── Resource Registry ──────────────────────────────────────────────────────
 describe('Resource Registry', () => {
-  it('registers exactly 12 resources', () => {
-    expect(resources).toHaveLength(12);
+  it('registers exactly 13 resources', () => {
+    expect(resources).toHaveLength(13);
   });
 
   it('all resources have tucu:// URIs', () => {
@@ -50,6 +51,7 @@ describe('Resource Registry', () => {
 describe('Resource Content', () => {
   const contentFns = [
     { name: 'catalog', fn: getCatalogContent },
+    { name: 'datatable', fn: getDataTableContent },
     { name: 'tokens', fn: getTokensContent },
     { name: 'forms', fn: getFormsContent },
     { name: 'routing', fn: getRoutingContent },
@@ -89,6 +91,36 @@ describe('Resource Content', () => {
     expect(content).toContain('"transparent"');
     // It should warn about invalid variants, not recommend them
     expect(content).toContain('NEVER use variant="primary"');
+  });
+
+  it('datatable documents the full DataTable surface', () => {
+    const content = getDataTableContent();
+    // architecture + exports
+    expect(content).toContain('DataTableProvider');
+    expect(content).toContain('TanstackTable');
+    expect(content).toContain('useDataTableContext');
+    expect(content).toContain('convertColumns');
+    // props + ColumnDef extensions
+    expect(content).toContain('IOptionalDataTableProps');
+    expect(content).toContain('filterVariant');
+    expect(content).toContain('exportAsNumber');
+    expect(content).toContain('accessorHeaderFn');
+    // pagination + persistence
+    expect(content).toContain('serverPagination');
+    expect(content).toContain('takeDefaultPagination');
+    expect(content).toContain('useResetCacheVersion');
+    expect(content).toContain('-datatable');
+    // features
+    expect(content).toContain('RowActionsColumn');
+    expect(content).toContain('getCommonPinningStyles');
+    expect(content).toContain('maxMultiSortColCount');
+    expect(content).toContain('renderSubDataTable');
+    expect(content).toContain('parseNumericValueForExport');
+    expect(content).toContain('--color-table-');
+    // gotchas
+    expect(content).toContain('373px');
+    expect(content).toContain('setScopes');
+    expect(content).toContain('generate_datatable');
   });
 
   it('tokens contains semantic token names', () => {

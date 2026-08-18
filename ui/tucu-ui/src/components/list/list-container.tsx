@@ -14,9 +14,10 @@ export interface ListContainerProps {
   align?: 'start' | 'end' | 'center';
   isOpen?: boolean;
   onOpenChange?: (isOpen: boolean) => void;
+  /** Keep the dropdown open on mouse leave and after selecting an item (default: false) */
   keepOpen?: boolean;
   trigger?: 'hover' | 'click';
-  /** Delay in ms before closing on mouse leave (default: 1000) */
+  /** Delay in ms before closing on mouse leave (default: 500) */
   closeDelay?: number;
 }
 
@@ -170,6 +171,18 @@ export const ListContainer: React.FC<ListContainerProps> = ({
     }
   };
 
+  // The consumer's handler always runs first; closing the dropdown is the
+  // container's own behavior layered on top of it — never a replacement for it.
+  const handleItemSelect = (item: ListItemProps) => {
+    item.onClick?.();
+
+    // Hover-triggered dropdowns are closed by moving the pointer away
+    // (handleMouseLeave), not by selecting an item.
+    if (trigger === 'click' && isOpen && !keepOpen) {
+      handleOpenChange(false);
+    }
+  };
+
   // Clean up timer on unmount
   useEffect(() => {
     return () => clearCloseTimer();
@@ -230,7 +243,11 @@ export const ListContainer: React.FC<ListContainerProps> = ({
         aria-orientation="vertical"
       >
         {items.map((item) => (
-          <ListItem key={item.id} {...{ ...item, onClick: handleClick }} />
+          <ListItem
+            key={item.id}
+            {...item}
+            onClick={() => handleItemSelect(item)}
+          />
         ))}
       </ul>
     </div>

@@ -6,8 +6,8 @@ MCP (Model Context Protocol) server for the **@e-burgos/tucu-ui** component libr
 
 | Category         | Capabilities                                                                                                                       |
 | ---------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| **7 Tools**      | `list_components`, `get_component`, `generate_component`, `generate_form`, `generate_page`, `generate_chart`, `search_icons`       |
-| **12 Resources** | Catalog, tokens, forms, routing, layouts, theme, charts, icons, migration, best-practices, changelog, quickstart                   |
+| **11 Tools**     | `list_components`, `get_component`, `search_components`, `get_props`, `generate_component`, `generate_form`, `generate_page`, `generate_chart`, `generate_datatable`, `generate_documentation`, `search_icons` |
+| **13 Resources** | Catalog, datatable, tokens, forms, routing, layouts, theme, charts, icons, migration, best-practices, changelog, quickstart        |
 | **8 Prompts**    | create-component, create-form, create-page, debug-variant, migrate-component, theme-setup, accessibility-check, performance-review |
 | **2 Transports** | Stdio (local) and Streamable HTTP (remote)                                                                                         |
 
@@ -122,6 +122,22 @@ Get full details of a component (fuzzy matched): variants, props, example code, 
 Input: { name: string }
 ```
 
+### `search_components`
+
+Search components by keyword across names and descriptions (fuzzy matching).
+
+```
+Input: { query: string, category?: string, limit?: number }
+```
+
+### `get_props`
+
+Get the variants and key props for a component, with warnings and an example.
+
+```
+Input: { component: string }
+```
+
 ### `generate_component`
 
 Generate ready-to-use JSX with correct variants and imports.
@@ -154,6 +170,37 @@ Generate a Recharts-based chart component with tucu-ui theming.
 Input: { type: string, data?: object[] }
 ```
 
+### `generate_datatable`
+
+Generate a complete, typed DataTable component (TanStack Table v8): columns with
+cell renderers (text, number, date, badge, currency, percentage), client/server/manual
+pagination, sorting (multi/manual), per-column filters, row actions, row selection,
+expandable rows (free component or nested sub-table), persisted-state versioning
+(`useResetCacheVersion`), and export flags. Returns `componentCode`, `imports`,
+`types`, and feature-specific implementation `notes`. Pairs with the
+`tucu://datatable` resource for the full API reference.
+
+```
+Input: {
+  entityName?: string,
+  tableId?: string,
+  columns?: Array<{ key, header?, type?, size?, sortable?, filterVariant?, exportAs? }>,
+  features?: {
+    paginationMode?, rowSelection?, rowActions?, withScopes?, expansion?,
+    globalSearch?, columnVisibilityManager?, multiSort?, manualSorting?,
+    showFooter?, persistStateVersion?, smallAnatomy?, statesHandling?
+  }
+}
+```
+
+### `generate_documentation`
+
+Generate documentation site sections (hub page, docs, examples, playground) for a component.
+
+```
+Input: { component: string, description?: string, features?: string[] }
+```
+
 ### `search_icons`
 
 Search the icon catalog (97 native SVG + 1500+ Lucide).
@@ -167,6 +214,7 @@ Input: { query: string, limit?: number }
 | URI                     | Description                                                   |
 | ----------------------- | ------------------------------------------------------------- |
 | `tucu://catalog`        | Complete component catalog with variants and examples         |
+| `tucu://datatable`      | DataTable deep reference: props, pagination modes, persistence, row actions/selection, expansion, export, theming, gotchas |
 | `tucu://tokens`         | Design tokens: CSS variables, colors, breakpoints, typography |
 | `tucu://forms`          | Form patterns: validation, useFormContext, all inputs         |
 | `tucu://routing`        | Routing guide: standalone, MFE, nested routes                 |

@@ -76,4 +76,47 @@ describe('CollapsibleMenu', () => {
     // After click, the dropdown should be toggled
     expect(screen.getByText('Sub')).toBeInTheDocument();
   });
+
+  it('runs both the subitem own onClick and the menu-level onClick', () => {
+    const menuOnClick = vi.fn();
+    const subItemOnClick = vi.fn();
+    render(
+      <MemoryRouter>
+        <CollapsibleMenu
+          name="Parent"
+          path="/parent"
+          onClick={menuOnClick}
+          dropdownItems={[
+            {
+              name: 'Child A',
+              path: '/parent/a',
+              href: '/parent/a',
+              onClick: subItemOnClick,
+            },
+          ]}
+        />
+      </MemoryRouter>
+    );
+    fireEvent.click(screen.getByText('Child A'));
+    expect(subItemOnClick).toHaveBeenCalledTimes(1);
+    expect(menuOnClick).toHaveBeenCalledTimes(1);
+  });
+
+  it('does not break when a subitem has no onClick', () => {
+    const menuOnClick = vi.fn();
+    render(
+      <MemoryRouter>
+        <CollapsibleMenu
+          name="Parent"
+          path="/parent"
+          onClick={menuOnClick}
+          dropdownItems={[
+            { name: 'Child B', path: '/parent/b', href: '/parent/b' },
+          ]}
+        />
+      </MemoryRouter>
+    );
+    expect(() => fireEvent.click(screen.getByText('Child B'))).not.toThrow();
+    expect(menuOnClick).toHaveBeenCalledTimes(1);
+  });
 });

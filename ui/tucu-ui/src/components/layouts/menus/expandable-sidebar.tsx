@@ -16,6 +16,7 @@ const sideBarMenuItems = (menuItems: IMenuItem[]) =>
     path: item.path,
     href: item.href,
     hide: item.hide,
+    onClick: item.onClick,
     ...(item.dropdownItems && {
       dropdownItems: item?.dropdownItems?.map((dropdownItem) => ({
         name: dropdownItem.name,
@@ -23,6 +24,7 @@ const sideBarMenuItems = (menuItems: IMenuItem[]) =>
         path: dropdownItem.path,
         href: dropdownItem.href,
         hide: dropdownItem.hide,
+        onClick: dropdownItem.onClick,
       })),
     }),
   }));
@@ -128,6 +130,7 @@ export function ExpandableSidebar({
                 sideBarMenuItems(menuItems).map((item, index) => (
                   <MenuItem
                     path={item.path}
+                    onClick={item.onClick}
                     isActive={
                       item.href === pathname ||
                       (item.dropdownItems &&
@@ -150,7 +153,12 @@ export function ExpandableSidebar({
                 sideBarMenuItems(menuItems).map((item, index) => (
                   <MenuItem
                     path={item.path}
-                    onClick={() => setOpen(false)}
+                    // The consumer's handler runs first; collapsing the
+                    // sidebar is layered on top of it, it does not replace it.
+                    onClick={() => {
+                      item.onClick?.();
+                      setOpen(false);
+                    }}
                     key={'drawer-full' + item.name + index}
                     name={item.name}
                     href={item?.href}

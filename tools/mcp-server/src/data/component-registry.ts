@@ -289,7 +289,7 @@ export const componentRegistry: ComponentRegistryEntry[] = [
     name: 'DataTable',
     category: 'tables',
     description:
-      'Advanced data table with sorting, global searching/filtering, pagination, pinning, resizing, state persistence, sub-components, row selection, columns visibility toggling, and custom header actions. Built on @tanstack/react-table and automatically theme-aware (uses CSS variables/tokens for light/dark mode).',
+      'Advanced data table with sorting, global searching/filtering, pagination (client/server/manual), pinning, resizing, drag & drop column reordering, state persistence, sub-components, row selection, columns visibility toggling, and custom header actions. Built on @tanstack/react-table and automatically theme-aware (uses CSS variables/tokens for light/dark mode). Use the generate_datatable tool to scaffold a full implementation and read the tucu://datatable resource for the complete API and behavior reference.',
     importPath: '@e-burgos/tucu-ui',
     variants: {
       mode: ['light', 'dark'],
@@ -604,28 +604,33 @@ const rightActions = (
 
   // ─── LISTS ───────────────────────────────────────────────
   {
-    name: 'List',
+    name: 'ListContainer',
     category: 'lists',
-    description: 'Vertical list container.',
+    description:
+      'Dropdown list container triggered by hover or click. Each item\'s own onClick always runs on selection; with trigger="click" the dropdown closes after selecting an item unless keepOpen is set, and with trigger="hover" it closes on mouse leave instead.',
     importPath: '@e-burgos/tucu-ui',
-    example: `import { List, ListItem } from '@e-burgos/tucu-ui';
+    example: `import { ListContainer } from '@e-burgos/tucu-ui';
 
-<List>
-  <ListItem>Item 1</ListItem>
-  <ListItem>Item 2</ListItem>
-</List>`,
+<ListContainer
+  trigger="click"
+  items={[
+    { id: '1', label: 'Edit', onClick: () => handleEdit() },
+    { id: '2', label: 'Delete', onClick: () => handleDelete() },
+  ]}
+/>`,
     relatedComponents: ['ListItem'],
     themeAware: true,
   },
   {
     name: 'ListItem',
     category: 'lists',
-    description: 'Individual item within a List.',
+    description:
+      'Individual item rendered by ListContainer. Configured via props (id, label or content, icon, onClick), not children.',
     importPath: '@e-burgos/tucu-ui',
-    example: `import { List, ListItem } from '@e-burgos/tucu-ui';
+    example: `import { ListItem } from '@e-burgos/tucu-ui';
 
-<ListItem onClick={() => {}}>Clickable item</ListItem>`,
-    relatedComponents: ['List'],
+<ListItem id="1" label="Clickable item" onClick={() => {}} />`,
+    relatedComponents: ['ListContainer'],
     themeAware: true,
   },
 
