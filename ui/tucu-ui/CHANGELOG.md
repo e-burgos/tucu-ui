@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.1.0] - 2026-08-18
+
+### Added
+
+- sidebar edge toggle with built-in persistence and adaptive content padding — Spec 07 rev 1.1
+- pinnable ExpandableSidebar with controlled pin state and per-state logos — Spec 07
+
+### Changed
+
+- wrap emoji icons in accessible spans in sidebar tests
+
+### Fixed
+
+- preserve item onClick handlers in menus and list container
 ## [3.0.0] - 2026-08-01
 
 ### Added
