@@ -1,8 +1,13 @@
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
 import { AdminLayout } from '../../components/layouts/admin-layout';
+import { useTheme } from '../../themes/hooks/use-theme';
+
+beforeEach(() => {
+  useTheme.setState({ isSidebarPinned: undefined });
+});
 
 vi.mock('framer-motion', () => ({
   motion: {
@@ -154,5 +159,29 @@ describe('AdminLayout', () => {
     );
     const pinButton = container.querySelector('[data-tucu="sidebar-pin"]');
     expect(pinButton).toHaveAttribute('aria-pressed', 'true');
+  });
+
+  it('pads the content for the expanded sidebar width while pinned', () => {
+    const { container } = render(
+      <MemoryRouter>
+        <AdminLayout {...defaultProps} sidebarPinned={true}>
+          Content
+        </AdminLayout>
+      </MemoryRouter>
+    );
+    const root = container.querySelector('[data-tucu="admin-layout"]');
+    expect(root).toHaveClass('xl:ltr:pl-[288px]');
+    expect(root).not.toHaveClass('xl:ltr:pl-[96px]');
+  });
+
+  it('keeps the collapsed-rail padding while unpinned', () => {
+    const { container } = render(
+      <MemoryRouter>
+        <AdminLayout {...defaultProps}>Content</AdminLayout>
+      </MemoryRouter>
+    );
+    const root = container.querySelector('[data-tucu="admin-layout"]');
+    expect(root).toHaveClass('xl:ltr:pl-[96px]');
+    expect(root).not.toHaveClass('xl:ltr:pl-[288px]');
   });
 });

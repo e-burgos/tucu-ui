@@ -137,6 +137,9 @@ const defaultState = {
   logo: defaultLogo,
   showSettings: false,
   isSettingsOpen: false,
+  // Sidebar pin: undefined until the user toggles it, so a consumer-provided
+  // default (defaultPinned/defaultSidebarPinned) governs the first visit.
+  isSidebarPinned: undefined as boolean | undefined,
   lang: defaultLang,
   backgroundVariant: 'none' as TahoeBackgroundVariant,
   themeConfigs: defaultThemeConfigs,
@@ -213,6 +216,13 @@ interface IThemeState {
   logo: LogoType;
   isSettingsOpen: boolean;
   showSettings: boolean;
+  /**
+   * Persisted pinned (expanded) state of the ExpandableSidebar. `undefined`
+   * means the user never toggled it, letting `defaultPinned` /
+   * `defaultSidebarPinned` govern. Written by the sidebar's edge toggle in
+   * uncontrolled mode; ignored when the consumer controls `pinned`.
+   */
+  isSidebarPinned: boolean | undefined;
   lang: LangType;
   backgroundVariant: BackgroundVariant;
   themeConfigs: Record<THEME_VARIANT, IThemeConfig>;

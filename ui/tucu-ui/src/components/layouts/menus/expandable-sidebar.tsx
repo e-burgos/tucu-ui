@@ -5,9 +5,10 @@ import cn from 'classnames';
 import Logo, { LogoPropTypes } from '../../logos/logo';
 import Button from '../../buttons/button';
 import { Close } from '../../icons/close';
-import { LockIcon } from '../../icons/lock-icon';
-import { Unlocked } from '../../icons/unlocked';
+import { ChevronLeft } from '../../icons/chevron-left';
+import { ChevronRight } from '../../icons/chevron-right';
 import { useIsMobile, useClickAway } from '../../../hooks';
+import { useTheme } from '../../../themes/hooks/use-theme';
 import { TagIcon } from '../../icons/tag-icon';
 import { MenuItem, IMenuItem } from '../menus/menu-item';
 
@@ -41,14 +42,16 @@ export interface ExpandableSidebarProps {
   className?: string;
   menuItems: IMenuItem[];
   /**
-   * Controlled pinned state. When set, the toggle button and internal
-   * pin state are ignored in favor of this value. Persisting the pinned
-   * state (e.g. localStorage) is the consumer's responsibility.
+   * Controlled pinned state. When set, the edge toggle and the persisted
+   * store value are ignored in favor of this value, and persistence
+   * becomes the consumer's responsibility (pair with `onPinnedChange`).
    */
   pinned?: boolean;
   /**
-   * Initial pinned state for uncontrolled usage. Ignored when `pinned`
-   * is provided.
+   * Initial pinned state for uncontrolled usage, honored until the user
+   * toggles for the first time. In uncontrolled mode the pinned state is
+   * persisted automatically through the theme store (`localStorage`,
+   * `theme-storage` key). Ignored when `pinned` is provided.
    */
   defaultPinned?: boolean;
   /**
@@ -69,8 +72,9 @@ export function ExpandableSidebar({
 }: ExpandableSidebarProps) {
   const pathname = useLocation().pathname;
   const [open, setOpen] = useState(false);
-  const [internalPinned, setInternalPinned] = useState(defaultPinned);
-  const isPinned = pinned !== undefined ? pinned : internalPinned;
+  const { isSidebarPinned, setIsSidebarPinned } = useTheme();
+  const isPinned =
+    pinned !== undefined ? pinned : isSidebarPinned ?? defaultPinned;
   const isOpen = open || isPinned;
   const { isMobile } = useIsMobile();
 
@@ -93,10 +97,18 @@ export function ExpandableSidebar({
     }
   }, [isMobile, isPinned]);
 
+  // The edge toggle flips the persistent pinned state — never the transient
+  // hover state. Reaching the button with a pointer already hover-expands the
+  // sidebar, so keying the toggle on the visual open state would make it
+  // collapse on every click and never pin. Unpinning also closes any
+  // hover-expansion immediately so the click collapses the rail in place.
   function togglePinned() {
     const nextPinned = !isPinned;
     if (pinned === undefined) {
-      setInternalPinned(nextPinned);
+      setIsSidebarPinned(nextPinned);
+    }
+    if (!nextPinned) {
+      setOpen(false);
     }
     onPinnedChange?.(nextPinned);
   }
@@ -105,23 +117,48 @@ export function ExpandableSidebar({
     return submenu?.map((item) => item.href).includes(pathname);
   }
 
+  // Hover-expansion must not fire when the pointer arrives over the edge
+  // toggle: expanding would move the button to the new edge mid-aim, making
+  // it impossible to click. Entering through any other part of the rail
+  // expands as usual.
+  function isEdgeToggleTarget(e: { target: EventTarget }) {
+    return (
+      e.target instanceof Element &&
+      !!e.target.closest('[data-tucu="sidebar-pin"]')
+    );
+  }
+
   const items = sideBarMenuItems(menuItems).filter((item) => !item.hide);
 
   return (
     <aside
       ref={ref}
       data-tucu="expandable-sidebar"
-      onMouseEnter={() => setOpen(true)}
+      onMouseEnter={(e) => !isEdgeToggleTarget(e) && setOpen(true)}
       onMouseLeave={() => !isPinned && setOpen(false)}
-      onTouchStart={() => setOpen(true)}
+      onTouchStart={(e) => !isEdgeToggleTarget(e) && setOpen(true)}
       className={cn(
         isOpen
           ? 'ltr:border-r rtl:border-l border-dashed border-border min-[500px]:w-[320px] xl:w-[288px] 2xl:w-[320px] bg-light-dark'
           : 'w-[96px] border-dashed border-border ltr:border-r rtl:border-l 2xl:w-[112px]',
-        'top-0 z-40 h-full max-w-full duration-200 ltr:left-0 rtl:right-0 dark:border-border xl:fixed bg-light-dark',
+        'relative top-0 z-40 h-full max-w-full duration-200 ltr:left-0 rtl:right-0 dark:border-border xl:fixed bg-light-dark',
         className
       )}
     >
+      <button
+        type="button"
+        title={isPinned ? 'Collapse menu' : 'Expand menu'}
+        aria-pressed={isPinned}
+        data-tucu="sidebar-pin"
+        onClick={togglePinned}
+        className="absolute top-[36px] z-50 flex h-[24px] w-[24px] items-center justify-center rounded-full border border-border bg-light-dark text-gray-400 opacity-60 shadow-sm transition-all duration-200 hover:opacity-100 hover:text-brand ltr:-right-[12px] rtl:-left-[12px]"
+      >
+        {isPinned ? (
+          <ChevronLeft className="h-auto w-[11px] rtl:rotate-180" />
+        ) : (
+          <ChevronRight className="h-auto w-[11px] rtl:rotate-180" />
+        )}
+      </button>
       <div
         className={cn(
           'relative flex h-[96px] items-center  overflow-hidden px-[24px] py-[16px] pt-[0px] 2xl:px-[32px] min-[1780px]:pt-[24px]',
@@ -146,36 +183,18 @@ export function ExpandableSidebar({
         )}
 
         {isOpen && (
-          <>
-            <div className="md:hidden">
-              <Button
-                title="Close"
-                color="white"
-                shape="circle"
-                variant="transparent"
-                size="small"
-                onClick={() => setOpen(false)}
-              >
-                <Close className="h-auto w-[10px]" />
-              </Button>
-            </div>
+          <div className="md:hidden">
             <Button
-              title={isPinned ? 'Unpin menu' : 'Pin menu'}
-              aria-pressed={isPinned}
-              data-tucu="sidebar-pin"
+              title="Close"
               color="white"
               shape="circle"
               variant="transparent"
               size="small"
-              onClick={togglePinned}
+              onClick={() => setOpen(false)}
             >
-              {isPinned ? (
-                <LockIcon className="h-auto w-[14px]" />
-              ) : (
-                <Unlocked className="h-auto w-[14px]" />
-              )}
+              <Close className="h-auto w-[10px]" />
             </Button>
-          </>
+          </div>
         )}
       </div>
 

@@ -1,8 +1,15 @@
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
 import { ExpandableSidebar } from '../../components/layouts/menus/expandable-sidebar';
+import { useTheme } from '../../themes/hooks/use-theme';
+
+beforeEach(() => {
+  // The pinned state persists in the shared theme store; reset it so tests
+  // stay independent.
+  useTheme.setState({ isSidebarPinned: undefined });
+});
 
 vi.mock('framer-motion', () => ({
   motion: {
@@ -124,7 +131,7 @@ describe('ExpandableSidebar', () => {
     expect(screen.getByText('Dashboard')).toBeInTheDocument();
   });
 
-  it('CA-1: pinning via the pin button survives mouseLeave; unpinning restores hover-close', () => {
+  it('CA-1: expanding via the edge toggle survives mouseLeave; collapsing restores hover-close', () => {
     const { container } = render(
       <MemoryRouter>
         <ExpandableSidebar menuItems={mockMenuItems} />
@@ -134,14 +141,36 @@ describe('ExpandableSidebar', () => {
       '[data-tucu="expandable-sidebar"]'
     ) as HTMLElement;
 
-    fireEvent.mouseEnter(aside);
-    fireEvent.click(screen.getByTitle('Pin menu'));
+    fireEvent.click(screen.getByTitle('Expand menu'));
     fireEvent.mouseLeave(aside);
     expect(screen.getByText('Dashboard')).toBeInTheDocument();
 
-    fireEvent.click(screen.getByTitle('Unpin menu'));
+    fireEvent.click(screen.getByTitle('Collapse menu'));
+    expect(screen.queryByText('Dashboard')).not.toBeInTheDocument();
+
+    // Hover-to-expand behavior is restored once unpinned
+    fireEvent.mouseEnter(aside);
+    expect(screen.getByText('Dashboard')).toBeInTheDocument();
     fireEvent.mouseLeave(aside);
     expect(screen.queryByText('Dashboard')).not.toBeInTheDocument();
+  });
+
+  it('persists the pinned state through the theme store across remounts', () => {
+    const { unmount } = render(
+      <MemoryRouter>
+        <ExpandableSidebar menuItems={mockMenuItems} />
+      </MemoryRouter>
+    );
+    fireEvent.click(screen.getByTitle('Expand menu'));
+    expect(useTheme.getState().isSidebarPinned).toBe(true);
+    unmount();
+
+    render(
+      <MemoryRouter>
+        <ExpandableSidebar menuItems={mockMenuItems} />
+      </MemoryRouter>
+    );
+    expect(screen.getByText('Dashboard')).toBeInTheDocument();
   });
 
   it('CA-2: controlled `pinned` governs the state and `onPinnedChange` reports every toggle', () => {
@@ -158,12 +187,13 @@ describe('ExpandableSidebar', () => {
     const aside = container.querySelector(
       '[data-tucu="expandable-sidebar"]'
     ) as HTMLElement;
-    fireEvent.mouseEnter(aside);
 
-    fireEvent.click(screen.getByTitle('Pin menu'));
+    fireEvent.click(screen.getByTitle('Expand menu'));
     expect(onPinnedChange).toHaveBeenCalledWith(true);
-    // Controlled: still unpinned until the consumer flips the prop
-    expect(screen.getByTitle('Pin menu')).toBeInTheDocument();
+    // Controlled: still collapsed until the consumer flips the prop
+    expect(screen.getByTitle('Expand menu')).toBeInTheDocument();
+    // Controlled mode never touches the persisted store value
+    expect(useTheme.getState().isSidebarPinned).toBeUndefined();
 
     rerender(
       <MemoryRouter>
@@ -177,11 +207,11 @@ describe('ExpandableSidebar', () => {
     fireEvent.mouseLeave(aside);
     expect(screen.getByText('Dashboard')).toBeInTheDocument();
 
-    fireEvent.click(screen.getByTitle('Unpin menu'));
+    fireEvent.click(screen.getByTitle('Collapse menu'));
     expect(onPinnedChange).toHaveBeenCalledWith(false);
   });
 
-  it('CA-3: the pin button exposes aria-pressed and data-tucu="sidebar-pin"', () => {
+  it('CA-3: the edge toggle exposes aria-pressed and data-tucu="sidebar-pin" in both states', () => {
     const { container: pinnedContainer } = render(
       <MemoryRouter>
         <ExpandableSidebar menuItems={mockMenuItems} defaultPinned />
@@ -196,10 +226,6 @@ describe('ExpandableSidebar', () => {
         <ExpandableSidebar menuItems={mockMenuItems} />
       </MemoryRouter>
     );
-    const aside = unpinnedContainer.querySelector(
-      '[data-tucu="expandable-sidebar"]'
-    ) as HTMLElement;
-    fireEvent.mouseEnter(aside);
     expect(
       unpinnedContainer.querySelector('[data-tucu="sidebar-pin"]')
     ).toHaveAttribute('aria-pressed', 'false');

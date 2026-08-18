@@ -46,6 +46,7 @@ interface IThemeState {
   logo: LogoType;
   showSettings: boolean;
   isSettingsOpen: boolean;
+  isSidebarPinned: boolean | undefined; // ExpandableSidebar pin — persisted; undefined until first toggle
   backgroundVariant: 'none' | 'base' | 'sonoma' | 'wave' | 'wallpaper' | 'mobile' | 'radial' | 'window' | 'aurora' | 'depth' | 'demo';
   themeConfigs: Record<'default' | 'macos' | 'macos-tahoe', IThemeConfig>; // IThemeConfig mirrors every *Preset field above + layout/mode/direction/backgroundVariant
 }
@@ -85,6 +86,9 @@ The store persists to \`localStorage\` under the key **\`theme-storage\`**
   function, and **nulls out \`logo.logo\`** before serializing — if you pass a React node
   as part of \`logo\`, it is intentionally not persisted (React nodes aren't
   serializable); only the rest of the logo config round-trips.
+- **\`isSidebarPinned\` rides this same persistence**: the \`ExpandableSidebar\` edge
+  toggle writes it in uncontrolled mode, which is why the pinned sidebar survives
+  reloads with zero consumer code (\`ui/tucu-ui/src/components/layouts/menus/expandable-sidebar.tsx\`).
 - **There is no \`version\`/\`migrate\` on the persist config.** A future breaking change
   to the persisted shape will land on top of whatever old shape is in the user's
   localStorage — if you see inconsistent theme state after an upgrade, clearing the

@@ -4,6 +4,7 @@ import { LogoPropTypes } from '../../logos';
 import ExpandableSidebar from '../menus/expandable-sidebar';
 import { IMenuItem } from '../menus/menu-item';
 import { AdminHeader } from '../header/admin-header';
+import { useTheme } from '../../../themes/hooks/use-theme';
 
 interface AdminLayoutProps {
   children: React.ReactNode;
@@ -22,12 +23,15 @@ interface AdminLayoutProps {
   fullWidth?: boolean;
   setIsOpen: (isOpen: boolean) => void;
   /**
-   * Controlled pinned state forwarded to the sidebar's `pinned` prop.
-   * Persisting the pinned state is the consumer's responsibility.
+   * Controlled pinned state forwarded to the sidebar's `pinned` prop. When
+   * set, persistence becomes the consumer's responsibility (pair with
+   * `onSidebarPinnedChange`); when omitted, the pinned state persists
+   * automatically through the theme store.
    */
   sidebarPinned?: boolean;
   /**
-   * Initial pinned state forwarded to the sidebar's `defaultPinned` prop.
+   * Initial pinned state forwarded to the sidebar's `defaultPinned` prop,
+   * honored until the user toggles for the first time.
    */
   defaultSidebarPinned?: boolean;
   /**
@@ -52,11 +56,24 @@ export function AdminLayout({
   defaultSidebarPinned,
   onSidebarPinnedChange,
 }: AdminLayoutProps) {
+  const { isSidebarPinned } = useTheme();
+  // Mirrors the sidebar's own pinned resolution: controlled prop first, then
+  // the persisted store value, then the consumer's default. While pinned the
+  // sidebar stays at its expanded width, so the content pads accordingly
+  // instead of being covered by it.
+  const isPinned =
+    sidebarPinned !== undefined
+      ? sidebarPinned
+      : isSidebarPinned ?? defaultSidebarPinned ?? false;
+
   return (
     <div
       data-tucu="admin-layout"
       className={cn(
-        'xl:ltr:pl-[96px] xl:rtl:pr-[96px] 2xl:ltr:pl-[112px] 2xl:rtl:pr-[112px]',
+        'transition-[padding] duration-200',
+        isPinned
+          ? 'xl:ltr:pl-[288px] xl:rtl:pr-[288px] 2xl:ltr:pl-[320px] 2xl:rtl:pr-[320px]'
+          : 'xl:ltr:pl-[96px] xl:rtl:pr-[96px] 2xl:ltr:pl-[112px] 2xl:rtl:pr-[112px]',
         className
       )}
     >

@@ -17,8 +17,12 @@ export function getLayoutsContent(): string {
 \`\`\`
 - **Constant**: \`LAYOUT_OPTIONS.ADMIN\`
 - Collapsible sidebar visible on xl+ breakpoint
-- Sidebar can be pinned open via the pin toggle (\`data-tucu="sidebar-pin"\`); pin state is
-  controllable (\`sidebarPinned\`/\`onSidebarPinnedChange\`) so the consumer can persist it
+- Sidebar can be pinned open via the arrow toggle on its outer edge
+  (\`data-tucu="sidebar-pin"\`); while pinned the content area pads to the expanded width
+  (288px xl / 320px 2xl) instead of being covered
+- Pin state persists automatically through the theme store (\`theme-storage\` localStorage
+  key) in uncontrolled mode, and is controllable (\`sidebarPinned\`/\`onSidebarPinnedChange\`)
+  when the consumer needs its own storage
 - Distinct logos per sidebar state: \`logo\` (expanded) and \`collapsedLogo\` (96px rail)
 - Ideal for: admin panels, CRMs, data-heavy apps
 

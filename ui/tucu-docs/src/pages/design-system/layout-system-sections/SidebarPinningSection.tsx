@@ -40,8 +40,9 @@ const sidebarPropsData = [
     defaultValue: 'false',
     description: (
       <>
-        Initial pinned state for <strong>uncontrolled</strong> usage. Ignored
-        when <code>pinned</code> is provided.
+        Initial pinned state for <strong>uncontrolled</strong> usage, honored
+        until the user toggles for the first time (the persisted choice then
+        wins). Ignored when <code>pinned</code> is provided.
       </>
     ),
   },
@@ -52,8 +53,9 @@ const sidebarPropsData = [
     description: (
       <>
         Called with the <em>next</em> pinned state on every toggle, in both
-        controlled and uncontrolled mode. Pair it with <code>pinned</code> to
-        persist the user's choice (see the persistence pattern below).
+        controlled and uncontrolled mode. In uncontrolled mode persistence is
+        automatic; pair this with <code>pinned</code> only when you need a
+        custom storage (see the persistence section below).
       </>
     ),
   },
@@ -153,7 +155,7 @@ const SidebarPinningSection: React.FC = () => {
     <>
       <HeroCard
         title="Sidebar Pinning & Dual Logo"
-        description="Keep the expandable sidebar open with a pin button, persist the user's choice, and show a dedicated brand mark in the collapsed rail."
+        description="Keep the expandable sidebar open with a subtle edge toggle, persist the user's choice automatically, and show a dedicated brand mark in the collapsed rail."
         icon={
           <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 bg-linear-to-br from-cyan-500 via-blue-500 to-indigo-500 rounded-full flex items-center justify-center shadow-lg">
             <LucideIcons.Pin className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 text-white filter drop-shadow-lg" />
@@ -170,8 +172,9 @@ const SidebarPinningSection: React.FC = () => {
           className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto"
         >
           By default the ExpandableSidebar expands on hover and collapses back
-          to a 96px rail when the pointer leaves. Pinning keeps it expanded
-          until the user unpins it.
+          to a 96px rail when the pointer leaves. The arrow toggle on the
+          sidebar's outer edge pins it expanded — and the choice persists
+          across reloads — until the user collapses it again.
         </Typography>
       </div>
 
@@ -201,9 +204,12 @@ const SidebarPinningSection: React.FC = () => {
                 <div className="text-sm mt-1">
                   While pinned, the sidebar stays expanded:{' '}
                   <code>mouseLeave</code>, clicking outside the sidebar, and the
-                  automatic desktop collapse all become no-ops. Unpinning
-                  restores the default hover-to-expand behavior. The mobile
-                  drawer behavior is unchanged.
+                  automatic desktop collapse all become no-ops, and{' '}
+                  <code>AdminLayout</code> pads its content area to the expanded
+                  width (288px on xl, 320px on 2xl) so the sidebar never covers
+                  it. Collapsing restores the default hover-to-expand behavior
+                  and the 96px content padding. The mobile drawer behavior is
+                  unchanged.
                 </div>
               </div>
             </Alert>
@@ -212,16 +218,18 @@ const SidebarPinningSection: React.FC = () => {
               <div>
                 <div className="flex items-center gap-2 font-semibold">
                   <LucideIcons.Accessibility className="h-4 w-4" />
-                  The pin button
+                  The edge toggle
                 </div>
                 <div className="text-sm mt-1">
-                  The expanded header shows a pin toggle button rendered as an
-                  open padlock (unpinned) or a closed padlock (pinned). It
-                  exposes <code>aria-pressed</code> with the current pinned
-                  state, a <code>title</code> of "Pin menu" / "Unpin menu", and
-                  the styling anchor{' '}
-                  <code>data-tucu=&quot;sidebar-pin&quot;</code> for CSS
-                  overrides.
+                  A subtle circular button sits on the sidebar's outer edge in
+                  both states, showing a right chevron when collapsed (expand)
+                  and a left chevron when pinned (collapse). It exposes{' '}
+                  <code>aria-pressed</code> with the current pinned state, a{' '}
+                  <code>title</code> of "Expand menu" / "Collapse menu", and the
+                  styling anchor <code>data-tucu=&quot;sidebar-pin&quot;</code>{' '}
+                  for CSS overrides. Hovering the toggle itself deliberately
+                  does <em>not</em> hover-expand the sidebar — otherwise the
+                  button would move away from the pointer mid-click.
                 </div>
               </div>
             </Alert>
@@ -302,12 +310,16 @@ const SidebarPinningSection: React.FC = () => {
         <CardTitle title="Persisting the Pinned State" className="mt-2 mb-2">
           <div className="w-full space-y-6 p-4 sm:p-6">
             <Typography tag="p" className="text-gray-600 dark:text-gray-400">
-              The library deliberately does <strong>not</strong> persist the
-              pinned state — it doesn't know your storage or your key.
-              Persistence is the consumer's responsibility: control the state
-              with <code>pinned</code> (or <code>sidebarPinned</code>) and write
-              every change reported by <code>onPinnedChange</code> to your
-              storage of choice:
+              In uncontrolled mode (no <code>pinned</code> /{' '}
+              <code>sidebarPinned</code> prop) the pinned state persists{' '}
+              <strong>automatically</strong> through the theme store — the same{' '}
+              <code>localStorage</code> entry (<code>theme-storage</code> key)
+              that already remembers mode, layout and presets — so the sidebar
+              survives page reloads out of the box. <code>defaultPinned</code>{' '}
+              is honored until the user toggles for the first time. If you need
+              a different storage (per-user backend settings, cookies, etc.),
+              take control of the state and the built-in persistence steps
+              aside:
             </Typography>
             <CodeBlock
               language="tsx"
@@ -379,9 +391,12 @@ function AppShell({ children }: { children: React.ReactNode }) {
           <div className="w-full space-y-6 p-4 sm:p-6">
             <Typography tag="p" className="text-gray-600 dark:text-gray-400">
               This demo controls the sidebar with React state (<code>pinned</code>{' '}
-              + <code>onPinnedChange</code>). Toggle the pin from the padlock
-              button in the expanded sidebar header, or externally with the
-              button below — both drive the same state. Note the "Hidden Item"
+              + <code>onPinnedChange</code>). Toggle the pin from the arrow
+              button on the sidebar's edge, or externally with the button below
+              — both drive the same state. Watch the brand swap as the state
+              changes: the expanded panel shows the full "Acme Admin" wordmark
+              (<code>logo</code>), while the collapsed rail shows a distinct
+              amber mark (<code>collapsedLogo</code>). Note the "Hidden Item"
               entry in the menu config: it has <code>hide: true</code> and is
               filtered out on its own, while its siblings render normally.
             </Typography>
@@ -412,8 +427,29 @@ function AppShell({ children }: { children: React.ReactNode }) {
               style={{ transform: 'translateZ(0)' }}
             >
               <ExpandableSidebar
-                logo={{ name: 'Tucu', secondName: 'UI' }}
-                collapsedLogo={{ name: 'TU' }}
+                logo={{
+                  name: '',
+                  secondName: '',
+                  logo: (
+                    <span className="flex items-center gap-2">
+                      <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-linear-to-br from-cyan-500 to-indigo-500 text-white shadow-md">
+                        <LucideIcons.Rocket className="h-4 w-4" />
+                      </span>
+                      <span className="whitespace-nowrap text-lg font-bold">
+                        Acme <span className="text-brand">Admin</span>
+                      </span>
+                    </span>
+                  ),
+                }}
+                collapsedLogo={{
+                  name: '',
+                  secondName: '',
+                  logo: (
+                    <span className="flex h-9 w-9 items-center justify-center rounded-full bg-amber-500 text-white shadow-md">
+                      <LucideIcons.Zap className="h-5 w-5" />
+                    </span>
+                  ),
+                }}
                 menuItems={demoMenuItems}
                 pinned={pinned}
                 onPinnedChange={setPinned}

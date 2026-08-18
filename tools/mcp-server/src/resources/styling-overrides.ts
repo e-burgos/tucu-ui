@@ -26,7 +26,7 @@ between tucu-ui releases.
 | \`admin-layout\` / \`admin-content\` | \`AdminLayout\` root \`div\` / content area | \`ui/tucu-ui/src/components/layouts/admin-layout/index.tsx\` |
 | \`horizontal-layout\` / \`horizontal-content\` | \`HorizontalLayout\` root / content | \`ui/tucu-ui/src/components/layouts/horizontal/index.tsx\` |
 | \`expandable-sidebar\` | \`ExpandableSidebar\` rail (\`aside\`) | \`ui/tucu-ui/src/components/layouts/menus/expandable-sidebar.tsx\` |
-| \`sidebar-pin\` | The pin/unpin button inside the expanded rail | \`ui/tucu-ui/src/components/layouts/menus/expandable-sidebar.tsx\` |
+| \`sidebar-pin\` | The expand/collapse arrow toggle on the sidebar's outer edge (both states) | \`ui/tucu-ui/src/components/layouts/menus/expandable-sidebar.tsx\` |
 | \`button\` | \`Button\` — the real \`<button>\` element | \`ui/tucu-ui/src/components/buttons/button/index.tsx\` |
 | \`topup-button\` | \`TopupButton\` | \`ui/tucu-ui/src/components/buttons/topup-button.tsx\` |
 | \`input\` / \`input-control\` | \`Input\` — wrapper \`div\` / the real \`<input>\` | \`ui/tucu-ui/src/components/inputs/input.tsx\` |

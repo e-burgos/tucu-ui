@@ -84,6 +84,26 @@ Decisiones técnicas:
 - Cambios de comportamiento mobile (drawer táctil actual se conserva)
 - Íconos nuevos (se reusan LockIcon/Unlocked)
 
+## Revisión 1.1 (2026-08-18, feedback de revisión en test-lib)
+
+Tres cambios pedidos por el autor tras probar la implementación original:
+
+1. **Botón en el borde, con flechas**: el toggle deja de ser un candado en el header y
+   pasa a ser un botón circular sutil sobre el borde exterior del sidebar
+   (`ltr:-right-[12px]`), visible en ambos estados, con `ChevronRight` (expandir) /
+   `ChevronLeft` (colapsar). Conserva `aria-pressed` y `data-tucu="sidebar-pin"`;
+   `title` pasa a "Expand menu"/"Collapse menu". El `mouseEnter` del aside ignora el
+   puntero cuando entra por el botón (si no, la expansión por hover movía el botón
+   antes del click — blanco móvil).
+2. **El contenido se adapta**: `AdminLayout` deriva el pinned efectivo y cambia su
+   padding `xl` de 96/112px a 288/320px mientras está anclado, con
+   `transition-[padding]`.
+3. **Persistencia en la librería** (revierte la decisión original "persistencia en el
+   consumidor"): en modo no controlado el estado vive en `useTheme().isSidebarPinned`
+   (persistido en `theme-storage`); `defaultPinned` rige hasta el primer toggle. El
+   modo controlado (`pinned`/`sidebarPinned`) sigue sin tocar el store, para storages
+   custom.
+
 ## Decisiones de diseño
 
 | #   | Decisión                                        | Alternativa                 | Razón                                                        |
