@@ -153,6 +153,23 @@ const tools = [
 // Generates: BarChart with ResponsiveContainer, theme colors, tooltip, legend`,
   },
   {
+    name: 'generate_datatable',
+    description:
+      'Generate a complete, production-ready DataTable component (TanStack Table v8): typed columns with cell renderers, client/server/manual pagination, sorting, filters, row actions, selection, expandable rows, persistence and export flags. For the full API reference agents read the tucu://datatable resource.',
+    icon: <LucideIcons.Table className="w-5 h-5 text-green-500" />,
+    input: `{
+  "entityName?": "string",  // e.g. "Invoice" (default: Item)
+  "tableId?": "string",     // stable persistence key (default: derived)
+  "columns?": "ColumnDef[]", // column definitions (default: sample)
+  "features?": "object"     // pagination, sorting, filters, selection, ...
+}`,
+    example: `// Agent request
+{ "entityName": "Invoice", "features": { "smallAnatomy": true } }
+
+// Response includes:
+// componentCode, imports, types, and feature-specific notes`,
+  },
+  {
     name: 'search_icons',
     description:
       'Search for Lucide React icons by keyword, name, or category. Returns import statements and usage examples.',
@@ -201,7 +218,8 @@ const toolSummary: {
     | 'orange'
     | 'teal'
     | 'sky'
-    | 'rose';
+    | 'rose'
+    | 'green';
 }[] = [
   {
     icon: <LucideIcons.List className="w-5 h-5" />,
@@ -252,6 +270,12 @@ const toolSummary: {
     color: 'cyan',
   },
   {
+    icon: <LucideIcons.Table className="w-5 h-5" />,
+    title: 'generate_datatable',
+    description: 'Production-ready DataTable with typed columns and features',
+    color: 'green',
+  },
+  {
     icon: <LucideIcons.Sparkles className="w-5 h-5" />,
     title: 'search_icons',
     description: 'Search Lucide icon catalog by keyword',
@@ -270,7 +294,7 @@ const ToolsSection: React.FC = () => {
     <div className="flex flex-col gap-8">
       <HeroCard
         title="Tools"
-        description="10 executable tools that agents can call to generate code, inspect components, and search the library."
+        description="11 executable tools that agents can call to generate code, inspect components, and search the library."
         icon={
           <div className="w-16 h-16 sm:w-20 sm:h-20 bg-linear-to-br from-blue-500 to-indigo-500 rounded-full flex items-center justify-center shadow-lg">
             <LucideIcons.Wrench className="w-8 h-8 sm:w-10 sm:h-10 text-white" />

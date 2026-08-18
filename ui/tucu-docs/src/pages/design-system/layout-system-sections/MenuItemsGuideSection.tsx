@@ -80,15 +80,26 @@ const MenuItemsGuideSection: React.FC = () => {
       property: 'isActive',
       type: 'boolean?',
       required: 'No',
-      description:
-        'Manually set active state. Usually handled automatically by matching the current pathname.',
+      description: (
+        <>
+          Manually set active state. Usually handled automatically by matching
+          the current pathname — in the expandable sidebar the automatic
+          highlight applies in both the collapsed rail and the expanded panel.
+        </>
+      ),
     },
     {
       property: 'hide',
       type: 'boolean?',
       required: 'No',
-      description:
-        'Hide this menu item from navigation (useful for conditional rendering)',
+      description: (
+        <>
+          Hide this menu item from navigation (useful for conditional
+          rendering). The item is filtered out individually — its siblings keep
+          rendering, so no manual pre-filtering of <code>menuItems</code> is
+          needed.
+        </>
+      ),
     },
     {
       property: 'onClick',
@@ -386,7 +397,7 @@ function App() {
       component: <AdminPanel />,
       hide: !isAdmin, // Hide if not admin
     },
-  ].filter((item) => !item.hide); // Filter out hidden items
+  ]; // No manual .filter() needed — layouts skip items with hide: true
 
   return (
     <ThemeProvider menuItems={menuItems} layout={LAYOUT_OPTIONS.ADMIN} />

@@ -36,7 +36,7 @@ pnpm install @e-burgos/tucu-ui
       ),
       title: 'Advanced Theming System',
       description:
-        '34+ color presets with 12-layer color architecture (primary, dark primary, secondary, dark secondary, accent, dark accent, muted, dark muted, backgrounds)',
+        '46 color presets with 12-layer color architecture (primary, secondary, accent, muted, backgrounds, status colors, foreground, and border — each with light/dark variants)',
       iconBgClassName: 'from-purple-500 via-purple-600 to-pink-500',
     },
     {
@@ -408,7 +408,7 @@ pnpm install @e-burgos/tucu-ui
         <LucideIcons.BrainCircuit className="w-6 h-6 text-white filter drop-shadow-sm" />
       ),
       title: 'MCP Server',
-      badge: '10 tools',
+      badge: '11 tools',
       description:
         'AI agent integration via Model Context Protocol with resources, tools, and prompts',
       iconBgClassName: 'from-emerald-500 to-teal-500',
@@ -416,7 +416,7 @@ pnpm install @e-burgos/tucu-ui
   ];
 
   const nextSteps = [
-    '12-layer theming system with 34+ color presets and independent layer control',
+    '12-layer theming system with 46 color presets and independent layer control',
     '3 theme variants (Default, macOS Sonoma, macOS Tahoe) with 10 layouts and integrated routing',
     'React Hook Form integration with 14+ form components and validation',
     'Component API with detailed props, examples, and live demos',
@@ -445,7 +445,7 @@ pnpm install @e-burgos/tucu-ui
     <div className="space-y-8 max-w-6xl sm:space-y-12 w-full mx-auto px-4 sm:px-6 lg:px-8 relative pt-8 lg:pt-12">
       {/* Hero Section */}
       <HeroCard
-        description="A modern, comprehensive React component library built with TypeScript and Tailwind CSS v4. Features 3 theme variants (Default, macOS, macOS Tahoe), 10 layout systems, 34+ color presets with 12-layer color architecture, integrated routing, powerful form system with React Hook Form, granular theme control, and a built-in MCP Agentic Server for AI-powered development. Designed for production-ready applications with sophisticated theming and full accessibility support."
+        description="A modern, comprehensive React component library built with TypeScript and Tailwind CSS v4. Features 3 theme variants (Default, macOS, macOS Tahoe), 10 layout systems, 46 color presets with 12-layer color architecture, integrated routing, powerful form system with React Hook Form, granular theme control, and a built-in MCP Agentic Server for AI-powered development. Designed for production-ready applications with sophisticated theming and full accessibility support."
         githubButton
         getStartedButton
         backgroundAnimation

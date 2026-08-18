@@ -25,6 +25,13 @@ const sections: SectionConfig[] = [
     ),
   },
   {
+    id: 'sidebar-pinning',
+    label: 'Sidebar Pinning & Dual Logo',
+    component: lazy(
+      () => import('./layout-system-sections/SidebarPinningSection')
+    ),
+  },
+  {
     id: 'best-practices',
     label: 'Best Practices',
     component: lazy(

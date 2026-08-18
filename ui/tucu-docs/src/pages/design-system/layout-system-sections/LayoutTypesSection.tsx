@@ -29,6 +29,8 @@ const LayoutTypesSection: React.FC = () => {
       ],
       features: [
         'Expandable sidebar navigation (visible on xl screens)',
+        'Pinnable sidebar: pin button keeps it expanded (sidebarPinned / defaultSidebarPinned / onSidebarPinnedChange)',
+        'Dedicated collapsed-rail logo via collapsedLogo (falls back to logo isoType)',
         'Fixed header with logo and action buttons',
         'Responsive drawer menu for mobile devices',
         'RTL/LTR direction support',
