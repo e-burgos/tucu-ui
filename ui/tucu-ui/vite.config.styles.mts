@@ -1,3 +1,4 @@
+// .mts is load-bearing — see the note at the top of vite.config.mts.
 import { defineConfig, PluginOption } from 'vite';
 import * as path from 'path';
 import { existsSync, rmSync } from 'fs';
@@ -5,7 +6,7 @@ import tailwindcss from '@tailwindcss/vite';
 
 /**
  * Dedicated build for the package's CSS artifacts. Runs after the main lib
- * build (triggered from vite.config.ts's buildStylesPlugin), into the same
+ * build (triggered from vite.config.mts's buildStylesPlugin), into the same
  * dist directory, with emptyOutDir off.
  *
  * Why a separate build instead of `import './styles.css'` in src/index.ts:

@@ -1,4 +1,5 @@
 /// <reference types="vitest" />
+// .mts is load-bearing — see the note at the top of vite.config.mts.
 import { defineConfig } from 'vitest/config';
 import react from '@vitejs/plugin-react';
 import * as path from 'path';

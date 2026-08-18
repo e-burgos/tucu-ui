@@ -1,4 +1,11 @@
 /// <reference types='vitest' />
+// .mts (not .ts) is load-bearing: this package.json has no "type": "module",
+// so a .ts config gets bundled to CJS and require()d — and require() of the
+// ESM-only @tailwindcss/vite (which statically imports 'vite') races against
+// the Nx plugin workers' concurrent dynamic import('vite') during project
+// graph processing, intermittently failing CI with "Cannot require() ES
+// Module vite/dist/node/index.js because it is not yet fully loaded". As
+// .mts the config is always loaded as ESM and no require() path exists.
 import { defineConfig, PluginOption, build as viteBuild } from 'vite';
 import react from '@vitejs/plugin-react';
 import dts from 'vite-plugin-dts';
@@ -8,15 +15,17 @@ import { copyFileSync, cpSync, mkdirSync } from 'fs';
 import tailwindcss from '@tailwindcss/vite';
 
 // The CSS artifacts (dist/index.css, dist/fonts.css, dist/fonts/) are built
-// by a second, non-lib Vite pass — see vite.config.styles.ts for why. Chained
+// by a second, non-lib Vite pass — see vite.config.styles.mts for why. Chained
 // here so `nx run tucu-ui:build` keeps producing the complete dist in one go.
 const buildStylesPlugin = (): PluginOption => ({
   name: 'build-styles',
   closeBundle: async () => {
     await viteBuild({
-      configFile: path.join(__dirname, 'vite.config.styles.ts'),
+      configFile: path.join(__dirname, 'vite.config.styles.mts'),
     });
-    console.log('index.css / fonts.css / fonts/ built (vite.config.styles.ts)');
+    console.log(
+      'index.css / fonts.css / fonts/ built (vite.config.styles.mts)'
+    );
   },
 });
 
