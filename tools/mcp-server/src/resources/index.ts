@@ -1,5 +1,5 @@
 // ─── Resource Registry ───────────────────────────────────────────────────────
-// Registers all 13 MCP resources with tucu:// URIs.
+// Registers all 15 MCP resources with tucu:// URIs.
 
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { getCatalogContent } from './catalog.js';
@@ -15,6 +15,8 @@ import { getMigrationContent } from './migration.js';
 import { getBestPracticesContent } from './best-practices.js';
 import { getChangelogContent } from './changelog.js';
 import { getQuickStartContent } from './quickstart.js';
+import { getStylingOverridesContent } from './styling-overrides.js';
+import { getShellContent } from './shell.js';
 
 interface ResourceDef {
   name: string;
@@ -109,6 +111,20 @@ const resources: ResourceDef[] = [
     uri: 'tucu://quickstart',
     description: 'Quick start: install, setup, first component, warnings',
     getContent: getQuickStartContent,
+  },
+  {
+    name: 'styling-overrides',
+    uri: 'tucu://styling-overrides',
+    description:
+      'Real-world CSS overrides: full data-tucu anchor map, the compound-selector specificity rule, components with no styling hook, and verified override recipes',
+    getContent: getStylingOverridesContent,
+  },
+  {
+    name: 'shell',
+    uri: 'tucu://shell',
+    description:
+      'App shell and orchestration reality: standalone vs MFE ThemeProvider, the internal BrowserRouter and real scroll container, the rightButton header slot, cross-app full-page navigation',
+    getContent: getShellContent,
   },
 ];
 

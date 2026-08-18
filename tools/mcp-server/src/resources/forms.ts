@@ -123,6 +123,60 @@ type SelectOption = { name: string; value: string; icon?: ReactNode };
 \`\`\`
 
 ## Re-exports from react-hook-form
-SubmitHandler, UseFormProps, FieldValues, UseFormReturn, Controller, useFormContext, Path, FieldError, RegisterOptions, FieldErrors
+SubmitHandler, UseFormProps, FieldValues, UseFormReturn, Controller, useFormContext, Path, FieldError (as FormFieldError), RegisterOptions, FieldErrors
+
+\`useFormContext\`/\`Controller\` are re-exported straight from
+\`ui/tucu-ui/src/components/forms/hook-form.tsx\` (\`export { Controller, useFormContext }\`)
+— you never need \`react-hook-form\` as a direct dependency to use them.
+
+## Advanced pattern: programmatic submit for content outside the \`<form>\` DOM node
+
+\`useFormContext\` is not just for reading values — it is the only way to submit a \`Form\`
+from content that reads its context but is **not a DOM descendant of the \`<form>\`
+element**, e.g. fields rendered inside a \`Drawer\`/\`DrawerContainer\` portaled to
+\`document.body\` (see \`tucu://catalog\`'s \`DrawerContainer\` entry and
+\`tucu://styling-overrides\`). React context reaches across a portal, but native HTML form
+submission does not — a \`<button type="submit">\` inside a portaled drawer is not a
+descendant of the \`<form>\` in the DOM, so it never fires the form's submit event, and no
+error is thrown; it just silently does nothing.
+
+The fix is to keep the \`Form\` as the single source of truth and trigger submission by
+hand from inside the portaled content, using \`handleSubmit\` off \`useFormContext\`:
+
+\`\`\`tsx
+import { Form, Input, Button, useFormContext, DrawerContainer } from '@e-burgos/tucu-ui';
+import type { FieldValues } from '@e-burgos/tucu-ui';
+
+function DrawerFields<TValues extends FieldValues>({ onApply }: { onApply: () => void }) {
+  // Reads the SAME Form context even though this renders inside a portal
+  const { handleSubmit, resetField } = useFormContext<TValues>();
+  return (
+    <>
+      <Input name="query" label="Search" />
+      <Button type="button" variant="solid" onClick={handleSubmit(() => onApply())}>
+        Apply
+      </Button>
+      <Button type="button" variant="ghost" onClick={() => resetField('query' as never)}>
+        Clear
+      </Button>
+    </>
+  );
+}
+
+<Form onSubmit={(data) => applyFilters(data)}>
+  <Input name="name" label="Name" />
+  <DrawerContainer isOpen={isOpen} setIsOpen={setIsOpen}>
+    <div className="pointer-events-auto">
+      <DrawerFields onApply={() => setIsOpen(false)} />
+    </div>
+  </DrawerContainer>
+</Form>
+\`\`\`
+
+Notes: the "Apply" button must be \`type="button"\`, not \`"submit"\` — a native submit
+inside the portal still would not fire, so there's no reason to use it and it invites
+the false assumption that it works. Use \`resetField\` per field for a "clear this
+section only" control, never \`reset()\` (which clears the whole \`Form\`, including
+fields outside the drawer).
 `;
 }

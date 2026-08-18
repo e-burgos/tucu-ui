@@ -17,6 +17,9 @@ export function getLayoutsContent(): string {
 \`\`\`
 - **Constant**: \`LAYOUT_OPTIONS.ADMIN\`
 - Collapsible sidebar visible on xl+ breakpoint
+- Sidebar can be pinned open via the pin toggle (\`data-tucu="sidebar-pin"\`); pin state is
+  controllable (\`sidebarPinned\`/\`onSidebarPinnedChange\`) so the consumer can persist it
+- Distinct logos per sidebar state: \`logo\` (expanded) and \`collapsedLogo\` (96px rail)
 - Ideal for: admin panels, CRMs, data-heavy apps
 
 ### Horizontal Layout (Default)
@@ -166,7 +169,7 @@ setLayout(LAYOUT_OPTIONS.HORIZONTAL);
 | Component | Props | Description |
 |-----------|-------|-------------|
 | RootLayout | layout, menuItems, logo?, rightButton?, fullWidth? | Main layout orchestrator |
-| AdminLayout | menuItems, rightButton?, logo?, isOpen, setIsOpen, fullWidth? | Collapsible sidebar + fixed header |
+| AdminLayout | menuItems, rightButton?, logo?, collapsedLogo?, sidebarPinned?, defaultSidebarPinned?, onSidebarPinnedChange?, isOpen, setIsOpen, fullWidth? | Collapsible sidebar + fixed header; pinnable sidebar with per-state logos |
 | CleanLayout | children, className? | Minimal layout without nav |
 | HorizontalLayout | menuItems, rightButton?, logo?, isOpen, setIsOpen, fullWidth? | Top horizontal navigation |
 | HorizontalNavMenu | menuItems, className?, dropboxClassName? | Horizontal navigation menu (used inside navbar layouts) |
