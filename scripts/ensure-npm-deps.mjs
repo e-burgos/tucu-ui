@@ -1,7 +1,7 @@
 /**
  * ensure-npm-deps.mjs
  *
- * Safety script for CI/CD (Netlify, etc.).
+ * Safety script for CI/CD (Cloudflare Pages, etc.).
  * If apps/demo/package.json has a "file:" reference for @e-burgos/tucu-ui
  * (from local testing), this script fetches the latest published version
  * from npm and restores it.

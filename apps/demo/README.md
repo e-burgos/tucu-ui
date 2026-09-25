@@ -106,7 +106,7 @@ The build output will be in the `dist/` directory.
 apps/demo/
 ├── public/
 │   ├── robots.txt          # SEO crawler configuration
-│   ├── _redirects          # Netlify redirects for SPA
+│   ├── _redirects          # SPA redirects (Cloudflare Pages)
 │   └── favicon.svg         # App favicon
 ├── src/
 │   ├── components/

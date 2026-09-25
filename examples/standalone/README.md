@@ -279,7 +279,7 @@ VITE_GOOGLE_ANALYTICS_TAG_ID=your-id
 - [React Documentation](https://react.dev)
 - [TypeScript Documentation](https://www.typescriptlang.org)
 - [React Query Documentation](https://tanstack.com/query/latest)
-- [Tucu-UI Documentation](https://tucu-ui.netlify.app)
+- [Tucu-UI Documentation](https://ui.estebanburgos.com.ar)
 
 ## 📊 Project Status
 

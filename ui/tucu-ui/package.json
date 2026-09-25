@@ -24,7 +24,7 @@
     "react",
     "zustand"
   ],
-  "homepage": "https://tucu-ui.netlify.app",
+  "homepage": "https://ui.estebanburgos.com.ar",
   "changelog": "CHANGELOG.md",
   "exports": {
     ".": {

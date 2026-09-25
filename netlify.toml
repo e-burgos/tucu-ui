@@ -1,9 +1,0 @@
-[build.environment]
-  NODE_VERSION = "22"
-  NPM_FLAGS = "--version"
-  PNPM_VERSION = "9.15.1"
-  NX_SKIP_NX_CACHE = "true"
-
-[build]
-  command = "pnpm run build"
-  publish = "dist"

@@ -2,7 +2,7 @@
 
 A modern React component library built with TypeScript and Tailwind CSS v4 — automatic layouts, macOS design systems (Sonoma & Tahoe), advanced routing (Standalone & MFE), form system, charts, 5000+ icons, blockchain components, and WCAG 2.1 AA compliance.
 
-**📚 [Live Docs](https://tucu-ui.netlify.app/) · [NPM](https://www.npmjs.com/package/@e-burgos/tucu-ui)**
+**📚 [Live Docs](https://ui.estebanburgos.com.ar/) · [NPM](https://www.npmjs.com/package/@e-burgos/tucu-ui)**
 
 ---
 
@@ -10,21 +10,21 @@ A modern React component library built with TypeScript and Tailwind CSS v4 — a
 
 | Feature | Description | Docs |
 |---------|-------------|------|
-| 🎨 **Layout System** | Classic, Minimal, None, macOS Sonoma & Tahoe | [Layout](https://tucu-ui.netlify.app/design-system/layout-system) |
-| 🎭 **Theming** | 34+ color presets, dark/light, RTL, CSS vars | [Theming Guide](https://tucu-ui.netlify.app/design-system/theming-guide) |
-| 📝 **Forms** | React Hook Form integration, validation, all input types | [Form System](https://tucu-ui.netlify.app/form-system/example) |
-| 💻 **macOS Sonoma** | Translucent sidebar, toolbar, vibrancy effects | [Sonoma](https://tucu-ui.netlify.app/macos/sonoma) |
-| 🪟 **macOS Tahoe** | Liquid Glass dock, frosted panels, 9 accent bundles | [Tahoe](https://tucu-ui.netlify.app/macos/tahoe) |
-| 🧩 **UI Components** | 95+ components: modals, drawers, cards, tooltips… | [Components](https://tucu-ui.netlify.app/components/ui-components) |
-| ⌨️ **Input Components** | All form inputs with validation and accessibility | [Inputs](https://tucu-ui.netlify.app/components/inputs-components) |
-| 📊 **Charts** | BarChart, LineChart, AreaChart, PieChart, Radar, Composed | [Charts](https://tucu-ui.netlify.app/components/charts) |
-| 🪙 **Blockchain** | DeFi, NFT, crypto wallet components | [Blockchain](https://tucu-ui.netlify.app/components/blockchain) |
-| 🎯 **Icons** | 5000+ Lucide + 97 custom (crypto, social, UI) | [Icons](https://tucu-ui.netlify.app/features/icons-system) |
-| 🌐 **Routing** | Standalone (auto-gen) & MFE (explicit) patterns | [Routing](https://tucu-ui.netlify.app/features/routing-system) |
-| ♿ **Accessibility** | WCAG 2.1 AA, ARIA, keyboard nav | [A11y](https://tucu-ui.netlify.app/features/accessibility) |
-| 🪝 **Hooks & Utils** | useTheme, useBreakpoint, and more | [Hooks](https://tucu-ui.netlify.app/features/hooks-utilities) |
-| 🎨 **Tailwind CSS v4** | All utilities pre-configured, zero extra setup | [Tailwind](https://tucu-ui.netlify.app/tailwind-utilities/layout-utilities) |
-| 🤖 **MCP Server** | AI-agent integration via Model Context Protocol | [MCP Server](https://tucu-ui.netlify.app/mcp-server) |
+| 🎨 **Layout System** | Classic, Minimal, None, macOS Sonoma & Tahoe | [Layout](https://ui.estebanburgos.com.ar/design-system/layout-system) |
+| 🎭 **Theming** | 34+ color presets, dark/light, RTL, CSS vars | [Theming Guide](https://ui.estebanburgos.com.ar/design-system/theming-guide) |
+| 📝 **Forms** | React Hook Form integration, validation, all input types | [Form System](https://ui.estebanburgos.com.ar/form-system/example) |
+| 💻 **macOS Sonoma** | Translucent sidebar, toolbar, vibrancy effects | [Sonoma](https://ui.estebanburgos.com.ar/macos/sonoma) |
+| 🪟 **macOS Tahoe** | Liquid Glass dock, frosted panels, 9 accent bundles | [Tahoe](https://ui.estebanburgos.com.ar/macos/tahoe) |
+| 🧩 **UI Components** | 95+ components: modals, drawers, cards, tooltips… | [Components](https://ui.estebanburgos.com.ar/components/ui-components) |
+| ⌨️ **Input Components** | All form inputs with validation and accessibility | [Inputs](https://ui.estebanburgos.com.ar/components/inputs-components) |
+| 📊 **Charts** | BarChart, LineChart, AreaChart, PieChart, Radar, Composed | [Charts](https://ui.estebanburgos.com.ar/components/charts) |
+| 🪙 **Blockchain** | DeFi, NFT, crypto wallet components | [Blockchain](https://ui.estebanburgos.com.ar/components/blockchain) |
+| 🎯 **Icons** | 5000+ Lucide + 97 custom (crypto, social, UI) | [Icons](https://ui.estebanburgos.com.ar/features/icons-system) |
+| 🌐 **Routing** | Standalone (auto-gen) & MFE (explicit) patterns | [Routing](https://ui.estebanburgos.com.ar/features/routing-system) |
+| ♿ **Accessibility** | WCAG 2.1 AA, ARIA, keyboard nav | [A11y](https://ui.estebanburgos.com.ar/features/accessibility) |
+| 🪝 **Hooks & Utils** | useTheme, useBreakpoint, and more | [Hooks](https://ui.estebanburgos.com.ar/features/hooks-utilities) |
+| 🎨 **Tailwind CSS v4** | All utilities pre-configured, zero extra setup | [Tailwind](https://ui.estebanburgos.com.ar/tailwind-utilities/layout-utilities) |
+| 🤖 **MCP Server** | AI-agent integration via Model Context Protocol | [MCP Server](https://ui.estebanburgos.com.ar/mcp-server) |
 
 ---
 
@@ -92,7 +92,7 @@ export default function App() {
 
 → Routing, navigation, theming and responsive layout are auto-generated.
 
-For full API reference, patterns, and examples see the **[live documentation](https://tucu-ui.netlify.app/)**.
+For full API reference, patterns, and examples see the **[live documentation](https://ui.estebanburgos.com.ar/)**.
 
 ---
 

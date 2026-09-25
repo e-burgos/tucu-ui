@@ -566,7 +566,7 @@ If TypeScript shows errors:
 - **[Architecture Guide](./ARCHITECTURE.md)** - Architecture overview and how standalone works internally
 - [Vite Documentation](https://vitejs.dev) - Official Vite documentation
 - [React Documentation](https://react.dev) - Official React documentation
-- [Tucu-UI Documentation](https://tucu-ui.netlify.app) - Official Tucu-UI documentation
+- [Tucu-UI Documentation](https://ui.estebanburgos.com.ar) - Official Tucu-UI documentation
 
 ---
 
