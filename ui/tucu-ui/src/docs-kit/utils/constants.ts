@@ -1,5 +1,5 @@
 export const DOCUMENTATION_URL =
-  import.meta.env.VITE_APP_DEMO_URL || 'https://tucu-ui.netlify.app';
+  import.meta.env.VITE_APP_DEMO_URL || 'https://ui.estebanburgos.com.ar';
 export const NPM_PACKAGE_URL =
   import.meta.env.VITE_APP_NPM_PACKAGE_URL ||
   'https://www.npmjs.com/package/@e-burgos/tucu-ui';

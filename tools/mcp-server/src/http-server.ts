@@ -196,7 +196,7 @@ function getWelcomePage(): string {
     <div class="links">
       <a href="https://www.npmjs.com/package/@e-burgos/tucu-ui-mcp">npm</a>
       <a href="https://github.com/e-burgos/tucu-ui">GitHub</a>
-      <a href="https://tucu-ui.netlify.app">Docs</a>
+      <a href="https://ui.estebanburgos.com.ar">Docs</a>
     </div>
   </div>
 </body>

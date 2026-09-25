@@ -926,7 +926,7 @@ export function App() {
 ## Additional Resources
 
 - [Main README](../README.md) - Overview of the micro-frontend architecture
-- [Tucu-UI Documentation](https://tucu-ui.netlify.app) - Official Tucu-UI documentation
+- [Tucu-UI Documentation](https://ui.estebanburgos.com.ar) - Official Tucu-UI documentation
 
 ---
 

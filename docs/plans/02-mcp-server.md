@@ -51,7 +51,7 @@ mkdir -p tools/mcp-server/scripts
     "directory": "tools/mcp-server"
   },
   "keywords": ["mcp", "tucu-ui", "ai", "components", "model-context-protocol"],
-  "homepage": "https://tucu-ui.netlify.app",
+  "homepage": "https://ui.estebanburgos.com.ar",
   "scripts": {
     "dev": "tsx src/index.ts",
     "build": "tsc && node scripts/copy-data.js",
