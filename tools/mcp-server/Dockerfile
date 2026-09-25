@@ -1,10 +1,14 @@
 FROM node:22-alpine AS builder
 WORKDIR /app
 COPY package.json ./
-RUN npm install
+# --legacy-peer-deps: npm 10's arborist crashes ("reading 'edgesOut'") while
+# resolving vitest 4.x peer sets; peers aren't needed to compile the server.
+RUN npm install --legacy-peer-deps
 COPY tsconfig.docker.json ./tsconfig.json
 COPY src/ ./src/
 RUN npx tsc -p tsconfig.json
+# Drop devDependencies so the runtime stage only ships production modules.
+RUN npm prune --omit=dev --legacy-peer-deps
 
 FROM node:22-alpine AS runtime
 WORKDIR /app
