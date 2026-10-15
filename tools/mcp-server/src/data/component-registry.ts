@@ -55,28 +55,31 @@ export const componentRegistry: ComponentRegistryEntry[] = [
     name: 'Input',
     category: 'inputs',
     description:
-      'Text input field with label, validation, and variants. `icon` renders in a 40px slot on the left and adds `pl-[40px]` to the input automatically — no manual padding needed. `type="date"` is a fully custom picker: the native input becomes `readOnly` and always displays the formatted value (per `dateFormat`, default `DD/MM/YYYY`), while `onChange` fires with a synthetic event whose value is the ISO string (`YYYY-MM-DD`) from the calendar\'s date selection, never from typing. `locale` (`\'en-US\' | \'es-ES\' | \'fr-FR\' | \'de-DE\' | \'pt-BR\'`, default `\'en-US\'`) only affects the date picker\'s weekday labels, month/year header and "Today" button text — it does not affect number/currency formatting.',
+      'Text input field with label, validation, masks and variants. `icon` renders in a 40px slot on the left and adds `pl-[40px]` automatically. **Masks** (`mask`): `phone` (Argentina by default: `+54 9 11 2345-6789`, `11 2345-6789`; other countries via `phoneCountry` / `registerPhoneCountry`, generic `INTL`), `cuit` (`20-12345678-6`), `currency` (`$ 1.234,56`, locale from `maskOptions.locale` or the theme lang) and `number`, or a custom `MaskDefinition` from `createMask`. With `unmask`, `onChange` receives the raw value (E.164 phone, CUIT digits, plain number string) while the input keeps showing the formatted text. **Built-in validation** (`autoValidate`, default true): `type="email" | "tel" | "url"`, `mask="phone" | "cuit"`, `validationType` and `required` validate on blur (and on change after the first blur) and show a localized message (es/en/fr from `ThemeProvider lang`) when no `error` prop is given; `onValidationChange` reports the result. `error` sets `aria-invalid` and links the message via `aria-describedby`. `type="date"` is a custom picker: the input is `readOnly`, displays `dateFormat` (default `DD/MM/YYYY`), `onChange` receives ISO `YYYY-MM-DD`, `min`/`max` (ISO) disable out-of-range days, and `locale` defaults to the theme lang (es → es-AR).',
     importPath: '@e-burgos/tucu-ui',
     variants: {
       variant: ['solid', 'ghost', 'transparent'],
+      mask: ['phone', 'cuit', 'currency', 'number'],
     },
     example: `import { Input } from '@e-burgos/tucu-ui';
 
-<Input label="Email" placeholder="you@example.com" variant="ghost" />
+<Input label="Email" type="email" placeholder="you@example.com" />
 
-<Input
-  label="Birth date"
-  type="date"
-  dateFormat="DD/MM/YYYY"
-  locale="es-ES"
-  value={value}
-  onChange={(e) => setValue(e.target.value)}
-/>`,
-    relatedComponents: ['InputSearcher', 'Form'],
+<Input label="Teléfono" type="tel" mask="phone" phoneCountry="AR" unmask
+  value={phone} onChange={(e) => setPhone(e.target.value)} />  // phone = '+5491123456789'
+
+<Input label="CUIT" mask="cuit" />
+<Input label="Precio" mask="currency" unmask maskOptions={{ locale: 'es-AR', decimals: 2 }} />
+
+<Input label="Nacimiento" type="date" max={new Date().toISOString().slice(0, 10)}
+  value={value} onChange={(e) => setValue(e.target.value)} />`,
+    relatedComponents: ['FormField', 'Form', 'InputSearcher'],
     themeAware: true,
     warnings: [
-      '`type="date"` makes the visible input `readOnly` — typing a date is not possible, only picking one from the calendar dropdown updates the value.',
-      '`onChange` for `type="date"` always receives the ISO format (`YYYY-MM-DD`) regardless of `dateFormat`, which only controls the display string.',
+      '`type="date"` makes the visible input `readOnly` — only picking from the calendar updates the value.',
+      '`onChange` for `type="date"` always receives ISO (`YYYY-MM-DD`) regardless of `dateFormat`.',
+      'Inside `FormField`, the Input skips its own validation (FormField adds the same rules to react-hook-form and renders the error).',
+      '`unmask` is meant for controlled inputs (`value` + `onChange`, or `FormField`); with uncontrolled `register` the DOM keeps the formatted text.',
     ],
   },
   {
@@ -223,16 +226,42 @@ export const componentRegistry: ComponentRegistryEntry[] = [
     name: 'Form',
     category: 'forms',
     description:
-      'Form wrapper built on react-hook-form with built-in validation and input registration.',
+      'Form wrapper built on react-hook-form (FormProvider + handleSubmit). Fields are connected with `FormField`, which infers validators from the child Input (email, tel, url, phone/cuit masks) and localizes `required: true`. Standalone validators and masks are exported too: `validateEmail`, `validatePhone`, `validateUrl`, `validateCuit`, `validateRequired`, `getValidationRules(type, { lang, required, phoneCountry })`, `formatPhone`, `normalizePhone`, `formatCuit`, `isValidCuit`, `formatNumber`, `parseNumber`, `createMask`, `registerPhoneCountry`.',
     importPath: '@e-burgos/tucu-ui',
-    example: `import { Form } from '@e-burgos/tucu-ui';
+    example: `import { Form, FormField, Input, Button } from '@e-burgos/tucu-ui';
 
-<Form onSubmit={(data) => console.log(data)} defaultValues={{ name: '' }}>
-  {({ register }) => (
-    <Input label="Name" {...register('name', { required: true })} />
-  )}
+<Form<Customer> onSubmit={save} useFormProps={{ defaultValues: { email: '', phone: '' }, mode: 'onTouched' }}>
+  <FormField<Customer> name="email" label="Email" rules={{ required: true }}>
+    <Input type="email" />
+  </FormField>
+  <FormField<Customer> name="phone" label="Teléfono">
+    <Input type="tel" mask="phone" unmask />
+  </FormField>
+  <Button type="submit">Guardar</Button>
 </Form>`,
-    relatedComponents: ['Input', 'Select', 'Checkbox', 'Switch'],
+    relatedComponents: ['FormField', 'Input', 'Select', 'Checkbox', 'Switch'],
+    themeAware: true,
+    warnings: [
+      'Form has no `defaultValues` prop: pass them through `useFormProps={{ defaultValues }}`.',
+      'Inputs are NOT auto-registered by `name`: wrap each one in `FormField name="..."` (or use the render-function `register`).',
+    ],
+  },
+  {
+    name: 'FormField',
+    category: 'forms',
+    description:
+      'Connects a child control (Input, Select, Checkbox, Radio, PinCode, Textarea…) to the parent Form through a react-hook-form Controller, and renders the error below it. `autoValidate` (default true) adds the validator inferred from the child Input (`type="email"|"tel"|"url"`, `mask="phone"|"cuit"`, `validationType`) on top of your own `rules`, and turns `required: true` into a localized message. The Input gets `aria-invalid` and `aria-describedby` pointing at the error.',
+    importPath: '@e-burgos/tucu-ui',
+    example: `import { FormField, Input, getValidationRules } from '@e-burgos/tucu-ui';
+
+<FormField name="email" label="Email" rules={{ required: true }}>
+  <Input type="email" />
+</FormField>
+
+<FormField name="cuit" label="CUIT" rules={getValidationRules('cuit', { lang: 'es', required: true })}>
+  <Input mask="cuit" unmask autoValidate={false} />
+</FormField>`,
+    relatedComponents: ['Form', 'Input'],
     themeAware: true,
   },
 
@@ -449,7 +478,7 @@ const [isOpen, setIsOpen] = useState(false);
     name: 'ThemeProvider',
     category: 'layouts',
     description:
-      'Theme context provider. Wraps the app to enable theming via useTheme hook.',
+      'Theme context provider. Wraps the app to enable theming via useTheme hook. `lang` (`en` | `es` | `fr`, also `es-AR`-style tags) sets the language of built-in strings: validation messages, aria labels, DataTable pagination and empty states, date picker.',
     importPath: '@e-burgos/tucu-ui',
     example: `import { ThemeProvider } from '@e-burgos/tucu-ui';
 
@@ -572,16 +601,24 @@ const [isOpen, setIsOpen] = useState(false);
   {
     name: 'Toast',
     category: 'notifications',
-    description: 'Temporary notification that appears and auto-dismisses.',
+    description:
+      'Toast region driven by the toast store. ThemeProvider layouts already mount the right renderer for each theme (default, macOS Sonoma, macOS Tahoe), so apps only call `showToast(message, { title, variant, timeout })` or `useToastStore().addToast({...})`. Variants: `default`, `success`, `info`, `warning`, `destructive`. Toasts use an opaque surface with AA contrast in light/dark; restyle via the `--tucu-toast-bg | -fg | -fg-muted | -border | -shadow` CSS variables. Auto-dismiss (default 3000 ms) pauses while hovered or focused.',
     importPath: '@e-burgos/tucu-ui',
     variants: {
-      variant: ['error', 'success', 'info', 'warning'],
+      variant: ['default', 'success', 'info', 'warning', 'destructive'],
     },
-    example: `import { Toast } from '@e-burgos/tucu-ui';
+    example: `import { showToast, useToastStore } from '@e-burgos/tucu-ui';
 
-<Toast variant="success" message="Saved successfully!" />`,
+showToast('Cambios guardados', { variant: 'success' });
+showToast('No se pudo guardar', { title: 'Error', variant: 'destructive', timeout: 6000 });
+
+// Same thing through the store (id is optional now)
+useToastStore.getState().addToast({ message: 'Hola', variant: 'info' });`,
     relatedComponents: ['Alert', 'Notification'],
     themeAware: true,
+    warnings: [
+      '`<Toast />` takes no props and is already mounted by ThemeProvider layouts — do not render it again or pass `variant`/`message` to it.',
+    ],
   },
   {
     name: 'Notification',
@@ -685,19 +722,54 @@ const [isOpen, setIsOpen] = useState(false);
 
   // ─── TABS ────────────────────────────────────────────────
   {
-    name: 'Tabs',
+    name: 'TabGroup',
     category: 'tabs',
-    description: 'Tabbed interface for switching between views.',
+    description:
+      'Accessible tabs (roving tabindex, arrow/Home/End keys, aria-controls). Compose `TabGroup` › `TabList` › `TabItem` and `TabPanels` › `TabPanel`. Controlled (`selectedIndex` + `onChange`) or uncontrolled (`defaultIndex`). Variants: underline, pills, bordered, solid. On xs/sm, `TabList` renders a dropdown unless `responsive={false}`. To keep the tab in the URL (survives reload, linkable, back/forward), use `useTabParam` or `ParamTab`.',
     importPath: '@e-burgos/tucu-ui',
-    example: `import { Tabs } from '@e-burgos/tucu-ui';
+    variants: {
+      variant: ['underline', 'pills', 'bordered', 'solid'],
+    },
+    example: `import { TabGroup, TabList, TabItem, TabPanels, TabPanel, useTabParam } from '@e-burgos/tucu-ui';
 
-<Tabs
-  tabs={[
-    { label: 'Tab 1', content: <div>Content 1</div> },
-    { label: 'Tab 2', content: <div>Content 2</div> },
-  ]}
-/>`,
-    relatedComponents: ['Card'],
+const TABS = ['general', 'branches', 'payments'] as const;
+const [tab, setTab] = useTabParam({ values: TABS, param: 'tab' }); // ?tab=branches
+
+<TabGroup variant="pills" selectedIndex={TABS.indexOf(tab)} onChange={(i) => setTab(TABS[i])}>
+  <TabList variant="pills">
+    <TabItem variant="pills">General</TabItem>
+    <TabItem variant="pills">Sucursales</TabItem>
+    <TabItem variant="pills">Formas de pago</TabItem>
+  </TabList>
+  <TabPanels>
+    <TabPanel>…</TabPanel>
+    <TabPanel>…</TabPanel>
+    <TabPanel>…</TabPanel>
+  </TabPanels>
+</TabGroup>`,
+    relatedComponents: ['ParamTab', 'TabSelect'],
+    themeAware: true,
+    warnings: [
+      'There is no `Tabs` component — use TabGroup/TabList/TabItem/TabPanels/TabPanel, or ParamTab.',
+      'useTabParam and ParamTab need the router context (ThemeProvider provides it).',
+    ],
+  },
+  {
+    name: 'ParamTab',
+    category: 'tabs',
+    description:
+      'Tabs whose selection lives in a URL search param (default `?view=<path>`). The selected tab is derived from the URL on every render, so it follows reloads, links, back/forward and external navigation. Props: `tabMenu` ({ title, path, icon }[]), `paramName`, `defaultIndex`, `replace` (default true; false pushes history entries), `onChange(index, item)`, `variant`, `size`, `showMobileSelect`.',
+    importPath: '@e-burgos/tucu-ui',
+    example: `import { ParamTab, TabPanel } from '@e-burgos/tucu-ui';
+
+<ParamTab paramName="tab" replace={false} tabMenu={[
+  { title: 'General', path: 'general' },
+  { title: 'Sucursales', path: 'branches' },
+]}>
+  <TabPanel><GeneralSettings /></TabPanel>
+  <TabPanel><BranchesSettings /></TabPanel>
+</ParamTab>`,
+    relatedComponents: ['TabGroup'],
     themeAware: true,
   },
 
@@ -831,7 +903,7 @@ const [isOpen, setIsOpen] = useState(false);
     example: `import { Accordion } from '@e-burgos/tucu-ui';
 
 <Accordion items={[{ title: 'Section 1', content: <p>Content</p> }]} />`,
-    relatedComponents: ['Tabs', 'Card'],
+    relatedComponents: ['TabGroup', 'Card'],
     themeAware: true,
   },
 

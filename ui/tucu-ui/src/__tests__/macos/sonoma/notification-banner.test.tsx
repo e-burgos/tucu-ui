@@ -32,7 +32,7 @@ describe('MacOSNotificationBanner', () => {
     render(
       <MacOSNotificationBanner title="Test" dismissible onDismiss={onDismiss} />
     );
-    const dismissBtn = screen.getByLabelText('Dismiss');
+    const dismissBtn = screen.getByLabelText('Dismiss notification');
     fireEvent.click(dismissBtn);
     expect(onDismiss).toHaveBeenCalledTimes(1);
   });

@@ -5,6 +5,37 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.2.0] - 2026-10-15
+
+### Added
+
+- **Input masks**: `<Input mask="phone" | "cuit" | "currency" | "number">` or a custom `MaskDefinition` (`createMask`). Phone defaults to Argentina (`+54 9 11 2345-6789`, `11 2345-6789`, trunk `0` and mobile `15` handled), other countries via `phoneCountry` / `registerPhoneCountry`, generic `INTL`. `unmask` emits the raw value (E.164 phone, CUIT digits, plain number string) while the field keeps showing the formatted text. `maskOptions` sets locale, decimals, prefix, negatives.
+- **Built-in validators** with es/en/fr messages: `validateEmail`, `validatePhone`, `validateUrl`, `validateCuit` (check digit), `validateNumber`, `validateRequired`, `validateField`, `getValidationRules(type, { lang, required, phoneCountry })`, plus `isValidEmail`, `isValidUrl`, `isValidPhone`, `isValidCuit`, `formatPhone`, `normalizePhone`, `formatCuit`, `formatNumber`, `parseNumber`.
+- `Input` validates `type="email" | "tel" | "url"`, phone/CUIT masks, `validationType` and `required` on blur by default (`autoValidate`, `validationMessage`, `onValidationChange`); `FormField` adds the inferred rules to react-hook-form and localizes `required: true` (`autoValidate` to opt out).
+- `ThemeProvider lang` (`en` | `es` | `fr`, `es-AR`-style tags accepted) drives built-in strings: validation messages, aria labels, DataTable pagination and empty/error states, Select texts, date picker. `useTucuMessages()`, `useTucuLang()`, `getTucuMessages()` are exported.
+- `useTabParam({ values, param, defaultValue, replace })` keeps any tab UI in the URL. `ParamTab` gains `paramName`, `defaultIndex`, `replace` and `onChange`.
+- `showToast(message, { title, variant, timeout })`; `addToast` ids are optional.
+- `Input type="date"` honors `min` / `max` (ISO) and defaults its locale to the theme lang.
+- `--tucu-toast-bg | -fg | -fg-muted | -border | -shadow` CSS variables to restyle every toast renderer.
+
+### Changed
+
+- Toasts use an opaque surface in every theme (the Tahoe banner was a 72%-alpha glass); default `Toast` variants meet AA contrast (`destructive` red-600, `success` green-700, `warning` amber-400 with dark text, `info` blue-600).
+- Toast dismiss buttons are labelled "Dismiss notification" (localized) instead of "Dismiss"; tests that query the old label need updating.
+- `ParamTab` derives the selected tab from the URL on every render (no local state) and uses `TabList`'s responsive dropdown on xs/sm.
+- Text controls show focus with a brand border; checkbox, radio, switch and file dropzone get a `:focus-visible` outline (it was globally removed).
+- Input/Textarea error styling follows `aria-invalid` and `:user-invalid`, so pristine `required` fields are no longer red on load.
+- Regenerated props metadata.
+
+### Fixed
+
+- Adding a toast restarted every other toast's timer; timers now run per toast and pause on hover/focus.
+- `MacOSTahoeDockLayout` never mounted a toast renderer, so toasts were silent there.
+- `ParamTab` kept a stale tab when the URL param was removed (back navigation, external links).
+- Shared `layoutId` made the underline indicator jump between unrelated `TabGroup`s; mobile select ids collided across instances.
+- Password toggle, date picker, Select options and FileInput delete fired twice on touch devices (`onTouchStart` + `onClick`).
+- DataTable pagination buttons submitted enclosing forms; range text was wrong ("1-1 of 1 Rows" style math); row actions were unreachable by keyboard.
+- Button `isLoading` still fired `onClick`/submit; Select had no accessible name or error wiring; Textarea dropped `required`; PinCode error border class did not exist; white solid Badge rendered white on white.
 ## [3.1.0] - 2026-08-18
 
 ### Added

@@ -1,4 +1,4 @@
-import { forwardRef } from 'react';
+import { forwardRef, useId } from 'react';
 import cn from 'classnames';
 import { FieldError } from './helpers/field-error-text';
 import { FieldHelperText } from './helpers/field-helper-text';
@@ -47,10 +47,15 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
       helperText,
       color,
       size = 'md',
+      id,
       ...props
     },
     ref
-  ) => (
+  ) => {
+    const generatedId = useId();
+    const textareaId = id || generatedId;
+    const messageId = `${textareaId}-message`;
+    return (
     <div className={cn('text-sm sm:text-sm', className)}>
       <label>
         {label && (
@@ -64,7 +69,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
           >
             {label}
             {required && (
-              <sup className="inline-block text-[13px] text-red-500 ltr:ml-[4px] rtl:mr-[4px]">
+              <sup className="inline-block text-[13px] text-red-600 dark:text-red-400 ltr:ml-[4px] rtl:mr-[4px]">
                 *
               </sup>
             )}
@@ -76,9 +81,13 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
           data-variant={variant}
           data-color={color}
           data-size={size}
+          id={textareaId}
+          required={required}
+          aria-invalid={error ? true : undefined}
+          aria-describedby={error || helperText ? messageId : undefined}
           {...props}
           className={cn(
-            'block w-full placeholder-gray-400 transition-shadow duration-200 invalid:border-red-500 invalid:text-red-600 focus:border-border focus:outline-hidden focus:ring-1 focus:ring-gray-300 focus:invalid:border-red-500 focus:invalid:ring-red-500 disabled:border-border disabled:bg-muted/10 disabled:text-gray-500 disabled:cursor-not-allowed dark:text-gray-100 dark:focus:border-gray-600 dark:focus:ring-gray-600 rounded-xl',
+            'block w-full placeholder-gray-500 transition-shadow duration-200 focus:outline-hidden focus:border-brand focus-visible:outline-2 focus-visible:outline-brand aria-invalid:border-red-500 dark:aria-invalid:border-red-400 user-invalid:border-red-500 dark:user-invalid:border-red-400 disabled:border-border disabled:bg-muted/10 disabled:text-gray-500 dark:disabled:text-gray-400 disabled:cursor-not-allowed dark:text-gray-100 rounded-xl',
             textControlSizeClasses.textarea[size],
             textareaVariantClasses[variant],
             color && textControlColorClasses[variant][color],
@@ -87,12 +96,15 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
           )}
         />
       </label>
-      {error && <FieldError error={error} size="md" />}
+      {error && <FieldError id={messageId} error={error} size="md" />}
       {!error && helperText && (
-        <FieldHelperText size="md">{helperText}</FieldHelperText>
+        <FieldHelperText id={messageId} size="md">
+          {helperText}
+        </FieldHelperText>
       )}
     </div>
-  )
+    );
+  }
 );
 
 export default Textarea;

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import cn from 'classnames';
+import { useTucuMessages } from '../../../../libs/i18n/use-tucu-messages';
 
 // ─── Types ─────────────────────────────────────────────────────
 
@@ -64,9 +65,10 @@ const variantIcon: Record<MacOSNotificationVariant, React.ReactNode> = {
 
 const variantIconColor: Record<MacOSNotificationVariant, string> = {
   info: 'text-[var(--color-semantic-bg-primary)]',
-  success: 'text-[#34c759]',
-  warning: 'text-[#ff9500]',
-  error: 'text-[#ff3b30]',
+  // Apple's accessible system colors: ≥ 3:1 on the toast surface
+  success: 'text-[#248a3d] dark:text-[#30d158]',
+  warning: 'text-[#c93400] dark:text-[#ff9f0a]',
+  error: 'text-[#d70015] dark:text-[#ff453a]',
 };
 
 // ─── Accent stripes per variant ────────────────────────────────
@@ -91,6 +93,7 @@ export function MacOSNotificationBanner({
   onDismiss,
 }: MacOSNotificationBannerProps) {
   const [visible, setVisible] = useState(true);
+  const messages = useTucuMessages();
 
   if (!visible) return null;
 
@@ -127,9 +130,9 @@ export function MacOSNotificationBanner({
       role="alert"
       className={cn(
         'flex items-start gap-[12px] rounded-[12px] px-[16px] py-[12px]',
-        'bg-[var(--macos-material-popover,rgba(255,255,255,0.90))] backdrop-blur-xl',
-        'border border-[var(--color-border)] border-l-4',
-        'shadow-[var(--shadow-card)]',
+        'bg-(--tucu-toast-bg) text-(--tucu-toast-fg)',
+        'border border-(--tucu-toast-border) border-l-4',
+        '[box-shadow:var(--tucu-toast-shadow)]',
         VARIANT_ACCENT[variant],
         className
       )}
@@ -140,12 +143,12 @@ export function MacOSNotificationBanner({
       </div>
 
       <div className="min-w-0 flex-1">
-        <p className="text-[13px] font-semibold text-gray-900 dark:text-gray-100">
+        <p className="text-[13px] font-semibold text-(--tucu-toast-fg)">
           {title}
         </p>
 
         {message && (
-          <p className="mt-[2px] text-xs text-gray-500 dark:text-gray-400">
+          <p className="mt-[2px] text-xs text-(--tucu-toast-fg-muted)">
             {message}
           </p>
         )}
@@ -157,10 +160,11 @@ export function MacOSNotificationBanner({
         <button
           type="button"
           onClick={dismiss}
-          aria-label="Dismiss"
+          aria-label={messages.toast.dismiss}
           className={cn(
             'shrink-0 flex h-[20px] w-[20px] items-center justify-center rounded-full',
-            'text-gray-400 hover:bg-gray-500/15 dark:hover:bg-white/10 transition-colors'
+            'text-(--tucu-toast-fg-muted) hover:bg-gray-500/15 dark:hover:bg-white/10 transition-colors',
+            'focus:outline-none focus-visible:ring-2 focus-visible:ring-(--color-brand)'
           )}
         >
           <svg

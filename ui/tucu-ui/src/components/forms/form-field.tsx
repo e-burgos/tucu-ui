@@ -15,7 +15,12 @@ import { Select, SelectOption } from '../inputs/select';
 import { Checkbox } from '../inputs/checkbox';
 import { Radio } from '../inputs/radio';
 import { PinCode } from '../inputs/pin-code';
-import { ControllerRenderProps } from 'react-hook-form';
+import { ControllerRenderProps, Validate } from 'react-hook-form';
+import { Input } from '../inputs/input';
+import { Textarea } from '../inputs/textarea';
+import { inferValidationType, validateField } from './validators';
+import { useTucuLang } from '../../libs/i18n/use-tucu-messages';
+import { getTucuMessages } from '../../libs/i18n/messages';
 
 export interface FormFieldProps<TFormValues extends FieldValues> {
   name: Path<TFormValues>;
@@ -29,6 +34,13 @@ export interface FormFieldProps<TFormValues extends FieldValues> {
   children: React.ReactElement;
   hideError?: boolean;
   showHelper?: boolean;
+  /**
+   * Adds the built-in validator inferred from the child `Input`
+   * (`type="email" | "tel" | "url"`, `mask="phone" | "cuit"`,
+   * `validationType`) and localizes `required: true`. Your own `rules`
+   * still run. Default `true`.
+   */
+  autoValidate?: boolean;
 }
 
 export const FormField = <TFormValues extends FieldValues = FieldValues>({
@@ -40,7 +52,9 @@ export const FormField = <TFormValues extends FieldValues = FieldValues>({
   children,
   hideError = false,
   showHelper = false,
+  autoValidate = true,
 }: FormFieldProps<TFormValues>) => {
+  const lang = useTucuLang();
   const {
     control,
     formState: { errors },
@@ -65,12 +79,48 @@ export const FormField = <TFormValues extends FieldValues = FieldValues>({
   const error = getNestedError(errors, name);
   const errorMessage = error?.message;
 
+  const childProps = children.props as Record<string, unknown>;
+  const isInput = children.type === Input;
+  const autoType =
+    autoValidate && isInput && childProps.autoValidate !== false
+      ? inferValidationType({
+          type: childProps.type as string | undefined,
+          mask: childProps.mask,
+          validationType: childProps.validationType as never,
+        })
+      : undefined;
+
+  const mergedRules = (() => {
+    if (!autoValidate) return rules;
+    const next = { ...(rules ?? {}) } as Record<string, unknown>;
+    if (next.required === true) {
+      next.required = getTucuMessages(lang).validation.required;
+    }
+    if (autoType && autoType !== 'required') {
+      const mask = childProps.mask;
+      const autoValidator: Validate<unknown, TFormValues> = (value) =>
+        validateField(autoType, value, {
+          lang,
+          message: childProps.validationMessage as string | undefined,
+          phoneCountry:
+            (childProps.phoneCountry as string | undefined) ??
+            (mask === 'phone' ? 'AR' : 'INTL'),
+        }) ?? true;
+      const userValidate = next.validate;
+      next.validate =
+        typeof userValidate === 'function'
+          ? { custom: userValidate, [autoType]: autoValidator }
+          : { ...(userValidate as object), [autoType]: autoValidator };
+    }
+    return Object.keys(next).length > 0 ? (next as typeof rules) : undefined;
+  })();
+
   return (
     <div className={className}>
       <Controller
         control={control}
         name={name}
-        {...(rules ? { rules } : {})}
+        {...(mergedRules ? { rules: mergedRules } : {})}
         render={({
           field,
         }: {
@@ -96,6 +146,13 @@ export const FormField = <TFormValues extends FieldValues = FieldValues>({
             value: normalizedValue,
             id: name,
             label: label || (children.props as { label?: string })?.label,
+            // FormField shows the error below the control; the Input only
+            // reflects the invalid state and skips its own validation.
+            ...(isInput && { autoValidate: false }),
+            ...((isInput || children.type === Textarea) && {
+              'aria-invalid': errorMessage ? 'true' : 'false',
+              ...(errorMessage && { 'aria-describedby': `${name}-error` }),
+            }),
             ...(children.props as { [key: string]: unknown }),
           };
 
@@ -140,7 +197,11 @@ export const FormField = <TFormValues extends FieldValues = FieldValues>({
       />
 
       {!hideError && errorMessage && (
-        <FieldErrorText error={errorMessage as string} size="md" />
+        <FieldErrorText
+          id={`${name}-error`}
+          error={errorMessage as string}
+          size="md"
+        />
       )}
 
       {!errorMessage && showHelper && helperText && (

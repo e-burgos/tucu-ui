@@ -2,6 +2,7 @@ import React from 'react';
 import { Spinner } from '../../Common/Spinner';
 import { IDataTableStateMessage } from '../../../common/types';
 import { cn } from '../../../common/helpers/cn';
+import { useTucuMessages } from '../../../../libs/i18n/use-tucu-messages';
 
 /**
  * Props for the StateTableHandler component.
@@ -31,17 +32,14 @@ const StateTableHandler: React.FC<StateTableHandlerProps> = ({
   isError,
   stateMessage = { hideContactSupport: false },
 }) => {
+  const t = useTucuMessages().datatable;
   const defaultText = {
-    noData: stateMessage?.noData || 'No available data',
-    noDataDescription:
-      stateMessage?.noDataDescription ||
-      'There is no data based on the selected criteria. Please try adjusting your filters or refreshing the page to ensure any recent changes are reflected.',
-    errorData:
-      stateMessage?.errorData || 'There was a problem loading the data',
+    noData: stateMessage?.noData || t.noData,
+    noDataDescription: stateMessage?.noDataDescription || t.noDataDescription,
+    errorData: stateMessage?.errorData || t.errorData,
     errorDataDescription:
-      stateMessage?.errorDataDescription ||
-      'Please try again refreshing the page or the selected content. If the problem continues or you need help, contact our Support Team.',
-    contactSupport: stateMessage?.contactSupport || 'Contact Support',
+      stateMessage?.errorDataDescription || t.errorDataDescription,
+    contactSupport: stateMessage?.contactSupport || t.contactSupport,
     contactSupportLink:
       stateMessage?.contactSupportLink || 'https://www.estebanburgos.com.ar/',
   };

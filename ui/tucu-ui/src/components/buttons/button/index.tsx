@@ -114,7 +114,13 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     }
 
     const clickHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
-      if (!isLoading && buttonRef.current) {
+      // A loading button stays focusable but must not fire again (double
+      // submits) — including the form submit of a type="submit" button.
+      if (isLoading) {
+        event.preventDefault();
+        return;
+      }
+      if (buttonRef.current) {
         const rect = buttonRef.current.getBoundingClientRect();
         setDripShow(true);
         setDripX(event.clientX - rect.left);
@@ -163,8 +169,11 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           aria-label={ariaLabel}
           aria-describedby={ariaDescribedBy || undefined}
           aria-busy={isLoading ? 'true' : 'false'}
+          aria-disabled={isLoading || undefined}
           className={cn(
             'group inline-flex shrink-0 items-center justify-center overflow-hidden text-center text-sm font-medium tracking-wider outline-hidden transition-all sm:text-sm',
+            // visible keyboard focus in every state (WCAG 2.4.7)
+            'focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-gray-900',
             !disabled
               ? buttonColorClassNames
               : 'cursor-not-allowed dark:bg-gray-700 dark:text-gray-500 bg-gray-300 text-gray-600',

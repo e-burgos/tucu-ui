@@ -1,6 +1,7 @@
-import { useCallback, useEffect, useState } from 'react';
 import cn from 'classnames';
-import { useToastStore, IToast } from '../../../../hooks/use-toast-store';
+import { IToast } from '../../../../hooks/use-toast-store';
+import { useToastQueue } from '../../../notifications/use-toast-queue';
+import { useTucuMessages } from '../../../../libs/i18n/use-tucu-messages';
 import {
   MacOSNotificationBanner,
   MacOSNotificationVariant,
@@ -16,58 +17,32 @@ function mapVariant(variant: IToast['variant']): MacOSNotificationVariant {
       return 'success';
     case 'warning':
       return 'warning';
-    case 'info':
-      return 'info';
     default:
       return 'info';
   }
 }
 
-// ─── MacOSSonomaToast ──────────────────────────────────────────
+// ─── MacOSSonomaToast ───────────────────────────────────────────────────
 
 export function MacOSSonomaToast() {
-  const { toasts, dismissToast } = useToastStore();
-  const [visibleToasts, setVisibleToasts] = useState<IToast[]>([]);
+  const messages = useTucuMessages();
+  const { toasts, dismiss, regionHandlers } = useToastQueue(300);
 
-  const handleDismiss = useCallback(
-    (toast: IToast) => {
-      setVisibleToasts((prev) =>
-        prev.map((t) => (t.id === toast.id ? { ...t, dismissing: true } : t))
-      );
-      setTimeout(() => {
-        dismissToast(toast.id);
-      }, 300);
-    },
-    [dismissToast]
-  );
-
-  useEffect(() => {
-    setVisibleToasts(toasts);
-    const timers = toasts.map((toast) => {
-      const timer = setTimeout(() => {
-        handleDismiss(toast);
-      }, toast.timeout || 3000);
-      return { id: toast.id, timer };
-    });
-    return () => {
-      timers.forEach(({ timer }) => clearTimeout(timer));
-    };
-  }, [toasts, handleDismiss]);
-
-  if (visibleToasts.length === 0) return null;
+  if (toasts.length === 0) return null;
 
   return (
     <div
       role="region"
-      aria-label="Notifications"
+      aria-label={messages.toast.region}
       data-tucu="toast-container"
-      className="fixed top-4 right-4 z-50 flex w-[360px] flex-col gap-2"
+      className="fixed top-4 right-4 z-50 flex w-[min(360px,calc(100vw-2rem))] flex-col gap-2"
+      {...regionHandlers}
     >
-      {visibleToasts.map((toast) => (
+      {toasts.map((toast) => (
         <div
           key={toast.id}
           className={cn(
-            'transform transition-all duration-300 ease-in-out',
+            'transform transition-all duration-300 ease-in-out motion-reduce:transition-none',
             toast.dismissing
               ? 'translate-x-full opacity-0'
               : 'translate-x-0 opacity-100'
@@ -78,7 +53,7 @@ export function MacOSSonomaToast() {
             message={toast.message}
             variant={mapVariant(toast.variant)}
             dismissible
-            onDismiss={() => handleDismiss(toast)}
+            onDismiss={() => dismiss(toast.id)}
           />
         </div>
       ))}

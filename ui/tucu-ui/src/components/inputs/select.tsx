@@ -4,6 +4,7 @@ import {
   useState,
   useCallback,
   useMemo,
+  useId,
   type KeyboardEvent as ReactKeyboardEvent,
 } from 'react';
 import { createPortal } from 'react-dom';
@@ -12,6 +13,7 @@ import { ChevronDown } from '../icons/chevron-down';
 import { Check, Search, X } from 'lucide-react';
 import { FieldError } from './helpers/field-error-text';
 import { FieldHelperText } from './helpers/field-helper-text';
+import { useTucuMessages } from '../../libs/i18n/use-tucu-messages';
 import {
   type ControlColor,
   controlAccentTextClasses,
@@ -89,9 +91,15 @@ export function Select({
   buttonClassName,
   size = 'md',
   searchable = false,
-  searchPlaceholder = 'Search...',
+  searchPlaceholder,
   showCheck = false,
 }: SelectTypes) {
+  const t = useTucuMessages().select;
+  const uid = useId();
+  const labelId = `${uid}-label`;
+  const listboxId = `${uid}-listbox`;
+  const messageId = `${uid}-message`;
+  const optionId = (index: number) => `${uid}-option-${index}`;
   // Resolve the option corresponding to a string `value` (e.g. from react-hook-form)
   const resolveOption = useCallback(
     (val: string | undefined): SelectOption | undefined =>
@@ -352,11 +360,11 @@ export function Select({
         data-tucu="select-menu"
         ref={dropdownRef}
         role="listbox"
+        id={listboxId}
         tabIndex={-1}
+        aria-labelledby={label ? labelId : undefined}
         aria-activedescendant={
-          highlightedIndex >= 0
-            ? `select-option-${highlightedIndex}`
-            : undefined
+          highlightedIndex >= 0 ? optionId(highlightedIndex) : undefined
         }
         style={dropdownStyle}
         className={cn(
@@ -378,7 +386,8 @@ export function Select({
                 setSearch(e.target.value);
                 setHighlightedIndex(0);
               }}
-              placeholder={searchPlaceholder}
+              placeholder={searchPlaceholder ?? t.search}
+              aria-label={searchPlaceholder ?? t.search}
               className="flex-1 bg-transparent text-sm text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500 outline-none"
               onKeyDown={(e) => {
                 e.stopPropagation();
@@ -418,7 +427,8 @@ export function Select({
               <button
                 type="button"
                 onClick={() => setSearch('')}
-                className="shrink-0 text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
+                aria-label={t.clearSearch}
+                className="shrink-0 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
               >
                 <X className="h-3.5 w-3.5" />
               </button>
@@ -429,7 +439,7 @@ export function Select({
         <div className="max-h-44 overflow-auto grid gap-0.5 p-1 min-[500px]:p-2">
           {filteredOptions.length === 0 ? (
             <div className="px-3 py-3 text-center text-sm text-gray-500 dark:text-gray-400">
-              No results
+              {t.noResults}
             </div>
           ) : (
             filteredOptions.map((option, index) => {
@@ -442,7 +452,7 @@ export function Select({
                   data-selected={isSelected ? 'true' : undefined}
                   data-highlighted={isHighlighted ? 'true' : undefined}
                   key={`${option.value}-${index}`}
-                  id={`select-option-${index}`}
+                  id={optionId(index)}
                   ref={(el) => {
                     optionsRef.current[index] = el;
                   }}
@@ -450,7 +460,6 @@ export function Select({
                   aria-selected={isSelected}
                   aria-disabled={isDisabled}
                   onClick={() => !isDisabled && handleSelect(option)}
-                  onTouchStart={() => !isDisabled && handleSelect(option)}
                   onMouseEnter={() => !isDisabled && setHighlightedIndex(index)}
                   className={cn(
                     'flex items-center rounded-md px-3 py-2 text-sm transition',
@@ -508,6 +517,7 @@ export function Select({
       {hiddenInput}
       {label && (
         <span
+          id={labelId}
           className={cn(
             'block font-medium tracking-widest text-gray-800 dark:text-gray-100',
             useUppercaseLabel ? 'mb-2 uppercase sm:mb-3' : 'mb-1.5 ml-1.5'
@@ -516,7 +526,7 @@ export function Select({
           {label}
 
           {required && (
-            <sup className="inline-block text-[13px] text-red-500 ltr:ml-1 rtl:mr-1">
+            <sup className="inline-block text-[13px] text-red-600 dark:text-red-400 ltr:ml-1 rtl:mr-1">
               *
             </sup>
           )}
@@ -529,7 +539,11 @@ export function Select({
         role="combobox"
         aria-haspopup="listbox"
         aria-expanded={isOpen}
-        aria-controls="select-listbox"
+        aria-controls={listboxId}
+        aria-labelledby={label ? labelId : undefined}
+        aria-invalid={errorMessage ? true : undefined}
+        aria-describedby={errorMessage || helperText ? messageId : undefined}
+        aria-required={required || undefined}
         aria-disabled={disabled}
         disabled={disabled}
         onClick={toggleDropdown}
@@ -547,7 +561,7 @@ export function Select({
           {selectedOption?.icon && (
             <span className="mr-1">{selectedOption.icon}</span>
           )}
-          {selectedOption?.name || placeholder || 'Select an option'}
+          {selectedOption?.name || placeholder || t.placeholder}
         </div>
         <ChevronDown
           className={cn(
@@ -558,9 +572,13 @@ export function Select({
         />
       </button>
       {dropdown as React.ReactPortal}
-      {errorMessage && <FieldError error={errorMessage} size="md" />}
+      {errorMessage && (
+        <FieldError id={messageId} error={errorMessage} size="md" />
+      )}
       {!errorMessage && helperText && (
-        <FieldHelperText size="md">{helperText}</FieldHelperText>
+        <FieldHelperText id={messageId} size="md">
+          {helperText}
+        </FieldHelperText>
       )}
     </div>
   );

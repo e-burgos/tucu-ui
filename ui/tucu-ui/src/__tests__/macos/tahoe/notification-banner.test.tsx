@@ -38,7 +38,7 @@ describe('MacOSTahoeNotificationBanner', () => {
         onDismiss={onDismiss}
       />
     );
-    const btn = screen.getByLabelText('Dismiss');
+    const btn = screen.getByLabelText('Dismiss notification');
     fireEvent.click(btn);
     expect(onDismiss).toHaveBeenCalledTimes(1);
   });

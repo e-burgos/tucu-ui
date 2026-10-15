@@ -4,6 +4,8 @@ import { TData, IPaginationOptions } from '../../common/types';
 import ArrowIndicator from '../Assets/ArrowIndicator';
 import ArrowPaginationIndicator from '../Assets/ArrowPaginationIndicator';
 import { IconButton } from '../Common/IconButton';
+import { useTucuMessages } from '../../../libs/i18n/use-tucu-messages';
+import { formatMessage } from '../../../libs/i18n/messages';
 
 /**
  * PaginationProps
@@ -27,17 +29,13 @@ const Pagination: React.FC<PaginationProps> = ({
   pagination,
   style,
 }) => {
+  const t = useTucuMessages().datatable;
   const paginationPageSize = pagination?.pageSize || 5;
 
-  const initialRows =
-    table.getRowModel().rows.length * table.getState().pagination.pageIndex + 1;
-  const finalRows =
-    table.getState().pagination.pageSize *
-    (table.getState().pagination.pageIndex + 1);
-  const preFinalRows =
-    table.getState().pagination.pageSize *
-      table.getState().pagination.pageIndex +
-    1;
+  const { pageIndex, pageSize } = table.getState().pagination;
+  const total = table.getRowCount();
+  const from = total === 0 ? 0 : pageIndex * pageSize + 1;
+  const to = Math.min((pageIndex + 1) * pageSize, total);
 
   const pageSizeOptions = [5, 10, 20, 30, 40, 50];
   const options = pageSizeOptions?.includes(paginationPageSize)
@@ -55,9 +53,7 @@ const Pagination: React.FC<PaginationProps> = ({
       <div className="flex items-center justify-start w-fit gap-[5px]">
         {pagination?.rowsInfo && (
           <p className="m-0 font-sans font-normal leading-5 text-xs tracking-[0.025rem] normal-case text-table-primary-text">
-            {`Showing ${
-              table.getCanNextPage() ? initialRows : preFinalRows
-            } of ${table.getRowCount()} Rows`}
+            {formatMessage(t.showing, { from: to, total })}
           </p>
         )}
       </div>
@@ -65,9 +61,10 @@ const Pagination: React.FC<PaginationProps> = ({
         {!pagination?.hideRecordsSelector && (
           <div className="flex items-center gap-2">
             <p className="m-0 font-sans font-normal leading-5 text-xs tracking-[0.025rem] normal-case text-table-primary-text whitespace-nowrap">
-              per page:
+              {t.perPage}
             </p>
             <select
+              aria-label={t.rowsPerPage}
               value={table.getState().pagination.pageSize}
               onChange={(e) => {
                 table.setPageSize(Number(e.target.value));
@@ -95,9 +92,7 @@ const Pagination: React.FC<PaginationProps> = ({
 
         <div className="flex items-center gap-2 max-md:mb-2.5">
           <p className="m-0 font-sans font-normal leading-5 text-xs tracking-[0.025rem] normal-case text-table-primary-text whitespace-nowrap">
-            {`${table.getCanNextPage() ? initialRows : preFinalRows}-${
-              table.getCanNextPage() ? finalRows : table.getRowCount()
-            } of ${table.getRowCount()} Rows`}
+            {formatMessage(t.range, { from, to, total })}
           </p>
         </div>
         <div className="flex items-center gap-1">
@@ -105,6 +100,7 @@ const Pagination: React.FC<PaginationProps> = ({
             size="xl"
             isPinned
             onClick={() => table.firstPage()}
+            aria-label={t.firstPage}
             disabled={!table.getCanPreviousPage()}
             icon={<ArrowPaginationIndicator direction="first" />}
           />
@@ -112,6 +108,7 @@ const Pagination: React.FC<PaginationProps> = ({
             size="xl"
             isPinned
             onClick={() => table.previousPage()}
+            aria-label={t.previousPage}
             disabled={!table.getCanPreviousPage()}
             icon={<ArrowIndicator direction="left" />}
           />
@@ -119,6 +116,7 @@ const Pagination: React.FC<PaginationProps> = ({
             size="xl"
             isPinned
             onClick={() => table.nextPage()}
+            aria-label={t.nextPage}
             disabled={!table.getCanNextPage()}
             icon={<ArrowIndicator direction="right" />}
           />
@@ -126,6 +124,7 @@ const Pagination: React.FC<PaginationProps> = ({
             size="xl"
             isPinned
             onClick={() => table.lastPage()}
+            aria-label={t.lastPage}
             disabled={!table.getCanNextPage()}
             icon={<ArrowPaginationIndicator direction="last" />}
           />

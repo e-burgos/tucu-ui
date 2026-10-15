@@ -4,6 +4,8 @@ import Button from '../buttons';
 import Image from '../utils/image';
 import { Close } from '../icons/close';
 import { DocumentIcon } from '../icons/document';
+import { useTucuMessages } from '../../libs/i18n/use-tucu-messages';
+import { formatMessage } from '../../libs/i18n/messages';
 import {
   type ControlColor,
   buttonColorByControlColor,
@@ -77,6 +79,7 @@ function FileInput(
   }: React.PropsWithChildren<FileInputProps>,
   ref: ForwardedRef<HTMLInputElement>
 ) {
+  const messages = useTucuMessages();
   const [uploadedFiles, setUploadedFiles] = useState<Array<File>>([]);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -232,7 +235,7 @@ function FileInput(
       <div
         data-tucu="file-input-dropzone"
         className={cn(
-          'hover:bg-gray-100  dark:hover:bg-gray-900/50 border border-dashed dark:hover:border-brand hover:border-brand transition-all duration-300 relative border-border h-48 flex items-center justify-center rounded-lg',
+          'focus-within:ring-2 focus-within:ring-brand hover:bg-gray-100 dark:hover:bg-gray-900/50 border border-dashed dark:hover:border-brand hover:border-brand transition-all duration-300 relative border-border h-48 flex items-center justify-center rounded-lg',
           color && fileInputColorClasses[color].dropzone,
           containerClassName
         )}
@@ -310,20 +313,25 @@ function FileInput(
                     <span className="text-xs font-semibold text-gray-700 dark:text-gray-300 text-center">
                       {getFileTypeLabel(file)}
                     </span>
-                    <span className="text-[10px] text-gray-500 dark:text-gray-500 text-center mt-1 truncate w-full">
+                    <span className="text-[10px] text-gray-700 dark:text-gray-300 text-center mt-1 truncate w-full">
                       {file.name.length > 15
                         ? `${file.name.substring(0, 15)}...`
                         : file.name}
                     </span>
                   </div>
                 )}
-                <div className="absolute top-2 right-2 w-4 h-4 rounded-full flex items-center justify-center bg-brand text-white">
-                  <Close
-                    onClick={() => handleFileDelete(index)}
-                    onTouchStart={() => handleFileDelete(index)}
-                    className="h-2 w-2 cursor-pointer transition duration-75"
-                  />
-                </div>
+                {/* A real button: keyboard reachable, named, and no
+                    onTouchStart+onClick double delete on touch devices. */}
+                <button
+                  type="button"
+                  onClick={() => handleFileDelete(index)}
+                  aria-label={formatMessage(messages.input.removeFile, {
+                    name: file.name,
+                  })}
+                  className="absolute top-1 right-1 w-6 h-6 rounded-full flex items-center justify-center bg-brand text-white cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
+                >
+                  <Close aria-hidden="true" className="h-2.5 w-2.5" />
+                </button>
               </div>
             );
           })}

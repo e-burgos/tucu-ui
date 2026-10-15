@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react';
 import cn from 'classnames';
+import { useTucuMessages } from '../../../../libs/i18n/use-tucu-messages';
 
 export type MacOSTahoeNotificationVariant =
   | 'info'
@@ -69,11 +70,12 @@ const variantIcon: Record<MacOSTahoeNotificationVariant, React.ReactNode> = {
   ),
 };
 
+// ≥ 3:1 against the toast surface in light and dark (WCAG 1.4.11)
 const variantIconColor: Record<MacOSTahoeNotificationVariant, string> = {
-  info: 'text-blue-500',
-  success: 'text-green-500',
-  warning: 'text-amber-500',
-  error: 'text-red-500',
+  info: 'text-blue-600 dark:text-blue-400',
+  success: 'text-green-600 dark:text-green-400',
+  warning: 'text-amber-600 dark:text-amber-400',
+  error: 'text-red-600 dark:text-red-400',
 };
 
 export function MacOSTahoeNotificationBanner({
@@ -87,6 +89,7 @@ export function MacOSTahoeNotificationBanner({
   onDismiss,
 }: MacOSTahoeNotificationBannerProps) {
   const [dismissed, setDismissed] = useState(false);
+  const messages = useTucuMessages();
 
   const handleDismiss = useCallback(() => {
     setDismissed(true);
@@ -102,10 +105,11 @@ export function MacOSTahoeNotificationBanner({
       className={cn(
         'relative flex items-start gap-[12px] overflow-hidden px-[16px] py-[12px]',
         'rounded-[12px]',
-        'bg-(--macos-glass-prominent-bg) backdrop-blur-(--macos-glass-prominent-blur,32px) backdrop-saturate-(--macos-glass-prominent-saturate,2)',
-        'border border-(--macos-glass-border)',
-        'shadow-(--macos-glass-shadow,0_4px_24px_rgba(0,0,0,0.08))',
-        '[box-shadow:var(--macos-glass-shadow),var(--macos-glass-highlight)]',
+        // Opaque surface: the translucent glass made toasts unreadable over
+        // busy content. Restyle via the --tucu-toast-* variables.
+        'bg-(--tucu-toast-bg) text-(--tucu-toast-fg)',
+        'border border-(--tucu-toast-border)',
+        '[box-shadow:var(--tucu-toast-shadow)]',
         className
       )}
     >
@@ -124,11 +128,11 @@ export function MacOSTahoeNotificationBanner({
 
       {/* Content */}
       <div className="min-w-0 flex-1">
-        <p className="text-[13px] font-semibold text-(--macos-tahoe-text)">
+        <p className="text-[13px] font-semibold text-(--tucu-toast-fg)">
           {title}
         </p>
         {message && (
-          <p className="mt-[2px] text-[12px] leading-relaxed text-(--macos-tahoe-text-muted)">
+          <p className="mt-[2px] text-[12px] leading-relaxed text-(--tucu-toast-fg-muted)">
             {message}
           </p>
         )}
@@ -153,9 +157,10 @@ export function MacOSTahoeNotificationBanner({
       {/* Dismiss */}
       {dismissible && (
         <button
+          type="button"
           onClick={handleDismiss}
-          aria-label="Dismiss"
-          className="shrink-0 rounded-[6px] p-[2px] text-(--macos-tahoe-text-muted) transition-colors hover:text-(--macos-tahoe-text)"
+          aria-label={messages.toast.dismiss}
+          className="shrink-0 rounded-[6px] p-[2px] text-(--tucu-toast-fg-muted) transition-colors hover:text-(--tucu-toast-fg) focus:outline-none focus-visible:ring-2 focus-visible:ring-(--color-brand)"
         >
           <svg
             className="h-[16px] w-[16px]"

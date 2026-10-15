@@ -417,6 +417,11 @@
     outline: none;
   }
 
+  .table-checkbox:focus-visible {
+    outline: 2px solid var(--color-brand);
+    outline-offset: 2px;
+  }
+
   .table-checkbox:checked:after {
     content: '\2713';
     font-family: var(--font-family-base);
@@ -455,6 +460,11 @@
 
   .table-radio:focus {
     outline: none;
+  }
+
+  .table-radio:focus-visible {
+    outline: 2px solid var(--color-brand);
+    outline-offset: 2px;
   }
 
   .table-radio:checked:after {

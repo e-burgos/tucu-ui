@@ -1,9 +1,6 @@
-import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useCallback, useMemo } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { TabGroup, TabList, TabItem, TabPanels, TabPanel } from './tab';
-import { useBreakpoint } from '../../hooks';
-import { useIsMounted } from '../../hooks/use-is-mounted';
-import TabSelect from './tab-select';
 
 type VariantNames = 'underline' | 'pills' | 'bordered' | 'solid';
 type SizeNames = 'small' | 'medium' | 'large';
@@ -20,11 +17,28 @@ export interface ParamTabTypes {
   tabListClassName?: string;
   variant?: VariantNames;
   size?: SizeNames;
+  /** Dropdown instead of the tab row on xs/sm breakpoints. Default `true`. */
   showMobileSelect?: boolean;
+  /** Search param that stores the selected tab path. Default `view`. */
+  paramName?: string;
+  /** Tab shown when the param is missing or unknown. Default `0`. */
+  defaultIndex?: number;
+  /**
+   * Replace the history entry on tab change. Default `true` (previous
+   * behavior); set `false` so back/forward walks through tabs.
+   */
+  replace?: boolean;
+  /** Called after the tab changes. */
+  onChange?: (index: number, item: TabMenuItem) => void;
 }
 
 export { TabPanel };
 
+/**
+ * Tabs whose selection lives in the URL (`?view=<path>`). The selected tab
+ * is derived from the URL on every render, so it follows reloads, links,
+ * back/forward and any external navigation.
+ */
 export function ParamTab({
   tabMenu,
   children,
@@ -32,73 +46,53 @@ export function ParamTab({
   variant = 'underline',
   size = 'medium',
   showMobileSelect = true,
+  paramName = 'view',
+  defaultIndex = 0,
+  replace = true,
+  onChange,
 }: ParamTabTypes) {
-  const router = useNavigate();
-  const pathname = useLocation().pathname;
-  const search = useLocation().search;
-  const searchParams = useMemo(() => new URLSearchParams(search), [search]);
-  const query = searchParams.get('view');
-  const isMounted = useIsMounted();
-  const breakpoint = useBreakpoint();
-  const dropdownEl = useRef<HTMLDivElement>(null);
-  const [selectedTabIndex, setSelectedTabIndex] = useState(0);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const query = searchParams.get(paramName);
 
-  const createQueryString = useCallback(
-    (name: string, value: string) => {
-      const params = new URLSearchParams(searchParams);
-      params.set(name, value);
-      return params.toString();
+  const selectedTabIndex = useMemo(() => {
+    const index = tabMenu.findIndex((item) => item.path === query);
+    if (index !== -1) return index;
+    return Math.min(Math.max(defaultIndex, 0), Math.max(tabMenu.length - 1, 0));
+  }, [query, tabMenu, defaultIndex]);
+
+  const handleTabChange = useCallback(
+    (index: number) => {
+      const item = tabMenu[index];
+      if (!item) return;
+      setSearchParams(
+        (previous) => {
+          const params = new URLSearchParams(previous);
+          params.set(paramName, item.path);
+          return params;
+        },
+        { replace }
+      );
+      onChange?.(index, item);
     },
-    [searchParams]
+    [tabMenu, paramName, replace, setSearchParams, onChange]
   );
-
-  function handleTabChange(index: number) {
-    router(pathname + '?' + createQueryString('view', tabMenu[index].path), {
-      replace: true,
-    });
-  }
-
-  useEffect(() => {
-    if (query) {
-      const index = tabMenu.findIndex((item) => query === item.path);
-      if (index !== -1) {
-        setSelectedTabIndex(index);
-      }
-    }
-  }, [query, tabMenu]);
-
-  const shouldShowMobileSelect =
-    showMobileSelect && isMounted && ['xs', 'sm'].indexOf(breakpoint) !== -1;
 
   return (
     <TabGroup
       variant={variant}
       selectedIndex={selectedTabIndex}
-      onChange={(index: number) => handleTabChange(index)}
+      onChange={handleTabChange}
     >
-      <TabList variant={variant} className={tabListClassName}>
-        {shouldShowMobileSelect ? (
-          <div ref={dropdownEl} className="w-full">
-            <TabSelect
-              tabMenu={tabMenu}
-              selectedTabIndex={selectedTabIndex}
-              onChange={(index: number) => handleTabChange(index)}
-            />
-          </div>
-        ) : (
-          <>
-            {tabMenu.map((item) => (
-              <TabItem
-                key={item.path}
-                variant={variant}
-                size={size}
-                icon={item.icon}
-              >
-                {item.title}
-              </TabItem>
-            ))}
-          </>
-        )}
+      <TabList
+        variant={variant}
+        className={tabListClassName}
+        responsive={showMobileSelect}
+      >
+        {tabMenu.map((item) => (
+          <TabItem key={item.path} variant={variant} size={size} icon={item.icon}>
+            {item.title}
+          </TabItem>
+        ))}
       </TabList>
       <TabPanels>{children}</TabPanels>
     </TabGroup>

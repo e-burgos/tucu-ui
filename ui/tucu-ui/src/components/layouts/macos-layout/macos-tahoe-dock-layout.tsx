@@ -8,6 +8,7 @@ import { MacOSTahoeLayoutContent } from '../../macos/tahoe/layout/layout-content
 import { MacOSTahoeDock } from '../../macos/tahoe/layout/dock-tahoe';
 import { ThemeBackground, useTheme } from '../../../themes';
 import { findCurrentPageTitle } from './utils';
+import { MacOSTahoeToast } from '../../macos/tahoe/controls/macos-tahoe-toast';
 
 // ─── Types ─────────────────────────────────────────────────────
 
@@ -132,6 +133,10 @@ export function MacOSTahoeDockLayout({
           </svg>
         </button>
       )}
+
+      {/* The dock layout never mounted a toast renderer, so addToast()
+          showed nothing here (the generic Toast is off under macos-tahoe). */}
+      <MacOSTahoeToast />
     </div>
   );
 }

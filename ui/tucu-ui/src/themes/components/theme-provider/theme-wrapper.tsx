@@ -12,7 +12,9 @@ import {
   LAYOUT_OPTIONS,
   MODE,
   THEME_STYLE_LAYOUTS,
+  LangType,
 } from '../../config';
+import { resolveTucuLang } from '../../../libs/i18n/messages';
 import {
   RootLayout,
   LayoutTypeProps,
@@ -102,6 +104,12 @@ interface ThemeWrapperBaseProps extends Omit<LayoutTypeProps, 'layout'> {
     darkBorder?: PresetColorType | string;
   };
   setCurrentPathname?: (pathname: string) => void;
+  /**
+   * Language for built-in component strings (validation messages, aria
+   * labels, DataTable pagination, date picker). Accepts `es-AR`-style tags.
+   * When omitted, the persisted theme lang (default `en`) is kept.
+   */
+  lang?: LangType | (string & Record<never, never>);
 }
 
 // ─── Conditional layout types per theme style ───────────────────
@@ -154,6 +162,7 @@ export function ThemeWrapper({
   layout: appLayout,
   children,
   setCurrentPathname,
+  lang: appLang,
 }: ThemeWrapperProps) {
   const { mode, layout, colorScheme } = useTheme();
 
@@ -172,6 +181,11 @@ export function ThemeWrapper({
   useEffect(() => {
     setCurrentPathnameRef.current?.(pathname);
   }, [pathname]);
+
+  // ─── Lang sync ───────────────────────────────────────────────
+  useEffect(() => {
+    if (appLang) useTheme.setState({ lang: resolveTucuLang(appLang) });
+  }, [appLang]);
 
   // ─── Initialize theme on mount ───────────────────────────────
   useEffect(() => {
