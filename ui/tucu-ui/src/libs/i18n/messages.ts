@@ -35,6 +35,9 @@ export interface TucuMessages {
     showing: string;
     noData: string;
     noDataDescription: string;
+    errorData: string;
+    errorDataDescription: string;
+    contactSupport: string;
     firstPage: string;
     previousPage: string;
     nextPage: string;
@@ -72,6 +75,10 @@ export const TUCU_MESSAGES: Record<TucuLang, TucuMessages> = {
       noData: 'No available data',
       noDataDescription:
         'There is no data based on the selected criteria. Please try adjusting your filters or refreshing the page to ensure any recent changes are reflected.',
+      errorData: 'There was a problem loading the data',
+      errorDataDescription:
+        'Please try again refreshing the page or the selected content. If the problem continues or you need help, contact our Support Team.',
+      contactSupport: 'Contact Support',
       firstPage: 'First page',
       previousPage: 'Previous page',
       nextPage: 'Next page',
@@ -107,6 +114,10 @@ export const TUCU_MESSAGES: Record<TucuLang, TucuMessages> = {
       noData: 'No hay datos disponibles',
       noDataDescription:
         'No hay datos para los criterios seleccionados. Probá ajustar los filtros o actualizar la página.',
+      errorData: 'Hubo un problema al cargar los datos',
+      errorDataDescription:
+        'Probá actualizar la página. Si el problema continúa o necesitás ayuda, contactá a soporte.',
+      contactSupport: 'Contactar a soporte',
       firstPage: 'Primera página',
       previousPage: 'Página anterior',
       nextPage: 'Página siguiente',
@@ -142,6 +153,10 @@ export const TUCU_MESSAGES: Record<TucuLang, TucuMessages> = {
       noData: 'Aucune donnée disponible',
       noDataDescription:
         "Aucune donnée ne correspond aux critères sélectionnés. Essayez d'ajuster les filtres ou d'actualiser la page.",
+      errorData: 'Un problème est survenu lors du chargement des données',
+      errorDataDescription:
+        "Essayez d'actualiser la page. Si le problème persiste ou si vous avez besoin d'aide, contactez le support.",
+      contactSupport: 'Contacter le support',
       firstPage: 'Première page',
       previousPage: 'Page précédente',
       nextPage: 'Page suivante',

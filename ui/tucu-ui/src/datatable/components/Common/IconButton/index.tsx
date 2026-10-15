@@ -48,6 +48,7 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
           className
         )}
         disabled={disabled}
+        type="button"
         {...props}
       >
         {cloneElement(icon, {
