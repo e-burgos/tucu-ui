@@ -137,7 +137,10 @@ function parsePhone(value: string, def: PhoneCountryDefinition): ParsedPhone {
  * Formats a phone number while typing.
  * AR: `+54 9 11 2345-6789`, `11 2345-6789`, `+54 351 123-4567`.
  */
-export function formatPhone(value: string, country: PhoneCountry = 'AR') {
+export function formatPhone(
+  value: string,
+  country: PhoneCountry = 'AR'
+): string {
   const def = getPhoneCountry(country);
   const trimmed = (value || '').trim();
   if (!trimmed) return '';

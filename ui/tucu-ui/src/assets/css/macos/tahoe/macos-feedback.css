@@ -143,9 +143,9 @@ html.macos-tahoe.dark [data-tucu='badge'][data-variant='soft'] {
 /* ── Toast / Notification Banner ─────────────────────────────── */
 html.macos-tahoe [data-tucu='toast'] {
   border-radius: var(--macos-radius-2xl);
-  background-color: var(--macos-material-popover);
-  backdrop-filter: blur(var(--macos-material-popover-blur));
-  -webkit-backdrop-filter: blur(var(--macos-material-popover-blur));
+  /* Opaque toast surface (see --tucu-toast-* in base.css) */
+  background-color: var(--tucu-toast-bg);
+  color: var(--tucu-toast-fg);
   box-shadow: var(--macos-shadow-window);
   border: 1px solid var(--macos-separator);
   padding: var(--macos-space-3) var(--macos-space-4);
@@ -154,8 +154,8 @@ html.macos-tahoe [data-tucu='toast'] {
 }
 
 html.macos-tahoe.dark [data-tucu='toast'] {
-  background-color: var(--macos-material-popover);
-  border-color: var(--macos-separator);
+  background-color: var(--tucu-toast-bg);
+  border-color: var(--tucu-toast-border);
 }
 
 /* ── Spinner ─────────────────────────────────────────────────── */
@@ -241,7 +241,6 @@ html.macos-tahoe [data-tucu='notification-card']:hover {
    ============================================================ */
 
 html.macos-tahoe [data-tucu='alert'],
-html.macos-tahoe [data-tucu='toast'],
 html.macos-tahoe [data-tucu='notification'] {
   background: var(--macos-glass-prominent-bg);
   backdrop-filter: blur(var(--macos-glass-prominent-blur)) saturate(150%);
@@ -249,6 +248,14 @@ html.macos-tahoe [data-tucu='notification'] {
     saturate(150%);
   border: 1px solid var(--macos-glass-prominent-border);
   box-shadow: var(--macos-glass-shadow), var(--macos-glass-highlight);
+  border-radius: var(--macos-radius-lg);
+}
+
+/* Toasts float over arbitrary content: keep them opaque and legible */
+html.macos-tahoe [data-tucu='toast'] {
+  background: var(--tucu-toast-bg);
+  border: 1px solid var(--tucu-toast-border);
+  box-shadow: var(--tucu-toast-shadow);
   border-radius: var(--macos-radius-lg);
 }
 
