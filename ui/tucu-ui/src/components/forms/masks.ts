@@ -112,7 +112,7 @@ export function getPhoneCountry(country = 'AR'): PhoneCountryDefinition {
   return PHONE_COUNTRIES[country.toUpperCase()] ?? INTL_PHONE;
 }
 
-export type PhoneCountry = 'AR' | 'INTL' | (string & {});
+export type PhoneCountry = 'AR' | 'INTL' | (string & Record<never, never>);
 
 interface ParsedPhone {
   international: boolean;

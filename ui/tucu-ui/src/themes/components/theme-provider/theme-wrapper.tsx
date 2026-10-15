@@ -109,7 +109,7 @@ interface ThemeWrapperBaseProps extends Omit<LayoutTypeProps, 'layout'> {
    * labels, DataTable pagination, date picker). Accepts `es-AR`-style tags.
    * When omitted, the persisted theme lang (default `en`) is kept.
    */
-  lang?: LangType | (string & {});
+  lang?: LangType | (string & Record<never, never>);
 }
 
 // ─── Conditional layout types per theme style ───────────────────

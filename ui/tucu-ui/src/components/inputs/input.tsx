@@ -59,7 +59,7 @@ export type Locale =
   | 'fr-FR'
   | 'de-DE'
   | 'pt-BR'
-  | (string & {});
+  | (string & Record<never, never>);
 
 export type InputProps = Omit<
   React.DetailedHTMLProps<
