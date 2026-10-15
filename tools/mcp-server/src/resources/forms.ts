@@ -5,7 +5,7 @@ export function getFormsContent(): string {
 
 ## Core Concepts
 - \`<Form />\` wraps react-hook-form's FormProvider
-- All inputs auto-register inside Form via the \`name\` prop
+- Connect each control with \`<FormField name="...">\` (Controller-based)
 - Validation rules defined centrally in \`validationSchema\`
 - Access form methods via \`useFormContext()\`
 
@@ -22,7 +22,7 @@ interface FormProps<T extends FieldValues> {
 
 ## Basic Example
 \`\`\`tsx
-import { Form, Input, Button } from '@e-burgos/tucu-ui';
+import { Form, FormField, Input, Button } from '@e-burgos/tucu-ui';
 
 const SimpleForm = () => (
   <Form
@@ -30,8 +30,8 @@ const SimpleForm = () => (
     useFormProps={{ defaultValues: { name: '', email: '' } }}
     className="space-y-4"
   >
-    <Input name="name" label="Name" />
-    <Input name="email" label="Email" type="email" />
+    <FormField name="name" label="Name"><Input /></FormField>
+    <FormField name="email" label="Email"><Input type="email" /></FormField>
     <Button type="submit" variant="solid" size="medium">Submit</Button>
   </Form>
 );
@@ -103,10 +103,42 @@ const {
 } = useFormContext();
 \`\`\`
 
+## Field types: masks and built-in validation
+Wrap each control in \`FormField\` (inputs are not auto-registered by \`name\`).
+\`FormField\` infers a validator from the child \`Input\` and adds it to your \`rules\`;
+\`required: true\` becomes a localized message. Messages follow \`ThemeProvider lang\` (es | en | fr).
+
+| Child Input | Validator | Mask / value |
+|---|---|---|
+| \`type="email"\` | email | — |
+| \`type="tel"\` | phone (generic international, 8–15 digits) | add \`mask="phone"\` to format |
+| \`mask="phone"\` (+ \`phoneCountry\`, default \`AR\`) | phone, strict per country | \`+54 9 11 2345-6789\`; \`unmask\` → \`+5491123456789\` |
+| \`mask="cuit"\` | CUIT/CUIL check digit | \`20-12345678-6\`; \`unmask\` → \`20123456786\` |
+| \`type="url"\` | url (http/https, protocol optional) | — |
+| \`mask="currency"\` / \`mask="number"\` | — (use \`validationType="number"\`) | \`$ 1.234,56\`; \`unmask\` → \`1234.56\` |
+
+Opt out with \`<FormField autoValidate={false}>\` or \`<Input validationType={false}>\`.
+Outside forms, \`<Input type="email">\` validates on blur by itself (\`autoValidate\`, default true).
+
+\`\`\`tsx
+<FormField<Customer> name="phone" label="Teléfono" rules={{ required: true }}>
+  <Input type="tel" mask="phone" unmask />
+</FormField>
+<FormField<Customer> name="cuit" label="CUIT">
+  <Input mask="cuit" unmask />
+</FormField>
+\`\`\`
+
+Standalone helpers: \`validateEmail | validatePhone | validateUrl | validateCuit | validateRequired | validateNumber\`
+(each returns the message or \`undefined\`), \`getValidationRules(type, { lang, required, phoneCountry })\`
+for \`register\`/\`validationSchema\`, \`formatPhone\`, \`normalizePhone\`, \`isValidPhone\`,
+\`formatCuit\`, \`isValidCuit\`, \`formatNumber\`, \`parseNumber\`, \`createMask\`,
+\`registerPhoneCountry({ code, dialCode, parseNational, isValidNational, formatNational })\`.
+
 ## Input Components (inside Form)
 | Component | Key Props |
 |-----------|-----------|
-| Input | label, error, variant (ghost/solid/transparent), suffix, icon, dateFormat, locale |
+| Input | label, error, variant (ghost/solid/transparent), suffix, icon, mask, unmask, phoneCountry, maskOptions, autoValidate, validationType, dateFormat, locale, min/max (date) |
 | Select | options: SelectOption[], variant, label, errorMessage |
 | Checkbox | size (sm/md/lg), color, shape (rounded/square) |
 | Radio | variant, size (sm/md/lg/xl), color |

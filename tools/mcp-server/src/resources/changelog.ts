@@ -3,7 +3,17 @@
 export function getChangelogContent(): string {
   return `# Changelog — @e-burgos/tucu-ui
 
-## v2.8.1 (Current)
+## v3.2.0 (Current)
+- Add: Input masks — \`mask="phone"\` (Argentina by default, \`phoneCountry\`, \`registerPhoneCountry\`), \`cuit\`, \`currency\`, \`number\` or a custom \`createMask\`; \`unmask\` emits the raw value (E.164, digits, number string)
+- Add: Built-in localized validators (es/en/fr): \`validateEmail | validatePhone | validateUrl | validateCuit | validateRequired | validateNumber\`, \`getValidationRules\`; \`<Input type="email|tel|url">\` validates on blur and \`FormField\` adds the inferred rules automatically (\`autoValidate\`)
+- Add: \`ThemeProvider lang\` drives built-in strings (validation, aria labels, DataTable pagination/empty states, date picker)
+- Add: \`useTabParam\` hook; \`ParamTab\` derives the tab from the URL (\`paramName\`, \`defaultIndex\`, \`replace\`, \`onChange\`)
+- Add: \`showToast(message, options)\`; \`addToast\` ids are optional
+- Fix: Toasts are opaque and AA-legible in every theme (\`--tucu-toast-*\` variables); one timer per toast, pause on hover; Tahoe dock layout now renders toasts
+- Fix: Visible keyboard focus on checkbox/radio/switch/file dropzone; Input error/focus contrast; DataTable pagination buttons no longer submit forms
+- Fix: Password toggle / date picker no longer double-toggle on touch devices; date picker honors \`min\`/\`max\`
+
+## v2.8.1
 - Fix: Input's date picker no longer warns "changing an uncontrolled input to be controlled" when used without an explicit value/onChange (e.g. plain \`register()\`) and a date is picked from the calendar
 
 ## v2.8.0
