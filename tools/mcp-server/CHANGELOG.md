@@ -4,6 +4,16 @@ All notable changes to `@e-burgos/tucu-ui-mcp` will be documented in this file.
 
 <!-- Last updated: 2026-06-02 -->
 
+## [0.8.0] - 2026-10-15
+
+### Changed
+
+- document masks, validators, URL-synced tabs and toast API
+- remove Netlify config and references
+
+### Fixed
+
+- unblock fly.io Docker build broken by npm peer resolution crash
 ## [0.7.0] - 2026-08-18
 
 ### Added
