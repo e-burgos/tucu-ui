@@ -19,6 +19,7 @@ import ViewDetailsIndicator from '../../../Assets/ViewDetailsIndicator';
 import VoidIndicator from '../../../Assets/VoidIndicator';
 import { IconButton } from '../../../Common/IconButton';
 import { Tooltip } from '../../../Common/Tooltip';
+import { useTucuMessages } from '../../../../../libs/i18n/use-tucu-messages';
 
 /**
  * Props for the RowActionsCell component.
@@ -56,6 +57,7 @@ const RowActionsCell: React.FC<RowActionsCellProps> = ({
   setHoverRow,
   forceShowMenuActions,
 }) => {
+  const t = useTucuMessages().datatable;
   const { element: tableContainer } = useComponentEventListener(
     `${tableId}-container`
   );
@@ -200,8 +202,10 @@ const RowActionsCell: React.FC<RowActionsCellProps> = ({
         className={cn(
           'relative text-center',
           (hoverRow.hover || openOptions) && !hideSingleAction
-            ? 'visible'
-            : 'invisible'
+            ? 'opacity-100'
+            : // opacity (not visibility) keeps the actions in the tab order;
+              // they appear when a keyboard user focuses them.
+              'opacity-0 focus-within:opacity-100'
         )}
         style={{ zIndex: openOptions ? 99999 : 'auto' }}
       >
@@ -217,6 +221,11 @@ const RowActionsCell: React.FC<RowActionsCellProps> = ({
                 event?.stopPropagation?.();
                 firstActionRow?.onClick?.(row);
               }}
+              aria-label={
+                typeof firstActionRow?.label?.(row) === 'string'
+                  ? (firstActionRow?.label?.(row) as string)
+                  : String(firstActionRow?.action ?? t.rowActions)
+              }
               disabled={isSingleActionDisabled}
               style={{
                 margin: '0 auto',
@@ -232,6 +241,9 @@ const RowActionsCell: React.FC<RowActionsCellProps> = ({
               event?.stopPropagation?.();
               openMenu();
             }}
+            aria-label={t.rowActions}
+            aria-haspopup="menu"
+            aria-expanded={openOptions}
             style={{
               margin: '0 auto',
             }}
@@ -243,6 +255,8 @@ const RowActionsCell: React.FC<RowActionsCellProps> = ({
         createPortal(
           <div
             ref={optionsContainerRef}
+            role="menu"
+            aria-label={t.rowActions}
             className={cn(
               'flex flex-col min-w-[175px] rounded px-0 py-2 w-max h-fit max-h-[200px] overflow-auto bg-table-paper-bg border border-table-divider fixed transition-all duration-100 ease-in table-dropdown-shadow'
             )}
@@ -257,10 +271,13 @@ const RowActionsCell: React.FC<RowActionsCellProps> = ({
               const isHovered =
                 !disabled && hoverOption.hover && hoverOption.index === index;
               return (
-                <div
+                <button
+                  type="button"
+                  role="menuitem"
+                  disabled={disabled}
                   key={`${tableId}-${row.id}-${action.action}-${index}`}
                   className={cn(
-                    'flex flex-row justify-start items-center relative px-4 w-full h-[35px] gap-1',
+                    'flex flex-row justify-start items-center relative px-4 w-full h-[35px] gap-1 text-left focus:outline-none focus-visible:bg-table-row-hover',
                     action?.showOptions?.(row) === undefined ||
                       action?.showOptions?.(row)
                       ? 'flex'
@@ -278,7 +295,7 @@ const RowActionsCell: React.FC<RowActionsCellProps> = ({
                   onPointerEnter={() => setHoverOption({ hover: true, index })}
                   onPointerLeave={() => setHoverOption({ hover: false, index })}
                 >
-                  <p
+                  <span
                     className={cn(
                       'font-sans text-base font-normal leading-6 tracking-[0.15px] text-left',
                       disabled
@@ -287,8 +304,8 @@ const RowActionsCell: React.FC<RowActionsCellProps> = ({
                     )}
                   >
                     {action.label(row)}
-                  </p>
-                </div>
+                  </span>
+                </button>
               );
             })}
           </div>,

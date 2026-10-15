@@ -79,7 +79,7 @@ export const Badge = ({
   let badgeColorClasses = '';
   switch (variant) {
     case 'solid':
-      badgeColorClasses = `${colorClassNames[1]} text-white`;
+      badgeColorClasses = `${colorClassNames[1]} ${color === 'white' ? 'text-gray-900' : 'text-white'}`;
       break;
     case 'ghost':
       badgeColorClasses = `bg-transparent border-2 ${colorClassNames[0]} ${colorClassNames[2]}`;

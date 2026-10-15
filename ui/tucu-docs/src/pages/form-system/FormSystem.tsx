@@ -35,6 +35,13 @@ const sections: SectionConfig[] = [
     ),
   },
   {
+    id: 'masks-validators',
+    label: 'Masks & Validators',
+    component: lazy(
+      () => import('./form-system-sections/MasksAndValidatorsSection')
+    ),
+  },
+  {
     id: 'form-methods',
     label: 'Form Methods',
     component: lazy(() => import('./form-system-sections/FormMethodsSection')),

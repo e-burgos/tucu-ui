@@ -17,6 +17,7 @@ import { Radio } from '../inputs/radio';
 import { PinCode } from '../inputs/pin-code';
 import { ControllerRenderProps, Validate } from 'react-hook-form';
 import { Input } from '../inputs/input';
+import { Textarea } from '../inputs/textarea';
 import { inferValidationType, validateField } from './validators';
 import { useTucuLang } from '../../libs/i18n/use-tucu-messages';
 import { getTucuMessages } from '../../libs/i18n/messages';
@@ -147,8 +148,8 @@ export const FormField = <TFormValues extends FieldValues = FieldValues>({
             label: label || (children.props as { label?: string })?.label,
             // FormField shows the error below the control; the Input only
             // reflects the invalid state and skips its own validation.
-            ...(isInput && {
-              autoValidate: false,
+            ...(isInput && { autoValidate: false }),
+            ...((isInput || children.type === Textarea) && {
               'aria-invalid': errorMessage ? 'true' : 'false',
               ...(errorMessage && { 'aria-describedby': `${name}-error` }),
             }),

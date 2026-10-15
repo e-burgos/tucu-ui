@@ -22,10 +22,20 @@ export interface TucuMessages {
     previousMonth: string;
     nextMonth: string;
     today: string;
+    /** `{index}` and `{length}` are replaced. */
+    pinDigit: string;
+    /** `{name}` is replaced. */
+    removeFile: string;
   };
   toast: {
     region: string;
     dismiss: string;
+  };
+  select: {
+    placeholder: string;
+    search: string;
+    noResults: string;
+    clearSearch: string;
   };
   datatable: {
     perPage: string;
@@ -43,6 +53,7 @@ export interface TucuMessages {
     nextPage: string;
     lastPage: string;
     rowsPerPage: string;
+    rowActions: string;
   };
 }
 
@@ -63,10 +74,18 @@ export const TUCU_MESSAGES: Record<TucuLang, TucuMessages> = {
       previousMonth: 'Previous month',
       nextMonth: 'Next month',
       today: 'Today',
+      pinDigit: 'Digit {index} of {length}',
+      removeFile: 'Remove {name}',
     },
     toast: {
       region: 'Notifications',
       dismiss: 'Dismiss notification',
+    },
+    select: {
+      placeholder: 'Select an option',
+      search: 'Search...',
+      noResults: 'No results',
+      clearSearch: 'Clear search',
     },
     datatable: {
       perPage: 'per page:',
@@ -84,6 +103,7 @@ export const TUCU_MESSAGES: Record<TucuLang, TucuMessages> = {
       nextPage: 'Next page',
       lastPage: 'Last page',
       rowsPerPage: 'Rows per page',
+      rowActions: 'Row actions',
     },
   },
   es: {
@@ -102,10 +122,18 @@ export const TUCU_MESSAGES: Record<TucuLang, TucuMessages> = {
       previousMonth: 'Mes anterior',
       nextMonth: 'Mes siguiente',
       today: 'Hoy',
+      pinDigit: 'Dígito {index} de {length}',
+      removeFile: 'Quitar {name}',
     },
     toast: {
       region: 'Notificaciones',
       dismiss: 'Cerrar notificación',
+    },
+    select: {
+      placeholder: 'Seleccioná una opción',
+      search: 'Buscar...',
+      noResults: 'Sin resultados',
+      clearSearch: 'Limpiar búsqueda',
     },
     datatable: {
       perPage: 'por página:',
@@ -123,6 +151,7 @@ export const TUCU_MESSAGES: Record<TucuLang, TucuMessages> = {
       nextPage: 'Página siguiente',
       lastPage: 'Última página',
       rowsPerPage: 'Filas por página',
+      rowActions: 'Acciones de la fila',
     },
   },
   fr: {
@@ -141,10 +170,18 @@ export const TUCU_MESSAGES: Record<TucuLang, TucuMessages> = {
       previousMonth: 'Mois précédent',
       nextMonth: 'Mois suivant',
       today: "Aujourd'hui",
+      pinDigit: 'Chiffre {index} sur {length}',
+      removeFile: 'Retirer {name}',
     },
     toast: {
       region: 'Notifications',
       dismiss: 'Fermer la notification',
+    },
+    select: {
+      placeholder: 'Sélectionnez une option',
+      search: 'Rechercher...',
+      noResults: 'Aucun résultat',
+      clearSearch: 'Effacer la recherche',
     },
     datatable: {
       perPage: 'par page :',
@@ -162,6 +199,7 @@ export const TUCU_MESSAGES: Record<TucuLang, TucuMessages> = {
       nextPage: 'Page suivante',
       lastPage: 'Dernière page',
       rowsPerPage: 'Lignes par page',
+      rowActions: 'Actions de la ligne',
     },
   },
 };

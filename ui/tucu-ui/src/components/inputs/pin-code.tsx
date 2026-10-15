@@ -2,6 +2,8 @@ import React, { useRef, useEffect } from 'react';
 import cn from 'classnames';
 import { FieldError } from './helpers/field-error-text';
 import { FieldHelperText } from './helpers/field-helper-text';
+import { useTucuMessages } from '../../libs/i18n/use-tucu-messages';
+import { formatMessage } from '../../libs/i18n/messages';
 import {
   ControlColor,
   textControlColorClasses,
@@ -18,7 +20,7 @@ const inputClasses = {
   numberType:
     '[&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none [-moz-appearance:textfield]',
   error:
-    'border-red hover:enabled:!border-red-500 focus:enabled:!border-red-500 focus:!ring-red-500',
+    'border-red-500! hover:enabled:!border-red-500 focus:enabled:!border-red-500 focus:!ring-red-500',
   size: {
     sm: 'px-[4px] py-[4px] text-sm h-[32px] w-[32px]',
     md: 'px-[8px] py-[8px] text-sm h-[40px] w-[40px]',
@@ -118,6 +120,7 @@ export function PinCode({
   fullWidth = false,
   ...props
 }: PinCodeProps) {
+  const messages = useTucuMessages();
   const inputRefs = useRef<HTMLInputElement[]>([]);
 
   function addInputRefs(index: number) {
@@ -230,6 +233,11 @@ export function PinCode({
               onChange={(event) => handleChange(event, index)}
               onKeyDown={(event) => handleKeyDown(event, index)}
               onPaste={(event) => handlePaste(event, index)}
+              aria-label={formatMessage(messages.input.pinDigit, {
+                index: index + 1,
+                length,
+              })}
+              aria-invalid={error ? true : undefined}
               className={cn(
                 inputClasses.base,
                 type === 'number' && inputClasses.numberType,
