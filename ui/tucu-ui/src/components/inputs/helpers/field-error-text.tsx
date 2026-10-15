@@ -2,7 +2,7 @@ import React from 'react';
 import cn from 'classnames';
 
 const fieldErrorClasses = {
-  base: 'text-red-500 mt-[8px]',
+  base: 'text-red-600 dark:text-red-400 mt-[8px]',
   size: {
     sm: 'text-[10px]',
     md: 'text-sm',

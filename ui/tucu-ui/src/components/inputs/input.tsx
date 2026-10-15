@@ -6,6 +6,8 @@ import {
   useRef,
   useEffect,
   useCallback,
+  useLayoutEffect,
+  useMemo,
 } from 'react';
 import { createPortal } from 'react-dom';
 import {
@@ -26,6 +28,21 @@ import {
   type TextControlSize,
   textControlSizeClasses,
 } from './helpers/control-sizes';
+import {
+  caretForSignificantCount,
+  createMask,
+  type MaskDefinition,
+  type MaskOptions,
+  type MaskType,
+  type PhoneCountry,
+} from '../forms/masks';
+import {
+  inferValidationType,
+  validateField,
+  type FieldValidationType,
+} from '../forms/validators';
+import { useTucuLang } from '../../libs/i18n/use-tucu-messages';
+import { getTucuMessages, langToLocale } from '../../libs/i18n/messages';
 
 export type DateFormat =
   | 'DD-MM-YYYY'
@@ -35,7 +52,14 @@ export type DateFormat =
   | 'MM/DD/YYYY'
   | 'YYYY/MM/DD';
 
-export type Locale = 'en-US' | 'es-ES' | 'fr-FR' | 'de-DE' | 'pt-BR';
+export type Locale =
+  | 'en-US'
+  | 'es-ES'
+  | 'es-AR'
+  | 'fr-FR'
+  | 'de-DE'
+  | 'pt-BR'
+  | (string & {});
 
 export type InputProps = Omit<
   React.DetailedHTMLProps<
@@ -58,8 +82,41 @@ export type InputProps = Omit<
   suffixClassName?: string;
   icon?: React.ReactNode;
   dateFormat?: DateFormat;
+  /** Date picker locale. Defaults to the theme `lang` (es → es-AR). */
   locale?: Locale;
   size?: TextControlSize;
+  /**
+   * Formats the value while typing: `phone` (AR by default, see
+   * `phoneCountry`), `cuit`, `currency`, `number`, or a custom
+   * `MaskDefinition` (see `createMask`).
+   */
+  mask?: MaskType | MaskDefinition;
+  /** Options for the built-in masks (locale, decimals, prefix…). */
+  maskOptions?: MaskOptions;
+  /**
+   * Phone country for `mask="phone"` and phone validation.
+   * Default `AR` with `mask="phone"`, generic international otherwise.
+   */
+  phoneCountry?: PhoneCountry;
+  /**
+   * With a mask, emit the raw value in `onChange` (`e.target.value`):
+   * E.164 phone, CUIT digits, plain number string. The input still
+   * displays the formatted value.
+   */
+  unmask?: boolean;
+  /**
+   * Validates on blur (and on change after the first blur) and shows the
+   * built-in localized error when no `error` prop is given. Applies to
+   * `type="email" | "tel" | "url"`, phone/CUIT masks, `validationType`,
+   * and `required`. Default `true`.
+   */
+  autoValidate?: boolean;
+  /** Forces a built-in validator, or `false` to disable the inferred one. */
+  validationType?: FieldValidationType | false;
+  /** Custom message for the built-in validator. */
+  validationMessage?: string;
+  /** Called whenever the built-in validation result changes. */
+  onValidationChange?: (error: string | undefined) => void;
 };
 
 export const inputVariantClasses = {
@@ -136,11 +193,73 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       value,
       onChange,
       dateFormat = 'DD/MM/YYYY',
-      locale = 'en-US',
+      locale: localeProp,
+      mask,
+      maskOptions,
+      phoneCountry,
+      unmask = false,
+      autoValidate = true,
+      validationType,
+      validationMessage,
+      onValidationChange,
+      onBlur,
       ...props
     },
     ref
   ) => {
+    const lang = useTucuLang();
+    const messages = getTucuMessages(lang);
+    const locale = localeProp ?? langToLocale(lang);
+    const innerRef = useRef<HTMLInputElement | null>(null);
+    const setRefs = useCallback(
+      (node: HTMLInputElement | null) => {
+        innerRef.current = node;
+        if (typeof ref === 'function') ref(node);
+        else if (ref) ref.current = node;
+      },
+      [ref]
+    );
+
+    // ─── Mask ──────────────────────────────────────────────────
+    const effectivePhoneCountry =
+      phoneCountry ?? maskOptions?.phoneCountry ?? (mask === 'phone' ? 'AR' : 'INTL');
+    const maskDef = useMemo<MaskDefinition | undefined>(() => {
+      if (!mask) return undefined;
+      if (typeof mask !== 'string') return mask;
+      return createMask(mask, {
+        ...maskOptions,
+        phoneCountry: effectivePhoneCountry,
+        locale: maskOptions?.locale ?? locale,
+      });
+    }, [mask, maskOptions, effectivePhoneCountry, locale]);
+    const pendingCaret = useRef<number | null>(null);
+
+    // ─── Built-in validation ───────────────────────────────────
+    const autoType = autoValidate
+      ? inferValidationType({
+          type,
+          mask: typeof mask === 'string' ? mask : undefined,
+          validationType,
+        }) ?? (props.required ? 'required' : undefined)
+      : undefined;
+    const [internalError, setInternalError] = useState<string>();
+    const touchedRef = useRef(false);
+    const runValidation = (rawValue: unknown) => {
+      if (!autoType) return;
+      const next = validateField(autoType, rawValue, {
+        lang,
+        required: props.required,
+        message: validationMessage,
+        phoneCountry: effectivePhoneCountry,
+        locale,
+      });
+      setInternalError((previous) => {
+        if (previous !== next) onValidationChange?.(next);
+        return next;
+      });
+    };
+    const shownError = error ?? (autoType ? internalError : undefined);
+
     // Password visibility state
     const [showPassword, setShowPassword] = useState(false);
 
@@ -164,7 +283,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
 
     // Build aria-describedby string
     const describedBy =
-      [error ? errorId : null, helperText ? helperId : null]
+      [shownError ? errorId : null, helperText ? helperId : null]
         .filter(Boolean)
         .join(' ') || undefined;
 
@@ -428,8 +547,19 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       }
     }, [isCalendarOpen, showYearPicker, updateCalendarPosition]);
 
+    // min / max (ISO YYYY-MM-DD, like the native date input) bound the picker
+    const minDate =
+      typeof props.min === 'string' ? parseDate(props.min, 'YYYY-MM-DD') : null;
+    const maxDate =
+      typeof props.max === 'string' ? parseDate(props.max, 'YYYY-MM-DD') : null;
+    const isOutOfRange = (date: Date) => {
+      const day = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+      return (!!minDate && day < minDate) || (!!maxDate && day > maxDate);
+    };
+
     // Handle date selection
     const handleDateSelect = (date: Date) => {
+      if (isOutOfRange(date)) return;
       setSelectedDate(date);
       setCurrentMonth(date);
       closeCalendar();
@@ -507,10 +637,65 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     };
 
     const handleFocusInput = () => {
-      if (ref && 'current' in ref) {
-        (ref.current as HTMLInputElement).focus();
-      }
+      innerRef.current?.focus();
     };
+
+    useLayoutEffect(() => {
+      if (pendingCaret.current === null) return;
+      const input = innerRef.current;
+      if (input && document.activeElement === input) {
+        input.setSelectionRange(pendingCaret.current, pendingCaret.current);
+      }
+      pendingCaret.current = null;
+    });
+
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+      if (!maskDef) {
+        onChange?.(event);
+        if (touchedRef.current) runValidation(event.target.value);
+        return;
+      }
+      const input = event.target;
+      const typed = input.value;
+      const isSignificant =
+        maskDef.isSignificant ?? ((c: string) => c >= '0' && c <= '9');
+      const caret = input.selectionStart ?? typed.length;
+      const significantBefore = [...typed.slice(0, caret)].filter(
+        isSignificant
+      ).length;
+      const formatted = maskDef.format(typed);
+      const emitted = unmask ? maskDef.unformat(formatted) : formatted;
+      const nextCaret = caretForSignificantCount(
+        formatted,
+        significantBefore,
+        isSignificant
+      );
+      // Consumers read e.target.value synchronously (react-hook-form
+      // included): expose the emitted value, then restore the display.
+      input.value = emitted;
+      onChange?.(event);
+      input.value = formatted;
+      pendingCaret.current = nextCaret;
+      try {
+        input.setSelectionRange(nextCaret, nextCaret);
+      } catch {
+        // input types without selection support
+      }
+      if (touchedRef.current) runValidation(formatted);
+    };
+
+    const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
+      touchedRef.current = true;
+      runValidation(event.target.value);
+      onBlur?.(event);
+    };
+
+    const displayValue =
+      maskDef && value !== undefined && value !== null
+        ? unmask && maskDef.fromRaw
+          ? maskDef.fromRaw(String(value))
+          : maskDef.format(String(value))
+        : value;
 
     return (
       <div
@@ -543,10 +728,10 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             <input
               data-tucu="input-control"
               type={type === 'date' ? 'text' : actualType}
-              ref={ref}
+              ref={setRefs}
               id={finalId}
               aria-describedby={describedBy}
-              aria-invalid={error ? 'true' : 'false'}
+              aria-invalid={shownError ? 'true' : 'false'}
               aria-required={props.required ? 'true' : undefined}
               readOnly={type === 'date'}
               value={
@@ -554,11 +739,15 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
                   ? selectedDate
                     ? formatDate(selectedDate)
                     : value ?? ''
-                  : value
+                  : displayValue
               }
-              onChange={type !== 'date' ? onChange : undefined}
+              inputMode={maskDef?.inputMode}
+              autoComplete={
+                type === 'email' ? 'email' : type === 'tel' ? 'tel' : undefined
+              }
+              onChange={type !== 'date' ? handleChange : undefined}
+              onBlur={handleBlur}
               onClick={type === 'date' ? toggleCalendar : undefined}
-              onTouchStart={type === 'date' ? toggleCalendar : handleFocusInput}
               {...(type !== 'date'
                 ? props
                 : {
@@ -566,7 +755,10 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
                     onChange: undefined,
                   })}
               className={cn(
-                'block w-full placeholder-gray-400 transition-shadow duration-200 rounded-xl text-gray-900 dark:invalid:border-red-500 dark:invalid:text-red-600 invalid:border-red-500 invalid:text-red-600 focus:border-border focus:outline-hidden focus:ring-1 focus:ring-gray-300 focus:invalid:border-red-500 focus:invalid:ring-red-500 disabled:border-border disabled:bg-muted/10 disabled:text-gray-500 disabled:cursor-not-allowed dark:text-gray-100 dark:focus:border-gray-600 dark:focus:ring-gray-600 cursor-pointer',
+                // Error state follows aria-invalid (error prop / built-in validation)
+                // and :user-invalid (native constraints, only after the user
+                // interacted), never a pristine required field.
+                'block w-full placeholder-gray-400 transition-shadow duration-200 rounded-xl text-gray-900 dark:text-gray-100 focus:outline-hidden focus:border-brand focus:ring-2 focus:ring-brand/30 dark:focus:border-brand aria-invalid:border-red-500 aria-invalid:focus:ring-red-500/30 dark:aria-invalid:border-red-400 user-invalid:border-red-500 dark:user-invalid:border-red-400 disabled:border-border disabled:bg-muted/10 disabled:text-gray-500 dark:disabled:text-gray-400 disabled:cursor-not-allowed',
                 textControlSizeClasses.input[size],
                 Boolean(icon) && 'pl-[40px]',
                 type === 'date' ? 'pr-[48px] cursor-pointer' : '',
@@ -596,9 +788,13 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
               <button
                 type="button"
                 onClick={togglePasswordVisibility}
-                onTouchStart={togglePasswordVisibility}
                 className="absolute top-1/2 right-[12px] -translate-y-1/2 flex items-center justify-center w-[20px] h-[20px] text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300 transition-colors duration-200 focus:outline-none cursor-pointer"
-                aria-label={showPassword ? 'Hide password' : 'Show password'}
+                aria-label={
+                  showPassword
+                    ? messages.input.hidePassword
+                    : messages.input.showPassword
+                }
+                aria-pressed={showPassword}
               >
                 {showPassword ? (
                   <EyeSlashIcon className="w-[16px] h-[16px]" />
@@ -613,9 +809,8 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
               <button
                 type="button"
                 onClick={toggleCalendar}
-                onTouchStart={toggleCalendar}
                 className="absolute top-1/2 right-[12px] -translate-y-1/2 flex items-center justify-center w-[20px] h-[20px] text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300 transition-colors duration-200 focus:outline-none cursor-pointer"
-                aria-label="Open date picker"
+                aria-label={messages.input.openDatePicker}
               >
                 <CalendarIcon className="w-[16px] h-[16px]" />
               </button>
@@ -641,7 +836,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
                   <button
                     type="button"
                     onClick={() => navigateMonth('prev')}
-                    onTouchStart={() => navigateMonth('prev')}
+                    aria-label={messages.input.previousMonth}
                     className="p-[4px] hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md transition-colors"
                   >
                     <ChevronLeft className="w-[16px] h-[16px] text-gray-600 dark:text-gray-400" />
@@ -650,7 +845,6 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
                   <button
                     type="button"
                     onClick={toggleYearPicker}
-                    onTouchStart={toggleYearPicker}
                     className="text-sm font-semibold text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700 px-[8px] py-[4px] rounded-md transition-colors"
                   >
                     {currentMonth.toLocaleDateString(locale, {
@@ -662,7 +856,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
                   <button
                     type="button"
                     onClick={() => navigateMonth('next')}
-                    onTouchStart={() => navigateMonth('next')}
+                    aria-label={messages.input.nextMonth}
                     className="p-[4px] hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md transition-colors"
                   >
                     <ChevronRight className="w-[16px] h-[16px] text-gray-600 dark:text-gray-400" />
@@ -678,7 +872,6 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
                           key={year}
                           type="button"
                           onClick={() => handleYearSelect(year)}
-                          onTouchStart={() => handleYearSelect(year)}
                           className={cn(
                             'text-xs p-[8px] rounded-md transition-colors',
                             {
@@ -726,9 +919,10 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
                             key={index}
                             type="button"
                             onClick={() => handleDateSelect(date)}
-                            onTouchStart={() => handleDateSelect(date)}
+                            disabled={isOutOfRange(date)}
+                            aria-pressed={!!isSelected}
                             className={cn(
-                              'text-xs p-[8px] rounded-md transition-colors hover:bg-gray-100 dark:hover:bg-gray-700',
+                              'text-xs p-[8px] rounded-md transition-colors hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-transparent',
                               {
                                 'text-gray-400 dark:text-gray-500':
                                   !isCurrentMonth,
@@ -752,7 +946,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
                       <button
                         type="button"
                         onClick={() => handleDateSelect(new Date())}
-                        onTouchStart={() => handleDateSelect(new Date())}
+                        disabled={isOutOfRange(new Date())}
                         className="w-full text-xs text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium py-[4px] transition-colors"
                       >
                         {getTodayText(locale)}
@@ -764,8 +958,10 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
               document.body
             )}
         </div>
-        {error && <FieldError id={errorId} error={error} size="md" />}
-        {!error && helperText && (
+        {shownError && (
+          <FieldError id={errorId} error={shownError} size="md" />
+        )}
+        {!shownError && helperText && (
           <FieldHelperText id={helperId} size="md">
             {helperText}
           </FieldHelperText>

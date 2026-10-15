@@ -329,6 +329,9 @@ function TabListMobileSelect({
   const buttonRef = useRef<HTMLButtonElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const optionsRef = useRef<(HTMLButtonElement | null)[]>([]);
+  const instanceId = useId();
+  const listboxId = `${instanceId}-tablist-listbox`;
+  const optionId = (index: number) => `${instanceId}-tablist-option-${index}`;
 
   const enabledIndices = tabItems
     .map((item, i) => (!item.disabled ? i : -1))
@@ -502,12 +505,12 @@ function TabListMobileSelect({
     createPortal(
       <div
         ref={dropdownRef}
-        id="tablist-mobile-listbox"
+        id={listboxId}
         role="listbox"
         tabIndex={-1}
         aria-activedescendant={
           highlightedIndex >= 0
-            ? `tablist-mobile-option-${highlightedIndex}`
+            ? optionId(highlightedIndex)
             : undefined
         }
         style={dropdownStyle}
@@ -527,7 +530,7 @@ function TabListMobileSelect({
           return (
             <button
               key={index}
-              id={`tablist-mobile-option-${index}`}
+              id={optionId(index)}
               ref={(el) => {
                 optionsRef.current[index] = el;
               }}
@@ -592,7 +595,7 @@ function TabListMobileSelect({
         role="combobox"
         aria-haspopup="listbox"
         aria-expanded={isOpen}
-        aria-controls="tablist-mobile-listbox"
+        aria-controls={listboxId}
         onClick={toggleDropdown}
         onKeyDown={handleKeyDown}
         className={cn(
@@ -694,7 +697,7 @@ export function TabItem({
       {selected && variant === 'underline' && showMobileIndicator && (
         <motion.span
           className="absolute bottom-0 left-0 right-0 h-0.5 bg-brand rounded-full"
-          layoutId="tab-indicator"
+          layoutId={`${__baseId}-tab-indicator`}
           transition={{ type: 'spring', stiffness: 500, damping: 30 }}
         />
       )}

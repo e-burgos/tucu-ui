@@ -5,6 +5,7 @@ import {
   useImperativeHandle,
   useRef,
   useState,
+  useId,
   type KeyboardEvent as ReactKeyboardEvent,
 } from 'react';
 import { createPortal } from 'react-dom';
@@ -38,6 +39,9 @@ export const TabSelect = forwardRef(
     const dropdownRef = useRef<HTMLDivElement>(null);
     const optionsRef = useRef<(HTMLButtonElement | null)[]>([]);
     const containerRef = useRef<HTMLDivElement | null>(null);
+    const instanceId = useId();
+    const listboxId = `${instanceId}-tab-select-listbox`;
+    const optionId = (index: number) => `${instanceId}-tab-select-option-${index}`;
 
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     useImperativeHandle(ref, () => containerRef.current!);
@@ -206,12 +210,12 @@ export const TabSelect = forwardRef(
       createPortal(
         <div
           ref={dropdownRef}
-          id="tab-select-listbox"
+          id={listboxId}
           role="listbox"
           tabIndex={-1}
           aria-activedescendant={
             highlightedIndex >= 0
-              ? `tab-select-option-${highlightedIndex}`
+              ? optionId(highlightedIndex)
               : undefined
           }
           style={dropdownStyle}
@@ -227,7 +231,7 @@ export const TabSelect = forwardRef(
             return (
               <button
                 key={`${item.path}-${index}`}
-                id={`tab-select-option-${index}`}
+                id={optionId(index)}
                 ref={(el) => {
                   optionsRef.current[index] = el;
                 }}
@@ -265,7 +269,7 @@ export const TabSelect = forwardRef(
           role="combobox"
           aria-haspopup="listbox"
           aria-expanded={isOpen}
-          aria-controls="tab-select-listbox"
+          aria-controls={listboxId}
           onClick={toggleDropdown}
           onKeyDown={handleKeyDown}
           className="flex w-full items-center justify-between rounded-lg border-2 border-border px-4 py-2.5 text-sm font-medium transition-colors hover:bg-gray-100 dark:hover:bg-gray-800 sm:px-5 sm:py-3.5"
