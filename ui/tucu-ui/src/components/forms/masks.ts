@@ -84,7 +84,9 @@ const AR_PHONE: PhoneCountryDefinition = {
     // 11 2345-6789 (AMBA, 8-digit subscriber) · 351 123-4567 (7 digits)
     const firstGroup = areaLength === 2 ? 4 : 3;
     return subscriber.length > firstGroup
-      ? `${area} ${subscriber.slice(0, firstGroup)}-${subscriber.slice(firstGroup)}`
+      ? `${area} ${subscriber.slice(0, firstGroup)}-${subscriber.slice(
+          firstGroup
+        )}`
       : `${area} ${subscriber}`;
   },
 };
@@ -120,8 +122,18 @@ interface ParsedPhone {
   mobile: boolean;
 }
 
-function parsePhone(value: string, def: PhoneCountryDefinition): ParsedPhone {
+function withInternationalPrefix(value: string, def: PhoneCountryDefinition) {
   const trimmed = (value || '').trim();
+  if (!def.dialCode) return trimmed;
+  const exitCode = `00${def.dialCode}`;
+  const compact = trimmed.replace(/[\s\-().]/g, '');
+  return compact.startsWith(exitCode)
+    ? `+${def.dialCode}${compact.slice(exitCode.length)}`
+    : trimmed;
+}
+
+function parsePhone(value: string, def: PhoneCountryDefinition): ParsedPhone {
+  const trimmed = withInternationalPrefix(value, def);
   let digits = onlyDigits(trimmed);
   const international =
     trimmed.startsWith('+') ||
@@ -142,7 +154,7 @@ export function formatPhone(
   country: PhoneCountry = 'AR'
 ): string {
   const def = getPhoneCountry(country);
-  const trimmed = (value || '').trim();
+  const trimmed = withInternationalPrefix(value, def);
   if (!trimmed) return '';
   if (!def.dialCode) {
     const digits = onlyDigits(trimmed).slice(0, 15);
@@ -157,11 +169,22 @@ export function formatPhone(
     // Domestic input. The trunk "0" is dropped; a complete number with a
     // mobile marker ("15") is promoted to the canonical international form.
     const domestic = digits.replace(/^0/, '').slice(0, 12);
-    if (domestic.length <= 10) return def.formatNational(domestic, { mobile: false });
+    if (domestic.length < 10)
+      return def.formatNational(domestic, { mobile: false });
+    if (domestic.length === 10 && def.isValidNational(domestic, false)) {
+      return formatPhone(`+${def.dialCode}${domestic}`, country);
+    }
+    if (domestic.length === 10)
+      return def.formatNational(domestic, { mobile: false });
     const parsed = def.parseNational(domestic);
-    if (parsed.national.length === 10 && def.isValidNational(parsed.national, parsed.mobile)) {
+    if (
+      parsed.national.length === 10 &&
+      def.isValidNational(parsed.national, parsed.mobile)
+    ) {
       return formatPhone(
-        `+${def.dialCode}${parsed.mobile ? def.mobilePrefix ?? '' : ''}${parsed.national}`,
+        `+${def.dialCode}${parsed.mobile ? def.mobilePrefix ?? '' : ''}${
+          parsed.national
+        }`,
         country
       );
     }
@@ -197,9 +220,9 @@ export function normalizePhone(value: string, country: PhoneCountry = 'AR') {
   }
   const parsed = parsePhone(value, def);
   if (!def.isValidNational(parsed.national, parsed.mobile)) return '';
-  return `+${def.dialCode}${parsed.mobile && def.mobilePrefix ? def.mobilePrefix : ''}${
-    parsed.national
-  }`;
+  return `+${def.dialCode}${
+    parsed.mobile && def.mobilePrefix ? def.mobilePrefix : ''
+  }${parsed.national}`;
 }
 
 export function isValidPhone(value: string, country: PhoneCountry = 'AR') {
@@ -257,8 +280,12 @@ function separators(locale: string) {
 
 /** Formats a (partial) number for display while typing. */
 export function formatNumber(value: string, options: NumberMaskOptions = {}) {
-  const { locale = 'es-AR', decimals = 0, allowNegative = false, prefix = '' } =
-    options;
+  const {
+    locale = 'es-AR',
+    decimals = 0,
+    allowNegative = false,
+    prefix = '',
+  } = options;
   const { group, decimal } = separators(locale);
   let text = (value || '').startsWith(prefix)
     ? (value || '').slice(prefix.length)
@@ -272,7 +299,9 @@ export function formatNumber(value: string, options: NumberMaskOptions = {}) {
     decimalIndex >= 0 ? text.slice(0, decimalIndex) : text
   ).replace(/^0+(?=\d)/, '');
   const decimalPart =
-    decimalIndex >= 0 ? onlyDigits(text.slice(decimalIndex)).slice(0, decimals) : '';
+    decimalIndex >= 0
+      ? onlyDigits(text.slice(decimalIndex)).slice(0, decimals)
+      : '';
   if (!integerPart && decimalIndex < 0) return negative ? `${prefix}-` : '';
   const grouped = (integerPart || '0').replace(/\B(?=(\d{3})+(?!\d))/g, group);
   return `${prefix}${negative ? '-' : ''}${grouped}${
@@ -286,7 +315,11 @@ export function parseNumber(value: string, options: NumberMaskOptions = {}) {
   const { group, decimal } = separators(locale);
   let text = (value || '').trim();
   if (prefix && text.startsWith(prefix)) text = text.slice(prefix.length);
-  text = text.split(group).join('').replace(decimal, '.').replace(/[^\d.-]/g, '');
+  text = text
+    .split(group)
+    .join('')
+    .replace(decimal, '.')
+    .replace(/[^\d.-]/g, '');
   return text === '' || text === '-' ? NaN : Number(text);
 }
 

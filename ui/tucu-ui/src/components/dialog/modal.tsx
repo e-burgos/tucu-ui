@@ -6,6 +6,15 @@ import cn from 'classnames';
 import { Close } from '../icons/close';
 import Typography from '../typography';
 
+const FOCUSABLE_SELECTOR = [
+  'a[href]',
+  'button:not([disabled])',
+  'input:not([disabled]):not([type="hidden"])',
+  'select:not([disabled])',
+  'textarea:not([disabled])',
+  '[tabindex]:not([tabindex="-1"])',
+].join(',');
+
 export interface ModalProps {
   isOpen: boolean;
   closeable?: boolean;
@@ -47,6 +56,7 @@ export const Modal: React.FC<ModalProps> = ({
   const [isVisible, setIsVisible] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
   const titleRef = useRef<HTMLHeadingElement>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
   const previousFocusRef = useRef<HTMLElement | null>(null);
 
   // Store the previously focused element when modal opens
@@ -59,7 +69,9 @@ export const Modal: React.FC<ModalProps> = ({
   // Return focus to previously focused element when modal closes
   useEffect(() => {
     if (!isOpen && previousFocusRef.current) {
-      previousFocusRef.current.focus();
+      const previous = previousFocusRef.current;
+      previousFocusRef.current = null;
+      if (previous.isConnected) previous.focus();
     }
   }, [isOpen]);
 
@@ -137,6 +149,38 @@ export const Modal: React.FC<ModalProps> = ({
     return undefined;
   }, [isOpen, closeable, closeableClose]);
 
+  useEffect(() => {
+    if (!isOpen) return undefined;
+    const trapFocus = (event: KeyboardEvent) => {
+      if (event.key !== 'Tab' || !dialogRef.current) return;
+      const dialog = dialogRef.current;
+      const focusable = Array.from(
+        dialog.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR)
+      );
+      if (focusable.length === 0) {
+        event.preventDefault();
+        titleRef.current?.focus();
+        return;
+      }
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      const active = document.activeElement as HTMLElement | null;
+      const outside = !active || !dialog.contains(active);
+      if (
+        event.shiftKey &&
+        (outside || active === first || active === titleRef.current)
+      ) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && (outside || active === last)) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+    document.addEventListener('keydown', trapFocus);
+    return () => document.removeEventListener('keydown', trapFocus);
+  }, [isOpen]);
+
   if (!isVisible) {
     return null;
   }
@@ -166,6 +210,7 @@ export const Modal: React.FC<ModalProps> = ({
       />
       {/* Modal Content */}
       <div
+        ref={dialogRef}
         className={modalContentClasses}
         role="dialog"
         aria-modal="true"

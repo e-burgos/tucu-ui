@@ -55,5 +55,8 @@ export function findCurrentPageTitle(
     }
   }
 
-  return null;
+  const owner = items.find(
+    (item) => !item.hide && item.path && matchesPath(pathname, item.path, true)
+  );
+  return owner ? owner.name : null;
 }

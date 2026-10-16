@@ -213,8 +213,8 @@ export interface IRowActions<TData> {
   requiredScopes?: Array<string> | string;
   /** Function to determine if action is disabled. */
   disabled?: (row: Row<TData>) => boolean;
-  /** Function to determine if action is hidden. */
-  hidden?: (row: Row<TData>) => boolean;
+  /** Hides the action: a boolean, or a function of the row. Honored per action. */
+  hidden?: boolean | ((row: Row<TData>) => boolean);
   /** Whether to show the label in a tooltip. */
   showLabelInTooltip?: boolean;
 }

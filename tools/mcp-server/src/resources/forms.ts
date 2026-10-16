@@ -110,9 +110,9 @@ Wrap each control in \`FormField\` (inputs are not auto-registered by \`name\`).
 
 | Child Input | Validator | Mask / value |
 |---|---|---|
-| \`type="email"\` | email | — |
+| \`type="email"\` | email (max 254 chars, local part max 64; empty+required → "Ingresá un email" in es) | — |
 | \`type="tel"\` | phone (generic international, 8–15 digits) | add \`mask="phone"\` to format |
-| \`mask="phone"\` (+ \`phoneCountry\`, default \`AR\`) | phone, strict per country | \`+54 9 11 2345-6789\`; \`unmask\` → \`+5491123456789\` |
+| \`mask="phone"\` (+ \`phoneCountry\`, default \`AR\`) | phone, strict per country | \`+54 9 11 2345-6789\` (\`0054 …\` is accepted like \`+54\`; complete landlines get \`+54\`); \`unmask\` → \`+5491123456789\` |
 | \`mask="cuit"\` | CUIT/CUIL check digit | \`20-12345678-6\`; \`unmask\` → \`20123456786\` |
 | \`type="url"\` | url (http/https, protocol optional) | — |
 | \`mask="currency"\` / \`mask="number"\` | — (use \`validationType="number"\`) | \`$ 1.234,56\`; \`unmask\` → \`1234.56\` |
@@ -144,7 +144,7 @@ for \`register\`/\`validationSchema\`, \`formatPhone\`, \`normalizePhone\`, \`is
 | Radio | variant, size (sm/md/lg/xl), color |
 | RadioGroup | direction (vertical/horizontal), options |
 | Textarea | label, error, variant, helperText |
-| Switch | label, offLabel, onLabel, checked, onChange |
+| Switch | label, offLabel, onLabel (ON/OFF translated by \`lang\`; \`null\` omits), checked, onChange — renders \`role="switch"\` |
 | PinCode | length, type (text/number), mask, variant |
 | FileInput | accept (img/pdf/csvAndExcel/all), multiple |
 | InputSearcher | options, initialValue, multiple, variant |

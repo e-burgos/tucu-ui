@@ -27,9 +27,14 @@ describe('validators', () => {
   it('treats empty values as valid unless required', () => {
     expect(validateEmail('')).toBeUndefined();
     expect(validateEmail('  ', { required: true, lang: 'es' })).toBe(
+      'Ingresá un email.'
+    );
+    expect(validateUrl('', { required: true, lang: 'es' })).toBe(
       'Este campo es obligatorio.'
     );
-    expect(validateRequired('', { lang: 'en' })).toBe('This field is required.');
+    expect(validateRequired('', { lang: 'en' })).toBe(
+      'This field is required.'
+    );
     expect(validateRequired('x')).toBeUndefined();
   });
 
@@ -39,7 +44,12 @@ describe('validators', () => {
       'Ingresá un teléfono válido.'
     );
     expect(validatePhone('5123456789', { phoneCountry: 'AR' })).toBeDefined();
-    expect(validatePhone('+54 9 11 2345-6789', { phoneCountry: 'AR' })).toBeUndefined();
+    expect(
+      validatePhone('+54 9 11 2345-6789', { phoneCountry: 'AR' })
+    ).toBeUndefined();
+    expect(
+      validatePhone('0054 9 11 2345-6789', { phoneCountry: 'AR' })
+    ).toBeUndefined();
   });
 
   it('url', () => {
@@ -75,6 +85,34 @@ describe('validators', () => {
     expect(inferValidationType({ type: 'url' })).toBe('url');
     expect(inferValidationType({ mask: 'cuit' })).toBe('cuit');
     expect(inferValidationType({ type: 'text' })).toBeUndefined();
-    expect(inferValidationType({ type: 'email', validationType: false })).toBeUndefined();
+    expect(
+      inferValidationType({ type: 'email', validationType: false })
+    ).toBeUndefined();
+  });
+});
+
+describe('email length limits and required message', () => {
+  it('rejects emails over 254 characters or with a local part over 64', () => {
+    const longDomain = `${'a'.repeat(60)}.${'b'.repeat(60)}.${'c'.repeat(
+      60
+    )}.${'d'.repeat(60)}.${'e'.repeat(60)}.com`;
+    expect(isValidEmail(`user@${longDomain}`)).toBe(false);
+    expect(isValidEmail(`${'a'.repeat(64)}@mail.com`)).toBe(true);
+    expect(isValidEmail(`${'a'.repeat(65)}@mail.com`)).toBe(false);
+    expect(validateEmail(`${'a'.repeat(65)}@mail.com`, { lang: 'es' })).toMatch(
+      /email válido/
+    );
+  });
+
+  it('uses a specific required message for email', () => {
+    expect(validateEmail('', { required: true, lang: 'es-AR' })).toBe(
+      'Ingresá un email.'
+    );
+    expect(validateEmail('', { required: true, lang: 'en' })).toBe(
+      'Enter an email address.'
+    );
+    expect(validateEmail('', { required: true, message: 'Custom' })).toBe(
+      'Custom'
+    );
   });
 });

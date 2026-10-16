@@ -222,7 +222,9 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
 
     // ─── Mask ──────────────────────────────────────────────────
     const effectivePhoneCountry =
-      phoneCountry ?? maskOptions?.phoneCountry ?? (mask === 'phone' ? 'AR' : 'INTL');
+      phoneCountry ??
+      maskOptions?.phoneCountry ??
+      (mask === 'phone' ? 'AR' : 'INTL');
     const maskDef = useMemo<MaskDefinition | undefined>(() => {
       if (!mask) return undefined;
       if (typeof mask !== 'string') return mask;
@@ -665,11 +667,14 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       ).length;
       const formatted = maskDef.format(typed);
       const emitted = unmask ? maskDef.unformat(formatted) : formatted;
-      const nextCaret = caretForSignificantCount(
-        formatted,
-        significantBefore,
-        isSignificant
-      );
+      const nextCaret =
+        caret >= typed.length
+          ? formatted.length
+          : caretForSignificantCount(
+              formatted,
+              significantBefore,
+              isSignificant
+            );
       // Consumers read e.target.value synchronously (react-hook-form
       // included): expose the emitted value, then restore the display.
       input.value = emitted;
@@ -958,9 +963,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
               document.body
             )}
         </div>
-        {shownError && (
-          <FieldError id={errorId} error={shownError} size="md" />
-        )}
+        {shownError && <FieldError id={errorId} error={shownError} size="md" />}
         {!shownError && helperText && (
           <FieldHelperText id={helperId} size="md">
             {helperText}

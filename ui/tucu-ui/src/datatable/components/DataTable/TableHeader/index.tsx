@@ -86,10 +86,9 @@ const TableHeader: FC<TableHeaderProps> = ({
 
   const { pinStyles, isPinned } = getCommonPinningStyles(header.column);
   const { active } = useDndContext();
-  const { attributes, listeners, setNodeRef, transform } =
-    useSortable({
-      id: header.column.id,
-    });
+  const { attributes, listeners, setNodeRef, transform } = useSortable({
+    id: header.column.id,
+  });
 
   // Check if this column is being dragged (more reliable than just isDragging)
   const isColumnDragging = active?.id === header.column.id;
@@ -98,6 +97,7 @@ const TableHeader: FC<TableHeaderProps> = ({
   const [isHoverResizer, setIsHoverResizer] = useState<boolean>(false);
   const [isHover, setIsHover] = useState<boolean>(false);
   const [hoverColumn, setHoverColumn] = useState<boolean>(false);
+  const [focusWithin, setFocusWithin] = useState<boolean>(false);
   const [hoverDrag, setHoverDrag] = useState<HoverType>({
     hover: false,
     index,
@@ -165,7 +165,7 @@ const TableHeader: FC<TableHeaderProps> = ({
   };
 
   const renderActions = useMemo(() => {
-    const show = isHoverResize || hoverColumn;
+    const show = isHoverResize || hoverColumn || focusWithin;
 
     return [
       // sort icon
@@ -213,6 +213,7 @@ const TableHeader: FC<TableHeaderProps> = ({
   }, [
     isHoverResize,
     hoverColumn,
+    focusWithin,
     enableSortColumns,
     header,
     enableHideColumns,
@@ -316,7 +317,13 @@ const TableHeader: FC<TableHeaderProps> = ({
       onDoubleClick={() => header.column.resetSize()}
       onMouseEnter={() => setHoverColumn(true)}
       onMouseLeave={() => setHoverColumn(false)}
-      onBlur={() => setHoverColumn(false)}
+      tabIndex={0}
+      onFocus={() => setFocusWithin(true)}
+      onBlur={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
+          setFocusWithin(false);
+        }
+      }}
     >
       {/* Wrapper of column header for launch drag events */}
       <div

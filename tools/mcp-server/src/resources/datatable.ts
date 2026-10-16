@@ -161,7 +161,7 @@ interface IRowActions<T> {
   onClick: (row: Row<T>) => void;
   requiredScopes?: string | string[];
   disabled?: (row: Row<T>) => boolean;   // takes precedence over scope validation
-  hidden?: (row: Row<T>) => boolean;
+  hidden?: boolean | ((row: Row<T>) => boolean); // honored per action; all hidden = no actions cell
   showOptions?: boolean;
   showLabelInTooltip?: boolean;
 }

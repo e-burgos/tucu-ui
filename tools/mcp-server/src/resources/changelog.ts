@@ -3,7 +3,18 @@
 export function getChangelogContent(): string {
   return `# Changelog — @e-burgos/tucu-ui
 
-## v3.2.0 (Current)
+## v3.3.0 (Current)
+- Fix: DataTable \`ManualPagination\` and \`ColumnsVisibilityManager\` strings follow \`ThemeProvider lang\` (es / es-AR render Spanish)
+- Fix: AR phone accepts the \`0054 9 11 …\` prefix like \`+54\`; \`formatPhone\` adds \`+54\` to complete landlines
+- Fix: \`validateEmail\` / \`Input type="email"\` reject > 254 chars and local part > 64; specific translated required message (es: "Ingresá un email.")
+- Fix: DataTable row action \`hidden\` (boolean or fn) is honored per action; no actions cell content when all are hidden
+- Fix: \`Switch\` has \`role="switch"\` + \`aria-checked\`; ON/OFF labels are translated and omittable (\`null\`)
+- Fix: \`Modal\` traps focus and restores it on close
+- Fix: \`Button\`, \`Badge\` and \`Tooltip\` success/info/warning/danger/gray backgrounds meet WCAG AA with white text
+- Fix: DataTable header actions are reachable by keyboard (header focus reveals them)
+- Add: macOS layouts accept \`pageTitle\`; the toolbar title matches nested routes and no longer falls back to a hardcoded "Overview"
+
+## v3.2.0
 - Add: Input masks — \`mask="phone"\` (Argentina by default, \`phoneCountry\`, \`registerPhoneCountry\`), \`cuit\`, \`currency\`, \`number\` or a custom \`createMask\`; \`unmask\` emits the raw value (E.164, digits, number string)
 - Add: Built-in localized validators (es/en/fr): \`validateEmail | validatePhone | validateUrl | validateCuit | validateRequired | validateNumber\`, \`getValidationRules\`; \`<Input type="email|tel|url">\` validates on blur and \`FormField\` adds the inferred rules automatically (\`autoValidate\`)
 - Add: \`ThemeProvider lang\` drives built-in strings (validation, aria labels, DataTable pagination/empty states, date picker)

@@ -2,6 +2,7 @@ import React from 'react';
 import cn from 'classnames';
 import { FieldError } from './helpers/field-error-text';
 import { FieldHelperText } from './helpers/field-helper-text';
+import { useTucuMessages } from '../../libs/i18n/use-tucu-messages';
 
 type SwitchColor =
   | 'primary'
@@ -55,8 +56,10 @@ const switchColorClasses: Record<
 
 export interface SwitchProps {
   label?: string | React.ReactNode;
-  offLabel?: string | React.ReactNode;
-  onLabel?: string | React.ReactNode;
+  /** Text inside the track when off. Defaults to the translated "OFF"; pass `null` to omit. */
+  offLabel?: string | React.ReactNode | null;
+  /** Text inside the track when on. Defaults to the translated "ON"; pass `null` to omit. */
+  onLabel?: string | React.ReactNode | null;
   checked: boolean;
   onChange: (checked: boolean) => void;
   variant?: 'ghost' | 'solid' | 'transparent';
@@ -80,6 +83,9 @@ export const Switch: React.FC<SwitchProps> = ({
   helperText,
   disabled,
 }) => {
+  const t = useTucuMessages().switch;
+  const resolvedOffLabel = offLabel === undefined ? t.off : offLabel;
+  const resolvedOnLabel = onLabel === undefined ? t.on : onLabel;
   const colorClasses = color
     ? switchColorClasses[color]
     : switchColorClasses.primary;
@@ -122,6 +128,8 @@ export const Switch: React.FC<SwitchProps> = ({
           }}
           data-tucu="switch-control"
           type="checkbox"
+          role="switch"
+          aria-checked={checked}
           checked={checked}
           onChange={(e) => onChange(e.target.checked)}
           disabled={disabled}
@@ -135,36 +143,40 @@ export const Switch: React.FC<SwitchProps> = ({
               : switchVariantClasses[variant].unchecked
           )}
         />
-        <span
-          className={cn(
-            'absolute font-medium text-sm uppercase right-[4px] transition-colors',
-            disabled && 'text-gray-500 cursor-not-allowed',
-            checked
-              ? 'text-white'
-              : variant === 'ghost'
-              ? 'text-gray-600 dark:text-gray-300'
-              : variant === 'solid'
-              ? 'text-gray-700 dark:text-gray-300'
-              : 'text-gray-600 dark:text-gray-300'
-          )}
-        >
-          {offLabel || 'OFF'}
-        </span>
-        <span
-          className={cn(
-            'absolute font-medium text-sm uppercase right-[32px] transition-colors',
-            disabled && 'text-gray-500 cursor-not-allowed',
-            checked
-              ? 'text-white'
-              : variant === 'ghost'
-              ? 'text-gray-600 dark:text-gray-300'
-              : variant === 'solid'
-              ? 'text-gray-700 dark:text-gray-300'
-              : 'text-gray-600 dark:text-gray-300'
-          )}
-        >
-          {onLabel || 'ON'}
-        </span>
+        {resolvedOffLabel && (
+          <span
+            className={cn(
+              'absolute font-medium text-sm uppercase right-[4px] transition-colors',
+              disabled && 'text-gray-500 cursor-not-allowed',
+              checked
+                ? 'text-white'
+                : variant === 'ghost'
+                ? 'text-gray-600 dark:text-gray-300'
+                : variant === 'solid'
+                ? 'text-gray-700 dark:text-gray-300'
+                : 'text-gray-600 dark:text-gray-300'
+            )}
+          >
+            {resolvedOffLabel}
+          </span>
+        )}
+        {resolvedOnLabel && (
+          <span
+            className={cn(
+              'absolute font-medium text-sm uppercase right-[32px] transition-colors',
+              disabled && 'text-gray-500 cursor-not-allowed',
+              checked
+                ? 'text-white'
+                : variant === 'ghost'
+                ? 'text-gray-600 dark:text-gray-300'
+                : variant === 'solid'
+                ? 'text-gray-700 dark:text-gray-300'
+                : 'text-gray-600 dark:text-gray-300'
+            )}
+          >
+            {resolvedOnLabel}
+          </span>
+        )}
         <span
           className={cn(
             'w-[28px] h-[28px] right-[28px] absolute rounded-full transform transition-transform bg-gray-200 dark:bg-gray-300',

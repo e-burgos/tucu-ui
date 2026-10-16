@@ -3,6 +3,8 @@ import { IManualPaginationOptions } from '../../common/types';
 import ArrowIndicator from '../Assets/ArrowIndicator';
 import ArrowPaginationIndicator from '../Assets/ArrowPaginationIndicator';
 import { IconButton } from '../Common/IconButton';
+import { useTucuMessages } from '../../../libs/i18n/use-tucu-messages';
+import { formatMessage } from '../../../libs/i18n/messages';
 
 /**
  * ManualPaginationProps
@@ -27,6 +29,7 @@ const ManualPagination: React.FC<ManualPaginationProps> = ({
   hideRecordsSelector,
   style,
 }) => {
+  const t = useTucuMessages().datatable;
   // Pagination state
   const pagination = manualPagination?.pagination;
   const setPagination = manualPagination?.setPagination;
@@ -56,9 +59,10 @@ const ManualPagination: React.FC<ManualPaginationProps> = ({
       <div className="flex items-center justify-start w-fit gap-[5px]">
         {rowsInfo && (
           <p className="m-0 font-sans font-normal leading-5 text-xs tracking-[0.025rem] normal-case text-table-primary-text">
-            {`Showing ${
-              !nextPageDisabled ? initialRows : preFinalRows
-            } of ${paginationRowCount} Rows`}
+            {formatMessage(t.showing, {
+              from: !nextPageDisabled ? initialRows : preFinalRows,
+              total: paginationRowCount,
+            })}
           </p>
         )}
       </div>
@@ -66,9 +70,10 @@ const ManualPagination: React.FC<ManualPaginationProps> = ({
         {!hideRecordsSelector && (
           <div className="flex items-center gap-2">
             <p className="m-0 font-sans font-normal leading-5 text-xs tracking-[0.025rem] normal-case text-table-primary-text whitespace-nowrap">
-              per page:
+              {t.perPage}
             </p>
             <select
+              aria-label={t.rowsPerPage}
               value={pageSize}
               onChange={(e) => {
                 setPagination?.({
@@ -99,9 +104,11 @@ const ManualPagination: React.FC<ManualPaginationProps> = ({
 
         <div className="flex items-center gap-2 max-md:mb-2.5">
           <p className="m-0 font-sans font-normal leading-5 text-xs tracking-[0.025rem] normal-case text-table-primary-text whitespace-nowrap">
-            {`${!nextPageDisabled ? initialRows : preFinalRows}-${
-              !nextPageDisabled ? finalRows : paginationRowCount
-            } of ${paginationRowCount} Rows`}
+            {formatMessage(t.range, {
+              from: !nextPageDisabled ? initialRows : preFinalRows,
+              to: !nextPageDisabled ? finalRows : paginationRowCount,
+              total: paginationRowCount,
+            })}
           </p>
         </div>
         <div className="flex items-center gap-1">
@@ -115,6 +122,7 @@ const ManualPagination: React.FC<ManualPaginationProps> = ({
               });
             }}
             disabled={previousPageDisabled}
+            aria-label={t.firstPage}
             icon={<ArrowPaginationIndicator direction="first" />}
           />
           <IconButton
@@ -127,6 +135,7 @@ const ManualPagination: React.FC<ManualPaginationProps> = ({
               });
             }}
             disabled={previousPageDisabled}
+            aria-label={t.previousPage}
             icon={<ArrowIndicator direction="left" />}
           />
           <IconButton
@@ -139,6 +148,7 @@ const ManualPagination: React.FC<ManualPaginationProps> = ({
               });
             }}
             disabled={nextPageDisabled}
+            aria-label={t.nextPage}
             icon={<ArrowIndicator direction="right" />}
           />
           <IconButton
@@ -151,6 +161,7 @@ const ManualPagination: React.FC<ManualPaginationProps> = ({
               });
             }}
             disabled={nextPageDisabled}
+            aria-label={t.lastPage}
             icon={<ArrowPaginationIndicator direction="last" />}
           />
         </div>

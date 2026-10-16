@@ -1,5 +1,11 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { render, screen, fireEvent, act, waitFor } from '@testing-library/react';
+import {
+  render,
+  screen,
+  fireEvent,
+  act,
+  waitFor,
+} from '@testing-library/react';
 import React, { useState } from 'react';
 
 import { Form } from '../../components/forms/form';
@@ -31,7 +37,7 @@ describe('Input masks', () => {
     render(<Controlled />);
     const input = screen.getByLabelText('phone') as HTMLInputElement;
     fireEvent.change(input, { target: { value: '1123456789' } });
-    expect(input.value).toBe('11 2345-6789');
+    expect(input.value).toBe('+54 11 2345-6789');
     expect(input).toHaveAttribute('inputmode', 'tel');
   });
 
@@ -110,10 +116,14 @@ describe('Input built-in validation', () => {
     const { rerender } = render(
       <Input aria-label="email" type="email" error="Server says no" />
     );
-    fireEvent.blur(screen.getByLabelText('email'), { target: { value: 'bad' } });
+    fireEvent.blur(screen.getByLabelText('email'), {
+      target: { value: 'bad' },
+    });
     expect(screen.getByRole('alert')).toHaveTextContent('Server says no');
     rerender(<Input aria-label="email" type="email" autoValidate={false} />);
-    fireEvent.blur(screen.getByLabelText('email'), { target: { value: 'bad' } });
+    fireEvent.blur(screen.getByLabelText('email'), {
+      target: { value: 'bad' },
+    });
     expect(screen.queryByRole('alert')).not.toBeInTheDocument();
   });
 
@@ -134,7 +144,10 @@ describe('FormField auto validation', () => {
   it('blocks submit with an invalid email and shows one message', async () => {
     const onSubmit = vi.fn();
     render(
-      <Form onSubmit={onSubmit} useFormProps={{ defaultValues: { email: 'x@' } }}>
+      <Form
+        onSubmit={onSubmit}
+        useFormProps={{ defaultValues: { email: 'x@' } }}
+      >
         <FormField name="email">
           <Input aria-label="email" type="email" />
         </FormField>
@@ -191,7 +204,10 @@ describe('FormField auto validation', () => {
   it('can be disabled with autoValidate={false}', async () => {
     const onSubmit = vi.fn();
     render(
-      <Form onSubmit={onSubmit} useFormProps={{ defaultValues: { email: 'x@' } }}>
+      <Form
+        onSubmit={onSubmit}
+        useFormProps={{ defaultValues: { email: 'x@' } }}
+      >
         <FormField name="email" autoValidate={false}>
           <Input aria-label="email" type="email" />
         </FormField>

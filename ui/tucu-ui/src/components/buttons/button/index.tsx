@@ -35,11 +35,11 @@ const variants: Record<VariantNames, string[]> = {
 const colors: Record<ColorNames, string[]> = {
   primary: ['text-brand', 'bg-brand', 'border-brand'],
   white: ['text-gray-900', 'bg-white', 'border-white'],
-  gray: ['text-gray-900', 'bg-gray-500', 'border-border'],
-  success: ['text-green-500', 'bg-green-500', 'border-green-500'],
-  info: ['text-blue-500', 'bg-blue-500', 'border-blue-500'],
-  warning: ['text-yellow-500', 'bg-yellow-500', 'border-yellow-500'],
-  danger: ['text-red-500', 'bg-red-500', 'border-red-500'],
+  gray: ['text-gray-900', 'bg-gray-600', 'border-border'],
+  success: ['text-green-500', 'bg-green-700', 'border-green-500'],
+  info: ['text-blue-500', 'bg-blue-600', 'border-blue-500'],
+  warning: ['text-yellow-500', 'bg-yellow-700', 'border-yellow-500'],
+  danger: ['text-red-500', 'bg-red-600', 'border-red-500'],
 };
 const sizes: Record<SizeNames, string[]> = {
   large: ['px-7 sm:px-9 h-11 sm:h-13', 'w-11 h-11 sm:w-13 sm:h-13'],
@@ -147,7 +147,9 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         break;
 
       default:
-        buttonColorClassNames = `${colorClassNames[1]} ${colorClassNames[2]}`;
+        buttonColorClassNames = `${
+          colorClassNames[1]
+        } ${colorClassNames[1].replace('bg-', 'border-')}`;
         buttonDripColor = 'rgba(255, 255, 255, 0.3)';
         break;
     }
@@ -186,7 +188,9 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             color === 'white'
               ? 'text-gray-900'
               : color === 'gray'
-              ? 'text-gray-900 dark:text-white'
+              ? variant === 'solid'
+                ? 'text-white'
+                : 'text-gray-900 dark:text-white'
               : variants[variant],
             shapes[shape],
             shape === 'circle'

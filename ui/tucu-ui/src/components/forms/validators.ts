@@ -32,6 +32,9 @@ export interface ValidatorOptions {
 const EMAIL_PATTERN =
   /^[A-Z0-9._%+-]+@[A-Z0-9](?:[A-Z0-9-]*[A-Z0-9])?(?:\.[A-Z0-9](?:[A-Z0-9-]*[A-Z0-9])?)*\.[A-Z]{2,}$/i;
 
+const EMAIL_MAX_LENGTH = 254;
+const EMAIL_LOCAL_PART_MAX_LENGTH = 64;
+
 const isBlank = (value: unknown) =>
   value === undefined ||
   value === null ||
@@ -40,6 +43,9 @@ const isBlank = (value: unknown) =>
 
 export function isValidEmail(value: string) {
   const email = (value || '').trim();
+  if (email.length > EMAIL_MAX_LENGTH) return false;
+  const localPart = email.slice(0, email.lastIndexOf('@'));
+  if (localPart.length > EMAIL_LOCAL_PART_MAX_LENGTH) return false;
   return EMAIL_PATTERN.test(email) && !email.includes('..');
 }
 
@@ -68,7 +74,10 @@ function messageFor(
   return options.message ?? getTucuMessages(options.lang).validation[key];
 }
 
-export function validateRequired(value: unknown, options: ValidatorOptions = {}) {
+export function validateRequired(
+  value: unknown,
+  options: ValidatorOptions = {}
+) {
   return isBlank(value) || value === false
     ? messageFor('required', options)
     : undefined;
@@ -78,16 +87,17 @@ function optional(
   value: unknown,
   options: ValidatorOptions,
   check: (text: string) => boolean,
-  key: keyof TucuMessages['validation']
+  key: keyof TucuMessages['validation'],
+  requiredKey: keyof TucuMessages['validation'] = 'required'
 ) {
   if (isBlank(value)) {
-    return options.required ? messageFor('required', options) : undefined;
+    return options.required ? messageFor(requiredKey, options) : undefined;
   }
   return check(String(value)) ? undefined : messageFor(key, options);
 }
 
 export const validateEmail = (value: unknown, options: ValidatorOptions = {}) =>
-  optional(value, options, isValidEmail, 'email');
+  optional(value, options, isValidEmail, 'email', 'requiredEmail');
 
 export const validatePhone = (value: unknown, options: ValidatorOptions = {}) =>
   optional(
@@ -108,7 +118,10 @@ export const validateUrl = (value: unknown, options: ValidatorOptions = {}) =>
 export const validateCuit = (value: unknown, options: ValidatorOptions = {}) =>
   optional(value, options, isValidCuit, 'cuit');
 
-export const validateNumber = (value: unknown, options: ValidatorOptions = {}) =>
+export const validateNumber = (
+  value: unknown,
+  options: ValidatorOptions = {}
+) =>
   optional(
     value,
     options,
@@ -147,7 +160,9 @@ export function validateField(
  * @example
  * <FormField name="email" rules={getValidationRules('email', { lang: 'es', required: true })}>
  */
-export function getValidationRules<TFieldValues extends FieldValues = FieldValues>(
+export function getValidationRules<
+  TFieldValues extends FieldValues = FieldValues
+>(
   type: FieldValidationType,
   options: ValidatorOptions = {}
 ): RegisterOptions<TFieldValues> {

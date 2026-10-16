@@ -14,13 +14,13 @@ import {
 
 describe('phone mask (AR)', () => {
   it('formats AMBA landline and mobile numbers', () => {
-    expect(formatPhone('1123456789')).toBe('11 2345-6789');
+    expect(formatPhone('1123456789')).toBe('+54 11 2345-6789');
     expect(formatPhone('+5491123456789')).toBe('+54 9 11 2345-6789');
     expect(formatPhone('+54 11 2345 6789')).toBe('+54 11 2345-6789');
   });
 
   it('formats interior numbers with a 3-digit area code', () => {
-    expect(formatPhone('3511234567')).toBe('351 123-4567');
+    expect(formatPhone('3511234567')).toBe('+54 351 123-4567');
     expect(formatPhone('+54 9 351 1234567')).toBe('+54 9 351 123-4567');
   });
 
@@ -34,16 +34,35 @@ describe('phone mask (AR)', () => {
   });
 
   it('is idempotent', () => {
-    for (const v of ['1123456789', '+5491123456789', '3511234567', '+54 9 11 2345']) {
+    for (const v of [
+      '1123456789',
+      '+5491123456789',
+      '3511234567',
+      '+54 9 11 2345',
+    ]) {
       const once = formatPhone(v);
       expect(formatPhone(once)).toBe(once);
     }
   });
 
   it('drops the trunk 0 and promotes domestic mobile (15) numbers', () => {
-    expect(formatPhone('01123456789')).toBe('11 2345-6789');
+    expect(formatPhone('01123456789')).toBe('+54 11 2345-6789');
     expect(formatPhone('11 15 2345 6789')).toBe('+54 9 11 2345-6789');
     expect(formatPhone('351 15 123 4567')).toBe('+54 9 351 123-4567');
+  });
+
+  it('accepts the 0054 exit code like +54', () => {
+    expect(formatPhone('0054 9 11 2345-6789')).toBe('+54 9 11 2345-6789');
+    expect(formatPhone('005491123456789')).toBe('+54 9 11 2345-6789');
+    expect(formatPhone('0054 351 123-4567')).toBe('+54 351 123-4567');
+    expect(normalizePhone('0054 9 11 2345-6789')).toBe('+5491123456789');
+    expect(isValidPhone('0054 9 11 2345-6789', 'AR')).toBe(true);
+  });
+
+  it('adds +54 once a landline is complete, keeping partial input domestic', () => {
+    expect(formatPhone('112345678')).toBe('11 2345-678');
+    expect(formatPhone('1123456789')).toBe('+54 11 2345-6789');
+    expect(formatPhone('011 2345-6789')).toBe('+54 11 2345-6789');
   });
 
   it('normalizes to E.164', () => {
@@ -72,9 +91,10 @@ describe('phone mask (AR)', () => {
       dialCode: '598',
       parseNational: (d) => ({ national: d.replace(/^0/, ''), mobile: false }),
       isValidNational: (n) => /^\d{8}$/.test(n),
-      formatNational: (d) => d.replace(/^(\d{2})(\d{3})?(\d+)?$/, (_, a, b, c) =>
-        [a, b, c].filter(Boolean).join(' ')
-      ),
+      formatNational: (d) =>
+        d.replace(/^(\d{2})(\d{3})?(\d+)?$/, (_, a, b, c) =>
+          [a, b, c].filter(Boolean).join(' ')
+        ),
     });
     expect(isValidPhone('+598 99 123 456', 'UY')).toBe(true);
     expect(formatPhone('+59899123456', 'UY')).toBe('+598 99 123 456');
