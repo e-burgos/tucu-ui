@@ -23,6 +23,8 @@ export interface MacOSTahoeLayoutProps {
   headerClassName?: string;
   contentClassName?: string;
   fullWidth?: boolean;
+  /** Overrides the toolbar title, which otherwise comes from the matching menu item. */
+  pageTitle?: React.ReactNode;
 }
 
 // ─── MacOSTahoeLayout ──────────────────────────────────────────
@@ -35,6 +37,7 @@ export function MacOSTahoeLayout({
   className,
   headerClassName,
   contentClassName,
+  pageTitle,
 }: MacOSTahoeLayoutProps) {
   const { pathname } = useLocation();
   const { isMobile } = useIsMobile();
@@ -74,7 +77,7 @@ export function MacOSTahoeLayout({
             data-tucu="macos-tahoe-toolbar-center"
             className="truncate px-[24px] text-center text-[14px] font-semibold tracking-[0.01em] text-(--macos-tahoe-text)"
           >
-            {currentPageTitle ?? 'Overview'}
+            {pageTitle ?? currentPageTitle}
           </div>
         }
         toolbarLeading={

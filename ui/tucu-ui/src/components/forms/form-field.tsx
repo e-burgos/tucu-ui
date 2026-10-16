@@ -94,7 +94,9 @@ export const FormField = <TFormValues extends FieldValues = FieldValues>({
     if (!autoValidate) return rules;
     const next = { ...(rules ?? {}) } as Record<string, unknown>;
     if (next.required === true) {
-      next.required = getTucuMessages(lang).validation.required;
+      const validation = getTucuMessages(lang).validation;
+      next.required =
+        autoType === 'email' ? validation.requiredEmail : validation.required;
     }
     if (autoType && autoType !== 'required') {
       const mask = childProps.mask;

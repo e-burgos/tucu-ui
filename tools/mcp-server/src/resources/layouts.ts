@@ -61,6 +61,7 @@ export function getLayoutsContent(): string {
 - **Constant**: \`LAYOUT_OPTIONS.MACOS\`
 - Translucent sidebar with vibrancy blur
 - Ideal for: macOS-style desktop apps
+- Toolbar title comes from the matching menu item (nested routes included); pass \`pageTitle\` on \`MacOSSonomaLayout\` / \`MacOSTahoeLayout\` / \`MacOSTahoeDockLayout\` to override it. There is no hardcoded fallback title.
 
 ### macOS Clean Layout (Sonoma)
 \`\`\`

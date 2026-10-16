@@ -9,6 +9,7 @@ export type TucuLang = 'en' | 'es' | 'fr';
 export interface TucuMessages {
   validation: {
     required: string;
+    requiredEmail: string;
     email: string;
     phone: string;
     url: string;
@@ -54,6 +55,15 @@ export interface TucuMessages {
     lastPage: string;
     rowsPerPage: string;
     rowActions: string;
+    columns: string;
+    manageColumns: string;
+    visibleColumns: string;
+    showAll: string;
+    hideAll: string;
+  };
+  switch: {
+    on: string;
+    off: string;
   };
 }
 
@@ -61,6 +71,7 @@ export const TUCU_MESSAGES: Record<TucuLang, TucuMessages> = {
   en: {
     validation: {
       required: 'This field is required.',
+      requiredEmail: 'Enter an email address.',
       email: 'Enter a valid email address, e.g. name@example.com.',
       phone: 'Enter a valid phone number.',
       url: 'Enter a valid URL, e.g. https://example.com.',
@@ -104,11 +115,21 @@ export const TUCU_MESSAGES: Record<TucuLang, TucuMessages> = {
       lastPage: 'Last page',
       rowsPerPage: 'Rows per page',
       rowActions: 'Row actions',
+      columns: 'Columns',
+      manageColumns: 'Manage Columns',
+      visibleColumns: 'Visible Columns',
+      showAll: 'Show All',
+      hideAll: 'Hide All',
+    },
+    switch: {
+      on: 'ON',
+      off: 'OFF',
     },
   },
   es: {
     validation: {
       required: 'Este campo es obligatorio.',
+      requiredEmail: 'Ingresá un email.',
       email: 'Ingresá un email válido, por ejemplo nombre@ejemplo.com.',
       phone: 'Ingresá un teléfono válido.',
       url: 'Ingresá una URL válida, por ejemplo https://ejemplo.com.',
@@ -152,11 +173,21 @@ export const TUCU_MESSAGES: Record<TucuLang, TucuMessages> = {
       lastPage: 'Última página',
       rowsPerPage: 'Filas por página',
       rowActions: 'Acciones de la fila',
+      columns: 'Columnas',
+      manageColumns: 'Administrar columnas',
+      visibleColumns: 'Columnas visibles',
+      showAll: 'Mostrar todas',
+      hideAll: 'Ocultar todas',
+    },
+    switch: {
+      on: 'SÍ',
+      off: 'NO',
     },
   },
   fr: {
     validation: {
       required: 'Ce champ est obligatoire.',
+      requiredEmail: 'Saisissez une adresse e-mail.',
       email: 'Saisissez une adresse e-mail valide, ex. nom@exemple.com.',
       phone: 'Saisissez un numéro de téléphone valide.',
       url: 'Saisissez une URL valide, ex. https://exemple.com.',
@@ -200,6 +231,15 @@ export const TUCU_MESSAGES: Record<TucuLang, TucuMessages> = {
       lastPage: 'Dernière page',
       rowsPerPage: 'Lignes par page',
       rowActions: 'Actions de la ligne',
+      columns: 'Colonnes',
+      manageColumns: 'Gérer les colonnes',
+      visibleColumns: 'Colonnes visibles',
+      showAll: 'Tout afficher',
+      hideAll: 'Tout masquer',
+    },
+    switch: {
+      on: 'OUI',
+      off: 'NON',
     },
   },
 };

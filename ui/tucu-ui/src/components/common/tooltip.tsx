@@ -39,20 +39,20 @@ const colorStyles: Record<TooltipColor, string> = {
   light:
     'bg-white text-gray-900 dark:bg-gray-800 dark:text-gray-100 border border-border',
   primary: 'bg-brand text-white',
-  success: 'bg-green-500 text-white',
-  info: 'bg-blue-500 text-white',
-  warning: 'bg-yellow-500 text-white',
-  danger: 'bg-red-500 text-white',
+  success: 'bg-green-700 text-white',
+  info: 'bg-blue-600 text-white',
+  warning: 'bg-yellow-700 text-white',
+  danger: 'bg-red-600 text-white',
 };
 
 const arrowColorStyles: Record<TooltipColor, string> = {
   dark: 'text-gray-900 dark:text-gray-100',
   light: 'text-white dark:text-gray-800',
   primary: 'text-brand',
-  success: 'text-green-500',
-  info: 'text-blue-500',
-  warning: 'text-yellow-500',
-  danger: 'text-red-500',
+  success: 'text-green-700',
+  info: 'text-blue-600',
+  warning: 'text-yellow-700',
+  danger: 'text-red-600',
 };
 
 const ARROW_SIZE = 6;

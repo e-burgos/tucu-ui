@@ -4,8 +4,10 @@ import Drawer from '../../../components/dialog/drawer';
 import Button from '../../../components/buttons/button';
 import Checkbox from '../../../components/inputs/checkbox';
 import { SlidersHorizontal } from 'lucide-react';
+import { useTucuMessages } from '../../../libs/i18n/use-tucu-messages';
 
 export const ColumnsVisibilityManager: React.FC = () => {
+  const t = useTucuMessages().datatable;
   const context = useDataTableContext();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -33,7 +35,7 @@ export const ColumnsVisibilityManager: React.FC = () => {
         className="border border-1! px-3! text-foreground! border-[var(--color-table-divider)]!"
       >
         <SlidersHorizontal className="w-4 h-4" />
-        <span className="text-xs font-semibold">Columns</span>
+        <span className="text-xs font-semibold">{t.columns}</span>
       </Button>
 
       <Drawer
@@ -41,13 +43,13 @@ export const ColumnsVisibilityManager: React.FC = () => {
         setIsOpen={setIsOpen}
         position="right"
         type="sidebar"
-        title="Manage Columns"
+        title={t.manageColumns}
         className="w-80 bg-table-box-bg border-l border-table-divider"
       >
         <div className="flex flex-col h-full space-y-6 pt-4">
           <div className="flex items-center justify-between border-b border-table-divider pb-4 px-2">
             <span className="text-xs font-semibold uppercase tracking-wider text-table-secondary-text">
-              Visible Columns
+              {t.visibleColumns}
             </span>
             <div className="flex items-center gap-2">
               <Button
@@ -57,7 +59,7 @@ export const ColumnsVisibilityManager: React.FC = () => {
                 onClick={() => handleToggleAll(true)}
                 className="text-xs font-medium!"
               >
-                Show All
+                {t.showAll}
               </Button>
               <span className="text-table-secondary-text opacity-40 text-xs">
                 |
@@ -69,7 +71,7 @@ export const ColumnsVisibilityManager: React.FC = () => {
                 onClick={() => handleToggleAll(false)}
                 className="text-xs font-medium!"
               >
-                Hide All
+                {t.hideAll}
               </Button>
             </div>
           </div>

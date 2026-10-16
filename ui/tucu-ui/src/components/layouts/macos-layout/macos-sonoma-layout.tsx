@@ -23,6 +23,8 @@ export interface MacOSSonomaLayoutProps {
   headerClassName?: string;
   contentClassName?: string;
   fullWidth?: boolean;
+  /** Overrides the toolbar title, which otherwise comes from the matching menu item. */
+  pageTitle?: React.ReactNode;
 }
 
 // ─── MacOSSonomaLayout ─────────────────────────────────────────
@@ -35,6 +37,7 @@ export function MacOSSonomaLayout({
   className,
   headerClassName,
   contentClassName,
+  pageTitle,
 }: MacOSSonomaLayoutProps) {
   const { pathname } = useLocation();
   const { isMobile } = useIsMobile();
@@ -67,7 +70,7 @@ export function MacOSSonomaLayout({
       <MacOSSonomaLayoutContent
         toolbarCenter={
           <div className="truncate px-[24px] text-center text-[14px] font-semibold tracking-[0.01em] text-gray-800 dark:text-gray-100">
-            {currentPageTitle ?? 'Overview'}
+            {pageTitle ?? currentPageTitle}
           </div>
         }
         toolbarLeading={

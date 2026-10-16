@@ -48,16 +48,22 @@ export interface RowActionsCellProps {
   forceShowMenuActions?: boolean;
 }
 
+const isActionHidden = (action: IRowActions<TData>, row: Row<TData>) =>
+  typeof action.hidden === 'function' ? action.hidden(row) : !!action.hidden;
+
 const RowActionsCell: React.FC<RowActionsCellProps> = ({
   tableId,
   row,
   hoverRow,
-  rowActions,
+  rowActions: allRowActions,
   setOpenActions,
   setHoverRow,
   forceShowMenuActions,
 }) => {
   const t = useTucuMessages().datatable;
+  const rowActions = allRowActions?.filter(
+    (action) => !isActionHidden(action, row)
+  );
   const { element: tableContainer } = useComponentEventListener(
     `${tableId}-container`
   );
@@ -189,19 +195,20 @@ const RowActionsCell: React.FC<RowActionsCellProps> = ({
   const firstActionRow = rowActions?.[0];
   const showMoreMenu = rowActions?.length === 1 && !forceShowMenuActions;
 
-  const hideSingleAction = firstActionRow?.hidden?.(row);
   const singleActionLabel =
     firstActionRow?.showLabelInTooltip && firstActionRow?.label?.(row);
   const isSingleActionDisabled = Boolean(
     isRowActionDisabled(firstActionRow as IRowActions<TData>)
   );
 
+  if (allRowActions?.length && !rowActions?.length) return null;
+
   return (
     <>
       <div
         className={cn(
           'relative text-center',
-          (hoverRow.hover || openOptions) && !hideSingleAction
+          hoverRow.hover || openOptions
             ? 'opacity-100'
             : // opacity (not visibility) keeps the actions in the tab order;
               // they appear when a keyboard user focuses them.

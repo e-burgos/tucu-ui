@@ -19,3 +19,18 @@ describe('Badge', () => {
     expect(screen.getByText('Status')).toBeInTheDocument();
   });
 });
+
+describe('Badge contrast', () => {
+  it.each([
+    ['success', 'bg-green-700'],
+    ['info', 'bg-blue-600'],
+    ['warning', 'bg-yellow-700'],
+    ['danger', 'bg-red-600'],
+    ['gray', 'bg-gray-600'],
+  ] as const)('solid %s uses an AA-contrast background', (color, expected) => {
+    const { container } = render(<Badge color={color}>Estado</Badge>);
+    const badge = container.querySelector('[data-tucu="badge"]') as HTMLElement;
+    expect(badge.className).toContain(expected);
+    expect(badge.className).toContain('text-white');
+  });
+});

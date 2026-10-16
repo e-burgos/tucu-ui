@@ -30,11 +30,11 @@ const sizes: Record<SizeNames, string[]> = {
 
 const colors: Record<ColorNames, string[]> = {
   primary: ['text-brand', 'bg-brand', 'border-brand'],
-  success: ['text-green-500', 'bg-green-500', 'border-green-500'],
-  info: ['text-blue-500', 'bg-blue-500', 'border-blue-500'],
-  warning: ['text-yellow-500', 'bg-yellow-500', 'border-yellow-500'],
-  danger: ['text-red-500', 'bg-red-500', 'border-red-500'],
-  gray: ['text-gray-500', 'bg-gray-500', 'border-gray-500'],
+  success: ['text-green-500', 'bg-green-700', 'border-green-500'],
+  info: ['text-blue-500', 'bg-blue-600', 'border-blue-500'],
+  warning: ['text-yellow-500', 'bg-yellow-700', 'border-yellow-500'],
+  danger: ['text-red-500', 'bg-red-600', 'border-red-500'],
+  gray: ['text-gray-500', 'bg-gray-600', 'border-gray-500'],
   white: ['text-gray-900', 'bg-white', 'border-white'],
   'light-dark': [
     'text-light-dark dark:text-gray-200',
@@ -79,7 +79,9 @@ export const Badge = ({
   let badgeColorClasses = '';
   switch (variant) {
     case 'solid':
-      badgeColorClasses = `${colorClassNames[1]} ${color === 'white' ? 'text-gray-900' : 'text-white'}`;
+      badgeColorClasses = `${colorClassNames[1]} ${
+        color === 'white' ? 'text-gray-900' : 'text-white'
+      }`;
       break;
     case 'ghost':
       badgeColorClasses = `bg-transparent border-2 ${colorClassNames[0]} ${colorClassNames[2]}`;
