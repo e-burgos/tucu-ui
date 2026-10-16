@@ -5,6 +5,32 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.3.0] - 2026-10-16
+
+### Added
+
+- macOS layouts (`MacOSSonomaLayout`, `MacOSTahoeLayout`, `MacOSTahoeDockLayout`) accept `pageTitle` to override the toolbar title.
+- `Switch` `onLabel` / `offLabel` accept `null` to omit the track text; the defaults are translated (`SÍ`/`NO` in es, `OUI`/`NON` in fr).
+- `validation.requiredEmail` message (es: "Ingresá un email.") and `datatable.columns | manageColumns | visibleColumns | showAll | hideAll`, `switch.on | off` messages in en/es/fr.
+
+### Changed
+
+- Complete Argentine landline numbers are formatted with `+54` (`+54 11 2345-6789`) instead of staying domestic; partial input is unchanged. A caret typed at the end of a masked field stays at the end after reformatting.
+- DataTable row action `hidden` also accepts a boolean (`boolean | (row) => boolean`).
+- macOS layout toolbar title: top-level menu items match nested routes (`/commerces/:id` → "Commerces") and there is no hardcoded "Overview" fallback (empty when nothing matches; use `pageTitle`).
+- Solid `Button`, `Badge` and `Tooltip` colors use AA-contrast shades: success `green-700`, info `blue-600`, warning `yellow-700`, danger `red-600`, gray `gray-600` (white text).
+
+### Fixed
+
+- DataTable `ManualPagination` ("per page:", "1-5 of N") and `ColumnsVisibilityManager` strings follow `ThemeProvider lang` (es / es-AR render Spanish); pagination controls get aria-labels.
+- `validatePhone({ phoneCountry: 'AR' })`, `mask="phone"`, `formatPhone` and `normalizePhone` accept the `0054 9 11 …` exit-code prefix like `+54`.
+- `validateEmail` / `isValidEmail` / `Input type="email"` reject addresses over 254 characters or with a local part over 64; the required message for email is specific and translated.
+- DataTable row action `hidden` is honored per action when a row has several actions; nothing is rendered when all are hidden.
+- `Switch` exposes `role="switch"` and `aria-checked`.
+- `Modal` traps Tab / Shift+Tab while open and restores focus to the previously focused element on close; Esc still closes it.
+- DataTable header actions (sort, pin, hide) are reachable by keyboard: focusing a header reveals them.
+- Regenerated props metadata.
+
 ## [3.2.0] - 2026-10-15
 
 ### Added
