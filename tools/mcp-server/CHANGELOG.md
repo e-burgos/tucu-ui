@@ -4,6 +4,15 @@ All notable changes to `@e-burgos/tucu-ui-mcp` will be documented in this file.
 
 <!-- Last updated: 2026-06-02 -->
 
+## [0.9.0] - 2026-10-16
+
+### Added
+
+- es-AR i18n for ManualPagination/ColumnsVisibilityManager, AR phone and email validator fixes, per-action hidden, accessible Switch/Modal/header actions, AA contrast, layout pageTitle
+
+### Changed
+
+- release @e-burgos/tucu-ui@3.3.0
 ## [0.8.0] - 2026-10-15
 
 ### Changed
