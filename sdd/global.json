@@ -17,7 +17,19 @@
       "completed_at": "2026-10-27"
     }
   ],
-  "in_progress_modules": [],
+  "in_progress_modules": [
+    {
+      "module": "consumer-absorption",
+      "spec": "spec-e-burgos-002-consumer-absorption",
+      "apps": [
+        "libs/tucu-ui",
+        "libs/tucu-docs",
+        "tools/mcp-server"
+      ],
+      "cycles_completed": 0,
+      "description": "Primitivas, temas con scope, componentes y layouts genéricos y guía de diseño absorbidos de los consumidores (5 ciclos)"
+    }
+  ],
   "pending_modules": [],
   "monorepo": {
     "tool": "Nx",

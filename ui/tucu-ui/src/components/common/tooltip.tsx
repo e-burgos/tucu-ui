@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useCallback, useEffect, useId } from 'react';
 import { createPortal } from 'react-dom';
-import cn from 'classnames';
+import { cn } from '../../libs/cn';
 import { useTheme } from '../../themes/hooks/use-theme';
 
 export type TooltipPlacement = 'top' | 'bottom' | 'left' | 'right';

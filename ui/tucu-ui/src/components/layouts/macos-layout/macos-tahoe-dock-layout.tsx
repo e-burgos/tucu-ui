@@ -1,6 +1,6 @@
 'use client';
 
-import cn from 'classnames';
+import { cn } from '../../../libs/cn';
 import { useTucuNavigation } from '../../../themes/navigation/core';
 import { useState } from 'react';
 import { IMenuItem } from '../menus/menu-item';

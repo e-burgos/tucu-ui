@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { X, ChevronDown } from 'lucide-react';
-import cn from 'classnames';
+import { cn } from '../../libs/cn';
 import Button from '../buttons/button/index';
 
 // ─── Types ────────────────────────────────────────────────────────────────────

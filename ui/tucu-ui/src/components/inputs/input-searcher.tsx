@@ -12,7 +12,7 @@ import { createPortal } from 'react-dom';
 import Input from './input';
 import { SearchIcon, Check, Close } from '../icons';
 import { SelectOption } from './select';
-import cn from 'classnames';
+import { cn } from '../../libs/cn';
 import {
   type ControlColor,
   controlAccentChipClasses,

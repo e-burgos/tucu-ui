@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import cn from 'classnames';
+import { cn } from '../../../../libs/cn';
 import { useTucuNavigation } from '../../../../themes/navigation/core';
 import { IMenuItem } from '../../../layouts/menus/menu-item';
 import Logo, { LogoPropTypes } from '../../../logos/logo';

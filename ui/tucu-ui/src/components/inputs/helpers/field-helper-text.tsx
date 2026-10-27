@@ -1,5 +1,5 @@
 import React from 'react';
-import cn from 'classnames';
+import { cn } from '../../../libs/cn';
 
 const helperTextClasses = {
   base: 'text-gray-900 dark:text-gray-200 mt-[8px]',

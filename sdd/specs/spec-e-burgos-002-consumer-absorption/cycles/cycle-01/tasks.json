@@ -1,0 +1,167 @@
+{
+  "$schema": "../../../../schemas/cycle-tasks.schema.json",
+  "spec": "spec-e-burgos-002-consumer-absorption",
+  "cycle": 1,
+  "module": "consumer-absorption",
+  "apps": [
+    "libs/tucu-ui",
+    "libs/tucu-docs",
+    "tools/mcp-server"
+  ],
+  "flow": "lite",
+  "user_stories_generated": true,
+  "prerequisites": {
+    "tasks_generated": true
+  },
+  "tasks": [
+    {
+      "id": "TASK-001",
+      "title": "Base transversal: cn con tailwind-merge en toda la librería e i18n de dialog/accessDenied",
+      "user_stories": [
+        "US-001",
+        "US-003"
+      ],
+      "estimation_hours": 3,
+      "story_points": 3,
+      "depends_on": [],
+      "status": "in-progress",
+      "files": [
+        "ui/tucu-ui/package.json",
+        "ui/tucu-ui/src/libs/cn.ts",
+        "ui/tucu-ui/src/libs/index.ts",
+        "ui/tucu-ui/src/datatable/common/helpers/cn.ts",
+        "ui/tucu-ui/src/libs/i18n/messages.ts",
+        "ui/tucu-ui/src/themes/pages/access-denied.tsx",
+        "ui/tucu-ui/src/themes/auth/components/auth-provider.tsx"
+      ]
+    },
+    {
+      "id": "TASK-002",
+      "title": "Button, Badge, Spinner y Alert: wrapper, type, xs, variantes, tonos de estado y live region",
+      "user_stories": [
+        "US-001",
+        "US-002",
+        "US-004",
+        "US-005"
+      ],
+      "estimation_hours": 8,
+      "story_points": 8,
+      "depends_on": [
+        "TASK-001"
+      ],
+      "status": "pending",
+      "files": [
+        "ui/tucu-ui/src/components/buttons/button/",
+        "ui/tucu-ui/src/components/common/badge.tsx",
+        "ui/tucu-ui/src/components/loaders/spinner.tsx",
+        "ui/tucu-ui/src/components/notifications/alert.tsx"
+      ]
+    },
+    {
+      "id": "TASK-003",
+      "title": "Modal y Tooltip: passthrough aria/data, header ReactNode, Escape y overlay, sin demora, size; tooltip siempre en el DOM",
+      "user_stories": [
+        "US-002",
+        "US-003",
+        "US-005"
+      ],
+      "estimation_hours": 6,
+      "story_points": 5,
+      "depends_on": [
+        "TASK-001"
+      ],
+      "status": "pending",
+      "files": [
+        "ui/tucu-ui/src/components/dialog/modal.tsx",
+        "ui/tucu-ui/src/components/common/tooltip.tsx"
+      ]
+    },
+    {
+      "id": "TASK-004",
+      "title": "Input, Textarea, Select, Radio y Checkbox: aria-invalid, xs, clases unificadas, select nativo, alineación e id/htmlFor",
+      "user_stories": [
+        "US-001",
+        "US-002",
+        "US-004",
+        "US-005"
+      ],
+      "estimation_hours": 8,
+      "story_points": 8,
+      "depends_on": [
+        "TASK-001"
+      ],
+      "status": "pending",
+      "files": [
+        "ui/tucu-ui/src/components/inputs/input.tsx",
+        "ui/tucu-ui/src/components/inputs/textarea.tsx",
+        "ui/tucu-ui/src/components/inputs/select.tsx",
+        "ui/tucu-ui/src/components/inputs/radio.tsx",
+        "ui/tucu-ui/src/components/inputs/checkbox.tsx"
+      ]
+    },
+    {
+      "id": "TASK-005",
+      "title": "Tema, CSS y datos: colorScheme default, bugs de tema, @layer, tokens de toast y useColumns",
+      "user_stories": [
+        "US-005",
+        "US-006"
+      ],
+      "estimation_hours": 8,
+      "story_points": 8,
+      "depends_on": [
+        "TASK-001"
+      ],
+      "status": "pending",
+      "files": [
+        "ui/tucu-ui/src/themes/",
+        "ui/tucu-ui/src/assets/css/",
+        "ui/tucu-ui/src/components/notifications/toast.tsx",
+        "ui/tucu-ui/src/datatable/"
+      ]
+    },
+    {
+      "id": "TASK-006",
+      "title": "Entry sin CSS de terceros y @source acotado",
+      "user_stories": [
+        "US-006"
+      ],
+      "estimation_hours": 5,
+      "story_points": 5,
+      "depends_on": [
+        "TASK-005"
+      ],
+      "status": "pending",
+      "files": [
+        "ui/tucu-ui/src/index.ts",
+        "ui/tucu-ui/vite.config.mts"
+      ]
+    },
+    {
+      "id": "TASK-007",
+      "title": "Integración: generate-props, registry MCP, docs, CHANGELOG y verificación local",
+      "user_stories": [
+        "US-001",
+        "US-002",
+        "US-003",
+        "US-004",
+        "US-005",
+        "US-006"
+      ],
+      "estimation_hours": 5,
+      "story_points": 5,
+      "depends_on": [
+        "TASK-002",
+        "TASK-003",
+        "TASK-004",
+        "TASK-005",
+        "TASK-006"
+      ],
+      "status": "pending",
+      "files": [
+        "ui/tucu-ui/src/components/props/",
+        "tools/mcp-server/src/data/component-registry.ts",
+        "ui/tucu-docs/"
+      ]
+    }
+  ]
+}

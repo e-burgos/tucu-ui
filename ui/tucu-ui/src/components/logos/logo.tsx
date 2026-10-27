@@ -1,5 +1,5 @@
 import AnchorLink from '../links/anchor-link';
-import cn from 'classnames';
+import { cn } from '../../libs/cn';
 import { PRESET_LABEL_COLORS } from '../../themes/config';
 import TucuUiLogo from './tucu-ui-logo';
 import Typography from '../typography';

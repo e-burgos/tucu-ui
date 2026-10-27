@@ -1,5 +1,5 @@
 import React from 'react';
-import cn from 'classnames';
+import { cn } from '../../libs/cn';
 import { Carousel, CarouselProps } from './carousel-component';
 
 export interface CarouselImageItem {

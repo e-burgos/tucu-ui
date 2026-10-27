@@ -10,7 +10,7 @@ import type {
 } from './hook-form';
 import { useForm, FormProvider } from 'react-hook-form';
 import { FormValidations } from './types/validations.type';
-import cn from 'classnames';
+import { cn } from '../../libs/cn';
 
 export type RenderFunction<TFormValues extends FieldValues> = (
   methods: UseFormReturn<TFormValues>

@@ -1,6 +1,6 @@
 'use client';
 
-import cn from 'classnames';
+import { cn } from '../../../libs/cn';
 import { MacOSSonomaToast } from '../../macos/sonoma/feedback/macos-sonoma-toast';
 import { ThemeBackground, useTheme } from '../../../themes';
 

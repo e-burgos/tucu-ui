@@ -5,7 +5,7 @@ import { Fragment } from 'react';
 import ActiveLink from '../../links/active-link';
 import { ChevronDown } from '../../icons/chevron-down';
 import { ChevronRight } from '../../icons/chevron-right';
-import cn from 'classnames';
+import { cn } from '../../../libs/cn';
 import { IMenuItem } from './menu-item';
 import { useTucuNavigation } from '../../../themes/navigation/core';
 

@@ -1,5 +1,5 @@
 import Image from '../utils/image';
-import cn from 'classnames';
+import { cn } from '../../libs/cn';
 import AnchorLink from '../links/anchor-link';
 import Avatar from '../common/avatar';
 

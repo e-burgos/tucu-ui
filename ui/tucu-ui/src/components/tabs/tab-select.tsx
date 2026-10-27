@@ -11,7 +11,7 @@ import {
   type KeyboardEvent as ReactKeyboardEvent,
 } from 'react';
 import { createPortal } from 'react-dom';
-import cn from 'classnames';
+import { cn } from '../../libs/cn';
 import { ChevronDown } from '../icons/chevron-down';
 
 export interface TabSelectMenuItem {

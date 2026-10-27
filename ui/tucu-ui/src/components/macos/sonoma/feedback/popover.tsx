@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import cn from 'classnames';
+import { cn } from '../../../../libs/cn';
 
 // ─── Types ─────────────────────────────────────────────────────
 

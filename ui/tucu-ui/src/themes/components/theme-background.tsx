@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef, CSSProperties } from 'react';
-import cn from 'classnames';
+import { cn } from '../../libs/cn';
 import { useTheme, BackgroundVariant } from '../hooks/use-theme';
 
 // ─── CDN Base ──────────────────────────────────────────────────

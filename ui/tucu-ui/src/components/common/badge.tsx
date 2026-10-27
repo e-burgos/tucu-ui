@@ -1,5 +1,5 @@
 import React from 'react';
-import cn from 'classnames';
+import { cn } from '../../libs/cn';
 
 type ShapeNames = 'rounded' | 'pill' | 'circle';
 type VariantNames = 'solid' | 'ghost' | 'outline' | 'soft';

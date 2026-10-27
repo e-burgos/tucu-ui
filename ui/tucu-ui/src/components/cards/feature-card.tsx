@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import cn from 'classnames';
+import { cn } from '../../libs/cn';
 import { CardContainer } from './card-container';
 import { Typography } from '../typography';
 import { Badge } from '../common/badge';

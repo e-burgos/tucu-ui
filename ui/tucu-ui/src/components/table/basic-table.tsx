@@ -1,7 +1,7 @@
 'use client';
 
 import { ReactNode, useState, useCallback, useRef } from 'react';
-import cn from 'classnames';
+import { cn } from '../../libs/cn';
 import { useTheme } from '../../themes';
 import { LAYOUT_OPTIONS } from '../../themes/config';
 

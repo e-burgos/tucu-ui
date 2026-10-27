@@ -1,5 +1,5 @@
 import React from 'react';
-import cn from 'classnames';
+import { cn } from '../../libs/cn';
 
 export interface CardTitleProps {
   border?: boolean;

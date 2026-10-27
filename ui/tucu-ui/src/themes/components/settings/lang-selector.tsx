@@ -3,7 +3,7 @@
 import { Select, SelectOption } from '../../../components/inputs/select';
 import { useTheme } from '../../hooks/use-theme';
 import { langOptions, LangType } from '../../config';
-import cn from 'classnames';
+import { cn } from '../../../libs/cn';
 
 interface LangSelectorProps {
   className?: string;

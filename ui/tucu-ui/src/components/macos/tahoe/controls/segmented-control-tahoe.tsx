@@ -1,6 +1,6 @@
 'use client';
 
-import cn from 'classnames';
+import { cn } from '../../../../libs/cn';
 
 export interface MacOSTahoeSegmentOption<T extends string = string> {
   label: string;

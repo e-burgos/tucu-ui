@@ -18,7 +18,7 @@ import {
 } from 'swiper/modules';
 import type { Swiper as SwiperType } from 'swiper';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import cn from 'classnames';
+import { cn } from '../../libs/cn';
 import Button from '../buttons';
 import { PaginationOptions, SwiperModule } from 'swiper/types';
 

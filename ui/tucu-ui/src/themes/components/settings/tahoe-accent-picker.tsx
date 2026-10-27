@@ -1,7 +1,7 @@
 'use client';
 
 import { useTheme } from '../../hooks/use-theme';
-import cn from 'classnames';
+import { cn } from '../../../libs/cn';
 import { TAHOE_ACCENT_BUNDLES, buildTahoePresets } from '../../config';
 import { SettingsSectionHeading } from './settings-section-heading';
 

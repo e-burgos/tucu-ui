@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useRef, useCallback, useEffect } from 'react';
-import cn from 'classnames';
+import { cn } from '../../../../libs/cn';
 
 // ─── Traffic Lights ────────────────────────────────────────────
 

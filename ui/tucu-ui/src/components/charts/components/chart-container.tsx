@@ -1,7 +1,7 @@
 'use client';
 
 import { ResponsiveContainer } from 'recharts';
-import cn from 'classnames';
+import { cn } from '../../../libs/cn';
 
 interface ChartContainerProps {
   children: React.ReactNode;

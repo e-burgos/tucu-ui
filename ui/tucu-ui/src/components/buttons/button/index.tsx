@@ -4,7 +4,7 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import cn from 'classnames';
+import { cn } from '../../../libs/cn';
 import ButtonDrip from './button-drip';
 import ButtonLoader from './button-loader';
 import { LoaderSizeTypes, LoaderVariantTypes } from '../../loaders/loader';

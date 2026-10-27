@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import cn from 'classnames';
+import { cn } from '../../libs/cn';
 
 type ObjectFit = 'cover' | 'contain' | 'fill' | 'none' | 'scale-down';
 type Loading = 'lazy' | 'eager';

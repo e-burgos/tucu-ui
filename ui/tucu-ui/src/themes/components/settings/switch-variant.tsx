@@ -1,6 +1,6 @@
 'use client';
 
-import cn from 'classnames';
+import { cn } from '../../../libs/cn';
 import { useTheme } from '../../hooks/use-theme';
 import { THEME_VARIANT } from '../../config';
 import { Select, SelectOption } from '../../../components/inputs/select';

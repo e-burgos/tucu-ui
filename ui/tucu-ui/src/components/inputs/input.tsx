@@ -19,7 +19,7 @@ import {
   ChevronRight,
   ChevronLeft,
 } from '../icons';
-import cn from 'classnames';
+import { cn } from '../../libs/cn';
 import { FieldError } from './helpers/field-error-text';
 import { FieldHelperText } from './helpers/field-helper-text';
 import {

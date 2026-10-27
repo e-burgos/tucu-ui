@@ -1,6 +1,6 @@
 'use client';
 
-import cn from 'classnames';
+import { cn } from '../../libs/cn';
 
 export interface CardProps {
   title?: string;

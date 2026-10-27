@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useCallback, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { Button } from '../buttons';
 import { CardContainer } from '../cards/card-container';
-import cn from 'classnames';
+import { cn } from '../../libs/cn';
 import { Close } from '../icons/close';
 import Typography from '../typography';
 

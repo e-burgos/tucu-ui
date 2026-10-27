@@ -2,7 +2,7 @@
 
 import { useTucuNavigation } from '../../themes/navigation/core';
 import type { TucuLinkProps } from '../../themes/navigation/core';
-import cn from 'classnames';
+import { cn } from '../../libs/cn';
 import AnchorLink from './anchor-link';
 
 export interface ActiveLinkProps extends TucuLinkProps {

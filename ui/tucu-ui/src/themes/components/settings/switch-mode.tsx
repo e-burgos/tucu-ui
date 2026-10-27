@@ -3,7 +3,7 @@
 import { Switch } from '../../../components/inputs/switch';
 import { useTheme } from '../../hooks/use-theme';
 import { Moon, Sun } from '../../../components/icons';
-import cn from 'classnames';
+import { cn } from '../../../libs/cn';
 
 interface SwitchModeProps {
   className?: string;

@@ -1,7 +1,7 @@
 'use client';
 
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import cn from 'classnames';
+import { cn } from '../../libs/cn';
 
 export interface PaginationProps {
   currentPage: number;

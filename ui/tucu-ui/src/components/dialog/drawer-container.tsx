@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import cn from 'classnames';
+import { cn } from '../../libs/cn';
 
 export interface DrawerContainerProps {
   isOpen: boolean;

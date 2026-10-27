@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useRef, useCallback, useEffect } from 'react';
-import cn from 'classnames';
+import { cn } from '../../libs/cn';
 import { ChevronDown } from '../icons/chevron-down';
 import ListItem from './list-Item';
 import { ListItemProps } from './list-Item';

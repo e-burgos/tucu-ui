@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import cn from 'classnames';
+import { cn } from '../../libs/cn';
 import { IToast } from '../../hooks/use-toast-store';
 import { Close } from '../icons/close';
 import { useToastQueue } from './use-toast-queue';

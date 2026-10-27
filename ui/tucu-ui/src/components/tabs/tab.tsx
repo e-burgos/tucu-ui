@@ -18,7 +18,7 @@ import {
 } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, LayoutGroup } from 'framer-motion';
-import cn from 'classnames';
+import { cn } from '../../libs/cn';
 import { useBreakpoint } from '../../hooks';
 import { useIsMounted } from '../../hooks/use-is-mounted';
 import { ChevronDown } from '../icons/chevron-down';

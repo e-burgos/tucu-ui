@@ -5,7 +5,7 @@ import { Input } from '../inputs/input';
 import Button from '../buttons/button';
 import { Form } from '../forms';
 import { FormField } from '../forms/form-field';
-import cn from 'classnames';
+import { cn } from '../../libs/cn';
 
 export interface ForgetPasswordFormData {
   email: string;

@@ -1,7 +1,7 @@
 'use client';
 
 import { useTheme } from '../../hooks/use-theme';
-import cn from 'classnames';
+import { cn } from '../../../libs/cn';
 import {
   Circle,
   Waves,

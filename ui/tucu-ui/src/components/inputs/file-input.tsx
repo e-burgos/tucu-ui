@@ -1,7 +1,7 @@
 'use client';
 
 import { ForwardedRef, forwardRef, useState, useEffect } from 'react';
-import cn from 'classnames';
+import { cn } from '../../libs/cn';
 import Button from '../buttons';
 import Image from '../utils/image';
 import { Close } from '../icons/close';

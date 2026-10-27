@@ -6,6 +6,7 @@ import { useIsMounted } from '../../hooks/use-is-mounted';
 import { useTheme } from '../hooks/use-theme';
 import { Shield } from 'lucide-react';
 import { resolveBasePath } from '../router/resolve-base-path';
+import { useTucuMessages } from '../../libs/i18n/use-tucu-messages';
 
 export const AccessDeniedPage: FC<{
   basePath?: string;
@@ -13,6 +14,7 @@ export const AccessDeniedPage: FC<{
 }> = ({ basePath, buttonText }) => {
   const pathBase = resolveBasePath(basePath);
 
+  const messages = useTucuMessages();
   const isMounted = useIsMounted();
   const { mode } = useTheme();
   const isDarkMode = mode === 'dark';
@@ -33,14 +35,13 @@ export const AccessDeniedPage: FC<{
       </div>
 
       <h2 className="mb-2 mt-5 text-base font-medium uppercase tracking-wide text-gray-900 dark:text-white sm:mb-4 sm:mt-10 sm:text-lg min-[1780px]:mt-12 min-[1780px]:text-xl">
-        Access Denied Page
+        {messages.accessDenied.title}
       </h2>
       <p className="mb-4 px-6 max-w-full text-base leading-loose tracking-tight text-gray-600 dark:text-gray-400 sm:mb-6 min-[500px]:w-[80%] sm:w-[80%] md:w-[60%] lg:w-[50%] xl:w-[40%] 2xl:w-[30%] sm:text-sm">
-        Sorry, you are not authorized to access this page. or go back to the
-        home page.
+        {messages.accessDenied.description}
       </p>
       <AnchorLink to={pathBase} onClick={handleGoTo}>
-        <Button shape="rounded">{buttonText || 'Go to Home'}</Button>
+        <Button shape="rounded">{buttonText || messages.accessDenied.action}</Button>
       </AnchorLink>
     </div>
   );
