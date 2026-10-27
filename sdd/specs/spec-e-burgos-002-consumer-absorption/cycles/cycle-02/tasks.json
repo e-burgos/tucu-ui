@@ -1,0 +1,124 @@
+{
+  "$schema": "../../../../schemas/cycle-tasks.schema.json",
+  "spec": "spec-e-burgos-002-consumer-absorption",
+  "cycle": 2,
+  "module": "consumer-absorption",
+  "apps": [
+    "libs/tucu-ui",
+    "libs/tucu-docs",
+    "tools/mcp-server"
+  ],
+  "flow": "lite",
+  "user_stories_generated": true,
+  "prerequisites": {
+    "tasks_generated": true
+  },
+  "tasks": [
+    {
+      "id": "TASK-001",
+      "title": "Núcleo de presets: tipos, registro, presets neutros, themePresetToCssVars y resolveThemePreset",
+      "user_stories": [
+        "US-001",
+        "US-004"
+      ],
+      "estimation_hours": 5,
+      "story_points": 5,
+      "depends_on": [],
+      "status": "pending",
+      "files": [
+        "ui/tucu-ui/src/themes/presets/"
+      ]
+    },
+    {
+      "id": "TASK-002",
+      "title": "CSS con scope: tokens en [data-tucu-theme], variante dark con data-tucu-mode y reglas de cards/buttons",
+      "user_stories": [
+        "US-002"
+      ],
+      "estimation_hours": 5,
+      "story_points": 5,
+      "depends_on": [
+        "TASK-001"
+      ],
+      "status": "pending",
+      "files": [
+        "ui/tucu-ui/src/assets/css/base.css",
+        "ui/tucu-ui/src/assets/css/theme.css"
+      ]
+    },
+    {
+      "id": "TASK-003",
+      "title": "ThemeScope, PortalContainerContext en los 13 portales y prop preset en ThemeProvider",
+      "user_stories": [
+        "US-002",
+        "US-003"
+      ],
+      "estimation_hours": 8,
+      "story_points": 8,
+      "depends_on": [
+        "TASK-001",
+        "TASK-002"
+      ],
+      "status": "pending",
+      "files": [
+        "ui/tucu-ui/src/themes/components/theme-scope/",
+        "ui/tucu-ui/src/components/dialog/modal.tsx",
+        "ui/tucu-ui/src/components/inputs/select.tsx"
+      ]
+    },
+    {
+      "id": "TASK-004",
+      "title": "CSS core sin macOS (./styles-core) y script anti-flash para Next",
+      "user_stories": [
+        "US-005"
+      ],
+      "estimation_hours": 5,
+      "story_points": 5,
+      "depends_on": [],
+      "status": "pending",
+      "files": [
+        "ui/tucu-ui/vite.config.styles.mts",
+        "ui/tucu-ui/package.json",
+        "ui/tucu-ui/src/next/index.ts"
+      ]
+    },
+    {
+      "id": "TASK-005",
+      "title": "Integración: generate-props, registry y tokens del MCP, changelog y páginas de tucu-docs",
+      "user_stories": [
+        "US-001",
+        "US-002",
+        "US-003",
+        "US-004",
+        "US-005"
+      ],
+      "estimation_hours": 5,
+      "story_points": 5,
+      "depends_on": [
+        "TASK-003",
+        "TASK-004"
+      ],
+      "status": "pending",
+      "files": [
+        "tools/mcp-server/src/data/component-registry.ts",
+        "tools/mcp-server/src/resources/tokens.ts",
+        "ui/tucu-docs/src/"
+      ]
+    },
+    {
+      "id": "TASK-006",
+      "title": "Verificación: tests, lint, checks de build, test-local y navegador con dos scopes",
+      "user_stories": [
+        "US-002",
+        "US-003"
+      ],
+      "estimation_hours": 3,
+      "story_points": 3,
+      "depends_on": [
+        "TASK-005"
+      ],
+      "status": "pending",
+      "files": []
+    }
+  ]
+}

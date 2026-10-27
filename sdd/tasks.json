@@ -32,6 +32,18 @@
           "status": "completed",
           "tasks_total": 9,
           "tasks_done": 9
+        },
+        "cycle-02": {
+          "file": "sdd/specs/spec-e-burgos-002-consumer-absorption/cycles/cycle-02/tasks.json",
+          "module": "consumer-absorption",
+          "apps": [
+            "libs/tucu-ui",
+            "libs/tucu-docs",
+            "tools/mcp-server"
+          ],
+          "status": "in-progress",
+          "tasks_total": 6,
+          "tasks_done": 0
         }
       }
     }

@@ -1,0 +1,42 @@
+{
+  "$schema": "../../../../schemas/cycle.schema.json",
+  "cycle": 2,
+  "module": "consumer-absorption",
+  "spec": "spec-e-burgos-002-consumer-absorption",
+  "apps": [
+    "libs/tucu-ui",
+    "libs/tucu-docs",
+    "tools/mcp-server"
+  ],
+  "phase": "c01-themes",
+  "flow": "lite",
+  "objectives": [
+    "Presets de marca con nombre que emiten variables --tucu-*",
+    "ThemeScope: tema con scope y anidable",
+    "Portales que heredan el tema del scope",
+    "Resolución de preset por host o tenant",
+    "CSS core sin macOS y script anti-flash para Next"
+  ],
+  "status": "in-progress",
+  "started_at": "2026-10-27",
+  "documents": {
+    "plan": "sdd/specs/spec-e-burgos-002-consumer-absorption/cycles/cycle-02/plan.md",
+    "tasks": "sdd/specs/spec-e-burgos-002-consumer-absorption/cycles/cycle-02/tasks.json"
+  },
+  "artifacts": [],
+  "metrics": {
+    "tasks_total": 6,
+    "tasks_completed": 0,
+    "tasks_skipped": 0,
+    "story_points": 31,
+    "files_created": [],
+    "files_modified": [],
+    "files_deleted": []
+  },
+  "completed_at": null,
+  "tables_created": [],
+  "endpoints_implemented": [],
+  "components_created": [],
+  "issues_found": [],
+  "reviewer_report": null
+}
