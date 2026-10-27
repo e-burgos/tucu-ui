@@ -4,6 +4,11 @@ import { ColumnDef, RowData, VisibilityState } from '@tanstack/react-table';
 import { ExpandedColumn } from '../common/helpers/ExpandedColumn';
 import { RowActionsColumn } from '../common/helpers/RowActionsColumn';
 import { RowSelectionColumn } from '../common/helpers/RowSelectionColumn';
+import {
+  fillColumnsToWidth,
+  resolveBaseColumnSize,
+} from '../common/functions/fillColumnsToWidth';
+import type { DataTableColumnSizing } from '../common/types';
 
 /**
  * getColumns
@@ -55,6 +60,40 @@ export function distributeLeftoverColumnWidth<TData = RowData, TValue = unknown>
   return Math.max((containerWidth - explicitSizeTotal) / fluidColumnCount, 0);
 }
 
+const isColumnFillable = (
+  column: ColumnDef<unknown, unknown>,
+  columnVisibility: VisibilityState
+): boolean =>
+  column?.enableVisible !== false && isColumnVisible(column, columnVisibility);
+
+function fillVisibleColumns<TData, TValue>({
+  columns,
+  availableWidth,
+  columnVisibility,
+}: {
+  columns: Array<ColumnDef<TData, TValue>>;
+  availableWidth: number;
+  columnVisibility: VisibilityState;
+}): Array<ColumnDef<TData, TValue>> {
+  const visibleIndexes = columns.flatMap((column, index) =>
+    isColumnFillable(column as ColumnDef<unknown, unknown>, columnVisibility)
+      ? [index]
+      : []
+  );
+  const filled = fillColumnsToWidth(
+    visibleIndexes.map((index) => ({
+      ...columns[index],
+      size: resolveBaseColumnSize(columns[index]),
+    })),
+    availableWidth
+  );
+  const result = [...columns];
+  visibleIndexes.forEach((columnIndex, position) => {
+    result[columnIndex] = filled[position];
+  });
+  return result;
+}
+
 export function getColumns<TData = RowData, TValue = unknown>({
   columns,
   containerWidth,
@@ -63,23 +102,36 @@ export function getColumns<TData = RowData, TValue = unknown>({
   isRowSelection,
   columnVisibility,
   offset = 0,
+  columnSizing = 'fill-leftover',
 }: {
   columns: Array<ColumnDef<TData, TValue>>;
   containerWidth: number;
   offset: number;
+  columnSizing?: DataTableColumnSizing;
   isSubComponent: boolean;
   isRowActions: boolean;
   isRowSelection: boolean;
   columnVisibility: VisibilityState;
 }): Array<ColumnDef<TData, TValue>> {
-  let OutputColumns: Array<ColumnDef<TData, TValue>> = columns;
+  const sizedColumns =
+    columnSizing === 'fill'
+      ? fillVisibleColumns({
+          columns,
+          availableWidth: containerWidth - offset,
+          columnVisibility,
+        })
+      : columns;
+  let OutputColumns: Array<ColumnDef<TData, TValue>> = sizedColumns;
 
-  const fluidColumnWidth = distributeLeftoverColumnWidth({
-    columns,
-    containerWidth,
-    offset,
-    columnVisibility,
-  });
+  const fluidColumnWidth =
+    columnSizing === 'fill-leftover'
+      ? distributeLeftoverColumnWidth({
+          columns,
+          containerWidth,
+          offset,
+          columnVisibility,
+        })
+      : 0;
 
   if (isSubComponent) {
     // add to first columns the ExpandedColumn
@@ -107,7 +159,10 @@ export function getColumns<TData = RowData, TValue = unknown>({
     return {
       ...column,
       enableDraggable,
-      size: column?.size ?? Math.max(fluidColumnWidth, column?.minSize ?? 0),
+      size:
+        columnSizing === 'fixed'
+          ? column?.size
+          : column?.size ?? Math.max(fluidColumnWidth, column?.minSize ?? 0),
     };
   });
 }

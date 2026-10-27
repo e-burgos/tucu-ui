@@ -137,6 +137,8 @@ function DataTableComponent<T extends TData = TData>({
     showFooter,
     showHeader = true,
     mobileCards,
+    getRowLabel,
+    getRowId,
   } = config || {};
 
   const tableId = tableIdProp || 'datatable-id';
@@ -252,6 +254,8 @@ function DataTableComponent<T extends TData = TData>({
                           }
                           smallAnatomy={smallAnatomy}
                           forceShowMenuActions={forceShowMenuActions}
+                          rowLabel={getRowLabel?.(row.original)}
+                          rowId={getRowId ? row.id : undefined}
                           style={{
                             row: sx?.row,
                             cell: sx?.cell,
@@ -337,6 +341,8 @@ function DataTableComponent<T extends TData = TData>({
           rowActions={rowActions}
           rowSelection={rowSelection}
           forceShowMenuActions={forceShowMenuActions}
+          getRowLabel={getRowLabel}
+          exposeRowId={!!getRowId}
           onRowClick={setCurrentRow}
         />
       )}

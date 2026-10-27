@@ -24,6 +24,8 @@ export interface DataTableCardsProps {
   rowActions?: IRowActions<TData>[];
   rowSelection?: IRowSelection<TData>;
   forceShowMenuActions?: boolean;
+  getRowLabel?: (row: TData) => string;
+  exposeRowId?: boolean;
   onRowClick?: (row: Row<TData>) => void;
 }
 
@@ -92,6 +94,8 @@ const DataTableCards: React.FC<DataTableCardsProps> = ({
   rowActions,
   rowSelection,
   forceShowMenuActions,
+  getRowLabel,
+  exposeRowId,
   onRowClick,
 }) => {
   const t = useTucuMessages().datatable;
@@ -120,6 +124,8 @@ const DataTableCards: React.FC<DataTableCardsProps> = ({
             rowActions={rowActions}
             rowSelection={rowSelection}
             forceShowMenuActions={forceShowMenuActions}
+            rowLabel={getRowLabel?.(row.original)}
+            rowId={exposeRowId ? row.id : undefined}
             onActivate={onRowClick}
             className={options.className}
           />

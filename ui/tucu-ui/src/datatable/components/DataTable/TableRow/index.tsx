@@ -29,6 +29,8 @@ import TableCell from '../TableCell';
  * @property {boolean} forceShowMenuActions - Whether to force show the menu actions.
  * @property {IRowSelection<TData>} rowSelection - The row selection.
  * @property {boolean} smallAnatomy - Whether the row is a small anatomy.
+ * @property {string} rowLabel - Accessible name of the row.
+ * @property {string} rowId - Stable row id exposed as `data-row-id`.
  *
  * @template TData - The type of the data in the table.
  */
@@ -49,6 +51,8 @@ interface RowProps {
   forceShowMenuActions?: boolean;
   rowSelection: IRowSelection<TData>;
   smallAnatomy?: boolean;
+  rowLabel?: string;
+  rowId?: string;
 }
 
 const TableRow: FC<RowProps> = ({
@@ -63,6 +67,8 @@ const TableRow: FC<RowProps> = ({
   forceShowMenuActions,
   rowSelection,
   smallAnatomy,
+  rowLabel,
+  rowId,
 }) => {
   const [openActions, setOpenActions] = useState<boolean>(false);
   const [hoverRow, setHoverRow] = useState<HoverType>({
@@ -97,6 +103,8 @@ const TableRow: FC<RowProps> = ({
     <div
       role="row"
       data-testid="table-row"
+      aria-label={rowLabel}
+      data-row-id={rowId}
       ref={!isColumn ? setNodeRef : undefined}
       onClick={onClick}
       onMouseEnter={() => {
@@ -138,6 +146,7 @@ const TableRow: FC<RowProps> = ({
             rowActions={rowActions}
             forceShowMenuActions={forceShowMenuActions}
             rowSelection={rowSelection}
+            rowLabel={rowLabel}
           />
         );
       })}

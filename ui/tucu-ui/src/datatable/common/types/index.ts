@@ -17,6 +17,14 @@ import {
 export type TData = Record<string | number | symbol | (string & object), any>;
 
 /**
+ * Column width strategy of the data table.
+ *
+ * @category libs/datatable
+ * @subcategory Types
+ */
+export type DataTableColumnSizing = 'fixed' | 'fill-leftover' | 'fill';
+
+/**
  * Represents the hover state of a row.
  *
  * @category libs/datatable
@@ -418,6 +426,23 @@ export interface IOptionalDataTableProps<TData> {
    * Off by default; `true` uses the `md` breakpoint.
    */
   mobileCards?: boolean | IMobileCardsOptions;
+  /**
+   * How column widths are resolved against the container width.
+   * `fill-leftover` gives the leftover width to columns without `size`; `fill` grows every
+   * visible column proportionally to its size (respecting `minSize`/`maxSize`) so the table
+   * fills the container; `fixed` applies no distribution.
+   */
+  columnSizing?: DataTableColumnSizing;
+  /**
+   * Accessible name of each row, set as `aria-label` on the row (and on its mobile card) and
+   * used to name the row actions trigger. Gives automation a stable handle per row.
+   */
+  getRowLabel?: (row: TData) => string;
+  /**
+   * Stable id of each row. Defaults to the row index. When provided, rows also expose it as
+   * `data-row-id`.
+   */
+  getRowId?: (row: TData, index: number) => string;
 }
 
 /**

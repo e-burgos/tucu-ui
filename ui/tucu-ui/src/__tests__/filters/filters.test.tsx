@@ -80,3 +80,48 @@ describe('FilterBar', () => {
     expect(body).not.toHaveClass('hidden');
   });
 });
+
+describe('FilterBar accessible names', () => {
+  const filter = {
+    value: '',
+    onChange: vi.fn(),
+    options: statusOptions,
+  };
+
+  it('names a select by its label', () => {
+    render(<FilterBar filters={[{ ...filter, id: 'status', label: 'Status' }]} />);
+    expect(screen.getByRole('combobox', { name: 'Status' })).toBeInTheDocument();
+  });
+
+  it('prefers the aria-label field over the id when there is no label', () => {
+    render(
+      <FilterBar filters={[{ ...filter, id: 'status', 'aria-label': 'Order status' }]} />
+    );
+    expect(screen.getByRole('combobox', { name: 'Order status' })).toBeInTheDocument();
+  });
+
+  it('falls back to the filter id', () => {
+    render(<FilterBar filters={[{ ...filter, id: 'branch' }]} />);
+    expect(screen.getByRole('combobox', { name: 'branch' })).toBeInTheDocument();
+  });
+
+  it('forwards data-testid to the select trigger', () => {
+    render(
+      <FilterBar filters={[{ ...filter, id: 'status', 'data-testid': 'status-filter' }]} />
+    );
+    expect(screen.getByTestId('status-filter')).toBe(
+      screen.getByRole('combobox', { name: 'status' })
+    );
+  });
+
+  it('names the search input from the placeholder or the translated default', () => {
+    const { rerender } = render(
+      <FilterBar search={{ value: '', onChange: vi.fn() }} />
+    );
+    expect(screen.getByRole('searchbox', { name: 'Search...' })).toBeInTheDocument();
+    rerender(
+      <FilterBar search={{ value: '', onChange: vi.fn(), placeholder: 'Find order' }} />
+    );
+    expect(screen.getByRole('searchbox', { name: 'Find order' })).toBeInTheDocument();
+  });
+});

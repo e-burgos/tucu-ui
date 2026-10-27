@@ -382,8 +382,10 @@ export function DataTableProvider<TData>({
 
   const [globalFilter, setGlobalFilter] = useState<string>('');
 
+  const columnSizingMode = config.columnSizing ?? 'fill-leftover';
   const scrollProps = useScrollableTable(
-    tableContainerRef as MutableRefObject<HTMLDivElement>
+    tableContainerRef as MutableRefObject<HTMLDivElement>,
+    { observeResize: columnSizingMode === 'fill' }
   );
 
   const containerWidth = tableContainerRef.current?.clientWidth || 0;
@@ -398,9 +400,10 @@ export function DataTableProvider<TData>({
         isRowActions,
         isRowSelection,
         columnVisibility,
+        columnSizing: columnSizingMode,
       }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [scrollProps, columnVisibility, containerWidth]
+    [scrollProps, columnVisibility, containerWidth, columnSizingMode]
   );
 
   // Wrapper for serverPagination.setPagination that also updates internal table state
@@ -749,7 +752,7 @@ export function DataTableProvider<TData>({
     enableRowSelection: true,
     isMultiSortEvent: () => true,
     getRowCanExpand: () => true,
-    getRowId: (_row, index) => index.toString(),
+    getRowId: config.getRowId ?? ((_row, index) => index.toString()),
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     getSortedRowModel: getSortedRowModel(),

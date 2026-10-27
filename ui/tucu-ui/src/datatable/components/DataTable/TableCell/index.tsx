@@ -45,6 +45,7 @@ import RowSelectionCell from './RowSelectionCell';
  * @property {function(boolean): void} setOpenActions - The function to set the open actions.
  * @property {boolean} forceShowMenuActions - Whether to force show the menu actions.
  * @property {IRowSelection<TData>} rowSelection - The row selection.
+ * @property {string} rowLabel - Accessible name of the row, used to name the row actions.
  *
  * @template TData - The type of the data in the table.
  */
@@ -65,6 +66,7 @@ interface TableCellProps {
   style?: React.CSSProperties;
   forceShowMenuActions?: boolean;
   rowSelection?: IRowSelection<TData>;
+  rowLabel?: string;
   setHoverRow: (value: HoverType) => void;
   setOpenActions?: (value: boolean) => void;
 }
@@ -79,6 +81,7 @@ const TableCell: React.FC<TableCellProps> = ({
   style,
   forceShowMenuActions,
   rowSelection,
+  rowLabel,
   setHoverRow,
   setOpenActions,
 }) => {
@@ -114,6 +117,7 @@ const TableCell: React.FC<TableCellProps> = ({
           rowActions={rowActions}
           setOpenActions={setOpenActions || (() => null)}
           forceShowMenuActions={forceShowMenuActions}
+          rowLabel={rowLabel}
         />
       );
     if (isExpandedColumn)
