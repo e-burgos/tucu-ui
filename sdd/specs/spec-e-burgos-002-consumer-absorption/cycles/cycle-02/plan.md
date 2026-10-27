@@ -61,3 +61,15 @@
 - **Presets propios, sin marca de consumidor.** Los nombres y valores son neutros. Los consumidores registran los suyos con `registerThemePresets` (RNF-4).
 - **CSS core aditivo.** `./styles` sigue igual (con macOS); `./styles-core` es un export nuevo. Sin cambio incompatible.
 - **Release:** minor `3.6.0` de la librería y minor `0.12.0` del MCP. El dueño aprobó publicar al cerrar cada ciclo (2026-10-27).
+
+## Agregado durante el ciclo
+- TASK-007 — Fricciones 44 a 58 que mandó la sesión del Studio al adoptar 3.5.0:
+  - `defaultMode="system"`.
+  - Modal: `overlayClassName`, `closeButtonProps`, `headerClassName`, el título en un `<div>`, `contentClassName`/`maxWidth`/`maxHeight`, id con `useId` y foco inicial en el diálogo.
+  - Alert: `density="compact"`.
+  - BasicTable: `density="snug"` y hover por token.
+  - Tokens `--tucu-*` leídos con un default `--tucu-*-default`, para que el override del consumidor gane en los dos modos.
+  - Select: `hideLabel`, `hideHelperText` y `appearance="neutral"`.
+  - Badge con className que gana.
+  - Tooltip: `maxWidth`.
+  - Se suman a 3.6.0 porque son compatibles y opt-in.

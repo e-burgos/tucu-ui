@@ -82,9 +82,9 @@ Para el detalle técnico de cada subproyecto, ver su constitución específica:
 
 | Subproyecto | Stack base | Última actualización |
 | ----------- | ---------- | -------------------- |
-| lib principal | React >=18, Tailwind v4, Vite 7 lib mode (ESM + CJS) + entry `./next` solo ESM, tailwind-merge (`cn`), vitest + jsdom | spec-e-burgos-002 cycle-01 |
-| `libs/tucu-docs` | React, páginas sobre la lib principal | spec-e-burgos-002 cycle-01 |
-| `tools/mcp-server` | Node, TypeScript, MCP SDK, express, zod, vitest | spec-e-burgos-002 cycle-01 |
+| lib principal | React >=18, Tailwind v4, Vite 7 lib mode (ESM + CJS) + entry `./next` solo ESM, tailwind-merge (`cn`), vitest + jsdom | spec-e-burgos-002 cycle-02 |
+| `libs/tucu-docs` | React, páginas sobre la lib principal | spec-e-burgos-002 cycle-02 |
+| `tools/mcp-server` | Node, TypeScript, MCP SDK, express, zod, vitest | spec-e-burgos-002 cycle-02 |
 | `apps/demo` | React, Vite, Tailwind v4 | cycle-0 |
 | `apps/test-lib` | React, Vite, Tailwind v4 | cycle-0 |
 | `apps/next-demo` | Next.js 16 App Router, Tailwind v4, Playwright | spec-e-burgos-001 cycle-01 |

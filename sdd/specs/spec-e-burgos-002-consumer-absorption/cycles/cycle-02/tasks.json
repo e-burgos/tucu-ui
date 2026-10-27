@@ -24,10 +24,21 @@
       "estimation_hours": 5,
       "story_points": 5,
       "depends_on": [],
-      "status": "pending",
+      "status": "done",
       "files": [
-        "ui/tucu-ui/src/themes/presets/"
-      ]
+        "ui/tucu-ui/src/themes/presets/",
+        "ui/tucu-ui/src/__tests__/themes/theme-presets.test.ts"
+      ],
+      "usage": {
+        "tokens_in": 90000,
+        "tokens_out": 15000,
+        "provider_model": "claude/sonnet",
+        "effort": "high",
+        "agent": "implementor-front",
+        "approx": true,
+        "source": "declared-estimate",
+        "recorded_at": "2026-10-27"
+      }
     },
     {
       "id": "TASK-002",
@@ -40,11 +51,23 @@
       "depends_on": [
         "TASK-001"
       ],
-      "status": "pending",
+      "status": "done",
       "files": [
         "ui/tucu-ui/src/assets/css/base.css",
-        "ui/tucu-ui/src/assets/css/theme.css"
-      ]
+        "ui/tucu-ui/src/assets/css/theme.css",
+        "ui/tucu-ui/src/assets/css/theme-core.css",
+        "ui/tucu-ui/src/assets/css/datatable.css"
+      ],
+      "usage": {
+        "tokens_in": 90000,
+        "tokens_out": 15000,
+        "provider_model": "claude/sonnet",
+        "effort": "high",
+        "agent": "implementor-front",
+        "approx": true,
+        "source": "declared-estimate",
+        "recorded_at": "2026-10-27"
+      }
     },
     {
       "id": "TASK-003",
@@ -59,12 +82,24 @@
         "TASK-001",
         "TASK-002"
       ],
-      "status": "pending",
+      "status": "done",
       "files": [
         "ui/tucu-ui/src/themes/components/theme-scope/",
-        "ui/tucu-ui/src/components/dialog/modal.tsx",
-        "ui/tucu-ui/src/components/inputs/select.tsx"
-      ]
+        "ui/tucu-ui/src/themes/hooks/use-document-theme-preset.ts",
+        "ui/tucu-ui/src/themes/components/theme-provider/theme-wrapper.tsx",
+        "ui/tucu-ui/src/__tests__/themes/theme-scope.test.tsx",
+        "ui/tucu-ui/src/__tests__/themes/theme-provider-preset.test.tsx"
+      ],
+      "usage": {
+        "tokens_in": 120000,
+        "tokens_out": 20000,
+        "provider_model": "claude/sonnet",
+        "effort": "high",
+        "agent": "implementor-front",
+        "approx": true,
+        "source": "declared-estimate",
+        "recorded_at": "2026-10-27"
+      }
     },
     {
       "id": "TASK-004",
@@ -75,12 +110,27 @@
       "estimation_hours": 5,
       "story_points": 5,
       "depends_on": [],
-      "status": "pending",
+      "status": "done",
       "files": [
+        "ui/tucu-ui/src/themes/utils/theme-mode-script.ts",
+        "ui/tucu-ui/src/next/theme-mode-script.tsx",
+        "ui/tucu-ui/src/assets/css/globals-core.css",
         "ui/tucu-ui/vite.config.styles.mts",
+        "ui/tucu-ui/vite.config.mts",
         "ui/tucu-ui/package.json",
-        "ui/tucu-ui/src/next/index.ts"
-      ]
+        "scripts/publish.mjs",
+        ".github/workflows/publish-tucu-ui.yml"
+      ],
+      "usage": {
+        "tokens_in": 100000,
+        "tokens_out": 16000,
+        "provider_model": "claude/sonnet",
+        "effort": "medium",
+        "agent": "implementor-front",
+        "approx": true,
+        "source": "declared-estimate",
+        "recorded_at": "2026-10-27"
+      }
     },
     {
       "id": "TASK-005",
@@ -98,12 +148,66 @@
         "TASK-003",
         "TASK-004"
       ],
-      "status": "pending",
+      "status": "done",
       "files": [
+        "ui/tucu-ui/src/docs-kit/generated/props-metadata.ts",
         "tools/mcp-server/src/data/component-registry.ts",
         "tools/mcp-server/src/resources/tokens.ts",
-        "ui/tucu-docs/src/"
-      ]
+        "tools/mcp-server/src/resources/changelog.ts",
+        "tools/mcp-server/src/resources/next-guide.ts",
+        "tools/mcp-server/src/resources/quickstart.ts",
+        "tools/mcp-server/src/resources/datatable.ts",
+        "ui/tucu-docs/src/pages/design-system/theming-guide-sections/ThemePresetsSection.tsx",
+        "ui/tucu-docs/src/pages/design-system/ThemingGuide.tsx",
+        "ui/tucu-docs/src/pages/design-system/theming-guide-sections/ThemeProviderSection.tsx",
+        "ui/tucu-docs/src/pages/introduction/index.tsx",
+        "README.md",
+        "README-es.md"
+      ],
+      "usage": {
+        "tokens_in": 184000,
+        "tokens_out": 26000,
+        "provider_model": "claude/sonnet",
+        "effort": "medium",
+        "agent": "implementor-front",
+        "approx": true,
+        "source": "declared-estimate",
+        "recorded_at": "2026-10-27"
+      }
+    },
+    {
+      "id": "TASK-007",
+      "title": "Fricciones 44 a 58 del Studio (adopción de 3.5.0): defaultMode system, Modal overlay/close/header/tamaño/useId/foco, Alert compact, BasicTable snug y tokens --tucu-* con default, Select hideLabel/neutral, Badge y Tooltip maxWidth",
+      "user_stories": [
+        "US-005"
+      ],
+      "estimation_hours": 5,
+      "story_points": 5,
+      "depends_on": [
+        "TASK-003"
+      ],
+      "status": "done",
+      "files": [
+        "ui/tucu-ui/src/components/dialog/modal.tsx",
+        "ui/tucu-ui/src/components/notifications/alert.tsx",
+        "ui/tucu-ui/src/components/notifications/toast.tsx",
+        "ui/tucu-ui/src/components/table/basic-table.tsx",
+        "ui/tucu-ui/src/components/inputs/select.tsx",
+        "ui/tucu-ui/src/components/common/tooltip.tsx",
+        "ui/tucu-ui/src/components/common/skeleton.tsx",
+        "ui/tucu-ui/src/assets/css/base.css",
+        "ui/tucu-ui/src/themes/components/theme-provider/theme-wrapper.tsx"
+      ],
+      "usage": {
+        "tokens_in": 205000,
+        "tokens_out": 30000,
+        "provider_model": "claude/sonnet",
+        "effort": "high",
+        "agent": "implementor-front",
+        "approx": true,
+        "source": "declared-estimate",
+        "recorded_at": "2026-10-27"
+      }
     },
     {
       "id": "TASK-006",
@@ -115,10 +219,21 @@
       "estimation_hours": 3,
       "story_points": 3,
       "depends_on": [
-        "TASK-005"
+        "TASK-005",
+        "TASK-007"
       ],
-      "status": "pending",
-      "files": []
+      "status": "done",
+      "files": [],
+      "usage": {
+        "tokens_in": 60000,
+        "tokens_out": 6000,
+        "provider_model": "claude/opus",
+        "effort": "medium",
+        "agent": "orchestrator",
+        "approx": true,
+        "source": "declared-estimate",
+        "recorded_at": "2026-10-27"
+      }
     }
   ]
 }
