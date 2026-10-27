@@ -30,6 +30,22 @@
       "created_at": "2026-10-27",
       "completed_at": "2026-10-27",
       "depends_on": []
+    },
+    {
+      "id": "spec-e-burgos-003-library-polish",
+      "author": "e-burgos",
+      "slug": "library-polish",
+      "folder": "sdd/specs/spec-e-burgos-003-library-polish",
+      "file": "sdd/specs/spec-e-burgos-003-library-polish/spec-e-burgos-003-library-polish.spec.md",
+      "module": "library-polish",
+      "app": "libs/tucu-ui",
+      "status": "draft",
+      "title": "Pulido de la librería: tonos por tokens, auth y páginas de error, Lightbox y peso del CSS",
+      "created_at": "2026-10-27",
+      "completed_at": null,
+      "depends_on": [
+        "spec-e-burgos-002-consumer-absorption"
+      ]
     }
   ]
 }
