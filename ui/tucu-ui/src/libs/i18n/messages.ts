@@ -60,6 +60,11 @@ export interface TucuMessages {
     visibleColumns: string;
     showAll: string;
     hideAll: string;
+    /** `{page}` and `{pages}` are replaced. */
+    pageOf: string;
+    selectRow: string;
+    rows: string;
+    pagination: string;
   };
   switch: {
     on: string;
@@ -121,6 +126,13 @@ export interface TucuMessages {
     errorDescription: string;
     retry: string;
     details: string;
+  };
+  marketing: {
+    skipToContent: string;
+    navLabel: string;
+    openMenu: string;
+    closeMenu: string;
+    externalLink: string;
   };
   lightbox: {
     label: string;
@@ -185,6 +197,10 @@ export const TUCU_MESSAGES: Record<TucuLang, TucuMessages> = {
       visibleColumns: 'Visible Columns',
       showAll: 'Show All',
       hideAll: 'Hide All',
+      pageOf: 'Page {page} of {pages}',
+      selectRow: 'Select row',
+      rows: 'Rows',
+      pagination: 'Pagination',
     },
     switch: {
       on: 'ON',
@@ -244,6 +260,13 @@ export const TUCU_MESSAGES: Record<TucuLang, TucuMessages> = {
       errorDescription: 'We could not complete the request. Please try again.',
       retry: 'Try again',
       details: 'Details',
+    },
+    marketing: {
+      skipToContent: 'Skip to content',
+      navLabel: 'Main',
+      openMenu: 'Open menu',
+      closeMenu: 'Close menu',
+      externalLink: 'Opens in a new tab',
     },
     lightbox: {
       label: 'Image viewer',
@@ -305,6 +328,10 @@ export const TUCU_MESSAGES: Record<TucuLang, TucuMessages> = {
       visibleColumns: 'Columnas visibles',
       showAll: 'Mostrar todas',
       hideAll: 'Ocultar todas',
+      pageOf: 'Página {page} de {pages}',
+      selectRow: 'Seleccionar fila',
+      rows: 'Filas',
+      pagination: 'Paginación',
     },
     switch: {
       on: 'SÍ',
@@ -364,6 +391,13 @@ export const TUCU_MESSAGES: Record<TucuLang, TucuMessages> = {
       errorDescription: 'No pudimos completar la solicitud. Probá de nuevo.',
       retry: 'Reintentar',
       details: 'Detalles',
+    },
+    marketing: {
+      skipToContent: 'Saltar al contenido',
+      navLabel: 'Principal',
+      openMenu: 'Abrir menú',
+      closeMenu: 'Cerrar menú',
+      externalLink: 'Se abre en una pestaña nueva',
     },
     lightbox: {
       label: 'Visor de imágenes',
@@ -425,6 +459,10 @@ export const TUCU_MESSAGES: Record<TucuLang, TucuMessages> = {
       visibleColumns: 'Colonnes visibles',
       showAll: 'Tout afficher',
       hideAll: 'Tout masquer',
+      pageOf: 'Page {page} sur {pages}',
+      selectRow: 'Sélectionner la ligne',
+      rows: 'Lignes',
+      pagination: 'Pagination',
     },
     switch: {
       on: 'OUI',
@@ -484,6 +522,13 @@ export const TUCU_MESSAGES: Record<TucuLang, TucuMessages> = {
       errorDescription: "Nous n'avons pas pu terminer la demande. Veuillez réessayer.",
       retry: 'Réessayer',
       details: 'Détails',
+    },
+    marketing: {
+      skipToContent: 'Aller au contenu',
+      navLabel: 'Principal',
+      openMenu: 'Ouvrir le menu',
+      closeMenu: 'Fermer le menu',
+      externalLink: 'S’ouvre dans un nouvel onglet',
     },
     lightbox: {
       label: "Visionneuse d'images",

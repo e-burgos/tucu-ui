@@ -1,0 +1,19 @@
+/* Auth layout tokens: SplitAuthLayout brand column.
+   Override any `--tucu-auth-<prop>`; the `-default` variants are the per-mode fallbacks. */
+@layer base {
+  html:root,
+  .dark [data-tucu-theme]:not(.dark) {
+    --tucu-auth-brand-bg-default: #111827;
+    --tucu-auth-brand-fg-default: #ffffff;
+    --tucu-auth-brand-muted-default: rgb(255 255 255 / 0.7);
+    --tucu-auth-divider-default: rgb(17 24 39 / 0.1);
+  }
+
+  html.dark,
+  [data-tucu-theme].dark {
+    --tucu-auth-brand-bg-default: #0b1220;
+    --tucu-auth-brand-fg-default: #f9fafb;
+    --tucu-auth-brand-muted-default: rgb(249 250 251 / 0.65);
+    --tucu-auth-divider-default: rgb(255 255 255 / 0.12);
+  }
+}

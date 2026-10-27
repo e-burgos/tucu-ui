@@ -22,6 +22,17 @@ import SubComponentDataTable from '../SubComponentDataTable';
 import TableHead from '../TableHead';
 import TableRow from '../TableRow';
 import TableWrapper from '../TableWrapper';
+import DataTableCards from '../MobileCards/DataTableCards';
+import ResponsivePagination from '../MobileCards/ResponsivePagination';
+import {
+  MOBILE_CARDS_CLASSES,
+  resolveMobileCards,
+} from '../MobileCards/breakpoints';
+import {
+  clientPaginationModel,
+  manualPaginationModel,
+  resolveManualPaginationOptions,
+} from '../MobileCards/paginationModels';
 
 /**
  * Props for the DataTableComponent.
@@ -125,6 +136,7 @@ function DataTableComponent<T extends TData = TData>({
     forceShowMenuActions,
     showFooter,
     showHeader = true,
+    mobileCards,
   } = config || {};
 
   const tableId = tableIdProp || 'datatable-id';
@@ -140,6 +152,10 @@ function DataTableComponent<T extends TData = TData>({
   if (!table) return null as unknown as React.JSX.Element;
 
   const mode = config?.mode;
+  const mobileCardsOptions = resolveMobileCards(mobileCards);
+  const manualPaginationOptions = pagination
+    ? resolveManualPaginationOptions(pagination)
+    : undefined;
   const filteredRowsCount = table.getRowModel()?.rows?.length ?? 0;
 
   return (
@@ -160,7 +176,9 @@ function DataTableComponent<T extends TData = TData>({
         ref={tableContainerRef}
         className={cn(
           'flex flex-col w-full p-0 z-1 h-full overflow-auto bg-table-box-bg',
-          border && !title && !headerContainer && 'rounded-t'
+          border && !title && !headerContainer && 'rounded-t',
+          mobileCardsOptions &&
+            MOBILE_CARDS_CLASSES[mobileCardsOptions.breakpoint].tableOnly
         )}
         style={{
           maxHeight: sx?.tableContainer?.maxHeight || '373px', // valid for 6 rows
@@ -308,33 +326,55 @@ function DataTableComponent<T extends TData = TData>({
           </div>
         </DragDropTableContext>
       </div>
+      {mobileCardsOptions && (
+        <DataTableCards
+          tableId={tableId}
+          table={table}
+          options={mobileCardsOptions}
+          isLoading={isLoading}
+          isError={isError}
+          stateMessage={stateMessage}
+          rowActions={rowActions}
+          rowSelection={rowSelection}
+          forceShowMenuActions={forceShowMenuActions}
+          onRowClick={setCurrentRow}
+        />
+      )}
       {!isEmpty && (
         <>
           {!checkState && !isManualPagination && pagination?.showPagination && (
-            <Pagination
-              tableId={tableId}
-              table={table}
-              pagination={pagination}
+            <ResponsivePagination
+              mobileCards={mobileCardsOptions}
+              model={
+                mobileCardsOptions ? clientPaginationModel(table) : undefined
+              }
               style={sx?.pagination}
-            />
+            >
+              <Pagination
+                tableId={tableId}
+                table={table}
+                pagination={pagination}
+                style={sx?.pagination}
+              />
+            </ResponsivePagination>
           )}
           {isManualPagination && pagination?.showPagination && (
-            <ManualPagination
-              manualPagination={
-                pagination.manualPagination ||
-                (pagination.serverPagination
-                  ? {
-                      enabled: true,
-                      rowCount: pagination.serverPagination.totalCount,
-                      pagination: pagination.serverPagination.pagination,
-                      setPagination: pagination.serverPagination.setPagination,
-                    }
-                  : undefined)
+            <ResponsivePagination
+              mobileCards={mobileCardsOptions}
+              model={
+                mobileCardsOptions
+                  ? manualPaginationModel(manualPaginationOptions)
+                  : undefined
               }
-              rowsInfo={pagination.rowsInfo}
-              hideRecordsSelector={pagination.hideRecordsSelector}
               style={sx?.pagination}
-            />
+            >
+              <ManualPagination
+                manualPagination={manualPaginationOptions}
+                rowsInfo={pagination.rowsInfo}
+                hideRecordsSelector={pagination.hideRecordsSelector}
+                style={sx?.pagination}
+              />
+            </ResponsivePagination>
           )}
         </>
       )}
