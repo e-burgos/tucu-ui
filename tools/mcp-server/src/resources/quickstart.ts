@@ -160,6 +160,9 @@ Use this if your app doesn't run its own Tailwind build.
 \`\`\`css
 @import '@e-burgos/tucu-ui/styles';
 \`\`\`
+Without the macOS themes, use \`@import '@e-burgos/tucu-ui/styles-core';\` instead (about half the
+size, ~356 KB vs ~717 KB). With your own Tailwind, \`@import '@e-burgos/tucu-ui/theme-core';\` is the
+matching variant of Option B. macOS layouts need the full \`styles\` / \`theme\`.
 This ships tokens + base/component styles + all utilities, prefixed (\`tucu-text-h1\`, etc.)
 and unprefixed legacy aliases for backward compatibility. It also loads the bundled
 Inter + JetBrains Mono variable fonts (woff2 files resolved relative to the stylesheet).

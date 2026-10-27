@@ -489,11 +489,43 @@ const [isOpen, setIsOpen] = useState(false);
     importPath: '@e-burgos/tucu-ui',
     example: `import { ThemeProvider } from '@e-burgos/tucu-ui';
 
-<ThemeProvider defaultTheme="dark" colorPreset="blue">
+<ThemeProvider preset="elegant" defaultMode="system" menuItems={menuItems}>
   <App />
 </ThemeProvider>`,
-    relatedComponents: ['AdminLayout', 'MacOSLayout'],
+    relatedComponents: ['AdminLayout', 'MacOSLayout', 'ThemeScope'],
     themeAware: false,
+  },
+  {
+    name: 'ThemeScope',
+    category: 'layouts',
+    description:
+      'Applies a theme preset to a subtree without touching the rest of the page: sets the preset CSS variables (`--tucu-accent`, `--tucu-radius`, `--tucu-card-*`, fonts), the `data-tucu-*` attributes and the `dark` class for its own mode. `preset` is a registered name or an inline `ThemePreset`; `mode` is `light | dark | auto` (auto follows `<html class="dark">`, default is the preset surface); `tokens` adds raw CSS variables; `as` changes the root element. Nested scopes without a preset inherit the parent preset and mode. Overlays (Modal, Drawer, Select listbox, tooltips) opened inside a scope mount in its own `[data-tucu="theme-scope-portal"]` host so they keep the scope theme; read it with `usePortalContainer()`. `dark:` utilities honor one level of opposite-mode nesting (a light scope inside `html.dark`). Presets: built-ins `glass | classic | elegant | fresh | minimal | vibrant`, plus `defineThemePreset`, `registerThemePresets`, `getThemePreset`, `listThemePresets` and `resolveThemePreset({ host, tenant, rules, fallback })` to pick one per host/tenant.',
+    importPath: '@e-burgos/tucu-ui',
+    example: `import {
+  ThemeScope,
+  registerThemePresets,
+  resolveThemePreset,
+} from '@e-burgos/tucu-ui';
+
+registerThemePresets({ name: 'acme', accent: '#e11d48', radius: 'lg', cards: 'solid' });
+
+const preset = resolveThemePreset({
+  host: window.location.host,
+  rules: [{ host: '*.acme.com', preset: 'acme' }],
+  fallback: 'glass',
+});
+
+<ThemeScope preset={preset ?? 'glass'} mode="dark" className="p-6 rounded-xl">
+  <Card>...</Card>
+  <Button>Open modal</Button>
+</ThemeScope>`,
+    relatedComponents: ['ThemeProvider', 'Modal', 'Select', 'Card'],
+    themeAware: true,
+    warnings: [
+      'Portals opened inside a scope mount in the scope portal host; give the scope `relative` or `isolate` if you need to contain its z-index.',
+      'Only one level of opposite-mode nesting is supported for `dark:` utilities (a light scope inside html.dark, or the inverse).',
+      'Use `styles-core` when you do not use the macOS themes; it is about half the size of `styles`.',
+    ],
   },
 
   // ─── DIALOGS ─────────────────────────────────────────────

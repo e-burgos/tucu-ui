@@ -45,10 +45,17 @@ const ThemeProviderSection: React.FC = () => {
     },
     {
       prop: 'defaultMode',
-      type: "'light' | 'dark'",
+      type: "'light' | 'dark' | 'system'",
       default: '-',
       description:
-        'Initial color mode, applied only when there is no persisted theme state; a persisted mode wins',
+        'Initial color mode, applied only when there is no persisted theme state; a persisted mode wins. system follows prefers-color-scheme',
+    },
+    {
+      prop: 'preset',
+      type: 'string | ThemePreset',
+      default: '-',
+      description:
+        'Theme preset (registered name or inline) applied to the document',
     },
     {
       prop: 'showSettings',

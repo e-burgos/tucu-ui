@@ -33,7 +33,7 @@ pnpm install @e-burgos/tucu-ui
 
   const nextLayoutExample = `// app/layout.tsx
 import { LucideIcons } from '@e-burgos/tucu-ui';
-import { NextThemeProvider } from '@e-burgos/tucu-ui/next';
+import { NextThemeProvider, ThemeModeScript } from '@e-burgos/tucu-ui/next';
 import './globals.css';
 
 const menuItems = [
@@ -43,6 +43,9 @@ const menuItems = [
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <ThemeModeScript defaultMode="system" />
+      </head>
       <body>
         <NextThemeProvider logo={{ name: 'My App' }} layout="admin" menuItems={menuItems}>
           {children}
@@ -736,6 +739,22 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                         language="css"
                         code={`@import '@e-burgos/tucu-ui/styles';`}
                       />
+                      <Typography
+                        tag="caption"
+                        className="text-gray-600 dark:text-gray-400 mt-2"
+                      >
+                        Not using the macOS themes? Import{' '}
+                        <code className="px-1 py-0.5 border border-border rounded text-xs">
+                          @e-burgos/tucu-ui/styles-core
+                        </code>{' '}
+                        instead: the same styles at about half the size (~356 KB
+                        vs ~717 KB). With your own Tailwind, the equivalent of
+                        Option B is{' '}
+                        <code className="px-1 py-0.5 border border-border rounded text-xs">
+                          theme-core
+                        </code>
+                        .
+                      </Typography>
                     </div>
 
                     <div className="space-y-2">
@@ -906,7 +925,8 @@ export default defineConfig({
                       Requires next &gt;=16. NextThemeProvider comes from
                       @e-burgos/tucu-ui/next and replaces ThemeProvider; the
                       react-router namespace and routing hooks are for Vite
-                      apps only.
+                      apps only. ThemeModeScript in the head sets the dark/light
+                      class before hydration to avoid a flash of the wrong mode.
                     </Typography>
                   </Alert>
                   <CodeBlock language="bash" code={nextInstallation} />

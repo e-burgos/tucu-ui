@@ -59,7 +59,7 @@ pnpm add @e-burgos/tucu-ui next react react-dom
 
 ```tsx
 import { LucideIcons } from '@e-burgos/tucu-ui';
-import { NextThemeProvider } from '@e-burgos/tucu-ui/next';
+import { NextThemeProvider, ThemeModeScript } from '@e-burgos/tucu-ui/next';
 import './globals.css';
 
 const menuItems = [
@@ -70,6 +70,9 @@ const menuItems = [
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="es" suppressHydrationWarning>
+      <head>
+        <ThemeModeScript defaultMode="system" />
+      </head>
       <body>
         <NextThemeProvider logo={{ name: 'Mi App' }} layout="admin" menuItems={menuItems}>
           {children}
@@ -90,10 +93,42 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
 Escaneá solo `**/*.mjs`: ahí viven los nombres de clase. Apuntar `@source` al paquete entero también escanea el bundle CJS (que inlinea la tabla de clases de `tailwind-merge`), `index.css`, los `.d.ts` y la documentación, lo que suma ~100 KB de utilidades sin uso a tu CSS. La entrada `theme` ya incluye los estilos de Swiper, carousel, datatable y prism; ningún JS del paquete importa una hoja de estilos.
 
+`ThemeModeScript` (Server Component, acepta `nonce`) aplica la clase `dark`/`light` en `<html>` antes de la hidratación, así que no hay parpadeo del modo equivocado.
+
 - **Frontera server/client:** todos los módulos de tucu-ui llevan `'use client'`, así que podés importar componentes desde Server Components. Las funciones no cruzan esa frontera: el `cell` de una columna de `DataTable`, un `onClick` o cualquier render prop tienen que vivir en un componente `'use client'` de tu app, que el Server Component luego renderiza.
 - **Export estático:** `output: 'export'` funciona; el shell se prerenderiza.
 - **Solo Vite:** el namespace de `react-router` y los hooks de ruteo (`ThemeProvider` con router propio, `RouterProvider`, helpers de rutas) son para apps Vite. En Next el ruteo lo da el sistema de archivos del App Router.
 - Un ejemplo completo está en [`apps/next-demo`](apps/next-demo).
+
+---
+
+## Presets de tema y scopes
+
+Seis presets incluidos (`glass`, `classic`, `elegant`, `fresh`, `minimal`, `vibrant`), los tuyos con `registerThemePresets`, y `ThemeScope` para tematizar un subárbol. Los overlays abiertos dentro de un scope (Modal, Drawer, Select) se montan en el portal host del propio scope y conservan su tema.
+
+```tsx
+import { ThemeProvider, ThemeScope, registerThemePresets, resolveThemePreset } from '@e-burgos/tucu-ui';
+
+registerThemePresets({ name: 'acme', accent: '#e11d48', radius: 'lg', cards: 'solid' });
+
+const preset = resolveThemePreset({
+  host: window.location.host,
+  rules: [{ host: '*.acme.com', preset: 'acme' }],
+  fallback: 'glass',
+});
+
+<ThemeProvider preset={preset} defaultMode="system" menuItems={menuItems} />
+
+<ThemeScope preset="vibrant" mode="light">
+  <Card>Con scope</Card>
+</ThemeScope>
+```
+
+Los presets escriben `--tucu-accent`, `--tucu-radius`, `--tucu-card-*` y atributos `data-tucu-*`. Las utilidades `dark:` respetan un nivel de anidación de modo opuesto.
+
+### CSS más liviano: `styles-core`
+
+Si no usás los temas macOS, `@import '@e-burgos/tucu-ui/styles-core';` entrega los mismos estilos con aproximadamente la mitad del tamaño (~356 KB vs ~717 KB); con tu propio Tailwind usá `@e-burgos/tucu-ui/theme-core`.
 
 ---
 
