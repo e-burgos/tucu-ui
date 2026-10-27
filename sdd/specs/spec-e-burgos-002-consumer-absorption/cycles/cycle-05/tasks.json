@@ -1,0 +1,108 @@
+{
+  "$schema": "../../../../schemas/cycle-tasks.schema.json",
+  "spec": "spec-e-burgos-002-consumer-absorption",
+  "cycle": 5,
+  "module": "consumer-absorption",
+  "apps": [
+    "libs/tucu-ui",
+    "libs/tucu-docs",
+    "tools/mcp-server"
+  ],
+  "flow": "lite",
+  "user_stories_generated": true,
+  "prerequisites": {
+    "tasks_generated": true
+  },
+  "tasks": [
+    {
+      "id": "TASK-001",
+      "title": "Recurso tucu://design-guide y prompt design-review",
+      "user_stories": [
+        "US-001",
+        "US-003"
+      ],
+      "estimation_hours": 5,
+      "story_points": 5,
+      "depends_on": [],
+      "status": "pending",
+      "files": [
+        "tools/mcp-server/src/resources/design-guide.ts",
+        "tools/mcp-server/src/prompts/design-review.ts"
+      ]
+    },
+    {
+      "id": "TASK-002",
+      "title": "Parámetros style/motion/density en generate_page y generate_component, y layouts marketing/auth",
+      "user_stories": [
+        "US-002"
+      ],
+      "estimation_hours": 5,
+      "story_points": 5,
+      "depends_on": [],
+      "status": "pending",
+      "files": [
+        "tools/mcp-server/src/tools/generation-tools.ts",
+        "tools/mcp-server/src/utils/design-params.ts"
+      ]
+    },
+    {
+      "id": "TASK-003",
+      "title": "Skill tucu-ui-design instalable (harness + build + bin tucu-ui-skill) y MotionConfig reducedMotion en la librería",
+      "user_stories": [
+        "US-004",
+        "US-005"
+      ],
+      "estimation_hours": 5,
+      "story_points": 5,
+      "depends_on": [
+        "TASK-001"
+      ],
+      "status": "pending",
+      "files": [
+        "harness/skills/tucu-ui-design/",
+        "tools/mcp-server/package.json",
+        "ui/tucu-ui/src/themes/components/theme-provider/theme-wrapper.tsx"
+      ]
+    },
+    {
+      "id": "TASK-004",
+      "title": "Docs: Motion & Density en tucu-docs, páginas del MCP y README",
+      "user_stories": [
+        "US-001",
+        "US-002",
+        "US-003",
+        "US-004"
+      ],
+      "estimation_hours": 3,
+      "story_points": 3,
+      "depends_on": [
+        "TASK-001",
+        "TASK-002",
+        "TASK-003"
+      ],
+      "status": "pending",
+      "files": [
+        "ui/tucu-docs/src/pages/",
+        "tools/mcp-server/README.md"
+      ]
+    },
+    {
+      "id": "TASK-005",
+      "title": "Verificación, cierre de la spec y notas de adopción",
+      "user_stories": [
+        "US-001",
+        "US-002",
+        "US-003",
+        "US-004",
+        "US-005"
+      ],
+      "estimation_hours": 3,
+      "story_points": 3,
+      "depends_on": [
+        "TASK-004"
+      ],
+      "status": "pending",
+      "files": []
+    }
+  ]
+}

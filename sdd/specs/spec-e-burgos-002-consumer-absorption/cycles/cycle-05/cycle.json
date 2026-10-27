@@ -1,0 +1,42 @@
+{
+  "$schema": "../../../../schemas/cycle.schema.json",
+  "cycle": 5,
+  "module": "consumer-absorption",
+  "spec": "spec-e-burgos-002-consumer-absorption",
+  "apps": [
+    "libs/tucu-ui",
+    "libs/tucu-docs",
+    "tools/mcp-server"
+  ],
+  "phase": "c04-design",
+  "flow": "lite",
+  "objectives": [
+    "Recurso MCP tucu://design-guide",
+    "Prompt MCP design-review",
+    "style/motion/density en generate_page y generate_component",
+    "Skill de diseño instalable sin marca",
+    "prefers-reduced-motion respetado por la librería"
+  ],
+  "status": "in-progress",
+  "started_at": "2026-10-27",
+  "completed_at": null,
+  "documents": {
+    "plan": "sdd/specs/spec-e-burgos-002-consumer-absorption/cycles/cycle-05/plan.md",
+    "tasks": "sdd/specs/spec-e-burgos-002-consumer-absorption/cycles/cycle-05/tasks.json"
+  },
+  "artifacts": [],
+  "metrics": {
+    "tasks_total": 5,
+    "tasks_completed": 0,
+    "tasks_skipped": 0,
+    "story_points": 21,
+    "files_created": [],
+    "files_modified": [],
+    "files_deleted": []
+  },
+  "tables_created": [],
+  "endpoints_implemented": [],
+  "components_created": [],
+  "issues_found": [],
+  "reviewer_report": null
+}
