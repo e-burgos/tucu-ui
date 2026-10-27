@@ -4,6 +4,12 @@ All notable changes to `@e-burgos/tucu-ui-mcp` will be documented in this file.
 
 <!-- Last updated: 2026-06-02 -->
 
+## [0.14.0] - 2026-10-27
+
+### Changed
+
+- SplitModal sections/actions, SegmentedControl semantics and tooltipDefaults in MCP and tucu-docs (spec-e-burgos-002 cycle-04)
+- MarketingLayout, SplitAuthLayout and DataTable mobileCards in MCP and tucu-docs (spec-e-burgos-002 cycle-04 TASK-004)
 ## [0.13.0] - 2026-10-27
 
 ### Added
