@@ -27,6 +27,14 @@
         "cwd": "ui/tucu-ui",
         "command": "node scripts/check-entry-isolation.mjs"
       }
+    },
+    "check-no-css-imports": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["build"],
+      "options": {
+        "cwd": "ui/tucu-ui",
+        "command": "node scripts/check-no-css-imports.mjs"
+      }
     }
   }
 }

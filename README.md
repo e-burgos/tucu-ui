@@ -56,8 +56,10 @@ every utility class (yours and Tucu UI's) from one instance.
 ```css
 @import 'tailwindcss';
 @import '@e-burgos/tucu-ui/theme';
-@source '../node_modules/@e-burgos/tucu-ui';
+@source '../node_modules/@e-burgos/tucu-ui/**/*.mjs';
 ```
+
+Scan only `**/*.mjs`: that is where the class names live. Pointing `@source` at the whole package also scans the CJS bundle (it inlines `tailwind-merge`'s class table), `index.css`, `.d.ts` and docs, which adds ~100 KB of unused utilities to your CSS. The `theme` entry already includes the Swiper, carousel, datatable and prism styles; no JS file in the package imports a stylesheet.
 
 Import order between these three lines doesn't matter — your own utility
 classes always win over Tucu UI's defaults either way.
@@ -97,7 +99,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 }
 ```
 
-`app/globals.css` (Tailwind v4 — use `theme`, not `styles`, and point `@source` at the package):
+`app/globals.css` (Tailwind v4 — use `theme`, not `styles`, and point `@source` at the package's `.mjs` files):
 
 ```css
 @import 'tailwindcss';

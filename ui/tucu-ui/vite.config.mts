@@ -96,6 +96,7 @@ const copyThemeCssPlugin = () => {
         'hero-card.css',
         // Component-support styles theme.css imports (see theme.css header).
         'datatable.css',
+        'swiper-vendor.css',
         'carousel.css',
         'scrollbar.css',
         'range-slider.css',

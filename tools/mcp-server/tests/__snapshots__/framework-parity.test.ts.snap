@@ -195,8 +195,8 @@ exports[`framework parity: vite output is unchanged > component plain - no frame
     "import { Button } from '@e-burgos/tucu-ui';",
   ],
   "warnings": [
-    "NEVER use variant='primary', 'outline', or 'destructive' — causes runtime crash.",
-    "NEVER use size='lg', 'sm', 'md', 'xs' — causes runtime crash.",
+    "NEVER use variant='primary' or 'destructive' — causes runtime crash. Use color='danger' for destructive actions.",
+    "NEVER use size='lg', 'sm', 'md' — causes runtime crash. The smallest size is 'xs'.",
   ],
 }
 `;
@@ -587,7 +587,7 @@ export function ButtonPage() {
       hero={
         <HeroCard
           title="Button Hub"
-          description="Primary action button with multiple variants and sizes."
+          description="Primary action button with multiple variants and sizes. Renders the \`<button>\` directly (no wrapper) unless \`tooltip\` is set; then \`wrapperClassName\` styles the wrapper. \`type\` defaults to \`"button"\`. \`className\` is merged with tailwind-merge, so \`h-*\`, \`bg-*\` or \`text-*\` overrides win. Font size scales with \`size\` (xs/tiny/mini 12px, small 13px, medium 14px, large 16px). \`ghost\` has a 2px border, \`outline\` a 1px border."
           githubButton
           getStartedButton
           docsButton="introduction"
@@ -635,13 +635,13 @@ const PlaygroundSection: React.FC = () => {
           {
         name: 'variant',
         type: 'select',
-        options: ['solid', 'ghost', 'transparent'],
+        options: ['solid', 'ghost', 'outline', 'transparent'],
         description: 'variant variant option',
       },
           {
         name: 'size',
         type: 'select',
-        options: ['large', 'medium', 'small', 'mini', 'tiny'],
+        options: ['large', 'medium', 'small', 'mini', 'tiny', 'xs'],
         description: 'size variant option',
       },
         ]}

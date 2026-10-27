@@ -10,11 +10,13 @@ export function getBestPracticesContent(): string {
 - Use named imports: \`import { Button, Input, Form } from '@e-burgos/tucu-ui'\`
 
 ### Variants
-- Button: variant="solid" | "ghost" | "transparent"
-- Button: size="large" | "medium" | "small" | "mini" | "tiny"
-- Badge: variant="solid" | "ghost" | "outline" | "soft"
+- Button: variant="solid" | "ghost" | "outline" | "transparent"
+- Button: size="large" | "medium" | "small" | "mini" | "tiny" | "xs"
+- Badge: variant="solid" | "ghost" | "outline" | "soft" | "ink" | "line", tone="primary" | "success" | "info" | "warning" | "danger" | "neutral"
 - Input/Select: variant="ghost" | "solid" | "transparent"
-- Alert: variant="info" | "warning" | "error" | "success"
+- Alert: variant="info" | "warning" | "error" | "success"; live="polite" for non-urgent status messages
+- Input/Textarea: size="xs" for dense UIs
+- Merge classes with the exported \`cn()\` (classnames + tailwind-merge); every component merges \`className\` the same way
 
 ### Routing
 - Use \`ReactRouter\` from \`@e-burgos/tucu-ui\` for all router hooks
@@ -43,7 +45,6 @@ export function getBestPracticesContent(): string {
 \`\`\`tsx
 // NEVER — These crash at runtime
 <Button variant="primary">...</Button>     // Use variant="solid" color="primary"
-<Button variant="outline">...</Button>     // Use variant="ghost"
 <Button variant="destructive">...</Button> // Use variant="solid" color="danger"
 <Button size="lg">...</Button>             // Use size="large"
 <Button size="sm">...</Button>             // Use size="small"

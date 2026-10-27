@@ -43,6 +43,7 @@
    ship them, exactly once. All are copied to dist alongside this file (see
    copyThemeCssPlugin in vite.config.ts). */
 @import './datatable.css';
+@import './swiper-vendor.css' layer(components);
 @import './carousel.css' layer(components);
 @import './scrollbar.css' layer(components);
 @import './range-slider.css' layer(components);

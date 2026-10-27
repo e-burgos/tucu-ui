@@ -52,14 +52,12 @@ describe('Component Registry', () => {
     });
   });
 
-  it('Button has correct variants (NEVER primary/outline/destructive)', () => {
+  it('Button has correct variants (NEVER primary/destructive)', () => {
     const button = getComponentByName('Button');
     expect(button).toBeDefined();
-    expect(button!.variants?.variant).toEqual(['solid', 'ghost', 'transparent']);
-    expect(button!.variants?.size).toEqual(['large', 'medium', 'small', 'mini', 'tiny']);
-    // Ensure invalid variants are NOT present
+    expect(button!.variants?.variant).toEqual(['solid', 'ghost', 'outline', 'transparent']);
+    expect(button!.variants?.size).toEqual(['large', 'medium', 'small', 'mini', 'tiny', 'xs']);
     expect(button!.variants?.variant).not.toContain('primary');
-    expect(button!.variants?.variant).not.toContain('outline');
     expect(button!.variants?.variant).not.toContain('destructive');
   });
 
