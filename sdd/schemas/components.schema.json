@@ -1,0 +1,96 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "sdd/schemas/components.schema.json",
+  "title": "SDD Components Registry (sdd/components.json)",
+  "description": "Frontend components grouped by app-key. Written by sdd-architect (status: defined), sdd-implementor-front (status: implemented) and sdd-reviewer. Entries are append/deprecate-only.",
+  "type": "object",
+  "properties": {
+    "$schema": { "type": "string" },
+    "_comment": { "type": "string" },
+    "_schema": {
+      "type": "object",
+      "description": "Legacy inline human-readable schema notes. Machine schema is this file."
+    }
+  },
+  "patternProperties": {
+    "^((apps|libs)/)?[a-z][a-z0-9-]*$": {
+      "type": "object",
+      "required": ["components"],
+      "additionalProperties": false,
+      "properties": {
+        "components": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/ComponentEntry" }
+        }
+      }
+    }
+  },
+  "additionalProperties": false,
+  "definitions": {
+    "ChangelogEntry": {
+      "type": "object",
+      "required": ["cycle", "date", "change"],
+      "additionalProperties": false,
+      "properties": {
+        "cycle": { "type": "integer", "minimum": 1 },
+        "date": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
+        "change": { "type": "string" },
+        "fix": { "type": "string", "pattern": "^FIX-[a-z0-9-]+-\\d{3}$" }
+      }
+    },
+    "ComponentEntry": {
+      "type": "object",
+      "required": [
+        "id",
+        "name",
+        "type",
+        "module",
+        "spec",
+        "path",
+        "status",
+        "created_in_cycle",
+        "updated_in_cycle",
+        "description",
+        "consumes",
+        "created_at",
+        "changelog"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^COMP-\\d{3}$",
+          "description": "Correlative per app-key."
+        },
+        "name": {
+          "type": "string",
+          "pattern": "^[A-Z][A-Za-z0-9]*$|^use[A-Z][A-Za-z0-9]*$"
+        },
+        "type": { "enum": ["page", "component", "hook", "layout"] },
+        "module": { "type": "string", "minLength": 1 },
+        "spec": { "type": "string", "pattern": "^sdd/specs/spec-[a-z0-9-]+$" },
+        "path": {
+          "type": "string",
+          "description": "Relative to the app root (without apps/[app]/)."
+        },
+        "status": {
+          "enum": ["defined", "implemented", "updated", "deprecated"]
+        },
+        "created_in_cycle": { "type": "integer", "minimum": 1 },
+        "updated_in_cycle": {
+          "oneOf": [{ "type": "integer", "minimum": 1 }, { "type": "null" }]
+        },
+        "description": { "type": "string" },
+        "consumes": {
+          "type": "array",
+          "items": { "type": "string", "pattern": "^EP-\\d{3}$" }
+        },
+        "created_at": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
+        "changelog": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/ChangelogEntry" }
+        }
+      }
+    }
+  }
+}

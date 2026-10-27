@@ -1,1 +1,1 @@
-AGENTS.md
+sdd/dual-harness/GEMINI.md

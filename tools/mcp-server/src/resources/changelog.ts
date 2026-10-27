@@ -3,7 +3,13 @@
 export function getChangelogContent(): string {
   return `# Changelog — @e-burgos/tucu-ui
 
-## v3.3.0 (Current)
+## v3.4.0 (Current)
+- Add: Next.js 16 App Router support via \`@e-burgos/tucu-ui/next\` (\`NextThemeProvider\`, ESM-only, optional peer \`next >=16\`); static export works
+- Add: navigation layer (\`useTucuNavigation\`) decoupled from react-router; \`'use client'\` directive per ESM module
+- Fix: SSR-safe hooks; DataTable no longer reads \`document\` during render
+- No breaking changes for 3.x Vite apps
+
+## v3.3.0
 - Fix: DataTable \`ManualPagination\` and \`ColumnsVisibilityManager\` strings follow \`ThemeProvider lang\` (es / es-AR render Spanish)
 - Fix: AR phone accepts the \`0054 9 11 …\` prefix like \`+54\`; \`formatPhone\` adds \`+54\` to complete landlines
 - Fix: \`validateEmail\` / \`Input type="email"\` reject > 254 chars and local part > 64; specific translated required message (es: "Ingresá un email.")

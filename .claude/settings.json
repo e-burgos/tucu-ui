@@ -20,12 +20,36 @@
             "command": "node .claude/hooks/pretooluse-guard.mjs"
           }
         ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$CLAUDE_PROJECT_DIR/sdd/scripts/rtk-hook.mjs\" claude",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "matcher": "startup|resume|clear|compact",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$CLAUDE_PROJECT_DIR/sdd/scripts/rule-zero-hook.mjs\" claude",
+            "timeout": 10
+          }
+        ]
       }
     ]
   },
   "sandbox": {
     "network": {
-      "allowedDomains": ["www.google-analytics.com"]
+      "allowedDomains": [
+        "www.google-analytics.com"
+      ]
     }
   }
 }

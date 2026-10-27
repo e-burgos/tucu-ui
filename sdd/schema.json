@@ -1,0 +1,32 @@
+{
+  "$schema": "./schemas/db-schema.schema.json",
+  "_comment": "Database schema registry. Grouped by app/lib. Updated by sdd-architect (on design) and sdd-implementor-back (on migration). Source of truth for all tables.",
+  "_schema": {
+    "_structure": "{ [app-key]: { tables: { [table_name]: TableEntry } } }",
+    "_app_keys": "Use the app directory name as key. E.g. 'example-api'. Frontend apps don't have DB tables.",
+    "_update_protocol": {
+      "create": "Set created_in_cycle: N, updated_in_cycle: null, changelog: []. Add migration_file with Flyway format V{N}__create_{table}.sql.",
+      "add_column": "Set updated_in_cycle: N, add column to columns object, add migration_file V{N}__alter_{table}_add_{col}.sql, append to changelog.",
+      "alter_column": "Set updated_in_cycle: N, update column definition, add migration file, append to changelog.",
+      "deprecate_table": "Set status: deprecated, do NOT delete entry — add to changelog with change: 'table deprecated — reason'"
+    },
+    "TableEntry": {
+      "module": "módulo SDD al que pertenece",
+      "spec": "path a la spec que lo originó",
+      "status": "defined | migrated | updated | deprecated",
+      "created_in_cycle": "número de ciclo donde se diseñó por primera vez",
+      "updated_in_cycle": "número del último ciclo que lo modificó (null si nunca se actualizó)",
+      "migration_file": "archivo Flyway más reciente que afecta esta tabla",
+      "columns": {},
+      "indexes": [],
+      "changelog": [
+        {
+          "cycle": 2,
+          "date": "YYYY-MM-DD",
+          "migration": "V2__alter_...",
+          "change": "descripción"
+        }
+      ]
+    }
+  }
+}

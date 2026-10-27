@@ -1,6 +1,8 @@
+'use client';
+
 import { useState, useEffect } from 'react';
 import cn from 'classnames';
-import { useLocation } from 'react-router-dom';
+import { useTucuNavigation } from '../../../../themes/navigation/core';
 import { IMenuItem } from '../../../layouts/menus/menu-item';
 import Logo, { LogoPropTypes } from '../../../logos/logo';
 import AnchorLink from '../../../links/anchor-link';
@@ -23,7 +25,7 @@ export function MacOSSonomaLayoutSidebar({
   className,
   onItemClick,
 }: MacOSSonomaLayoutSidebarProps) {
-  const { pathname } = useLocation();
+  const { pathname } = useTucuNavigation();
   const [expandedPaths, setExpandedPaths] = useState<Set<string>>(new Set());
 
   // Auto-expand parent items whose children match current path
@@ -110,7 +112,8 @@ export function MacOSSonomaLayoutSidebar({
           isItemActive(item.path, item.isActive) && !hasActiveDescendant;
         const parentActive = isParentActive(item);
         const itemHref = item.href ?? item.path;
-        const isParentItemActiveColor = exactParentActive || hasActiveDescendant;
+        const isParentItemActiveColor =
+          exactParentActive || hasActiveDescendant;
 
         return (
           <li key={item.path}>
@@ -127,7 +130,9 @@ export function MacOSSonomaLayoutSidebar({
                 >
                   {item.icon && (
                     <span
-                      className={getSidebarIconClassName(isParentItemActiveColor)}
+                      className={getSidebarIconClassName(
+                        isParentItemActiveColor
+                      )}
                     >
                       {item.icon}
                     </span>

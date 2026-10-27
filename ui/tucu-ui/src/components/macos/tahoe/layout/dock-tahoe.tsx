@@ -1,6 +1,8 @@
+'use client';
+
 import { useState, useRef, useEffect } from 'react';
 import cn from 'classnames';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useTucuNavigation } from '../../../../themes/navigation/core';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { IMenuItem } from '../../../layouts/menus/menu-item';
 import { matchesPath } from '../../../layouts/macos-layout/utils';
@@ -162,9 +164,7 @@ function DockItem({
         <span
           className={cn(
             'flex items-center justify-center [&>svg]:w-[20px] [&>svg]:h-[20px] transition-colors duration-150',
-            isActive
-              ? 'text-white'
-              : 'text-foreground/50!'
+            isActive ? 'text-white' : 'text-foreground/50!'
           )}
         >
           {item.icon}
@@ -209,8 +209,7 @@ interface DockPopoverItemProps {
 }
 
 function DockPopoverItem({ item, onClose }: DockPopoverItemProps) {
-  const navigate = useNavigate();
-  const { pathname } = useLocation();
+  const { pathname, navigate } = useTucuNavigation();
   const isActive = matchesPath(pathname, item.path, true);
 
   const handleClick = () => {
@@ -241,9 +240,7 @@ function DockPopoverItem({ item, onClose }: DockPopoverItemProps) {
         <span
           className={cn(
             'flex h-[16px] w-[16px] shrink-0 items-center justify-center [&>svg]:h-[16px] [&>svg]:w-[16px]',
-            isActive
-              ? 'text-brand!'
-              : 'text-foreground/50!'
+            isActive ? 'text-brand!' : 'text-foreground/50!'
           )}
         >
           {item.icon}
@@ -284,8 +281,7 @@ export function MacOSTahoeDock({
   onHide,
   className,
 }: MacOSTahoeDockProps) {
-  const { pathname } = useLocation();
-  const navigate = useNavigate();
+  const { pathname, navigate } = useTucuNavigation();
   const dockRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
   const [isVisible, setIsVisible] = useState(!autoHide);

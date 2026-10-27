@@ -1,0 +1,38 @@
+{
+  "$schema": "./schemas/global.schema.json",
+  "project": "tucu-ui",
+  "description": "Librería de componentes React + Tailwind v4 con docs y servidor MCP",
+  "version": "0.1.0",
+  "profile": "solo",
+  "completed_modules": [
+    {
+      "module": "nextjs-support",
+      "spec": "spec-e-burgos-001-nextjs-support",
+      "apps": [
+        "libs/tucu-ui",
+        "tools/mcp-server"
+      ],
+      "cycles_completed": 0,
+      "description": "NextThemeProvider en @e-burgos/tucu-ui/next sin romper 3.x Vite",
+      "completed_at": "2026-10-27"
+    }
+  ],
+  "in_progress_modules": [],
+  "pending_modules": [],
+  "monorepo": {
+    "tool": "Nx",
+    "package_manager": "pnpm",
+    "apps": {
+      "demo": "apps/demo — react, host del sitio de docs sobre la lib publicada",
+      "test-lib": "apps/test-lib — react, banco de pruebas de la lib sin publicar",
+      "next-demo": "apps/next-demo — nextjs (static export, consume el paquete compilado)"
+    },
+    "libs": {
+      "tucu-ui": "ui/tucu-ui — react library",
+      "tucu-docs": "ui/tucu-docs — react docs pages library"
+    },
+    "tools": {
+      "mcp-server": "tools/mcp-server — node MCP server"
+    }
+  }
+}

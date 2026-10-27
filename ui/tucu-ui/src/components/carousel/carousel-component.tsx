@@ -1,3 +1,5 @@
+'use client';
+
 import React, { forwardRef, useRef, useImperativeHandle, useMemo } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import {

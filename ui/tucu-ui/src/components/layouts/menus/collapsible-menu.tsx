@@ -1,10 +1,12 @@
+'use client';
+
 import { useState, useEffect } from 'react';
 import cn from 'classnames';
 import { motion } from 'framer-motion';
 import { useMeasure } from '../../../hooks';
 import ActiveLink from '../../links/active-link';
 import { ChevronDown } from '../../icons/chevron-down';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useTucuNavigation } from '../../../themes/navigation/core';
 import { IMenuItem } from './menu-item';
 
 export function CollapsibleMenu({
@@ -16,9 +18,7 @@ export function CollapsibleMenu({
   isActive,
   onClick,
 }: IMenuItem) {
-  const location = useLocation();
-  const pathname = location.pathname;
-  const navigate = useNavigate();
+  const { pathname, navigate } = useTucuNavigation();
   const [isOpen, setIsOpen] = useState(false);
   const [ref, { height }] = useMeasure<HTMLUListElement>();
   const isChildrenActive =

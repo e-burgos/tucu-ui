@@ -1,5 +1,6 @@
 import React, { Suspense } from 'react';
 import { BrowserRouter, Routes } from 'react-router-dom';
+import { ReactRouterNavigationProvider } from '../../navigation';
 import ThemeWrapper, {
   ThemeWrapperProps,
   DistributiveOmit,
@@ -30,20 +31,22 @@ const StandaloneAppProvider: React.FC<StandaloneAppProviderProps> = ({
   return (
     <Suspense fallback={<FallbackPage loadingText="Loading..." />}>
       <BrowserRouter>
-        <ThemeWrapper
-          menuItems={menuItems as IMenuItem[]}
-          {...themeProviderProps}
-        >
-          {customRoutes ? (
-            customRoutes
-          ) : (
-            <StandaloneAppRoutesProvider
-              menuItems={menuItems}
-              isAuthenticated={isAuthenticated}
-              loginUrl={loginUrl}
-            />
-          )}
-        </ThemeWrapper>
+        <ReactRouterNavigationProvider>
+          <ThemeWrapper
+            menuItems={menuItems as IMenuItem[]}
+            {...themeProviderProps}
+          >
+            {customRoutes ? (
+              customRoutes
+            ) : (
+              <StandaloneAppRoutesProvider
+                menuItems={menuItems}
+                isAuthenticated={isAuthenticated}
+                loginUrl={loginUrl}
+              />
+            )}
+          </ThemeWrapper>
+        </ReactRouterNavigationProvider>
       </BrowserRouter>
     </Suspense>
   );

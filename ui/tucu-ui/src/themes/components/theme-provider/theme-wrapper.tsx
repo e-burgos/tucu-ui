@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useMemo, useRef } from 'react';
 import { SettingsButton, SettingsDrawer } from '../settings';
 import { useTheme } from '../../hooks/use-theme';
@@ -21,7 +23,7 @@ import {
 } from '../../../components/layouts/root-layout';
 import { IMenuItem } from '../../../components/layouts/menus/menu-item';
 
-import { useLocation } from 'react-router-dom';
+import { useTucuNavigation } from '../../navigation/core';
 
 // ─── Palette Mapping ───────────────────────────────────────────
 // Maps customPaletteColor prop keys → [theme store key, custom label].
@@ -166,7 +168,7 @@ export function ThemeWrapper({
 }: ThemeWrapperProps) {
   const { mode, layout, colorScheme } = useTheme();
 
-  const { pathname } = useLocation();
+  const { pathname } = useTucuNavigation();
   const menuList = useMemo(
     () => appMenuItems.filter((item) => !item.hide),
     [appMenuItems]

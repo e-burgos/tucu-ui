@@ -1,3 +1,5 @@
+'use client';
+
 import { useState } from 'react';
 import { useTheme } from '../../hooks/use-theme';
 import type { IThemeItem } from '../../config';

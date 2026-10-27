@@ -1,4 +1,5 @@
-import { useMemo } from 'react';
+'use client';
+
 import {
   RadarChart as RechartsRadarChart,
   Radar,
@@ -13,6 +14,7 @@ import { useChartTheme } from '../hooks/use-chart-theme';
 import { ChartContainer } from '../components/chart-container';
 import { ChartTooltip } from '../components/chart-tooltip';
 import { ChartEmptyState } from '../components/chart-empty-state';
+import { usePrefersReducedMotion } from '../../../hooks/use-prefers-reduced-motion';
 
 export interface RadarChartProps {
   data: RadarDataPoint[];
@@ -39,12 +41,7 @@ export function RadarChart({
 }: RadarChartProps) {
   const theme = useChartTheme();
 
-  const prefersReducedMotion = useMemo(
-    () =>
-      typeof window !== 'undefined' &&
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches,
-    []
-  );
+  const prefersReducedMotion = usePrefersReducedMotion();
 
   if (!data.length) {
     return <ChartEmptyState message={emptyMessage} height={height} />;

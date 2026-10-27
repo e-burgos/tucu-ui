@@ -1,3 +1,5 @@
+'use client';
+
 import { useState, useRef, useCallback, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import cn from 'classnames';

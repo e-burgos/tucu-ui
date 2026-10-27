@@ -1,6 +1,8 @@
+'use client';
+
 import { useState, useEffect } from 'react';
 import cn from 'classnames';
-import { useLocation } from 'react-router-dom';
+import { useTucuNavigation } from '../../../../themes/navigation/core';
 import { IMenuItem } from '../../../layouts/menus/menu-item';
 import Logo, { LogoPropTypes } from '../../../logos/logo';
 import AnchorLink from '../../../links/anchor-link';
@@ -29,7 +31,7 @@ export function MacOSTahoeLayoutSidebar({
   onClose,
   onItemClick,
 }: MacOSTahoeLayoutSidebarProps) {
-  const { pathname } = useLocation();
+  const { pathname } = useTucuNavigation();
   const [expandedPaths, setExpandedPaths] = useState<Set<string>>(new Set());
 
   // Auto-expand parent items whose children match current path

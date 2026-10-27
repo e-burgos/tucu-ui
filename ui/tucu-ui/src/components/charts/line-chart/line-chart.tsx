@@ -1,3 +1,5 @@
+'use client';
+
 import { useMemo } from 'react';
 import {
   LineChart as RechartsLineChart,
@@ -13,6 +15,7 @@ import { useChartTheme } from '../hooks/use-chart-theme';
 import { ChartContainer } from '../components/chart-container';
 import { ChartTooltip } from '../components/chart-tooltip';
 import { ChartEmptyState } from '../components/chart-empty-state';
+import { usePrefersReducedMotion } from '../../../hooks/use-prefers-reduced-motion';
 
 export interface LineChartProps extends ChartBaseProps {
   series: ChartSeries[];
@@ -44,12 +47,7 @@ export function LineChart({
     [showDots, data.length]
   );
 
-  const prefersReducedMotion = useMemo(
-    () =>
-      typeof window !== 'undefined' &&
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches,
-    []
-  );
+  const prefersReducedMotion = usePrefersReducedMotion();
 
   if (!data.length) {
     return <ChartEmptyState message={emptyMessage} height={height} />;

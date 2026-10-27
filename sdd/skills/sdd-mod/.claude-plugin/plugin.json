@@ -1,0 +1,7 @@
+{
+  "name": "sdd-mod",
+  "version": "0.1.0",
+  "description": "SDD en Claude Code: franja con el ciclo en curso, /sdd con el detalle y el SPEC GATE aplicado a las ediciones de código.",
+  "author": { "name": "sdd-harness" },
+  "types": "./.claude-plugin/contract/index.d.ts"
+}

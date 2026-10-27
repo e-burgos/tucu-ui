@@ -1,0 +1,421 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "sdd/schemas/cycle.schema.json",
+  "title": "SDD Cycle State (sdd/specs/{spec-id}/cycles/cycle-XX/cycle.json)",
+  "description": "State of one cycle. Created by sdd-orchestrator with status in-progress; only sdd-reviewer may set status completed (after the CONTEXTO GATE).",
+  "type": "object",
+  "required": [
+    "cycle",
+    "module",
+    "spec",
+    "apps",
+    "status",
+    "started_at",
+    "completed_at",
+    "documents",
+    "artifacts",
+    "metrics",
+    "tables_created",
+    "endpoints_implemented",
+    "components_created",
+    "issues_found",
+    "reviewer_report"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "cycle": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "module": {
+      "type": "string",
+      "minLength": 1
+    },
+    "spec": {
+      "type": "string",
+      "pattern": "^spec-[a-z0-9-]+-\\d{3}-[a-z0-9-]+$"
+    },
+    "apps": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "pattern": "^(apps|libs|tools)/[a-z][a-z0-9-]*$"
+      }
+    },
+    "phase": {
+      "type": "string"
+    },
+    "flow": {
+      "enum": [
+        "full",
+        "reduced",
+        "lite"
+      ],
+      "description": "full = complete cycle (brief.yaml + functional.md + planner.md + architect.md, one role each). reduced = structural refactor without user stories (may omit functional/planner/architect). lite = single-actor cycle: plan.md replaces the four documents (profile solo or [LITE] prefix). Absent = full."
+    },
+    "objectives": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "status": {
+      "enum": [
+        "in-progress",
+        "completed"
+      ]
+    },
+    "started_at": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+    },
+    "completed_at": {
+      "oneOf": [
+        {
+          "type": "string",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "documents": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "brief": {
+          "type": "string"
+        },
+        "functional": {
+          "type": "string"
+        },
+        "planner": {
+          "type": "string"
+        },
+        "architect": {
+          "type": "string"
+        },
+        "tasks": {
+          "type": "string",
+          "description": "Path to the per-cycle tasks.json"
+        },
+        "plan": {
+          "type": "string",
+          "description": "Path to plan.md (flow: lite only): objective, stories, tasks in prose and technical decisions in one document"
+        }
+      },
+      "description": "Paths of the cycle documents that exist. flow: reduced cycles may omit functional/planner/architect; flow: lite cycles list plan.md instead of them."
+    },
+    "artifacts": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Support docs under cycle-XX/artifacts/ (files or directories), not implemented source files. Paths are relative to the cycle directory (artifacts/x) or to the repo root."
+    },
+    "metrics": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "required": [
+            "tasks_total",
+            "tasks_completed",
+            "story_points",
+            "files_created",
+            "files_modified",
+            "files_deleted"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "tasks_total": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "tasks_completed": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "tasks_skipped": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Tasks closed as skipped (resolved / not applicable), not pending. Absent is read as 0. tasks_completed + tasks_skipped must equal tasks_total in a completed cycle."
+            },
+            "story_points": {
+              "type": "number",
+              "minimum": 0
+            },
+            "files_created": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "files_modified": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "files_deleted": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "usage": {
+              "type": "object",
+              "required": [
+                "tokens_in",
+                "tokens_out"
+              ],
+              "additionalProperties": false,
+              "description": "Consolidated telemetry for the whole cycle, written by the reviewer at close. Since v0.11.0 it is a SUM, not an estimate: by_agent lists every agent unit that consumed tokens (each recorded when its unit closed) and by_tier is derived from by_agent grouped by provider_model. Mandatory in the protocol; the field stays optional in the schema so cycles closed before v0.9.0 keep validating, but the validator errors on cycles completed from 2026-09-02 without provider/model + tokens, and warns when by_agent is missing or does not sum to by_tier. With no counter (Copilot, Antigravity) record a declared estimate with approx: true and source: declared-estimate — never omit.",
+              "properties": {
+                "tokens_in": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "tokens_out": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "duration_minutes": {
+                  "type": "number",
+                  "minimum": 0
+                },
+                "approx": {
+                  "type": "boolean",
+                  "description": "true when the numbers are a declared estimate rather than a counter reading. The viewer marks these as \"estimado\". Absent is read as false (measured)."
+                },
+                "source": {
+                  "$ref": "#/definitions/usageSource"
+                },
+                "by_tier": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "description": "Derived from by_agent: tokens grouped by provider_model (claude/opus, gemini/pro, copilot/gpt-5-mini). Antigravity records under gemini/*. Bare legacy keys (haiku|sonnet|opus|fable) are still accepted and read as claude/*. sum(by_agent) must equal sum(by_tier) — the validator warns otherwise.",
+                  "propertyNames": {
+                    "pattern": "^(haiku|sonnet|opus|fable|(claude|gemini|copilot)/[a-z0-9][a-z0-9.-]*)$"
+                  },
+                  "patternProperties": {
+                    "^(haiku|sonnet|opus|fable|(claude|gemini|copilot)/[a-z0-9][a-z0-9.-]*)$": {
+                      "type": "object",
+                      "required": [
+                        "tokens_in",
+                        "tokens_out"
+                      ],
+                      "additionalProperties": false,
+                      "description": "Per-model tokens. approx/source override the parent usage values for this model, so a cycle mixing a measured provider with an estimated one stays honest.",
+                      "properties": {
+                        "tokens_in": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "tokens_out": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "approx": {
+                          "type": "boolean"
+                        },
+                        "source": {
+                          "$ref": "#/definitions/usageSource"
+                        }
+                      }
+                    }
+                  }
+                },
+                "tokens_total": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "description": "Exact total when the source reports a single number (agent-usage-notification). tokens_in/tokens_out then carry the documented default split (85/15) so the cost formula still works; the viewer shows tokens_total."
+                },
+                "by_agent": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/agentUsage"
+                  },
+                  "description": "One entry per agent unit of work (a task, the functional/planner/architect documents, the review itself, coordination). Whoever executes records; the reviewer only appends its own entry and sums. Source of truth for by_tier."
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "tables_created": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "endpoints_implemented": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^EP-\\d{3}$"
+      }
+    },
+    "components_created": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^COMP-\\d{3}$"
+      }
+    },
+    "issues_found": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "reviewer_report": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "required": [
+            "approved",
+            "date",
+            "ca_results",
+            "tests",
+            "notes"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "approved": {
+              "type": "boolean"
+            },
+            "date": {
+              "type": "string",
+              "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+            },
+            "ca_results": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            },
+            "tests": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            },
+            "notes": {
+              "type": "string"
+            },
+            "follow_ups": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "definitions": {
+    "usageSource": {
+      "type": "string",
+      "enum": [
+        "session-report",
+        "stats-command",
+        "api-usage",
+        "agent-usage-notification",
+        "declared-estimate"
+      ],
+      "description": "Where the number came from. session-report: the harness session usage report (Claude Code main loop). stats-command: /stats (Gemini CLI). api-usage: usage returned by the model API. agent-usage-notification: the exact per-subagent count the harness reports to the parent when a subagent finishes (Claude Code Agent tool: <usage><subagent_tokens>N</subagent_tokens>…</usage>) — exact, approx: false. declared-estimate: the agent declared an order-of-magnitude estimate because the harness exposes no counter (Copilot, Antigravity, Gemini CLI subagents) — MUST pair with approx: true."
+    },
+    "agentUsage": {
+      "type": "object",
+      "required": [
+        "agent",
+        "provider_model",
+        "tokens_in",
+        "tokens_out",
+        "approx",
+        "source"
+      ],
+      "additionalProperties": false,
+      "description": "Consumption of ONE agent's unit of work, written by that agent when it closes the unit (or by the orchestrator/reviewer when it receives the harness usage notification for a subagent). Mandatory since v0.11.0 for every unit that consumed tokens.",
+      "properties": {
+        "agent": {
+          "type": "string",
+          "enum": [
+            "functional",
+            "planner",
+            "architect",
+            "implementor-back",
+            "implementor-front",
+            "reviewer",
+            "orchestrator",
+            "steward",
+            "hermes",
+            "custom"
+          ],
+          "description": "SDD role that did the work. custom = any other agent; name it in label."
+        },
+        "label": {
+          "type": "string",
+          "description": "Free label when agent is custom, or to tell two runs of the same role apart (e.g. TASK-003)."
+        },
+        "provider_model": {
+          "type": "string",
+          "pattern": "^(haiku|sonnet|opus|fable|(claude|gemini|copilot)/[a-z0-9][a-z0-9.-]*)$",
+          "description": "Provider-namespaced model actually used: claude/sonnet, gemini/pro, copilot/claude-sonnet. Antigravity records under gemini/*."
+        },
+        "effort": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]*$",
+          "description": "Effort / thinking level declared BEFORE executing (Claude: low|medium|high|xhigh|max; Gemini: minimal|low|medium|high; none when the harness exposes no control)."
+        },
+        "tokens_in": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "tokens_out": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "tokens_total": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Exact total when the source reports a single number (agent-usage-notification). tokens_in/tokens_out then carry the documented default split (85/15) so the cost formula still works; the viewer shows tokens_total."
+        },
+        "approx": {
+          "type": "boolean",
+          "description": "true when tokens are a declared estimate rather than a counter reading."
+        },
+        "source": {
+          "$ref": "#/definitions/usageSource"
+        },
+        "recorded_at": {
+          "type": "string",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}(T[0-9:.]+Z?)?$",
+          "description": "When the unit closed (date or ISO datetime)."
+        },
+        "duration_minutes": {
+          "type": "number",
+          "minimum": 0
+        },
+        "tool_uses": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "tool_uses from the usage notification, when available."
+        }
+      }
+    }
+  }
+}

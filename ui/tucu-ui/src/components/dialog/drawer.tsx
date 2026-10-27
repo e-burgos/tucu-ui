@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import { DrawerContainer } from './drawer-container';
 import { Sidebar } from './sidebar';

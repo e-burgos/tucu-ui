@@ -1,5 +1,7 @@
+'use client';
+
 import { useCallback, useMemo } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useTucuNavigation } from '../../themes/navigation/core';
 
 export interface UseTabParamOptions<T extends string> {
   /** Allowed tab values, in order. */
@@ -32,7 +34,7 @@ export function useTabParam<T extends string>({
   defaultValue,
   replace = false,
 }: UseTabParamOptions<T>): [T, (value: T) => void] {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const { searchParams, setSearchParams } = useTucuNavigation();
   const fallback = (defaultValue ?? values[0]) as T;
   const current = searchParams.get(param);
 

@@ -1,0 +1,34 @@
+{
+  "$schema": "./schemas/components.schema.json",
+  "_comment": "Frontend component registry. Grouped by app. Updated by sdd-architect (status: defined) and sdd-implementor-front (status: implemented | updated). Source of truth for all React components.",
+  "_schema": {
+    "_structure": "{ [app-key]: { components: ComponentEntry[] } }",
+    "_app_keys": "Use the app directory name as key. E.g. 'apps/example-app'. API apps don't have React components.",
+    "_update_protocol": {
+      "create": "Set created_in_cycle: N, updated_in_cycle: null, changelog: []. Status: defined (architect) → implemented (implementor-front).",
+      "update": "Set updated_in_cycle: N, append to changelog: { cycle: N, date: YYYY-MM-DD, change: 'what changed' }. Status → updated.",
+      "deprecate": "Set status: deprecated, append to changelog with change: 'deprecated — reason'. Do NOT delete."
+    },
+    "ComponentEntry": {
+      "id": "COMP-[NNN] — correlativo global por app",
+      "name": "Nombre del componente React (PascalCase)",
+      "type": "page | component | hook | layout",
+      "module": "módulo SDD al que pertenece",
+      "spec": "path a la spec que lo originó",
+      "path": "ruta relativa dentro del app (src/pages/...)",
+      "status": "defined | implemented | updated | deprecated",
+      "created_in_cycle": "número de ciclo donde se definió por primera vez",
+      "updated_in_cycle": "número del último ciclo que lo modificó (null si nunca se actualizó)",
+      "description": "qué hace el componente",
+      "consumes": ["EP-001"],
+      "created_at": "YYYY-MM-DD",
+      "changelog": [
+        {
+          "cycle": 2,
+          "date": "YYYY-MM-DD",
+          "change": "descripción del cambio"
+        }
+      ]
+    }
+  }
+}

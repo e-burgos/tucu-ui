@@ -4,6 +4,15 @@ All notable changes to `@e-burgos/tucu-ui-mcp` will be documented in this file.
 
 <!-- Last updated: 2026-06-02 -->
 
+## [0.10.0] - 2026-10-27
+
+### Added
+
+- `framework: "vite" | "next"` parameter (default `"vite"`) on `generate_component`, `generate_form`, `generate_page`, `generate_chart` and `generate_datatable`; `"next"` emits `'use client'` where needed, `NextThemeProvider` and `app/<route>/page.tsx` pages with client sections.
+- Next.js guide (App Router, Tailwind v4, server/client boundary) in the quickstart, routing and shell resources, the README and the `theme-setup` prompt.
+
+No breaking changes: output without `framework` is identical to 0.9.0.
+
 ## [0.9.0] - 2026-10-16
 
 ### Added

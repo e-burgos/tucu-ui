@@ -106,6 +106,24 @@ Then use that same token in your client configuration:
 
 ## Tools
 
+### Next.js mode (`framework`)
+
+Every code-generating tool (`generate_component`, `generate_form`, `generate_page`,
+`generate_chart`, `generate_datatable`) accepts an optional `framework: "vite" | "next"`
+(default `"vite"`; omitting it keeps the output byte-identical to previous versions).
+With `"next"` (Next.js 16 App Router, `@e-burgos/tucu-ui/next`):
+
+- snippets that hold state or handlers start with `'use client'`;
+- themed wrappers use `NextThemeProvider` from `@e-burgos/tucu-ui/next` instead of `ThemeProvider`;
+- `generate_page` returns `files`: an `app/<route>/page.tsx` Server Component plus an
+  `app/<route>/<route>-sections.tsx` client file when sections involve functions (form, list);
+  there are no react-router routes (`routeConfig` is empty, routes are the `app/` directory);
+- the `theme-setup` prompt takes `framework` and branches its instructions;
+- the `tucu://quickstart`, `tucu://routing` and `tucu://shell` resources include a
+  "Next.js (App Router)" section: install, peer `next >=16`, `app/layout.tsx` with
+  `NextThemeProvider`, Tailwind v4 setup, the server/client boundary rule, static export
+  and why react-router hooks and the `ReactRouter` namespace are not for Next apps.
+
 ### `list_components`
 
 List available components, optionally filtered by category.
@@ -143,7 +161,7 @@ Input: { component: string }
 Generate ready-to-use JSX with correct variants and imports.
 
 ```
-Input: { component: string, props?: Record<string, string>, withWrapper?: boolean, theme?: string }
+Input: { component: string, props?: Record<string, string>, withWrapper?: boolean, theme?: string, framework?: 'vite' | 'next' }
 ```
 
 ### `generate_form`
@@ -151,7 +169,7 @@ Input: { component: string, props?: Record<string, string>, withWrapper?: boolea
 Generate a complete form with validation (Zod + react-hook-form).
 
 ```
-Input: { pattern?: string, fields?: FieldDef[], withValidation?: boolean }
+Input: { pattern?: string, fields?: FieldDef[], withValidation?: boolean, framework?: 'vite' | 'next' }
 ```
 
 ### `generate_page`
@@ -159,7 +177,7 @@ Input: { pattern?: string, fields?: FieldDef[], withValidation?: boolean }
 Generate a page component with layout and routing configuration.
 
 ```
-Input: { name: string, layout: string, sections?: string[] }
+Input: { name: string, layout: string, sections?: string[], framework?: 'vite' | 'next' }
 ```
 
 ### `generate_chart`
@@ -167,7 +185,7 @@ Input: { name: string, layout: string, sections?: string[] }
 Generate a Recharts-based chart component with tucu-ui theming.
 
 ```
-Input: { type: string, data?: object[] }
+Input: { type: string, data?: object[], framework?: 'vite' | 'next' }
 ```
 
 ### `generate_datatable`
@@ -182,6 +200,7 @@ expandable rows (free component or nested sub-table), persisted-state versioning
 
 ```
 Input: {
+  framework?: 'vite' | 'next',
   entityName?: string,
   tableId?: string,
   columns?: Array<{ key, header?, type?, size?, sortable?, filterVariant?, exportAs? }>,

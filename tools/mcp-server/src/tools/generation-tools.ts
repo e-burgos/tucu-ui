@@ -24,6 +24,15 @@ import {
   generateImportStatement,
   toPascalCase,
 } from '../utils/code-generator.js';
+import {
+  frameworkSchema,
+  nextClientBoundaryNote,
+  nextProviderNote,
+  NEXT_THEME_PROVIDER_IMPORT,
+  USE_CLIENT_DIRECTIVE,
+  withUseClient,
+  type Framework,
+} from '../utils/next-output.js';
 
 export function registerGenerationTools(server: McpServer): void {
   // ─── Tool 1: generate_component ──────────────────────────
@@ -52,8 +61,10 @@ export function registerGenerationTools(server: McpServer): void {
             .map((p) => p.name)
             .join(', ')}`
         ),
+      framework: frameworkSchema,
     },
-    async ({ component, props, withWrapper, theme }) => {
+    async ({ component, props, withWrapper, theme, framework }) => {
+      const isNext = framework === 'next';
       const entry = getComponentByName(component);
 
       if (!entry) {
@@ -132,11 +143,16 @@ export function registerGenerationTools(server: McpServer): void {
       if (theme) {
         const preset = getPresetByName(theme);
         if (preset) {
-          jsx = `<ThemeProvider colorPreset="${theme}">\n  ${jsx}\n</ThemeProvider>`;
-          imports[0] = generateImportStatement(
-            [entry.name, 'ThemeProvider'],
-            '@e-burgos/tucu-ui'
-          );
+          if (isNext) {
+            jsx = `<NextThemeProvider colorPreset="${theme}">\n  ${jsx}\n</NextThemeProvider>`;
+            imports.push(NEXT_THEME_PROVIDER_IMPORT);
+          } else {
+            jsx = `<ThemeProvider colorPreset="${theme}">\n  ${jsx}\n</ThemeProvider>`;
+            imports[0] = generateImportStatement(
+              [entry.name, 'ThemeProvider'],
+              '@e-burgos/tucu-ui'
+            );
+          }
         } else {
           warnings.push(
             `Theme "${theme}" not found. Available: ${themePresets
@@ -149,6 +165,31 @@ export function registerGenerationTools(server: McpServer): void {
       // Add entry-level warnings
       if (entry.warnings) {
         warnings.push(...entry.warnings);
+      }
+
+      if (isNext) {
+        warnings.push(
+          `Next.js: add ${USE_CLIENT_DIRECTIVE} at the top of the file when this snippet uses state, effects or event handlers; otherwise it can stay in a Server Component.`
+        );
+        if (theme) warnings.push(nextProviderNote());
+        return {
+          content: [
+            {
+              type: 'text' as const,
+              text: JSON.stringify(
+                {
+                  code: jsx,
+                  imports,
+                  warnings,
+                  framework: 'next',
+                  clientDirective: USE_CLIENT_DIRECTIVE,
+                },
+                null,
+                2
+              ),
+            },
+          ],
+        };
       }
 
       return {
@@ -206,8 +247,16 @@ export function registerGenerationTools(server: McpServer): void {
         .describe(
           'Input variant for all fields. Default: ghost. Allowed: solid, ghost, transparent.'
         ),
+      framework: frameworkSchema,
     },
-    async ({ pattern, fields, withValidation = true, variant = 'ghost' }) => {
+    async ({
+      pattern,
+      fields,
+      withValidation = true,
+      variant = 'ghost',
+      framework,
+    }) => {
+      const isNext = framework === 'next';
       // Validate variant
       const allowedVariants = ['solid', 'ghost', 'transparent'];
       const safeVariant = allowedVariants.includes(variant) ? variant : 'ghost';
@@ -239,7 +288,9 @@ export function registerGenerationTools(server: McpServer): void {
               type: 'text' as const,
               text: JSON.stringify(
                 {
-                  componentCode: formPattern.fullExample,
+                  componentCode: isNext
+                    ? withUseClient(formPattern.fullExample)
+                    : formPattern.fullExample,
                   validationCode: formPattern.validationSchema,
                   imports: [
                     "import { Form, Input, Textarea, Select, Switch, Button } from '@e-burgos/tucu-ui';",
@@ -248,6 +299,9 @@ export function registerGenerationTools(server: McpServer): void {
                   types: formPattern.validationSchema,
                   pattern: formPattern.name,
                   description: formPattern.description,
+                  ...(isNext
+                    ? { framework: 'next', notes: [nextClientBoundaryNote()] }
+                    : {}),
                 },
                 null,
                 2
@@ -429,10 +483,13 @@ ${fieldLines.join('\n')}
             type: 'text' as const,
             text: JSON.stringify(
               {
-                componentCode,
+                componentCode: isNext ? withUseClient(componentCode) : componentCode,
                 validationCode,
                 imports,
                 types: `interface ${typeName} {\n${typeFields.join('\n')}\n}`,
+                ...(isNext
+                  ? { framework: 'next', notes: [nextClientBoundaryNote()] }
+                  : {}),
               },
               null,
               2
@@ -470,6 +527,7 @@ ${fieldLines.join('\n')}
         .enum(['standalone', 'mfe'])
         .optional()
         .describe('Architecture mode. Default: standalone.'),
+      framework: frameworkSchema,
     },
     async ({
       name,
@@ -477,6 +535,7 @@ ${fieldLines.join('\n')}
       sections,
       withRouting,
       architecture = 'standalone',
+      framework,
     }) => {
       const pageName = toPascalCase(name) + 'Page';
       const layoutDef = getLayoutByName(layout);
@@ -566,6 +625,16 @@ ${fieldLines.join('\n')}
       </Card>`);
             break;
         }
+      }
+
+      if (framework === 'next') {
+        return buildNextPageResult({
+          name,
+          pageName,
+          sections,
+          sectionCode,
+          layoutDef,
+        });
       }
 
       const importLine = generateImportStatement(
@@ -686,6 +755,7 @@ ${sectionCode.join('\n\n')}
         .boolean()
         .optional()
         .describe('Include Legend component. Default: true.'),
+      framework: frameworkSchema,
     },
     async ({
       type,
@@ -694,6 +764,7 @@ ${sectionCode.join('\n\n')}
       withTheme = true,
       withTooltip = true,
       withLegend = true,
+      framework,
     }) => {
       const { xKey, yKeys, sampleData } = dataShape;
 
@@ -859,19 +930,29 @@ export function Chart() {
   );
 }`;
 
+      const isNext = framework === 'next';
+
       return {
         content: [
           {
             type: 'text' as const,
             text: JSON.stringify(
               {
-                componentCode,
+                componentCode: isNext ? withUseClient(componentCode) : componentCode,
                 imports: [
                   `import { ${[...rechartsImports]
                     .sort()
                     .join(', ')} } from 'recharts';`,
                 ],
                 sampleData: dataStr,
+                ...(isNext
+                  ? {
+                      framework: 'next',
+                      notes: [
+                        'Recharts renders on the client: import this file from a Server Component page or keep it as the client section of the page.',
+                      ],
+                    }
+                  : {}),
               },
               null,
               2
@@ -974,6 +1055,157 @@ export function Chart() {
       };
     }
   );
+}
+
+// ─── Next.js Page Builder ───────────────────────────────────────────────────
+
+const CLIENT_SECTION_TYPES = ['form', 'list'];
+
+const SECTION_IMPORTS: Record<string, string[]> = {
+  hero: ['Card', 'Title', 'Subtitle'],
+  cards: ['Card', 'StatsCard'],
+  table: ['BasicTable', 'Card'],
+  form: ['Card', 'Form', 'Input', 'Button'],
+  chart: ['Card'],
+  list: ['ListContainer', 'Card'],
+};
+
+function collectImports(types: string[], base: string[]): string[] {
+  const set = new Set<string>(base);
+  for (const type of types) {
+    for (const item of SECTION_IMPORTS[type] ?? []) set.add(item);
+  }
+  return [...set];
+}
+
+function buildNextPageResult(input: {
+  name: string;
+  pageName: string;
+  sections: { type: string; title?: string }[];
+  sectionCode: string[];
+  layoutDef: ReturnType<typeof getLayoutByName>;
+}) {
+  const { name, pageName, sections, sectionCode, layoutDef } = input;
+  const slug = name.toLowerCase().replace(/\s+/g, '-');
+  const pagePath = `app/${slug}/page.tsx`;
+  const clientPath = `app/${slug}/${slug}-sections.tsx`;
+
+  const clientEntries: { component: string; code: string; type: string }[] = [];
+  const serverBlocks: string[] = [];
+  const serverTypes: string[] = [];
+
+  sections.forEach((section, index) => {
+    if (CLIENT_SECTION_TYPES.includes(section.type)) {
+      const component = `${pageName}${toPascalCase(section.type)}Section${index + 1}`;
+      clientEntries.push({
+        component,
+        code: sectionCode[index],
+        type: section.type,
+      });
+      serverBlocks.push(`      <${component} />`);
+    } else {
+      serverTypes.push(section.type);
+      serverBlocks.push(sectionCode[index]);
+    }
+  });
+
+  const hasHero = sections[0]?.type === 'hero';
+  const titleBlock = hasHero ? '' : `      <Title>${name}</Title>\n`;
+  const serverImportNames = collectImports(serverTypes, hasHero ? [] : ['Title']);
+  const serverImports: string[] = [];
+  if (serverImportNames.length > 0) {
+    serverImports.push(
+      generateImportStatement(serverImportNames, '@e-burgos/tucu-ui')
+    );
+  }
+  if (clientEntries.length > 0) {
+    serverImports.push(
+      `import { ${clientEntries
+        .map((e) => e.component)
+        .sort()
+        .join(', ')} } from './${slug}-sections';`
+    );
+  }
+
+  const pageCode = `${serverImports.join('\n')}
+
+export default function ${pageName}() {
+  return (
+    <div className="flex flex-col gap-6 p-6">
+${titleBlock}${serverBlocks.join('\n\n')}
+    </div>
+  );
+}`;
+
+  const files: { path: string; code: string }[] = [
+    { path: pagePath, code: pageCode },
+  ];
+  let clientCode = '';
+  if (clientEntries.length > 0) {
+    const clientImports = generateImportStatement(
+      collectImports(
+        clientEntries.map((e) => e.type),
+        []
+      ),
+      '@e-burgos/tucu-ui'
+    );
+    const components = clientEntries
+      .map(
+        (e) => `export function ${e.component}() {
+  return (
+    <>
+${e.code}
+    </>
+  );
+}`
+      )
+      .join('\n\n');
+    clientCode = `${USE_CLIENT_DIRECTIVE}\n\n${clientImports}\n\n${components}`;
+    files.push({ path: clientPath, code: clientCode });
+  }
+
+  const notes = [
+    `File-based routing: this page is served at /${slug}. Do not add react-router routes; put navigation entries in the menuItems prop of NextThemeProvider.`,
+    nextProviderNote(),
+  ];
+  if (clientEntries.length > 0) {
+    notes.push(nextClientBoundaryNote());
+  }
+
+  return {
+    content: [
+      {
+        type: 'text' as const,
+        text: JSON.stringify(
+          {
+            framework: 'next' as Framework,
+            pageCode,
+            clientCode,
+            files,
+            routeConfig: '',
+            imports: [
+              ...serverImports,
+              ...(clientEntries.length > 0
+                ? [`// Client sections: ${clientPath}`]
+                : []),
+              `// Provider: ${NEXT_THEME_PROVIDER_IMPORT}`,
+              ...(layoutDef
+                ? [
+                    `// Layout: ${layoutDef.component} - select it with the layout prop of NextThemeProvider in app/layout.tsx`,
+                  ]
+                : []),
+            ],
+            layout: layoutDef
+              ? { component: layoutDef.component, example: layoutDef.example }
+              : null,
+            notes,
+          },
+          null,
+          2
+        ),
+      },
+    ],
+  };
 }
 
 // ─── Chart Builder Helpers ──────────────────────────────────────────────────

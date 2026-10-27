@@ -1,0 +1,13 @@
+# Copy to the workspace root as `.npmrc`.
+# This workspace is pnpm-only: Nx infers the package manager from the lockfile,
+# so a stray package-lock.json / yarn.lock silently changes how tasks resolve.
+package-manager-strict=true
+
+# Workspace packages always resolve to the local sources, never the registry.
+link-workspace-packages=true
+prefer-workspace-packages=true
+save-workspace-protocol=rolling
+
+# Nx plugins and generators expect to resolve peers they do not declare directly.
+auto-install-peers=true
+strict-peer-dependencies=false

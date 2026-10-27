@@ -24,6 +24,7 @@ Librería de componentes React construida con TypeScript y Tailwind CSS v4 — l
 | ♿ **Accesibilidad** | WCAG 2.1 AA, ARIA, navegación por teclado | [A11y](https://ui.estebanburgos.com.ar/features/accessibility) |
 | 🪝 **Hooks & Utils** | useTheme, useBreakpoint y más | [Hooks](https://ui.estebanburgos.com.ar/features/hooks-utilities) |
 | 🎨 **Tailwind CSS v4** | Todas las utilidades preconfiguradas, sin setup extra | [Tailwind](https://ui.estebanburgos.com.ar/tailwind-utilities/layout-utilities) |
+| ▲ **Next.js 16** | App Router con `@e-burgos/tucu-ui/next`, `'use client'` por módulo, export estático | [Sección Next.js](#nextjs-app-router) |
 | 🤖 **MCP Server** | Integración con agentes de IA via Model Context Protocol | [MCP Server](https://ui.estebanburgos.com.ar/mcp-server) |
 
 ---
@@ -43,6 +44,54 @@ En tu archivo CSS principal:
 ```
 
 > Incluye Tailwind CSS v4 completo — no se requiere configuración adicional de Tailwind.
+
+---
+
+## Next.js (App Router)
+
+Requiere `next >=16` (peer dependency opcional) y React 19.
+
+```bash
+pnpm add @e-burgos/tucu-ui next react react-dom
+```
+
+`app/layout.tsx` — `NextThemeProvider` viene del entry `/next` y usa `next/navigation` y `next/link`; no necesitás un router propio:
+
+```tsx
+import { LucideIcons } from '@e-burgos/tucu-ui';
+import { NextThemeProvider } from '@e-burgos/tucu-ui/next';
+import './globals.css';
+
+const menuItems = [
+  { name: 'Dashboard', path: '/', icon: <LucideIcons.LayoutDashboard /> },
+  { name: 'Reportes', path: '/reports', icon: <LucideIcons.Table /> },
+];
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="es" suppressHydrationWarning>
+      <body>
+        <NextThemeProvider logo={{ name: 'Mi App' }} layout="admin" menuItems={menuItems}>
+          {children}
+        </NextThemeProvider>
+      </body>
+    </html>
+  );
+}
+```
+
+`app/globals.css` (Tailwind v4 — usá `theme`, no `styles`, y apuntá `@source` al paquete):
+
+```css
+@import 'tailwindcss';
+@import '@e-burgos/tucu-ui/theme';
+@source '../node_modules/@e-burgos/tucu-ui';
+```
+
+- **Frontera server/client:** todos los módulos de tucu-ui llevan `'use client'`, así que podés importar componentes desde Server Components. Las funciones no cruzan esa frontera: el `cell` de una columna de `DataTable`, un `onClick` o cualquier render prop tienen que vivir en un componente `'use client'` de tu app, que el Server Component luego renderiza.
+- **Export estático:** `output: 'export'` funciona; el shell se prerenderiza.
+- **Solo Vite:** el namespace de `react-router` y los hooks de ruteo (`ThemeProvider` con router propio, `RouterProvider`, helpers de rutas) son para apps Vite. En Next el ruteo lo da el sistema de archivos del App Router.
+- Un ejemplo completo está en [`apps/next-demo`](apps/next-demo).
 
 ---
 

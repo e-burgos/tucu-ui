@@ -1,3 +1,5 @@
+'use client';
+
 import { ReactNode, useState, useCallback, useRef } from 'react';
 import cn from 'classnames';
 import { useTheme } from '../../themes';

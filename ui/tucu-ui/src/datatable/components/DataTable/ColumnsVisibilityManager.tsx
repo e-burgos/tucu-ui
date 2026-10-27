@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState } from 'react';
 import { useDataTableContext } from '../../context/index';
 import Drawer from '../../../components/dialog/drawer';

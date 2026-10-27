@@ -1,3 +1,5 @@
+'use client';
+
 import { useCallback, useState } from 'react';
 
 export type CopyToClipboardState = {
@@ -48,7 +50,8 @@ export function useCopyToClipboard(): [
 
     if (navigator.clipboard && window.isSecureContext) {
       navigator.clipboard.writeText(text).then(
-        () => setState({ value: text, error: undefined, noUserInteraction: false }),
+        () =>
+          setState({ value: text, error: undefined, noUserInteraction: false }),
         (error: Error) =>
           setState({ value: text, error, noUserInteraction: false })
       );

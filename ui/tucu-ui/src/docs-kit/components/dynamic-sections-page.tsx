@@ -1,5 +1,7 @@
+'use client';
+
 import React, { Suspense, useMemo, useCallback } from 'react';
-import { useParams, useNavigate, useLocation } from 'react-router-dom';
+import { useTucuNavigation, useTucuParams } from '../../themes/navigation/core';
 import {
   Skeleton,
   Typography,
@@ -48,9 +50,8 @@ export interface DynamicSectionsPageProps {
  * (which appends /* to the route path).
  */
 export function useDynamicSection(sectionIds: string[]) {
-  const location = useLocation();
-  const navigate = useNavigate();
-  const { '*': wildcard } = useParams();
+  const { pathname, navigate } = useTucuNavigation();
+  const wildcard = useTucuParams()['*'];
 
   const sectionId = useMemo(() => {
     const id = wildcard?.replace(/^\/+|\/+$/g, '') || '';
@@ -59,10 +60,10 @@ export function useDynamicSection(sectionIds: string[]) {
 
   const basePath = useMemo(() => {
     if (sectionId) {
-      return location.pathname.slice(0, -(sectionId.length + 1));
+      return pathname.slice(0, -(sectionId.length + 1));
     }
-    return location.pathname.replace(/\/+$/, '');
-  }, [location.pathname, sectionId]);
+    return pathname.replace(/\/+$/, '');
+  }, [pathname, sectionId]);
 
   const navigateToSection = useCallback(
     (id: string) => {

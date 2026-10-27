@@ -1,3 +1,5 @@
+'use client';
+
 import React, { Suspense, useState, useEffect, useRef } from 'react';
 import { Skeleton } from '../../index';
 

@@ -1,3 +1,5 @@
+'use client';
+
 import cn from 'classnames';
 import { ChevronForward } from '../icons/chevron-forward';
 import AnchorLink from '../links/anchor-link';

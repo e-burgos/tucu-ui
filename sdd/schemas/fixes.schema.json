@@ -1,0 +1,359 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "sdd/schemas/fixes.schema.json",
+  "title": "SDD Fix Registry (sdd/fixes.json)",
+  "description": "Registry of changes made outside the normal SDD flow (FIX GATE). Created by sdd-orchestrator, closed by the developer, validated/absorbed by sdd-reviewer at cycle close. Replaces the former sdd/schema-fixes.json.",
+  "type": "object",
+  "required": [
+    "fixes"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "_description": {
+      "type": "string"
+    },
+    "_version": {
+      "type": "string"
+    },
+    "_convention": {
+      "type": "string"
+    },
+    "_keywords": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "fixes": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/FixEntry"
+      }
+    }
+  },
+  "definitions": {
+    "usageSource": {
+      "type": "string",
+      "enum": [
+        "session-report",
+        "stats-command",
+        "api-usage",
+        "agent-usage-notification",
+        "declared-estimate"
+      ],
+      "description": "Where the number came from. session-report: the harness session usage report (Claude Code main loop). stats-command: /stats (Gemini CLI). api-usage: usage returned by the model API. agent-usage-notification: the exact per-subagent count the harness reports to the parent when a subagent finishes (Claude Code Agent tool: <usage><subagent_tokens>N</subagent_tokens>…</usage>) — exact, approx: false. declared-estimate: the agent declared an order-of-magnitude estimate because the harness exposes no counter (Copilot, Antigravity, Gemini CLI subagents) — MUST pair with approx: true."
+    },
+    "FixEntry": {
+      "type": "object",
+      "required": [
+        "id",
+        "author",
+        "spec_id",
+        "fix_document",
+        "type",
+        "severity",
+        "created_at",
+        "resolved_at",
+        "title",
+        "estimation_hours",
+        "description",
+        "justification",
+        "related_modules",
+        "affected_files",
+        "test_reference",
+        "status",
+        "cycle"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^FIX-[a-z0-9-]+-\\d{3}$",
+          "description": "FIX-[gh-user]-[seq] (repo-level) or FIX-[gh-user]-[spec-NNN]-[seq] (spec-scoped)."
+        },
+        "author": {
+          "type": "string",
+          "minLength": 1
+        },
+        "spec_id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "pattern": "^spec-[a-z0-9-]+-\\d{3}-[a-z0-9-]+$"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "null for repo-level fixes."
+        },
+        "fix_document": {
+          "type": "string",
+          "pattern": "^sdd/(fixes|specs/spec-[a-z0-9-]+/fixes)/fix-[a-z0-9-]+\\.md$"
+        },
+        "type": {
+          "enum": [
+            "HOTFIX",
+            "BUGFIX",
+            "FIX",
+            "IMPROVEMENT"
+          ]
+        },
+        "severity": {
+          "enum": [
+            "critical",
+            "high",
+            "medium",
+            "low"
+          ]
+        },
+        "created_at": {
+          "type": "string",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+        },
+        "resolved_at": {
+          "oneOf": [
+            {
+              "type": "string",
+              "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "validated_at": {
+          "oneOf": [
+            {
+              "type": "string",
+              "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "title": {
+          "type": "string",
+          "maxLength": 120
+        },
+        "estimation_hours": {
+          "type": "number",
+          "minimum": 0
+        },
+        "description": {
+          "type": "string"
+        },
+        "justification": {
+          "type": "string"
+        },
+        "related_modules": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "affected_files": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "test_reference": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "status": {
+          "enum": [
+            "pending",
+            "in-progress",
+            "implemented",
+            "validated",
+            "absorbed"
+          ],
+          "description": "pending → in-progress → implemented (dev) → validated | absorbed (sdd-reviewer at cycle close)."
+        },
+        "cycle": {
+          "oneOf": [
+            {
+              "type": "string",
+              "pattern": "^cycle-\\d{2}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "usage": {
+          "type": "object",
+          "required": [
+            "tokens_in",
+            "tokens_out"
+          ],
+          "additionalProperties": false,
+          "description": "Telemetry for this fix, recorded by whoever resolves it at resolution (the FIX GATE does not close a fix without it). Since v0.11.0 provider_model, tokens_in, tokens_out, approx and source are mandatory in the protocol; the validator errors on fixes resolved from 2026-09-02 that lack them. When several agents executed the fix, list each in by_agent and keep the top-level numbers as the sum. An honest approximation is fine (approx: true, source: declared-estimate); a made-up precise number is not.",
+          "properties": {
+            "provider_model": {
+              "type": "string",
+              "pattern": "^(haiku|sonnet|opus|fable|(claude|gemini|copilot)/[a-z0-9][a-z0-9.-]*)$",
+              "description": "Provider-namespaced model actually used (claude/sonnet, gemini/flash, copilot/gpt-5-mini). Mandatory since v0.11.0 (the validator errors on units closed from that date without it); model_tier is the pre-0.11 name and is still read as an alias."
+            },
+            "model_tier": {
+              "type": "string",
+              "pattern": "^(haiku|sonnet|opus|fable|(claude|gemini|copilot)/[a-z0-9][a-z0-9.-]*)$",
+              "description": "Legacy alias of provider_model (kits before v0.11.0). Prefer provider_model. Bare legacy values (haiku|sonnet|opus|fable) are read as claude/*."
+            },
+            "effort": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9-]*$",
+              "description": "Effort / thinking level declared BEFORE executing (Claude: low|medium|high|xhigh|max; Gemini: minimal|low|medium|high; none when the harness exposes no control)."
+            },
+            "agent": {
+              "type": "string",
+              "enum": [
+                "functional",
+                "planner",
+                "architect",
+                "implementor-back",
+                "implementor-front",
+                "reviewer",
+                "orchestrator",
+                "steward",
+                "hermes",
+                "custom"
+              ],
+              "description": "SDD role that executed this fix."
+            },
+            "tokens_in": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "tokens_out": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "tokens_total": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Exact total when the source reports a single number (agent-usage-notification). tokens_in/tokens_out then carry the documented default split (85/15) so the cost formula still works; the viewer shows tokens_total."
+            },
+            "duration_minutes": {
+              "type": "number",
+              "minimum": 0
+            },
+            "approx": {
+              "type": "boolean",
+              "description": "true when the numbers are a declared estimate rather than a counter reading. Mandatory (explicit) since v0.11.0; absent is read as false (measured) for older records."
+            },
+            "source": {
+              "$ref": "#/definitions/usageSource"
+            },
+            "recorded_at": {
+              "type": "string",
+              "pattern": "^\\d{4}-\\d{2}-\\d{2}(T[0-9:.]+Z?)?$",
+              "description": "When the unit closed (date or ISO datetime)."
+            },
+            "by_agent": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/agentUsage"
+              },
+              "description": "Per-agent breakdown when more than one agent worked on the fix. Top-level tokens must be their sum."
+            }
+          }
+        },
+        "process_note": {
+          "type": "string"
+        }
+      }
+    },
+    "agentUsage": {
+      "type": "object",
+      "required": [
+        "agent",
+        "provider_model",
+        "tokens_in",
+        "tokens_out",
+        "approx",
+        "source"
+      ],
+      "additionalProperties": false,
+      "description": "Consumption of ONE agent's unit of work, written by that agent when it closes the unit (or by the orchestrator/reviewer when it receives the harness usage notification for a subagent). Mandatory since v0.11.0 for every unit that consumed tokens.",
+      "properties": {
+        "agent": {
+          "type": "string",
+          "enum": [
+            "functional",
+            "planner",
+            "architect",
+            "implementor-back",
+            "implementor-front",
+            "reviewer",
+            "orchestrator",
+            "steward",
+            "hermes",
+            "custom"
+          ],
+          "description": "SDD role that did the work. custom = any other agent; name it in label."
+        },
+        "label": {
+          "type": "string",
+          "description": "Free label when agent is custom, or to tell two runs of the same role apart (e.g. TASK-003)."
+        },
+        "provider_model": {
+          "type": "string",
+          "pattern": "^(haiku|sonnet|opus|fable|(claude|gemini|copilot)/[a-z0-9][a-z0-9.-]*)$",
+          "description": "Provider-namespaced model actually used: claude/sonnet, gemini/pro, copilot/claude-sonnet. Antigravity records under gemini/*."
+        },
+        "effort": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]*$",
+          "description": "Effort / thinking level declared BEFORE executing (Claude: low|medium|high|xhigh|max; Gemini: minimal|low|medium|high; none when the harness exposes no control)."
+        },
+        "tokens_in": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "tokens_out": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "tokens_total": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Exact total when the source reports a single number (agent-usage-notification). tokens_in/tokens_out then carry the documented default split (85/15) so the cost formula still works; the viewer shows tokens_total."
+        },
+        "approx": {
+          "type": "boolean",
+          "description": "true when tokens are a declared estimate rather than a counter reading."
+        },
+        "source": {
+          "$ref": "#/definitions/usageSource"
+        },
+        "recorded_at": {
+          "type": "string",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}(T[0-9:.]+Z?)?$",
+          "description": "When the unit closed (date or ISO datetime)."
+        },
+        "duration_minutes": {
+          "type": "number",
+          "minimum": 0
+        },
+        "tool_uses": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "tool_uses from the usage notification, when available."
+        }
+      }
+    }
+  }
+}

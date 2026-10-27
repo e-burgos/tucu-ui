@@ -1,0 +1,174 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "sdd/schemas/api.schema.json",
+  "title": "SDD API Registry (sdd/api.json)",
+  "description": "Endpoint contracts grouped by app-key. Written by sdd-architect (status: defined), sdd-implementor-back (status: implemented) and sdd-reviewer. Entries are append/deprecate-only.",
+  "type": "object",
+  "required": [],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "_comment": {
+      "type": "string"
+    },
+    "_schema": {
+      "type": "object",
+      "description": "Legacy inline human-readable schema notes. Machine schema is this file."
+    }
+  },
+  "patternProperties": {
+    "^((apps|libs)/)?[a-z][a-z0-9-]*$": {
+      "type": "object",
+      "required": ["endpoints"],
+      "additionalProperties": false,
+      "properties": {
+        "endpoints": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/EndpointEntry"
+          }
+        }
+      }
+    }
+  },
+  "additionalProperties": false,
+  "definitions": {
+    "ChangelogEntry": {
+      "type": "object",
+      "required": ["date", "change"],
+      "additionalProperties": false,
+      "properties": {
+        "cycle": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "date": {
+          "type": "string",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+        },
+        "change": {
+          "type": "string"
+        },
+        "fix": {
+          "type": "string",
+          "pattern": "^FIX-[a-z0-9-]+-\\d{3}$"
+        }
+      }
+    },
+    "EndpointEntry": {
+      "type": "object",
+      "required": [
+        "id",
+        "method",
+        "path",
+        "module",
+        "spec",
+        "status",
+        "created_in_cycle",
+        "updated_in_cycle",
+        "description",
+        "path_params",
+        "required_headers",
+        "request_body",
+        "responses",
+        "changelog"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^EP-\\d{3}$",
+          "description": "Correlative per app-key, never global."
+        },
+        "method": {
+          "enum": ["GET", "POST", "PUT", "PATCH", "DELETE"]
+        },
+        "path": {
+          "type": "string",
+          "pattern": "^/"
+        },
+        "module": {
+          "type": "string",
+          "minLength": 1
+        },
+        "spec": {
+          "type": "string",
+          "pattern": "^sdd/specs/spec-[a-z0-9-]+$"
+        },
+        "status": {
+          "enum": ["defined", "implemented", "updated", "deprecated"]
+        },
+        "created_in_cycle": {
+          "oneOf": [
+            {
+              "type": "integer",
+              "minimum": 1
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "null when the endpoint was registered via FIX GATE (see created_in_fix)."
+        },
+        "updated_in_cycle": {
+          "oneOf": [
+            {
+              "type": "integer",
+              "minimum": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "created_in_fix": {
+          "type": "string",
+          "pattern": "^FIX-[a-z0-9-]+-\\d{3}$"
+        },
+        "registered_in_fix": {
+          "type": "string",
+          "pattern": "^FIX-[a-z0-9-]+-\\d{3}$"
+        },
+        "description": {
+          "type": "string"
+        },
+        "path_params": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "required_headers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "query_params": {
+          "type": "object",
+          "additionalProperties": { "type": "string" },
+          "description": "Optional. Map of query param name -> human-readable description."
+        },
+        "request_body": {
+          "type": "object"
+        },
+        "responses": {
+          "type": "object",
+          "additionalProperties": false,
+          "patternProperties": {
+            "^\\d{3}$": {
+              "type": "string"
+            }
+          }
+        },
+        "changelog": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ChangelogEntry"
+          }
+        }
+      }
+    }
+  }
+}

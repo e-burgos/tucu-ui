@@ -1,3 +1,5 @@
+'use client';
+
 import Avatar from '../common/avatar';
 
 type AuthorCardProps = {

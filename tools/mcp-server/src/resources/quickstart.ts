@@ -1,4 +1,6 @@
 // ─── Resource: Quick Start ───────────────────────────────────────────────────
+import { getNextQuickstartSection } from './next-guide.js';
+
 
 export function getQuickStartContent(): string {
   return `# Quick Start — @e-burgos/tucu-ui
@@ -193,5 +195,5 @@ src/
 ├── components/       ← Shared components
 └── main.tsx          ← Entry point
 \`\`\`
-`;
+` + getNextQuickstartSection();
 }

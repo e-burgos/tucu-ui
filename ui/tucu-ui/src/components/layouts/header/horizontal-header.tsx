@@ -1,3 +1,5 @@
+'use client';
+
 import Logo, { LogoPropTypes } from '../../logos/logo';
 import cn from 'classnames';
 import { useBreakpoint, useIsMounted, useWindowScroll } from '../../../hooks';

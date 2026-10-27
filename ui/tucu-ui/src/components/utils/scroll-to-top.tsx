@@ -1,6 +1,8 @@
+'use client';
+
 import { useEffect, useState, useCallback, useRef } from 'react';
 import { createPortal } from 'react-dom';
-import { useLocation } from 'react-router-dom';
+import { useTucuNavigation } from '../../themes/navigation/core';
 import cn from 'classnames';
 import { ArrowUp } from '../icons/arrow-up';
 
@@ -64,7 +66,7 @@ export function ScrollToTop({
   behavior = 'smooth',
   scrollContainer,
 }: ScrollToTopProps = {}) {
-  const { pathname } = useLocation();
+  const { pathname } = useTucuNavigation();
   const [show, setShow] = useState(false);
   const [mounted, setMounted] = useState(false);
   const rafRef = useRef<number>(0);

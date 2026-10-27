@@ -1,3 +1,5 @@
+'use client';
+
 import cn from 'classnames';
 import { IToast } from '../../../../hooks/use-toast-store';
 import { useToastQueue } from '../../../notifications/use-toast-queue';

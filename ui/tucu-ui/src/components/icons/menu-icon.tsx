@@ -1,3 +1,5 @@
+'use client';
+
 import Image from '../utils/image';
 import { useIsMounted } from '../../hooks/use-is-mounted';
 import lightLogo from '../../assets/images/menu.svg';

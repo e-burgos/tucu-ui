@@ -1,0 +1,247 @@
+{
+  "$schema": "../../../../schemas/cycle-tasks.schema.json",
+  "spec": "spec-e-burgos-001-nextjs-support",
+  "cycle": 1,
+  "module": "nextjs-support",
+  "apps": [
+    "libs/tucu-ui",
+    "tools/mcp-server",
+    "apps/next-demo"
+  ],
+  "flow": "lite",
+  "user_stories_generated": true,
+  "prerequisites": {
+    "tasks_generated": true
+  },
+  "tasks": [
+    {
+      "id": "TASK-001",
+      "title": "Capa de navegación TucuNavigation + useTucuNavigation y migración de los 27 módulos que importan react-router-dom",
+      "user_stories": [
+        "US-001",
+        "US-002"
+      ],
+      "estimation_hours": 8,
+      "story_points": 8,
+      "depends_on": [],
+      "status": "done",
+      "files": [
+        "ui/tucu-ui/src/components/layouts/header/admin-header.tsx",
+        "ui/tucu-ui/src/components/layouts/header/header.tsx",
+        "ui/tucu-ui/src/components/layouts/macos-layout/macos-sonoma-layout.tsx",
+        "ui/tucu-ui/src/components/layouts/macos-layout/macos-sonoma-navbar-layout.tsx",
+        "ui/tucu-ui/src/components/layouts/macos-layout/macos-tahoe-dock-layout.tsx",
+        "ui/tucu-ui/src/components/layouts/macos-layout/macos-tahoe-layout.tsx",
+        "ui/tucu-ui/src/components/layouts/macos-layout/macos-tahoe-navbar-layout.tsx",
+        "ui/tucu-ui/src/components/layouts/menus/collapsible-menu.tsx",
+        "ui/tucu-ui/src/components/layouts/menus/expandable-sidebar.tsx",
+        "ui/tucu-ui/src/components/layouts/menus/horizontal-nav-menu.tsx",
+        "ui/tucu-ui/src/components/layouts/menus/menu-item.tsx",
+        "ui/tucu-ui/src/components/links/active-link.tsx",
+        "ui/tucu-ui/src/components/links/anchor-link.tsx",
+        "ui/tucu-ui/src/components/macos/sonoma/layout/layout-sidebar-sonoma.tsx",
+        "ui/tucu-ui/src/components/macos/tahoe/layout/dock-tahoe.tsx",
+        "ui/tucu-ui/src/components/macos/tahoe/layout/layout-sidebar-tahoe.tsx",
+        "ui/tucu-ui/src/components/tabs/param-tab.tsx",
+        "ui/tucu-ui/src/components/tabs/use-tab-param.ts",
+        "ui/tucu-ui/src/components/utils/scroll-to-top.tsx",
+        "ui/tucu-ui/src/docs-kit/components/dynamic-sections-page.tsx",
+        "ui/tucu-ui/src/hooks/use-scrollable-slider.ts",
+        "ui/tucu-ui/src/themes/components/theme-provider/mfe-app-theme-provider.tsx",
+        "ui/tucu-ui/src/themes/components/theme-provider/standalone-app-theme-provider.tsx",
+        "ui/tucu-ui/src/themes/components/theme-provider/theme-wrapper.tsx",
+        "ui/tucu-ui/src/themes/index.ts",
+        "ui/tucu-ui/src/__tests__/navigation/",
+        "ui/tucu-ui/src/themes/navigation/"
+      ],
+      "usage": {
+        "tokens_in": 116986,
+        "tokens_out": 20644,
+        "provider_model": "claude/sonnet",
+        "effort": "medium",
+        "agent": "implementor-front",
+        "approx": true,
+        "source": "agent-usage-notification",
+        "recorded_at": "2026-10-27"
+      }
+    },
+    {
+      "id": "TASK-002",
+      "title": "\"use client\" por módulo en el build ESM y auditoría SSR/hidratación (window, document, localStorage, matchMedia, store de tema)",
+      "user_stories": [
+        "US-001",
+        "US-003"
+      ],
+      "estimation_hours": 6,
+      "story_points": 5,
+      "depends_on": [
+        "TASK-001"
+      ],
+      "status": "done",
+      "files": [
+        "ui/tucu-ui/scripts/use-client-candidates.mjs",
+        "ui/tucu-ui/scripts/preserve-use-client-plugin.mjs",
+        "ui/tucu-ui/scripts/check-use-client.mjs",
+        "ui/tucu-ui/vite.config.mts",
+        "ui/tucu-ui/project.json",
+        "ui/tucu-ui/src/hooks/use-breakpoint.ts",
+        "ui/tucu-ui/src/hooks/use-window-scroll.ts",
+        "ui/tucu-ui/src/hooks/use-prefers-reduced-motion.ts",
+        "ui/tucu-ui/src/themes/router/resolve-base-path.ts",
+        "ui/tucu-ui/src/__tests__/setup.ts",
+        "ui/tucu-ui/src/__tests__/ssr/server-render.test.tsx",
+        "ui/tucu-ui/src/"
+      ],
+      "usage": {
+        "tokens_in": 141779,
+        "tokens_out": 25020,
+        "provider_model": "claude/sonnet",
+        "effort": "medium",
+        "agent": "implementor-front",
+        "approx": true,
+        "source": "agent-usage-notification",
+        "recorded_at": "2026-10-27"
+      }
+    },
+    {
+      "id": "TASK-003",
+      "title": "Entry ./next solo ESM con NextThemeProvider (next/navigation + next/link), exports y peer opcional next >=16",
+      "user_stories": [
+        "US-002"
+      ],
+      "estimation_hours": 5,
+      "story_points": 5,
+      "depends_on": [
+        "TASK-001",
+        "TASK-002"
+      ],
+      "status": "done",
+      "files": [
+        "ui/tucu-ui/src/next/",
+        "ui/tucu-ui/src/themes/navigation/",
+        "ui/tucu-ui/src/__tests__/next/next-theme-provider.test.tsx",
+        "ui/tucu-ui/scripts/check-entry-isolation.mjs",
+        "ui/tucu-ui/scripts/external-packages.mjs",
+        "ui/tucu-ui/vite.config.next.mts",
+        "ui/tucu-ui/vite.config.mts",
+        "ui/tucu-ui/types/next-entry.d.ts",
+        "ui/tucu-ui/package.json",
+        "ui/tucu-ui/project.json",
+        "pnpm-lock.yaml"
+      ],
+      "usage": {
+        "tokens_in": 147709,
+        "tokens_out": 26066,
+        "provider_model": "claude/sonnet",
+        "effort": "medium",
+        "agent": "implementor-front",
+        "approx": true,
+        "source": "agent-usage-notification",
+        "recorded_at": "2026-10-27"
+      }
+    },
+    {
+      "id": "TASK-004",
+      "title": "App de prueba apps/next-demo: Next 16.4.3 App Router, output export, Tailwind v4 + theme, AdminLayout, form, DataTable y chart",
+      "user_stories": [
+        "US-002",
+        "US-003"
+      ],
+      "estimation_hours": 5,
+      "story_points": 5,
+      "depends_on": [
+        "TASK-003"
+      ],
+      "status": "done",
+      "files": [
+        "apps/next-demo/",
+        "ui/tucu-ui/src/datatable/hooks/useComponentEventListener.tsx",
+        "pnpm-lock.yaml"
+      ],
+      "usage": {
+        "tokens_in": 138426,
+        "tokens_out": 24428,
+        "provider_model": "claude/sonnet",
+        "effort": "medium",
+        "agent": "implementor-front",
+        "approx": true,
+        "source": "agent-usage-notification",
+        "recorded_at": "2026-10-27"
+      }
+    },
+    {
+      "id": "TASK-005",
+      "title": "MCP en modo Next: parámetro framework en tools generadoras, resources quickstart/routing/shell y prompt theme-setup",
+      "user_stories": [
+        "US-004"
+      ],
+      "estimation_hours": 4,
+      "story_points": 3,
+      "depends_on": [
+        "TASK-003"
+      ],
+      "status": "done",
+      "files": [
+        "tools/mcp-server/src/utils/next-output.ts",
+        "tools/mcp-server/src/resources/next-guide.ts",
+        "tools/mcp-server/src/tools/generation-tools.ts",
+        "tools/mcp-server/src/tools/datatable-tools.ts",
+        "tools/mcp-server/src/resources/quickstart.ts",
+        "tools/mcp-server/src/resources/routing.ts",
+        "tools/mcp-server/src/resources/shell.ts",
+        "tools/mcp-server/src/prompts/theme-setup.ts",
+        "tools/mcp-server/src/prompts/index.ts",
+        "tools/mcp-server/README.md",
+        "tools/mcp-server/tests/framework-parity.test.ts",
+        "tools/mcp-server/tests/framework-next.test.ts",
+        "tools/mcp-server/tests/__snapshots__/"
+      ],
+      "usage": {
+        "tokens_in": 119231,
+        "tokens_out": 21041,
+        "provider_model": "claude/sonnet",
+        "effort": "medium",
+        "agent": "implementor-back",
+        "approx": true,
+        "source": "agent-usage-notification",
+        "recorded_at": "2026-10-27"
+      }
+    },
+    {
+      "id": "TASK-006",
+      "title": "Docs y release: README es/en, docs site, CHANGELOG, tucu-ui 3.4.0 y MCP 0.10.0; run-many lint test build y examples/standalone contra pnpm pack",
+      "user_stories": [
+        "US-001",
+        "US-002",
+        "US-004"
+      ],
+      "estimation_hours": 3,
+      "story_points": 2,
+      "depends_on": [
+        "TASK-004",
+        "TASK-005"
+      ],
+      "status": "done",
+      "files": [
+        "ui/tucu-ui/package.json",
+        "ui/tucu-ui/CHANGELOG.md",
+        "tools/mcp-server/package.json",
+        "tools/mcp-server/CHANGELOG.md",
+        "tools/mcp-server/src/resources/changelog.ts",
+        "README.md",
+        "README-es.md",
+        "ui/tucu-docs/src/pages/introduction/index.tsx"
+      ],
+      "usage": {
+        "tokens_in": 119320,
+        "tokens_out": 21057,
+        "provider_model": "claude/sonnet",
+        "effort": "medium",
+        "agent": "implementor-front",
+        "approx": true,
+        "source": "agent-usage-notification",
+        "recorded_at": "2026-10-27"
+      }
+    }
+  ]
+}

@@ -1,4 +1,6 @@
 // ─── Resource: App Shell & Orchestration ─────────────────────────────────────
+import { getNextShellSection } from './next-guide.js';
+
 
 export function getShellContent(): string {
   return `# App Shell & Orchestration — @e-burgos/tucu-ui
@@ -216,5 +218,5 @@ Practical consequences for a multi-app shell:
 - \`tucu://styling-overrides\` — the \`data-tucu\` anchor map, including which layout pieces
   (like the \`ThemeWrapper\` scroll \`div\` and \`CleanLayout\`'s root) have none.
 - \`tucu://routing\` — \`ReactRouter\` namespace re-export and nested-route patterns.
-`;
+` + getNextShellSection();
 }

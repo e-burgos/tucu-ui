@@ -1,5 +1,7 @@
+'use client';
+
 import { useCallback, useMemo } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useTucuNavigation } from '../../themes/navigation/core';
 import { TabGroup, TabList, TabItem, TabPanels, TabPanel } from './tab';
 
 type VariantNames = 'underline' | 'pills' | 'bordered' | 'solid';
@@ -51,7 +53,7 @@ export function ParamTab({
   replace = true,
   onChange,
 }: ParamTabTypes) {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const { searchParams, setSearchParams } = useTucuNavigation();
   const query = searchParams.get(paramName);
 
   const selectedTabIndex = useMemo(() => {
@@ -89,7 +91,12 @@ export function ParamTab({
         responsive={showMobileSelect}
       >
         {tabMenu.map((item) => (
-          <TabItem key={item.path} variant={variant} size={size} icon={item.icon}>
+          <TabItem
+            key={item.path}
+            variant={variant}
+            size={size}
+            icon={item.icon}
+          >
             {item.title}
           </TabItem>
         ))}

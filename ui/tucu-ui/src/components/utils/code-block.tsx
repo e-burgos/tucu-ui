@@ -1,3 +1,5 @@
+'use client';
+
 import { useState, useEffect } from 'react';
 import Scrollbar from '../common/scrollbar';
 import { Check, Copy, ChevronUp, ChevronDown } from 'lucide-react';

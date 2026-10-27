@@ -1,3 +1,5 @@
+'use client';
+
 import { useChartTheme } from '../hooks/use-chart-theme';
 
 interface ChartEmptyStateProps {

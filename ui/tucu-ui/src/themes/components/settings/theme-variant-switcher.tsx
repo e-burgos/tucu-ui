@@ -1,3 +1,5 @@
+'use client';
+
 import { useTheme } from '../../hooks/use-theme';
 import { SettingsSectionHeading } from './settings-section-heading';
 import { SwitcherButton } from './switcher-button';

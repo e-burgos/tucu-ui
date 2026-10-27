@@ -1,6 +1,16 @@
-import { useState, useEffect, useRef, useMemo } from 'react';
+'use client';
+
+import {
+  useState,
+  useEffect,
+  useRef,
+  useMemo,
+  useSyncExternalStore,
+} from 'react';
 import { useTheme, LAYOUT_OPTIONS, useBreakpoint } from '../../../index';
 import type { TableOfContentsItem } from './types';
+
+const subscribeNever = () => () => undefined;
 
 export interface UseTocOptions {
   items: TableOfContentsItem[];
@@ -219,7 +229,11 @@ export function useToc({
     breakPoint === 'md' ||
     breakPoint === 'lg';
 
-  const isMobile = typeof window !== 'undefined' && window.innerWidth < 1024;
+  const isMobile = useSyncExternalStore(
+    subscribeNever,
+    () => window.innerWidth < 1024,
+    () => false
+  );
 
   const isMacOS =
     layout === LAYOUT_OPTIONS.MACOS ||

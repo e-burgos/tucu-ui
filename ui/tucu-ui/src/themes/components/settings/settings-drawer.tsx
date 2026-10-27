@@ -1,3 +1,5 @@
+'use client';
+
 import { LAYOUT_OPTIONS } from '../../config';
 import { ThemeSwitcher } from './theme-switcher';
 import { ThemeVariantSwitcher } from './theme-variant-switcher';

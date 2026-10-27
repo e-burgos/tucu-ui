@@ -1,3 +1,5 @@
+'use client';
+
 import { useTheme } from '../../themes/hooks/use-theme';
 import { getTucuMessages, resolveTucuLang, TucuLang, TucuMessages } from './messages';
 

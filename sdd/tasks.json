@@ -1,0 +1,23 @@
+{
+  "$schema": "./schemas/tasks-index.schema.json",
+  "_comment": "Lightweight index over per-cycle task files. Canonical task data lives in each sdd/specs/{spec-id}/cycles/cycle-XX/tasks.json. Do not edit task detail here. Regenerate with: pnpm sdd:rebuild-tasks-index",
+  "sdd_version": "4.0",
+  "specs": {
+    "spec-e-burgos-001-nextjs-support": {
+      "cycles": {
+        "cycle-01": {
+          "file": "sdd/specs/spec-e-burgos-001-nextjs-support/cycles/cycle-01/tasks.json",
+          "module": "nextjs-support",
+          "apps": [
+            "libs/tucu-ui",
+            "tools/mcp-server",
+            "apps/next-demo"
+          ],
+          "status": "completed",
+          "tasks_total": 6,
+          "tasks_done": 6
+        }
+      }
+    }
+  }
+}

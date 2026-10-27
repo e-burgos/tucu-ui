@@ -1,0 +1,73 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "sdd/schemas/catalog.schema.json",
+  "title": "SDD Content Catalog (sdd/catalog.json)",
+  "description": "Generated manifest of sdd/ content (agents, skills, prompts, schemas, memory journal) consumed by the sdd/docs viewer on static hosting where directory listing is unavailable. Regenerated with pnpm sdd:rebuild-catalog; pnpm sdd:validate fails when it is stale vs the filesystem. Never edited by hand.",
+  "type": "object",
+  "required": ["agents", "skills", "prompts", "schemas"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "_description": { "type": "string" },
+    "agents": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["file"],
+        "additionalProperties": false,
+        "properties": {
+          "file": { "type": "string", "pattern": "^[a-z0-9-]+\\.agent\\.md$" }
+        }
+      }
+    },
+    "skills": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["dir", "file"],
+        "additionalProperties": false,
+        "properties": {
+          "dir": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+          "file": { "type": "string", "const": "SKILL.md" }
+        }
+      }
+    },
+    "prompts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["file"],
+        "additionalProperties": false,
+        "properties": {
+          "file": { "type": "string", "pattern": "^[a-z0-9-]+\\.prompt\\.md$" }
+        }
+      }
+    },
+    "schemas": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["file"],
+        "additionalProperties": false,
+        "properties": {
+          "file": {
+            "type": "string",
+            "pattern": "^[a-z0-9-]+\\.schema\\.json$"
+          }
+        }
+      }
+    },
+    "memory": {
+      "type": "array",
+      "description": "Episodic journal entries under memory/journal/, newest first. Optional so catalogs generated before the Memoria view keep validating; pnpm sdd:rebuild-catalog adds it.",
+      "items": {
+        "type": "object",
+        "required": ["file"],
+        "additionalProperties": false,
+        "properties": {
+          "file": { "type": "string", "pattern": "^[0-9A-Za-z._-]+\\.md$" }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "name": "next-demo",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "lint": "eslint .",
+    "e2e": "node e2e/check-export.mjs",
+    "sync-lib": "pnpm install --filter next-demo --frozen-lockfile --prefer-offline"
+  },
+  "dependencies": {
+    "@e-burgos/tucu-ui": "file:../../dist/ui/tucu-ui",
+    "@tanstack/react-table": "^8.21.3",
+    "next": "16.4.3",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.25.0",
+    "@tailwindcss/postcss": "^4.3.0",
+    "@types/node": "^22.16.0",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "eslint": "^9.25.0",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "globals": "^16.0.0",
+    "tailwindcss": "^4.3.0",
+    "typescript": "~5.9.3",
+    "typescript-eslint": "^8.30.1"
+  }
+}

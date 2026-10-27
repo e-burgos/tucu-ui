@@ -157,14 +157,20 @@ export function registerPrompts(server: McpServer): void {
         .string()
         .optional()
         .describe('Dark mode strategy: "system", "light", "dark"'),
+      framework: z
+        .enum(['vite', 'next'])
+        .optional()
+        .describe(
+          'Target framework: "vite" (react-router SPA, default) or "next" (Next.js 16 App Router). Ask the user which one when unknown.'
+        ),
     },
-    async ({ preset, darkMode }) => ({
+    async ({ preset, darkMode, framework }) => ({
       messages: [
         {
           role: 'user' as const,
           content: {
             type: 'text' as const,
-            text: getThemeSetupPrompt(preset, darkMode),
+            text: getThemeSetupPrompt(preset, darkMode, framework),
           },
         },
       ],

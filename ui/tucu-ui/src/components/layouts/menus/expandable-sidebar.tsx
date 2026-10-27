@@ -1,5 +1,7 @@
+'use client';
+
 import { useEffect, useRef, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useTucuNavigation } from '../../../themes/navigation/core';
 import { motion } from 'framer-motion';
 import cn from 'classnames';
 import Logo, { LogoPropTypes } from '../../logos/logo';
@@ -70,7 +72,7 @@ export function ExpandableSidebar({
   defaultPinned = false,
   onPinnedChange,
 }: ExpandableSidebarProps) {
-  const pathname = useLocation().pathname;
+  const { pathname } = useTucuNavigation();
   const [open, setOpen] = useState(false);
   const { isSidebarPinned, setIsSidebarPinned } = useTheme();
   const isPinned =

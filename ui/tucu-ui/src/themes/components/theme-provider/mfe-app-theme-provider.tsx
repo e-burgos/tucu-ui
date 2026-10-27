@@ -2,6 +2,7 @@ import React, { Suspense } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { FallbackPage } from '../../pages';
 import { IAppRouteConfig } from '../../types';
+import { ReactRouterNavigationProvider } from '../../navigation';
 import ThemeWrapper, {
   ThemeWrapperProps,
   DistributiveOmit,
@@ -28,14 +29,16 @@ export const MfeAppThemeProvider: React.FC<MfeAppThemeProviderProps> = ({
   return (
     <Suspense fallback={<FallbackPage loadingText="Loading..." />}>
       <BrowserRouter>
-        <ThemeWrapper {...themeWrapperProps}>
-          <MfeAppRoutesProvider
-            routesConfig={appRoutesConfig}
-            basePath={basePath}
-            isAuthenticated={isAuthenticated}
-            loginUrl={loginUrl}
-          />
-        </ThemeWrapper>
+        <ReactRouterNavigationProvider>
+          <ThemeWrapper {...themeWrapperProps}>
+            <MfeAppRoutesProvider
+              routesConfig={appRoutesConfig}
+              basePath={basePath}
+              isAuthenticated={isAuthenticated}
+              loginUrl={loginUrl}
+            />
+          </ThemeWrapper>
+        </ReactRouterNavigationProvider>
       </BrowserRouter>
     </Suspense>
   );

@@ -1,3 +1,5 @@
+'use client';
+
 import { useState, useEffect, useRef, CSSProperties } from 'react';
 import cn from 'classnames';
 import { useTheme, BackgroundVariant } from '../hooks/use-theme';

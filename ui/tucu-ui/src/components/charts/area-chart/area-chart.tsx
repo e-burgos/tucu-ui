@@ -1,3 +1,5 @@
+'use client';
+
 import { useMemo } from 'react';
 import {
   AreaChart as RechartsAreaChart,
@@ -13,6 +15,7 @@ import { useChartTheme } from '../hooks/use-chart-theme';
 import { ChartContainer } from '../components/chart-container';
 import { ChartTooltip } from '../components/chart-tooltip';
 import { ChartEmptyState } from '../components/chart-empty-state';
+import { usePrefersReducedMotion } from '../../../hooks/use-prefers-reduced-motion';
 
 export interface AreaChartProps extends ChartBaseProps {
   series: ChartSeries[];
@@ -39,12 +42,7 @@ export function AreaChart({
 }: AreaChartProps) {
   const theme = useChartTheme();
 
-  const prefersReducedMotion = useMemo(
-    () =>
-      typeof window !== 'undefined' &&
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches,
-    []
-  );
+  const prefersReducedMotion = usePrefersReducedMotion();
 
   const gradientDefs = useMemo(
     () =>

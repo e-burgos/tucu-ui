@@ -1,3 +1,5 @@
+'use client';
+
 import { useRef, RefObject, useEffect, useLayoutEffect } from 'react';
 
 export const useIsomorphicLayoutEffect =

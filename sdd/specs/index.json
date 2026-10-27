@@ -1,0 +1,21 @@
+{
+  "$schema": "../schemas/specs-index.schema.json",
+  "_comment": "Central SDD spec registry. Append-only — never edit existing entries, only add new ones. Updated when a spec branch is merged to master.",
+  "_convention": "Folder/ID format: spec-[gh-user]-[NNN]-[slug] where NNN is the author's own counter (not global). Each developer maintains their own sequence.",
+  "specs": [
+    {
+      "id": "spec-e-burgos-001-nextjs-support",
+      "author": "e-burgos",
+      "slug": "nextjs-support",
+      "folder": "sdd/specs/spec-e-burgos-001-nextjs-support",
+      "file": "sdd/specs/spec-e-burgos-001-nextjs-support/spec-e-burgos-001-nextjs-support.spec.md",
+      "module": "nextjs-support",
+      "app": "libs/tucu-ui",
+      "status": "completed",
+      "title": "Soporte Next.js 16 (App Router) con entry desacoplado",
+      "created_at": "2026-10-27",
+      "completed_at": "2026-10-27",
+      "depends_on": []
+    }
+  ]
+}

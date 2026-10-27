@@ -1,3 +1,5 @@
+'use client';
+
 import { ResponsiveContainer } from 'recharts';
 import cn from 'classnames';
 

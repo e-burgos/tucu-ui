@@ -1,3 +1,5 @@
+'use client';
+
 import { Switch } from './switch';
 import { type ControlColor } from './helpers/control-colors';
 

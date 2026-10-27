@@ -1,3 +1,5 @@
+'use client';
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { ReactNode } from 'react';
 import { ColumnDef, RowData } from '@tanstack/react-table';

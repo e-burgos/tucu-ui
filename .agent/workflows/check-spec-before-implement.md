@@ -1,0 +1,1 @@
+../../sdd/prompts/check-spec-before-implement.prompt.md

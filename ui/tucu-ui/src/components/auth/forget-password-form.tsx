@@ -1,3 +1,5 @@
+'use client';
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Input } from '../inputs/input';
 import Button from '../buttons/button';

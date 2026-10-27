@@ -1,6 +1,8 @@
+'use client';
+
 import { useState, useEffect } from 'react';
 import cn from 'classnames';
-import { useLocation } from 'react-router-dom';
+import { useTucuNavigation } from '../../../themes/navigation/core';
 import { IMenuItem } from '../menus/menu-item';
 import Logo, { LogoPropTypes } from '../../logos/logo';
 import Hamburger from '../../buttons/hamburger';
@@ -39,7 +41,7 @@ export function MacOSTahoeLayout({
   contentClassName,
   pageTitle,
 }: MacOSTahoeLayoutProps) {
-  const { pathname } = useLocation();
+  const { pathname } = useTucuNavigation();
   const { isMobile } = useIsMobile();
   const { backgroundVariant } = useTheme();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
