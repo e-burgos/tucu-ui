@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.9.0] - 2026-10-27
+
+### Added
+
+- DataTable columnSizing fill, getRowLabel/getRowId accessible names, FilterBar filter names (spec-e-burgos-002 cycle-05 TASK-006)
+- installable tucu-ui-design skill (tucu-ui-skill bin) and MotionConfig reducedMotion in ThemeProvider (spec-e-burgos-002 cycle-05 TASK-003)
+
+### Changed
+
+- DataTable columnSizing/getRowLabel/getRowId in tucu://datatable; regenerate props
 ## [3.8.0] - 2026-10-27
 
 ### Added

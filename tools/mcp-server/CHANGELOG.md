@@ -4,6 +4,17 @@ All notable changes to `@e-burgos/tucu-ui-mcp` will be documented in this file.
 
 <!-- Last updated: 2026-06-02 -->
 
+## [0.15.0] - 2026-10-27
+
+### Added
+
+- installable tucu-ui-design skill (tucu-ui-skill bin) and MotionConfig reducedMotion in ThemeProvider (spec-e-burgos-002 cycle-05 TASK-003)
+- tucu://design-guide, design-review prompt, style/motion/density params and marketing/auth page layouts (spec-e-burgos-002 cycle-05 TASK-001/002)
+
+### Changed
+
+- DataTable columnSizing/getRowLabel/getRowId in tucu://datatable; regenerate props
+- design guide, design-review, design params, design skill and Motion & Density in docs and READMEs (spec-e-burgos-002 cycle-05 TASK-004)
 ## [0.14.0] - 2026-10-27
 
 ### Changed
