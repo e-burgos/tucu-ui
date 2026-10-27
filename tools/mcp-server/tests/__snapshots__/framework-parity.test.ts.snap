@@ -587,7 +587,7 @@ export function ButtonPage() {
       hero={
         <HeroCard
           title="Button Hub"
-          description="Primary action button with multiple variants and sizes. Renders the \`<button>\` directly (no wrapper) unless \`tooltip\` is set; then \`wrapperClassName\` styles the wrapper. \`type\` defaults to \`"button"\`. \`className\` is merged with tailwind-merge, so \`h-*\`, \`bg-*\` or \`text-*\` overrides win. Font size scales with \`size\` (xs/tiny/mini 12px, small 13px, medium 14px, large 16px). \`ghost\` has a 2px border, \`outline\` a 1px border."
+          description="Primary action button with multiple variants and sizes. Renders the \`<button>\` directly (no wrapper) unless \`tooltip\` is set; then \`wrapperClassName\` styles the wrapper. \`type\` defaults to \`"button"\`. \`className\` is merged with tailwind-merge, so \`h-*\`, \`bg-*\` or \`text-*\` overrides win. Font size scales with \`size\` (xs/tiny/mini 12px, small 13px, medium 14px, large 16px). \`ghost\` has a 2px border, \`outline\` a 1px border. \`shape\` rounded | pill | circle | square (\`square\` is an icon-only square with the same sizes as \`circle\`)."
           githubButton
           getStartedButton
           docsButton="introduction"
@@ -630,6 +630,7 @@ const PlaygroundSection: React.FC = () => {
         defaultValues={{
           variant: 'solid',
           size: 'large',
+          shape: 'rounded',
         }}
         controlOverrides={[
           {
@@ -644,9 +645,15 @@ const PlaygroundSection: React.FC = () => {
         options: ['large', 'medium', 'small', 'mini', 'tiny', 'xs'],
         description: 'size variant option',
       },
+          {
+        name: 'shape',
+        type: 'select',
+        options: ['rounded', 'pill', 'circle', 'square'],
+        description: 'shape variant option',
+      },
         ]}
         includeProps={[
-          'variant', 'size'
+          'variant', 'size', 'shape'
         ]}
       >
         {(props: any) => {
@@ -655,6 +662,7 @@ const PlaygroundSection: React.FC = () => {
               <Button
                 variant={props.variant}
                 size={props.size}
+                shape={props.shape}
               />
             </div>
           );

@@ -3,7 +3,17 @@
 export function getChangelogContent(): string {
   return `# Changelog — @e-burgos/tucu-ui
 
-## v3.6.0 (Current)
+## v3.7.0 (Current)
+- Add: \`SplitModal\` (sidebar navigation in sections with status dots, \`sidebarHeader\`/\`sidebarFooter\`, controlled \`activeItemId\`) and \`SplitModalWizard\` (steps, async \`validateStep\`, \`primaryAction\`, progress)
+- Add: \`ConfirmDialog\` (\`role="alertdialog"\`, \`tone\`, \`loading\`, \`initialFocus\`); Modal \`role\` and \`aria-labelledby\`
+- Add: surfaces \`GlassPanel\`, \`StateBadge\`, \`MoneyText\`, \`InlineNotice\`, \`StatCard\`, \`SafeImage\` and \`Image\` fallback props (\`fallbackSrc\`, \`fallback\`, \`fallbackIcon\`, \`fallbackClassName\`); Badge \`struck\` and tones green/orange/red/teal/purple
+- Add: controls \`SegmentedControl\`, \`FilterPill\`, \`FilterBar\`, \`AnimatedTabs\`; feedback \`EmptyState\`, \`ErrorState\`, \`SystemStatePage\`; \`Lightbox\`
+- Add: Select \`menuWidth\`, \`descriptionClassName\`, \`wrapDescription\`, \`maxMenuHeight\` (incl. \`'auto'\`), \`renderValue\`, \`triggerClassName\`, option \`triggerLabel\`, \`label\` as ReactNode
+- Add: Button \`shape="square"\`; Badge \`size="micro"\`; Input \`endAdornment\`, \`shortcut\` (\`<kbd>\` + \`aria-keyshortcuts\`) and \`shortcutHideOnValue\` (the existing \`suffix\` is a leading slot); Tooltip \`lazy\`
+- Change: \`--color-page\` (\`bg-page\`) is the canonical page background; \`--color-body\` stays a plain CSS variable with a \`bg-body\` utility but is no longer in \`@theme\`
+- Add: token groups \`--tucu-split-modal-*\`, \`--tucu-glass-*\`, \`--tucu-state-*\`, \`--tucu-segmented-*\`, \`--tucu-state-view-*\`, \`--tucu-lightbox-*\` (see \`tucu://tokens\`)
+
+## v3.6.0
 - Add: theme presets — \`defineThemePreset\`, \`registerThemePresets\`, \`getThemePreset\`, \`listThemePresets\`, \`resolveThemePreset({ host, tenant, rules, fallback })\`; built-ins \`glass\`, \`classic\`, \`elegant\`, \`fresh\`, \`minimal\`, \`vibrant\`; contract in \`tucu://tokens\` (\`--tucu-accent\`, \`--tucu-radius\`, \`--tucu-card-*\`, \`data-tucu-*\`)
 - Add: \`ThemeScope\` applies a preset and its own mode to a subtree; overlays (Modal, Drawer, Select, tooltips) opened inside mount in the scope portal host (\`usePortalContainer\`); \`dark:\` utilities honor one level of opposite-mode nesting
 - Add: \`preset\` prop on \`ThemeProvider\` / \`NextThemeProvider\`; \`defaultMode\` also accepts \`'system'\`

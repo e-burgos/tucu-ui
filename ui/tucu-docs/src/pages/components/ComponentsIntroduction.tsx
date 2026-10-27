@@ -18,7 +18,7 @@ export function ComponentsIntroduction() {
         'Complete collection of UI components organized by category including buttons, cards, dialogs, notifications, and more',
       icon: <LucideIcons.Component className="w-8 h-8" />,
       href: '/components/ui-components',
-      componentCount: 43,
+      componentCount: 49,
       gradient: 'from-indigo-500 to-purple-500',
     },
     {

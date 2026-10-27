@@ -32,6 +32,11 @@ const TooltipSection: React.FC = () => {
         <CardTitle title="Placement" className="mt-2 mb-2">
           <div className="w-full p-4 sm:p-6">
             <div className="flex flex-wrap items-center justify-center gap-4">
+              <Tooltip content="Lazy tooltip (mounted only while open)" lazy>
+                <Button variant="ghost" size="small">
+                  Lazy
+                </Button>
+              </Tooltip>
               <Tooltip content="Top tooltip" placement="top" arrow>
                 <Button variant="ghost" size="small">
                   Top
