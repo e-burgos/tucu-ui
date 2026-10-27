@@ -55,6 +55,17 @@ const ControlsSection: React.FC = () => {
                 ]}
               />
             ))}
+            <SegmentedControl
+              aria-label="Panel tabs"
+              semantics="tabs"
+              idBase="controls-demo"
+              value={view}
+              onChange={setView}
+              options={[
+                { value: 'list', label: 'List' },
+                { value: 'grid', label: 'Grid' },
+              ]}
+            />
           </div>
         </CardTitle>
       </CardContainer>

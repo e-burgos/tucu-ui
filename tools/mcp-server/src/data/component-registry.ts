@@ -244,7 +244,7 @@ export const componentRegistry: ComponentRegistryEntry[] = [
     name: 'SegmentedControl',
     category: 'inputs',
     description:
-      'Single-choice segmented switch with a sliding thumb (radiogroup semantics, arrow-key navigation). `options` ({ value, label, icon, disabled }), `value`, `onChange(value)`, `size` xs | sm | md, `fullWidth`, `scrollable`, `label` / `aria-label`, `disabled`. Tokens `--tucu-segmented-*`.',
+      'Single-choice segmented switch with a sliding thumb (radiogroup semantics, arrow-key navigation). `options` ({ value, label, icon, disabled }), `value`, `onChange(value)`, `size` xs | sm | md, `fullWidth`, `scrollable`, `label` / `aria-label`, `disabled`. `semantics` radio (default) | tabs | nav (tabs uses `idBase` with the `segmentedControlTabId` / `segmentedControlPanelId` helpers; nav renders links when options have `href`), `emphasis` default | strong | subtle. Options also accept `href`, `data-testid`, `aria-label` and `labelClassName`. Tokens `--tucu-segmented-*` incl. `--tucu-segmented-thumb-border`.',
     importPath: '@e-burgos/tucu-ui',
     variants: {
       size: ['xs', 'sm', 'md'],
@@ -880,7 +880,7 @@ const [deleting, setDeleting] = useState(false);
     name: 'SplitModal',
     category: 'dialogs',
     description:
-      'Two-pane dialog (sidebar navigation + scrollable body) built on Modal; below the `md` breakpoint the sidebar becomes a tab bar. `sections` groups `SplitModalNavItem`s (`id`, `label`, `icon`, `badge`, `status` neutral | success | warning | danger | info rendered as a dot with a screen-reader description, `disabled`, `description`). Active item is controlled with `activeItemId` + `onActiveItemChange(id)` or uncontrolled with `defaultActiveItemId`; arrow keys move between items. `sidebarHeader`, `sidebarFooter`, `sidebar`, `sidebarPosition` (start | end), `sidebarWidth`, `footer`, `chips`, `headerActions`, `maxWidth` / `maxHeight` / `size`. `onClose` and `setIsOpen(false)` both run on close. Tokens: `--tucu-split-modal-*`.',
+      'Two-pane dialog (sidebar navigation + scrollable body) built on Modal; below the `md` breakpoint the sidebar becomes a tab bar. `sections` groups `SplitModalNavItem`s (`id`, `label`, `icon`, `badge`, `status` neutral | success | warning | danger | info rendered as a dot with a screen-reader description, `disabled`, `description`). Active item is controlled with `activeItemId` + `onActiveItemChange(id)` or uncontrolled with `defaultActiveItemId`; arrow keys move between items. `sidebarHeader`, `sidebarFooter`, `sidebar`, `sidebarPosition` (start | end), `sidebarWidth`, `footer`, `chips`, `headerActions`, `maxWidth` / `maxHeight` / `size`. `onClose` and `setIsOpen(false)` both run on close. Per-section selection: `selectionMode` nav (default) | option | none, plus per-section `activeItemId`, `defaultActiveItemId`, `onActiveItemChange` (option sections work as view selectors alongside nav sections). Items accept `kind` nav | info | action, `value` (ReactNode, shown on info items) and `onClick`. `sidebarActions` (`SplitModalAction`: id, label, icon, tooltip, onClick, disabled, variant default | danger) render in the sidebar and `sidebarActionsIconOnly` shows icons only. Default `maxHeight` follows the Modal size mapping (`modalContentMaxHeight(size)`: sm 50vh, md 60vh, lg 70vh, xl 75vh, full 80vh; `DEFAULT_MODAL_SIZE`). Tokens: `--tucu-split-modal-*`.',
     importPath: '@e-burgos/tucu-ui',
     variants: {
       sidebarPosition: ['start', 'end'],
@@ -908,7 +908,27 @@ const [activeId, setActiveId] = useState('overview');
         { id: 'payments', label: 'Payments', status: 'danger', description: '1 overdue' },
       ],
     },
-    { id: 'extra', label: 'Other', items: [{ id: 'history', label: 'History' }] },
+    {
+      id: 'view',
+      label: 'View',
+      selectionMode: 'option',
+      defaultActiveItemId: 'compact',
+      onActiveItemChange: (id) => setDensity(id),
+      items: [
+        { id: 'compact', label: 'Compact' },
+        { id: 'comfortable', label: 'Comfortable' },
+      ],
+    },
+    {
+      id: 'info',
+      label: 'Details',
+      selectionMode: 'none',
+      items: [{ id: 'owner', label: 'Owner', kind: 'info', value: 'A. Gomez' }],
+    },
+  ]}
+  sidebarActions={[
+    { id: 'share', label: 'Share', onClick: () => share() },
+    { id: 'delete', label: 'Delete', variant: 'danger', onClick: () => remove() },
   ]}
   sidebarFooter={
     <div className="flex gap-2">

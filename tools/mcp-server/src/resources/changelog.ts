@@ -8,6 +8,10 @@ export function getChangelogContent(): string {
 - Add: \`SplitAuthLayout\` — brand column (logo, headline, lead, highlights, footer, background) + form column; \`variant\` split | centered, \`brandPosition\`, \`surface\` glass | solid | plain, \`breakpoint\` md | lg
 - Add: DataTable \`mobileCards\` (\`boolean | IMobileCardsOptions\` with \`breakpoint\`, \`titleColumnId\`, \`subtitleColumnId\`, \`hiddenColumnIds\`, \`className\`) — rows render as cards below the breakpoint, switched by CSS, with row actions, selection, row click and compact pagination
 - Add: token groups \`--tucu-marketing-*\`, \`--tucu-auth-*\`, \`--tucu-datatable-card-*\` (see \`tucu://tokens\`)
+- Add: SplitModal \`sidebarActions\` (\`SplitModalAction\`: \`id\`, \`label\`, \`icon\`, \`tooltip\`, \`onClick\`, \`disabled\`, \`variant\` default | danger) and \`sidebarActionsIconOnly\`; sections gain \`selectionMode\` nav | option | none, \`activeItemId\`, \`defaultActiveItemId\`, \`onActiveItemChange\`; items gain \`kind\` nav | info | action, \`value\`, \`onClick\`
+- Change (visible): SplitModal default \`maxHeight\` now follows the Modal size mapping via \`modalContentMaxHeight(size)\` (sm 50vh, md 60vh, lg 70vh, xl 75vh, full 80vh) instead of \`calc(85vh - 5rem)\`; exports \`modalContentMaxHeight\` and \`DEFAULT_MODAL_SIZE\`
+- Add: SegmentedControl \`semantics\` radio | tabs | nav, \`idBase\`, \`emphasis\` default | strong | subtle; options gain \`href\`, \`data-testid\`, \`aria-label\`, \`labelClassName\`; helpers \`segmentedControlTabId\` / \`segmentedControlPanelId\`; token \`--tucu-segmented-thumb-border\`
+- Add: \`TooltipDefaultsProvider\`, \`useTooltipDefaults\`; \`ThemeProvider\` / \`NextThemeProvider\` \`tooltipDefaults\` ({ placement, size, color, arrow, enterDelay, leaveDelay, lazy, maxWidth })
 
 ## v3.7.0
 - Add: \`SplitModal\` (sidebar navigation in sections with status dots, \`sidebarHeader\`/\`sidebarFooter\`, controlled \`activeItemId\`) and \`SplitModalWizard\` (steps, async \`validateStep\`, \`primaryAction\`, progress)
