@@ -24,7 +24,7 @@ type ColorNames =
   | 'gray'
   | 'white'
   | 'light-dark';
-type SizeNames = 'xs' | 'tiny' | 'small' | 'medium' | 'large';
+type SizeNames = 'micro' | 'xs' | 'tiny' | 'small' | 'medium' | 'large';
 type StatusNames = 'active' | 'inactive' | 'pending' | 'default';
 
 const shapes: Record<ShapeNames, string> = {
@@ -34,6 +34,7 @@ const shapes: Record<ShapeNames, string> = {
 };
 
 const sizes: Record<SizeNames, string[]> = {
+  micro: ['text-[10px] leading-tight px-1.5 py-0 h-auto', 'w-1 h-1'],
   xs: ['text-[10px] leading-none px-1 py-0.5 h-3.5', 'w-1.5 h-1.5'],
   tiny: ['text-xs px-1.5 py-0.5 h-4', 'w-2 h-2'],
   small: ['text-xs px-2 py-1 h-5', 'w-2.5 h-2.5'],
@@ -133,6 +134,7 @@ export interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
   color?: ColorNames;
   /** Status tone using theme tokens; combine with variant soft, ink or line. green, orange, red, teal and purple read the `--tucu-state-<tone>-soft|ink|line` tokens */
   tone?: ToneNames;
+  /** Badge size. `micro` is smaller than `tiny` (10px text, auto height). */
   size?: SizeNames;
   variant?: VariantNames;
   shape?: ShapeNames;

@@ -87,3 +87,7 @@
 @utility text-legal {
   @apply tucu-text-legal;
 }
+
+@utility bg-body {
+  background-color: var(--color-body);
+}

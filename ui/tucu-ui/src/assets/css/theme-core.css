@@ -821,7 +821,7 @@
   --color-error: var(--color-semantic-bg-negative);
   --color-info: var(--color-semantic-bg-primary);
   --color-foreground: var(--font-primary-color);
-  --color-body: var(--color-semantic-bg);
+  --color-page: var(--color-semantic-bg);
   --color-dark: var(--color-semantic-dark-bg);
   --color-light: var(--color-semantic-bg);
   --color-light-dark: var(--color-semantic-bg-secondary-wash);

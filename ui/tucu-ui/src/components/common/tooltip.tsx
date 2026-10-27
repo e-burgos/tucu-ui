@@ -38,6 +38,8 @@ export interface TooltipProps {
   contentClassName?: string;
   /** Maximum width of the bubble: a CSS length or a number of pixels. Overrides the default `max-w-xs`. */
   maxWidth?: number | string;
+  /** Render the content only while the tooltip is open, keeping it out of the DOM (and of `textContent`) otherwise. Defaults to `false` (always in the DOM, hidden while closed). */
+  lazy?: boolean;
   /** The element that triggers the tooltip */
   children: React.ReactElement;
 }
@@ -209,6 +211,7 @@ export function Tooltip({
   className,
   contentClassName,
   maxWidth,
+  lazy = false,
   children,
 }: TooltipProps) {
   const { mode } = useTheme();
@@ -314,7 +317,7 @@ export function Tooltip({
       handleHide();
       child.props.onBlur?.(e);
     },
-    'aria-describedby': tooltipId,
+    'aria-describedby': lazy && !visible ? child.props['aria-describedby'] : tooltipId,
   } as Partial<React.HTMLAttributes<HTMLElement>>);
 
   const tooltipNode = (
@@ -406,7 +409,7 @@ export function Tooltip({
   return (
     <>
       {triggerElement}
-      {tooltipNode}
+      {(!lazy || visible) && tooltipNode}
     </>
   );
 }

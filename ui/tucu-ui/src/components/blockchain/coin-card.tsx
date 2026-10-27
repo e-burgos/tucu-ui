@@ -106,7 +106,7 @@ export default function CoinSlider({ coins }: CoinSliderProps) {
         breakpoints={sliderBreakPoints}
         observer={true}
         dir="ltr"
-        className="dark:[&_.swiper-scrollbar_>_.swiper-scrollbar-drag]:bg-body/50"
+        className="dark:[&_.swiper-scrollbar_>_.swiper-scrollbar-drag]:bg-page/50"
       >
         {coins.map((coin) => (
           <SwiperSlide key={coin.id}>
