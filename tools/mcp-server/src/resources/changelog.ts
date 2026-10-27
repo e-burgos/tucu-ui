@@ -3,7 +3,17 @@
 export function getChangelogContent(): string {
   return `# Changelog — @e-burgos/tucu-ui
 
-## v3.5.0 (Current)
+## v3.6.0 (Current)
+- Add: theme presets — \`defineThemePreset\`, \`registerThemePresets\`, \`getThemePreset\`, \`listThemePresets\`, \`resolveThemePreset({ host, tenant, rules, fallback })\`; built-ins \`glass\`, \`classic\`, \`elegant\`, \`fresh\`, \`minimal\`, \`vibrant\`; contract in \`tucu://tokens\` (\`--tucu-accent\`, \`--tucu-radius\`, \`--tucu-card-*\`, \`data-tucu-*\`)
+- Add: \`ThemeScope\` applies a preset and its own mode to a subtree; overlays (Modal, Drawer, Select, tooltips) opened inside mount in the scope portal host (\`usePortalContainer\`); \`dark:\` utilities honor one level of opposite-mode nesting
+- Add: \`preset\` prop on \`ThemeProvider\` / \`NextThemeProvider\`; \`defaultMode\` also accepts \`'system'\`
+- Add: Next anti-flash: \`ThemeModeScript\` (server component, \`nonce\`) from \`@e-burgos/tucu-ui/next\` and \`getThemeModeScript\` set the mode class before hydration
+- Add: \`@e-burgos/tucu-ui/styles-core\` and \`/theme-core\` — same styles without the macOS themes (~356 KB vs ~717 KB)
+- Add: Modal \`overlayClassName\`, \`headerClassName\`, \`closeButtonProps\` (its \`aria-label\` wins over \`closeLabel\`), \`maxWidth\`, \`maxHeight\`, \`initialFocusRef\`; title is a full-width block \`<div data-tucu="modal-title">\`, ids via \`useId\`, initial focus on the dialog
+- Add: Alert \`density\` (\`default | compact\`); BasicTable \`density\` \`compact | snug | default\` and \`--tucu-table-row-hover\`; Select \`hideLabel\`, \`hideHelperText\`, \`appearance\` (\`default | neutral\`), \`--tucu-select-radius\`, Escape closes only the open listbox; Tooltip \`maxWidth\`
+- Change: all \`--tucu-*\` component tokens resolve as \`var(--tucu-x, var(--tucu-x-default))\`, so a consumer override on \`:root\` wins in light and dark
+
+## v3.5.0
 - Add: \`cn()\` (classnames + tailwind-merge) used by every component, so \`className\` overrides of \`h-*\`, \`bg-*\`, \`text-*\` win; \`extendClassMergeTokens\` registers custom theme tokens
 - Add: \`size="xs"\` on Button, Input, Textarea, Select, Badge and Spinner; Button font size scales with \`size\`; Button \`variant="outline"\` (1px)
 - Add: Button renders the \`<button>\` directly without tooltip (\`wrapperClassName\` when there is one) and defaults to \`type="button"\`

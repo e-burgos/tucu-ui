@@ -36,7 +36,7 @@ Peer dependency: \`next >=16\` (optional peer, only needed for the \`/next\` ent
 \`\`\`tsx
 import './globals.css';
 import { LucideIcons } from '@e-burgos/tucu-ui';
-import { NextThemeProvider } from '@e-burgos/tucu-ui/next';
+import { NextThemeProvider, ThemeModeScript } from '@e-burgos/tucu-ui/next';
 
 const menuItems = [
   { name: 'Home', path: '/', icon: <LucideIcons.Home /> },
@@ -46,6 +46,9 @@ const menuItems = [
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <ThemeModeScript defaultMode="system" />
+      </head>
       <body>
         <NextThemeProvider
           showSettings
@@ -64,6 +67,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 directory: \`menuItems\` only drives the navigation UI (name, path, icon), it does not register
 routes and has no \`component\` to render. If the props you pass contain functions, wrap the
 provider in a client file (\`providers.tsx\` with \`'use client'\`) and render that from the layout.
+
+\`ThemeModeScript\` (server component, accepts \`nonce\`, \`storageKey\`, \`defaultMode: 'light' | 'dark' | 'system'\`,
+\`applyColorScheme\`) sets the \`dark\`/\`light\` class on \`<html>\` before hydration, so there is no flash of the wrong
+mode. Keep \`defaultMode\` equal to the provider's. \`getThemeModeScript(options)\` returns the raw script string for
+custom \`<script>\` tags. \`NextThemeProvider\` also takes \`preset\` (name or \`ThemePreset\`).
 
 ### Tailwind v4 (app/globals.css)
 \`\`\`css

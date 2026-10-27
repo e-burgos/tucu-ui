@@ -1,0 +1,199 @@
+{
+  "$schema": "../../../../schemas/cycle.schema.json",
+  "cycle": 2,
+  "module": "consumer-absorption",
+  "spec": "spec-e-burgos-002-consumer-absorption",
+  "apps": [
+    "libs/tucu-ui",
+    "libs/tucu-docs",
+    "tools/mcp-server"
+  ],
+  "phase": "c01-themes",
+  "flow": "lite",
+  "objectives": [
+    "Presets de marca con nombre que emiten variables --tucu-*",
+    "ThemeScope: tema con scope y anidable",
+    "Portales que heredan el tema del scope",
+    "Resolución de preset por host o tenant",
+    "CSS core sin macOS y script anti-flash para Next"
+  ],
+  "status": "completed",
+  "started_at": "2026-10-27",
+  "documents": {
+    "plan": "sdd/specs/spec-e-burgos-002-consumer-absorption/cycles/cycle-02/plan.md",
+    "tasks": "sdd/specs/spec-e-burgos-002-consumer-absorption/cycles/cycle-02/tasks.json"
+  },
+  "artifacts": [],
+  "metrics": {
+    "tasks_total": 7,
+    "tasks_completed": 7,
+    "tasks_skipped": 0,
+    "story_points": 36,
+    "files_created": [
+      "ui/tucu-ui/src/themes/presets/",
+      "ui/tucu-ui/src/themes/components/theme-scope/",
+      "ui/tucu-ui/src/themes/hooks/use-document-theme-preset.ts",
+      "ui/tucu-ui/src/themes/utils/theme-mode-script.ts",
+      "ui/tucu-ui/src/next/theme-mode-script.tsx",
+      "ui/tucu-ui/src/assets/css/theme-core.css",
+      "ui/tucu-ui/src/assets/css/globals-core.css",
+      "ui/tucu-docs/src/pages/design-system/theming-guide-sections/ThemePresetsSection.tsx"
+    ],
+    "files_modified": [
+      "ui/tucu-ui/src/__tests__/themes/theme-presets.test.ts",
+      "ui/tucu-ui/src/assets/css/base.css",
+      "ui/tucu-ui/src/assets/css/theme.css",
+      "ui/tucu-ui/src/assets/css/datatable.css",
+      "ui/tucu-ui/src/themes/components/theme-provider/theme-wrapper.tsx",
+      "ui/tucu-ui/src/__tests__/themes/theme-scope.test.tsx",
+      "ui/tucu-ui/src/__tests__/themes/theme-provider-preset.test.tsx",
+      "ui/tucu-ui/vite.config.styles.mts",
+      "ui/tucu-ui/vite.config.mts",
+      "ui/tucu-ui/package.json",
+      "scripts/publish.mjs",
+      ".github/workflows/publish-tucu-ui.yml",
+      "ui/tucu-ui/src/docs-kit/generated/props-metadata.ts",
+      "tools/mcp-server/src/data/component-registry.ts",
+      "tools/mcp-server/src/resources/tokens.ts",
+      "tools/mcp-server/src/resources/changelog.ts",
+      "tools/mcp-server/src/resources/next-guide.ts",
+      "tools/mcp-server/src/resources/quickstart.ts",
+      "tools/mcp-server/src/resources/datatable.ts",
+      "ui/tucu-docs/src/pages/design-system/ThemingGuide.tsx",
+      "ui/tucu-docs/src/pages/design-system/theming-guide-sections/ThemeProviderSection.tsx",
+      "ui/tucu-docs/src/pages/introduction/index.tsx",
+      "README.md",
+      "README-es.md",
+      "ui/tucu-ui/src/components/dialog/modal.tsx",
+      "ui/tucu-ui/src/components/notifications/alert.tsx",
+      "ui/tucu-ui/src/components/notifications/toast.tsx",
+      "ui/tucu-ui/src/components/table/basic-table.tsx",
+      "ui/tucu-ui/src/components/inputs/select.tsx",
+      "ui/tucu-ui/src/components/common/tooltip.tsx",
+      "ui/tucu-ui/src/components/common/skeleton.tsx"
+    ],
+    "files_deleted": [],
+    "usage": {
+      "tokens_in": 1226000,
+      "tokens_out": 162000,
+      "approx": true,
+      "source": "declared-estimate",
+      "by_tier": {
+        "claude/opus": {
+          "tokens_in": 210000,
+          "tokens_out": 28000,
+          "approx": true,
+          "source": "declared-estimate"
+        },
+        "claude/sonnet": {
+          "tokens_in": 1016000,
+          "tokens_out": 134000,
+          "approx": true,
+          "source": "declared-estimate"
+        }
+      },
+      "by_agent": [
+        {
+          "agent": "orchestrator",
+          "label": "solo",
+          "provider_model": "claude/opus",
+          "tokens_in": 210000,
+          "tokens_out": 28000,
+          "approx": true,
+          "source": "declared-estimate"
+        },
+        {
+          "agent": "implementor-front",
+          "label": "TASK-001",
+          "provider_model": "claude/sonnet",
+          "tokens_in": 90000,
+          "tokens_out": 15000,
+          "approx": true,
+          "source": "declared-estimate"
+        },
+        {
+          "agent": "implementor-front",
+          "label": "TASK-002",
+          "provider_model": "claude/sonnet",
+          "tokens_in": 90000,
+          "tokens_out": 15000,
+          "approx": true,
+          "source": "declared-estimate"
+        },
+        {
+          "agent": "implementor-front",
+          "label": "TASK-003",
+          "provider_model": "claude/sonnet",
+          "tokens_in": 120000,
+          "tokens_out": 20000,
+          "approx": true,
+          "source": "declared-estimate"
+        },
+        {
+          "agent": "implementor-front",
+          "label": "TASK-004",
+          "provider_model": "claude/sonnet",
+          "tokens_in": 100000,
+          "tokens_out": 16000,
+          "approx": true,
+          "source": "declared-estimate"
+        },
+        {
+          "agent": "implementor-front",
+          "label": "TASK-005",
+          "provider_model": "claude/sonnet",
+          "tokens_in": 184000,
+          "tokens_out": 26000,
+          "approx": true,
+          "source": "declared-estimate"
+        },
+        {
+          "agent": "implementor-front",
+          "label": "TASK-007",
+          "provider_model": "claude/sonnet",
+          "tokens_in": 205000,
+          "tokens_out": 30000,
+          "approx": true,
+          "source": "declared-estimate"
+        },
+        {
+          "agent": "orchestrator",
+          "label": "explore:theme-internals+consumer-presets",
+          "provider_model": "claude/sonnet",
+          "tokens_in": 227000,
+          "tokens_out": 12000,
+          "approx": true,
+          "source": "agent-usage-notification"
+        }
+      ]
+    }
+  },
+  "completed_at": "2026-10-27",
+  "tables_created": [],
+  "endpoints_implemented": [],
+  "components_created": [],
+  "issues_found": [
+    "Corrección de evidencia: THEME_PRESETS vive en opticagestion (storefront), no en display-ads; display-ads no tiene presets ni temas anidados.",
+    "Agregado al alcance: TASK-007 con las fricciones 44 a 59 que mandó el Studio al adoptar 3.5.0 (compatibles y opt-in).",
+    "Peso del CSS: index.css pasó de ~685 KB a ~720 KB por los bloques de tokens con scope y los --tucu-*-default; index-core.css (sin macOS) pesa ~360 KB.",
+    "Límite documentado: dark: respeta un solo nivel de inversión de modo (un scope claro dentro de html.dark o al revés).",
+    "Pendiente para cycle-03: SplitModal primero (pedido del Studio con API definida), luego el resto de RF-3.",
+    "Pendiente: los tone/color de Badge, Tooltip y Alert hardcodean dark:bg-*; un color por className pierde en dark sin variante dark:.",
+    "Deploy Demo (Cloudflare Pages) falla en main desde el 2026-10-15 por el plugin de sitemap (ENOENT apps/demo/dist/sitemap.xml); es previo a esta spec y no bloquea el publish."
+  ],
+  "reviewer_report": {
+    "approved": true,
+    "date": "2026-10-27",
+    "ca_results": {
+      "CA-002": "passed - dos ThemeScope (vibrant claro, elegant oscuro) en la misma página con html.dark se ven cada uno con su tema; el Modal abierto desde vibrant se monta en su portal host, toma foco y conserva el modo claro; el listbox del Select abierto desde elegant se monta en su scope con fondo oscuro",
+      "CA-006": "partial - sdd:validate en verde; release 3.6.0 / MCP 0.12.0 aprobado por el dueño (publicar por ciclo), pendiente de ejecutar"
+    },
+    "tests": {
+      "tucu-ui": "161 archivos, 845 tests en verde (751 al abrir el ciclo)",
+      "tucu-ui-mcp": "10 archivos, 196 tests en verde",
+      "checks": "typecheck, lint (0 errores), check-use-client, check-entry-isolation y check-built-imports en verde",
+      "browser": "demo con el tarball local en la página Theme Presets & ThemeScope: scopes, Modal en scope, Escape y Select en scope verificados; sin errores de consola de la librería"
+    },
+    "notes": "Flow lite, un solo actor; el reviewer es el mismo orquestador."
+  }
+}

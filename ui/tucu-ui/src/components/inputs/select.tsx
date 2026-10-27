@@ -12,6 +12,7 @@ import {
 } from 'react';
 import { createPortal } from 'react-dom';
 import { cn } from '../../libs/cn';
+import { usePortalContainer } from '../../themes/components/theme-scope/portal-container';
 import { ChevronDown } from '../icons/chevron-down';
 import { Check, Search, X } from 'lucide-react';
 import { FieldError } from './helpers/field-error-text';
@@ -37,6 +38,7 @@ export type SelectOption = {
 };
 
 export type SelectSize = 'xs' | TextControlSize;
+export type SelectAppearance = 'default' | 'neutral';
 
 type SelectDomAttributes = {
   [key: `aria-${string}`]: string | number | boolean | undefined;
@@ -55,6 +57,8 @@ export interface SelectTypes extends SelectDomAttributes {
   className?: string;
   disabled?: boolean;
   label?: string;
+  /** Keep the label associated with the control but render it visually hidden (`sr-only`). */
+  hideLabel?: boolean;
   useUppercaseLabel?: boolean;
   required?: boolean;
   color?: ControlColor;
@@ -62,8 +66,17 @@ export interface SelectTypes extends SelectDomAttributes {
   name?: string;
   errorMessage?: string;
   helperText?: string;
+  /** Render the helper text visually hidden (`sr-only`); `aria-describedby` still references it. */
+  hideHelperText?: boolean;
   placeholder?: string;
+  /** Extra classes merged onto the trigger (and onto the native `<select>`). */
   buttonClassName?: string;
+  /**
+   * `neutral` styles the trigger with neutral tokens (`--color-border`, `--color-body`) and no brand or
+   * `dark:` colour utilities. Its radius reads `--tucu-select-radius`, which defaults to the `default`
+   * look (`0.75rem`).
+   */
+  appearance?: SelectAppearance;
   size?: SelectSize;
   /** Extra classes for the dropdown listbox container */
   listboxClassName?: string;
@@ -131,6 +144,9 @@ const selectVariantClasses = {
   transparent: '',
 };
 
+const selectNeutralClasses =
+  'transition-colors rounded-[var(--tucu-select-radius,var(--tucu-select-radius-default))] border border-border bg-body text-foreground hover:bg-light-dark';
+
 export function Select({
   options,
   onChange,
@@ -141,6 +157,7 @@ export function Select({
   children,
   disabled,
   label,
+  hideLabel = false,
   useUppercaseLabel,
   required,
   color,
@@ -148,8 +165,10 @@ export function Select({
   name,
   errorMessage,
   helperText,
+  hideHelperText = false,
   placeholder,
   buttonClassName,
+  appearance = 'default',
   size = 'md',
   searchable = false,
   searchPlaceholder,
@@ -190,6 +209,7 @@ export function Select({
     SelectOption | undefined
   >(propSelectedOption ?? resolveOption(value));
 
+  const portalContainer = usePortalContainer();
   const [isOpen, setIsOpen] = useState(false);
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
   const [isClosing, setIsClosing] = useState(false);
@@ -435,11 +455,24 @@ export function Select({
         }
         break;
       case 'Escape':
+        e.preventDefault();
+        e.stopPropagation();
+        closeDropdown();
+        buttonRef.current?.focus();
+        break;
       case 'Tab':
         e.preventDefault();
         closeDropdown();
         break;
     }
+  };
+
+  const handleListboxKeyDown = (e: ReactKeyboardEvent<HTMLDivElement>) => {
+    if (e.key !== 'Escape') return;
+    e.preventDefault();
+    e.stopPropagation();
+    closeDropdown();
+    buttonRef.current?.focus();
   };
 
   const groupedSegments = useMemo(
@@ -455,6 +488,7 @@ export function Select({
   // Dropdown portal content
   const dropdown =
     isOpen &&
+    portalContainer &&
     createPortal(
       <div
         data-tucu="select-menu"
@@ -467,6 +501,7 @@ export function Select({
           highlightedIndex >= 0 ? optionId(highlightedIndex) : undefined
         }
         style={dropdownStyle}
+        onKeyDown={handleListboxKeyDown}
         className={cn(
           'max-h-55 overflow-hidden rounded-xl border border-border bg-light-dark text-foreground shadow-large outline-hidden',
           'transition ease-in duration-100',
@@ -647,7 +682,7 @@ export function Select({
           {children && children}
         </div>
       </div>,
-      document.body
+      portalContainer
     );
 
   const messageBlock = (
@@ -656,7 +691,11 @@ export function Select({
         <FieldError id={messageId} error={errorMessage} size="md" />
       )}
       {!errorMessage && helperText && (
-        <FieldHelperText id={messageId} size="md">
+        <FieldHelperText
+          id={messageId}
+          size="md"
+          className={hideHelperText ? 'sr-only mt-0' : undefined}
+        >
           {helperText}
         </FieldHelperText>
       )}
@@ -674,10 +713,14 @@ export function Select({
     </>
   );
 
-  const labelClasses = cn(
-    'block font-medium tracking-widest text-gray-800 dark:text-gray-100',
-    useUppercaseLabel ? 'mb-2 uppercase sm:mb-3' : 'mb-1.5 ml-1.5'
-  );
+  const labelClasses = hideLabel
+    ? 'sr-only'
+    : cn(
+        'block font-medium tracking-widest text-gray-800 dark:text-gray-100',
+        useUppercaseLabel ? 'mb-2 uppercase sm:mb-3' : 'mb-1.5 ml-1.5'
+      );
+  const triggerAppearanceClasses =
+    appearance === 'neutral' ? selectNeutralClasses : selectVariantClasses[variant];
 
   const nativeSegments = segmentOptionsByGroup(options);
 
@@ -689,6 +732,7 @@ export function Select({
         data-color={color}
         data-size={size}
         data-native="true"
+        data-appearance={appearance}
         className={cn('relative text-sm sm:text-sm', className)}
       >
         {label && (
@@ -711,7 +755,7 @@ export function Select({
             className={cn(
               'tucu-text-case-inherit tucu-letter-space-inherit block w-full appearance-none font-medium outline-hidden duration-200 focus:border-brand focus-visible:outline-2 focus-visible:outline-brand aria-invalid:border-red-500 dark:aria-invalid:border-red-400 ltr:pr-10 rtl:pl-10',
               selectSizeClasses[size],
-              selectVariantClasses[variant],
+              triggerAppearanceClasses,
               color && textControlColorClasses[variant][color],
               disabled && 'cursor-not-allowed bg-muted/10!',
               buttonClassName
@@ -762,16 +806,14 @@ export function Select({
       data-variant={variant}
       data-color={color}
       data-size={size}
+      data-appearance={appearance}
       className={cn('relative text-sm sm:text-sm', className)}
     >
       {hiddenInput}
       {label && (
         <span
           id={labelId}
-          className={cn(
-            'block font-medium tracking-widest text-gray-800 dark:text-gray-100',
-            useUppercaseLabel ? 'mb-2 uppercase sm:mb-3' : 'mb-1.5 ml-1.5'
-          )}
+          className={labelClasses}
         >
           {label}
 
@@ -803,7 +845,7 @@ export function Select({
         className={cn(
           'tucu-text-case-inherit tucu-letter-space-inherit flex w-full items-center justify-between gap-2 font-medium outline-hidden duration-200',
           selectSizeClasses[size],
-          selectVariantClasses[variant],
+          triggerAppearanceClasses,
           color && textControlColorClasses[variant][color],
           disabled && 'cursor-not-allowed bg-muted/10!',
           buttonClassName
@@ -835,7 +877,11 @@ export function Select({
         <FieldError id={messageId} error={errorMessage} size="md" />
       )}
       {!errorMessage && helperText && (
-        <FieldHelperText id={messageId} size="md">
+        <FieldHelperText
+          id={messageId}
+          size="md"
+          className={hideHelperText ? 'sr-only mt-0' : undefined}
+        >
           {helperText}
         </FieldHelperText>
       )}

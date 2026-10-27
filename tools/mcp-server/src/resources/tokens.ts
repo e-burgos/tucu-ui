@@ -63,6 +63,61 @@ styles, so \`html.macos.dark {}\`-style selectors are the intended CSS hooks
 (\`ui/tucu-ui/src/themes/components/theme-provider/theme-wrapper.tsx\`). There is no
 \`[data-theme]\` attribute anywhere in the library.
 
+## Theme presets & scopes (public contract)
+
+A preset is \`{ name, accent, darkAccent?, surface?, radius?, fontFamily?, headingFontFamily?, cards?, buttons?, tokens? }\`.
+Built-ins: \`glass\`, \`classic\`, \`elegant\`, \`fresh\`, \`minimal\`, \`vibrant\`. \`<ThemeScope preset>\` (a subtree) and
+\`<ThemeProvider preset>\` / \`<NextThemeProvider preset>\` (the document, via \`useDocumentThemePreset\`) write the same contract:
+
+| Variable | Meaning |
+|---|---|
+| \`--tucu-accent\`, \`--tucu-accent-contrast\` | Brand color for the active mode and its readable text color |
+| \`--tucu-radius\`, \`--tucu-control-radius\` | Surface radius and button/input radius (\`pill\` and \`square\` buttons override it) |
+| \`--tucu-font\`, \`--tucu-heading-font\` | Body and h1-h3 font families |
+| \`--tucu-card-bg\`, \`-border\`, \`-shadow\`, \`-blur\` | Card treatment (\`glass\`, \`solid\`, \`outlined\`) |
+
+| Attribute | Values |
+|---|---|
+| \`data-tucu-theme\` | preset name (\`custom\` for inline presets without registry entry) |
+| \`data-tucu-mode\` | \`light\` \| \`dark\` |
+| \`data-tucu-cards\` | \`glass\` \| \`solid\` \| \`outlined\` |
+| \`data-tucu-buttons\` | \`rounded\` \| \`pill\` \| \`square\` |
+| \`data-tucu-font\`, \`data-tucu-heading-font\` | present when the preset sets a font |
+
+Limits: \`dark:\` utilities respect **one level** of opposite-mode nesting (a light scope inside \`html.dark\`, or the inverse);
+deeper alternation is not supported. Overlays opened inside a scope mount in its
+\`[data-tucu="theme-scope-portal"]\` host (\`usePortalContainer()\`), so a Modal inside a scope keeps the scope theme.
+
+\`\`\`tsx
+import { registerThemePresets, resolveThemePreset, ThemeScope } from '@e-burgos/tucu-ui';
+
+registerThemePresets({
+  name: 'acme',
+  accent: '#e11d48',
+  darkAccent: '#fb7185',
+  radius: 'lg',
+  cards: 'solid',
+  buttons: 'pill',
+  tokens: { dark: { '--tucu-card-bg': '#18181b' } },
+});
+
+const preset = resolveThemePreset({
+  host: request.headers.get('host') ?? undefined,
+  tenant,
+  rules: [
+    { host: 'app.acme.com', preset: 'acme' },
+    { host: '*.partner.io', preset: 'classic' },
+    { tenant: 'globex', preset: { name: 'globex', accent: '#0ea5e9' } },
+  ],
+  fallback: 'glass',
+});
+
+<ThemeScope preset={preset} mode="auto">...</ThemeScope>
+\`\`\`
+
+\`defineThemePreset\` validates hex accents and throws on invalid ones. \`listThemePresets\`, \`getThemePreset\`, \`resetThemePresets\`,
+\`themePresetToCssVars(preset, mode)\` and \`themePresetToAttributes(preset)\` are exported for custom integrations.
+
 ## Build your own token layer
 
 tucu-ui does not ship a consumer-facing design-token layer beyond the \`--color-*\`
@@ -88,8 +143,11 @@ or on any ancestor) to theme those components without \`!important\`:
 | Toast | \`--tucu-toast-bg\`, \`--tucu-toast-fg\`, \`--tucu-toast-fg-muted\`, \`--tucu-toast-border\`, \`--tucu-toast-radius\`, \`--tucu-toast-shadow\` |
 | Tooltip (no \`color\` prop) | \`--tucu-tooltip-bg\`, \`--tucu-tooltip-fg\`, \`--tucu-tooltip-border\` |
 | Skeleton | \`--tucu-skeleton-bg\`, \`--tucu-skeleton-shine\` |
-| BasicTable | \`--tucu-table-header-bg\`, \`--tucu-table-header-fg\`, \`--tucu-table-cell-fg\`, \`--tucu-table-border\`, \`--tucu-table-cell-border\` |
+| BasicTable | \`--tucu-table-row-hover\`, \`--tucu-table-header-bg\`, \`--tucu-table-header-fg\`, \`--tucu-table-cell-fg\`, \`--tucu-table-border\`, \`--tucu-table-cell-border\` |
+| Select | \`--tucu-select-radius\` |
 | \`[data-material="solid"]\` panels | \`--tucu-material-solid-bg\` |
+
+Precedence: every \`--tucu-*\` component token is read as \`var(--tucu-x, var(--tucu-x-default))\` and the library declares \`--tucu-x-default\` per mode, so overriding \`--tucu-x\` on \`:root\` wins in both light and dark.
 
 The library CSS lives in \`@layer components\`, so plain Tailwind utilities in your app win
 over it (the macOS theme overrides are the exception while a macOS theme is active).

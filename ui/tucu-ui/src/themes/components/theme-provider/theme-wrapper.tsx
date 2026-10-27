@@ -3,6 +3,8 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { SettingsButton, SettingsDrawer } from '../settings';
 import { useTheme } from '../../hooks/use-theme';
+import { useDocumentThemePreset } from '../../hooks/use-document-theme-preset';
+import type { ThemePreset } from '../../presets';
 import type { ITheme, BackgroundVariant } from '../../hooks/use-theme';
 
 import {
@@ -73,9 +75,11 @@ function resolveColor(
 interface ThemeWrapperBaseProps extends Omit<LayoutTypeProps, 'layout'> {
   menuItems: IMenuItem[];
   brandColor?: PresetColorType;
+  /** Named brand preset (or an inline one) applied to the whole page. Takes precedence over `brandColor`. */
+  preset?: string | ThemePreset;
   mode?: MODE;
-  /** Mode applied only on the first visit, when no theme state is persisted; `mode` always wins */
-  defaultMode?: MODE;
+  /** Mode applied only on the first visit, when no theme state is persisted; `'system'` follows `prefers-color-scheme`; `mode` always wins */
+  defaultMode?: MODE | 'system';
   background?: BackgroundVariant;
   headerClassName?: string;
   contentClassName?: string;
@@ -169,11 +173,20 @@ type DistributiveOmit<T, K extends keyof never> = T extends unknown
   ? Omit<T, K>
   : never;
 
+function resolveSystemMode(mode: MODE | 'system'): MODE {
+  if (mode !== 'system') return mode;
+  const prefersDark =
+    typeof window !== 'undefined' &&
+    window.matchMedia?.('(prefers-color-scheme: dark)').matches;
+  return prefersDark ? 'dark' : 'light';
+}
+
 export function ThemeWrapper({
   logo = {},
   rightButton,
   themeStyle,
   brandColor,
+  preset,
   customPaletteColor,
   background,
   showSettings,
@@ -247,7 +260,10 @@ export function ThemeWrapper({
       useTheme.getState().applyThemeStyle(effectiveThemeStyle);
     }
     const initialMode =
-      appMode ?? (defaultMode && !hadPersistedThemeState ? defaultMode : undefined);
+      appMode ??
+      (defaultMode && !hadPersistedThemeState
+        ? resolveSystemMode(defaultMode)
+        : undefined);
 
     useTheme.setState({
       logo: hasCustomLogo ? logo : defaultLogo,
@@ -259,6 +275,8 @@ export function ThemeWrapper({
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useDocumentThemePreset(preset);
 
   // ─── Apply custom palette colors ─────────────────────────────
   // Single batched setState instead of 12 individual setter calls.

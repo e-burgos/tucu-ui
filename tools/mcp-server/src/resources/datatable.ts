@@ -233,7 +233,7 @@ interface IRowActions<T> {
   automatically.
 - \`mode\` prop sets \`data-theme\` on the table wrapper for a per-table override.
 - **CSS must be imported explicitly** (the JS bundle imports no CSS):
-  \`import '@e-burgos/tucu-ui/styles'\` (compiled bundle) or, with your own
+  \`import '@e-burgos/tucu-ui/styles'\` (or \`styles-core\` without macOS themes; compiled bundle) or, with your own
   Tailwind v4 build, \`@import '@e-burgos/tucu-ui/theme'\` plus
   \`@source '../node_modules/@e-burgos/tucu-ui';\`.
 

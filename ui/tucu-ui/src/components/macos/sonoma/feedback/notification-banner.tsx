@@ -132,9 +132,9 @@ export function MacOSNotificationBanner({
       role="alert"
       className={cn(
         'flex items-start gap-[12px] rounded-[12px] px-[16px] py-[12px]',
-        'bg-(--tucu-toast-bg) text-(--tucu-toast-fg)',
-        'border border-(--tucu-toast-border) border-l-4',
-        '[box-shadow:var(--tucu-toast-shadow)]',
+        'bg-[color:var(--tucu-toast-bg,var(--tucu-toast-bg-default))] text-[color:var(--tucu-toast-fg,var(--tucu-toast-fg-default))]',
+        'border border-[color:var(--tucu-toast-border,var(--tucu-toast-border-default))] border-l-4',
+        '[box-shadow:var(--tucu-toast-shadow,var(--tucu-toast-shadow-default))]',
         VARIANT_ACCENT[variant],
         className
       )}
@@ -145,12 +145,12 @@ export function MacOSNotificationBanner({
       </div>
 
       <div className="min-w-0 flex-1">
-        <p className="text-[13px] font-semibold text-(--tucu-toast-fg)">
+        <p className="text-[13px] font-semibold text-[color:var(--tucu-toast-fg,var(--tucu-toast-fg-default))]">
           {title}
         </p>
 
         {message && (
-          <p className="mt-[2px] text-xs text-(--tucu-toast-fg-muted)">
+          <p className="mt-[2px] text-xs text-[color:var(--tucu-toast-fg-muted,var(--tucu-toast-fg-muted-default))]">
             {message}
           </p>
         )}
@@ -165,7 +165,7 @@ export function MacOSNotificationBanner({
           aria-label={messages.toast.dismiss}
           className={cn(
             'shrink-0 flex h-[20px] w-[20px] items-center justify-center rounded-full',
-            'text-(--tucu-toast-fg-muted) hover:bg-gray-500/15 dark:hover:bg-white/10 transition-colors',
+            'text-[color:var(--tucu-toast-fg-muted,var(--tucu-toast-fg-muted-default))] hover:bg-gray-500/15 dark:hover:bg-white/10 transition-colors',
             'focus:outline-none focus-visible:ring-2 focus-visible:ring-(--color-brand)'
           )}
         >

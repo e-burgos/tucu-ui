@@ -13,6 +13,7 @@ import Input from './input';
 import { SearchIcon, Check, Close } from '../icons';
 import { SelectOption } from './select';
 import { cn } from '../../libs/cn';
+import { usePortalContainer } from '../../themes/components/theme-scope/portal-container';
 import {
   type ControlColor,
   controlAccentChipClasses,
@@ -50,6 +51,7 @@ export function InputSearcher({
   disabled = false,
   ...props
 }: InputSearcherProps) {
+  const portalContainer = usePortalContainer();
   const [value, setValue] = useState<string>(initialValue?.toString() || '');
   const [showDropdown, setShowDropdown] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
@@ -404,6 +406,7 @@ export function InputSearcher({
   const dropdown =
     showDropdown &&
     filteredOptions.length > 0 &&
+    portalContainer &&
     createPortal(
       <div
         data-tucu="select-menu"
@@ -483,7 +486,7 @@ export function InputSearcher({
           })}
         </div>
       </div>,
-      document.body
+      portalContainer
     );
 
   return (

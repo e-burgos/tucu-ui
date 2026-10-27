@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { X, ChevronDown } from 'lucide-react';
 import { cn } from '../../libs/cn';
+import { usePortalContainer } from '../../themes/components/theme-scope/portal-container';
 import Button from '../buttons/button/index';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -68,6 +69,7 @@ export function TabModal({
   onClose,
   className,
 }: TabModalProps) {
+  const portalContainer = usePortalContainer();
   const useTabs = !content && tabs && tabs.length > 0;
   const [activeTab, setActiveTab] = useState(0);
   const [footerExpanded, setFooterExpanded] = useState(false);
@@ -87,6 +89,8 @@ export function TabModal({
 
   const closeLabel = closeButton?.label ?? closeLabelProp ?? 'Close';
   const handleClose = closeButton?.onClick ?? onClose;
+
+  if (!portalContainer) return null;
 
   return createPortal(
     <div
@@ -229,6 +233,6 @@ export function TabModal({
         </div>
       </div>
     </div>,
-    document.body
+    portalContainer
   );
 }

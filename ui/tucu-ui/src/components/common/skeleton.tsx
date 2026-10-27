@@ -73,7 +73,7 @@ export function Skeleton({
   ...props
 }: SkeletonProps) {
   const skeletonClasses = cn(
-    'bg-[color:var(--tucu-skeleton-bg)] w-full relative overflow-hidden',
+    'bg-[color:var(--tucu-skeleton-bg,var(--tucu-skeleton-bg-default))] w-full relative overflow-hidden',
     shapes[shape],
     !height && sizes[size],
     animations[animation],
@@ -92,7 +92,7 @@ export function Skeleton({
       className="absolute inset-0 -translate-x-full"
       style={{
         background:
-          'linear-gradient(90deg, transparent 0%, var(--tucu-skeleton-shine) 50%, transparent 100%)',
+          'linear-gradient(90deg, transparent 0%, var(--tucu-skeleton-shine,var(--tucu-skeleton-shine-default)) 50%, transparent 100%)',
         animation: 'shimmer 2s ease-in-out infinite',
       }}
     />
@@ -104,7 +104,7 @@ export function Skeleton({
       className="absolute inset-0"
       style={{
         background:
-          'linear-gradient(90deg, transparent 0%, color-mix(in srgb, var(--tucu-skeleton-shine) 50%, transparent) 25%, var(--tucu-skeleton-shine) 50%, color-mix(in srgb, var(--tucu-skeleton-shine) 50%, transparent) 75%, transparent 100%)',
+          'linear-gradient(90deg, transparent 0%, color-mix(in srgb, var(--tucu-skeleton-shine,var(--tucu-skeleton-shine-default)) 50%, transparent) 25%, var(--tucu-skeleton-shine,var(--tucu-skeleton-shine-default)) 50%, color-mix(in srgb, var(--tucu-skeleton-shine,var(--tucu-skeleton-shine-default)) 50%, transparent) 75%, transparent 100%)',
         backgroundSize: '200% 100%',
         animation: 'wave 2s ease-in-out infinite',
       }}

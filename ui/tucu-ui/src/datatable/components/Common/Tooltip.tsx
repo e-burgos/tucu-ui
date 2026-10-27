@@ -3,6 +3,7 @@
 import { CSSProperties, useEffect, useRef, useState } from 'react';
 import { ReactNode } from 'react';
 import ReactDOM from 'react-dom';
+import { usePortalContainer } from '../../../themes/components/theme-scope/portal-container';
 
 /**
  * Tooltip position options
@@ -47,6 +48,7 @@ export function Tooltip({
   position = 'auto',
   delay = 0,
 }: TooltipProps) {
+  const portalContainer = usePortalContainer();
   const [visible, setVisible] = useState(false);
   const [tooltipPosition, setTooltipPosition] = useState<{
     top: number;
@@ -311,6 +313,7 @@ export function Tooltip({
         {children}
       </div>
       {visible &&
+        portalContainer &&
         ReactDOM.createPortal(
           <div
             ref={tooltipRef}
@@ -344,7 +347,7 @@ export function Tooltip({
             {text}
             <div style={getArrowStyle()} />
           </div>,
-          document.body
+          portalContainer
         )}
     </>
   );

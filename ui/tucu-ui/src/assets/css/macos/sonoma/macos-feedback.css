@@ -144,8 +144,8 @@ html.macos.dark [data-tucu='badge'][data-variant='soft'] {
 html.macos [data-tucu='toast'] {
   border-radius: var(--macos-radius-2xl);
   /* Opaque toast surface (see --tucu-toast-* in base.css) */
-  background-color: var(--tucu-toast-bg);
-  color: var(--tucu-toast-fg);
+  background-color: var(--tucu-toast-bg,var(--tucu-toast-bg-default));
+  color: var(--tucu-toast-fg,var(--tucu-toast-fg-default));
   box-shadow: var(--macos-shadow-window);
   border: 1px solid var(--macos-separator);
   padding: var(--macos-space-3) var(--macos-space-4);
@@ -154,8 +154,8 @@ html.macos [data-tucu='toast'] {
 }
 
 html.macos.dark [data-tucu='toast'] {
-  background-color: var(--tucu-toast-bg);
-  border-color: var(--tucu-toast-border);
+  background-color: var(--tucu-toast-bg,var(--tucu-toast-bg-default));
+  border-color: var(--tucu-toast-border,var(--tucu-toast-border-default));
 }
 
 /* ── Spinner ─────────────────────────────────────────────────── */

@@ -78,7 +78,7 @@ pnpm add @e-burgos/tucu-ui next react react-dom
 
 ```tsx
 import { LucideIcons } from '@e-burgos/tucu-ui';
-import { NextThemeProvider } from '@e-burgos/tucu-ui/next';
+import { NextThemeProvider, ThemeModeScript } from '@e-burgos/tucu-ui/next';
 import './globals.css';
 
 const menuItems = [
@@ -89,6 +89,9 @@ const menuItems = [
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <ThemeModeScript defaultMode="system" />
+      </head>
       <body>
         <NextThemeProvider logo={{ name: 'My App' }} layout="admin" menuItems={menuItems}>
           {children}
@@ -104,13 +107,45 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 ```css
 @import 'tailwindcss';
 @import '@e-burgos/tucu-ui/theme';
-@source '../node_modules/@e-burgos/tucu-ui';
+@source '../node_modules/@e-burgos/tucu-ui/**/*.mjs';
 ```
+
+`ThemeModeScript` (server component, accepts `nonce`) sets the `dark`/`light` class on `<html>` before hydration, so there is no flash of the wrong mode.
 
 - **Server/client boundary:** every tucu-ui module ships with `'use client'`, so you can import components from Server Components. Functions cannot cross that boundary — a `DataTable` column `cell`, an `onClick` or any render prop must live in a `'use client'` component of your app, which the Server Component then renders.
 - **Static export:** `output: 'export'` works; the shell prerenders.
 - **Vite only:** the `react-router` namespace and routing hooks (`ThemeProvider` with its own router, `RouterProvider`, route helpers) are for Vite apps. In Next, routing is the App Router's file system.
 - A complete example lives in [`apps/next-demo`](apps/next-demo).
+
+---
+
+## Theme presets and scopes
+
+Six built-in presets (`glass`, `classic`, `elegant`, `fresh`, `minimal`, `vibrant`), your own via `registerThemePresets`, and `ThemeScope` to theme a subtree. Overlays opened inside a scope (Modal, Drawer, Select) mount in the scope's own portal host and keep its theme.
+
+```tsx
+import { ThemeProvider, ThemeScope, registerThemePresets, resolveThemePreset } from '@e-burgos/tucu-ui';
+
+registerThemePresets({ name: 'acme', accent: '#e11d48', radius: 'lg', cards: 'solid' });
+
+const preset = resolveThemePreset({
+  host: window.location.host,
+  rules: [{ host: '*.acme.com', preset: 'acme' }],
+  fallback: 'glass',
+});
+
+<ThemeProvider preset={preset} defaultMode="system" menuItems={menuItems} />
+
+<ThemeScope preset="vibrant" mode="light">
+  <Card>Scoped</Card>
+</ThemeScope>
+```
+
+Presets write `--tucu-accent`, `--tucu-radius`, `--tucu-card-*` and `data-tucu-*` attributes. `dark:` utilities respect one level of opposite-mode nesting.
+
+### Smaller CSS: `styles-core`
+
+If you don't use the macOS themes, `@import '@e-burgos/tucu-ui/styles-core';` ships the same styles at about half the size (~356 KB vs ~717 KB); with your own Tailwind use `@e-burgos/tucu-ui/theme-core`.
 
 ---
 

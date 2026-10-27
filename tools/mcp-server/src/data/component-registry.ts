@@ -111,7 +111,7 @@ export const componentRegistry: ComponentRegistryEntry[] = [
     name: 'Select',
     category: 'inputs',
     description:
-      'Dropdown select with options list (custom listbox in a portal). `native` renders a real `<select>`/`<option>` with the same `options` and `onChange(option)`. `id` links an external `<label htmlFor>`; external `aria-labelledby`/`aria-describedby` are merged with the helper/error ids. Options with the same `group` render under a non-selectable header (`<optgroup>` in native mode). `onChange` does not fire when the selected option is picked again. `size="xs"` is compact (trigger and listbox); `listboxClassName` styles the listbox.',
+      'Dropdown select with options list (custom listbox in a portal). `native` renders a real `<select>`/`<option>` with the same `options` and `onChange(option)`. `id` links an external `<label htmlFor>`; external `aria-labelledby`/`aria-describedby` are merged with the helper/error ids. Options with the same `group` render under a non-selectable header (`<optgroup>` in native mode). `onChange` does not fire when the selected option is picked again. `size="xs"` is compact (trigger and listbox); `listboxClassName` styles the listbox. `hideLabel` and `hideHelperText` hide the label / helper text visually; `appearance` (default | neutral) switches the trigger look (token `--tucu-select-radius`). Escape closes only the open listbox; inside a Modal a second Escape closes the Modal.',
     importPath: '@e-burgos/tucu-ui',
     variants: {
       variant: ['solid', 'ghost', 'transparent'],
@@ -315,7 +315,7 @@ export const componentRegistry: ComponentRegistryEntry[] = [
     name: 'BasicTable',
     category: 'tables',
     description:
-      'Lightweight generic table (no @tanstack/react-table). Columns are declared as { key, label, render? }. Supports striped/hoverable rows, borders, rounded corners, a sticky header, column resizing and a maxRows scroll cap. Responsive by default: below the cardBreakpoint (md) each row collapses into a stacked card of label/value pairs — pass mobileCards={false} to keep a table at every width. `resizable` and `mobileCards` default to true. `density="compact"` (text-xs px-2 py-1), `cellDividers={false}` removes inner dividers but keeps the outer border, `rowHeight` makes `maxRows` exact (otherwise the first row is measured). Colors come from `--tucu-table-*` tokens; `data-testid`/`aria-*` reach the root. For sorting, filtering, pagination and row selection use DataTable instead.',
+      'Lightweight generic table (no @tanstack/react-table). Columns are declared as { key, label, render? }. Supports striped/hoverable rows, borders, rounded corners, a sticky header, column resizing and a maxRows scroll cap. Responsive by default: below the cardBreakpoint (md) each row collapses into a stacked card of label/value pairs — pass mobileCards={false} to keep a table at every width. `resizable` and `mobileCards` default to true. `density` (compact | snug | default; compact is text-xs px-2 py-1), hover color from `--tucu-table-row-hover`, `cellDividers={false}` removes inner dividers but keeps the outer border, `rowHeight` makes `maxRows` exact (otherwise the first row is measured). Colors come from `--tucu-table-*` tokens; `data-testid`/`aria-*` reach the root. For sorting, filtering, pagination and row selection use DataTable instead.',
     importPath: '@e-burgos/tucu-ui',
     example: `import { BasicTable } from '@e-burgos/tucu-ui';
 
@@ -489,11 +489,43 @@ const [isOpen, setIsOpen] = useState(false);
     importPath: '@e-burgos/tucu-ui',
     example: `import { ThemeProvider } from '@e-burgos/tucu-ui';
 
-<ThemeProvider defaultTheme="dark" colorPreset="blue">
+<ThemeProvider preset="elegant" defaultMode="system" menuItems={menuItems}>
   <App />
 </ThemeProvider>`,
-    relatedComponents: ['AdminLayout', 'MacOSLayout'],
+    relatedComponents: ['AdminLayout', 'MacOSLayout', 'ThemeScope'],
     themeAware: false,
+  },
+  {
+    name: 'ThemeScope',
+    category: 'layouts',
+    description:
+      'Applies a theme preset to a subtree without touching the rest of the page: sets the preset CSS variables (`--tucu-accent`, `--tucu-radius`, `--tucu-card-*`, fonts), the `data-tucu-*` attributes and the `dark` class for its own mode. `preset` is a registered name or an inline `ThemePreset`; `mode` is `light | dark | auto` (auto follows `<html class="dark">`, default is the preset surface); `tokens` adds raw CSS variables; `as` changes the root element. Nested scopes without a preset inherit the parent preset and mode. Overlays (Modal, Drawer, Select listbox, tooltips) opened inside a scope mount in its own `[data-tucu="theme-scope-portal"]` host so they keep the scope theme; read it with `usePortalContainer()`. `dark:` utilities honor one level of opposite-mode nesting (a light scope inside `html.dark`). Presets: built-ins `glass | classic | elegant | fresh | minimal | vibrant`, plus `defineThemePreset`, `registerThemePresets`, `getThemePreset`, `listThemePresets` and `resolveThemePreset({ host, tenant, rules, fallback })` to pick one per host/tenant.',
+    importPath: '@e-burgos/tucu-ui',
+    example: `import {
+  ThemeScope,
+  registerThemePresets,
+  resolveThemePreset,
+} from '@e-burgos/tucu-ui';
+
+registerThemePresets({ name: 'acme', accent: '#e11d48', radius: 'lg', cards: 'solid' });
+
+const preset = resolveThemePreset({
+  host: window.location.host,
+  rules: [{ host: '*.acme.com', preset: 'acme' }],
+  fallback: 'glass',
+});
+
+<ThemeScope preset={preset ?? 'glass'} mode="dark" className="p-6 rounded-xl">
+  <Card>...</Card>
+  <Button>Open modal</Button>
+</ThemeScope>`,
+    relatedComponents: ['ThemeProvider', 'Modal', 'Select', 'Card'],
+    themeAware: true,
+    warnings: [
+      'Portals opened inside a scope mount in the scope portal host; give the scope `relative` or `isolate` if you need to contain its z-index.',
+      'Only one level of opposite-mode nesting is supported for `dark:` utilities (a light scope inside html.dark, or the inverse).',
+      'Use `styles-core` when you do not use the macOS themes; it is about half the size of `styles`.',
+    ],
   },
 
   // ─── DIALOGS ─────────────────────────────────────────────
@@ -501,7 +533,7 @@ const [isOpen, setIsOpen] = useState(false);
     name: 'Modal',
     category: 'dialogs',
     description:
-      'Overlay modal dialog. `isOpen` + `setIsOpen` are required; `text.title` accepts a ReactNode and `header` replaces the whole title area. `size` (sm | md | lg | xl | full, default md) sets width and body height. `aria-label`, `aria-describedby` and `data-*` reach the `role="dialog"` element. Escape closes only the top-most modal (handled on the dialog) and a click on the overlay closes it; `closeable={false}` disables both. The close button label comes from the theme lang (override with `closeLabel`). Closing is immediate (no delay).',
+      'Overlay modal dialog. `isOpen` + `setIsOpen` are required; `text.title` accepts a ReactNode and `header` replaces the whole title area. `size` (sm | md | lg | xl | full, default md) sets width and body height. `aria-label`, `aria-describedby` and `data-*` reach the `role="dialog"` element. Escape closes only the top-most modal (handled on the dialog) and a click on the overlay closes it; `closeable={false}` disables both. The close button label comes from the theme lang (override with `closeLabel`). Closing is immediate (no delay). `overlayClassName` and `headerClassName` style the overlay and header; `closeButtonProps` (button attributes and `data-*`) customizes the close button and its `aria-label` wins over `closeLabel`; `maxWidth` and `maxHeight` (number | string) cap the dialog; `initialFocusRef` picks the initially focused element (default: the dialog). The title is a full-width `<div data-tucu="modal-title">` so block content is allowed; ids come from `useId`.',
     importPath: '@e-burgos/tucu-ui',
     variants: {
       size: ['sm', 'md', 'lg', 'xl', 'full'],
@@ -604,11 +636,12 @@ const [isOpen, setIsOpen] = useState(false);
     name: 'Alert',
     category: 'notifications',
     description:
-      'Inline alert message with variant-based styling. `live="polite"` renders `role="status"` for non-urgent messages (default is `role="alert"`, assertive). `appearance` (soft | ink | line) switches to theme-token tones. `aria-*` and `data-*` reach the root.',
+      'Inline alert message with variant-based styling. `live="polite"` renders `role="status"` for non-urgent messages (default is `role="alert"`, assertive). `appearance` (soft | ink | line) switches to theme-token tones. `aria-*` and `data-*` reach the root. `density` (default | compact) tightens padding.',
     importPath: '@e-burgos/tucu-ui',
     variants: {
       variant: ['error', 'success', 'info', 'warning'],
       appearance: ['soft', 'ink', 'line'],
+      density: ['default', 'compact'],
       live: ['assertive', 'polite'],
     },
     example: `import { Alert } from '@e-burgos/tucu-ui';
@@ -898,7 +931,7 @@ const [tab, setTab] = useTabParam({ values: TABS, param: 'tab' }); // ?tab=branc
     name: 'Tooltip',
     category: 'common',
     description:
-      'Tooltip that appears on hover/focus. The content is always in the DOM (no portal) and hidden while closed, so the trigger\'s `aria-describedby` always resolves. `size` (xs | sm | md, default md) sets font size and padding; `contentClassName` styles the bubble.',
+      'Tooltip that appears on hover/focus. The content is always in the DOM (no portal) and hidden while closed, so the trigger\'s `aria-describedby` always resolves. `size` (xs | sm | md, default md) sets font size and padding; `contentClassName` styles the bubble; `maxWidth` (number | string) caps its width.',
     importPath: '@e-burgos/tucu-ui',
     variants: {
       size: ['xs', 'sm', 'md'],

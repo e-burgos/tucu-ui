@@ -102,7 +102,7 @@ describe('toast lifecycle', () => {
     const banner = screen
       .getByText('Visible')
       .closest('[data-tucu="tahoe-notification-banner"]');
-    expect(banner?.className).toContain('bg-(--tucu-toast-bg)');
+    expect(banner?.className).toContain('var(--tucu-toast-bg,var(--tucu-toast-bg-default))');
     expect(banner?.className).not.toContain('glass-prominent');
   });
 });

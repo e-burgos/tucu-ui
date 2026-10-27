@@ -12,6 +12,7 @@ import {
 } from 'react';
 import { createPortal } from 'react-dom';
 import { cn } from '../../libs/cn';
+import { usePortalContainer } from '../../themes/components/theme-scope/portal-container';
 import { ChevronDown } from '../icons/chevron-down';
 
 export interface TabSelectMenuItem {
@@ -32,6 +33,7 @@ export const TabSelect = forwardRef(
     },
     ref: React.Ref<HTMLElement | null>
   ) => {
+    const portalContainer = usePortalContainer();
     const [isOpen, setIsOpen] = useState(false);
     const [isClosing, setIsClosing] = useState(false);
     const [highlightedIndex, setHighlightedIndex] = useState(-1);
@@ -209,6 +211,7 @@ export const TabSelect = forwardRef(
     // Dropdown portal
     const dropdown =
       isOpen &&
+      portalContainer &&
       createPortal(
         <div
           ref={dropdownRef}
@@ -260,7 +263,7 @@ export const TabSelect = forwardRef(
             );
           })}
         </div>,
-        document.body
+        portalContainer
       );
 
     return (

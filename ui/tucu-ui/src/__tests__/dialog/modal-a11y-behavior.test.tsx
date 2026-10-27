@@ -36,9 +36,11 @@ describe('Modal header', () => {
   it('renders a ReactNode title and labels the dialog by it', () => {
     renderOpen({ text: { title: <strong>Rich title</strong> } });
     expect(screen.getByText('Rich title').tagName).toBe('STRONG');
-    expect(screen.getByRole('dialog')).toHaveAttribute(
-      'aria-labelledby',
-      'modal-title'
+    const dialog = screen.getByRole('dialog');
+    const titleId = dialog.getAttribute('aria-labelledby');
+    expect(titleId).toBeTruthy();
+    expect(document.getElementById(titleId as string)).toHaveTextContent(
+      /Rich title|Custom header/
     );
   });
 
@@ -47,9 +49,11 @@ describe('Modal header', () => {
     expect(screen.getByText('Custom header')).toBeInTheDocument();
     expect(screen.queryByText('Ignored')).toBeNull();
     expect(screen.getByRole('button', { name: 'Close' })).toBeInTheDocument();
-    expect(screen.getByRole('dialog')).toHaveAttribute(
-      'aria-labelledby',
-      'modal-title'
+    const dialog = screen.getByRole('dialog');
+    const titleId = dialog.getAttribute('aria-labelledby');
+    expect(titleId).toBeTruthy();
+    expect(document.getElementById(titleId as string)).toHaveTextContent(
+      /Rich title|Custom header/
     );
   });
 

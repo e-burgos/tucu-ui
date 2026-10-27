@@ -25,6 +25,13 @@ const sections: SectionConfig[] = [
     ),
   },
   {
+    id: 'theme-presets',
+    label: 'Theme Presets & ThemeScope',
+    component: lazy(
+      () => import('./theming-guide-sections/ThemePresetsSection')
+    ),
+  },
+  {
     id: 'theme-configuration',
     label: 'Theme Configuration',
     component: lazy(

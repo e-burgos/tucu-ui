@@ -3,6 +3,7 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { cn } from '../../../../libs/cn';
+import { usePortalContainer } from '../../../../themes/components/theme-scope/portal-container';
 
 // ─── Traffic Lights (Tahoe) ────────────────────────────────────
 
@@ -194,6 +195,7 @@ export function MacOSTahoeWindow({
   minWidth = 200,
   minHeight = 120,
 }: MacOSTahoeWindowProps) {
+  const portalContainer = usePortalContainer();
   const windowRef = useRef<HTMLDivElement>(null);
   const [size, setSize] = useState({ w: 0, h: 0 });
   const [windowState, setWindowState] = useState<WindowState>(defaultState);
@@ -474,8 +476,8 @@ export function MacOSTahoeWindow({
 
   // ─── Portal wrapper ────────────────────────────────────────
 
-  if (needsPortal) {
-    return createPortal(windowElement, document.body);
+  if (needsPortal && portalContainer) {
+    return createPortal(windowElement, portalContainer);
   }
 
   return windowElement;
