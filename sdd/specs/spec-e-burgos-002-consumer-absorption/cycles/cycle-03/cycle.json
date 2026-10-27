@@ -17,26 +17,192 @@
     "SegmentedControl, FilterPill/FilterBar, AnimatedTabs y Lightbox",
     "Fricciones 60-63 de Select"
   ],
-  "status": "in-progress",
+  "status": "completed",
   "started_at": "2026-10-27",
-  "completed_at": null,
+  "completed_at": "2026-10-27",
   "documents": {
     "plan": "sdd/specs/spec-e-burgos-002-consumer-absorption/cycles/cycle-03/plan.md",
     "tasks": "sdd/specs/spec-e-burgos-002-consumer-absorption/cycles/cycle-03/tasks.json"
   },
   "artifacts": [],
   "metrics": {
-    "tasks_total": 6,
-    "tasks_completed": 0,
+    "tasks_total": 8,
+    "tasks_completed": 8,
     "tasks_skipped": 0,
-    "story_points": 37,
-    "files_created": [],
-    "files_modified": [],
-    "files_deleted": []
+    "story_points": 45,
+    "files_created": [
+      "ui/tucu-ui/src/components/dialog/split-modal.tsx",
+      "ui/tucu-ui/src/components/dialog/split-modal-wizard.tsx",
+      "ui/tucu-ui/src/components/dialog/confirm-dialog.tsx",
+      "ui/tucu-ui/src/components/common/glass-panel.tsx",
+      "ui/tucu-ui/src/components/common/state-badge.tsx",
+      "ui/tucu-ui/src/components/common/money-text.tsx",
+      "ui/tucu-ui/src/components/notifications/inline-notice.tsx",
+      "ui/tucu-ui/src/components/cards/stat-card.tsx",
+      "ui/tucu-ui/src/components/inputs/segmented-control.tsx",
+      "ui/tucu-ui/src/components/filters/",
+      "ui/tucu-ui/src/components/tabs/animated-tabs.tsx",
+      "ui/tucu-ui/src/components/feedback/",
+      "ui/tucu-ui/src/components/lightbox/",
+      "ui/tucu-ui/src/assets/css/tokens/"
+    ],
+    "files_modified": [
+      "ui/tucu-ui/src/components/dialog/split-modal-nav.tsx",
+      "ui/tucu-ui/src/components/dialog/split-modal-types.ts",
+      "ui/tucu-ui/src/components/dialog/modal.tsx",
+      "ui/tucu-ui/src/components/common/badge.tsx",
+      "ui/tucu-ui/src/components/notifications/alert.tsx",
+      "ui/tucu-ui/src/components/utils/image.tsx",
+      "ui/tucu-ui/src/components/inputs/select.tsx",
+      "ui/tucu-ui/src/docs-kit/generated/props-metadata.ts",
+      "tools/mcp-server/src/data/component-registry.ts",
+      "tools/mcp-server/src/resources/tokens.ts",
+      "tools/mcp-server/src/resources/changelog.ts",
+      "ui/tucu-docs/src/pages/components/ui-components-sections/",
+      "ui/tucu-docs/src/pages/components/UiComponents.tsx",
+      "README.md",
+      "README-es.md",
+      "ui/tucu-ui/src/components/buttons/button/index.tsx",
+      "ui/tucu-ui/src/components/inputs/input.tsx",
+      "ui/tucu-ui/src/components/common/tooltip.tsx",
+      "ui/tucu-ui/src/assets/css/theme-core.css",
+      "ui/tucu-ui/src/assets/css/base.css",
+      "ui/tucu-ui/types/next-entry.d.ts",
+      "ui/tucu-ui/src/components/table/basic-table.tsx",
+      "ui/tucu-ui/src/__tests__/next/next-entry-types.test.ts",
+      "ui/tucu-ui/vite.config.mts",
+      "ui/tucu-ui/scripts/check-built-imports.mjs"
+    ],
+    "files_deleted": [],
+    "usage": {
+      "tokens_in": 1482000,
+      "tokens_out": 215000,
+      "approx": true,
+      "source": "declared-estimate",
+      "by_tier": {
+        "claude/opus": {
+          "tokens_in": 260000,
+          "tokens_out": 30000,
+          "approx": true,
+          "source": "declared-estimate"
+        },
+        "claude/sonnet": {
+          "tokens_in": 1222000,
+          "tokens_out": 185000,
+          "approx": true,
+          "source": "declared-estimate"
+        }
+      },
+      "by_agent": [
+        {
+          "agent": "orchestrator",
+          "label": "solo",
+          "provider_model": "claude/opus",
+          "tokens_in": 260000,
+          "tokens_out": 30000,
+          "approx": true,
+          "source": "declared-estimate"
+        },
+        {
+          "agent": "implementor-front",
+          "label": "TASK-001",
+          "provider_model": "claude/sonnet",
+          "tokens_in": 174000,
+          "tokens_out": 28000,
+          "approx": true,
+          "source": "declared-estimate"
+        },
+        {
+          "agent": "implementor-front",
+          "label": "TASK-002",
+          "provider_model": "claude/sonnet",
+          "tokens_in": 155000,
+          "tokens_out": 28000,
+          "approx": true,
+          "source": "declared-estimate"
+        },
+        {
+          "agent": "implementor-front",
+          "label": "TASK-003",
+          "provider_model": "claude/sonnet",
+          "tokens_in": 155000,
+          "tokens_out": 25000,
+          "approx": true,
+          "source": "declared-estimate"
+        },
+        {
+          "agent": "implementor-front",
+          "label": "TASK-004",
+          "provider_model": "claude/sonnet",
+          "tokens_in": 147000,
+          "tokens_out": 20000,
+          "approx": true,
+          "source": "declared-estimate"
+        },
+        {
+          "agent": "implementor-front",
+          "label": "TASK-005",
+          "provider_model": "claude/sonnet",
+          "tokens_in": 210000,
+          "tokens_out": 40000,
+          "approx": true,
+          "source": "declared-estimate"
+        },
+        {
+          "agent": "implementor-front",
+          "label": "TASK-007",
+          "provider_model": "claude/sonnet",
+          "tokens_in": 121000,
+          "tokens_out": 9000,
+          "approx": true,
+          "source": "declared-estimate"
+        },
+        {
+          "agent": "implementor-front",
+          "label": "TASK-008",
+          "provider_model": "claude/sonnet",
+          "tokens_in": 160000,
+          "tokens_out": 27000,
+          "approx": true,
+          "source": "declared-estimate"
+        },
+        {
+          "agent": "orchestrator",
+          "label": "explore:consumer-components",
+          "provider_model": "claude/sonnet",
+          "tokens_in": 100000,
+          "tokens_out": 8000,
+          "approx": true,
+          "source": "agent-usage-notification"
+        }
+      ]
+    }
   },
   "tables_created": [],
   "endpoints_implemented": [],
   "components_created": [],
-  "issues_found": [],
-  "reviewer_report": null
+  "issues_found": [
+    "Bug de empaquetado encontrado en la prueba con el tarball: assets/css/tokens/ no se copiaba a dist (el import de theme rompía en el consumidor). Corregido en vite.config.mts y check-built-imports ahora valida que cada @import relativo del CSS de dist resuelva.",
+    "Bug de 3.6.0 reportado por el Studio: types/next-entry.d.ts (escrito a mano) no declaraba ThemeModeScript. Corregido, con un test de paridad entre exports y tipos de ./next.",
+    "Colisión de nombres de tokens entre implementadores en paralelo (--tucu-state-* de vistas de estado contra la paleta de StateBadge): renombrado a --tucu-state-view-*.",
+    "Agregado al alcance: fricciones 60 a 75 del Studio (TASK-003, TASK-007, TASK-008). La 70 (padding por defecto del contenido de Modal) queda igual por compatibilidad 3.x.",
+    "Input.suffix ya existía como slot inicial (legacy). Los slots finales nuevos son endAdornment y shortcut.",
+    "Pendiente: pinch-zoom del Lightbox, tonos con dark:bg-* hardcodeados en Badge/Tooltip/Alert, y las páginas 404/500 de themes/pages no reutilizan SystemStatePage.",
+    "Peso del CSS: index.css ~741 KB e index-core.css ~381 KB (contra ~720/360 KB en 3.6.0) por los componentes y tokens nuevos."
+  ],
+  "reviewer_report": {
+    "approved": true,
+    "date": "2026-10-27",
+    "ca_results": {
+      "CA-003": "passed - los 13 componentes de RF-3 existen en tucu-ui (SplitModal/SplitModalWizard, ConfirmDialog, GlassPanel, StateBadge, InlineNotice, MoneyText, SafeImage, SegmentedControl, FilterPill/FilterBar, EmptyState/ErrorState/SystemStatePage, StatCard, Lightbox y AnimatedTabs) sin duplicar Carousel, Stepper, Drawer, TabModal, Skeleton ni useTabParam (AnimatedTabs reusa TabSelect y useTabParam; StateBadge e InlineNotice componen Badge y Alert)",
+      "CA-006": "partial - sdd:validate en verde; release 3.7.0 / MCP 0.13.0 aprobado por el dueño (publicar por ciclo), pendiente de ejecutar"
+    },
+    "tests": {
+      "tucu-ui": "1001 tests en verde (845 al abrir el ciclo)",
+      "tucu-ui-mcp": "196 tests en verde",
+      "checks": "typecheck, lint (0 errores), build, check-use-client, check-entry-isolation y check-built-imports (con validación de @import CSS) en verde",
+      "browser": "demo con el tarball local: SplitModal (secciones, dots de estado, aria-current, teclado, Escape, layout mobile en tabs), SplitModalWizard con validación async que marca el paso con error, Lightbox (contador, flechas, thumbnails) y páginas de controles, superficies y vistas de estado renderizadas"
+    },
+    "notes": "Flow lite, un solo actor; el reviewer es el mismo orquestador."
+  }
 }

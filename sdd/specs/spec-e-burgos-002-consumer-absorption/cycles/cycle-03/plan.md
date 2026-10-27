@@ -50,3 +50,17 @@
 - **Tokens por componente.** Cada grupo declara sus defaults (`--tucu-<comp>-<prop>-default`) en su propio archivo CSS, con los tres selectores del ciclo anterior (`html:root`, `html.dark` y `[data-tucu-theme]`/`.dark`), importado desde `theme-core.css`. Los componentes leen `var(--tucu-x, var(--tucu-x-default))`.
 - **Sin textos fijos.** Confirmar, cancelar, anterior, siguiente, paso i de N, reintentar y cerrar o navegar en el Lightbox salen de `useTucuMessages` (en/es/fr) y se pueden pisar por props.
 - **Release:** minor `3.7.0` de la librería y minor `0.13.0` del MCP, con OK del dueño por ciclo (2026-10-27).
+
+## Agregado durante el ciclo
+- TASK-007 — Fricciones 64 a 68 del Studio:
+  - Button: `shape="square"`.
+  - Input: `suffix` y `shortcut` (`<kbd>` + `aria-keyshortcuts`).
+  - Badge: `size="micro"`.
+  - Tooltip: `lazy`.
+  - `--color-page` como nombre canónico del fondo de página. `--color-body` sale del namespace `@theme`, porque un `--text-body` del consumidor generaba `color` y dejaba el texto invisible en dark. Sigue como variable y con `bg-body`.
+- TASK-008 — Fricciones 69 a 75 del Studio al adoptar 3.6.0:
+  - Bug: el `.d.ts` de `./next` no declaraba `ThemeModeScript`. Se corrige y se agrega un test de paridad entre los exports y los tipos.
+  - Modal: `closeTooltip` y `headerActions`.
+  - BasicTable: tokens de padding y tamaño de fuente por densidad.
+  - Select: `--tucu-select-border`.
+  - La 70 (padding por defecto del contenido de Modal) se mantiene por compatibilidad: se pisa con `contentClassName`.
