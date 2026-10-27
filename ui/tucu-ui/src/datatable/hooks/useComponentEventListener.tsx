@@ -14,7 +14,6 @@ import { useState, useEffect, useCallback } from 'react';
  */
 
 export const useComponentEventListener = (id: string) => {
-  const el = document.getElementById(id);
   const [element, setElement] = useState<HTMLElement | null>(null);
   const [position, setPosition] = useState(element?.getBoundingClientRect());
   const [scroll, setScroll] = useState({
@@ -49,8 +48,9 @@ export const useComponentEventListener = (id: string) => {
   }, [handleResize, handleScroll, scroll, element]);
 
   useEffect(() => {
-    if (el) setElement(el);
-  }, [element, id, el]);
+    const el = document.getElementById(id);
+    if (el && el !== element) setElement(el);
+  }, [id, element]);
 
   return { width, height, position, element, scroll };
 };

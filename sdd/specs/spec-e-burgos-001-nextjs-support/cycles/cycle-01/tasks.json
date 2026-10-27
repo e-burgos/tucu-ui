@@ -151,10 +151,22 @@
       "depends_on": [
         "TASK-003"
       ],
-      "status": "in-progress",
+      "status": "done",
       "files": [
-        "apps/next-demo/"
-      ]
+        "apps/next-demo/",
+        "ui/tucu-ui/src/datatable/hooks/useComponentEventListener.tsx",
+        "pnpm-lock.yaml"
+      ],
+      "usage": {
+        "tokens_in": 138426,
+        "tokens_out": 24428,
+        "provider_model": "claude/sonnet",
+        "effort": "medium",
+        "agent": "implementor-front",
+        "approx": true,
+        "source": "agent-usage-notification",
+        "recorded_at": "2026-10-27"
+      }
     },
     {
       "id": "TASK-005",
@@ -208,7 +220,7 @@
         "TASK-004",
         "TASK-005"
       ],
-      "status": "pending",
+      "status": "in-progress",
       "files": [
         "ui/tucu-ui/README.md",
         "ui/tucu-ui/CHANGELOG.md",
