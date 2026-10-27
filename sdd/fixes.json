@@ -50,6 +50,46 @@
         "source": "declared-estimate",
         "recorded_at": "2026-10-27"
       }
+    },
+    {
+      "id": "FIX-e-burgos-002-001",
+      "author": "e-burgos",
+      "spec_id": "spec-e-burgos-002-consumer-absorption",
+      "fix_document": "sdd/specs/spec-e-burgos-002-consumer-absorption/fixes/fix-e-burgos-002-001.md",
+      "type": "BUGFIX",
+      "severity": "high",
+      "created_at": "2026-10-27",
+      "resolved_at": "2026-10-27",
+      "validated_at": null,
+      "title": "DrawerContainer bloqueaba los clics de su contenido y la demo resolvía tucu-ui 3.1.0",
+      "estimation_hours": 1,
+      "description": "DrawerContainer dejaba que sus hijos heredaran pointer-events-none del wrapper del panel, así que el TOC default y el de Sonoma no respondían en mobile (preexistente en 3.4.0). Además apps/demo y ui/tucu-docs resolvían @e-burgos/tucu-ui 3.1.0, así que las páginas de docs de 3.5-3.9 importaban componentes inexistentes. Se envuelven los hijos en una capa pointer-events-auto y se sube la demo y los docs a ^3.9.1.",
+      "justification": "Bug visible reportado por el dueño en la demo; cambio acotado sin contratos ni entidades nuevas.",
+      "related_modules": [
+        "consumer-absorption"
+      ],
+      "affected_files": [
+        "ui/tucu-ui/src/components/dialog/drawer-container.tsx",
+        "ui/tucu-ui/src/__tests__/dialog/drawer-container.test.tsx",
+        "apps/demo/package.json",
+        "ui/tucu-docs/package.json",
+        "pnpm-lock.yaml",
+        "sdd/specs/spec-e-burgos-002-consumer-absorption/fixes/fix-e-burgos-002-001.md",
+        "sdd/context/libs/tucu-ui/updates/2026-10-27-fix-e-burgos-002-001.md"
+      ],
+      "test_reference": "drawer-container.test.tsx; demo con el tarball a 888px (TOC despliega, navega y cierra); recorrido de 215 rutas de docs sin errores de render.",
+      "status": "implemented",
+      "cycle": null,
+      "usage": {
+        "provider_model": "claude/opus",
+        "effort": "medium",
+        "agent": "orchestrator",
+        "tokens_in": 120000,
+        "tokens_out": 10000,
+        "approx": true,
+        "source": "declared-estimate",
+        "recorded_at": "2026-10-27"
+      }
     }
   ]
 }
