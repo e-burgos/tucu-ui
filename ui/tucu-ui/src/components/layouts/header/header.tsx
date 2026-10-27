@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useTucuNavigation } from '../../../themes/navigation';
 import cn from 'classnames';
 import { Logo, LogoPropTypes } from '../../logos/logo';
 import Hamburger from '../../buttons/hamburger';
@@ -20,7 +20,7 @@ export function Header({
   className?: string;
   rightButton?: React.ReactNode;
 }) {
-  const navigate = useNavigate();
+  const { navigate } = useTucuNavigation();
   const isMounted = useIsMounted();
   const windowScroll = useWindowScroll();
   const breakPoint = useBreakpoint();

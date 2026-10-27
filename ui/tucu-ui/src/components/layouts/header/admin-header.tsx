@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useTucuNavigation } from '../../../themes/navigation';
 import cn from 'classnames';
 import { Logo, LogoPropTypes } from '../../logos/logo';
 import Hamburger from '../../buttons/hamburger';
@@ -19,7 +19,7 @@ export function AdminHeader({
   isOpen?: boolean;
   setIsOpen?: (isOpen: boolean) => void;
 }) {
-  const navigate = useNavigate();
+  const { navigate } = useTucuNavigation();
   const breakPoint = useBreakpoint();
   const isMounted = useIsMounted();
   const windowScroll = useWindowScroll();

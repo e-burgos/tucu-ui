@@ -1,5 +1,5 @@
 import cn from 'classnames';
-import { useLocation } from 'react-router-dom';
+import { useTucuNavigation } from '../../../themes/navigation';
 import { useState } from 'react';
 import { IMenuItem } from '../menus/menu-item';
 import Logo, { LogoPropTypes } from '../../logos/logo';
@@ -37,7 +37,7 @@ export function MacOSTahoeDockLayout({
   contentClassName,
   pageTitle,
 }: MacOSTahoeDockLayoutProps) {
-  const { pathname } = useLocation();
+  const { pathname } = useTucuNavigation();
   const { isMobile } = useIsMobile();
   const { backgroundVariant } = useTheme();
   const [isDockVisible, setIsDockVisible] = useState(true);

@@ -5,7 +5,7 @@ import { ChevronDown } from '../../icons/chevron-down';
 import { ChevronRight } from '../../icons/chevron-right';
 import cn from 'classnames';
 import { IMenuItem } from './menu-item';
-import { useLocation } from 'react-router-dom';
+import { useTucuNavigation } from '../../../themes/navigation';
 
 const handleMenuItems = (layoutMenuItems: IMenuItem[], pathname: string) => {
   const isActive = (href: string) => {
@@ -58,8 +58,7 @@ export function HorizontalNavMenu({
   className?: string;
   dropboxClassName?: string;
 }) {
-  const location = useLocation();
-  const pathname = location.pathname;
+  const { pathname } = useTucuNavigation();
 
   return (
     <div

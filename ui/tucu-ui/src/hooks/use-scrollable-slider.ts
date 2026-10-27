@@ -1,10 +1,9 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { useEffect, useRef } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useTucuNavigation } from '../themes/navigation';
 
 export function useScrollableSlider(defaultActivePath = '/') {
-  const location = useLocation();
-  const pathname = location.pathname;
+  const { pathname } = useTucuNavigation();
   const sliderEl = useRef<HTMLDivElement>(null!);
   const sliderPrevBtn = useRef<HTMLButtonElement>(null!);
   const sliderNextBtn = useRef<HTMLButtonElement>(null!);

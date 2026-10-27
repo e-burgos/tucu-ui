@@ -1,23 +1,21 @@
-import { LinkProps, useLocation } from 'react-router-dom';
+import { useTucuNavigation } from '../../themes/navigation';
+import type { TucuLinkProps } from '../../themes/navigation';
 import cn from 'classnames';
 import AnchorLink from './anchor-link';
 
-export interface ActiveLinkProps extends LinkProps {
+export interface ActiveLinkProps extends TucuLinkProps {
   activeClassName?: string;
   path: string;
   href?: string;
 }
-export const ActiveLink: React.FC<
-  ActiveLinkProps & Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'href'>
-> = ({
+export const ActiveLink: React.FC<ActiveLinkProps> = ({
   href: _href,
   path,
   className,
   activeClassName = 'active',
   ...props
 }) => {
-  const location = useLocation();
-  const pathname = location.pathname;
+  const { pathname } = useTucuNavigation();
 
   return (
     <AnchorLink

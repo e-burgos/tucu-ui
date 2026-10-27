@@ -3,7 +3,7 @@ import cn from 'classnames';
 import { motion } from 'framer-motion';
 import ActiveLink from '../../links/active-link';
 import { ChevronDown } from '../../icons/chevron-down';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useTucuNavigation } from '../../../themes/navigation';
 import { useIsMobile } from '../../../hooks/use-is-mobile';
 import { useMeasure } from '../../../hooks/use-measure';
 
@@ -41,9 +41,7 @@ export function MenuItem({
   hide,
   onClick,
 }: MenuItemProps) {
-  const location = useLocation();
-  const pathname = location.pathname;
-  const navigate = useNavigate();
+  const { pathname, navigate } = useTucuNavigation();
   const isMobile = useIsMobile();
 
   const [isOpen, setIsOpen] = useState(false);

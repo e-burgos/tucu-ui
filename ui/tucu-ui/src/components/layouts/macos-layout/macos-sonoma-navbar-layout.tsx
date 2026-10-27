@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import cn from 'classnames';
-import { useLocation } from 'react-router-dom';
+import { useTucuNavigation } from '../../../themes/navigation';
 import { IMenuItem } from '../menus/menu-item';
 import Logo, { LogoPropTypes } from '../../logos/logo';
 import Hamburger from '../../buttons/hamburger';
@@ -36,7 +36,7 @@ export function MacOSSonomaNavbarLayout({
   headerClassName,
   contentClassName,
 }: MacOSSonomaNavbarLayoutProps) {
-  const { pathname } = useLocation();
+  const { pathname } = useTucuNavigation();
   const { isMobile } = useIsMobile();
   const breakpoint = useBreakpoint();
   const { backgroundVariant } = useTheme();
