@@ -1,6 +1,8 @@
 import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import React from 'react';
+import { readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
 
 import { Tooltip } from '../../components/common/tooltip';
 import { Skeleton } from '../../components/common/skeleton';
@@ -18,9 +20,15 @@ describe('Tooltip tokens', () => {
     expect(bubble).toHaveAttribute('data-tucu', 'tooltip');
     expect(bubble).toHaveAttribute('data-size', 'sm');
     expect(bubble).toHaveAttribute('data-color', 'auto');
-    expect(bubble.className).toContain('var(--tucu-tooltip-bg)');
-    expect(bubble.className).toContain('var(--tucu-tooltip-fg)');
-    expect(bubble.className).toContain('var(--tucu-tooltip-border)');
+    expect(bubble.className).toContain(
+      'var(--tucu-tooltip-bg,var(--tucu-tooltip-bg-default))'
+    );
+    expect(bubble.className).toContain(
+      'var(--tucu-tooltip-fg,var(--tucu-tooltip-fg-default))'
+    );
+    expect(bubble.className).toContain(
+      'var(--tucu-tooltip-border,var(--tucu-tooltip-border-default))'
+    );
   });
 
   it('keeps color presets and lets consumer classes win', () => {
@@ -61,7 +69,9 @@ describe('Skeleton tokens', () => {
   it('references the background token by default', () => {
     const { container } = render(<Skeleton />);
     const el = container.firstChild as HTMLElement;
-    expect(el.className).toContain('var(--tucu-skeleton-bg)');
+    expect(el.className).toContain(
+      'var(--tucu-skeleton-bg,var(--tucu-skeleton-bg-default))'
+    );
   });
 });
 
@@ -143,6 +153,26 @@ describe('BasicTable tokens, density and dividers', () => {
     ).toContain('--tucu-table-cell-fg');
   });
 
+  it('applies snug density between compact and default', () => {
+    const { container } = render(
+      <BasicTable columns={columns} data={data} density="snug" />
+    );
+    const cell = container.querySelector('[data-tucu="table-cell"]');
+    expect(cell?.className).toContain('text-[13px]');
+    expect(cell?.className).toContain('px-2.5');
+    expect(cell?.className).toContain('py-1.5');
+    expect(
+      container.querySelector('[data-tucu="table-header-cell"]')?.className
+    ).toContain('px-2.5');
+  });
+
+  it('reads the row hover token with a library default', () => {
+    const { container } = render(<BasicTable columns={columns} data={data} />);
+    expect(
+      container.querySelector('[data-tucu="table-row"]')?.className
+    ).toContain('var(--tucu-table-row-hover,var(--tucu-table-row-hover-default))');
+  });
+
   it('applies compact density', () => {
     const { container } = render(
       <BasicTable columns={columns} data={data} density="compact" />
@@ -196,5 +226,71 @@ describe('BasicTable tokens, density and dividers', () => {
       '[data-tucu="table"] > div'
     ) as HTMLElement;
     expect(scroller.style.maxHeight).toBe('200px');
+  });
+});
+
+describe('component token precedence', () => {
+  const baseCss = readFileSync(
+    resolve(__dirname, '../../assets/css/base.css'),
+    'utf8'
+  );
+
+  it('declares only -default variables for tooltip, skeleton, table, toast and select', () => {
+    const bareDeclarations = baseCss.match(
+      /^\s+--tucu-(?:tooltip|skeleton|table|toast|select)-(?:(?!default)[a-z-])+:/gm
+    );
+    expect(bareDeclarations).toBeNull();
+  });
+
+  it('declares light and dark defaults so consumer overrides win in both modes', () => {
+    expect(baseCss).toMatch(
+      /html\.dark,\s*\[data-tucu-theme\]\.dark \{[^}]*--tucu-tooltip-bg-default/
+    );
+    expect(baseCss).toMatch(
+      /html:root,[^{]*\{[^}]*--tucu-tooltip-bg-default/
+    );
+  });
+
+  it('no component class reads a token without its default fallback', () => {
+    const { container } = render(
+      <>
+        <BasicTable columns={[{ key: 'a', label: 'A' }]} data={[{ a: '1' }]} />
+        <Skeleton />
+      </>
+    );
+    const html = container.innerHTML;
+    expect(html).not.toMatch(/(?<!,)var\(--tucu-(?:table|skeleton)-[a-z-]+\)/);
+  });
+});
+
+describe('Tooltip maxWidth', () => {
+  it('applies a number as px and a string as a CSS length', () => {
+    const { rerender } = render(
+      <Tooltip content="Tip" maxWidth={240}>
+        <button>trigger</button>
+      </Tooltip>
+    );
+    expect(
+      screen.getByRole('tooltip', { hidden: true }).style.maxWidth
+    ).toBe('240px');
+    rerender(
+      <Tooltip content="Tip" maxWidth="30ch">
+        <button>trigger</button>
+      </Tooltip>
+    );
+    expect(
+      screen.getByRole('tooltip', { hidden: true }).style.maxWidth
+    ).toBe('30ch');
+  });
+
+  it('does not set an inline max width by default', () => {
+    render(
+      <Tooltip content="Tip">
+        <button>trigger</button>
+      </Tooltip>
+    );
+    expect(
+      screen.getByRole('tooltip', { hidden: true }).style.maxWidth
+    ).toBe('');
   });
 });

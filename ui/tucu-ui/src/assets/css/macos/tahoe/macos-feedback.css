@@ -144,8 +144,8 @@ html.macos-tahoe.dark [data-tucu='badge'][data-variant='soft'] {
 html.macos-tahoe [data-tucu='toast'] {
   border-radius: var(--macos-radius-2xl);
   /* Opaque toast surface (see --tucu-toast-* in base.css) */
-  background-color: var(--tucu-toast-bg);
-  color: var(--tucu-toast-fg);
+  background-color: var(--tucu-toast-bg,var(--tucu-toast-bg-default));
+  color: var(--tucu-toast-fg,var(--tucu-toast-fg-default));
   box-shadow: var(--macos-shadow-window);
   border: 1px solid var(--macos-separator);
   padding: var(--macos-space-3) var(--macos-space-4);
@@ -154,8 +154,8 @@ html.macos-tahoe [data-tucu='toast'] {
 }
 
 html.macos-tahoe.dark [data-tucu='toast'] {
-  background-color: var(--tucu-toast-bg);
-  border-color: var(--tucu-toast-border);
+  background-color: var(--tucu-toast-bg,var(--tucu-toast-bg-default));
+  border-color: var(--tucu-toast-border,var(--tucu-toast-border-default));
 }
 
 /* ── Spinner ─────────────────────────────────────────────────── */
@@ -253,9 +253,9 @@ html.macos-tahoe [data-tucu='notification'] {
 
 /* Toasts float over arbitrary content: keep them opaque and legible */
 html.macos-tahoe [data-tucu='toast'] {
-  background: var(--tucu-toast-bg);
-  border: 1px solid var(--tucu-toast-border);
-  box-shadow: var(--tucu-toast-shadow);
+  background: var(--tucu-toast-bg,var(--tucu-toast-bg-default));
+  border: 1px solid var(--tucu-toast-border,var(--tucu-toast-border-default));
+  box-shadow: var(--tucu-toast-shadow,var(--tucu-toast-shadow-default));
   border-radius: var(--macos-radius-lg);
 }
 

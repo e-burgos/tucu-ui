@@ -1,12 +1,17 @@
 'use client';
 
-import React, { useEffect, useRef, useCallback, useState } from 'react';
+import React, {
+  useEffect,
+  useId,
+  useRef,
+  useCallback,
+  useState,
+} from 'react';
 import { createPortal } from 'react-dom';
 import { Button } from '../buttons';
 import { CardContainer } from '../cards/card-container';
 import { cn } from '../../libs/cn';
 import { Close } from '../icons/close';
-import Typography from '../typography';
 import { useTucuMessages } from '../../libs/i18n/use-tucu-messages';
 import { usePortalContainer } from '../../themes/components/theme-scope/portal-container';
 
@@ -37,6 +42,19 @@ const MODAL_CONTENT_SIZE_CLASSES: Record<ModalSize, string> = {
   full: 'max-h-[80vh]',
 };
 
+export type ModalCloseButtonProps = Omit<
+  React.ButtonHTMLAttributes<HTMLButtonElement>,
+  'children' | 'onClick' | 'color'
+> & {
+  [dataAttribute: `data-${string}`]: string | undefined;
+};
+
+const TITLE_TYPOGRAPHY_CLASSES =
+  'font-bold font-figtree text-[22px] font-600 leading-[100%] tracking-[0.022px]';
+
+const toCssLength = (value: number | string | undefined) =>
+  value === undefined ? undefined : typeof value === 'number' ? `${value}px` : value;
+
 export interface ModalProps {
   isOpen: boolean;
   closeable?: boolean;
@@ -44,8 +62,22 @@ export interface ModalProps {
   children?: React.ReactNode;
   buttonContainer?: React.ReactNode;
   className?: string;
+  /** Extra classes merged onto the scrollable content area (e.g. `p-0 mt-0`). */
   contentClassName?: string;
+  /** Extra classes merged onto the header row that holds the title and the close button. */
   titleContainerClassName?: string;
+  /** Alias of `titleContainerClassName`, merged after it. */
+  headerClassName?: string;
+  /** Extra classes merged onto the backdrop overlay (defaults to `bg-gray-700/10 backdrop-blur-xs`). */
+  overlayClassName?: string;
+  /** Attributes spread onto the close button (`data-*`, `aria-*`, `className` merged). `aria-label` wins over `closeLabel`. */
+  closeButtonProps?: ModalCloseButtonProps;
+  /** Maximum width of the dialog panel; a CSS length or a number of pixels. Overrides the `size` preset. */
+  maxWidth?: number | string;
+  /** Maximum height of the scrollable content area; a CSS length or a number of pixels. Overrides the `size` preset. */
+  maxHeight?: number | string;
+  /** Element focused when the modal opens. Defaults to the dialog element itself. */
+  initialFocusRef?: React.RefObject<HTMLElement | null>;
   hideCloseButton?: boolean;
   /** Width and content height preset. `md` reproduces the original dimensions. */
   size?: ModalSize;
@@ -80,6 +112,12 @@ export const Modal: React.FC<ModalProps> = ({
   buttonContainer,
   className,
   titleContainerClassName,
+  headerClassName,
+  overlayClassName,
+  closeButtonProps,
+  maxWidth,
+  maxHeight,
+  initialFocusRef,
   contentClassName,
   hideCloseButton = false,
   size = 'md',
@@ -96,7 +134,11 @@ export const Modal: React.FC<ModalProps> = ({
   const messages = useTucuMessages();
   const portalContainer = usePortalContainer();
   const [isAnimating, setIsAnimating] = useState(false);
-  const titleRef = useRef<HTMLHeadingElement>(null);
+  const initialFocusRefLatest = useRef(initialFocusRef);
+  initialFocusRefLatest.current = initialFocusRef;
+  const instanceId = useId();
+  const titleId = `${instanceId}-title`;
+  const descriptionId = `${instanceId}-description`;
   const dialogRef = useRef<HTMLDivElement>(null);
   const previousFocusRef = useRef<HTMLElement | null>(null);
 
@@ -122,7 +164,7 @@ export const Modal: React.FC<ModalProps> = ({
     }
     document.body.style.overflow = 'hidden';
     setIsAnimating(true);
-    titleRef.current?.focus();
+    (initialFocusRefLatest.current?.current ?? dialogRef.current)?.focus();
     return undefined;
   }, [isOpen]);
 
@@ -188,7 +230,7 @@ export const Modal: React.FC<ModalProps> = ({
       );
       if (focusable.length === 0) {
         event.preventDefault();
-        titleRef.current?.focus();
+        dialog.focus();
         return;
       }
       const first = focusable[0];
@@ -197,7 +239,7 @@ export const Modal: React.FC<ModalProps> = ({
       const outside = !active || !dialog.contains(active);
       if (
         event.shiftKey &&
-        (outside || active === first || active === titleRef.current)
+        (outside || active === first || active === dialog)
       ) {
         event.preventDefault();
         last.focus();
@@ -214,14 +256,17 @@ export const Modal: React.FC<ModalProps> = ({
     return null;
   }
 
-  const titleId = 'modal-title';
-  const descriptionId = 'modal-description';
-
   const hasHeading = Boolean(text?.title || header);
+
+  const panelStyle: React.CSSProperties | undefined =
+    maxWidth === undefined ? undefined : { maxWidth: toCssLength(maxWidth) };
+  const contentStyle: React.CSSProperties | undefined =
+    maxHeight === undefined ? undefined : { maxHeight: toCssLength(maxHeight) };
 
   const overlayClasses = cn(
     'fixed inset-0 w-screen h-screen flex items-center justify-center p-[16px] bg-gray-700/10 backdrop-blur-xs transition-opacity duration-300 ease-out',
-    isAnimating ? 'opacity-100' : 'opacity-0'
+    isAnimating ? 'opacity-100' : 'opacity-0',
+    overlayClassName
   );
 
   const dialogClasses = cn(
@@ -240,7 +285,8 @@ export const Modal: React.FC<ModalProps> = ({
       <div
         {...dataAttributes}
         ref={dialogRef}
-        className={dialogClasses}
+        tabIndex={-1}
+        className={cn(dialogClasses, 'outline-none')}
         role="dialog"
         aria-modal="true"
         aria-label={ariaLabel}
@@ -257,32 +303,39 @@ export const Modal: React.FC<ModalProps> = ({
             MODAL_PANEL_SIZE_CLASSES[size],
             className
           )}
+          style={panelStyle}
         >
-          <span
-            ref={titleRef}
-            id={titleId}
+          <div
+            data-tucu="modal-header"
             className={cn(
               'flex w-full h-fit justify-between items-start pb-3 dark:text-white text-current',
               !hasHeading
                 ? 'text-transparent dark:text-transparent'
                 : ' border-b border-border',
-              titleContainerClassName
+              titleContainerClassName,
+              headerClassName
             )}
-            tabIndex={-1}
           >
-            <Typography
-              tag="span"
-              className="font-bold font-figtree text-[22px] font-600 leading-[100%] tracking-[0.022px]"
+            <div
+              id={titleId}
+              data-tucu="modal-title"
+              className={cn('flex-1 min-w-0', TITLE_TYPOGRAPHY_CLASSES)}
             >
               {header ?? text?.title ?? ''}
-            </Typography>
+            </div>
             {!hideCloseButton && (
               <Button
                 variant="transparent"
                 size="mini"
                 shape="circle"
+                {...closeButtonProps}
+                className={cn('shrink-0', closeButtonProps?.className)}
                 onClick={closeableClose}
-                aria-label={closeLabel ?? messages.dialog.close}
+                aria-label={
+                  closeButtonProps?.['aria-label'] ??
+                  closeLabel ??
+                  messages.dialog.close
+                }
               >
                 <Close
                   className="h-[18px] w-[18px] cursor-pointer text-gray-500 dark:text-gray-200"
@@ -292,7 +345,7 @@ export const Modal: React.FC<ModalProps> = ({
                 />
               </Button>
             )}
-          </span>
+          </div>
 
           {text?.content && (
             <p
@@ -308,6 +361,7 @@ export const Modal: React.FC<ModalProps> = ({
               MODAL_CONTENT_SIZE_CLASSES[size],
               contentClassName
             )}
+            style={contentStyle}
           >
             {children}
           </div>

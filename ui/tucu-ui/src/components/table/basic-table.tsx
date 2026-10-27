@@ -46,7 +46,7 @@ export interface TableColumn<T = Record<string, unknown>> {
  *
  * @template T - Shape of a single row of data.
  */
-export type BasicTableDensity = 'compact' | 'default';
+export type BasicTableDensity = 'compact' | 'snug' | 'default';
 
 export interface BasicTableProps<T = Record<string, unknown>>
   extends Omit<HTMLAttributes<HTMLDivElement>, 'className' | 'children'> {
@@ -85,7 +85,10 @@ export interface BasicTableProps<T = Record<string, unknown>>
   maxRows?: number;
   /** Row height in pixels used to compute the max height. Measured from the first row when omitted. */
   rowHeight?: number;
-  /** Cell padding and font size. `compact` uses `text-xs px-2 py-1`. */
+  /**
+   * Cell padding and font size. `compact` uses `text-xs px-2 py-1`, `snug`
+   * sits between it and `default` with `text-[13px] px-2.5 py-1.5`.
+   */
   density?: BasicTableDensity;
   /** Draw the vertical dividers between cells. Independent from the outer `border`. */
   cellDividers?: boolean;
@@ -112,6 +115,18 @@ export interface BasicTableProps<T = Record<string, unknown>>
 }
 
 const FALLBACK_ROW_HEIGHT = 40;
+
+const DENSITY_CELL_CLASSES: Record<BasicTableDensity, string> = {
+  compact: 'px-2 py-1 text-xs',
+  snug: 'px-2.5 py-1.5 text-[13px]',
+  default: 'px-3 py-2 text-sm',
+};
+
+const DENSITY_HEADER_CLASSES: Record<BasicTableDensity, string> = {
+  compact: 'px-2 py-1',
+  snug: 'px-2.5 py-1.5',
+  default: 'px-3 py-2',
+};
 
 function resolveMaxHeight(
   maxRows: number,
@@ -340,13 +355,13 @@ export const BasicTable = <
     return () => observer.disconnect();
   }, [data.length, density, showHeader, mobileCards, rounded]);
 
-  const cellPadding =
-    density === 'compact' ? 'px-2 py-1 text-xs' : 'px-3 py-2 text-sm';
-  const headerPadding = density === 'compact' ? 'px-2 py-1' : 'px-3 py-2';
+  const cellPadding = DENSITY_CELL_CLASSES[density];
+  const headerPadding = DENSITY_HEADER_CLASSES[density];
 
   const getRowClassName = (row: T, index: number): string => {
     const baseClasses = cn('transition-colors', {
-      'hover:bg-gray-50/40 dark:hover:bg-gray-800/30': hoverable,
+      'hover:bg-[color:var(--tucu-table-row-hover,var(--tucu-table-row-hover-default))]':
+        hoverable,
       'bg-gray-50/30 dark:bg-gray-800/20': striped && index % 2 === 0,
     });
 
@@ -482,7 +497,7 @@ export const BasicTable = <
             className={cn(
               'overflow-hidden relative z-0 isolate',
               isTahoe ? 'rounded-2xl' : 'rounded-lg',
-              border && 'border border-[color:var(--tucu-table-border)]'
+              border && 'border border-[color:var(--tucu-table-border,var(--tucu-table-border-default))]'
             )}
           >
             <div
@@ -516,7 +531,7 @@ export const BasicTable = <
                   <thead
                     ref={headerRef}
                     data-tucu="table-header"
-                    className="sticky top-0 z-10 bg-[color:var(--tucu-table-header-bg)]"
+                    className="sticky top-0 z-10 bg-[color:var(--tucu-table-header-bg,var(--tucu-table-header-bg-default))]"
                   >
                     <tr className={cn(headerClassName)}>
                       {columns.map((column, colIndex) => {
@@ -530,13 +545,13 @@ export const BasicTable = <
                             data-tucu="table-header-cell"
                             className={cn(
                               headerPadding,
-                              'text-left text-[11px] font-semibold text-[color:var(--tucu-table-header-fg)] uppercase tracking-wider relative',
+                              'text-left text-[11px] font-semibold text-[color:var(--tucu-table-header-fg,var(--tucu-table-header-fg-default))] uppercase tracking-wider relative',
                               border &&
-                                'border-b border-[color:var(--tucu-table-border)]',
+                                'border-b border-[color:var(--tucu-table-border,var(--tucu-table-border-default))]',
                               border &&
                                 cellDividers &&
                                 !isLastCol &&
-                                'border-r border-r-[color:var(--tucu-table-cell-border)]',
+                                'border-r border-r-[color:var(--tucu-table-cell-border,var(--tucu-table-cell-border-default))]',
                               column.headerClassName
                             )}
                             style={
@@ -590,13 +605,13 @@ export const BasicTable = <
                               data-tucu="table-cell"
                               className={cn(
                                 cellPadding,
-                                'text-[color:var(--tucu-table-cell-fg)] overflow-hidden text-ellipsis whitespace-nowrap',
+                                'text-[color:var(--tucu-table-cell-fg,var(--tucu-table-cell-fg-default))] overflow-hidden text-ellipsis whitespace-nowrap',
                                 border &&
-                                  'border-b border-[color:var(--tucu-table-cell-border)]',
+                                  'border-b border-[color:var(--tucu-table-cell-border,var(--tucu-table-cell-border-default))]',
                                 border &&
                                   cellDividers &&
                                   !isLastCol &&
-                                  'border-r border-[color:var(--tucu-table-cell-border)]',
+                                  'border-r border-[color:var(--tucu-table-cell-border,var(--tucu-table-cell-border-default))]',
                                 border && isLastRow && 'border-b-0',
                                 column.className
                               )}
@@ -633,7 +648,7 @@ export const BasicTable = <
               className={cn(
                 'w-full border-collapse',
                 !resizable && 'min-w-max',
-                border && 'border border-[color:var(--tucu-table-border)]',
+                border && 'border border-[color:var(--tucu-table-border,var(--tucu-table-border-default))]',
                 tableClassName
               )}
               style={{ tableLayout: resizable ? 'fixed' : undefined }}
@@ -656,7 +671,7 @@ export const BasicTable = <
                 <thead
                   ref={headerRef}
                   data-tucu="table-header"
-                  className="sticky top-0 z-10 bg-[color:var(--tucu-table-header-bg)]"
+                  className="sticky top-0 z-10 bg-[color:var(--tucu-table-header-bg,var(--tucu-table-header-bg-default))]"
                 >
                   <tr className={cn(headerClassName)}>
                     {columns.map((column, colIndex) => {
@@ -670,12 +685,12 @@ export const BasicTable = <
                           data-tucu="table-header-cell"
                           className={cn(
                             headerPadding,
-                            'text-left text-[11px] font-semibold text-[color:var(--tucu-table-header-fg)] uppercase tracking-wider relative',
+                            'text-left text-[11px] font-semibold text-[color:var(--tucu-table-header-fg,var(--tucu-table-header-fg-default))] uppercase tracking-wider relative',
                             border &&
-                              'border-b border-[color:var(--tucu-table-border)]',
+                              'border-b border-[color:var(--tucu-table-border,var(--tucu-table-border-default))]',
                             border &&
                               cellDividers &&
-                              'border-r border-r-[color:var(--tucu-table-border)]',
+                              'border-r border-r-[color:var(--tucu-table-border,var(--tucu-table-border-default))]',
                             border && isLastCol && 'border-r-0',
                             column.headerClassName
                           )}
@@ -730,12 +745,12 @@ export const BasicTable = <
                             data-tucu="table-cell"
                             className={cn(
                               cellPadding,
-                              'text-[color:var(--tucu-table-cell-fg)] overflow-hidden text-ellipsis whitespace-nowrap',
+                              'text-[color:var(--tucu-table-cell-fg,var(--tucu-table-cell-fg-default))] overflow-hidden text-ellipsis whitespace-nowrap',
                               border &&
-                                'border-b border-[color:var(--tucu-table-cell-border)]',
+                                'border-b border-[color:var(--tucu-table-cell-border,var(--tucu-table-cell-border-default))]',
                               border &&
                                 cellDividers &&
-                                'border-r border-r-[color:var(--tucu-table-cell-border)]',
+                                'border-r border-r-[color:var(--tucu-table-cell-border,var(--tucu-table-cell-border-default))]',
                               border && isLastCol && 'border-r-0',
                               border && isLastRow && 'border-b-0',
                               column.className

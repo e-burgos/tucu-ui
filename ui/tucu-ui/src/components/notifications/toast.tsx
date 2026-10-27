@@ -13,7 +13,7 @@ import { useTucuMessages } from '../../libs/i18n/use-tucu-messages';
  */
 const variantClasses: Record<NonNullable<IToast['variant']>, string> = {
   default:
-    'border-(--tucu-toast-border) bg-(--tucu-toast-bg) text-(--tucu-toast-fg)',
+    'border-[color:var(--tucu-toast-border,var(--tucu-toast-border-default))] bg-[color:var(--tucu-toast-bg,var(--tucu-toast-bg-default))] text-[color:var(--tucu-toast-fg,var(--tucu-toast-fg-default))]',
   destructive: 'border-red-700 bg-red-600 text-white',
   success: 'border-green-800 bg-green-700 text-white',
   warning: 'border-amber-500 bg-amber-400 text-gray-950',
@@ -50,7 +50,7 @@ export const Toast: React.FC = () => {
           data-tucu="toast"
           data-variant={toast.variant ?? 'default'}
           className={cn(
-            'relative flex items-center justify-between rounded-[var(--tucu-toast-radius)] border p-4 pr-10 shadow-[var(--tucu-toast-shadow)] transform transition-all duration-300 ease-out motion-reduce:transition-none',
+            'relative flex items-center justify-between rounded-[var(--tucu-toast-radius,var(--tucu-toast-radius-default))] border p-4 pr-10 shadow-[var(--tucu-toast-shadow,var(--tucu-toast-shadow-default))] transform transition-all duration-300 ease-out motion-reduce:transition-none',
             toast.dismissing
               ? 'translate-x-[120%] opacity-0 scale-95'
               : 'translate-x-0 opacity-100 scale-100',

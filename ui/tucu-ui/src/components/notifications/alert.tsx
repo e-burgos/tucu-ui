@@ -6,6 +6,13 @@ import { cn } from '../../libs/cn';
 
 type AlertVariant = 'info' | 'warning' | 'error' | 'success';
 type AlertAppearance = 'soft' | 'ink' | 'line';
+type AlertDensity = 'default' | 'compact';
+
+const densityClassNames: Record<AlertDensity, string> = {
+  default:
+    'py-4 ltr:pl-4 ltr:pr-8 rtl:pr-4 rtl:pl-8 sm:py-6 sm:ltr:pr-10 sm:ltr:pl-6 sm:rtl:pl-10 sm:rtl:pr-6',
+  compact: 'px-3 py-1.5',
+};
 
 const appearanceClassNames: Record<AlertAppearance, Record<AlertVariant, string>> = {
   soft: {
@@ -36,6 +43,8 @@ interface AlertProps
   appearance?: AlertAppearance;
   /** Announcement politeness: polite renders role="status" */
   live?: 'assertive' | 'polite';
+  /** `compact` renders a slim banner (`px-3 py-1.5`) without the large responsive paddings. */
+  density?: AlertDensity;
   dismissible?: boolean;
   className?: string;
   onDismiss?: () => void;
@@ -49,6 +58,7 @@ export function Alert({
   className,
   appearance,
   live = 'assertive',
+  density = 'default',
   onDismiss,
   'aria-label': ariaLabel,
   ...rootProps
@@ -90,7 +100,9 @@ export function Alert({
       aria-atomic="true"
       aria-label={ariaLabel}
       className={cn(
-        'relative text-sm rounded-lg border py-4 shadow-card ltr:pl-4 ltr:pr-8 rtl:pr-4 rtl:pl-8 sm:py-6 sm:ltr:pr-10 sm:ltr:pl-6 sm:rtl:pl-10 sm:rtl:pr-6',
+        'relative text-sm rounded-lg border shadow-card',
+        densityClassNames[density],
+        density === 'compact' && dismissible && 'ltr:pr-8 rtl:pl-8',
         getVariantStyles(),
         className
       )}
@@ -102,7 +114,12 @@ export function Alert({
           type="button"
           onClick={handleDismiss}
           aria-label="Dismiss alert"
-          className="absolute top-2 p-2 transition-all hover:scale-105 focus:outline-hidden focus:ring-2 focus:ring-current focus:ring-offset-2 ltr:right-2 rtl:left-2"
+          className={cn(
+            'absolute transition-all hover:scale-105 focus:outline-hidden focus:ring-2 focus:ring-current focus:ring-offset-2',
+            density === 'compact'
+              ? 'top-1/2 -translate-y-1/2 p-1 ltr:right-1 rtl:left-1'
+              : 'top-2 p-2 ltr:right-2 rtl:left-2'
+          )}
         >
           <Close className="h-auto w-3" aria-hidden="true" />
         </button>

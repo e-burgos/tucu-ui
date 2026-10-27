@@ -109,9 +109,9 @@ export function MacOSTahoeNotificationBanner({
         'rounded-[12px]',
         // Opaque surface: the translucent glass made toasts unreadable over
         // busy content. Restyle via the --tucu-toast-* variables.
-        'bg-(--tucu-toast-bg) text-(--tucu-toast-fg)',
-        'border border-(--tucu-toast-border)',
-        '[box-shadow:var(--tucu-toast-shadow)]',
+        'bg-[color:var(--tucu-toast-bg,var(--tucu-toast-bg-default))] text-[color:var(--tucu-toast-fg,var(--tucu-toast-fg-default))]',
+        'border border-[color:var(--tucu-toast-border,var(--tucu-toast-border-default))]',
+        '[box-shadow:var(--tucu-toast-shadow,var(--tucu-toast-shadow-default))]',
         className
       )}
     >
@@ -130,11 +130,11 @@ export function MacOSTahoeNotificationBanner({
 
       {/* Content */}
       <div className="min-w-0 flex-1">
-        <p className="text-[13px] font-semibold text-(--tucu-toast-fg)">
+        <p className="text-[13px] font-semibold text-[color:var(--tucu-toast-fg,var(--tucu-toast-fg-default))]">
           {title}
         </p>
         {message && (
-          <p className="mt-[2px] text-[12px] leading-relaxed text-(--tucu-toast-fg-muted)">
+          <p className="mt-[2px] text-[12px] leading-relaxed text-[color:var(--tucu-toast-fg-muted,var(--tucu-toast-fg-muted-default))]">
             {message}
           </p>
         )}
@@ -162,7 +162,7 @@ export function MacOSTahoeNotificationBanner({
           type="button"
           onClick={handleDismiss}
           aria-label={messages.toast.dismiss}
-          className="shrink-0 rounded-[6px] p-[2px] text-(--tucu-toast-fg-muted) transition-colors hover:text-(--tucu-toast-fg) focus:outline-none focus-visible:ring-2 focus-visible:ring-(--color-brand)"
+          className="shrink-0 rounded-[6px] p-[2px] text-[color:var(--tucu-toast-fg-muted,var(--tucu-toast-fg-muted-default))] transition-colors hover:text-[color:var(--tucu-toast-fg,var(--tucu-toast-fg-default))] focus:outline-none focus-visible:ring-2 focus-visible:ring-(--color-brand)"
         >
           <svg
             className="h-[16px] w-[16px]"

@@ -36,6 +36,8 @@ export interface TooltipProps {
   className?: string;
   /** Additional class name for the tooltip content box (merged after size and color classes) */
   contentClassName?: string;
+  /** Maximum width of the bubble: a CSS length or a number of pixels. Overrides the default `max-w-xs`. */
+  maxWidth?: number | string;
   /** The element that triggers the tooltip */
   children: React.ReactElement;
 }
@@ -52,9 +54,9 @@ const colorStyles: Record<TooltipColor, string> = {
 };
 
 const tokenBubbleStyle =
-  'bg-[color:var(--tucu-tooltip-bg)] text-[color:var(--tucu-tooltip-fg)] ring-1 ring-[color:var(--tucu-tooltip-border)]';
-const tokenArrowStyle = 'text-[color:var(--tucu-tooltip-bg)]';
-const tokenArrowBorderStyle = 'text-[color:var(--tucu-tooltip-border)]';
+  'bg-[color:var(--tucu-tooltip-bg,var(--tucu-tooltip-bg-default))] text-[color:var(--tucu-tooltip-fg,var(--tucu-tooltip-fg-default))] ring-1 ring-[color:var(--tucu-tooltip-border,var(--tucu-tooltip-border-default))]';
+const tokenArrowStyle = 'text-[color:var(--tucu-tooltip-bg,var(--tucu-tooltip-bg-default))]';
+const tokenArrowBorderStyle = 'text-[color:var(--tucu-tooltip-border,var(--tucu-tooltip-border-default))]';
 
 const arrowColorStyles: Record<TooltipColor, string> = {
   dark: 'text-gray-900 dark:text-gray-100',
@@ -206,6 +208,7 @@ export function Tooltip({
   size = 'md',
   className,
   contentClassName,
+  maxWidth,
   children,
 }: TooltipProps) {
   const { mode } = useTheme();
@@ -332,11 +335,12 @@ export function Tooltip({
         className,
         contentClassName
       )}
-      style={
-        position
+      style={{
+        ...(position
           ? { top: position.top, left: position.left }
-          : { top: -9999, left: -9999 }
-      }
+          : { top: -9999, left: -9999 }),
+        ...(maxWidth !== undefined && { maxWidth }),
+      }}
     >
       {content}
       {arrow && position && (
