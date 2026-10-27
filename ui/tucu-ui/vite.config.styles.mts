@@ -23,6 +23,7 @@ import tailwindcss from '@tailwindcss/vite';
  *
  * Outputs:
  *   dist/index.css     — compiled bundle (`./styles` export)
+ *   dist/index-core.css — compiled bundle without macOS themes (`./styles-core` export)
  *   dist/fonts.css     — standalone @font-face sheet (`./fonts` export)
  *   dist/fonts/*.woff2 — Inter + JetBrains Mono variable fonts
  */
@@ -33,7 +34,7 @@ const outDir = path.resolve(__dirname, '../../dist/ui/tucu-ui');
 const dropJsStubsPlugin = (): PluginOption => ({
   name: 'drop-js-stubs',
   closeBundle: () => {
-    for (const stub of ['index.stub.js', 'fonts.stub.js']) {
+    for (const stub of ['index.stub.js', 'index-core.stub.js', 'fonts.stub.js']) {
       const p = path.join(outDir, stub);
       if (existsSync(p)) rmSync(p);
     }
@@ -58,6 +59,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
         index: path.join(cssDir, 'globals.css'),
+        'index-core': path.join(cssDir, 'globals-core.css'),
         fonts: path.join(cssDir, 'fonts.css'),
       },
       output: {

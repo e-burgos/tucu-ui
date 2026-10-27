@@ -1,0 +1,68 @@
+import type { ThemePreset } from './theme-preset.types';
+
+const SERIF_HEADING_STACK = "Georgia, 'Times New Roman', Times, serif";
+
+export const BUILT_IN_THEME_PRESETS: readonly ThemePreset[] = [
+  {
+    name: 'glass',
+    label: 'Glass',
+    accent: '#0d9488',
+    darkAccent: '#2dd4bf',
+    surface: 'auto',
+    radius: 'md',
+    cards: 'glass',
+    buttons: 'rounded',
+  },
+  {
+    name: 'classic',
+    label: 'Classic',
+    accent: '#1e3a8a',
+    darkAccent: '#60a5fa',
+    surface: 'light',
+    radius: 'sm',
+    headingFontFamily: SERIF_HEADING_STACK,
+    cards: 'outlined',
+    buttons: 'square',
+  },
+  {
+    name: 'elegant',
+    label: 'Elegant',
+    accent: '#b8860b',
+    darkAccent: '#e0b84a',
+    surface: 'dark',
+    radius: 'sm',
+    headingFontFamily: SERIF_HEADING_STACK,
+    cards: 'outlined',
+    buttons: 'pill',
+  },
+  {
+    name: 'fresh',
+    label: 'Fresh',
+    accent: '#f97362',
+    darkAccent: '#fb923c',
+    surface: 'light',
+    radius: 'lg',
+    cards: 'solid',
+    buttons: 'pill',
+  },
+  {
+    name: 'minimal',
+    label: 'Minimal',
+    accent: '#111111',
+    darkAccent: '#f5f5f5',
+    surface: 'light',
+    radius: 'none',
+    cards: 'solid',
+    buttons: 'square',
+  },
+  {
+    name: 'vibrant',
+    label: 'Vibrant',
+    accent: '#7c3aed',
+    darkAccent: '#a78bfa',
+    surface: 'light',
+    radius: 'md',
+    cards: 'outlined',
+    buttons: 'rounded',
+  },
+];

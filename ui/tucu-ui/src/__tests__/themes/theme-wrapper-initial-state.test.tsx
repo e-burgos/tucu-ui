@@ -57,6 +57,18 @@ describe('ThemeWrapper initial state', () => {
     expect(useTheme.getState().mode).toBe('dark');
   });
 
+  it('resolves defaultMode system from prefers-color-scheme', () => {
+    const original = window.matchMedia;
+    window.matchMedia = ((query: string) => ({
+      matches: query === '(prefers-color-scheme: dark)',
+    })) as unknown as typeof window.matchMedia;
+    useTheme.setState({ mode: 'light' });
+    window.localStorage.removeItem('theme-storage');
+    renderWrapper({ layout: 'clean', defaultMode: 'system' });
+    expect(useTheme.getState().mode).toBe('dark');
+    window.matchMedia = original;
+  });
+
   it('keeps the persisted mode over defaultMode', () => {
     useTheme.setState({ mode: 'light' });
     expect(window.localStorage.getItem('theme-storage')).not.toBeNull();

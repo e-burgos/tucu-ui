@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
+import { usePortalContainer } from '../../../../../themes/components/theme-scope/portal-container';
 import { Row } from '@tanstack/react-table';
 import { validateScopes } from '../../../../common/functions/user-scopes';
 import {
@@ -60,6 +61,7 @@ const RowActionsCell: React.FC<RowActionsCellProps> = ({
   setHoverRow,
   forceShowMenuActions,
 }) => {
+  const portalContainer = usePortalContainer();
   const t = useTucuMessages().datatable;
   const rowActions = allRowActions?.filter(
     (action) => !isActionHidden(action, row)
@@ -259,6 +261,7 @@ const RowActionsCell: React.FC<RowActionsCellProps> = ({
       </div>
 
       {openOptions &&
+        portalContainer &&
         createPortal(
           <div
             ref={optionsContainerRef}
@@ -316,7 +319,7 @@ const RowActionsCell: React.FC<RowActionsCellProps> = ({
               );
             })}
           </div>,
-          document.body
+          portalContainer
         )}
     </>
   );

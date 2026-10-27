@@ -104,7 +104,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 ```css
 @import 'tailwindcss';
 @import '@e-burgos/tucu-ui/theme';
-@source '../node_modules/@e-burgos/tucu-ui';
+@source '../node_modules/@e-burgos/tucu-ui/**/*.mjs';
 ```
 
 - **Server/client boundary:** every tucu-ui module ships with `'use client'`, so you can import components from Server Components. Functions cannot cross that boundary — a `DataTable` column `cell`, an `onClick` or any render prop must live in a `'use client'` component of your app, which the Server Component then renders.

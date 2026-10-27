@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { cn } from '../../libs/cn';
+import { usePortalContainer } from '../../themes/components/theme-scope/portal-container';
 
 export interface DrawerContainerProps {
   isOpen: boolean;
@@ -21,6 +22,7 @@ export function DrawerContainer({
   backdrop = true,
   backdropClassName,
 }: DrawerContainerProps) {
+  const portalContainer = usePortalContainer();
   const [isVisible, setIsVisible] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
   const drawerRef = useRef<HTMLDivElement>(null);
@@ -189,5 +191,7 @@ export function DrawerContainer({
   );
 
   // Use portal to render drawer and backdrop directly in body, ensuring proper stacking
-  return createPortal(drawerContent, document.body) as React.ReactElement;
+  return portalContainer
+    ? (createPortal(drawerContent, portalContainer) as React.ReactElement)
+    : null;
 }

@@ -8,6 +8,7 @@ import { cn } from '../../libs/cn';
 import { Close } from '../icons/close';
 import Typography from '../typography';
 import { useTucuMessages } from '../../libs/i18n/use-tucu-messages';
+import { usePortalContainer } from '../../themes/components/theme-scope/portal-container';
 
 const FOCUSABLE_SELECTOR = [
   'a[href]',
@@ -93,6 +94,7 @@ export const Modal: React.FC<ModalProps> = ({
   ...dataAttributes
 }) => {
   const messages = useTucuMessages();
+  const portalContainer = usePortalContainer();
   const [isAnimating, setIsAnimating] = useState(false);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const dialogRef = useRef<HTMLDivElement>(null);
@@ -344,7 +346,9 @@ export const Modal: React.FC<ModalProps> = ({
     </div>
   );
 
-  return createPortal(modalContent, document.body) as React.ReactElement;
+  return portalContainer
+    ? (createPortal(modalContent, portalContainer) as React.ReactElement)
+    : null;
 };
 
 Modal.displayName = 'Modal';

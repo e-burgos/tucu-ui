@@ -12,6 +12,7 @@ import {
 } from 'react';
 import { createPortal } from 'react-dom';
 import { cn } from '../../libs/cn';
+import { usePortalContainer } from '../../themes/components/theme-scope/portal-container';
 import { ChevronDown } from '../icons/chevron-down';
 import { Check, Search, X } from 'lucide-react';
 import { FieldError } from './helpers/field-error-text';
@@ -190,6 +191,7 @@ export function Select({
     SelectOption | undefined
   >(propSelectedOption ?? resolveOption(value));
 
+  const portalContainer = usePortalContainer();
   const [isOpen, setIsOpen] = useState(false);
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
   const [isClosing, setIsClosing] = useState(false);
@@ -455,6 +457,7 @@ export function Select({
   // Dropdown portal content
   const dropdown =
     isOpen &&
+    portalContainer &&
     createPortal(
       <div
         data-tucu="select-menu"
@@ -647,7 +650,7 @@ export function Select({
           {children && children}
         </div>
       </div>,
-      document.body
+      portalContainer
     );
 
   const messageBlock = (

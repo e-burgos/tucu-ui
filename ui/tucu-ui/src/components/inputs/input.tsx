@@ -20,6 +20,7 @@ import {
   ChevronLeft,
 } from '../icons';
 import { cn } from '../../libs/cn';
+import { usePortalContainer } from '../../themes/components/theme-scope/portal-container';
 import { FieldError } from './helpers/field-error-text';
 import { FieldHelperText } from './helpers/field-helper-text';
 import {
@@ -214,6 +215,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     },
     ref
   ) => {
+    const portalContainer = usePortalContainer();
     const lang = useTucuLang();
     const messages = getTucuMessages(lang);
     const locale = localeProp ?? langToLocale(lang);
@@ -835,6 +837,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           {/* Custom Date Picker */}
           {type === 'date' &&
             isCalendarOpen &&
+            portalContainer &&
             createPortal(
               <div
                 ref={calendarRef}
@@ -970,7 +973,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
                   </>
                 )}
               </div>,
-              document.body
+              portalContainer
             )}
         </div>
         {shownError && <FieldError id={errorId} error={shownError} size="md" />}

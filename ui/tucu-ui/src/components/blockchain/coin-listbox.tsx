@@ -10,6 +10,7 @@ import {
 } from 'react';
 import { createPortal } from 'react-dom';
 import { cn } from '../../libs/cn';
+import { usePortalContainer } from '../../themes/components/theme-scope/portal-container';
 import { ChevronDown } from '../icons/chevron-down';
 
 export type CoinTypes = {
@@ -34,6 +35,7 @@ function CoinListBox({
   setSelectedCoin,
   disabled,
 }: CoinListBoxProps) {
+  const portalContainer = usePortalContainer();
   const [isOpen, setIsOpen] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
@@ -188,6 +190,7 @@ function CoinListBox({
 
   const dropdown =
     isOpen &&
+    portalContainer &&
     createPortal(
       <div
         ref={dropdownRef}
@@ -235,7 +238,7 @@ function CoinListBox({
           );
         })}
       </div>,
-      document.body
+      portalContainer
     );
 
   return (

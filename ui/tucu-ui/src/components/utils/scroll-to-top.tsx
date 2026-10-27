@@ -4,6 +4,7 @@ import { useEffect, useState, useCallback, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { useTucuNavigation } from '../../themes/navigation/core';
 import { cn } from '../../libs/cn';
+import { usePortalContainer } from '../../themes/components/theme-scope/portal-container';
 import { ArrowUp } from '../icons/arrow-up';
 
 export interface ScrollToTopProps {
@@ -66,6 +67,7 @@ export function ScrollToTop({
   behavior = 'smooth',
   scrollContainer,
 }: ScrollToTopProps = {}) {
+  const portalContainer = usePortalContainer();
   const { pathname } = useTucuNavigation();
   const [show, setShow] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -207,9 +209,9 @@ export function ScrollToTop({
     </button>
   );
 
-  if (!mounted) return null;
+  if (!mounted || !portalContainer) return null;
 
-  return createPortal(button, document.body) as React.ReactElement;
+  return createPortal(button, portalContainer) as React.ReactElement;
 }
 
 export default ScrollToTop;

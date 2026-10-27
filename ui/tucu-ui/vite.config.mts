@@ -26,7 +26,7 @@ const buildStylesPlugin = (): PluginOption => ({
       configFile: path.join(__dirname, 'vite.config.styles.mts'),
     });
     console.log(
-      'index.css / fonts.css / fonts/ built (vite.config.styles.mts)'
+      'index.css / index-core.css / fonts.css / fonts/ built (vite.config.styles.mts)'
     );
   },
 });
@@ -87,6 +87,10 @@ const copyThemeCssPlugin = () => {
       copyFileSync(
         path.join(cssDir, 'theme.css'),
         path.join(destDir, 'theme.css')
+      );
+      copyFileSync(
+        path.join(cssDir, 'theme-core.css'),
+        path.join(destDir, 'theme-core.css')
       );
       for (const file of [
         'base.css',

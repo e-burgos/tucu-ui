@@ -19,6 +19,7 @@ import {
 import { createPortal } from 'react-dom';
 import { motion, LayoutGroup } from 'framer-motion';
 import { cn } from '../../libs/cn';
+import { usePortalContainer } from '../../themes/components/theme-scope/portal-container';
 import { useBreakpoint } from '../../hooks';
 import { useIsMounted } from '../../hooks/use-is-mounted';
 import { ChevronDown } from '../icons/chevron-down';
@@ -323,6 +324,7 @@ function TabListMobileSelect({
   variant = 'underline',
   className,
 }: TabListMobileSelectProps) {
+  const portalContainer = usePortalContainer();
   const [isOpen, setIsOpen] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
@@ -504,6 +506,7 @@ function TabListMobileSelect({
 
   const dropdown =
     isOpen &&
+    portalContainer &&
     createPortal(
       <div
         ref={dropdownRef}
@@ -586,7 +589,7 @@ function TabListMobileSelect({
           );
         })}
       </div>,
-      document.body
+      portalContainer
     );
 
   return (
