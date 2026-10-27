@@ -1,5 +1,5 @@
 // ─── Prompt Registry ─────────────────────────────────────────────────────────
-// Registers all 8 MCP prompts for guided AI workflows.
+// Registers all 9 MCP prompts for guided AI workflows.
 
 import { z } from 'zod';
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
@@ -11,6 +11,7 @@ import { getMigrateComponentPrompt } from './migrate-component.js';
 import { getThemeSetupPrompt } from './theme-setup.js';
 import { getAccessibilityCheckPrompt } from './accessibility-check.js';
 import { getPerformanceReviewPrompt } from './performance-review.js';
+import { getDesignReviewPrompt } from './design-review.js';
 
 export function registerPrompts(server: McpServer): void {
   // ─── Prompt 1: create-component ─────────────────────────
@@ -215,6 +216,48 @@ export function registerPrompts(server: McpServer): void {
           content: {
             type: 'text' as const,
             text: getPerformanceReviewPrompt(code),
+          },
+        },
+      ],
+    })
+  );
+
+  // ─── Prompt 9: design-review ───────────────────────────
+  server.prompt(
+    'design-review',
+    'Review UI code against the tucu-ui design guide and return severity-ranked findings with concrete fixes',
+    {
+      code: z.string().describe('The UI code or a description of the UI to review'),
+      focus: z
+        .enum([
+          'all',
+          'layout',
+          'color',
+          'typography',
+          'density',
+          'motion',
+          'states',
+          'a11y',
+          'responsive',
+        ])
+        .optional()
+        .describe('Area to review (default: all)'),
+      style: z
+        .enum(['clean', 'glass', 'bold', 'editorial'])
+        .optional()
+        .describe('Intended visual style the UI should follow'),
+      density: z
+        .enum(['compact', 'comfortable', 'spacious'])
+        .optional()
+        .describe('Intended density the UI should follow'),
+    },
+    async ({ code, focus, style, density }) => ({
+      messages: [
+        {
+          role: 'user' as const,
+          content: {
+            type: 'text' as const,
+            text: getDesignReviewPrompt({ code, focus, style, density }),
           },
         },
       ],

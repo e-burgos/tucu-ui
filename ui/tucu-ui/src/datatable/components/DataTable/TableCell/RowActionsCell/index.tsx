@@ -35,6 +35,7 @@ import { useTucuMessages } from '../../../../../libs/i18n/use-tucu-messages';
  * @property {function(HoverType): void} setHoverRow - The function to set the hover row.
  * @property {function(boolean): void} setOpenActions - The function to set the open actions.
  * @property {boolean} forceShowMenuActions - Whether to force show the menu actions.
+ * @property {string} rowLabel - Accessible name of the row appended to the trigger label.
  *
  * @template TData - The type of the data in the table.
  */
@@ -47,6 +48,7 @@ export interface RowActionsCellProps {
   setHoverRow: (value: HoverType) => void;
   setOpenActions: (value: boolean) => void;
   forceShowMenuActions?: boolean;
+  rowLabel?: string;
 }
 
 const isActionHidden = (action: IRowActions<TData>, row: Row<TData>) =>
@@ -60,6 +62,7 @@ const RowActionsCell: React.FC<RowActionsCellProps> = ({
   setOpenActions,
   setHoverRow,
   forceShowMenuActions,
+  rowLabel,
 }) => {
   const portalContainer = usePortalContainer();
   const t = useTucuMessages().datatable;
@@ -194,6 +197,9 @@ const RowActionsCell: React.FC<RowActionsCellProps> = ({
     };
   }, [closeMenu]);
 
+  const withRowLabel = (label: string) =>
+    rowLabel ? `${label} ${rowLabel}` : label;
+
   const firstActionRow = rowActions?.[0];
   const showMoreMenu = rowActions?.length === 1 && !forceShowMenuActions;
 
@@ -230,11 +236,12 @@ const RowActionsCell: React.FC<RowActionsCellProps> = ({
                 event?.stopPropagation?.();
                 firstActionRow?.onClick?.(row);
               }}
-              aria-label={
+              aria-label={withRowLabel(
                 typeof firstActionRow?.label?.(row) === 'string'
                   ? (firstActionRow?.label?.(row) as string)
                   : String(firstActionRow?.action ?? t.rowActions)
-              }
+              )}
+              data-action={firstActionRow?.action}
               disabled={isSingleActionDisabled}
               style={{
                 margin: '0 auto',
@@ -250,7 +257,7 @@ const RowActionsCell: React.FC<RowActionsCellProps> = ({
               event?.stopPropagation?.();
               openMenu();
             }}
-            aria-label={t.rowActions}
+            aria-label={withRowLabel(t.rowActions)}
             aria-haspopup="menu"
             aria-expanded={openOptions}
             style={{
@@ -266,7 +273,7 @@ const RowActionsCell: React.FC<RowActionsCellProps> = ({
           <div
             ref={optionsContainerRef}
             role="menu"
-            aria-label={t.rowActions}
+            aria-label={withRowLabel(t.rowActions)}
             className={cn(
               'flex flex-col min-w-[175px] rounded px-0 py-2 w-max h-fit max-h-[200px] overflow-auto bg-table-paper-bg border border-table-divider fixed transition-all duration-100 ease-in table-dropdown-shadow'
             )}
@@ -284,6 +291,8 @@ const RowActionsCell: React.FC<RowActionsCellProps> = ({
                 <button
                   type="button"
                   role="menuitem"
+                  aria-label={action.label(row)}
+                  data-action={action.action}
                   disabled={disabled}
                   key={`${tableId}-${row.id}-${action.action}-${index}`}
                   className={cn(

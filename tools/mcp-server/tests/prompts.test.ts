@@ -7,6 +7,7 @@ import { getMigrateComponentPrompt } from '../src/prompts/migrate-component.js';
 import { getThemeSetupPrompt } from '../src/prompts/theme-setup.js';
 import { getAccessibilityCheckPrompt } from '../src/prompts/accessibility-check.js';
 import { getPerformanceReviewPrompt } from '../src/prompts/performance-review.js';
+import { getDesignReviewPrompt } from '../src/prompts/design-review.js';
 import { registerPrompts } from '../src/prompts/index.js';
 
 // ─── Prompt Registry ────────────────────────────────────────────────────────
@@ -187,5 +188,53 @@ describe('performance-review prompt', () => {
     const result = getPerformanceReviewPrompt('code');
     expect(result).toContain('BAD');
     expect(result).toContain('GOOD');
+  });
+});
+
+describe('design-review prompt', () => {
+  it('tells the model to read the design guide resource', () => {
+    const result = getDesignReviewPrompt({ code: '<Button>Go</Button>' });
+    expect(result).toContain('tucu://design-guide');
+  });
+
+  it('includes the code under review', () => {
+    const code = '<Card title="Orders" />';
+    expect(getDesignReviewPrompt({ code })).toContain(code);
+  });
+
+  it('defaults focus to all', () => {
+    const result = getDesignReviewPrompt({ code: 'x' });
+    expect(result).toContain('FOCUS: all');
+    expect(result).not.toContain('INTENDED STYLE');
+    expect(result).not.toContain('INTENDED DENSITY');
+  });
+
+  it('applies focus, style and density when provided', () => {
+    const result = getDesignReviewPrompt({
+      code: 'x',
+      focus: 'motion',
+      style: 'glass',
+      density: 'compact',
+    });
+    expect(result).toContain('FOCUS: motion');
+    expect(result).toContain('INTENDED STYLE: glass');
+    expect(result).toContain('INTENDED DENSITY: compact');
+    expect(result).toContain('"glass" recipe');
+    expect(result).toContain('"compact" column');
+    expect(result).toContain('section 8 (motion)');
+  });
+
+  it('requests a severity table and a prioritized patch plan', () => {
+    const result = getDesignReviewPrompt({ code: 'x' });
+    expect(result).toContain('| Severity | Guide section | Problem | Fix |');
+    for (const severity of ['blocker', 'major', 'minor']) {
+      expect(result).toContain(severity);
+    }
+    expect(result).toContain('prioritized patch plan');
+  });
+
+  it('is brand-free', () => {
+    const result = getDesignReviewPrompt({ code: 'x' });
+    expect(result).not.toMatch(/display-ads|opticagestion|sdd-harness|studio/i);
   });
 });

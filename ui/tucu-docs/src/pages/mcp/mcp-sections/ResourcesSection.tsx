@@ -11,6 +11,11 @@ import {
 
 const resources = [
   {
+    uri: 'tucu://design-guide',
+    description:
+      'Design guide: styles (clean, glass, bold, editorial), motion levels, density mapping, marketing/auth layouts, states and accessibility rules',
+  },
+  {
     uri: 'tucu://catalog',
     description:
       'Complete component catalog with variants, props, and examples — includes DrawerContainer as a first-class component and a compiling Drawer example (type and setIsOpen are required)',
@@ -87,7 +92,7 @@ const ResourcesSection: React.FC = () => {
     <div className="flex flex-col gap-8">
       <HeroCard
         title="Resources"
-        description="15 static knowledge resources that agents can read for comprehensive context about the library."
+        description="16 static knowledge resources that agents can read for comprehensive context about the library."
         icon={
           <div className="w-16 h-16 sm:w-20 sm:h-20 bg-linear-to-br from-emerald-500 to-teal-500 rounded-full flex items-center justify-center shadow-lg">
             <LucideIcons.BookOpen className="w-8 h-8 sm:w-10 sm:h-10 text-white" />

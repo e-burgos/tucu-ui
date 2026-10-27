@@ -3,7 +3,15 @@
 export function getChangelogContent(): string {
   return `# Changelog — @e-burgos/tucu-ui
 
-## v3.8.0 (Current)
+## v3.9.0 (Current)
+- Add: MCP resource \`tucu://design-guide\` and prompt \`design-review\` (\`code\`, \`focus\`, \`style\`, \`density\`); \`generate_page\` / \`generate_component\` accept \`style\` clean | glass | bold | editorial, \`motion\` none | subtle | expressive and \`density\` compact | comfortable | spacious; \`generate_page\` gains the \`marketing\` and \`auth\` layouts
+- Add: installable design skill \`tucu-ui-design\` shipped in \`@e-burgos/tucu-ui-mcp\` — \`npx -p @e-burgos/tucu-ui-mcp tucu-ui-skill install [--dir <path>] [--force]\` (\`tucu-ui-skill path\` prints the packaged folder)
+- Add: \`ThemeProvider\` / \`NextThemeProvider\` wrap the app in framer-motion \`MotionConfig reducedMotion="user"\`; prop \`motion={{ reducedMotion }}\` overrides it
+- Add: DataTable \`columnSizing\` \`'fixed' | 'fill-leftover' | 'fill'\` — \`fill\` grows columns proportionally to the container respecting \`minSize\`/\`maxSize\`; the default \`fill-leftover\` keeps the previous behavior
+- Add: DataTable \`getRowLabel(row)\` — \`aria-label\` on rows and cards, row-actions trigger named \`Row actions <label>\`, menu items named and carrying \`data-action\`
+- Add: FilterBar accessible names per filter (\`label\`, then \`aria-label\`, then \`id\`) and \`data-testid\`
+
+## v3.8.0
 - Add: \`MarketingLayout\`, \`MarketingNav\`, \`MarketingFooter\` (types \`MarketingLink\`, \`MarketingRenderLink\`, \`MarketingFooterGroup\`, \`MarketingFooterSocial\`, \`MarketingMaxWidth\`) — router-agnostic public-site shell with active-link detection, accessible mobile menu, \`transparentUntilScroll\` and a skip link
 - Add: \`SplitAuthLayout\` — brand column (logo, headline, lead, highlights, footer, background) + form column; \`variant\` split | centered, \`brandPosition\`, \`surface\` glass | solid | plain, \`breakpoint\` md | lg
 - Add: DataTable \`mobileCards\` (\`boolean | IMobileCardsOptions\` with \`breakpoint\`, \`titleColumnId\`, \`subtitleColumnId\`, \`hiddenColumnIds\`, \`className\`) — rows render as cards below the breakpoint, switched by CSS, with row actions, selection, row click and compact pagination

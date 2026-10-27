@@ -1,6 +1,6 @@
 # 🧠 Memoria del proyecto — lecciones destiladas
 
-> Versión 1.0 | Última destilación: (seed del kit v0.11.0)
+> Versión 1.1 | Última destilación: 2026-10-27 (journal de spec-e-burgos-001 y spec-e-burgos-002)
 > **Cap duro: 120 líneas.** Este archivo se lee COMPLETO al inicio de cada sesión de agente —
 > cada línea acá cuesta tokens en todas las sesiones futuras. Si al destilar se supera el cap,
 > primero podar lecciones obsoletas o absorbidas por constitutions/skills.
@@ -19,6 +19,8 @@ Reglas de este archivo (ver sección 🧠 MEMORIA GATE del dual-harness):
 
 - Citar la evidencia y las decisiones desde `harness.idea.md` en las specs en vez de
   copiarlas a mano.
+- Con implementadores en paralelo sobre un mismo checkout, prohibir `git stash`/`checkout`/
+  `reset` en el brief; para comparar contra la base usar `git diff` o `git show HEAD:<path>`.
 
 ## Técnica (stack, herramientas, gotchas transversales)
 
@@ -27,6 +29,15 @@ Reglas de este archivo (ver sección 🧠 MEMORIA GATE del dual-harness):
   directorio primario).
 - No dar por verde un `init` sin correr `nx run-many -t lint test build`: `sdd:validate`
   no compila nada.
+- Verificar la librería desde el paquete compilado (`pnpm tucu-ui:test-local` + la demo en el
+  navegador) antes de cerrar un ciclo: los bugs de `dist` (dependencias inlineadas, CSS
+  copiado, tipos a mano) no los ve ningún test unitario.
+- Revertir `apps/demo/package.json`, `pnpm-lock.yaml` y los demás `package.json` que reescribe
+  `test-local` antes de cualquier `git add`.
+- Cubrir con un check automático de paridad todo lo que se publica fuera del grafo de JS
+  (CSS copiado a `dist`, `.d.ts` escritos a mano).
+- No encadenar comandos con `-n` (p. ej. `sed -n`, `grep -n`) en la misma línea que un
+  `git commit`: el hook `block-no-verify` lo confunde con `--no-verify`.
 
 ## Costo (qué gastó tokens/tiempo de más y cómo evitarlo)
 
@@ -35,3 +46,5 @@ Reglas de este archivo (ver sección 🧠 MEMORIA GATE del dual-harness):
   dashboard de Costos miente.
 - Capturar `subagent_tokens` de la notificación de cada subagente (Claude Code) en el
   momento: es la única medición exacta gratuita y no se recupera después.
+- Ante una preview en blanco, leer `preview_logs` para confirmar el puerto real (la demo sirve
+  en 3000 aunque `launch.json` diga 4200) antes de recargar.

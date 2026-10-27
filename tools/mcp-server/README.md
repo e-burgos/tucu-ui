@@ -7,8 +7,8 @@ MCP (Model Context Protocol) server for the **@e-burgos/tucu-ui** component libr
 | Category         | Capabilities                                                                                                                       |
 | ---------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
 | **11 Tools**     | `list_components`, `get_component`, `search_components`, `get_props`, `generate_component`, `generate_form`, `generate_page`, `generate_chart`, `generate_datatable`, `generate_documentation`, `search_icons` |
-| **13 Resources** | Catalog, datatable, tokens, forms, routing, layouts, theme, charts, icons, migration, best-practices, changelog, quickstart        |
-| **8 Prompts**    | create-component, create-form, create-page, debug-variant, migrate-component, theme-setup, accessibility-check, performance-review |
+| **16 Resources** | Catalog, datatable, tokens, forms, routing, layouts, theme, charts, icons, migration, best-practices, changelog, quickstart, styling-overrides, shell, design-guide |
+| **9 Prompts**    | create-component, create-form, create-page, debug-variant, migrate-component, theme-setup, accessibility-check, performance-review, design-review |
 | **2 Transports** | Stdio (local) and Streamable HTTP (remote)                                                                                         |
 
 ## Quick Start
@@ -245,6 +245,33 @@ Input: { query: string, limit?: number }
 | `tucu://best-practices` | Do's, don'ts, anti-patterns, common mistakes                  |
 | `tucu://changelog`      | Latest versions and changes                                   |
 | `tucu://quickstart`     | Quick start: install, setup, first component                  |
+| `tucu://design-guide`   | Design guide: styles, motion, density, layouts, states, accessibility |
+
+## Prompts
+
+`create-component`, `create-form`, `create-page`, `debug-variant`, `migrate-component`, `theme-setup`, `accessibility-check`, `performance-review` and `design-review` (arguments `code`, `focus`, `style`, `density`: reviews a screen against `tucu://design-guide`).
+
+## Design parameters
+
+`generate_page` and `generate_component` accept three optional design parameters. Omit them to keep the default output.
+
+| Param     | Values                                  | Effect                                                                                       |
+| --------- | --------------------------------------- | -------------------------------------------------------------------------------------------- |
+| `style`   | `clean`, `glass`, `bold`, `editorial`   | Wraps the output in `<ThemeScope preset>` (minimal, glass, vibrant, classic)                 |
+| `motion`  | `none`, `subtle`, `expressive`          | `none` forces `MotionConfig reducedMotion="always"`, `expressive` sets a spring transition   |
+| `density` | `compact`, `comfortable`, `spacious`    | Maps to real props: Card/BasicTable/Alert `density`, Button/Input/Select `size`              |
+
+`generate_page` also supports the `marketing` (MarketingLayout, nav, footer) and `auth` (SplitAuthLayout with SignInForm) layouts.
+
+## Design skill
+
+The package ships the `tucu-ui-design` agent skill (design, build and review UIs with tucu-ui). Install it into a project:
+
+```bash
+npx -p @e-burgos/tucu-ui-mcp tucu-ui-skill install            # .claude/skills/tucu-ui-design
+npx -p @e-burgos/tucu-ui-mcp tucu-ui-skill install --dir .agents/skills --force
+npx -p @e-burgos/tucu-ui-mcp tucu-ui-skill path               # print the packaged skill folder
+```
 
 ## Self-Hosting
 

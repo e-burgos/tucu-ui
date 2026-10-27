@@ -2,9 +2,10 @@
 
 > Entry point para agentes que trabajen sobre `tools/mcp-server` (proyecto Nx `tucu-ui-mcp`).
 > Leer junto con `constitution.md` de este directorio **+ `updates/*.md` en orden de nombre**.
+> Última actualización: consolidación de spec-e-burgos-001 cycle-01 y spec-e-burgos-002 cycles 01-04. Fecha: 2026-10-27
 
-- **Tipo:** node MCP server, `@e-burgos/tucu-ui-mcp` 0.9.0
-- **Estado:** en producción (npm + fly.io); sin ciclos SDD completados todavía.
+- **Tipo:** node MCP server, `@e-burgos/tucu-ui-mcp` 0.14.0
+- **Estado:** en producción (npm + fly.io), alineado con `@e-burgos/tucu-ui` 3.8.0 (modo Next, presets/scopes, componentes de absorción y layouts).
 - **Comandos (siempre vía Nx):**
   - `pnpm nx run tucu-ui-mcp:build`
   - `pnpm nx run tucu-ui-mcp:serve` — stdio
@@ -16,5 +17,5 @@
 
 ## Qué sigue
 
-- Cuando `libs/tucu-ui` publique el entry `@e-burgos/tucu-ui/next` (Next.js 16 App Router), sumar su guía al catálogo y a los resources de quickstart/theme/routing.
+- cycle-05 (spec-e-burgos-002): `tucu://design-guide`, prompt `design-review` y parámetros `style`/`motion`/`density` en las tools de generación.
 - Mantener el changelog resource alineado con cada release de la lib.

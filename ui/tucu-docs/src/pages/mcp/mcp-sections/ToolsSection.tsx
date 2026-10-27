@@ -82,7 +82,10 @@ const tools = [
   "component": "string",           // e.g. "Button"
   "props?": "Record<string,string>", // e.g. { variant: "solid", size: "large" }
   "withWrapper?": "boolean",       // wrap in layout container
-  "theme?": "string"               // color preset name
+  "theme?": "string",              // color preset name
+  "style?": "string",              // "clean" | "glass" | "bold" | "editorial"
+  "motion?": "string",             // "none" | "subtle" | "expressive"
+  "density?": "string"             // "compact" | "comfortable" | "spacious"
 }`,
     example: `// Agent request
 { "component": "Alert", "props": { "variant": "success", "title": "Done!" } }
@@ -117,18 +120,26 @@ const tools = [
     icon: <LucideIcons.Layout className="w-5 h-5 text-pink-500" />,
     input: `{
   "name": "string",           // page name, e.g. "Dashboard"
-  "layout": "string",         // "dashboard" | "sidebar" | "fullpage" | "stacked"
+  "layout": "string",         // "dashboard" | "sidebar" | "fullpage" | "stacked" | "marketing" | "auth"
   "sections": [{              // page sections to include
     "type": "string",         // "hero" | "cards" | "table" | "form" | "chart" | "list"
     "title?": "string"
   }],
   "withRouting?": "boolean",  // include route configuration (default: false)
-  "architecture?": "string"  // "standalone" | "mfe" (default: "standalone")
+  "architecture?": "string", // "standalone" | "mfe" (default: "standalone")
+  "style?": "string",         // "clean" | "glass" | "bold" | "editorial" -> <ThemeScope preset>
+  "motion?": "string",        // "none" | "subtle" | "expressive" -> <MotionConfig>
+  "density?": "string"        // "compact" | "comfortable" | "spacious" -> density/size props
 }`,
     example: `// Agent request
 { "name": "Dashboard", "layout": "dashboard", "sections": [{ "type": "cards" }, { "type": "chart" }] }
 
-// Generates: DashboardPage with StatsCard grid and a chart placeholder section`,
+// Generates: DashboardPage with StatsCard grid and a chart placeholder section
+
+// Marketing / auth layouts with design params
+{ "name": "Landing", "layout": "marketing", "style": "glass", "motion": "subtle" }
+// layout "marketing" -> MarketingLayout + MarketingNav + MarketingFooter
+// layout "auth" -> SplitAuthLayout with SignInForm (sections are ignored)`,
   },
   {
     name: 'generate_chart',

@@ -1,0 +1,202 @@
+{
+  "$schema": "../../../../schemas/cycle-tasks.schema.json",
+  "spec": "spec-e-burgos-002-consumer-absorption",
+  "cycle": 5,
+  "module": "consumer-absorption",
+  "apps": [
+    "libs/tucu-ui",
+    "libs/tucu-docs",
+    "tools/mcp-server"
+  ],
+  "flow": "lite",
+  "user_stories_generated": true,
+  "prerequisites": {
+    "tasks_generated": true
+  },
+  "tasks": [
+    {
+      "id": "TASK-001",
+      "title": "Recurso tucu://design-guide y prompt design-review",
+      "user_stories": [
+        "US-001",
+        "US-003"
+      ],
+      "estimation_hours": 5,
+      "story_points": 5,
+      "depends_on": [],
+      "status": "done",
+      "files": [
+        "tools/mcp-server/src/resources/design-guide.ts",
+        "tools/mcp-server/src/resources/index.ts",
+        "tools/mcp-server/src/prompts/design-review.ts",
+        "tools/mcp-server/src/prompts/index.ts",
+        "tools/mcp-server/tests/resources.test.ts",
+        "tools/mcp-server/tests/prompts.test.ts"
+      ],
+      "usage": {
+        "tokens_in": 181000,
+        "tokens_out": 40000,
+        "provider_model": "claude/sonnet",
+        "effort": "high",
+        "agent": "implementor-front",
+        "approx": true,
+        "source": "declared-estimate",
+        "recorded_at": "2026-10-27"
+      }
+    },
+    {
+      "id": "TASK-002",
+      "title": "Parámetros style/motion/density en generate_page y generate_component, y layouts marketing/auth",
+      "user_stories": [
+        "US-002"
+      ],
+      "estimation_hours": 5,
+      "story_points": 5,
+      "depends_on": [],
+      "status": "done",
+      "files": [
+        "tools/mcp-server/src/utils/design-params.ts",
+        "tools/mcp-server/src/utils/page-layouts.ts",
+        "tools/mcp-server/src/tools/generation-tools.ts",
+        "tools/mcp-server/tests/design-params.test.ts"
+      ],
+      "usage": {
+        "tokens_in": 144000,
+        "tokens_out": 28000,
+        "provider_model": "claude/sonnet",
+        "effort": "medium",
+        "agent": "implementor-front",
+        "approx": true,
+        "source": "declared-estimate",
+        "recorded_at": "2026-10-27"
+      }
+    },
+    {
+      "id": "TASK-003",
+      "title": "Skill tucu-ui-design instalable (harness + build + bin tucu-ui-skill) y MotionConfig reducedMotion en la librería",
+      "user_stories": [
+        "US-004",
+        "US-005"
+      ],
+      "estimation_hours": 5,
+      "story_points": 5,
+      "depends_on": [
+        "TASK-001"
+      ],
+      "status": "done",
+      "files": [
+        "harness/skills/tucu-ui-design/",
+        "scripts/check-harness-symlinks.mjs",
+        "tools/mcp-server/scripts/build-skills.mjs",
+        "tools/mcp-server/src/cli/skill.ts",
+        "tools/mcp-server/package.json",
+        "tools/mcp-server/project.json",
+        "ui/tucu-ui/src/themes/components/theme-provider/theme-wrapper.tsx",
+        "ui/tucu-ui/src/__tests__/setup.ts"
+      ],
+      "usage": {
+        "tokens_in": 138000,
+        "tokens_out": 14000,
+        "provider_model": "claude/sonnet",
+        "effort": "medium",
+        "agent": "implementor-front",
+        "approx": true,
+        "source": "declared-estimate",
+        "recorded_at": "2026-10-27"
+      }
+    },
+    {
+      "id": "TASK-006",
+      "title": "Fricciones de opticagestion: DataTable columnSizing fill (reemplaza FluidDataTable) y nombres accesibles estables en FilterBar, filas y acciones de fila",
+      "user_stories": [
+        "US-002"
+      ],
+      "estimation_hours": 5,
+      "story_points": 5,
+      "depends_on": [],
+      "status": "done",
+      "files": [
+        "ui/tucu-ui/src/datatable/common/functions/fillColumnsToWidth.ts",
+        "ui/tucu-ui/src/datatable/hooks/useColumns.ts",
+        "ui/tucu-ui/src/datatable/hooks/useScrollableTable.tsx",
+        "ui/tucu-ui/src/components/filters/filter-bar.tsx",
+        "tools/mcp-server/src/resources/datatable.ts"
+      ],
+      "usage": {
+        "tokens_in": 173000,
+        "tokens_out": 22000,
+        "provider_model": "claude/sonnet",
+        "effort": "high",
+        "agent": "implementor-front",
+        "approx": true,
+        "source": "declared-estimate",
+        "recorded_at": "2026-10-27"
+      }
+    },
+    {
+      "id": "TASK-004",
+      "title": "Docs: Motion & Density en tucu-docs, páginas del MCP y README",
+      "user_stories": [
+        "US-001",
+        "US-002",
+        "US-003",
+        "US-004"
+      ],
+      "estimation_hours": 3,
+      "story_points": 3,
+      "depends_on": [
+        "TASK-001",
+        "TASK-002",
+        "TASK-003"
+      ],
+      "status": "done",
+      "files": [
+        "tools/mcp-server/src/resources/changelog.ts",
+        "tools/mcp-server/README.md",
+        "ui/tucu-docs/src/pages/design-system/design-system-sections/MotionDensitySection.tsx",
+        "ui/tucu-docs/src/pages/mcp/mcp-sections/",
+        "README.md",
+        "README-es.md"
+      ],
+      "usage": {
+        "tokens_in": 134000,
+        "tokens_out": 14000,
+        "provider_model": "claude/sonnet",
+        "effort": "medium",
+        "agent": "implementor-front",
+        "approx": true,
+        "source": "declared-estimate",
+        "recorded_at": "2026-10-27"
+      }
+    },
+    {
+      "id": "TASK-005",
+      "title": "Verificación, cierre de la spec y notas de adopción",
+      "user_stories": [
+        "US-001",
+        "US-002",
+        "US-003",
+        "US-004",
+        "US-005"
+      ],
+      "estimation_hours": 3,
+      "story_points": 3,
+      "depends_on": [
+        "TASK-004",
+        "TASK-006"
+      ],
+      "status": "done",
+      "files": [],
+      "usage": {
+        "tokens_in": 120000,
+        "tokens_out": 14000,
+        "provider_model": "claude/opus",
+        "effort": "medium",
+        "agent": "orchestrator",
+        "approx": true,
+        "source": "declared-estimate",
+        "recorded_at": "2026-10-27"
+      }
+    }
+  ]
+}

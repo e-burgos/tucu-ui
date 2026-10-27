@@ -1,6 +1,6 @@
 # SPEC-e-burgos-002: Absorción de componentes, layouts y temas de los consumidores
 
-> Estado: **in-progress**. Plan de cinco ciclos aprobado por el dueño el 2026-10-27. Numeración: c00→cycle-01, c01→cycle-02, c02→cycle-03, c03→cycle-04 y c04→cycle-05, porque el schema exige `cycle ≥ 1`.
+> Estado: **completed** (2026-10-27). Plan de cinco ciclos aprobado por el dueño el 2026-10-27. Numeración: c00→cycle-01, c01→cycle-02, c02→cycle-03, c03→cycle-04 y c04→cycle-05, porque el schema exige `cycle ≥ 1`.
 
 ## Resumen Ejecutivo
 

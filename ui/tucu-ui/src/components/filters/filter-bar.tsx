@@ -32,6 +32,10 @@ export interface FilterBarSelectFilter {
   className?: string;
   /** Do not count this filter as active when computing the active count. */
   ignoreInActiveCount?: boolean;
+  /** Accessible name used when `label` is not provided. Defaults to the filter `id`. */
+  'aria-label'?: string;
+  /** Stable test id set on the select trigger. */
+  'data-testid'?: string;
 }
 
 export interface FilterBarToggle {
@@ -144,6 +148,10 @@ export function FilterBar({
             onSelect={filter.onChange}
             className={cn('min-w-[9rem]', filter.className)}
             data-tucu-filter={filter.id}
+            data-testid={filter['data-testid']}
+            aria-label={
+              filter.label ? undefined : filter['aria-label'] ?? filter.id
+            }
           />
         ))}
         {toggle && (

@@ -97,7 +97,34 @@ tucu-ui-mcp-http     # HTTP+SSE transport (port 3100)`}
                 transport: 'HTTP+SSE',
                 useCase: 'Remote agents, Docker, Fly.io, cloud',
               },
+              {
+                command: 'tucu-ui-skill',
+                transport: 'CLI',
+                useCase: 'Install the tucu-ui-design agent skill',
+              },
             ]}
+          />
+        </CardTitle>
+      </CardContainer>
+
+      <CardContainer>
+        <CardTitle title="Design skill">
+          <Typography className="text-sm text-foreground/70 mb-3">
+            The package ships the <code>tucu-ui-design</code> agent skill: a
+            SKILL.md with the design workflow (layout, style, density, motion,
+            states, accessibility) plus a review checklist. It pairs with the{' '}
+            <code>tucu://design-guide</code> resource and the{' '}
+            <code>design-review</code> prompt.
+          </Typography>
+          <CodeBlock
+            code={`# Install into .claude/skills/tucu-ui-design
+npx -p @e-burgos/tucu-ui-mcp tucu-ui-skill install
+
+# Custom skills directory, overwrite an existing install
+npx -p @e-burgos/tucu-ui-mcp tucu-ui-skill install --dir .agents/skills --force
+
+# Print the packaged skill folder
+npx -p @e-burgos/tucu-ui-mcp tucu-ui-skill path`}
           />
         </CardTitle>
       </CardContainer>

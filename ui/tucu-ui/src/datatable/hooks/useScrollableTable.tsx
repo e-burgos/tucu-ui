@@ -29,13 +29,15 @@ export type UseScrollableTable = {
  * @subcategory Hooks
  *
  * @param {React.MutableRefObject<HTMLDivElement>} tableContainerRef - The ref of the table container.
+ * @param {{ observeResize?: boolean }} [options] - `observeResize` also tracks the container itself with a ResizeObserver (not only the window).
  * @returns {UseScrollableTable} The object with the container width, is scrollable, scroll x, and handle scroll.
  *
  * @template TData - The type of the data in the table.
  */
 
 export const useScrollableTable = (
-  tableContainerRef: React.MutableRefObject<HTMLDivElement>
+  tableContainerRef: React.MutableRefObject<HTMLDivElement>,
+  { observeResize = false }: { observeResize?: boolean } = {}
 ): UseScrollableTable => {
   const [scrollX, setScrollX] = useState<number>(0);
   const containerElement = tableContainerRef.current;
@@ -60,8 +62,17 @@ export const useScrollableTable = (
 
     window.addEventListener('resize', updateSize);
     updateSize();
-    return () => window.removeEventListener('resize', updateSize);
-  }, [tableContainerRef]);
+    const container = tableContainerRef.current;
+    const observer =
+      observeResize && container && typeof ResizeObserver !== 'undefined'
+        ? new ResizeObserver(updateSize)
+        : null;
+    observer?.observe(container);
+    return () => {
+      window.removeEventListener('resize', updateSize);
+      observer?.disconnect();
+    };
+  }, [tableContainerRef, observeResize]);
 
   return {
     containerWith,

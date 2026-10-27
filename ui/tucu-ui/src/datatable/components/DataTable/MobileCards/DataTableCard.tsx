@@ -23,6 +23,8 @@ export interface DataTableCardProps {
   rowActions?: IRowActions<TData>[];
   rowSelection?: IRowSelection<TData>;
   forceShowMenuActions?: boolean;
+  rowLabel?: string;
+  rowId?: string;
   onActivate?: (row: Row<TData>) => void;
   className?: string;
 }
@@ -77,6 +79,8 @@ const DataTableCard: React.FC<DataTableCardProps> = ({
   rowActions,
   rowSelection,
   forceShowMenuActions,
+  rowLabel,
+  rowId,
   onActivate,
   className,
 }) => {
@@ -106,7 +110,9 @@ const DataTableCard: React.FC<DataTableCardProps> = ({
       data-tucu="datatable-card"
       data-selected={isSelected || undefined}
       tabIndex={onActivate ? 0 : undefined}
-      aria-labelledby={title ? titleId : undefined}
+      aria-label={rowLabel}
+      aria-labelledby={title && !rowLabel ? titleId : undefined}
+      data-row-id={rowId}
       onClick={onActivate ? handleClick : undefined}
       onKeyDown={onActivate ? handleKeyDown : undefined}
       className={cn(
@@ -167,6 +173,7 @@ const DataTableCard: React.FC<DataTableCardProps> = ({
               setOpenActions={ignore}
               rowActions={rowActions}
               forceShowMenuActions={forceShowMenuActions}
+              rowLabel={rowLabel}
             />
           </div>
         )}

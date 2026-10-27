@@ -7,7 +7,8 @@
   "main": "dist/index.js",
   "bin": {
     "tucu-ui-mcp": "dist/index.js",
-    "tucu-ui-mcp-http": "dist/http-server.js"
+    "tucu-ui-mcp-http": "dist/http-server.js",
+    "tucu-ui-skill": "dist/cli/skill.js"
   },
   "files": [
     "dist",
@@ -30,7 +31,7 @@
   "scripts": {
     "dev": "tsx src/index.ts",
     "start:http": "tsx src/http-server.ts",
-    "build": "tsc -p tsconfig.lib.json"
+    "build": "tsc -p tsconfig.lib.json && node scripts/build-skills.mjs"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.12.0",

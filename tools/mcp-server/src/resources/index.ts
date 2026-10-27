@@ -1,5 +1,5 @@
 // ─── Resource Registry ───────────────────────────────────────────────────────
-// Registers all 15 MCP resources with tucu:// URIs.
+// Registers all 16 MCP resources with tucu:// URIs.
 
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { getCatalogContent } from './catalog.js';
@@ -17,6 +17,7 @@ import { getChangelogContent } from './changelog.js';
 import { getQuickStartContent } from './quickstart.js';
 import { getStylingOverridesContent } from './styling-overrides.js';
 import { getShellContent } from './shell.js';
+import { getDesignGuideContent } from './design-guide.js';
 
 interface ResourceDef {
   name: string;
@@ -125,6 +126,13 @@ const resources: ResourceDef[] = [
     description:
       'App shell and orchestration reality: standalone vs MFE ThemeProvider, the internal BrowserRouter and real scroll container, the rightButton header slot, cross-app full-page navigation',
     getContent: getShellContent,
+  },
+  {
+    name: 'design-guide',
+    uri: 'tucu://design-guide',
+    description:
+      'Design guide for AI agents and developers: hierarchy, layout, density, typography, color tokens and presets, surfaces, style recipes (clean, glass, bold, editorial), motion, states, data display, forms, responsive, accessibility, anti-patterns and a review checklist',
+    getContent: getDesignGuideContent,
   },
 ];
 

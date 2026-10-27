@@ -72,3 +72,4 @@ export const handleHeaderTableListener = (el: HTMLElement | null) => {
     el?.dispatchEvent(eventMouseOut);
   }
 };
+export * from './fillColumnsToWidth';

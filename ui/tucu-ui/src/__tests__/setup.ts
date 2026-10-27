@@ -157,8 +157,25 @@ vi.mock('framer-motion', async () => {
       },
     }
   );
+  const MotionConfigContext = React.createContext<{
+    reducedMotion?: string;
+  }>({});
+  const MotionConfig = ({
+    children,
+    reducedMotion,
+  }: {
+    children: React.ReactNode;
+    reducedMotion?: string;
+  }) =>
+    React.createElement(
+      MotionConfigContext.Provider,
+      { value: { reducedMotion } },
+      children
+    );
   return {
     motion,
+    MotionConfig,
+    MotionConfigContext,
     AnimatePresence: ({ children }: { children: React.ReactNode }) => children,
     useAnimation: () => ({ start: vi.fn(), stop: vi.fn(), set: vi.fn() }),
     useInView: () => true,

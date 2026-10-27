@@ -15,11 +15,12 @@ import { getChangelogContent } from '../src/resources/changelog.js';
 import { getQuickStartContent } from '../src/resources/quickstart.js';
 import { getStylingOverridesContent } from '../src/resources/styling-overrides.js';
 import { getShellContent } from '../src/resources/shell.js';
+import { getDesignGuideContent } from '../src/resources/design-guide.js';
 
 // ─── Resource Registry ──────────────────────────────────────────────────────
 describe('Resource Registry', () => {
-  it('registers exactly 15 resources', () => {
-    expect(resources).toHaveLength(15);
+  it('registers exactly 16 resources', () => {
+    expect(resources).toHaveLength(16);
   });
 
   it('all resources have tucu:// URIs', () => {
@@ -67,6 +68,7 @@ describe('Resource Content', () => {
     { name: 'quickstart', fn: getQuickStartContent },
     { name: 'styling-overrides', fn: getStylingOverridesContent },
     { name: 'shell', fn: getShellContent },
+    { name: 'design-guide', fn: getDesignGuideContent },
   ];
 
   it('all resources return non-empty content', () => {
@@ -288,5 +290,84 @@ describe('Resource Content', () => {
         ).not.toContain(pattern);
       }
     }
+  });
+});
+
+// ─── Design Guide ───────────────────────────────────────────────────────────
+describe('design-guide resource', () => {
+  const content = getDesignGuideContent();
+
+  it('is registered at tucu://design-guide', () => {
+    const entry = resources.find((r) => r.uri === 'tucu://design-guide');
+    expect(entry?.name).toBe('design-guide');
+    expect(entry?.getContent()).toBe(content);
+  });
+
+  it('covers every design section', () => {
+    for (const heading of [
+      'Principles',
+      'Layout and composition',
+      'Spacing scale and density',
+      'Typography',
+      'Color',
+      'Surfaces and elevation',
+      'Style recipes',
+      'Motion',
+      'States',
+      'Data display',
+      'Forms',
+      'Responsive and mobile',
+      'Accessibility checklist',
+      'Anti-patterns',
+      'Review checklist',
+    ]) {
+      expect(content, heading).toContain(heading);
+    }
+  });
+
+  it('documents the style, motion and density values used by the generation tools', () => {
+    for (const value of [
+      '`clean`',
+      '`glass`',
+      '`bold`',
+      '`editorial`',
+      '`none`',
+      '`subtle`',
+      '`expressive`',
+      '`compact`',
+      '`comfortable`',
+      '`spacious`',
+    ]) {
+      expect(content, value).toContain(value);
+    }
+  });
+
+  it('references real components, props and tokens', () => {
+    for (const name of [
+      'GlassPanel',
+      'StateBadge',
+      'MoneyText',
+      'EmptyState',
+      'ErrorState',
+      'ConfirmDialog',
+      'MarketingLayout',
+      'SplitAuthLayout',
+      'MotionConfig reducedMotion="user"',
+      '--tucu-heading-font',
+      '--tucu-state-',
+      'mobileCards',
+    ]) {
+      expect(content, name).toContain(name);
+    }
+  });
+
+  it('is brand-free', () => {
+    expect(content).not.toMatch(
+      /display-ads|opticagestion|sdd-harness|studio/i
+    );
+  });
+
+  it('has a substantial length', () => {
+    expect(content.split('\n').length).toBeGreaterThan(400);
   });
 });

@@ -68,6 +68,13 @@ const sections: SectionConfig[] = [
     ),
   },
   {
+    id: 'motion-density',
+    label: 'Motion & Density',
+    component: lazy(
+      () => import('./design-system-sections/MotionDensitySection')
+    ),
+  },
+  {
     id: 'implementation-guidelines',
     label: 'Implementation Guidelines',
     component: lazy(
