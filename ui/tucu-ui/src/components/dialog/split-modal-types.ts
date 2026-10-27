@@ -8,6 +8,27 @@ export type SplitModalItemStatus =
   | 'danger'
   | 'info';
 
+export type SplitModalItemKind = 'nav' | 'info' | 'action';
+
+export type SplitModalSelectionMode = 'nav' | 'option' | 'none';
+
+export interface SplitModalAction {
+  /** Unique id of the action. */
+  id: string;
+  /** Visible label; the accessible name when `sidebarActionsIconOnly` is set. */
+  label: React.ReactNode;
+  /** Icon rendered before the label. */
+  icon?: React.ReactNode;
+  /** Tooltip content; with `sidebarActionsIconOnly` it defaults to the label. */
+  tooltip?: React.ReactNode;
+  /** Called when the action is triggered. */
+  onClick: () => void;
+  /** Prevents triggering the action. */
+  disabled?: boolean;
+  /** Visual tone; `danger` marks destructive actions. Defaults to `default`. */
+  variant?: 'default' | 'danger';
+}
+
 export interface SplitModalNavItem {
   /** Unique id of the item across every section; reported by `onActiveItemChange`. */
   id: string;
@@ -23,6 +44,15 @@ export interface SplitModalNavItem {
   disabled?: boolean;
   /** Secondary line rendered under the label. */
   description?: React.ReactNode;
+  /**
+   * `nav` (default) is a selectable item; `info` is static content without button semantics or focus;
+   * `action` is a plain button that calls `onClick` and never becomes active.
+   */
+  kind?: SplitModalItemKind;
+  /** Value rendered at the end of an `info` item. */
+  value?: React.ReactNode;
+  /** Called by `action` items, and by any item of a section whose `selectionMode` is `none`. */
+  onClick?: () => void;
 }
 
 export interface SplitModalSection {
@@ -32,6 +62,17 @@ export interface SplitModalSection {
   label?: React.ReactNode;
   /** Navigation items of the section. */
   items: SplitModalNavItem[];
+  /**
+   * `nav` (default) follows the modal-level `activeItemId`; `option` keeps its own selection as a
+   * radio group independent from the navigation; `none` renders plain buttons without active state.
+   */
+  selectionMode?: SplitModalSelectionMode;
+  /** Selected item of an `option` section (controlled). */
+  activeItemId?: string;
+  /** Initially selected item of an `option` section when `activeItemId` is not provided. */
+  defaultActiveItemId?: string;
+  /** Called with the id of the item the user selects in an `option` section. */
+  onActiveItemChange?: (id: string) => void;
 }
 
 export type SplitModalSidebarPosition = 'start' | 'end';
@@ -65,6 +106,10 @@ export interface SplitModalProps {
   navigationLabel?: string;
   /** Content rendered at the top of the sidebar, above the navigation. */
   sidebarHeader?: React.ReactNode;
+  /** Compact action list rendered in the sidebar above `sidebarFooter`. */
+  sidebarActions?: SplitModalAction[];
+  /** Renders `sidebarActions` as icon buttons with a Tooltip instead of labelled rows. */
+  sidebarActionsIconOnly?: boolean;
   /** Content rendered at the bottom of the sidebar (a bottom bar below `md`). */
   sidebarFooter?: React.ReactNode;
   /** Free sidebar content rendered after the navigation. */
@@ -79,7 +124,7 @@ export interface SplitModalProps {
   footer?: React.ReactNode;
   /** Maximum width of the dialog; defaults to `56rem` unless `size` is set. */
   maxWidth?: number | string;
-  /** Maximum height of the area below the header; defaults to `calc(85vh - 5rem)`. */
+  /** Maximum height of the area below the header; defaults to the `Modal` height of the same `size` (`60vh` for `md`). */
   maxHeight?: number | string;
   /** Width preset of `Modal`; when set, the default `maxWidth` is not applied. */
   size?: ModalSize;

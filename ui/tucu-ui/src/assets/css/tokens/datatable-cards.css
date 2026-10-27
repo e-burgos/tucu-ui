@@ -1,0 +1,28 @@
+/* DataTable mobile card tokens: override any `--tucu-datatable-<prop>`; the `-default` variants are the per-mode fallbacks. */
+@layer base {
+  html:root,
+  .dark [data-tucu-theme]:not(.dark) {
+    --tucu-datatable-card-bg-default: var(--color-table-row-bg);
+    --tucu-datatable-card-border-default: var(--color-table-divider);
+    --tucu-datatable-card-radius-default: 0.75rem;
+    --tucu-datatable-card-label-fg-default: var(--color-table-secondary-text);
+    --tucu-datatable-card-selected-bg-default: color-mix(
+      in srgb,
+      var(--color-brand) 8%,
+      var(--color-table-row-bg)
+    );
+  }
+
+  html.dark,
+  [data-tucu-theme].dark {
+    --tucu-datatable-card-bg-default: var(--color-table-row-bg);
+    --tucu-datatable-card-border-default: var(--color-table-divider);
+    --tucu-datatable-card-radius-default: 0.75rem;
+    --tucu-datatable-card-label-fg-default: var(--color-table-secondary-text);
+    --tucu-datatable-card-selected-bg-default: color-mix(
+      in srgb,
+      var(--color-brand) 16%,
+      var(--color-table-row-bg)
+    );
+  }
+}

@@ -12,3 +12,5 @@ export * from './menus/horizontal-nav-menu';
 export * from './menus/menu-item';
 export * from './root-layout';
 export * from './macos-layout/index';
+export * from './split-auth-layout/index';
+export * from './marketing-layout/index';

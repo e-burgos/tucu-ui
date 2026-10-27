@@ -1,0 +1,25 @@
+/* Marketing layout tokens: MarketingNav and MarketingFooter.
+   Override any `--tucu-marketing-<prop>`; the `-default` variants are the per-mode fallbacks. */
+@layer base {
+  html:root,
+  .dark [data-tucu-theme]:not(.dark) {
+    --tucu-marketing-nav-bg-default: transparent;
+    --tucu-marketing-nav-bg-scrolled-default: rgb(255 255 255 / 0.88);
+    --tucu-marketing-nav-border-default: rgb(17 24 39 / 0.08);
+    --tucu-marketing-footer-bg-default: #f9fafb;
+    --tucu-marketing-footer-border-default: rgb(17 24 39 / 0.08);
+    --tucu-marketing-link-fg-default: #4b5563;
+    --tucu-marketing-link-fg-active-default: var(--color-brand);
+  }
+
+  html.dark,
+  [data-tucu-theme].dark {
+    --tucu-marketing-nav-bg-default: transparent;
+    --tucu-marketing-nav-bg-scrolled-default: rgb(11 18 32 / 0.88);
+    --tucu-marketing-nav-border-default: rgb(255 255 255 / 0.1);
+    --tucu-marketing-footer-bg-default: #0b1220;
+    --tucu-marketing-footer-border-default: rgb(255 255 255 / 0.1);
+    --tucu-marketing-link-fg-default: #9ca3af;
+    --tucu-marketing-link-fg-active-default: var(--color-brand);
+  }
+}

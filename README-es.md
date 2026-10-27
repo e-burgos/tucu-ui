@@ -132,6 +132,15 @@ Si no usás los temas macOS, `@import '@e-burgos/tucu-ui/styles-core';` entrega 
 
 ---
 
+## Agregado en 3.8.0
+
+- `MarketingLayout`, `MarketingNav`, `MarketingFooter`: shell de sitio público agnóstico al router, con links activos, menú móvil accesible y `transparentUntilScroll`
+- `SplitAuthLayout`: columna de marca + columna de formulario (`variant` split | centered, `brandPosition`, `surface`, `breakpoint`)
+- `DataTable` `mobileCards`: las filas se muestran como tarjetas bajo un breakpoint (conmutado por CSS) con acciones, selección y paginación compacta
+- Nuevos grupos de tokens: `--tucu-marketing-*`, `--tucu-auth-*`, `--tucu-datatable-card-*`
+
+---
+
 ## Componentes agregados en 3.7.0
 
 - `SplitModal`, `SplitModalWizard` (`validateStep` asíncrono), `ConfirmDialog`

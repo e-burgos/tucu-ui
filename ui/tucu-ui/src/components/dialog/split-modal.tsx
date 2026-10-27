@@ -2,12 +2,16 @@
 
 import React, { useCallback, useId, useState } from 'react';
 import { cn } from '../../libs/cn';
-import { Modal } from './modal';
+import { DEFAULT_MODAL_SIZE, Modal, modalContentMaxHeight } from './modal';
+import { SplitModalActions } from './split-modal-actions';
 import { SplitModalNav } from './split-modal-nav';
 import type { SplitModalProps } from './split-modal-types';
 
 export type {
+  SplitModalAction,
+  SplitModalItemKind,
   SplitModalItemStatus,
+  SplitModalSelectionMode,
   SplitModalNavItem,
   SplitModalProps,
   SplitModalSection,
@@ -15,7 +19,6 @@ export type {
 } from './split-modal-types';
 
 const DEFAULT_MAX_WIDTH = '56rem';
-const DEFAULT_MAX_HEIGHT = 'calc(85vh - 5rem)';
 
 const SIDEBAR_BORDER =
   'border-[color:var(--tucu-split-modal-sidebar-border,var(--tucu-split-modal-sidebar-border-default))]';
@@ -46,13 +49,15 @@ export function SplitModal({
   navigationLabel,
   sidebarHeader,
   sidebarFooter,
+  sidebarActions,
+  sidebarActionsIconOnly,
   sidebar,
   sidebarPosition = 'start',
   sidebarWidth,
   children,
   footer,
   maxWidth,
-  maxHeight = DEFAULT_MAX_HEIGHT,
+  maxHeight,
   size,
   closeLabel,
   closeTooltip,
@@ -66,9 +71,8 @@ export function SplitModal({
   ...dataAttributes
 }: SplitModalProps) {
   const titleId = useId();
-  const [uncontrolledActiveId, setUncontrolledActiveId] = useState(
-    defaultActiveItemId
-  );
+  const [uncontrolledActiveId, setUncontrolledActiveId] =
+    useState(defaultActiveItemId);
   const currentActiveId =
     activeItemId !== undefined ? activeItemId : uncontrolledActiveId;
 
@@ -82,8 +86,9 @@ export function SplitModal({
 
   const hasTitle = title !== undefined && title !== null && title !== false;
   const hasNavigation = Boolean(sections && sections.length > 0);
+  const hasActions = Boolean(sidebarActions && sidebarActions.length > 0);
   const hasSidebar = Boolean(
-    hasNavigation || sidebar || sidebarHeader || sidebarFooter
+    hasNavigation || hasActions || sidebar || sidebarHeader || sidebarFooter
   );
 
   const header =
@@ -147,7 +152,7 @@ export function SplitModal({
       initialFocusRef={initialFocusRef}
       size={size}
       maxWidth={maxWidth ?? (size ? undefined : DEFAULT_MAX_WIDTH)}
-      maxHeight={maxHeight}
+      maxHeight={maxHeight ?? modalContentMaxHeight(size ?? DEFAULT_MODAL_SIZE)}
       className={cn('overflow-hidden', className)}
       contentClassName="mt-0 overflow-hidden p-0"
     >
@@ -206,6 +211,21 @@ export function SplitModal({
                 )}
               >
                 {sidebar}
+              </div>
+            )}
+            {hasActions && sidebarActions && (
+              <div
+                data-tucu="split-modal-sidebar-actions"
+                className={cn(
+                  'order-4 shrink-0 border-t px-3 py-2 md:order-none md:bg-transparent',
+                  SIDEBAR_BORDER,
+                  SIDEBAR_SURFACE
+                )}
+              >
+                <SplitModalActions
+                  actions={sidebarActions}
+                  iconOnly={sidebarActionsIconOnly}
+                />
               </div>
             )}
             {sidebarFooter && (

@@ -154,8 +154,10 @@ or on any ancestor) to theme those components without \`!important\`:
 | \`[data-material="solid"]\` panels | \`--tucu-material-solid-bg\` |
 | SplitModal / SplitModalWizard (v3.7.0) | \`--tucu-split-modal-sidebar-bg\`, \`--tucu-split-modal-sidebar-border\`, \`--tucu-split-modal-item-hover-bg\`, \`--tucu-split-modal-item-active-bg\`, \`--tucu-split-modal-item-active-fg\` |
 | Surfaces: GlassPanel, StateBadge, StatCard (v3.7.0) | \`--tucu-glass-{thin,regular,thick,sub}-bg\`, \`--tucu-glass-blur-{thin,regular,thick,sub}\`, \`--tucu-glass-border\`, \`--tucu-radius-{control,card,panel}\`, \`--tucu-shadow-{card,panel,float}\`, \`--tucu-state-{green,orange,red,teal,purple,neutral}-{soft,ink,line}\` |
-| Controls: SegmentedControl (v3.7.0) | \`--tucu-segmented-bg\`, \`--tucu-segmented-fg\`, \`--tucu-segmented-fg-active\`, \`--tucu-segmented-thumb-bg\`, \`--tucu-segmented-radius\` |
+| Controls: SegmentedControl (v3.7.0) | \`--tucu-segmented-bg\`, \`--tucu-segmented-fg\`, \`--tucu-segmented-fg-active\`, \`--tucu-segmented-thumb-bg\`, \`--tucu-segmented-thumb-border\`, \`--tucu-segmented-radius\` |
 | Feedback: EmptyState, ErrorState, SystemStatePage, Lightbox (v3.7.0) | \`--tucu-state-view-bg\`, \`--tucu-state-view-border\`, \`--tucu-state-view-fg\`, \`--tucu-state-view-fg-muted\`, \`--tucu-state-view-error-fg\`, \`--tucu-state-view-icon-bg\`, \`--tucu-lightbox-overlay-bg\`, \`--tucu-lightbox-control-bg\`, \`--tucu-lightbox-control-fg\` |
+| Layouts: MarketingNav, MarketingFooter, SplitAuthLayout (v3.8.0) | \`--tucu-marketing-{nav-bg,nav-bg-scrolled,nav-border,footer-bg,footer-border,link-fg,link-fg-active}\`, \`--tucu-auth-{brand-bg,brand-fg,brand-muted,divider}\` |
+| DataTable mobile cards (v3.8.0) | \`--tucu-datatable-card-{bg,border,radius,label-fg,selected-bg}\` |
 
 Precedence: every \`--tucu-*\` component token is read as \`var(--tucu-x, var(--tucu-x-default))\` and the library declares \`--tucu-x-default\` per mode, so overriding \`--tucu-x\` on \`:root\` wins in both light and dark.
 

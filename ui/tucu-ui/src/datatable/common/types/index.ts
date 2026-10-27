@@ -338,6 +338,25 @@ export interface SubComponentProps<TData> {
 }
 
 /**
+ * Options for the cards-on-mobile mode of the data table.
+ *
+ * @category libs/datatable
+ * @subcategory Types
+ */
+export interface IMobileCardsOptions {
+  /** Viewport width at which the table replaces the cards. Defaults to `md`. */
+  breakpoint?: 'sm' | 'md' | 'lg';
+  /** Id of the column whose cell is the card title. Defaults to the first visible data column. */
+  titleColumnId?: string;
+  /** Id of the column whose cell is the card subtitle. */
+  subtitleColumnId?: string;
+  /** Ids of the columns left out of the card. */
+  hiddenColumnIds?: string[];
+  /** Extra class names applied to each card. */
+  className?: string;
+}
+
+/**
  * Optional properties for configuring a data table.
  *
  * @category libs/datatable
@@ -366,6 +385,7 @@ export interface SubComponentProps<TData> {
  * @property {boolean} [enableMultiSort] - Whether multi-column sorting is enabled.
  * @property {boolean} [manualSorting] - Whether sorting is handled manually.
  * @property {function(SortingState): void} [onSortModelChange] - Callback triggered when the sorting model changes.
+ * @property {boolean | IMobileCardsOptions} [mobileCards] - Renders each row as a card below the breakpoint.
  */
 export interface IOptionalDataTableProps<TData> {
   sx?: IDataTableStyles;
@@ -392,6 +412,12 @@ export interface IOptionalDataTableProps<TData> {
   enableHideColumns?: boolean;
   searchableColumns?: string[];
   rightActions?: React.ReactNode;
+  /**
+   * Show each row as a card below the breakpoint instead of the wide table.
+   * Both layouts are rendered and switched by CSS, so server and client markup match.
+   * Off by default; `true` uses the `md` breakpoint.
+   */
+  mobileCards?: boolean | IMobileCardsOptions;
 }
 
 /**

@@ -7,6 +7,7 @@ const sections: SectionConfig[] = [
   { id: 'columns', label: 'Columns Configuration', component: lazy(() => import('./datatable-sections/ColumnsSection')) },
   { id: 'fetching', label: 'Data Fetching & Pagination', component: lazy(() => import('./datatable-sections/DataFetchingSection')) },
   { id: 'search', label: 'Global Search', component: lazy(() => import('./datatable-sections/SearchSection')) },
+  { id: 'mobile-cards', label: 'Mobile Cards', component: lazy(() => import('./datatable-sections/MobileCardsSection')) },
   { id: 'examples', label: 'Usage Examples', component: lazy(() => import('./datatable-sections/ExamplesSection')) },
   { id: 'playground', label: 'Playground', component: lazy(() => import('./datatable-sections/PlaygroundSection')) },
 ];

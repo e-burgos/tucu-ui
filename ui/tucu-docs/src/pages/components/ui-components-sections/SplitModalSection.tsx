@@ -45,6 +45,29 @@ const documentSections = [
       { id: 'archive', label: 'Archive', disabled: true },
     ],
   },
+  {
+    id: 'view',
+    label: 'View',
+    selectionMode: 'option' as const,
+    defaultActiveItemId: 'compact',
+    items: [
+      { id: 'compact', label: 'Compact' },
+      { id: 'comfortable', label: 'Comfortable' },
+    ],
+  },
+  {
+    id: 'details',
+    label: 'Details',
+    selectionMode: 'none' as const,
+    items: [
+      {
+        id: 'owner',
+        label: 'Owner',
+        kind: 'info' as const,
+        value: 'A. Gomez',
+      },
+    ],
+  },
 ];
 
 const wizardSteps = [
@@ -129,6 +152,15 @@ const SplitModalSection: React.FC = () => {
                 </Badge>
               }
               sections={documentSections}
+              sidebarActions={[
+                { id: 'share', label: 'Share', onClick: () => undefined },
+                {
+                  id: 'delete',
+                  label: 'Delete',
+                  variant: 'danger',
+                  onClick: () => setDocOpen(false),
+                },
+              ]}
               activeItemId={activeId}
               onActiveItemChange={setActiveId}
               sidebarFooter={

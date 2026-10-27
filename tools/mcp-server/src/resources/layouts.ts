@@ -179,5 +179,8 @@ setLayout(LAYOUT_OPTIONS.HORIZONTAL);
 | HorizontalLayout | menuItems, rightButton?, logo?, isOpen, setIsOpen, fullWidth? | Top horizontal navigation |
 | HorizontalNavMenu | menuItems, className?, dropboxClassName? | Horizontal navigation menu (used inside navbar layouts) |
 | MacOSLayout | menuItems, rightButton?, logo?, isOpen, setIsOpen, fullWidth?, variant? | macOS-style layout (supports sonoma/tahoe variants) |
+| MarketingLayout (v3.8.0) | nav?, footer?, mainId?, skipLinkLabel?, renderLink?, className?, mainClassName? | Public-site shell with skip link, MarketingNav, main and MarketingFooter; router-agnostic links |
+| MarketingNav / MarketingFooter (v3.8.0) | see MarketingNavProps / MarketingFooterProps | Nav bar with mobile menu and footer with link groups and socials, usable standalone |
+| SplitAuthLayout (v3.8.0) | brand?, title?, subtitle?, icon?, footer?, brandPosition?, variant?, surface?, breakpoint?, centered?, maxWidth? | Auth page shell: brand column + form column (SignInForm / SignUpForm) |
 `;
 }

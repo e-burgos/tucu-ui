@@ -83,6 +83,7 @@ mode?: 'dark' | 'light';            // per-table theme override (sets data-theme
 | \`enableHideColumns\` | \`boolean\` | Shows the "Columns" button that opens the "Manage Columns" drawer |
 | \`searchableColumns\` | \`string[]\` | Shows the global search input, restricted to these column ids |
 | \`rightActions\` | \`React.ReactNode\` | Arbitrary node in the header action row |
+| \`mobileCards\` | \`boolean \\| IMobileCardsOptions\` | v3.8.0. Renders each row as a card below the breakpoint (\`sm\` \\| \`md\` default \\| \`lg\`); both layouts are in the DOM and switched by CSS, so SSR markup matches. Options: \`titleColumnId\`, \`subtitleColumnId\`, \`hiddenColumnIds\`, \`className\`. Cards show a \`<dl>\` of the remaining columns, row actions, selection, row click via \`setCurrentRow\` and compact pagination. Tokens \`--tucu-datatable-card-*\` |
 
 ## ColumnDef extensions (module augmentation)
 

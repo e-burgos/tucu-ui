@@ -1,6 +1,12 @@
 'use client';
 
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import { cn } from '../../libs/cn';
 import { useTucuMessages } from '../../libs/i18n/use-tucu-messages';
 import { Button } from '../buttons';
@@ -99,7 +105,13 @@ function StepIndicator({ index, isComplete, hasError }: StepIndicatorProps) {
         !isComplete && !hasError && 'border-current/30'
       )}
     >
-      {hasError ? '!' : isComplete ? <Check className="h-2.5 w-2.5" /> : index + 1}
+      {hasError ? (
+        '!'
+      ) : isComplete ? (
+        <Check className="h-2.5 w-2.5" />
+      ) : (
+        index + 1
+      )}
     </span>
   );
 }
@@ -341,7 +353,9 @@ export function SplitModalWizard<T extends string = string>({
               >
                 <div
                   className="h-full rounded-full bg-brand transition-all"
-                  style={{ width: `${((activeIndex + 1) / steps.length) * 100}%` }}
+                  style={{
+                    width: `${((activeIndex + 1) / steps.length) * 100}%`,
+                  }}
                 />
               </div>
             )}

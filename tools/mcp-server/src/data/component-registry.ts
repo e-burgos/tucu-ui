@@ -244,7 +244,7 @@ export const componentRegistry: ComponentRegistryEntry[] = [
     name: 'SegmentedControl',
     category: 'inputs',
     description:
-      'Single-choice segmented switch with a sliding thumb (radiogroup semantics, arrow-key navigation). `options` ({ value, label, icon, disabled }), `value`, `onChange(value)`, `size` xs | sm | md, `fullWidth`, `scrollable`, `label` / `aria-label`, `disabled`. Tokens `--tucu-segmented-*`.',
+      'Single-choice segmented switch with a sliding thumb (radiogroup semantics, arrow-key navigation). `options` ({ value, label, icon, disabled }), `value`, `onChange(value)`, `size` xs | sm | md, `fullWidth`, `scrollable`, `label` / `aria-label`, `disabled`. `semantics` radio (default) | tabs | nav (tabs uses `idBase` with the `segmentedControlTabId` / `segmentedControlPanelId` helpers; nav renders links when options have `href`), `emphasis` default | strong | subtle. Options also accept `href`, `data-testid`, `aria-label` and `labelClassName`. Tokens `--tucu-segmented-*` incl. `--tucu-segmented-thumb-border`.',
     importPath: '@e-burgos/tucu-ui',
     variants: {
       size: ['xs', 'sm', 'md'],
@@ -588,6 +588,130 @@ const [isOpen, setIsOpen] = useState(false);
     themeAware: true,
   },
   {
+    name: 'MarketingLayout',
+    category: 'layouts',
+    description:
+      "Public-site shell (v3.8.0): skip link, `MarketingNav` (`nav`), `<main id>` and `MarketingFooter` (`footer`). Router-agnostic: links render through the TucuNavigationContext `Link` or a plain `<a>`, and `renderLink` overrides both. Active link is derived from the pathname (`matchPrefix` for sections) or set with `active`. The nav has an accessible mobile menu (focus trap, Escape, scroll lock), `sticky`, `transparentUntilScroll` + `scrollThreshold`, `blurOnScroll`, `maxWidth`, `align`, `actions` (desktop right side and bottom of the mobile menu) and `mobileActions` (always visible on the mobile bar). Tokens: `--tucu-marketing-nav-bg`, `-nav-bg-scrolled`, `-nav-border`, `-footer-bg`, `-footer-border`, `-link-fg`, `-link-fg-active`.",
+    importPath: '@e-burgos/tucu-ui',
+    example: `import { MarketingLayout, Button } from '@e-burgos/tucu-ui';
+
+<MarketingLayout
+  nav={{
+    logo: <span className="font-semibold">Acme</span>,
+    links: [
+      { label: 'Product', href: '/product' },
+      { label: 'Pricing', href: '/pricing' },
+      { label: 'Docs', href: '/docs', matchPrefix: true },
+    ],
+    actions: <Button size="small">Get started</Button>,
+    transparentUntilScroll: true,
+  }}
+  footer={{
+    logo: <span className="font-semibold">Acme</span>,
+    description: 'Tools for teams that ship.',
+    groups: [
+      {
+        title: 'Company',
+        links: [
+          { label: 'About', href: '/about' },
+          { label: 'Careers', href: '/careers' },
+        ],
+      },
+      {
+        title: 'Legal',
+        links: [
+          { label: 'Privacy', href: '/privacy' },
+          { label: 'Terms', href: '/terms' },
+        ],
+      },
+    ],
+    socials: [{ label: 'GitHub', href: 'https://github.com/acme', icon: <GithubIcon /> }],
+    legal: '© 2026 Acme Inc.',
+  }}
+>
+  <Hero />
+</MarketingLayout>`,
+    relatedComponents: ['MarketingNav', 'MarketingFooter', 'SplitAuthLayout', 'Logo'],
+    themeAware: true,
+    warnings: [
+      'The nav is sticky by default; inside a preview or bordered container pass `nav={{ sticky: false }}`.',
+      'Absolute http(s) hrefs are external (new tab, noopener noreferrer); force it with `external`.',
+    ],
+  },
+  {
+    name: 'MarketingNav',
+    category: 'layouts',
+    description:
+      'Top navigation bar of MarketingLayout, usable standalone. `logo`, `logoHref`, `links` (MarketingLink: label, href, external, icon, active, matchPrefix), `actions`, `mobileActions`, `sticky`, `transparentUntilScroll`, `scrollThreshold`, `blurOnScroll` (desktop | always | never), `maxWidth` (3xl..7xl | full), `align`, `menuLabel`, `closeMenuLabel`, `aria-label`, `renderLink`. Mobile menu below 768px.',
+    importPath: '@e-burgos/tucu-ui',
+    example: `import { MarketingNav } from '@e-burgos/tucu-ui';
+
+<MarketingNav
+  logo={<span className="font-semibold">Acme</span>}
+  links={[
+    { label: 'Product', href: '/product' },
+    { label: 'Blog', href: '/blog', matchPrefix: true },
+  ]}
+  actions={<a href="/signin">Sign in</a>}
+  maxWidth="6xl"
+/>`,
+    relatedComponents: ['MarketingLayout', 'MarketingFooter', 'HorizontalNavMenu'],
+    themeAware: true,
+  },
+  {
+    name: 'MarketingFooter',
+    category: 'layouts',
+    description:
+      'Footer of MarketingLayout, usable standalone. Brand column (`logo`, `description`, `socials` as icon links opening in a new tab) plus `groups` of links (each group is a labelled `<nav>`), `columns` (1-4, derived from groups), `legal`, `bottom` and `renderLink`.',
+    importPath: '@e-burgos/tucu-ui',
+    example: `import { MarketingFooter } from '@e-burgos/tucu-ui';
+
+<MarketingFooter
+  logo={<span className="font-semibold">Acme</span>}
+  description="Tools for teams that ship."
+  groups={[
+    { title: 'Product', links: [{ label: 'Pricing', href: '/pricing' }] },
+    { title: 'Legal', links: [{ label: 'Privacy', href: '/privacy' }] },
+  ]}
+  legal="© 2026 Acme Inc."
+/>`,
+    relatedComponents: ['MarketingLayout', 'MarketingNav'],
+    themeAware: true,
+  },
+  {
+    name: 'SplitAuthLayout',
+    category: 'layouts',
+    description:
+      "Authentication page shell (v3.8.0): a brand column (`brand`: logo, name, headline, lead, highlights, footer, background) next to a form column (`title`, `subtitle`, `icon`, `children`, `footer`). `variant` split | centered (single card with a compact brand), `brandPosition` start | end, `surface` glass | solid | plain, `breakpoint` md | lg (when the brand column appears), `centered`, `maxWidth`, plus `className`, `formClassName`, `brandClassName`. The title renders as the page `<h1>`. Tokens: `--tucu-auth-brand-bg`, `-brand-fg`, `-brand-muted`, `-divider`.",
+    importPath: '@e-burgos/tucu-ui',
+    example: `import { SplitAuthLayout, SignInForm } from '@e-burgos/tucu-ui';
+
+<SplitAuthLayout
+  brand={{
+    name: 'Acme',
+    headline: 'Ship faster with your whole team',
+    lead: 'One workspace for planning, building and reviewing.',
+    highlights: [
+      { text: 'SSO and 2FA out of the box' },
+      { text: 'Audit log for every change' },
+    ],
+    footer: '© 2026 Acme Inc.',
+  }}
+  title="Welcome back"
+  subtitle="Sign in to continue"
+  footer={<a href="/signup">Create an account</a>}
+  brandPosition="start"
+>
+  <SignInForm forgetPasswordPath="/forgot-password" onSubmit={(values) => console.log(values)} />
+</SplitAuthLayout>`,
+    relatedComponents: ['SignInForm', 'SignUpForm', 'MarketingLayout', 'GlassPanel'],
+    themeAware: true,
+    warnings: [
+      'Below the `breakpoint` the brand column is replaced by a compact header with the logo and name.',
+      'The layout supplies the page h1 through `title`; do not render another h1 in the form.',
+    ],
+  },
+  {
     name: 'ThemeProvider',
     category: 'layouts',
     description:
@@ -756,7 +880,7 @@ const [deleting, setDeleting] = useState(false);
     name: 'SplitModal',
     category: 'dialogs',
     description:
-      'Two-pane dialog (sidebar navigation + scrollable body) built on Modal; below the `md` breakpoint the sidebar becomes a tab bar. `sections` groups `SplitModalNavItem`s (`id`, `label`, `icon`, `badge`, `status` neutral | success | warning | danger | info rendered as a dot with a screen-reader description, `disabled`, `description`). Active item is controlled with `activeItemId` + `onActiveItemChange(id)` or uncontrolled with `defaultActiveItemId`; arrow keys move between items. `sidebarHeader`, `sidebarFooter`, `sidebar`, `sidebarPosition` (start | end), `sidebarWidth`, `footer`, `chips`, `headerActions`, `maxWidth` / `maxHeight` / `size`. `onClose` and `setIsOpen(false)` both run on close. Tokens: `--tucu-split-modal-*`.',
+      'Two-pane dialog (sidebar navigation + scrollable body) built on Modal; below the `md` breakpoint the sidebar becomes a tab bar. `sections` groups `SplitModalNavItem`s (`id`, `label`, `icon`, `badge`, `status` neutral | success | warning | danger | info rendered as a dot with a screen-reader description, `disabled`, `description`). Active item is controlled with `activeItemId` + `onActiveItemChange(id)` or uncontrolled with `defaultActiveItemId`; arrow keys move between items. `sidebarHeader`, `sidebarFooter`, `sidebar`, `sidebarPosition` (start | end), `sidebarWidth`, `footer`, `chips`, `headerActions`, `maxWidth` / `maxHeight` / `size`. `onClose` and `setIsOpen(false)` both run on close. Per-section selection: `selectionMode` nav (default) | option | none, plus per-section `activeItemId`, `defaultActiveItemId`, `onActiveItemChange` (option sections work as view selectors alongside nav sections). Items accept `kind` nav | info | action, `value` (ReactNode, shown on info items) and `onClick`. `sidebarActions` (`SplitModalAction`: id, label, icon, tooltip, onClick, disabled, variant default | danger) render in the sidebar and `sidebarActionsIconOnly` shows icons only. Default `maxHeight` follows the Modal size mapping (`modalContentMaxHeight(size)`: sm 50vh, md 60vh, lg 70vh, xl 75vh, full 80vh; `DEFAULT_MODAL_SIZE`). Tokens: `--tucu-split-modal-*`.',
     importPath: '@e-burgos/tucu-ui',
     variants: {
       sidebarPosition: ['start', 'end'],
@@ -784,7 +908,27 @@ const [activeId, setActiveId] = useState('overview');
         { id: 'payments', label: 'Payments', status: 'danger', description: '1 overdue' },
       ],
     },
-    { id: 'extra', label: 'Other', items: [{ id: 'history', label: 'History' }] },
+    {
+      id: 'view',
+      label: 'View',
+      selectionMode: 'option',
+      defaultActiveItemId: 'compact',
+      onActiveItemChange: (id) => setDensity(id),
+      items: [
+        { id: 'compact', label: 'Compact' },
+        { id: 'comfortable', label: 'Comfortable' },
+      ],
+    },
+    {
+      id: 'info',
+      label: 'Details',
+      selectionMode: 'none',
+      items: [{ id: 'owner', label: 'Owner', kind: 'info', value: 'A. Gomez' }],
+    },
+  ]}
+  sidebarActions={[
+    { id: 'share', label: 'Share', onClick: () => share() },
+    { id: 'delete', label: 'Delete', variant: 'danger', onClick: () => remove() },
   ]}
   sidebarFooter={
     <div className="flex gap-2">

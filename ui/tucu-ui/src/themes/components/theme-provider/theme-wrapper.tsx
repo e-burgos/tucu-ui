@@ -3,6 +3,10 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { SettingsButton, SettingsDrawer } from '../settings';
 import { useTheme } from '../../hooks/use-theme';
+import {
+  TooltipDefaultsProvider,
+  type TooltipDefaults,
+} from '../../../components/common/tooltip-defaults';
 import { useDocumentThemePreset } from '../../hooks/use-document-theme-preset';
 import type { ThemePreset } from '../../presets';
 import type { ITheme, BackgroundVariant } from '../../hooks/use-theme';
@@ -119,6 +123,8 @@ interface ThemeWrapperBaseProps extends Omit<LayoutTypeProps, 'layout'> {
    * When omitted, the persisted theme lang (default `en`) is kept.
    */
   lang?: LangType | (string & Record<never, never>);
+  /** Defaults applied to every `Tooltip` rendered inside the shell (placement, size, delays, lazy…); a `Tooltip` prop still wins. */
+  tooltipDefaults?: TooltipDefaults;
 }
 
 // ─── Conditional layout types per theme style ───────────────────
@@ -201,6 +207,7 @@ export function ThemeWrapper({
   children,
   setCurrentPathname,
   lang: appLang,
+  tooltipDefaults,
 }: ThemeWrapperProps) {
   const { mode, layout, colorScheme } = useTheme();
 
@@ -342,24 +349,26 @@ export function ThemeWrapper({
   }, [appLayout, layout]);
 
   return (
-    <div
-      className={`fixed inset-0 h-dvh overflow-y-auto overflow-x-hidden bg-body ${className}`}
-    >
-      <RootLayout
-        layout={effectiveLayout}
-        menuItems={menuList}
-        rightButton={rightButton}
-        logo={logo}
-        className={className}
-        headerClassName={headerClassName}
-        contentClassName={contentClassName}
-        fullWidth={fullWidth}
+    <TooltipDefaultsProvider {...tooltipDefaults}>
+      <div
+        className={`fixed inset-0 h-dvh overflow-y-auto overflow-x-hidden bg-body ${className}`}
       >
-        {children}
-      </RootLayout>
-      <SettingsButton />
-      <SettingsDrawer />
-    </div>
+        <RootLayout
+          layout={effectiveLayout}
+          menuItems={menuList}
+          rightButton={rightButton}
+          logo={logo}
+          className={className}
+          headerClassName={headerClassName}
+          contentClassName={contentClassName}
+          fullWidth={fullWidth}
+        >
+          {children}
+        </RootLayout>
+        <SettingsButton />
+        <SettingsDrawer />
+      </div>
+    </TooltipDefaultsProvider>
   );
 }
 
