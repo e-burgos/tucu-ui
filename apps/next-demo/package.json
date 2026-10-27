@@ -8,7 +8,7 @@
     "build": "next build",
     "lint": "eslint .",
     "e2e": "node e2e/check-export.mjs",
-    "sync-lib": "pnpm install --filter next-demo --frozen-lockfile --prefer-offline"
+    "sync-lib": "pnpm install --ignore-workspace --frozen-lockfile --prefer-offline"
   },
   "dependencies": {
     "@e-burgos/tucu-ui": "file:../../dist/ui/tucu-ui",
@@ -29,5 +29,6 @@
     "tailwindcss": "^4.3.0",
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.30.1"
-  }
+  },
+  "packageManager": "pnpm@9.15.1"
 }

@@ -7,7 +7,9 @@
   "targets": {
     "sync-lib": {
       "executor": "nx:run-commands",
-      "dependsOn": ["tucu-ui:build"],
+      "dependsOn": [
+        "tucu-ui:build"
+      ],
       "options": {
         "cwd": "apps/next-demo",
         "command": "pnpm sync-lib"
@@ -15,8 +17,13 @@
     },
     "build": {
       "executor": "nx:run-commands",
-      "dependsOn": ["sync-lib"],
-      "outputs": ["{projectRoot}/out", "{projectRoot}/.next"],
+      "dependsOn": [
+        "sync-lib"
+      ],
+      "outputs": [
+        "{projectRoot}/out",
+        "{projectRoot}/.next"
+      ],
       "options": {
         "cwd": "apps/next-demo",
         "command": "next build"
@@ -24,7 +31,9 @@
     },
     "dev": {
       "executor": "nx:run-commands",
-      "dependsOn": ["sync-lib"],
+      "dependsOn": [
+        "sync-lib"
+      ],
       "options": {
         "cwd": "apps/next-demo",
         "command": "next dev"
@@ -35,11 +44,16 @@
       "options": {
         "cwd": "apps/next-demo",
         "command": "eslint ."
-      }
+      },
+      "dependsOn": [
+        "sync-lib"
+      ]
     },
     "e2e": {
       "executor": "nx:run-commands",
-      "dependsOn": ["build"],
+      "dependsOn": [
+        "build"
+      ],
       "options": {
         "cwd": "apps/next-demo",
         "command": "node e2e/check-export.mjs"

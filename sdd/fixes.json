@@ -3,6 +3,53 @@
   "_description": "Global fixes index. Each fix maps to its owning spec via spec_id. Fixes not tied to a spec have spec_id: null and live in sdd/fixes.md. Spec-scoped fixes live in sdd/specs/{spec-id}/fixes.md. Maintained by: sdd-orchestrator.",
   "_version": "3.0.0",
   "_convention": "Fix ID format: FIX-[gh-user]-[spec-NNN]-[seq] for spec-scoped fixes. FIX-[gh-user]-[seq] for repo-level fixes.",
-  "_keywords": ["[FIX]", "[BUGFIX]", "[HOTFIX]", "[IMPROVEMENT]"],
-  "fixes": []
+  "_keywords": [
+    "[FIX]",
+    "[BUGFIX]",
+    "[HOTFIX]",
+    "[IMPROVEMENT]"
+  ],
+  "fixes": [
+    {
+      "id": "FIX-e-burgos-001-001",
+      "author": "e-burgos",
+      "spec_id": "spec-e-burgos-001-nextjs-support",
+      "fix_document": "sdd/specs/spec-e-burgos-001-nextjs-support/fixes/fix-e-burgos-001-001.md",
+      "type": "BUGFIX",
+      "severity": "high",
+      "created_at": "2026-10-27",
+      "resolved_at": "2026-10-27",
+      "validated_at": null,
+      "title": "Checkout limpio roto: next-demo fuera del workspace y .nxignore restaurado",
+      "estimation_hours": 0.5,
+      "description": "apps/next-demo dependía de file:../../dist/ui/tucu-ui dentro del workspace, así que pnpm install --frozen-lockfile en un checkout limpio fallaba con ENOENT antes del build. Los workflows publish-tucu-ui y publish-mcp arrancan con ese install y habrían fallado al pushear los tags. next-demo sale del workspace (como examples/) con lockfile propio y se instala con --ignore-workspace después del build de la lib. Además, la instalación del kit SDD había reemplazado .nxignore y perdido la línea examples/, así que Nx no podía armar el grafo en un checkout limpio (las configs de examples/micro-frontends importan paquetes no instalados); se restaura junto a sdd/templates.",
+      "justification": "Bloquea la publicación de 3.4.0 y MCP 0.10.0; cambio de configuración acotado sin contratos ni entidades nuevas.",
+      "related_modules": [
+        "nextjs-support"
+      ],
+      "affected_files": [
+        ".nxignore",
+        "pnpm-workspace.yaml",
+        "pnpm-lock.yaml",
+        "apps/next-demo/package.json",
+        "apps/next-demo/project.json",
+        "apps/next-demo/pnpm-lock.yaml",
+        "sdd/context/apps/next-demo/updates/2026-10-27-fix-e-burgos-001-001.md",
+        "sdd/specs/spec-e-burgos-001-nextjs-support/fixes/fix-e-burgos-001-001.md"
+      ],
+      "test_reference": "Clon limpio: pnpm install --frozen-lockfile, pnpm nx run tucu-ui:build y tucu-ui-mcp:build (los pasos de publish-*) en verde; pnpm nx run-many -t lint e2e -p next-demo en verde.",
+      "status": "implemented",
+      "cycle": null,
+      "usage": {
+        "provider_model": "claude/opus",
+        "effort": "high",
+        "agent": "orchestrator",
+        "tokens_in": 45000,
+        "tokens_out": 6000,
+        "approx": true,
+        "source": "declared-estimate",
+        "recorded_at": "2026-10-27"
+      }
+    }
+  ]
 }
