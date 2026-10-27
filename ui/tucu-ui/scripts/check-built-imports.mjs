@@ -1,5 +1,5 @@
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
-import { join, relative, resolve } from 'node:path';
+import { dirname, join, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const packageRoot = resolve(fileURLToPath(import.meta.url), '../..');
@@ -24,14 +24,19 @@ const describeOffence = (specifier) =>
     ? 'inlined dependency (add it to package.json dependencies)'
     : null;
 
-function* scriptFiles(dir) {
+const CSS_RELATIVE_IMPORT = /@import\s+(?:url\()?\s*(['"])(\.[^'"]+)\1/g;
+
+function* filesMatching(dir, pattern) {
   for (const entry of readdirSync(dir, { withFileTypes: true })) {
     if (entry.name === 'node_modules') continue;
     const full = join(dir, entry.name);
-    if (entry.isDirectory()) yield* scriptFiles(full);
-    else if (/\.(mjs|js|cjs)$/.test(entry.name)) yield full;
+    if (entry.isDirectory()) yield* filesMatching(full, pattern);
+    else if (pattern.test(entry.name)) yield full;
   }
 }
+
+const scriptFiles = (dir) => filesMatching(dir, /\.(mjs|js|cjs)$/);
+const stylesheetFiles = (dir) => filesMatching(dir, /\.css$/);
 
 if (!existsSync(distRoot)) {
   console.error(`missing dist: ${distRoot}`);
@@ -51,11 +56,24 @@ for (const file of scriptFiles(distRoot)) {
   }
 }
 
+let stylesheetsChecked = 0;
+for (const file of stylesheetFiles(distRoot)) {
+  stylesheetsChecked += 1;
+  const css = readFileSync(file, 'utf8');
+  for (const match of css.matchAll(CSS_RELATIVE_IMPORT)) {
+    if (!existsSync(resolve(dirname(file), match[2]))) {
+      offenders.push(
+        `${relative(distRoot, file)} -> ${match[2]} (stylesheet @import not shipped in dist)`
+      );
+    }
+  }
+}
+
 if (offenders.length > 0) {
   for (const offender of offenders) console.error(offender);
   process.exit(1);
 }
 
 console.log(
-  `built imports ok: ${checked} built JS files import no stylesheet and inline no dependency`
+  `built imports ok: ${checked} built JS files import no stylesheet and inline no dependency; ${stylesheetsChecked} stylesheets resolve every relative @import`
 );
