@@ -3,7 +3,13 @@
 export function getChangelogContent(): string {
   return `# Changelog — @e-burgos/tucu-ui
 
-## v3.7.0 (Current)
+## v3.8.0 (Current)
+- Add: \`MarketingLayout\`, \`MarketingNav\`, \`MarketingFooter\` (types \`MarketingLink\`, \`MarketingRenderLink\`, \`MarketingFooterGroup\`, \`MarketingFooterSocial\`, \`MarketingMaxWidth\`) — router-agnostic public-site shell with active-link detection, accessible mobile menu, \`transparentUntilScroll\` and a skip link
+- Add: \`SplitAuthLayout\` — brand column (logo, headline, lead, highlights, footer, background) + form column; \`variant\` split | centered, \`brandPosition\`, \`surface\` glass | solid | plain, \`breakpoint\` md | lg
+- Add: DataTable \`mobileCards\` (\`boolean | IMobileCardsOptions\` with \`breakpoint\`, \`titleColumnId\`, \`subtitleColumnId\`, \`hiddenColumnIds\`, \`className\`) — rows render as cards below the breakpoint, switched by CSS, with row actions, selection, row click and compact pagination
+- Add: token groups \`--tucu-marketing-*\`, \`--tucu-auth-*\`, \`--tucu-datatable-card-*\` (see \`tucu://tokens\`)
+
+## v3.7.0
 - Add: \`SplitModal\` (sidebar navigation in sections with status dots, \`sidebarHeader\`/\`sidebarFooter\`, controlled \`activeItemId\`) and \`SplitModalWizard\` (steps, async \`validateStep\`, \`primaryAction\`, progress)
 - Add: \`ConfirmDialog\` (\`role="alertdialog"\`, \`tone\`, \`loading\`, \`initialFocus\`); Modal \`role\` and \`aria-labelledby\`
 - Add: surfaces \`GlassPanel\`, \`StateBadge\`, \`MoneyText\`, \`InlineNotice\`, \`StatCard\`, \`SafeImage\` and \`Image\` fallback props (\`fallbackSrc\`, \`fallback\`, \`fallbackIcon\`, \`fallbackClassName\`); Badge \`struck\` and tones green/orange/red/teal/purple

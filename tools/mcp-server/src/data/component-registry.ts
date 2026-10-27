@@ -588,6 +588,130 @@ const [isOpen, setIsOpen] = useState(false);
     themeAware: true,
   },
   {
+    name: 'MarketingLayout',
+    category: 'layouts',
+    description:
+      "Public-site shell (v3.8.0): skip link, `MarketingNav` (`nav`), `<main id>` and `MarketingFooter` (`footer`). Router-agnostic: links render through the TucuNavigationContext `Link` or a plain `<a>`, and `renderLink` overrides both. Active link is derived from the pathname (`matchPrefix` for sections) or set with `active`. The nav has an accessible mobile menu (focus trap, Escape, scroll lock), `sticky`, `transparentUntilScroll` + `scrollThreshold`, `blurOnScroll`, `maxWidth`, `align`, `actions` (desktop right side and bottom of the mobile menu) and `mobileActions` (always visible on the mobile bar). Tokens: `--tucu-marketing-nav-bg`, `-nav-bg-scrolled`, `-nav-border`, `-footer-bg`, `-footer-border`, `-link-fg`, `-link-fg-active`.",
+    importPath: '@e-burgos/tucu-ui',
+    example: `import { MarketingLayout, Button } from '@e-burgos/tucu-ui';
+
+<MarketingLayout
+  nav={{
+    logo: <span className="font-semibold">Acme</span>,
+    links: [
+      { label: 'Product', href: '/product' },
+      { label: 'Pricing', href: '/pricing' },
+      { label: 'Docs', href: '/docs', matchPrefix: true },
+    ],
+    actions: <Button size="small">Get started</Button>,
+    transparentUntilScroll: true,
+  }}
+  footer={{
+    logo: <span className="font-semibold">Acme</span>,
+    description: 'Tools for teams that ship.',
+    groups: [
+      {
+        title: 'Company',
+        links: [
+          { label: 'About', href: '/about' },
+          { label: 'Careers', href: '/careers' },
+        ],
+      },
+      {
+        title: 'Legal',
+        links: [
+          { label: 'Privacy', href: '/privacy' },
+          { label: 'Terms', href: '/terms' },
+        ],
+      },
+    ],
+    socials: [{ label: 'GitHub', href: 'https://github.com/acme', icon: <GithubIcon /> }],
+    legal: '© 2026 Acme Inc.',
+  }}
+>
+  <Hero />
+</MarketingLayout>`,
+    relatedComponents: ['MarketingNav', 'MarketingFooter', 'SplitAuthLayout', 'Logo'],
+    themeAware: true,
+    warnings: [
+      'The nav is sticky by default; inside a preview or bordered container pass `nav={{ sticky: false }}`.',
+      'Absolute http(s) hrefs are external (new tab, noopener noreferrer); force it with `external`.',
+    ],
+  },
+  {
+    name: 'MarketingNav',
+    category: 'layouts',
+    description:
+      'Top navigation bar of MarketingLayout, usable standalone. `logo`, `logoHref`, `links` (MarketingLink: label, href, external, icon, active, matchPrefix), `actions`, `mobileActions`, `sticky`, `transparentUntilScroll`, `scrollThreshold`, `blurOnScroll` (desktop | always | never), `maxWidth` (3xl..7xl | full), `align`, `menuLabel`, `closeMenuLabel`, `aria-label`, `renderLink`. Mobile menu below 768px.',
+    importPath: '@e-burgos/tucu-ui',
+    example: `import { MarketingNav } from '@e-burgos/tucu-ui';
+
+<MarketingNav
+  logo={<span className="font-semibold">Acme</span>}
+  links={[
+    { label: 'Product', href: '/product' },
+    { label: 'Blog', href: '/blog', matchPrefix: true },
+  ]}
+  actions={<a href="/signin">Sign in</a>}
+  maxWidth="6xl"
+/>`,
+    relatedComponents: ['MarketingLayout', 'MarketingFooter', 'HorizontalNavMenu'],
+    themeAware: true,
+  },
+  {
+    name: 'MarketingFooter',
+    category: 'layouts',
+    description:
+      'Footer of MarketingLayout, usable standalone. Brand column (`logo`, `description`, `socials` as icon links opening in a new tab) plus `groups` of links (each group is a labelled `<nav>`), `columns` (1-4, derived from groups), `legal`, `bottom` and `renderLink`.',
+    importPath: '@e-burgos/tucu-ui',
+    example: `import { MarketingFooter } from '@e-burgos/tucu-ui';
+
+<MarketingFooter
+  logo={<span className="font-semibold">Acme</span>}
+  description="Tools for teams that ship."
+  groups={[
+    { title: 'Product', links: [{ label: 'Pricing', href: '/pricing' }] },
+    { title: 'Legal', links: [{ label: 'Privacy', href: '/privacy' }] },
+  ]}
+  legal="© 2026 Acme Inc."
+/>`,
+    relatedComponents: ['MarketingLayout', 'MarketingNav'],
+    themeAware: true,
+  },
+  {
+    name: 'SplitAuthLayout',
+    category: 'layouts',
+    description:
+      "Authentication page shell (v3.8.0): a brand column (`brand`: logo, name, headline, lead, highlights, footer, background) next to a form column (`title`, `subtitle`, `icon`, `children`, `footer`). `variant` split | centered (single card with a compact brand), `brandPosition` start | end, `surface` glass | solid | plain, `breakpoint` md | lg (when the brand column appears), `centered`, `maxWidth`, plus `className`, `formClassName`, `brandClassName`. The title renders as the page `<h1>`. Tokens: `--tucu-auth-brand-bg`, `-brand-fg`, `-brand-muted`, `-divider`.",
+    importPath: '@e-burgos/tucu-ui',
+    example: `import { SplitAuthLayout, SignInForm } from '@e-burgos/tucu-ui';
+
+<SplitAuthLayout
+  brand={{
+    name: 'Acme',
+    headline: 'Ship faster with your whole team',
+    lead: 'One workspace for planning, building and reviewing.',
+    highlights: [
+      { text: 'SSO and 2FA out of the box' },
+      { text: 'Audit log for every change' },
+    ],
+    footer: '© 2026 Acme Inc.',
+  }}
+  title="Welcome back"
+  subtitle="Sign in to continue"
+  footer={<a href="/signup">Create an account</a>}
+  brandPosition="start"
+>
+  <SignInForm forgetPasswordPath="/forgot-password" onSubmit={(values) => console.log(values)} />
+</SplitAuthLayout>`,
+    relatedComponents: ['SignInForm', 'SignUpForm', 'MarketingLayout', 'GlassPanel'],
+    themeAware: true,
+    warnings: [
+      'Below the `breakpoint` the brand column is replaced by a compact header with the logo and name.',
+      'The layout supplies the page h1 through `title`; do not render another h1 in the form.',
+    ],
+  },
+  {
     name: 'ThemeProvider',
     category: 'layouts',
     description:

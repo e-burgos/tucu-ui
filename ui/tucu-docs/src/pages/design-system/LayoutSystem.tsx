@@ -32,6 +32,20 @@ const sections: SectionConfig[] = [
     ),
   },
   {
+    id: 'marketing-layout',
+    label: 'Marketing Layout',
+    component: lazy(
+      () => import('./layout-system-sections/MarketingLayoutSection')
+    ),
+  },
+  {
+    id: 'split-auth-layout',
+    label: 'Split Auth Layout',
+    component: lazy(
+      () => import('./layout-system-sections/SplitAuthLayoutSection')
+    ),
+  },
+  {
     id: 'best-practices',
     label: 'Best Practices',
     component: lazy(
