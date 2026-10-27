@@ -1,0 +1,97 @@
+{
+  "$schema": "../../../../schemas/cycle-tasks.schema.json",
+  "spec": "spec-e-burgos-002-consumer-absorption",
+  "cycle": 4,
+  "module": "consumer-absorption",
+  "apps": [
+    "libs/tucu-ui",
+    "libs/tucu-docs",
+    "tools/mcp-server"
+  ],
+  "flow": "lite",
+  "user_stories_generated": true,
+  "prerequisites": {
+    "tasks_generated": true
+  },
+  "tasks": [
+    {
+      "id": "TASK-001",
+      "title": "MarketingLayout (MarketingNav, MarketingFooter) con menú móvil accesible y router agnóstico",
+      "user_stories": [
+        "US-001"
+      ],
+      "estimation_hours": 8,
+      "story_points": 8,
+      "depends_on": [],
+      "status": "pending",
+      "files": [
+        "ui/tucu-ui/src/components/layouts/marketing-layout/"
+      ]
+    },
+    {
+      "id": "TASK-002",
+      "title": "SplitAuthLayout (marca + formulario) sobre los formularios de components/auth",
+      "user_stories": [
+        "US-002"
+      ],
+      "estimation_hours": 3,
+      "story_points": 3,
+      "depends_on": [],
+      "status": "pending",
+      "files": [
+        "ui/tucu-ui/src/components/layouts/split-auth-layout/"
+      ]
+    },
+    {
+      "id": "TASK-003",
+      "title": "DataTable con tarjetas en mobile (mobileCards por CSS), acciones, selección y paginación compacta",
+      "user_stories": [
+        "US-003"
+      ],
+      "estimation_hours": 8,
+      "story_points": 8,
+      "depends_on": [],
+      "status": "pending",
+      "files": [
+        "ui/tucu-ui/src/datatable/"
+      ]
+    },
+    {
+      "id": "TASK-004",
+      "title": "Integración: generate-props, registry del MCP, changelog y tucu-docs",
+      "user_stories": [
+        "US-001",
+        "US-002",
+        "US-003"
+      ],
+      "estimation_hours": 5,
+      "story_points": 5,
+      "depends_on": [
+        "TASK-001",
+        "TASK-002",
+        "TASK-003"
+      ],
+      "status": "pending",
+      "files": [
+        "tools/mcp-server/src/data/component-registry.ts",
+        "ui/tucu-docs/src/"
+      ]
+    },
+    {
+      "id": "TASK-005",
+      "title": "Verificación: tests, lint, checks de build, test-local y navegador desktop/mobile",
+      "user_stories": [
+        "US-001",
+        "US-002",
+        "US-003"
+      ],
+      "estimation_hours": 3,
+      "story_points": 3,
+      "depends_on": [
+        "TASK-004"
+      ],
+      "status": "pending",
+      "files": []
+    }
+  ]
+}
