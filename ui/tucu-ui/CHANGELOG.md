@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.8.0] - 2026-10-27
+
+### Added
+
+- SplitModal per-section selection/sidebarActions/info items, SegmentedControl tabs/nav semantics, tooltipDefaults, aligned SplitModal maxHeight (spec-e-burgos-002 cycle-04 TASK-006)
+- MarketingLayout, SplitAuthLayout and DataTable mobileCards (spec-e-burgos-002 cycle-04)
+
+### Changed
+
+- SplitModal sections/actions, SegmentedControl semantics and tooltipDefaults in MCP and tucu-docs (spec-e-burgos-002 cycle-04)
 ## [3.7.0] - 2026-10-27
 
 ### Added
