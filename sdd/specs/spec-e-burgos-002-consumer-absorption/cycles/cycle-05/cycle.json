@@ -17,26 +17,163 @@
     "Skill de diseño instalable sin marca",
     "prefers-reduced-motion respetado por la librería"
   ],
-  "status": "in-progress",
+  "status": "completed",
   "started_at": "2026-10-27",
-  "completed_at": null,
+  "completed_at": "2026-10-27",
   "documents": {
     "plan": "sdd/specs/spec-e-burgos-002-consumer-absorption/cycles/cycle-05/plan.md",
     "tasks": "sdd/specs/spec-e-burgos-002-consumer-absorption/cycles/cycle-05/tasks.json"
   },
   "artifacts": [],
   "metrics": {
-    "tasks_total": 5,
-    "tasks_completed": 0,
+    "tasks_total": 6,
+    "tasks_completed": 6,
     "tasks_skipped": 0,
-    "story_points": 21,
-    "files_created": [],
-    "files_modified": [],
-    "files_deleted": []
+    "story_points": 26,
+    "files_created": [
+      "tools/mcp-server/src/resources/design-guide.ts",
+      "tools/mcp-server/src/prompts/design-review.ts",
+      "tools/mcp-server/src/utils/design-params.ts",
+      "tools/mcp-server/src/utils/page-layouts.ts",
+      "tools/mcp-server/src/cli/skill.ts",
+      "tools/mcp-server/scripts/build-skills.mjs",
+      "harness/skills/tucu-ui-design/",
+      "ui/tucu-ui/src/datatable/common/functions/fillColumnsToWidth.ts",
+      "ui/tucu-docs/src/pages/design-system/design-system-sections/MotionDensitySection.tsx"
+    ],
+    "files_modified": [
+      "tools/mcp-server/src/resources/index.ts",
+      "tools/mcp-server/src/prompts/index.ts",
+      "tools/mcp-server/tests/resources.test.ts",
+      "tools/mcp-server/tests/prompts.test.ts",
+      "tools/mcp-server/src/tools/generation-tools.ts",
+      "tools/mcp-server/tests/design-params.test.ts",
+      "scripts/check-harness-symlinks.mjs",
+      "tools/mcp-server/package.json",
+      "tools/mcp-server/project.json",
+      "ui/tucu-ui/src/themes/components/theme-provider/theme-wrapper.tsx",
+      "ui/tucu-ui/src/__tests__/setup.ts",
+      "ui/tucu-ui/src/datatable/hooks/useColumns.ts",
+      "ui/tucu-ui/src/datatable/hooks/useScrollableTable.tsx",
+      "ui/tucu-ui/src/components/filters/filter-bar.tsx",
+      "tools/mcp-server/src/resources/datatable.ts",
+      "tools/mcp-server/src/resources/changelog.ts",
+      "tools/mcp-server/README.md",
+      "ui/tucu-docs/src/pages/mcp/mcp-sections/",
+      "README.md",
+      "README-es.md"
+    ],
+    "files_deleted": [],
+    "usage": {
+      "tokens_in": 1237000,
+      "tokens_out": 160000,
+      "approx": true,
+      "source": "declared-estimate",
+      "by_tier": {
+        "claude/opus": {
+          "tokens_in": 270000,
+          "tokens_out": 30000,
+          "approx": true,
+          "source": "declared-estimate"
+        },
+        "claude/sonnet": {
+          "tokens_in": 967000,
+          "tokens_out": 130000,
+          "approx": true,
+          "source": "declared-estimate"
+        }
+      },
+      "by_agent": [
+        {
+          "agent": "orchestrator",
+          "label": "solo",
+          "provider_model": "claude/opus",
+          "tokens_in": 270000,
+          "tokens_out": 30000,
+          "approx": true,
+          "source": "declared-estimate"
+        },
+        {
+          "agent": "implementor-front",
+          "label": "TASK-001",
+          "provider_model": "claude/sonnet",
+          "tokens_in": 181000,
+          "tokens_out": 40000,
+          "approx": true,
+          "source": "declared-estimate"
+        },
+        {
+          "agent": "implementor-front",
+          "label": "TASK-002",
+          "provider_model": "claude/sonnet",
+          "tokens_in": 144000,
+          "tokens_out": 28000,
+          "approx": true,
+          "source": "declared-estimate"
+        },
+        {
+          "agent": "implementor-front",
+          "label": "TASK-003",
+          "provider_model": "claude/sonnet",
+          "tokens_in": 138000,
+          "tokens_out": 14000,
+          "approx": true,
+          "source": "declared-estimate"
+        },
+        {
+          "agent": "implementor-front",
+          "label": "TASK-006",
+          "provider_model": "claude/sonnet",
+          "tokens_in": 173000,
+          "tokens_out": 22000,
+          "approx": true,
+          "source": "declared-estimate"
+        },
+        {
+          "agent": "implementor-front",
+          "label": "TASK-004",
+          "provider_model": "claude/sonnet",
+          "tokens_in": 134000,
+          "tokens_out": 14000,
+          "approx": true,
+          "source": "declared-estimate"
+        },
+        {
+          "agent": "orchestrator",
+          "label": "explore:mcp-skills+consolidation",
+          "provider_model": "claude/sonnet",
+          "tokens_in": 197000,
+          "tokens_out": 12000,
+          "approx": true,
+          "source": "agent-usage-notification"
+        }
+      ]
+    }
   },
   "tables_created": [],
   "endpoints_implemented": [],
   "components_created": [],
-  "issues_found": [],
-  "reviewer_report": null
+  "issues_found": [
+    "Consolidación de contexto hecha al abrir el ciclo (14 fragmentos de spec-001 y spec-002 cycles 01-04) en un commit aparte.",
+    "Agregado al alcance: TASK-006 con dos fricciones de opticagestion para sus videos tutoriales (DataTable columnSizing fill que reemplaza su FluidDataTable, y nombres accesibles estables para Playwright). Sus demás fricciones ya estaban publicadas en 3.5.0-3.6.0.",
+    "Proceso: un implementador usó git stash/pop con otro agente editando el mismo checkout; restauró limpio. Lección en el journal.",
+    "El MCP no tiene target de lint en project.json; se verificó con tsc --noEmit.",
+    "scripts/check-harness-symlinks.mjs falla desde antes de este ciclo por CLAUDE.md y GEMINI.md (apuntan a sdd/dual-harness/* y no a AGENTS.md); el symlink nuevo del skill pasa.",
+    "generate_component con style agrega ThemeScope/MotionConfig; en Next las notas indican montarlos desde un wrapper cliente o app/layout.tsx en lugar de inyectarlos."
+  ],
+  "reviewer_report": {
+    "approved": true,
+    "date": "2026-10-27",
+    "ca_results": {
+      "CA-005": "passed - el MCP sirve tucu://design-guide (16 recursos), acepta style/motion/density en generate_page y generate_component (salida por defecto idéntica, framework-parity sin cambios) y expone el prompt design-review (9 prompts); el skill tucu-ui-design se instala con tucu-ui-skill install y no menciona ningún consumidor (verificado en un directorio temporal)",
+      "CA-006": "partial - sdd:validate en verde; release 3.9.0 / MCP 0.15.0 aprobado por el dueño (publicar por ciclo), pendiente de ejecutar; notas de adopción enviadas por consumidor en cada release"
+    },
+    "tests": {
+      "tucu-ui": "1122 tests en verde (1084 al abrir el ciclo)",
+      "tucu-ui-mcp": "240 tests en verde (196 al abrir el ciclo)",
+      "checks": "typecheck, lint (0 errores), build, check-use-client, check-entry-isolation y check-built-imports en verde; tsc del MCP limpio",
+      "browser": "demo con el tarball local: sección Motion & Density sin errores de consola con MotionConfig en ThemeProvider"
+    },
+    "notes": "Flow lite, un solo actor; el reviewer es el mismo orquestador. Cierra la spec."
+  }
 }

@@ -57,3 +57,9 @@
   - `motion` mapea a `MotionConfig` y a las props de animación.
   - Todos son documentados y sin valor por defecto.
 - **Release:** minor `3.9.0` de la librería (por `MotionConfig`) y minor `0.15.0` del MCP, con OK del dueño por ciclo (2026-10-27).
+
+## Agregado durante el ciclo
+- TASK-006 — Fricciones de opticagestion, pedidas para grabar los videos tutoriales:
+  - DataTable `columnSizing="fill"`: crecimiento proporcional con `minSize`/`maxSize` y columnas helper reservadas; reemplaza su `FluidDataTable`.
+  - Nombres accesibles estables para Playwright en FilterBar, filas (`getRowLabel`) y acciones de fila.
+  - El resto de sus fricciones (portales en scope, tokens de toast y los bugs de tema e i18n) ya estaba publicado en 3.5.0 y 3.6.0.
