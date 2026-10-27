@@ -25,6 +25,26 @@ import {
   toPascalCase,
 } from '../utils/code-generator.js';
 import {
+  applyDensityToProps,
+  applyDesignToSection,
+  buildDesignReport,
+  densitySchema,
+  hasDesignParams,
+  indentBlock,
+  motionSchema,
+  styleSchema,
+  wrapWithDesign,
+  type DesignParams,
+} from '../utils/design-params.js';
+import {
+  SPECIAL_LAYOUTS,
+  buildAuthRoot,
+  buildMarketingRoot,
+  buildPageModule,
+  isSpecialLayout,
+  type LayoutReference,
+} from '../utils/page-layouts.js';
+import {
   frameworkSchema,
   nextClientBoundaryNote,
   nextProviderNote,
@@ -61,9 +81,21 @@ export function registerGenerationTools(server: McpServer): void {
             .map((p) => p.name)
             .join(', ')}`
         ),
+      style: styleSchema,
+      motion: motionSchema,
+      density: densitySchema,
       framework: frameworkSchema,
     },
-    async ({ component, props, withWrapper, theme, framework }) => {
+    async ({
+      component,
+      props,
+      withWrapper,
+      theme,
+      style,
+      motion,
+      density,
+      framework,
+    }) => {
       const isNext = framework === 'next';
       const entry = getComponentByName(component);
 
@@ -104,6 +136,16 @@ export function registerGenerationTools(server: McpServer): void {
         }
       }
 
+      const design: DesignParams = { style, motion, density };
+      const designApplied: string[] = [];
+      const densityApplication = applyDensityToProps(
+        entry.name,
+        safeProps,
+        density
+      );
+      Object.assign(safeProps, densityApplication.props);
+      designApplied.push(...densityApplication.applied);
+
       // Build JSX
       const propsStr =
         safeProps && Object.keys(safeProps).length > 0
@@ -135,8 +177,19 @@ export function registerGenerationTools(server: McpServer): void {
         jsx = `<div className="p-4">\n  ${jsx}\n</div>`;
       }
 
+      const designWrapping = wrapWithDesign(jsx, design);
+      const designNamedImports = designWrapping.namedImports;
+      if (hasDesignParams(design)) {
+        jsx = designWrapping.jsx;
+        designApplied.push(...designWrapping.applied);
+      }
+
       const imports = [
-        generateImportStatement([entry.name], '@e-burgos/tucu-ui'),
+        generateImportStatement(
+          [entry.name, ...designNamedImports],
+          '@e-burgos/tucu-ui'
+        ),
+        ...designWrapping.moduleImports,
       ];
 
       // Add theme wrapper if requested
@@ -149,7 +202,7 @@ export function registerGenerationTools(server: McpServer): void {
           } else {
             jsx = `<ThemeProvider colorPreset="${theme}">\n  ${jsx}\n</ThemeProvider>`;
             imports[0] = generateImportStatement(
-              [entry.name, 'ThemeProvider'],
+              [entry.name, 'ThemeProvider', ...designNamedImports],
               '@e-burgos/tucu-ui'
             );
           }
@@ -183,6 +236,7 @@ export function registerGenerationTools(server: McpServer): void {
                   warnings,
                   framework: 'next',
                   clientDirective: USE_CLIENT_DIRECTIVE,
+                  ...designField(design, designApplied),
                 },
                 null,
                 2
@@ -196,7 +250,16 @@ export function registerGenerationTools(server: McpServer): void {
         content: [
           {
             type: 'text' as const,
-            text: JSON.stringify({ code: jsx, imports, warnings }, null, 2),
+            text: JSON.stringify(
+              {
+                code: jsx,
+                imports,
+                warnings,
+                ...designField(design, designApplied),
+              },
+              null,
+              2
+            ),
           },
         ],
       };
@@ -507,9 +570,9 @@ ${fieldLines.join('\n')}
     {
       name: z.string().describe('Page name (e.g. Dashboard, Settings, Users)'),
       layout: z
-        .enum(['dashboard', 'sidebar', 'fullpage', 'stacked'])
+        .enum(['dashboard', 'sidebar', 'fullpage', 'stacked', 'marketing', 'auth'])
         .describe(
-          'Layout type. dashboard=AdminLayout, fullpage=MacOSLayout, stacked=ThemeProvider.'
+          'Layout type. dashboard=AdminLayout, fullpage=MacOSLayout, stacked=ThemeProvider, marketing=MarketingLayout (nav + footer, sections inside main), auth=SplitAuthLayout wrapping SignInForm (sections ignored).'
         ),
       sections: z
         .array(
@@ -527,6 +590,9 @@ ${fieldLines.join('\n')}
         .enum(['standalone', 'mfe'])
         .optional()
         .describe('Architecture mode. Default: standalone.'),
+      style: styleSchema,
+      motion: motionSchema,
+      density: densitySchema,
       framework: frameworkSchema,
     },
     async ({
@@ -535,10 +601,14 @@ ${fieldLines.join('\n')}
       sections,
       withRouting,
       architecture = 'standalone',
+      style,
+      motion,
+      density,
       framework,
     }) => {
       const pageName = toPascalCase(name) + 'Page';
       const layoutDef = getLayoutByName(layout);
+      const design: DesignParams = { style, motion, density };
       const imports = new Set<string>();
       const sectionCode: string[] = [];
 
@@ -627,39 +697,82 @@ ${fieldLines.join('\n')}
         }
       }
 
-      if (framework === 'next') {
+      const designApplied = new Set<string>();
+      const designImports = new Set<string>();
+      const designedSections = hasDesignParams(design)
+        ? sectionCode.map((code, index) => {
+            const result = applyDesignToSection(code, sections[index].type, design);
+            result.applied.forEach((entry) => designApplied.add(entry));
+            result.extraImports.forEach((entry) => designImports.add(entry));
+            return result.code;
+          })
+        : sectionCode;
+      const specialLayout = isSpecialLayout(layout) ? layout : null;
+
+      if (framework === 'next' && !specialLayout) {
         return buildNextPageResult({
           name,
           pageName,
           sections,
-          sectionCode,
+          sectionCode: designedSections,
           layoutDef,
+          design,
+          designApplied: [...designApplied],
+          extraServerImports: [...designImports],
         });
       }
 
+      const pageWarnings: string[] = [];
+      let root: string;
+      const importNames = new Set<string>();
+      if (specialLayout === 'marketing') {
+        const page = buildMarketingRoot(designedSections, [...designImports]);
+        root = page.root;
+        page.importNames.forEach((entry) => importNames.add(entry));
+      } else if (specialLayout === 'auth') {
+        const page = buildAuthRoot(sections.length > 0, design);
+        root = page.root;
+        page.importNames.forEach((entry) => importNames.add(entry));
+        pageWarnings.push(...page.warnings);
+      } else {
+        const titleLine =
+          sections[0]?.type === 'hero' ? '' : `      <Title>${name}</Title>\n`;
+        root = `    <div className="flex flex-col gap-6 p-6">\n${titleLine}${designedSections.join(
+          '\n\n'
+        )}\n    </div>`;
+        [...imports, ...designImports].forEach((entry) => importNames.add(entry));
+      }
+
+      const wrapping = hasDesignParams(design)
+        ? wrapWithDesign(
+            specialLayout ? root : root.replace(/^ {4}/gm, ''),
+            design
+          )
+        : null;
+      wrapping?.applied.forEach((entry) => designApplied.add(entry));
+      wrapping?.namedImports.forEach((entry) => importNames.add(entry));
+      const designedRoot = wrapping ? wrapping.jsx : root;
+      const moduleImports = wrapping?.moduleImports ?? [];
+
       const importLine = generateImportStatement(
-        [...imports],
+        [...importNames],
         '@e-burgos/tucu-ui'
       );
 
-      const pageCode = `${importLine}
+      const finalPageCode = specialLayout
+        ? buildPageModule(
+            pageName,
+            designedRoot,
+            [...importNames],
+            moduleImports
+          ).code
+        : `${[importLine, ...moduleImports].join('\n')}
 
 export function ${pageName}() {
   return (
-    <div className="flex flex-col gap-6 p-6">
-      <Title>${
-        sections.length > 0 && sections[0].type !== 'hero' ? name : ''
-      }</Title>
-${sectionCode.join('\n\n')}
-    </div>
+${wrapping ? indentBlock(designedRoot, 4) : designedRoot}
   );
 }`;
-
-      // Fix: remove redundant Title if hero exists
-      const finalPageCode =
-        sections[0]?.type === 'hero'
-          ? pageCode.replace(`      <Title></Title>\n`, '')
-          : pageCode.replace(`<Title></Title>`, `<Title>${name}</Title>`);
 
       let routeConfig = '';
       if (withRouting) {
@@ -680,11 +793,50 @@ ${sectionCode.join('\n\n')}
         }
       }
 
-      const allImports = [importLine];
+      const allImports = [importLine, ...moduleImports];
+      const layoutReference: LayoutReference | null = specialLayout
+        ? SPECIAL_LAYOUTS[specialLayout]
+        : layoutDef
+        ? { component: layoutDef.component, example: layoutDef.example }
+        : null;
       if (layoutDef) {
         allImports.push(
           `// Layout: Use ${layoutDef.component} as the parent layout`
         );
+      }
+
+      if (framework === 'next' && specialLayout) {
+        const slug = name.toLowerCase().replace(/\s+/g, '-');
+        const clientPageCode = withUseClient(finalPageCode).replace(
+          `export function ${pageName}`,
+          `export default function ${pageName}`
+        );
+        return {
+          content: [
+            {
+              type: 'text' as const,
+              text: JSON.stringify(
+                {
+                  framework: 'next' as Framework,
+                  pageCode: clientPageCode,
+                  clientCode: '',
+                  files: [{ path: `app/${slug}/page.tsx`, code: clientPageCode }],
+                  routeConfig: '',
+                  imports: allImports,
+                  layout: layoutReference,
+                  notes: [
+                    `File-based routing: this page is served at /${slug}. The ${USE_CLIENT_DIRECTIVE} directive is required because ${layout} layouts use handlers.`,
+                    nextProviderNote(),
+                  ],
+                  ...(pageWarnings.length > 0 ? { warnings: pageWarnings } : {}),
+                  ...designField(design, [...designApplied]),
+                },
+                null,
+                2
+              ),
+            },
+          ],
+        };
       }
 
       return {
@@ -696,12 +848,9 @@ ${sectionCode.join('\n\n')}
                 pageCode: finalPageCode,
                 routeConfig,
                 imports: allImports,
-                layout: layoutDef
-                  ? {
-                      component: layoutDef.component,
-                      example: layoutDef.example,
-                    }
-                  : null,
+                layout: layoutReference,
+                ...(pageWarnings.length > 0 ? { warnings: pageWarnings } : {}),
+                ...designField(design, [...designApplied]),
               },
               null,
               2
@@ -1078,14 +1227,32 @@ function collectImports(types: string[], base: string[]): string[] {
   return [...set];
 }
 
+function designField(design: DesignParams, applied: string[]) {
+  return hasDesignParams(design)
+    ? { design: buildDesignReport(design, applied) }
+    : {};
+}
+
 function buildNextPageResult(input: {
   name: string;
   pageName: string;
   sections: { type: string; title?: string }[];
   sectionCode: string[];
   layoutDef: ReturnType<typeof getLayoutByName>;
+  design: DesignParams;
+  designApplied: string[];
+  extraServerImports: string[];
 }) {
-  const { name, pageName, sections, sectionCode, layoutDef } = input;
+  const {
+    name,
+    pageName,
+    sections,
+    sectionCode,
+    layoutDef,
+    design,
+    designApplied,
+    extraServerImports,
+  } = input;
   const slug = name.toLowerCase().replace(/\s+/g, '-');
   const pagePath = `app/${slug}/page.tsx`;
   const clientPath = `app/${slug}/${slug}-sections.tsx`;
@@ -1112,6 +1279,11 @@ function buildNextPageResult(input: {
   const hasHero = sections[0]?.type === 'hero';
   const titleBlock = hasHero ? '' : `      <Title>${name}</Title>\n`;
   const serverImportNames = collectImports(serverTypes, hasHero ? [] : ['Title']);
+  if (serverTypes.includes('hero')) {
+    for (const extra of extraServerImports) {
+      if (!serverImportNames.includes(extra)) serverImportNames.push(extra);
+    }
+  }
   const serverImports: string[] = [];
   if (serverImportNames.length > 0) {
     serverImports.push(
@@ -1171,6 +1343,11 @@ ${e.code}
   if (clientEntries.length > 0) {
     notes.push(nextClientBoundaryNote());
   }
+  if (design.style || design.motion) {
+    notes.push(
+      "Style/motion wrappers are not injected in Next pages: mount ThemeScope (preset) and MotionConfig from a 'use client' wrapper or in app/layout.tsx."
+    );
+  }
 
   return {
     content: [
@@ -1199,6 +1376,7 @@ ${e.code}
               ? { component: layoutDef.component, example: layoutDef.example }
               : null,
             notes,
+            ...designField(design, designApplied),
           },
           null,
           2
