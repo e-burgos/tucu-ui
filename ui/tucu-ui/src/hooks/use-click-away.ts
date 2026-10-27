@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useRef, type RefObject } from 'react';
 
 type ClickAwayEvent = MouseEvent | TouchEvent;
@@ -19,7 +21,9 @@ export function useClickAway<T extends HTMLElement = HTMLElement>(
         savedCallback.current(event as ClickAwayEvent);
       }
     };
-    events.forEach((eventName) => document.addEventListener(eventName, handler));
+    events.forEach((eventName) =>
+      document.addEventListener(eventName, handler)
+    );
     return () => {
       events.forEach((eventName) =>
         document.removeEventListener(eventName, handler)

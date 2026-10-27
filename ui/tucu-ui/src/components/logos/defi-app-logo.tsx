@@ -1,3 +1,5 @@
+'use client';
+
 import { useId } from 'react';
 
 export const DefiAppLogo = (props: React.SVGAttributes<SVGElement>) => {

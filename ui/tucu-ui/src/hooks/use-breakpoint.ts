@@ -1,4 +1,6 @@
-import { useEffect, useState } from 'react';
+'use client';
+
+import { useSyncExternalStore } from 'react';
 
 const breakPoints = {
   xs: 480,
@@ -23,17 +25,19 @@ function getBreakpoint(width: number): string {
   return current;
 }
 
+const subscribeToResize = (onChange: () => void) => {
+  window.addEventListener('resize', onChange);
+  return () => window.removeEventListener('resize', onChange);
+};
+
+const readBreakpoint = () => getBreakpoint(window.innerWidth);
+
+const readServerBreakpoint = () => getBreakpoint(0);
+
 export function useBreakpoint(): string {
-  const [breakpoint, setBreakpoint] = useState(() =>
-    getBreakpoint(typeof window !== 'undefined' ? window.innerWidth : 0)
+  return useSyncExternalStore(
+    subscribeToResize,
+    readBreakpoint,
+    readServerBreakpoint
   );
-
-  useEffect(() => {
-    const handleResize = () => setBreakpoint(getBreakpoint(window.innerWidth));
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
-  return breakpoint;
 }

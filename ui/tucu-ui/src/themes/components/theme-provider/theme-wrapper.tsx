@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useMemo, useRef } from 'react';
 import { SettingsButton, SettingsDrawer } from '../settings';
 import { useTheme } from '../../hooks/use-theme';

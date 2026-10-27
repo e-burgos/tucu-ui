@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useRef, useState, useCallback } from 'react';
 import cn from 'classnames';
 import { Search, X } from 'lucide-react';

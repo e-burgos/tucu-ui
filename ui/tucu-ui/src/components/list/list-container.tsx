@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState, useRef, useCallback, useEffect } from 'react';
 import cn from 'classnames';
 import { ChevronDown } from '../icons/chevron-down';

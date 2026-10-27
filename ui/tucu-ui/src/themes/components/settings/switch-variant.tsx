@@ -1,3 +1,5 @@
+'use client';
+
 import cn from 'classnames';
 import { useTheme } from '../../hooks/use-theme';
 import { THEME_VARIANT } from '../../config';

@@ -1,3 +1,5 @@
+'use client';
+
 import { ArrowUp } from '../icons/arrow-up';
 import { ResponsiveContainer, AreaChart, Area } from 'recharts';
 import { Swiper, SwiperSlide } from 'swiper/react';

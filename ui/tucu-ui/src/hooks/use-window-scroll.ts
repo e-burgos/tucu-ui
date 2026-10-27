@@ -1,3 +1,5 @@
+'use client';
+
 import { useState, useEffect, useRef } from 'react';
 
 export interface UseWindowScrollReturn {
@@ -12,23 +14,9 @@ export interface UseWindowScrollReturn {
  * @returns Object with x and y scroll positions
  */
 export function useWindowScroll(): UseWindowScrollReturn {
-  const [scroll, setScroll] = useState<UseWindowScrollReturn>(() => {
-    if (typeof window === 'undefined') {
-      return { x: 0, y: 0 };
-    }
-    // Get initial scroll from multiple sources
-    const windowX = window.scrollX || window.pageXOffset || 0;
-    const windowY = window.scrollY || window.pageYOffset || 0;
-    const docX = document.documentElement.scrollLeft || 0;
-    const docY = document.documentElement.scrollTop || 0;
-    const bodyX = document.body.scrollLeft || 0;
-    const bodyY = document.body.scrollTop || 0;
-
-    // Use the maximum value (the actual scroll position)
-    return {
-      x: Math.max(windowX, docX, bodyX),
-      y: Math.max(windowY, docY, bodyY),
-    };
+  const [scroll, setScroll] = useState<UseWindowScrollReturn>({
+    x: 0,
+    y: 0,
   });
 
   const scrollableContainersRef = useRef<HTMLElement[]>([]);

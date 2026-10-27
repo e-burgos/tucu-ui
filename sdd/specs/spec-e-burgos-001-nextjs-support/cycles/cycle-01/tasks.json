@@ -76,10 +76,31 @@
       "depends_on": [
         "TASK-001"
       ],
-      "status": "pending",
+      "status": "done",
       "files": [
-        "ui/tucu-ui/vite.config.mts"
-      ]
+        "ui/tucu-ui/scripts/use-client-candidates.mjs",
+        "ui/tucu-ui/scripts/preserve-use-client-plugin.mjs",
+        "ui/tucu-ui/scripts/check-use-client.mjs",
+        "ui/tucu-ui/vite.config.mts",
+        "ui/tucu-ui/project.json",
+        "ui/tucu-ui/src/hooks/use-breakpoint.ts",
+        "ui/tucu-ui/src/hooks/use-window-scroll.ts",
+        "ui/tucu-ui/src/hooks/use-prefers-reduced-motion.ts",
+        "ui/tucu-ui/src/themes/router/resolve-base-path.ts",
+        "ui/tucu-ui/src/__tests__/setup.ts",
+        "ui/tucu-ui/src/__tests__/ssr/server-render.test.tsx",
+        "ui/tucu-ui/src/"
+      ],
+      "usage": {
+        "tokens_in": 141779,
+        "tokens_out": 25020,
+        "provider_model": "claude/sonnet",
+        "effort": "medium",
+        "agent": "implementor-front",
+        "approx": true,
+        "source": "agent-usage-notification",
+        "recorded_at": "2026-10-27"
+      }
     },
     {
       "id": "TASK-003",
@@ -93,7 +114,7 @@
         "TASK-001",
         "TASK-002"
       ],
-      "status": "pending",
+      "status": "in-progress",
       "files": [
         "ui/tucu-ui/src/next/",
         "ui/tucu-ui/package.json"

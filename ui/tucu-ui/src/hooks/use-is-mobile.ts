@@ -1,3 +1,5 @@
+'use client';
+
 import { useBreakpoint } from './use-breakpoint';
 
 export const useIsMobile = () => {

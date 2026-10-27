@@ -1,3 +1,5 @@
+'use client';
+
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from 'react';
 import { useMeasure } from '../../hooks/use-measure';

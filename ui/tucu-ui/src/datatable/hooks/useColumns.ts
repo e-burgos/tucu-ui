@@ -1,3 +1,5 @@
+'use client';
+
 import { ColumnDef, RowData, VisibilityState } from '@tanstack/react-table';
 import { ExpandedColumn } from '../common/helpers/ExpandedColumn';
 import { RowActionsColumn } from '../common/helpers/RowActionsColumn';

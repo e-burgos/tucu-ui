@@ -1,3 +1,5 @@
+'use client';
+
 import { Select, SelectOption } from '../../../components/inputs/select';
 import { useTheme } from '../../hooks/use-theme';
 import { langOptions, LangType } from '../../config';

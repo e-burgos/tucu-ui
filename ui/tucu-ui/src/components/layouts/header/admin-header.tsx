@@ -1,3 +1,5 @@
+'use client';
+
 import { useTucuNavigation } from '../../../themes/navigation';
 import cn from 'classnames';
 import { Logo, LogoPropTypes } from '../../logos/logo';

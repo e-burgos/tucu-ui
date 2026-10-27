@@ -1,3 +1,5 @@
+'use client';
+
 import { type TooltipContentProps } from 'recharts';
 import { useChartTheme } from '../hooks/use-chart-theme';
 

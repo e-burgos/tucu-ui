@@ -1,3 +1,5 @@
+'use client';
+
 import cn from 'classnames';
 import { MacOSTahoeToast } from '../../macos/tahoe/controls/macos-tahoe-toast';
 import { ThemeBackground, useTheme } from '../../../themes';

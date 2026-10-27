@@ -1,3 +1,5 @@
+'use client';
+
 import { useTheme } from '../../hooks/use-theme';
 import { COLOR_GROUPS } from './settings-types';
 import type { ColorType } from './settings-types';

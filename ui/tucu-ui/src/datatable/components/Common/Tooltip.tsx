@@ -1,3 +1,5 @@
+'use client';
+
 import { CSSProperties, useEffect, useRef, useState } from 'react';
 import { ReactNode } from 'react';
 import ReactDOM from 'react-dom';

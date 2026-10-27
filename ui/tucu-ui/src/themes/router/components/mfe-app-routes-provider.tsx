@@ -1,3 +1,5 @@
+'use client';
+
 import { FC, JSX } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import NotFoundPage from '../../pages/not-found';
@@ -5,6 +7,7 @@ import { IAppRouteConfig } from '../../types';
 import { usePublicErrorRoutesConfig } from '../hooks';
 import { AuthProvider } from '../../auth/components';
 import { DisabledPage } from '../../pages';
+import { resolveBasePath } from '../resolve-base-path';
 
 type MfeAppRouteType = { key: string; path: string; element: JSX.Element };
 
@@ -14,8 +17,7 @@ const CreateRoutes: React.FC<{
   isAuthenticated: boolean;
   loginUrl: string;
 }> = ({ routesConfig: routes, basePath, isAuthenticated, loginUrl }) => {
-  const pathBase =
-    basePath || document.querySelector('base')?.getAttribute('href') || '/';
+  const pathBase = resolveBasePath(basePath);
   const PublicErrorPages = usePublicErrorRoutesConfig();
 
   const publicRoutes = [

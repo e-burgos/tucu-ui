@@ -1,3 +1,5 @@
+'use client';
+
 import { useTheme } from '../../../themes';
 
 export interface ChartTheme {

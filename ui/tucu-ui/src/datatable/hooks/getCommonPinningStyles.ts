@@ -1,3 +1,5 @@
+'use client';
+
 import { CSSProperties } from 'react';
 import { Column } from '@tanstack/react-table';
 import { TData } from '../common/types';

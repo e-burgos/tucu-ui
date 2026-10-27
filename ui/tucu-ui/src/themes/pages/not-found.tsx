@@ -1,13 +1,15 @@
+'use client';
+
 import { FC } from 'react';
 import { Image, Button, AnchorLink } from '../../components';
 import { useIsMounted } from '../../hooks/use-is-mounted';
 import ErrorLightImage from '../../assets/images/404-light.svg';
 import ErrorDarkImage from '../../assets/images/404-dark.svg';
 import { useTheme } from '../hooks/use-theme';
+import { resolveBasePath } from '../router/resolve-base-path';
 
 export const NotFoundPage: FC<{ basePath?: string }> = ({ basePath }) => {
-  const pathBase =
-    basePath || document.querySelector('base')?.getAttribute('href') || '/';
+  const pathBase = resolveBasePath(basePath);
 
   const isMounted = useIsMounted();
   const { mode } = useTheme();

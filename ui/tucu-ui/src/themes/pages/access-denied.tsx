@@ -1,15 +1,17 @@
+'use client';
+
 import { FC } from 'react';
 import { Button, AnchorLink } from '../../components';
 import { useIsMounted } from '../../hooks/use-is-mounted';
 import { useTheme } from '../hooks/use-theme';
 import { Shield } from 'lucide-react';
+import { resolveBasePath } from '../router/resolve-base-path';
 
 export const AccessDeniedPage: FC<{
   basePath?: string;
   buttonText?: string;
 }> = ({ basePath, buttonText }) => {
-  const pathBase =
-    basePath || document.querySelector('base')?.getAttribute('href') || '/';
+  const pathBase = resolveBasePath(basePath);
 
   const isMounted = useIsMounted();
   const { mode } = useTheme();

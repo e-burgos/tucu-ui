@@ -1,3 +1,5 @@
+'use client';
+
 import { useTheme } from '../../hooks/use-theme';
 import { LAYOUT_OPTIONS } from '../../config';
 

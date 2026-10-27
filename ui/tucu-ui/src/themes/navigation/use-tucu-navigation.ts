@@ -1,3 +1,5 @@
+'use client';
+
 import { useContext } from 'react';
 import { useInRouterContext } from 'react-router-dom';
 import { TucuNavigationContext } from './tucu-navigation-context';

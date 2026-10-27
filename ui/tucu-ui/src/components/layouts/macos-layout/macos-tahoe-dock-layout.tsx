@@ -1,3 +1,5 @@
+'use client';
+
 import cn from 'classnames';
 import { useTucuNavigation } from '../../../themes/navigation';
 import { useState } from 'react';

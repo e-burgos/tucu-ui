@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import { Form } from '../form';
 import { FormField } from '../form-field';

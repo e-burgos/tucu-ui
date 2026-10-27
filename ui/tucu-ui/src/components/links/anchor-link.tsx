@@ -1,3 +1,5 @@
+'use client';
+
 import { toHref, useTucuNavigation } from '../../themes/navigation';
 import type { TucuLinkProps } from '../../themes/navigation';
 

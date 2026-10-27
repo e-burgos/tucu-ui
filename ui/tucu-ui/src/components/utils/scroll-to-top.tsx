@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useState, useCallback, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { useTucuNavigation } from '../../themes/navigation';

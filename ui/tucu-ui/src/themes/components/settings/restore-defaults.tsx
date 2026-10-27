@@ -1,3 +1,5 @@
+'use client';
+
 import { useTheme } from '../../hooks/use-theme';
 import { Button } from '../../../components/buttons/button';
 

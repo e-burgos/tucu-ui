@@ -1,3 +1,5 @@
+'use client';
+
 import { useTheme } from '../../hooks/use-theme';
 import cn from 'classnames';
 import { SONOMA_ACCENT_BUNDLES, buildSonomaPresets } from '../../config';

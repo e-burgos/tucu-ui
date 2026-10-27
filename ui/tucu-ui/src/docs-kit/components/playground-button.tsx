@@ -1,3 +1,5 @@
+'use client';
+
 import { LucideIcons, Button, DOCUMENTATION_URL } from '../../../index';
 
 export const PlaygroundButton = () => {

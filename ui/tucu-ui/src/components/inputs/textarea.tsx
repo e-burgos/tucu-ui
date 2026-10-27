@@ -1,3 +1,5 @@
+'use client';
+
 import { forwardRef, useId } from 'react';
 import cn from 'classnames';
 import { FieldError } from './helpers/field-error-text';

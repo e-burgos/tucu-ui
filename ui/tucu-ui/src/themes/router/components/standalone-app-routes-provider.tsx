@@ -1,3 +1,5 @@
+'use client';
+
 import { FC } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import NotFoundPage from '../../pages/not-found';

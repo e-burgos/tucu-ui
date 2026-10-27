@@ -1,3 +1,5 @@
+'use client';
+
 import { create, StateCreator } from 'zustand';
 import { persist } from 'zustand/middleware';
 import {

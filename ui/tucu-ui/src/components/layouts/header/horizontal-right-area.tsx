@@ -1,3 +1,5 @@
+'use client';
+
 import { LogoPropTypes } from '../../logos/logo';
 import Hamburger from '../../buttons/hamburger';
 import { Drawer } from '../../dialog';

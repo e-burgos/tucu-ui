@@ -1,3 +1,5 @@
+'use client';
+
 import Image from '../utils/image';
 import { ArrowUp } from '../icons/arrow-up';
 import { Scrollbar, A11y } from 'swiper/modules';

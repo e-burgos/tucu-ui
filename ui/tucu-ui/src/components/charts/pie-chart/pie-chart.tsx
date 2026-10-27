@@ -1,3 +1,5 @@
+'use client';
+
 import { useMemo } from 'react';
 import {
   PieChart as RechartsPieChart,
@@ -11,6 +13,7 @@ import { useChartTheme } from '../hooks/use-chart-theme';
 import { ChartContainer } from '../components/chart-container';
 import { ChartTooltip } from '../components/chart-tooltip';
 import { ChartEmptyState } from '../components/chart-empty-state';
+import { usePrefersReducedMotion } from '../../../hooks/use-prefers-reduced-motion';
 
 export interface PieChartProps {
   data: PieDataPoint[];
@@ -39,12 +42,7 @@ export function PieChart({
 }: PieChartProps) {
   const theme = useChartTheme();
 
-  const prefersReducedMotion = useMemo(
-    () =>
-      typeof window !== 'undefined' &&
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches,
-    []
-  );
+  const prefersReducedMotion = usePrefersReducedMotion();
 
   const colors = useMemo(
     () => data.map((d, i) => d.color || theme.colors[i % theme.colors.length]),

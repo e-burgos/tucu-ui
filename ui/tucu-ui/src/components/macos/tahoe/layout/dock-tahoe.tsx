@@ -1,3 +1,5 @@
+'use client';
+
 import { useState, useRef, useEffect } from 'react';
 import cn from 'classnames';
 import { useTucuNavigation } from '../../../../themes/navigation';

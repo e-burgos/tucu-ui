@@ -1,3 +1,5 @@
+'use client';
+
 /**
  * Built-in field validators with localized messages (`lang`: en | es | fr).
  * Each `validate*` returns the error message, or `undefined` when valid.

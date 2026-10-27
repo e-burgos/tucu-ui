@@ -1,3 +1,5 @@
+'use client';
+
 import { useTheme } from '../../hooks/use-theme';
 import { LeftAlign, RightAlign } from '../../../components/icons';
 import { SettingsSectionHeading } from './settings-section-heading';

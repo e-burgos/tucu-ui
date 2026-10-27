@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import { Scrollbar } from '../common';
 import Button, { ButtonProps } from '../buttons';

@@ -13,6 +13,7 @@ import * as path from 'path';
 import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin';
 import { copyFileSync, cpSync, mkdirSync } from 'fs';
 import tailwindcss from '@tailwindcss/vite';
+import { preserveUseClient } from './scripts/preserve-use-client-plugin.mjs';
 
 // The CSS artifacts (dist/index.css, dist/fonts.css, dist/fonts/) are built
 // by a second, non-lib Vite pass — see vite.config.styles.mts for why. Chained
@@ -107,6 +108,7 @@ export default defineConfig({
   cacheDir: '../../node_modules/.vite/ui/tucu-ui',
   plugins: [
     react(),
+    preserveUseClient(),
     nxViteTsPaths(),
     dts({
       entryRoot: 'src',

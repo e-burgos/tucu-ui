@@ -1,3 +1,5 @@
+'use client';
+
 import { ForwardedRef, forwardRef, useState, useEffect } from 'react';
 import cn from 'classnames';
 import Button from '../buttons';

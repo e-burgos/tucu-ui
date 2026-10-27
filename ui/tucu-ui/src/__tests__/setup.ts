@@ -54,44 +54,46 @@ class MockResizeObserver {
 }
 vi.stubGlobal('ResizeObserver', MockResizeObserver);
 
-// matchMedia
-Object.defineProperty(window, 'matchMedia', {
-  writable: true,
-  value: vi.fn().mockImplementation((query: string) => ({
-    matches: false,
-    media: query,
-    onchange: null,
-    addListener: vi.fn(),
-    removeListener: vi.fn(),
-    addEventListener: vi.fn(),
-    removeEventListener: vi.fn(),
-    dispatchEvent: vi.fn(),
-  })),
-});
+if (typeof window !== 'undefined') {
+  // matchMedia
+  Object.defineProperty(window, 'matchMedia', {
+    writable: true,
+    value: vi.fn().mockImplementation((query: string) => ({
+      matches: false,
+      media: query,
+      onchange: null,
+      addListener: vi.fn(),
+      removeListener: vi.fn(),
+      addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
+      dispatchEvent: vi.fn(),
+    })),
+  });
 
-// scrollTo
-window.scrollTo = vi.fn() as unknown as typeof window.scrollTo;
-Element.prototype.scrollTo =
-  vi.fn() as unknown as typeof Element.prototype.scrollTo;
-Element.prototype.scrollIntoView = vi.fn();
+  // scrollTo
+  window.scrollTo = vi.fn() as unknown as typeof window.scrollTo;
+  Element.prototype.scrollTo =
+    vi.fn() as unknown as typeof Element.prototype.scrollTo;
+  Element.prototype.scrollIntoView = vi.fn();
 
-// getComputedStyle
-const originalGetComputedStyle = window.getComputedStyle;
-window.getComputedStyle = (elt: Element, pseudoElt?: string | null) => {
-  try {
-    return originalGetComputedStyle(elt, pseudoElt);
-  } catch {
-    return {
-      getPropertyValue: () => '',
-    } as unknown as CSSStyleDeclaration;
+  // getComputedStyle
+  const originalGetComputedStyle = window.getComputedStyle;
+  window.getComputedStyle = (elt: Element, pseudoElt?: string | null) => {
+    try {
+      return originalGetComputedStyle(elt, pseudoElt);
+    } catch {
+      return {
+        getPropertyValue: () => '',
+      } as unknown as CSSStyleDeclaration;
+    }
+  };
+
+  // requestAnimationFrame / cancelAnimationFrame
+  if (!window.requestAnimationFrame) {
+    window.requestAnimationFrame = (cb: FrameRequestCallback) =>
+      setTimeout(cb, 0) as unknown as number;
+    window.cancelAnimationFrame = (id: number) => clearTimeout(id);
   }
-};
-
-// requestAnimationFrame / cancelAnimationFrame
-if (!window.requestAnimationFrame) {
-  window.requestAnimationFrame = (cb: FrameRequestCallback) =>
-    setTimeout(cb, 0) as unknown as number;
-  window.cancelAnimationFrame = (id: number) => clearTimeout(id);
 }
 
 // crypto.randomUUID

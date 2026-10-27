@@ -1,3 +1,5 @@
+'use client';
+
 import { JSX } from 'react';
 import { useTheme } from '../../hooks/use-theme';
 import { LAYOUT_OPTIONS, layoutOptions } from '../../config';

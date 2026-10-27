@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useRef, useState } from 'react';
 import { useTucuNavigation } from '../../../themes/navigation';
 import { motion } from 'framer-motion';

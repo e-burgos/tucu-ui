@@ -1,3 +1,5 @@
+'use client';
+
 import { useDirection } from '../../hooks/use-direction';
 import { useThemeColor } from '../../hooks/use-theme-color';
 import { useTheme } from '../../hooks/use-theme';

@@ -1,3 +1,5 @@
+'use client';
+
 import { useState } from 'react';
 import AnchorLink from '../links/anchor-link';
 import { Checkbox, Input } from '../inputs';

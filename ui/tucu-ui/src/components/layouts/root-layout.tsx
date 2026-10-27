@@ -1,3 +1,5 @@
+'use client';
+
 import { useState } from 'react';
 import HorizontalLayout from './horizontal';
 import AdminLayout from './admin-layout';
