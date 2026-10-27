@@ -80,6 +80,8 @@ export function ThemeProvider(props: ThemeProviderProps): React.JSX.Element {
 
 export default ThemeProvider;
 
+export type { ThemeWrapperProps } from './theme-wrapper';
+
 export type {
   ThemeProviderProps,
   StandaloneAppThemeProviderProps,

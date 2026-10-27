@@ -1,5 +1,6 @@
 import '@testing-library/jest-dom';
 import { vi } from 'vitest';
+import '../themes/navigation/react-router-navigation';
 
 // --- Mock demo pages (they use LucideIcons namespace which crashes in test) ---
 vi.mock('../demo/pages', () => ({}));

@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useMemo } from 'react';
-import { useTucuNavigation } from '../../themes/navigation';
+import { useTucuNavigation } from '../../themes/navigation/core';
 import { TabGroup, TabList, TabItem, TabPanels, TabPanel } from './tab';
 
 type VariantNames = 'underline' | 'pills' | 'bordered' | 'solid';

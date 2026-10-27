@@ -2,7 +2,7 @@
 
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { useEffect, useRef } from 'react';
-import { useTucuNavigation } from '../themes/navigation';
+import { useTucuNavigation } from '../themes/navigation/core';
 
 export function useScrollableSlider(defaultActivePath = '/') {
   const { pathname } = useTucuNavigation();

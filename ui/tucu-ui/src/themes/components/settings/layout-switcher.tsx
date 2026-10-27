@@ -7,7 +7,7 @@ import {
   MinimalLayoutIcon,
   ClassicLayoutIcon,
 } from '../../../components/icons';
-import { LucideIcons } from '../../../..';
+import * as LucideIcons from 'lucide-react';
 import { SettingsSectionHeading } from './settings-section-heading';
 import { SwitcherButton } from './switcher-button';
 import { MacOSThemeIcon, MacOSTahoeThemeIcon } from './theme-icons';

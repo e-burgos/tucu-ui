@@ -114,11 +114,30 @@
         "TASK-001",
         "TASK-002"
       ],
-      "status": "in-progress",
+      "status": "done",
       "files": [
         "ui/tucu-ui/src/next/",
-        "ui/tucu-ui/package.json"
-      ]
+        "ui/tucu-ui/src/themes/navigation/",
+        "ui/tucu-ui/src/__tests__/next/next-theme-provider.test.tsx",
+        "ui/tucu-ui/scripts/check-entry-isolation.mjs",
+        "ui/tucu-ui/scripts/external-packages.mjs",
+        "ui/tucu-ui/vite.config.next.mts",
+        "ui/tucu-ui/vite.config.mts",
+        "ui/tucu-ui/types/next-entry.d.ts",
+        "ui/tucu-ui/package.json",
+        "ui/tucu-ui/project.json",
+        "pnpm-lock.yaml"
+      ],
+      "usage": {
+        "tokens_in": 147709,
+        "tokens_out": 26066,
+        "provider_model": "claude/sonnet",
+        "effort": "medium",
+        "agent": "implementor-front",
+        "approx": true,
+        "source": "agent-usage-notification",
+        "recorded_at": "2026-10-27"
+      }
     },
     {
       "id": "TASK-004",
@@ -132,7 +151,7 @@
       "depends_on": [
         "TASK-003"
       ],
-      "status": "pending",
+      "status": "in-progress",
       "files": [
         "apps/next-demo/"
       ]
@@ -148,7 +167,7 @@
       "depends_on": [
         "TASK-003"
       ],
-      "status": "pending",
+      "status": "in-progress",
       "files": [
         "tools/mcp-server/src/"
       ]

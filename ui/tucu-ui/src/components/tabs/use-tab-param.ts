@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useMemo } from 'react';
-import { useTucuNavigation } from '../../themes/navigation';
+import { useTucuNavigation } from '../../themes/navigation/core';
 
 export interface UseTabParamOptions<T extends string> {
   /** Allowed tab values, in order. */

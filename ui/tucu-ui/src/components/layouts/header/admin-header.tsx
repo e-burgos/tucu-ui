@@ -1,6 +1,6 @@
 'use client';
 
-import { useTucuNavigation } from '../../../themes/navigation';
+import { useTucuNavigation } from '../../../themes/navigation/core';
 import cn from 'classnames';
 import { Logo, LogoPropTypes } from '../../logos/logo';
 import Hamburger from '../../buttons/hamburger';

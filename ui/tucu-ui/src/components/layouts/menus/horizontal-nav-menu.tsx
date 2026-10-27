@@ -7,7 +7,7 @@ import { ChevronDown } from '../../icons/chevron-down';
 import { ChevronRight } from '../../icons/chevron-right';
 import cn from 'classnames';
 import { IMenuItem } from './menu-item';
-import { useTucuNavigation } from '../../../themes/navigation';
+import { useTucuNavigation } from '../../../themes/navigation/core';
 
 const handleMenuItems = (layoutMenuItems: IMenuItem[], pathname: string) => {
   const isActive = (href: string) => {

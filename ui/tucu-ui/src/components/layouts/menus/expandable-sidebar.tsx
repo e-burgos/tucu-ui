@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { useTucuNavigation } from '../../../themes/navigation';
+import { useTucuNavigation } from '../../../themes/navigation/core';
 import { motion } from 'framer-motion';
 import cn from 'classnames';
 import Logo, { LogoPropTypes } from '../../logos/logo';

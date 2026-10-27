@@ -14,6 +14,7 @@ import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin';
 import { copyFileSync, cpSync, mkdirSync } from 'fs';
 import tailwindcss from '@tailwindcss/vite';
 import { preserveUseClient } from './scripts/preserve-use-client-plugin.mjs';
+import { isExternalPackage } from './scripts/external-packages.mjs';
 
 // The CSS artifacts (dist/index.css, dist/fonts.css, dist/fonts/) are built
 // by a second, non-lib Vite pass — see vite.config.styles.mts for why. Chained
@@ -27,6 +28,16 @@ const buildStylesPlugin = (): PluginOption => ({
     console.log(
       'index.css / fonts.css / fonts/ built (vite.config.styles.mts)'
     );
+  },
+});
+
+const buildNextEntryPlugin = (): PluginOption => ({
+  name: 'build-next-entry',
+  closeBundle: async () => {
+    await viteBuild({
+      configFile: path.join(__dirname, 'vite.config.next.mts'),
+    });
+    console.log('next/ entry built (vite.config.next.mts)');
   },
 });
 
@@ -123,6 +134,7 @@ export default defineConfig({
     copyChangelogPlugin(),
     copyThemeCssPlugin(),
     buildStylesPlugin(),
+    buildNextEntryPlugin(),
     tailwindcss() as PluginOption,
   ],
   resolve: {
@@ -150,30 +162,7 @@ export default defineConfig({
       // its dist/out-of-tree node_modules path in the output, which npm
       // silently strips from the published tarball (nested node_modules
       // are never packed), breaking the import for consumers.
-      external: (id) => {
-        const externalPackages = [
-          'react',
-          'react-dom',
-          'lucide-react',
-          'react-router-dom',
-          '@dnd-kit/core',
-          '@dnd-kit/modifiers',
-          '@dnd-kit/sortable',
-          '@dnd-kit/utilities',
-          '@tanstack/react-table',
-          'classnames',
-          'framer-motion',
-          'lodash-es',
-          'react-hook-form',
-          'recharts',
-          'swiper',
-          'zustand',
-          'prismjs',
-        ];
-        return externalPackages.some(
-          (pkg) => id === pkg || id.startsWith(`${pkg}/`)
-        );
-      },
+      external: isExternalPackage,
       output: [
         {
           // Per-module ESM output lets consumer bundlers drop unused

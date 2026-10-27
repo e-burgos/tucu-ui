@@ -19,6 +19,14 @@
         "cwd": "ui/tucu-ui",
         "command": "node scripts/check-use-client.mjs"
       }
+    },
+    "check-entry-isolation": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["build"],
+      "options": {
+        "cwd": "ui/tucu-ui",
+        "command": "node scripts/check-entry-isolation.mjs"
+      }
     }
   }
 }

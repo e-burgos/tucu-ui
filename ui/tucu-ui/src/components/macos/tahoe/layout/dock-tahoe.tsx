@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import cn from 'classnames';
-import { useTucuNavigation } from '../../../../themes/navigation';
+import { useTucuNavigation } from '../../../../themes/navigation/core';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { IMenuItem } from '../../../layouts/menus/menu-item';
 import { matchesPath } from '../../../layouts/macos-layout/utils';

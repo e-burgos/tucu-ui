@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import cn from 'classnames';
-import { useTucuNavigation } from '../../../themes/navigation';
+import { useTucuNavigation } from '../../../themes/navigation/core';
 import { IMenuItem } from '../menus/menu-item';
 import Logo, { LogoPropTypes } from '../../logos/logo';
 import Hamburger from '../../buttons/hamburger';

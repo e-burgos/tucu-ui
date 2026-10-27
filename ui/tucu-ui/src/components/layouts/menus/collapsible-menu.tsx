@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 import { useMeasure } from '../../../hooks';
 import ActiveLink from '../../links/active-link';
 import { ChevronDown } from '../../icons/chevron-down';
-import { useTucuNavigation } from '../../../themes/navigation';
+import { useTucuNavigation } from '../../../themes/navigation/core';
 import { IMenuItem } from './menu-item';
 
 export function CollapsibleMenu({

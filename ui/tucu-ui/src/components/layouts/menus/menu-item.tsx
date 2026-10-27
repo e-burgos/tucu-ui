@@ -5,7 +5,7 @@ import cn from 'classnames';
 import { motion } from 'framer-motion';
 import ActiveLink from '../../links/active-link';
 import { ChevronDown } from '../../icons/chevron-down';
-import { useTucuNavigation } from '../../../themes/navigation';
+import { useTucuNavigation } from '../../../themes/navigation/core';
 import { useIsMobile } from '../../../hooks/use-is-mobile';
 import { useMeasure } from '../../../hooks/use-measure';
 

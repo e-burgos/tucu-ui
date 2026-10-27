@@ -1,7 +1,7 @@
 'use client';
 
 import React, { Suspense, useMemo, useCallback } from 'react';
-import { useTucuNavigation, useTucuParams } from '../../themes/navigation';
+import { useTucuNavigation, useTucuParams } from '../../themes/navigation/core';
 import {
   Skeleton,
   Typography,

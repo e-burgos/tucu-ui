@@ -23,7 +23,7 @@ import {
 } from '../../../components/layouts/root-layout';
 import { IMenuItem } from '../../../components/layouts/menus/menu-item';
 
-import { useTucuNavigation } from '../../navigation';
+import { useTucuNavigation } from '../../navigation/core';
 
 // ─── Palette Mapping ───────────────────────────────────────────
 // Maps customPaletteColor prop keys → [theme store key, custom label].

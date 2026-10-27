@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useCallback, useRef } from 'react';
 import { createPortal } from 'react-dom';
-import { useTucuNavigation } from '../../themes/navigation';
+import { useTucuNavigation } from '../../themes/navigation/core';
 import cn from 'classnames';
 import { ArrowUp } from '../icons/arrow-up';
 

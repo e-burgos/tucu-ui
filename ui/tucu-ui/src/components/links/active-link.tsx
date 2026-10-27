@@ -1,7 +1,7 @@
 'use client';
 
-import { useTucuNavigation } from '../../themes/navigation';
-import type { TucuLinkProps } from '../../themes/navigation';
+import { useTucuNavigation } from '../../themes/navigation/core';
+import type { TucuLinkProps } from '../../themes/navigation/core';
 import cn from 'classnames';
 import AnchorLink from './anchor-link';
 

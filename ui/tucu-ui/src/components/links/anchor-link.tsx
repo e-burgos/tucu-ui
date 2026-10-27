@@ -1,7 +1,7 @@
 'use client';
 
-import { toHref, useTucuNavigation } from '../../themes/navigation';
-import type { TucuLinkProps } from '../../themes/navigation';
+import { toHref, useTucuNavigation } from '../../themes/navigation/core';
+import type { TucuLinkProps } from '../../themes/navigation/core';
 
 const isExternalUrl = (url: string | undefined): boolean => {
   if (!url) return false;
