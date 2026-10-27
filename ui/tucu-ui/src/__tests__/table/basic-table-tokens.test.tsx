@@ -32,4 +32,17 @@ describe('BasicTable density tokens', () => {
     expect(css).toContain('--tucu-table-cell-px-default: 0.625rem');
     expect(css).toContain('--tucu-table-font-size-default: 13px');
   });
+
+  it('declares a line-height default per density and cells read the token', () => {
+    const css = readFileSync(resolve(__dirname, '../../assets/css/tokens/table.css'), 'utf8');
+    const lineHeight = (selector: string) =>
+      new RegExp(`${selector.replace(/[[\]'=]/g, '\\$&')}\\s*{[^}]*--tucu-table-line-height-default:\\s*([^;]+);`).exec(css)?.[1];
+    expect(lineHeight("[data-tucu='table']")).toBe('1.25rem');
+    expect(lineHeight("[data-tucu='table'][data-density='snug']")).toBe('1.5');
+    expect(lineHeight("[data-tucu='table'][data-density='compact']")).toBe('1rem');
+    const { container } = render(<BasicTable columns={columns} data={data} />);
+    expect(container.querySelector('[data-tucu="table-cell"]')!.className).toContain(
+      'leading-[var(--tucu-table-line-height,var(--tucu-table-line-height-default))]'
+    );
+  });
 });

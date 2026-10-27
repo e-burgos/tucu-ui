@@ -8,9 +8,18 @@ import type {
   SplitModalItemStatus,
   SplitModalNavItem,
   SplitModalSection,
+  SplitModalSelectionMode,
 } from './split-modal-types';
 
+const NAV_GROUP = 'nav';
+
 const ITEM_SELECTOR = 'button[data-tucu="split-modal-item"]:not(:disabled)';
+
+const groupOf = (section: SplitModalSection) =>
+  (section.selectionMode ?? 'nav') === 'nav' ? NAV_GROUP : section.id;
+
+const isFocusable = (item: SplitModalNavItem) =>
+  !item.disabled && item.kind !== 'info';
 
 const STATUS_DOT_CLASSES: Record<SplitModalItemStatus, string> = {
   neutral: 'bg-gray-400',
@@ -37,19 +46,21 @@ const statusLabel = (
 const NEXT_KEYS = ['ArrowDown', 'ArrowRight'];
 const PREVIOUS_KEYS = ['ArrowUp', 'ArrowLeft'];
 
-const focusSiblingItem = (nav: HTMLElement, key: string) => {
-  const items = Array.from(nav.querySelectorAll<HTMLElement>(ITEM_SELECTOR));
-  if (items.length === 0) return false;
+const focusSiblingItem = (nav: HTMLElement, group: string, key: string) => {
+  const items = Array.from(
+    nav.querySelectorAll<HTMLElement>(ITEM_SELECTOR)
+  ).filter((item) => item.getAttribute('data-group') === group);
   const current = items.indexOf(document.activeElement as HTMLElement);
+  if (items.length === 0 || current < 0) return null;
   let target: number;
   if (key === 'Home') target = 0;
   else if (key === 'End') target = items.length - 1;
   else if (NEXT_KEYS.includes(key)) target = (current + 1) % items.length;
   else if (PREVIOUS_KEYS.includes(key))
     target = (current <= 0 ? items.length : current) - 1;
-  else return false;
+  else return null;
   items[target].focus();
-  return true;
+  return items[target];
 };
 
 export interface SplitModalNavProps {
@@ -70,46 +81,151 @@ export function SplitModalNav({
   const messages = useTucuMessages();
   const navRef = useRef<HTMLElement>(null);
   const instanceId = useId();
-  const [focusedId, setFocusedId] = useState<string | undefined>();
-
-  const enabledItems = sections.flatMap((section) =>
-    section.items.filter((item) => !item.disabled)
+  const [focusedByGroup, setFocusedByGroup] = useState<Record<string, string>>(
+    {}
   );
-  const isEnabled = (id?: string) =>
-    id !== undefined && enabledItems.some((item) => item.id === id);
-  const tabStopId = isEnabled(focusedId)
-    ? focusedId
-    : isEnabled(activeItemId)
-    ? activeItemId
-    : enabledItems[0]?.id;
+  const [optionSelections, setOptionSelections] = useState<
+    Record<string, string | undefined>
+  >(() =>
+    Object.fromEntries(
+      sections.map((section) => [section.id, section.defaultActiveItemId])
+    )
+  );
 
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLElement>) => {
-    if (!navRef.current) return;
-    if (focusSiblingItem(navRef.current, event.key)) event.preventDefault();
+  const modeOf = (section: SplitModalSection): SplitModalSelectionMode =>
+    section.selectionMode ?? 'nav';
+
+  const selectedIdOf = (section: SplitModalSection) => {
+    const mode = modeOf(section);
+    if (mode === 'none') return undefined;
+    if (mode === 'option')
+      return section.activeItemId ?? optionSelections[section.id];
+    return activeItemId;
   };
 
-  const renderItem = (item: SplitModalNavItem) => {
-    const isActive = item.id === activeItemId;
+  const groupItems = (group: string) =>
+    sections
+      .filter((section) => groupOf(section) === group)
+      .flatMap((section) => section.items.filter(isFocusable));
+
+  const tabStopIdOf = (section: SplitModalSection) => {
+    const group = groupOf(section);
+    const candidates = groupItems(group);
+    const isCandidate = (id?: string) =>
+      id !== undefined && candidates.some((item) => item.id === id);
+    const focused = focusedByGroup[group];
+    if (isCandidate(focused)) return focused;
+    const selected = selectedIdOf(section);
+    return isCandidate(selected) ? selected : candidates[0]?.id;
+  };
+
+  const selectOption = (section: SplitModalSection, id: string) => {
+    if (section.activeItemId === undefined)
+      setOptionSelections((current) => ({ ...current, [section.id]: id }));
+    section.onActiveItemChange?.(id);
+  };
+
+  const activateItem = (
+    section: SplitModalSection,
+    item: SplitModalNavItem
+  ) => {
+    const mode = modeOf(section);
+    if (item.kind === 'action' || mode === 'none') item.onClick?.();
+    else if (mode === 'option') selectOption(section, item.id);
+    else onSelect(item.id);
+  };
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLElement>) => {
+    const nav = navRef.current;
+    const current = document.activeElement as HTMLElement | null;
+    const group = current?.getAttribute('data-group');
+    if (!nav || !group) return;
+    const target = focusSiblingItem(nav, group, event.key);
+    if (!target) return;
+    event.preventDefault();
+    if (current?.getAttribute('role') === 'radio') target.click();
+  };
+
+  const renderInfoItem = (item: SplitModalNavItem) => (
+    <li key={item.id} className="shrink-0 md:shrink">
+      <div
+        data-tucu="split-modal-item-info"
+        className="flex w-full items-center gap-2.5 px-3 py-2 text-sm"
+      >
+        {item.icon && (
+          <span
+            data-tucu="split-modal-item-icon"
+            className="flex shrink-0 items-center justify-center"
+          >
+            {item.icon}
+          </span>
+        )}
+        <span className="min-w-0 flex-1">
+          <span className="block font-medium md:whitespace-normal">
+            {item.label}
+          </span>
+          {item.description && (
+            <span
+              data-tucu="split-modal-item-description"
+              className="block text-xs font-normal opacity-70"
+            >
+              {item.description}
+            </span>
+          )}
+        </span>
+        {item.value !== undefined && (
+          <span
+            data-tucu="split-modal-item-value"
+            className="ml-auto shrink-0 text-xs opacity-80"
+          >
+            {item.value}
+          </span>
+        )}
+      </div>
+    </li>
+  );
+
+  const renderItem = (
+    section: SplitModalSection,
+    item: SplitModalNavItem,
+    tabStopId: string | undefined
+  ) => {
+    if (item.kind === 'info') return renderInfoItem(item);
+    const mode = modeOf(section);
+    const isAction = item.kind === 'action' || mode === 'none';
+    const isOption = mode === 'option' && !isAction;
+    const isSelected = !isAction && item.id === selectedIdOf(section);
+    const group = groupOf(section);
     return (
-      <li key={item.id} className="shrink-0 md:shrink">
+      <li
+        key={item.id}
+        role={mode === 'option' ? 'none' : undefined}
+        className="shrink-0 md:shrink"
+      >
         <button
           type="button"
+          role={isOption ? 'radio' : undefined}
+          aria-checked={isOption ? isSelected : undefined}
           data-tucu="split-modal-item"
-          data-active={isActive ? 'true' : undefined}
-          aria-current={isActive ? 'page' : undefined}
+          data-group={group}
+          data-kind={isAction ? 'action' : 'nav'}
+          data-active={isSelected ? 'true' : undefined}
+          aria-current={isSelected && !isOption ? 'page' : undefined}
           disabled={item.disabled}
           tabIndex={item.id === tabStopId ? 0 : -1}
-          onFocus={() => setFocusedId(item.id)}
-          onClick={() => onSelect(item.id)}
+          onFocus={() =>
+            setFocusedByGroup((current) => ({ ...current, [group]: item.id }))
+          }
+          onClick={() => activateItem(section, item)}
           className={cn(
             'relative flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-left text-sm font-medium whitespace-nowrap transition-colors outline-none md:whitespace-normal',
             'focus-visible:ring-2 focus-visible:ring-brand disabled:cursor-not-allowed disabled:opacity-50',
-            isActive
+            isSelected
               ? 'bg-[var(--tucu-split-modal-item-active-bg,var(--tucu-split-modal-item-active-bg-default))] text-[color:var(--tucu-split-modal-item-active-fg,var(--tucu-split-modal-item-active-fg-default))]'
               : 'text-current enabled:hover:bg-[var(--tucu-split-modal-item-hover-bg,var(--tucu-split-modal-item-hover-bg-default))]'
           )}
         >
-          {isActive && (
+          {isSelected && (
             <span
               aria-hidden="true"
               data-tucu="split-modal-item-indicator"
@@ -181,10 +297,13 @@ export function SplitModalNav({
     >
       {sections.map((section) => {
         const labelId = `${instanceId}-${section.id}`;
+        const mode = modeOf(section);
+        const tabStopId = tabStopIdOf(section);
         return (
           <div
             key={section.id}
             data-tucu="split-modal-section"
+            data-selection-mode={mode}
             className="flex flex-row md:flex-col"
           >
             {section.label && (
@@ -197,10 +316,13 @@ export function SplitModalNav({
               </p>
             )}
             <ul
+              role={mode === 'option' ? 'radiogroup' : undefined}
               aria-labelledby={section.label ? labelId : undefined}
               className="m-0 flex list-none flex-row gap-1 p-0 md:flex-col"
             >
-              {section.items.map(renderItem)}
+              {section.items.map((item) =>
+                renderItem(section, item, tabStopId)
+              )}
             </ul>
           </div>
         );

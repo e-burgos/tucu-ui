@@ -3,6 +3,7 @@
 import React, { useState, useRef, useCallback, useEffect, useId } from 'react';
 import { cn } from '../../libs/cn';
 import { useTheme } from '../../themes/hooks/use-theme';
+import { useTooltipDefaults } from './tooltip-defaults';
 
 export type TooltipPlacement = 'top' | 'bottom' | 'left' | 'right';
 export type TooltipSize = 'xs' | 'sm' | 'md';
@@ -57,8 +58,10 @@ const colorStyles: Record<TooltipColor, string> = {
 
 const tokenBubbleStyle =
   'bg-[color:var(--tucu-tooltip-bg,var(--tucu-tooltip-bg-default))] text-[color:var(--tucu-tooltip-fg,var(--tucu-tooltip-fg-default))] ring-1 ring-[color:var(--tucu-tooltip-border,var(--tucu-tooltip-border-default))]';
-const tokenArrowStyle = 'text-[color:var(--tucu-tooltip-bg,var(--tucu-tooltip-bg-default))]';
-const tokenArrowBorderStyle = 'text-[color:var(--tucu-tooltip-border,var(--tucu-tooltip-border-default))]';
+const tokenArrowStyle =
+  'text-[color:var(--tucu-tooltip-bg,var(--tucu-tooltip-bg-default))]';
+const tokenArrowBorderStyle =
+  'text-[color:var(--tucu-tooltip-border,var(--tucu-tooltip-border-default))]';
 
 const arrowColorStyles: Record<TooltipColor, string> = {
   dark: 'text-gray-900 dark:text-gray-100',
@@ -201,19 +204,28 @@ function fitsInViewport(
  */
 export function Tooltip({
   content,
-  placement = 'top',
-  color,
-  arrow = true,
-  enterDelay = 0,
-  leaveDelay = 100,
+  placement: placementProp,
+  color: colorProp,
+  arrow: arrowProp,
+  enterDelay: enterDelayProp,
+  leaveDelay: leaveDelayProp,
   disabled = false,
-  size = 'md',
+  size: sizeProp,
   className,
   contentClassName,
-  maxWidth,
-  lazy = false,
+  maxWidth: maxWidthProp,
+  lazy: lazyProp,
   children,
 }: TooltipProps) {
+  const defaults = useTooltipDefaults();
+  const placement = placementProp ?? defaults.placement ?? 'top';
+  const color = colorProp ?? defaults.color;
+  const arrow = arrowProp ?? defaults.arrow ?? true;
+  const enterDelay = enterDelayProp ?? defaults.enterDelay ?? 0;
+  const leaveDelay = leaveDelayProp ?? defaults.leaveDelay ?? 100;
+  const size = sizeProp ?? defaults.size ?? 'md';
+  const maxWidth = maxWidthProp ?? defaults.maxWidth;
+  const lazy = lazyProp ?? defaults.lazy ?? false;
   const { mode } = useTheme();
   const usesTokens = color === undefined;
   const resolvedColor: TooltipColor =
@@ -317,7 +329,8 @@ export function Tooltip({
       handleHide();
       child.props.onBlur?.(e);
     },
-    'aria-describedby': lazy && !visible ? child.props['aria-describedby'] : tooltipId,
+    'aria-describedby':
+      lazy && !visible ? child.props['aria-describedby'] : tooltipId,
   } as Partial<React.HTMLAttributes<HTMLElement>>);
 
   const tooltipNode = (

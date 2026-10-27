@@ -1,12 +1,6 @@
 'use client';
 
-import React, {
-  useEffect,
-  useId,
-  useRef,
-  useCallback,
-  useState,
-} from 'react';
+import React, { useEffect, useId, useRef, useCallback, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { Button } from '../buttons';
 import { CardContainer } from '../cards/card-container';
@@ -43,6 +37,11 @@ const MODAL_CONTENT_SIZE_CLASSES: Record<ModalSize, string> = {
   full: 'max-h-[80vh]',
 };
 
+export const DEFAULT_MODAL_SIZE: ModalSize = 'md';
+
+export const modalContentMaxHeight = (size: ModalSize = DEFAULT_MODAL_SIZE) =>
+  MODAL_CONTENT_SIZE_CLASSES[size].slice('max-h-['.length, -1);
+
 export type ModalCloseButtonProps = Omit<
   React.ButtonHTMLAttributes<HTMLButtonElement>,
   'children' | 'onClick' | 'color'
@@ -54,7 +53,11 @@ const TITLE_TYPOGRAPHY_CLASSES =
   'font-bold font-figtree text-[22px] font-600 leading-[100%] tracking-[0.022px]';
 
 const toCssLength = (value: number | string | undefined) =>
-  value === undefined ? undefined : typeof value === 'number' ? `${value}px` : value;
+  value === undefined
+    ? undefined
+    : typeof value === 'number'
+    ? `${value}px`
+    : value;
 
 export interface ModalProps {
   isOpen: boolean;
@@ -131,7 +134,7 @@ export const Modal: React.FC<ModalProps> = ({
   hideCloseButton = false,
   closeTooltip,
   headerActions,
-  size = 'md',
+  size = DEFAULT_MODAL_SIZE,
   header,
   closeLabel,
   'aria-label': ariaLabel,
@@ -334,7 +337,9 @@ export const Modal: React.FC<ModalProps> = ({
         aria-modal="true"
         aria-label={ariaLabel}
         aria-labelledby={
-          ariaLabel ? undefined : ariaLabelledBy ?? (hasHeading ? titleId : undefined)
+          ariaLabel
+            ? undefined
+            : ariaLabelledBy ?? (hasHeading ? titleId : undefined)
         }
         aria-describedby={
           ariaDescribedBy ?? (text?.content ? descriptionId : undefined)

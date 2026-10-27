@@ -16,6 +16,8 @@ import { ChevronLeft } from '../icons/chevron-left';
 import { ChevronRight } from '../icons/chevron-right';
 
 export type SegmentedControlSize = 'xs' | 'sm' | 'md';
+export type SegmentedControlSemantics = 'radio' | 'tabs' | 'nav';
+export type SegmentedControlEmphasis = 'default' | 'strong' | 'subtle';
 
 export interface SegmentedControlOption<T extends string = string> {
   /** Value emitted by `onChange` when this segment is picked. */
@@ -26,6 +28,14 @@ export interface SegmentedControlOption<T extends string = string> {
   icon?: ReactNode;
   /** Prevents picking this segment. */
   disabled?: boolean;
+  /** Destination of the segment when `semantics` is `nav`; renders an anchor instead of a button. */
+  href?: string;
+  /** Test id forwarded to the segment element. */
+  'data-testid'?: string;
+  /** Accessible name of the segment, for icon-only segments. */
+  'aria-label'?: string;
+  /** Extra classes merged onto the segment label. */
+  labelClassName?: string;
 }
 
 type DataAttributes = {
@@ -40,7 +50,7 @@ export interface SegmentedControlProps<T extends string = string>
   value: T;
   /** Called with the picked value. */
   onChange: (value: T) => void;
-  /** Accessible name of the radio group. */
+  /** Accessible name of the radio group, tab list or navigation. */
   'aria-label'?: string;
   /** Accessible name of the radio group (used when `aria-label` is not set). */
   label?: string;
@@ -52,9 +62,32 @@ export interface SegmentedControlProps<T extends string = string>
   disabled?: boolean;
   /** Keep segments on one row and show chevrons when they overflow. */
   scrollable?: boolean;
+  /**
+   * Accessibility pattern. `radio` (default) renders a radio group; `tabs` renders a tab list whose
+   * tabs point to `segmentedControlPanelId(idBase, value)`; `nav` renders links/buttons inside a
+   * `<nav>` with `aria-current` on the active one.
+   */
+  semantics?: SegmentedControlSemantics;
+  /** Id prefix of tabs and panels when `semantics` is `tabs`. Defaults to a generated id. */
+  idBase?: string;
+  /** Visual weight of the selected segment: `strong` adds contrast, `subtle` drops the elevation. Defaults to `default`. */
+  emphasis?: SegmentedControlEmphasis;
   /** Extra classes merged onto the root element. */
   className?: string;
 }
+
+export const segmentedControlTabId = (idBase: string, value: string) =>
+  `${idBase}-tab-${value}`;
+
+export const segmentedControlPanelId = (idBase: string, value: string) =>
+  `${idBase}-panel-${value}`;
+
+const thumbEmphasisClasses: Record<SegmentedControlEmphasis, string> = {
+  default: 'shadow-sm',
+  strong:
+    'shadow-md ring-1 ring-[color:var(--tucu-segmented-thumb-border,var(--tucu-segmented-thumb-border-default))]',
+  subtle: 'opacity-70',
+};
 
 const sizeClasses: Record<SegmentedControlSize, string> = {
   xs: 'h-6 px-2 text-xs gap-1',
@@ -63,6 +96,12 @@ const sizeClasses: Record<SegmentedControlSize, string> = {
 };
 
 const SCROLL_STEP_PX = 160;
+
+const TRACK_ROLES: Record<SegmentedControlSemantics, string | undefined> = {
+  radio: 'radiogroup',
+  tabs: 'tablist',
+  nav: undefined,
+};
 
 function nextEnabledIndex<T extends string>(
   options: SegmentedControlOption<T>[],
@@ -92,7 +131,8 @@ function useOverflowState(enabled: boolean) {
     const track = trackRef.current;
     if (!track) return;
     const back = track.scrollLeft > 1;
-    const forward = track.scrollLeft + track.clientWidth < track.scrollWidth - 1;
+    const forward =
+      track.scrollLeft + track.clientWidth < track.scrollWidth - 1;
     setOverflow((prev) =>
       prev.back === back && prev.forward === forward ? prev : { back, forward }
     );
@@ -127,12 +167,20 @@ export function SegmentedControl<T extends string = string>({
   fullWidth = false,
   disabled = false,
   scrollable = false,
+  semantics = 'radio',
+  idBase,
+  emphasis = 'default',
   className,
   ...dataAttributes
 }: SegmentedControlProps<T>) {
   const t = useTucuMessages().segmented;
   const thumbId = useId();
-  const buttonRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const generatedIdBase = useId();
+  const resolvedIdBase = idBase ?? generatedIdBase;
+  const isNav = semantics === 'nav';
+  const isTabs = semantics === 'tabs';
+  const TrackElement = isNav ? 'nav' : 'div';
+  const buttonRefs = useRef<(HTMLElement | null)[]>([]);
   const { trackRef, overflow, scrollBy } = useOverflowState(scrollable);
 
   const selectedIndex = options.findIndex((option) => option.value === value);
@@ -147,8 +195,8 @@ export function SegmentedControl<T extends string = string>({
     onChange(options[index].value);
   };
 
-  const handleKeyDown = (event: KeyboardEvent<HTMLButtonElement>, index: number) => {
-    if (disabled) return;
+  const handleKeyDown = (event: KeyboardEvent<HTMLElement>, index: number) => {
+    if (disabled || isNav) return;
     const keyToTarget: Record<string, number | undefined> = {
       ArrowRight: nextEnabledIndex(options, index, 1),
       ArrowDown: nextEnabledIndex(options, index, 1),
@@ -162,11 +210,47 @@ export function SegmentedControl<T extends string = string>({
     pick(keyToTarget[event.key]);
   };
 
+  const optionSemanticsProps = (
+    option: SegmentedControlOption<T>,
+    index: number,
+    isSelected: boolean,
+    isDisabled: boolean | undefined
+  ) => {
+    const shared = {
+      'aria-disabled': isDisabled || undefined,
+      onClick: () => onChange(option.value),
+    };
+    if (isNav) {
+      return {
+        ...shared,
+        'aria-current': isSelected ? ('page' as const) : undefined,
+      };
+    }
+    const roving = {
+      ...shared,
+      tabIndex: index === tabbableIndex ? 0 : -1,
+      onKeyDown: (event: KeyboardEvent<HTMLElement>) =>
+        handleKeyDown(event, index),
+    };
+    if (isTabs) {
+      return {
+        ...roving,
+        role: 'tab',
+        id: segmentedControlTabId(resolvedIdBase, option.value),
+        'aria-selected': isSelected,
+        'aria-controls': segmentedControlPanelId(resolvedIdBase, option.value),
+      };
+    }
+    return { ...roving, role: 'radio', 'aria-checked': isSelected };
+  };
+
   return (
     <div
       {...dataAttributes}
       data-tucu="segmented-control"
       data-size={size}
+      data-semantics={semantics}
+      data-emphasis={emphasis}
       className={cn(
         'relative items-center',
         fullWidth ? 'flex w-full' : 'inline-flex max-w-full',
@@ -185,9 +269,9 @@ export function SegmentedControl<T extends string = string>({
           <ChevronLeft className="h-4 w-4" />
         </button>
       )}
-      <div
+      <TrackElement
         ref={trackRef}
-        role="radiogroup"
+        role={TRACK_ROLES[semantics]}
         aria-label={ariaLabel ?? label}
         aria-disabled={disabled || undefined}
         data-tucu="segmented-control-track"
@@ -195,47 +279,48 @@ export function SegmentedControl<T extends string = string>({
           'flex min-w-0 items-center gap-0.5 bg-[var(--tucu-segmented-bg,var(--tucu-segmented-bg-default))] p-0.5',
           'rounded-[var(--tucu-segmented-radius,var(--tucu-segmented-radius-default))]',
           fullWidth && 'w-full',
-          scrollable && 'overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden',
+          scrollable &&
+            'overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden',
           disabled && 'opacity-60'
         )}
       >
         {options.map((option, index) => {
           const isSelected = index === selectedIndex;
           const isDisabled = disabled || option.disabled;
-          return (
-            <button
-              key={option.value}
-              ref={(el) => {
-                buttonRefs.current[index] = el;
-              }}
-              type="button"
-              role="radio"
-              aria-checked={isSelected}
-              aria-disabled={isDisabled || undefined}
-              disabled={isDisabled}
-              tabIndex={index === tabbableIndex ? 0 : -1}
-              data-tucu="segmented-control-option"
-              data-state={isSelected ? 'checked' : 'unchecked'}
-              onClick={() => onChange(option.value)}
-              onKeyDown={(event) => handleKeyDown(event, index)}
-              className={cn(
-                'relative inline-flex items-center justify-center whitespace-nowrap font-medium outline-hidden transition-colors',
-                'rounded-[calc(var(--tucu-segmented-radius,var(--tucu-segmented-radius-default))-2px)]',
-                'focus-visible:ring-2 focus-visible:ring-brand',
-                sizeClasses[size],
-                fullWidth && 'flex-1',
-                isSelected
-                  ? 'text-[var(--tucu-segmented-fg-active,var(--tucu-segmented-fg-active-default))]'
-                  : 'text-[var(--tucu-segmented-fg,var(--tucu-segmented-fg-default))] hover:text-[var(--tucu-segmented-fg-active,var(--tucu-segmented-fg-active-default))]',
-                isDisabled && 'cursor-not-allowed opacity-50'
-              )}
-            >
+          const optionClassName = cn(
+            'relative inline-flex items-center justify-center whitespace-nowrap font-medium outline-hidden transition-colors',
+            'rounded-[calc(var(--tucu-segmented-radius,var(--tucu-segmented-radius-default))-2px)]',
+            'focus-visible:ring-2 focus-visible:ring-brand',
+            sizeClasses[size],
+            fullWidth && 'flex-1',
+            isSelected
+              ? 'text-[var(--tucu-segmented-fg-active,var(--tucu-segmented-fg-active-default))]'
+              : 'text-[var(--tucu-segmented-fg,var(--tucu-segmented-fg-default))] hover:text-[var(--tucu-segmented-fg-active,var(--tucu-segmented-fg-active-default))]',
+            isSelected && emphasis === 'strong' && 'font-semibold',
+            isDisabled && 'cursor-not-allowed opacity-50'
+          );
+          const optionProps = {
+            ref: (el: HTMLElement | null) => {
+              buttonRefs.current[index] = el;
+            },
+            'data-testid': option['data-testid'],
+            'aria-label': option['aria-label'],
+            'data-tucu': 'segmented-control-option',
+            'data-state': isSelected ? 'checked' : 'unchecked',
+            className: optionClassName,
+            ...optionSemanticsProps(option, index, isSelected, isDisabled),
+          };
+          const content = (
+            <>
               {isSelected && (
                 <motion.span
                   layoutId={`${thumbId}-thumb`}
                   data-tucu="segmented-control-thumb"
                   transition={{ type: 'spring', stiffness: 500, damping: 40 }}
-                  className="absolute inset-0 rounded-[inherit] bg-[var(--tucu-segmented-thumb-bg,var(--tucu-segmented-thumb-bg-default))] shadow-sm"
+                  className={cn(
+                    'absolute inset-0 rounded-[inherit] bg-[var(--tucu-segmented-thumb-bg,var(--tucu-segmented-thumb-bg-default))]',
+                    thumbEmphasisClasses[emphasis]
+                  )}
                 />
               )}
               {option.icon && (
@@ -243,11 +328,27 @@ export function SegmentedControl<T extends string = string>({
                   {option.icon}
                 </span>
               )}
-              <span className="relative z-10">{option.label}</span>
+              <span className={cn('relative z-10', option.labelClassName)}>
+                {option.label}
+              </span>
+            </>
+          );
+          return isNav && option.href !== undefined && !isDisabled ? (
+            <a key={option.value} {...optionProps} href={option.href}>
+              {content}
+            </a>
+          ) : (
+            <button
+              key={option.value}
+              {...optionProps}
+              type="button"
+              disabled={isDisabled}
+            >
+              {content}
             </button>
           );
         })}
-      </div>
+      </TrackElement>
       {scrollable && overflow.forward && (
         <button
           type="button"

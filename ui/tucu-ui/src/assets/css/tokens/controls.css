@@ -7,6 +7,7 @@
     --tucu-segmented-thumb-bg-default: #ffffff;
     --tucu-segmented-fg-default: #6b7280;
     --tucu-segmented-fg-active-default: #111827;
+    --tucu-segmented-thumb-border-default: rgb(17 24 39 / 0.12);
     --tucu-segmented-radius-default: 0.625rem;
   }
 
@@ -16,6 +17,7 @@
     --tucu-segmented-thumb-bg-default: rgb(255 255 255 / 0.16);
     --tucu-segmented-fg-default: #9ca3af;
     --tucu-segmented-fg-active-default: #f9fafb;
+    --tucu-segmented-thumb-border-default: rgb(255 255 255 / 0.2);
     --tucu-segmented-radius-default: 0.625rem;
   }
 }
