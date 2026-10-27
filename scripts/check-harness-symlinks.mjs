@@ -32,6 +32,7 @@ const EXPECTED_SYMLINKS = [
   ['.claude/commands/tucu-ui-expert.md', 'harness/prompts/tucu-ui-expert.md'],
   ['.claude/skills/sdd', 'harness/skills/sdd'],
   ['.claude/skills/publish', 'harness/skills/publish'],
+  ['.claude/skills/tucu-ui-design', 'harness/skills/tucu-ui-design'],
   ['.github/agents/tucu-ui-expert.agent.md', 'harness/agents/tucu-ui-expert.md'],
   ['.github/agents/tucu-ui-docs-sync.agent.md', 'harness/agents/tucu-ui-docs-sync.md'],
   ['.github/prompts/tucu-ui-expert.prompt.md', 'harness/prompts/tucu-ui-expert.md'],

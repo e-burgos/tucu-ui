@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useRef, useState } from 'react';
+import { MotionConfig } from 'framer-motion';
 import { SettingsButton, SettingsDrawer } from '../settings';
 import { useTheme } from '../../hooks/use-theme';
 import {
@@ -125,6 +126,13 @@ interface ThemeWrapperBaseProps extends Omit<LayoutTypeProps, 'layout'> {
   lang?: LangType | (string & Record<never, never>);
   /** Defaults applied to every `Tooltip` rendered inside the shell (placement, size, delays, lazy…); a `Tooltip` prop still wins. */
   tooltipDefaults?: TooltipDefaults;
+  /** Motion settings applied to every framer-motion component inside the shell. */
+  motion?: ThemeWrapperMotion;
+}
+
+export interface ThemeWrapperMotion {
+  /** Whether animations follow the OS `prefers-reduced-motion` setting (`user`), are always reduced (`always`) or never reduced (`never`). @default 'user' */
+  reducedMotion?: 'user' | 'always' | 'never';
 }
 
 // ─── Conditional layout types per theme style ───────────────────
@@ -208,6 +216,7 @@ export function ThemeWrapper({
   setCurrentPathname,
   lang: appLang,
   tooltipDefaults,
+  motion,
 }: ThemeWrapperProps) {
   const { mode, layout, colorScheme } = useTheme();
 
@@ -349,26 +358,28 @@ export function ThemeWrapper({
   }, [appLayout, layout]);
 
   return (
-    <TooltipDefaultsProvider {...tooltipDefaults}>
-      <div
-        className={`fixed inset-0 h-dvh overflow-y-auto overflow-x-hidden bg-body ${className}`}
-      >
-        <RootLayout
-          layout={effectiveLayout}
-          menuItems={menuList}
-          rightButton={rightButton}
-          logo={logo}
-          className={className}
-          headerClassName={headerClassName}
-          contentClassName={contentClassName}
-          fullWidth={fullWidth}
+    <MotionConfig reducedMotion={motion?.reducedMotion ?? 'user'}>
+      <TooltipDefaultsProvider {...tooltipDefaults}>
+        <div
+          className={`fixed inset-0 h-dvh overflow-y-auto overflow-x-hidden bg-body ${className}`}
         >
-          {children}
-        </RootLayout>
-        <SettingsButton />
-        <SettingsDrawer />
-      </div>
-    </TooltipDefaultsProvider>
+          <RootLayout
+            layout={effectiveLayout}
+            menuItems={menuList}
+            rightButton={rightButton}
+            logo={logo}
+            className={className}
+            headerClassName={headerClassName}
+            contentClassName={contentClassName}
+            fullWidth={fullWidth}
+          >
+            {children}
+          </RootLayout>
+          <SettingsButton />
+          <SettingsDrawer />
+        </div>
+      </TooltipDefaultsProvider>
+    </MotionConfig>
   );
 }
 

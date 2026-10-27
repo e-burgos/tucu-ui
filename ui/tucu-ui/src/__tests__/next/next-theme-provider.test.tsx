@@ -44,6 +44,7 @@ vi.mock('next/link', () => ({
 vi.mock('framer-motion', () => ({
   motion: { div: 'div', ul: 'ul', li: 'li', span: 'span' },
   AnimatePresence: ({ children }: { children: React.ReactNode }) => children,
+  MotionConfig: ({ children }: { children: React.ReactNode }) => children,
 }));
 
 const menuItems = [
