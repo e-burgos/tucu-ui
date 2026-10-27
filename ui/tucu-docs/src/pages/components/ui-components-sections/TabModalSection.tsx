@@ -167,11 +167,11 @@ const TabModalSection: React.FC = () => {
             }}
             tabs={[
               {
-                title: 'Tab 1',
+                name: 'Tab 1',
                 content: <Typography tag="p">Content 1</Typography>,
               },
               {
-                title: 'Tab 2',
+                name: 'Tab 2',
                 content: <Typography tag="p">Content 2</Typography>,
               },
             ]}

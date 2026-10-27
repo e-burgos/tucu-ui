@@ -2,7 +2,7 @@
  * Vite plugin to generate sitemap.xml during build
  */
 import type { Plugin } from 'vite';
-import { writeFileSync } from 'fs';
+import { mkdirSync, writeFileSync } from 'fs';
 import { resolve } from 'path';
 
 // Route paths configuration (mirrors APP_PATHS from menuItems)
@@ -41,6 +41,13 @@ function getAllRoutes(): string[] {
   routes.push(`${APP_PATHS.COMPONENTS.path}/blockchain`);
   routes.push(`${APP_PATHS.COMPONENTS.path}/ui-components`);
   routes.push(`${APP_PATHS.COMPONENTS.path}/inputs-components`);
+  routes.push(`${APP_PATHS.COMPONENTS.path}/charts`);
+  routes.push(`${APP_PATHS.COMPONENTS.path}/datatable`);
+
+  routes.push('/mcp-server');
+  routes.push('/macos');
+  routes.push('/macos/sonoma');
+  routes.push('/macos/tahoe');
 
   // Features sub-routes
   routes.push(`${APP_PATHS.FEATURES.path}/icons-system`);
@@ -119,16 +126,22 @@ ${urls
 }
 
 export function sitemapPlugin(): Plugin {
+  let outDir = resolve(__dirname, 'dist');
   return {
     name: 'sitemap-generator',
     apply: 'build',
-    closeBundle() {
+    configResolved(config) {
+      outDir = resolve(config.root, config.build.outDir);
+    },
+    closeBundle(error?: Error) {
+      if (error) return;
       const baseUrl =
         process.env.VITE_APP_BASE_URL ||
         process.env.VITE_APP_URL ||
         'https://ui.estebanburgos.com.ar';
       const sitemap = generateSitemap(baseUrl);
-      const outputPath = resolve(__dirname, 'dist', 'sitemap.xml');
+      mkdirSync(outDir, { recursive: true });
+      const outputPath = resolve(outDir, 'sitemap.xml');
       writeFileSync(outputPath, sitemap, 'utf-8');
       console.log(`✅ Sitemap generated: ${outputPath}`);
     },
