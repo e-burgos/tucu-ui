@@ -84,6 +84,9 @@ mode?: 'dark' | 'light';            // per-table theme override (sets data-theme
 | \`searchableColumns\` | \`string[]\` | Shows the global search input, restricted to these column ids |
 | \`rightActions\` | \`React.ReactNode\` | Arbitrary node in the header action row |
 | \`mobileCards\` | \`boolean \\| IMobileCardsOptions\` | v3.8.0. Renders each row as a card below the breakpoint (\`sm\` \\| \`md\` default \\| \`lg\`); both layouts are in the DOM and switched by CSS, so SSR markup matches. Options: \`titleColumnId\`, \`subtitleColumnId\`, \`hiddenColumnIds\`, \`className\`. Cards show a \`<dl>\` of the remaining columns, row actions, selection, row click via \`setCurrentRow\` and compact pagination. Tokens \`--tucu-datatable-card-*\` |
+| \`columnSizing\` | \`'fixed' \\| 'fill-leftover' \\| 'fill'\` | v3.9.0. \`'fill-leftover'\` (default) gives the leftover width only to columns without \`size\`; \`'fill'\` grows every visible column proportionally to its base size (\`size\` ?? 150, at least \`minSize\`, capped by \`maxSize\`) until the container is filled, reserving width for helper columns and tracking resizes; \`'fixed'\` distributes nothing. Pure helper: \`fillColumnsToWidth(columns, width)\` |
+| \`getRowLabel\` | \`(row: T) => string\` | v3.9.0. Accessible name for each row and mobile card; the row-actions trigger and inline action include it (e.g. "Row actions Product X"), and every action item is named and carries \`data-action\` |
+| \`getRowId\` | \`(row: T, index: number) => string\` | v3.9.0. Stable row id, emitted as \`data-row-id\` on rows and cards |
 
 ## ColumnDef extensions (module augmentation)
 
