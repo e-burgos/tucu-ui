@@ -4,6 +4,12 @@ All notable changes to `@e-burgos/tucu-ui-mcp` will be documented in this file.
 
 <!-- Last updated: 2026-06-02 -->
 
+## [0.12.0] - 2026-10-27
+
+### Changed
+
+- registry, tokens and changelog for 3.6.0 Modal/Alert/BasicTable/Select/Tooltip props
+- theme presets and ThemeScope docs, MCP registry/tokens/changelog for 3.6.0 (spec-e-burgos-002 cycle-02 TASK-005)
 ## [0.11.0] - 2026-10-27
 
 ### Added
