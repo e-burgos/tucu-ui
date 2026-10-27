@@ -487,6 +487,33 @@ export default function WorkspacesTable({ data }: { data: Project[] }) {
           />
         </CardTitle>
       </CardContainer>
+
+      <CardContainer className="p-6">
+        <CardTitle title="Column sizing and row labels" className="mb-4">
+          <Typography className="text-sm text-foreground/70 mb-3">
+            <code>columnSizing</code> controls how columns use the container
+            width: <code>'fixed'</code> keeps each <code>size</code>,{' '}
+            <code>'fill-leftover'</code> (default) spreads the leftover width
+            among columns without a <code>size</code>, and <code>'fill'</code>{' '}
+            grows every column proportionally while respecting{' '}
+            <code>minSize</code> and <code>maxSize</code>.{' '}
+            <code>getRowLabel</code> gives rows and cards an{' '}
+            <code>aria-label</code>, names the row-actions trigger{' '}
+            <code>Row actions &lt;label&gt;</code> and names each menu item
+            (with a <code>data-action</code> attribute).
+          </Typography>
+          <CodeBlock
+            language="tsx"
+            code={`<DataTable
+  tableId="workspaces-table"
+  columns={columns}
+  data={data}
+  columnSizing="fill"
+  getRowLabel={(row) => row.name}
+/>`}
+          />
+        </CardTitle>
+      </CardContainer>
     </div>
   );
 };

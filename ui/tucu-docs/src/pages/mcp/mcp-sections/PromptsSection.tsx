@@ -79,6 +79,13 @@ const prompts: {
     icon: <LucideIcons.Gauge className="w-5 h-5" />,
     color: 'orange',
   },
+  {
+    name: 'design-review',
+    description:
+      'Review a screen against tucu://design-guide. Arguments: code, focus, style, density. Reports spacing, typography, token, state and accessibility findings.',
+    icon: <LucideIcons.Eye className="w-5 h-5" />,
+    color: 'violet',
+  },
 ];
 
 const PromptsSection: React.FC = () => {
@@ -86,7 +93,7 @@ const PromptsSection: React.FC = () => {
     <div className="flex flex-col gap-8">
       <HeroCard
         title="Prompts"
-        description="8 pre-built prompt templates that guide the agent through complex multi-step workflows."
+        description="9 pre-built prompt templates that guide the agent through complex multi-step workflows."
         icon={
           <div className="w-16 h-16 sm:w-20 sm:h-20 bg-linear-to-br from-amber-500 to-orange-500 rounded-full flex items-center justify-center shadow-lg">
             <LucideIcons.MessageSquare className="w-8 h-8 sm:w-10 sm:h-10 text-white" />

@@ -70,7 +70,7 @@ const OverviewSection: React.FC = () => {
               variant="soft"
               className="bg-emerald-500/10 text-emerald-500"
             >
-              15 Resources
+              16 Resources
             </Badge>
             <Typography className="text-sm font-semibold">Resources</Typography>
             <Typography className="text-xs text-foreground/60">
@@ -86,7 +86,7 @@ const OverviewSection: React.FC = () => {
               <LucideIcons.MessageSquare className="w-6 h-6 text-amber-500" />
             </div>
             <Badge variant="soft" className="bg-amber-500/10 text-amber-500">
-              8 Prompts
+              9 Prompts
             </Badge>
             <Typography className="text-sm font-semibold">Prompts</Typography>
             <Typography className="text-xs text-foreground/60">

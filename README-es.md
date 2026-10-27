@@ -132,6 +132,16 @@ Si no usás los temas macOS, `@import '@e-burgos/tucu-ui/styles-core';` entrega 
 
 ---
 
+## Agregado en 3.9.0
+
+- MCP: resource `tucu://design-guide`, prompt `design-review` y parámetros `style` / `motion` / `density` más los layouts `marketing` y `auth` en `generate_page` / `generate_component`
+- Skill de agente `tucu-ui-design` incluida en el paquete MCP: `npx -p @e-burgos/tucu-ui-mcp tucu-ui-skill install` (`--dir <ruta>`, `--force`; `tucu-ui-skill path` imprime la carpeta)
+- `ThemeProvider` / `NextThemeProvider` envuelven la app en `MotionConfig reducedMotion="user"`; se sobreescribe con `motion={{ reducedMotion }}`
+- `DataTable` `columnSizing` (`'fixed' | 'fill-leftover' | 'fill'`) y `getRowLabel` (nombres accesibles para filas, tarjetas y acciones de fila)
+- `FilterBar` nombres accesibles por filtro (`label`, `aria-label`, `id`) y `data-testid`
+
+---
+
 ## Agregado en 3.8.0
 
 - `MarketingLayout`, `MarketingNav`, `MarketingFooter`: shell de sitio público agnóstico al router, con links activos, menú móvil accesible y `transparentUntilScroll`
