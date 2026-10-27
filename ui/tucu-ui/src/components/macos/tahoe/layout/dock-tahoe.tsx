@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
-import cn from 'classnames';
+import { cn } from '../../../../libs/cn';
 import { useTucuNavigation } from '../../../../themes/navigation/core';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { IMenuItem } from '../../../layouts/menus/menu-item';

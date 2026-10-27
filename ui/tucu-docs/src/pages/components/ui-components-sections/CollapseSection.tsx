@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   CardContainer,
   CardTitle,
@@ -7,11 +7,13 @@ import {
   Collapse,
   HeroCard,
   LucideIcons,
+  Button,
 } from '@e-burgos/tucu-ui';
 import { AutoPropsTable } from '@tucu-ui-internal/docs-kit/components/auto-props-table';
 import { PropPlayground } from '@tucu-ui-internal/docs-kit/components/prop-playground';
 
 const CollapseSection: React.FC = () => {
+  const [open, setOpen] = useState(false);
   return (
     <>
       <HeroCard
@@ -79,6 +81,43 @@ const CollapseSection: React.FC = () => {
           </div>
         </CardTitle>
       </CardContainer>
+      <CardContainer className="overflow-hidden">
+        <CardTitle title="Controlled and Variants" className="mt-2 mb-2">
+          <div className="w-full p-4 sm:p-6">
+            <div className="space-y-4">
+              <Collapse
+                label={`Controlled (${open ? 'open' : 'closed'})`}
+                open={open}
+                onOpenChange={setOpen}
+              >
+                <div className="p-4">
+                  <Typography tag="p">State is owned by the parent.</Typography>
+                </div>
+              </Collapse>
+              <Button
+                size="xs"
+                variant="outline"
+                onClick={() => setOpen((value) => !value)}
+              >
+                Toggle from outside
+              </Button>
+              <Collapse label="Compact" variant="compact" initialOpen>
+                <div className="p-4">
+                  <Typography tag="p">Dense header for accordions.</Typography>
+                </div>
+              </Collapse>
+              <Collapse label="Unstyled" variant="unstyled" initialOpen>
+                <div className="p-4">
+                  <Typography tag="p">
+                    Layout only, for navigation trees.
+                  </Typography>
+                </div>
+              </Collapse>
+            </div>
+          </div>
+        </CardTitle>
+      </CardContainer>
+
       <PropPlayground
         componentName="Collapse"
         defaultValues={{ label: 'Click to expand', initialOpen: false }}
@@ -124,7 +163,13 @@ const CollapseSection: React.FC = () => {
       <li>Item 2</li>
     </ul>
   </div>
-</Collapse>`}
+</Collapse>
+// Controlled
+<Collapse label="Advanced" open={open} onOpenChange={setOpen}>...</Collapse>
+
+// Variants: card (default) | compact | unstyled
+<Collapse label="Compact" variant="compact">...</Collapse>
+<Collapse label="Tree" variant="unstyled">...</Collapse>`}
             />
           </div>
         </CardTitle>

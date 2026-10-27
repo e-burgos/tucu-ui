@@ -4,14 +4,14 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import cn from 'classnames';
+import { cn } from '../../../libs/cn';
 import ButtonDrip from './button-drip';
 import ButtonLoader from './button-loader';
 import { LoaderSizeTypes, LoaderVariantTypes } from '../../loaders/loader';
 import { Tooltip, TooltipPlacement, TooltipColor } from '../../common/tooltip';
 
 type ShapeNames = 'rounded' | 'pill' | 'circle';
-type VariantNames = 'solid' | 'ghost' | 'transparent';
+type VariantNames = 'solid' | 'ghost' | 'outline' | 'transparent';
 type ColorNames =
   | 'primary'
   | 'white'
@@ -20,7 +20,7 @@ type ColorNames =
   | 'info'
   | 'warning'
   | 'danger';
-type SizeNames = 'large' | 'medium' | 'small' | 'mini' | 'tiny';
+type SizeNames = 'large' | 'medium' | 'small' | 'mini' | 'tiny' | 'xs';
 
 const shapes: Record<ShapeNames, string[]> = {
   rounded: ['rounded-md sm:rounded-lg'],
@@ -29,24 +29,26 @@ const shapes: Record<ShapeNames, string[]> = {
 };
 const variants: Record<VariantNames, string[]> = {
   ghost: ['bg-transparent'],
+  outline: ['bg-transparent'],
   solid: ['text-white'],
-  transparent: ['bg-transparent hover:bg-gray-100  dark:hover:bg-gray-800'],
+  transparent: ['bg-transparent hover:bg-gray-100 dark:hover:bg-gray-800'],
 };
 const colors: Record<ColorNames, string[]> = {
   primary: ['text-brand', 'bg-brand', 'border-brand'],
   white: ['text-gray-900', 'bg-white', 'border-white'],
-  gray: ['text-gray-900', 'bg-gray-600', 'border-border'],
+  gray: ['text-gray-900', 'bg-gray-600 dark:bg-gray-700', 'border-border'],
   success: ['text-green-500', 'bg-green-700', 'border-green-500'],
   info: ['text-blue-500', 'bg-blue-600', 'border-blue-500'],
   warning: ['text-yellow-500', 'bg-yellow-700', 'border-yellow-500'],
   danger: ['text-red-500', 'bg-red-600', 'border-red-500'],
 };
 const sizes: Record<SizeNames, string[]> = {
-  large: ['px-7 sm:px-9 h-11 sm:h-13', 'w-11 h-11 sm:w-13 sm:h-13'],
+  large: ['px-7 sm:px-9 h-11 sm:h-13 text-base', 'w-11 h-11 sm:w-13 sm:h-13 text-base'],
   medium: ['px-5 sm:px-8 h-10 sm:h-12', 'h-10 w-10 sm:w-12 sm:h-12'],
-  small: ['px-7 h-10', 'w-10 h-10'],
-  mini: ['px-4 h-8', 'w-8 h-8'],
-  tiny: ['px-2 h-6', 'w-6 h-6'],
+  small: ['px-7 h-10 text-[13px] tracking-normal', 'w-10 h-10 text-[13px] tracking-normal'],
+  mini: ['px-4 h-8 text-xs tracking-normal', 'w-8 h-8 text-xs tracking-normal'],
+  tiny: ['px-2 h-6 text-xs tracking-normal', 'w-6 h-6 text-xs tracking-normal'],
+  xs: ['px-1.5 h-5 text-xs tracking-normal', 'w-5 h-5 text-xs tracking-normal'],
 };
 
 export interface ButtonProps
@@ -58,6 +60,8 @@ export interface ButtonProps
   color?: ColorNames;
   size?: SizeNames;
   fullWidth?: boolean;
+  /** Class names for the wrapper element rendered around the button when a tooltip is set */
+  wrapperClassName?: string;
   loaderSize?: LoaderSizeTypes;
   loaderVariant?: LoaderVariantTypes;
   /** Tooltip text or content to display on hover */
@@ -81,6 +85,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       isLoading,
       disabled,
       fullWidth,
+      wrapperClassName,
+      type = 'button',
       shape = 'rounded',
       variant = 'solid',
       color = 'primary',
@@ -114,8 +120,6 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     }
 
     const clickHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
-      // A loading button stays focusable but must not fire again (double
-      // submits) — including the form submit of a type="submit" button.
       if (isLoading) {
         event.preventDefault();
         return;
@@ -137,6 +141,11 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         buttonDripColor = 'rgba(0, 0, 0, 0.1)';
         break;
 
+      case 'outline':
+        buttonColorClassNames = `border border-solid ${colorClassNames[0]} ${colorClassNames[2]}`;
+        buttonDripColor = 'rgba(0, 0, 0, 0.1)';
+        break;
+
       case 'transparent':
         buttonColorClassNames = `${colorClassNames[0]} ${
           disabled || isLoading
@@ -149,87 +158,79 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       default:
         buttonColorClassNames = `${
           colorClassNames[1]
-        } ${colorClassNames[1].replace('bg-', 'border-')}`;
+        } ${colorClassNames[1].replace(/\bbg-/g, 'border-')}`;
         buttonDripColor = 'rgba(255, 255, 255, 0.3)';
         break;
     }
 
     const buttonElement = (
-      <div
+      <button
+        ref={buttonRef}
+        type={type}
+        onClick={clickHandler}
+        aria-label={ariaLabel}
+        aria-describedby={ariaDescribedBy || undefined}
+        aria-busy={isLoading ? 'true' : 'false'}
+        aria-disabled={isLoading || undefined}
         className={cn(
-          'relative transition-all duration-300 transform',
-          fullWidth && 'w-full'
+          'group relative inline-flex shrink-0 items-center justify-center overflow-hidden text-center text-sm font-medium tracking-wider outline-hidden transition-all',
+          'focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-gray-900',
+          !disabled
+            ? buttonColorClassNames
+            : 'cursor-not-allowed dark:bg-gray-700 dark:text-gray-500 bg-gray-300 text-gray-600',
+          disabled || isLoading
+            ? 'bg-gray-100/25'
+            : variant !== 'transparent' &&
+                'hover:-translate-y-0.5 hover:shadow-large focus:-translate-y-0.5 focus:shadow-large focus:outline-hidden',
+          isLoading &&
+            'pointer-events-auto cursor-default focus:outline-hidden',
+          fullWidth && 'w-full',
+          color === 'white'
+            ? 'text-gray-900'
+            : color === 'gray'
+            ? variant === 'solid'
+              ? 'text-white'
+              : 'text-gray-900 dark:text-white'
+            : variants[variant],
+          shapes[shape],
+          shape === 'circle' ? sizeClassNames[1] : sizeClassNames[0],
+          className
         )}
+        disabled={disabled}
+        {...buttonProps}
+        data-tucu="button"
+        data-variant={variant}
+        data-shape={shape}
+        data-size={size}
       >
-        <button
-          ref={buttonRef}
-          onClick={clickHandler}
-          data-tucu="button"
-          data-variant={variant}
-          data-shape={shape}
-          data-size={size}
-          aria-label={ariaLabel}
-          aria-describedby={ariaDescribedBy || undefined}
-          aria-busy={isLoading ? 'true' : 'false'}
-          aria-disabled={isLoading || undefined}
+        <span
           className={cn(
-            'group inline-flex shrink-0 items-center justify-center overflow-hidden text-center text-sm font-medium tracking-wider outline-hidden transition-all sm:text-sm',
-            // visible keyboard focus in every state (WCAG 2.4.7)
-            'focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-gray-900',
-            !disabled
-              ? buttonColorClassNames
-              : 'cursor-not-allowed dark:bg-gray-700 dark:text-gray-500 bg-gray-300 text-gray-600',
-            disabled || isLoading || variant === 'transparent'
-              ? 'bg-gray-100/25'
-              : 'hover:-translate-y-0.5 hover:shadow-large focus:-translate-y-0.5 focus:shadow-large focus:outline-hidden',
-            isLoading &&
-              'pointer-events-auto cursor-default focus:outline-hidden',
-            fullWidth && 'w-full',
-            color === 'white'
-              ? 'text-gray-900'
-              : color === 'gray'
-              ? variant === 'solid'
-                ? 'text-white'
-                : 'text-gray-900 dark:text-white'
-              : variants[variant],
-            shapes[shape],
-            shape === 'circle'
-              ? `${sizeClassNames[1]}`
-              : `${sizeClassNames[0]}`,
-            className
+            isLoading
+              ? 'invisible opacity-0'
+              : 'flex items-center justify-center gap-1'
           )}
-          disabled={disabled}
-          {...buttonProps}
         >
-          <span
-            className={cn(
-              isLoading
-                ? 'invisible opacity-0'
-                : 'flex items-center justify-center gap-1'
-            )}
-          >
-            {children}
-          </span>
+          {children}
+        </span>
 
-          {isLoading && (
-            <ButtonLoader size={loaderSize} variant={loaderVariant} />
-          )}
+        {isLoading && (
+          <ButtonLoader size={loaderSize} variant={loaderVariant} />
+        )}
 
-          {dripShow && (
-            <ButtonDrip
-              x={dripX}
-              y={dripY}
-              color={
-                ['white', 'gray'].indexOf(color) !== -1
-                  ? 'rgba(0, 0, 0, 0.1)'
-                  : buttonDripColor
-              }
-              fullWidth={fullWidth}
-              onCompleted={dripCompletedHandle}
-            />
-          )}
-        </button>
-      </div>
+        {dripShow && (
+          <ButtonDrip
+            x={dripX}
+            y={dripY}
+            color={
+              ['white', 'gray'].indexOf(color) !== -1
+                ? 'rgba(0, 0, 0, 0.1)'
+                : buttonDripColor
+            }
+            fullWidth={fullWidth}
+            onCompleted={dripCompletedHandle}
+          />
+        )}
+      </button>
     );
 
     if (tooltip) {
@@ -240,7 +241,15 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           color={tooltipColor}
           arrow={tooltipArrow}
         >
-          {buttonElement}
+          <div
+            className={cn(
+              'relative transition-all duration-300 transform',
+              fullWidth && 'w-full',
+              wrapperClassName
+            )}
+          >
+            {buttonElement}
+          </div>
         </Tooltip>
       );
     }

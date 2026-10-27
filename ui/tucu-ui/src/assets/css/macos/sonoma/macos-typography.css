@@ -357,6 +357,11 @@ html.macos [data-tucu='typography'][data-typography-tag='body'] {
   font-weight: var(--macos-ts-body-weight);
   line-height: var(--macos-ts-body-leading);
   letter-spacing: var(--macos-ts-body-tracking);
+}
+
+html.macos [data-tucu='text'],
+html.macos [data-tucu='typography'][data-typography-tag='p'],
+html.macos [data-tucu='typography'][data-typography-tag='body'] {
   color: var(--macos-label);
 }
 

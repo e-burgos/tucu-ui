@@ -3,7 +3,7 @@
 import { useEffect, useState, useCallback, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { useTucuNavigation } from '../../themes/navigation/core';
-import cn from 'classnames';
+import { cn } from '../../libs/cn';
 import { ArrowUp } from '../icons/arrow-up';
 
 export interface ScrollToTopProps {

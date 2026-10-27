@@ -1,5 +1,5 @@
 import { LogoPropTypes } from '../../logos/logo';
-import cn from 'classnames';
+import { cn } from '../../../libs/cn';
 import { IMenuItem } from '../menus/menu-item';
 import { HorizontalHeader } from '../header/horizontal-header';
 

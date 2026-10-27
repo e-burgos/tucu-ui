@@ -1,5 +1,5 @@
 import Image from '../utils/image';
-import cn from 'classnames';
+import { cn } from '../../libs/cn';
 
 type ItemType = {
   id?: string | number;

@@ -1,22 +1,14 @@
+import { readFileSync } from 'node:fs';
+
+const manifest = JSON.parse(
+  readFileSync(new URL('../package.json', import.meta.url), 'utf-8')
+);
+
 export const EXTERNAL_PACKAGES = [
-  'react',
-  'react-dom',
-  'lucide-react',
-  'react-router-dom',
-  '@dnd-kit/core',
-  '@dnd-kit/modifiers',
-  '@dnd-kit/sortable',
-  '@dnd-kit/utilities',
-  '@tanstack/react-table',
-  'classnames',
-  'framer-motion',
-  'lodash-es',
-  'react-hook-form',
-  'recharts',
-  'swiper',
-  'zustand',
-  'prismjs',
-  'next',
+  ...new Set([
+    ...Object.keys(manifest.dependencies ?? {}),
+    ...Object.keys(manifest.peerDependencies ?? {}),
+  ]),
 ];
 
 export const isExternalPackage = (id) =>

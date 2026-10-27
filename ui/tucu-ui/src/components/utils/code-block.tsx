@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Scrollbar from '../common/scrollbar';
 import { Check, Copy, ChevronUp, ChevronDown } from 'lucide-react';
-import cn from 'classnames';
+import { cn } from '../../libs/cn';
 import { useIsMobile } from '../../hooks/use-is-mobile';
 
 // Loaded lazily (not as static top-level imports) so bundlers that eagerly

@@ -180,6 +180,22 @@ const TextareaSection: React.FC = () => {
         </CardTitle>
       </CardContainer>
 
+      <CardContainer className="overflow-hidden">
+        <CardTitle title="Extra Small" className="mt-2 mb-2">
+          <div className="w-full p-4 sm:p-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <Textarea
+                label="Extra small"
+                size="xs"
+                placeholder="size=xs"
+                rows={3}
+              />
+              <Textarea label="Default" placeholder="default size" rows={3} />
+            </div>
+          </div>
+        </CardTitle>
+      </CardContainer>
+
       <PropPlayground
         componentName="Textarea"
         defaultValues={{
@@ -291,7 +307,8 @@ const TextareaSection: React.FC = () => {
 // Sizes
 <Textarea label="Small" size="sm" rows={3} />
 <Textarea label="Medium" size="md" rows={4} />
-<Textarea label="Large" size="lg" rows={5} />`}
+<Textarea label="Large" size="lg" rows={5} />
+<Textarea label="Notes" size="xs" rows={3} />`}
             />
           </div>
         </CardTitle>

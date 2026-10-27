@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useRef, useEffect } from 'react';
-import cn from 'classnames';
+import { cn } from '../../libs/cn';
 import { FieldError } from './helpers/field-error-text';
 import { FieldHelperText } from './helpers/field-helper-text';
 import { useTucuMessages } from '../../libs/i18n/use-tucu-messages';

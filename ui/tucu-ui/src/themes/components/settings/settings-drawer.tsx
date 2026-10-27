@@ -9,7 +9,7 @@ import { DefaultColorSettings } from './default-color-settings';
 import { BackgroundPicker } from './background-picker';
 import { RestoreDefaults } from './restore-defaults';
 import { Close, Drawer, DrawerContainer, Scrollbar } from '../../../components';
-import cn from 'classnames';
+import { cn } from '../../../libs/cn';
 import { useTheme } from '../../hooks';
 
 export function SettingsDrawer() {

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useRef, useCallback, useEffect, useMemo } from 'react';
-import cn from 'classnames';
+import { cn } from '../../../../libs/cn';
 
 export interface MacOSTahoeCommandPaletteItem {
   id: string;

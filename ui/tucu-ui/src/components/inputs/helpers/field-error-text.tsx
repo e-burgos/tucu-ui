@@ -1,5 +1,5 @@
 import React from 'react';
-import cn from 'classnames';
+import { cn } from '../../../libs/cn';
 
 const fieldErrorClasses = {
   base: 'text-red-600 dark:text-red-400 mt-[8px]',

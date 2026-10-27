@@ -1,6 +1,6 @@
 'use client';
 
-import cn from 'classnames';
+import { cn } from '../../libs/cn';
 import { ChevronForward } from '../icons/chevron-forward';
 import AnchorLink from '../links/anchor-link';
 

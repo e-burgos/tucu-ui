@@ -5,7 +5,7 @@ import AnchorLink from '../links/anchor-link';
 import { Checkbox, Input } from '../inputs';
 import Button from '../buttons/button';
 import { Form, FormField } from '../forms';
-import cn from 'classnames';
+import { cn } from '../../libs/cn';
 
 // import icons
 import { EyeIcon } from '../icons/eye';

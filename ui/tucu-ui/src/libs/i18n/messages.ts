@@ -65,6 +65,20 @@ export interface TucuMessages {
     on: string;
     off: string;
   };
+  dialog: {
+    close: string;
+  };
+  themeMode: {
+    label: string;
+    switchToDark: string;
+    switchToLight: string;
+  };
+  accessDenied: {
+    title: string;
+    description: string;
+    action: string;
+    login: string;
+  };
 }
 
 export const TUCU_MESSAGES: Record<TucuLang, TucuMessages> = {
@@ -125,6 +139,20 @@ export const TUCU_MESSAGES: Record<TucuLang, TucuMessages> = {
       on: 'ON',
       off: 'OFF',
     },
+    dialog: {
+      close: 'Close',
+    },
+    themeMode: {
+      label: 'Mode',
+      switchToDark: 'Switch to dark mode',
+      switchToLight: 'Switch to light mode',
+    },
+    accessDenied: {
+      title: 'Access denied',
+      description: 'You are not authorized to access this page. Go back to the home page.',
+      action: 'Go to home',
+      login: 'Log in',
+    },
   },
   es: {
     validation: {
@@ -183,6 +211,20 @@ export const TUCU_MESSAGES: Record<TucuLang, TucuMessages> = {
       on: 'SÍ',
       off: 'NO',
     },
+    dialog: {
+      close: 'Cerrar',
+    },
+    themeMode: {
+      label: 'Modo',
+      switchToDark: 'Cambiar a modo oscuro',
+      switchToLight: 'Cambiar a modo claro',
+    },
+    accessDenied: {
+      title: 'Acceso denegado',
+      description: 'No tenés permiso para ver esta página. Volvé a la página de inicio.',
+      action: 'Ir al inicio',
+      login: 'Iniciar sesión',
+    },
   },
   fr: {
     validation: {
@@ -240,6 +282,20 @@ export const TUCU_MESSAGES: Record<TucuLang, TucuMessages> = {
     switch: {
       on: 'OUI',
       off: 'NON',
+    },
+    dialog: {
+      close: 'Fermer',
+    },
+    themeMode: {
+      label: 'Mode',
+      switchToDark: 'Passer en mode sombre',
+      switchToLight: 'Passer en mode clair',
+    },
+    accessDenied: {
+      title: 'Accès refusé',
+      description: "Vous n'êtes pas autorisé à accéder à cette page. Revenez à la page d'accueil.",
+      action: "Aller à l'accueil",
+      login: 'Se connecter',
     },
   },
 };

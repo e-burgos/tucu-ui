@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useTucuNavigation } from '../../../themes/navigation/core';
 import { motion } from 'framer-motion';
-import cn from 'classnames';
+import { cn } from '../../../libs/cn';
 import Logo, { LogoPropTypes } from '../../logos/logo';
 import Button from '../../buttons/button';
 import { Close } from '../../icons/close';

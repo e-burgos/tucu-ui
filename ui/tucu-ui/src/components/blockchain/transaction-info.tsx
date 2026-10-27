@@ -1,4 +1,4 @@
-import cn from 'classnames';
+import { cn } from '../../libs/cn';
 
 export interface TransactionInfoTypes {
   label: string;

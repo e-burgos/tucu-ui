@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import cn from 'classnames';
+import { cn } from '../../libs/cn';
 import { FieldError } from './helpers/field-error-text';
 import { FieldHelperText } from './helpers/field-helper-text';
 import { useTucuMessages } from '../../libs/i18n/use-tucu-messages';
@@ -70,6 +70,7 @@ export interface SwitchProps {
   errorMessage?: string;
   helperText?: string;
   disabled?: boolean;
+  'aria-label'?: string;
 }
 
 export const Switch: React.FC<SwitchProps> = ({
@@ -84,6 +85,7 @@ export const Switch: React.FC<SwitchProps> = ({
   errorMessage,
   helperText,
   disabled,
+  'aria-label': ariaLabel,
 }) => {
   const t = useTucuMessages().switch;
   const resolvedOffLabel = offLabel === undefined ? t.off : offLabel;
@@ -131,6 +133,7 @@ export const Switch: React.FC<SwitchProps> = ({
           data-tucu="switch-control"
           type="checkbox"
           role="switch"
+          aria-label={ariaLabel}
           aria-checked={checked}
           checked={checked}
           onChange={(e) => onChange(e.target.checked)}

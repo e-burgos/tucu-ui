@@ -1,7 +1,7 @@
 'use client';
 
 import { forwardRef, useId } from 'react';
-import cn from 'classnames';
+import { cn } from '../../libs/cn';
 import { FieldError } from './helpers/field-error-text';
 import { FieldHelperText } from './helpers/field-helper-text';
 
@@ -218,12 +218,12 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
         <label
           htmlFor={finalId}
           className={cn(
-            'flex flex-row items-center',
+            'flex flex-row items-start',
             disabled && 'cursor-not-allowed',
             containerClassName
           )}
         >
-          <div className={cn('relative leading-none')}>
+          <div className={cn('relative mt-0.5 leading-none')}>
             <input
               type="checkbox"
               ref={ref}
@@ -234,7 +234,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
               data-shape={shape}
               disabled={disabled}
               aria-describedby={describedBy}
-              aria-invalid={error ? 'true' : 'false'}
+              aria-invalid={error ? 'true' : undefined}
               className={cn(
                 'peer appearance-none cursor-pointer disabled:cursor-not-allowed transition-all duration-200 ease-in-out',
                 checkboxShapeClasses[shape],

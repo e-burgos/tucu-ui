@@ -2,10 +2,40 @@
 
 import { useState } from 'react';
 import { Close } from '../icons/close';
+import { cn } from '../../libs/cn';
 
-interface AlertProps {
+type AlertVariant = 'info' | 'warning' | 'error' | 'success';
+type AlertAppearance = 'soft' | 'ink' | 'line';
+
+const appearanceClassNames: Record<AlertAppearance, Record<AlertVariant, string>> = {
+  soft: {
+    info: 'bg-info/10 border-info/30 text-info',
+    warning: 'bg-warning/10 border-warning/30 text-warning',
+    error: 'bg-error/10 border-error/30 text-error',
+    success: 'bg-success/10 border-success/30 text-success',
+  },
+  ink: {
+    info: 'bg-info border-info text-white',
+    warning: 'bg-warning border-warning text-white',
+    error: 'bg-error border-error text-white',
+    success: 'bg-success border-success text-white',
+  },
+  line: {
+    info: 'bg-transparent border-info text-info',
+    warning: 'bg-transparent border-warning text-warning',
+    error: 'bg-transparent border-error text-error',
+    success: 'bg-transparent border-success text-success',
+  },
+};
+
+interface AlertProps
+  extends Omit<React.HTMLAttributes<HTMLDivElement>, 'role' | 'children'> {
   children: React.ReactNode;
-  variant?: 'info' | 'warning' | 'error' | 'success';
+  variant?: AlertVariant;
+  /** Status appearance using theme tokens; omit to keep the default palette */
+  appearance?: AlertAppearance;
+  /** Announcement politeness: polite renders role="status" */
+  live?: 'assertive' | 'polite';
   dismissible?: boolean;
   className?: string;
   onDismiss?: () => void;
@@ -17,8 +47,11 @@ export function Alert({
   variant = 'info',
   dismissible = false,
   className,
+  appearance,
+  live = 'assertive',
   onDismiss,
   'aria-label': ariaLabel,
+  ...rootProps
 }: React.PropsWithChildren<AlertProps>) {
   const [isHidden, setIsHidden] = useState(false);
 
@@ -32,6 +65,9 @@ export function Alert({
   }
 
   const getVariantStyles = () => {
+    if (appearance) {
+      return appearanceClassNames[appearance][variant];
+    }
     switch (variant) {
       case 'error':
         return 'bg-red-50 border-red-200 text-red-700 dark:bg-red-900/20 dark:border-red-800 dark:text-red-200';
@@ -46,13 +82,18 @@ export function Alert({
 
   return (
     <div
+      {...rootProps}
       data-tucu="alert"
       data-variant={variant}
-      role="alert"
-      aria-live="assertive"
+      role={live === 'polite' ? 'status' : 'alert'}
+      aria-live={live}
       aria-atomic="true"
       aria-label={ariaLabel}
-      className={`relative text-sm rounded-lg border py-4 shadow-card ltr:pl-4 ltr:pr-8 rtl:pr-4 rtl:pl-8 sm:py-6 sm:ltr:pr-10 sm:ltr:pl-6 sm:rtl:pl-10 sm:rtl:pr-6 ${getVariantStyles()} ${className}`}
+      className={cn(
+        'relative text-sm rounded-lg border py-4 shadow-card ltr:pl-4 ltr:pr-8 rtl:pr-4 rtl:pl-8 sm:py-6 sm:ltr:pr-10 sm:ltr:pl-6 sm:rtl:pl-10 sm:rtl:pr-6',
+        getVariantStyles(),
+        className
+      )}
     >
       {children}
 

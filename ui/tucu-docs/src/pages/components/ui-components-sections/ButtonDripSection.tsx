@@ -72,6 +72,36 @@ const ButtonDripSection: React.FC = () => {
         </CardTitle>
       </CardContainer>
 
+      <CardContainer className="overflow-hidden">
+        <CardTitle title="Sizes, Outline and Wrapper" className="mt-2 mb-2">
+          <div className="w-full p-4 sm:p-6">
+            <div className="space-y-4">
+              <div className="flex flex-wrap items-center gap-3">
+                <Button size="xs">Extra small</Button>
+                <Button size="small">Small</Button>
+                <Button size="medium">Medium</Button>
+                <Button size="large">Large</Button>
+              </div>
+              <div className="flex flex-wrap items-center gap-3">
+                <Button variant="outline">Outline</Button>
+                <Button variant="outline" color="danger" size="xs">
+                  Outline xs
+                </Button>
+                <Button variant="ghost">Ghost</Button>
+              </div>
+              <div className="flex flex-wrap items-center gap-3">
+                <Button
+                  tooltip="Saves the draft"
+                  wrapperClassName="w-full sm:w-48"
+                >
+                  Full width wrapper
+                </Button>
+              </div>
+            </div>
+          </div>
+        </CardTitle>
+      </CardContainer>
+
       <PropPlayground
         componentName="Button"
         defaultValues={{
@@ -120,6 +150,14 @@ const ButtonDripSection: React.FC = () => {
 
 <Button tooltip="Delete" tooltipPlacement="bottom" tooltipColor="light" color="danger">
   Delete
+</Button>
+// xs size and 1px outline variant
+<Button size="xs">Extra small</Button>
+<Button variant="outline">Outline</Button>
+
+// Without tooltip the <button> renders directly; with tooltip use wrapperClassName
+<Button tooltip="Saves the draft" wrapperClassName="w-full sm:w-48">
+  Save
 </Button>`}
             />
           </div>

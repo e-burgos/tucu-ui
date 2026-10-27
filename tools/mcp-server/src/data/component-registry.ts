@@ -15,11 +15,12 @@ export const componentRegistry: ComponentRegistryEntry[] = [
   {
     name: 'Button',
     category: 'buttons',
-    description: 'Primary action button with multiple variants and sizes.',
+    description:
+      'Primary action button with multiple variants and sizes. Renders the `<button>` directly (no wrapper) unless `tooltip` is set; then `wrapperClassName` styles the wrapper. `type` defaults to `"button"`. `className` is merged with tailwind-merge, so `h-*`, `bg-*` or `text-*` overrides win. Font size scales with `size` (xs/tiny/mini 12px, small 13px, medium 14px, large 16px). `ghost` has a 2px border, `outline` a 1px border.',
     importPath: '@e-burgos/tucu-ui',
     variants: {
-      variant: ['solid', 'ghost', 'transparent'],
-      size: ['large', 'medium', 'small', 'mini', 'tiny'],
+      variant: ['solid', 'ghost', 'outline', 'transparent'],
+      size: ['large', 'medium', 'small', 'mini', 'tiny', 'xs'],
     },
     example: `import { Button } from '@e-burgos/tucu-ui';
 
@@ -29,8 +30,8 @@ export const componentRegistry: ComponentRegistryEntry[] = [
     relatedComponents: ['IconButton'],
     themeAware: true,
     warnings: [
-      "NEVER use variant='primary', 'outline', or 'destructive' — causes runtime crash.",
-      "NEVER use size='lg', 'sm', 'md', 'xs' — causes runtime crash.",
+      "NEVER use variant='primary' or 'destructive' — causes runtime crash. Use color='danger' for destructive actions.",
+      "NEVER use size='lg', 'sm', 'md' — causes runtime crash. The smallest size is 'xs'.",
     ],
   },
   {
@@ -60,6 +61,7 @@ export const componentRegistry: ComponentRegistryEntry[] = [
     variants: {
       variant: ['solid', 'ghost', 'transparent'],
       mask: ['phone', 'cuit', 'currency', 'number'],
+      size: ['xs', 'sm', 'md', 'lg'],
     },
     example: `import { Input } from '@e-burgos/tucu-ui';
 
@@ -108,10 +110,12 @@ export const componentRegistry: ComponentRegistryEntry[] = [
   {
     name: 'Select',
     category: 'inputs',
-    description: 'Dropdown select with options list.',
+    description:
+      'Dropdown select with options list (custom listbox in a portal). `native` renders a real `<select>`/`<option>` with the same `options` and `onChange(option)`. `id` links an external `<label htmlFor>`; external `aria-labelledby`/`aria-describedby` are merged with the helper/error ids. Options with the same `group` render under a non-selectable header (`<optgroup>` in native mode). `onChange` does not fire when the selected option is picked again. `size="xs"` is compact (trigger and listbox); `listboxClassName` styles the listbox.',
     importPath: '@e-burgos/tucu-ui',
     variants: {
       variant: ['solid', 'ghost', 'transparent'],
+      size: ['xs', 'sm', 'md', 'lg'],
     },
     example: `import { Select } from '@e-burgos/tucu-ui';
 
@@ -187,10 +191,12 @@ export const componentRegistry: ComponentRegistryEntry[] = [
   {
     name: 'Textarea',
     category: 'inputs',
-    description: 'Multi-line text input.',
+    description:
+      'Multi-line text input. Same class convention as Input: `className`/`wrapperClassName` style the container, `inputClassName` the `<textarea>`, `labelTextClassName` the label. `size="xs"` is a compact control. `aria-invalid` is set only with `error`.',
     importPath: '@e-burgos/tucu-ui',
     variants: {
       variant: ['solid', 'ghost', 'transparent'],
+      size: ['xs', 'sm', 'md', 'lg'],
     },
     example: `import { Textarea } from '@e-burgos/tucu-ui';
 
@@ -269,7 +275,8 @@ export const componentRegistry: ComponentRegistryEntry[] = [
   {
     name: 'Card',
     category: 'cards',
-    description: 'Container card with optional header, footer, and actions.',
+    description:
+      'Container card with optional header, footer, and actions. Flex column whose body (`data-tucu="card-body"`) is `flex-1`, so the footer sticks to the bottom. `density` (compact | default | comfortable) sets the padding; `bodyClassName` styles the body; `className` overrides bg/rounded; `aria-*`/`data-*` reach the root.',
     importPath: '@e-burgos/tucu-ui',
     example: `import { Card } from '@e-burgos/tucu-ui';
 
@@ -308,7 +315,7 @@ export const componentRegistry: ComponentRegistryEntry[] = [
     name: 'BasicTable',
     category: 'tables',
     description:
-      'Lightweight generic table (no @tanstack/react-table). Columns are declared as { key, label, render? }. Supports striped/hoverable rows, borders, rounded corners, a sticky header, column resizing and a maxRows scroll cap. Responsive by default: below the cardBreakpoint (md) each row collapses into a stacked card of label/value pairs — pass mobileCards={false} to keep a table at every width. For sorting, filtering, pagination and row selection use DataTable instead.',
+      'Lightweight generic table (no @tanstack/react-table). Columns are declared as { key, label, render? }. Supports striped/hoverable rows, borders, rounded corners, a sticky header, column resizing and a maxRows scroll cap. Responsive by default: below the cardBreakpoint (md) each row collapses into a stacked card of label/value pairs — pass mobileCards={false} to keep a table at every width. `resizable` and `mobileCards` default to true. `density="compact"` (text-xs px-2 py-1), `cellDividers={false}` removes inner dividers but keeps the outer border, `rowHeight` makes `maxRows` exact (otherwise the first row is measured). Colors come from `--tucu-table-*` tokens; `data-testid`/`aria-*` reach the root. For sorting, filtering, pagination and row selection use DataTable instead.',
     importPath: '@e-burgos/tucu-ui',
     example: `import { BasicTable } from '@e-burgos/tucu-ui';
 
@@ -493,11 +500,23 @@ const [isOpen, setIsOpen] = useState(false);
   {
     name: 'Modal',
     category: 'dialogs',
-    description: 'Overlay modal dialog with customizable content.',
+    description:
+      'Overlay modal dialog. `isOpen` + `setIsOpen` are required; `text.title` accepts a ReactNode and `header` replaces the whole title area. `size` (sm | md | lg | xl | full, default md) sets width and body height. `aria-label`, `aria-describedby` and `data-*` reach the `role="dialog"` element. Escape closes only the top-most modal (handled on the dialog) and a click on the overlay closes it; `closeable={false}` disables both. The close button label comes from the theme lang (override with `closeLabel`). Closing is immediate (no delay).',
     importPath: '@e-burgos/tucu-ui',
+    variants: {
+      size: ['sm', 'md', 'lg', 'xl', 'full'],
+    },
     example: `import { Modal } from '@e-burgos/tucu-ui';
 
-<Modal isOpen={true} onClose={() => {}} title="Confirm">
+const [isOpen, setIsOpen] = useState(false);
+
+<Modal
+  isOpen={isOpen}
+  setIsOpen={setIsOpen}
+  size="sm"
+  aria-label="Confirm deletion"
+  text={{ title: 'Confirm' }}
+>
   <p>Are you sure?</p>
 </Modal>`,
     relatedComponents: ['Drawer', 'ConfirmDialog'],
@@ -584,10 +603,13 @@ const [isOpen, setIsOpen] = useState(false);
   {
     name: 'Alert',
     category: 'notifications',
-    description: 'Inline alert message with variant-based styling.',
+    description:
+      'Inline alert message with variant-based styling. `live="polite"` renders `role="status"` for non-urgent messages (default is `role="alert"`, assertive). `appearance` (soft | ink | line) switches to theme-token tones. `aria-*` and `data-*` reach the root.',
     importPath: '@e-burgos/tucu-ui',
     variants: {
       variant: ['error', 'success', 'info', 'warning'],
+      appearance: ['soft', 'ink', 'line'],
+      live: ['assertive', 'polite'],
     },
     example: `import { Alert } from '@e-burgos/tucu-ui';
 
@@ -698,7 +720,7 @@ useToastStore.getState().addToast({ message: 'Hola', variant: 'info' });`,
     name: 'Skeleton',
     category: 'loaders',
     description:
-      'Placeholder loading skeleton for content that is being fetched.',
+      'Placeholder loading skeleton for content that is being fetched. Colors come from `--tucu-skeleton-bg` / `--tucu-skeleton-shine`; `data-tucu="skeleton"`.',
     importPath: '@e-burgos/tucu-ui',
     example: `import { Skeleton } from '@e-burgos/tucu-ui';
 
@@ -844,10 +866,13 @@ const [tab, setTab] = useTabParam({ values: TABS, param: 'tab' }); // ?tab=branc
   {
     name: 'Badge',
     category: 'common',
-    description: 'Small status badge/tag with variant styling.',
+    description:
+      'Small status badge/tag. With `tone` (primary | success | info | warning | danger | neutral) the colors come from theme tokens; `variant` soft (tinted), ink (solid) or line (1px border) sets the appearance.',
     importPath: '@e-burgos/tucu-ui',
     variants: {
-      variant: ['solid', 'ghost', 'outline', 'soft'],
+      variant: ['solid', 'ghost', 'outline', 'soft', 'ink', 'line'],
+      tone: ['primary', 'success', 'info', 'warning', 'danger', 'neutral'],
+      size: ['xs', 'tiny', 'small', 'medium', 'large'],
     },
     example: `import { Badge } from '@e-burgos/tucu-ui';
 
@@ -872,14 +897,37 @@ const [tab, setTab] = useTabParam({ values: TABS, param: 'tab' }); // ?tab=branc
   {
     name: 'Tooltip',
     category: 'common',
-    description: 'Tooltip popup that appears on hover.',
+    description:
+      'Tooltip that appears on hover/focus. The content is always in the DOM (no portal) and hidden while closed, so the trigger\'s `aria-describedby` always resolves. `size` (xs | sm | md, default md) sets font size and padding; `contentClassName` styles the bubble.',
     importPath: '@e-burgos/tucu-ui',
+    variants: {
+      size: ['xs', 'sm', 'md'],
+    },
     example: `import { Tooltip } from '@e-burgos/tucu-ui';
 
-<Tooltip content="More info">
+<Tooltip content="More info" size="xs">
   <span>Hover me</span>
 </Tooltip>`,
     relatedComponents: ['Popover'],
+    themeAware: true,
+  },
+  {
+    name: 'Collapse',
+    category: 'common',
+    description:
+      'Disclosure section. Uncontrolled with `initialOpen`, or controlled with `open` + `onOpenChange`. `label` accepts a ReactNode. The header is a button with `aria-expanded`/`aria-controls`; the panel is a `role="region"`. `variant`: card (default, 54px uppercase card header), compact (h-8 header, normal case, for dense accordions) or unstyled (layout only, for navigation trees). `headerClassName`/`panelClassName` style each part.',
+    importPath: '@e-burgos/tucu-ui',
+    variants: {
+      variant: ['card', 'compact', 'unstyled'],
+    },
+    example: `import { Collapse } from '@e-burgos/tucu-ui';
+
+const [open, setOpen] = useState(false);
+
+<Collapse label="Advanced" variant="compact" open={open} onOpenChange={setOpen}>
+  <p>Details</p>
+</Collapse>`,
+    relatedComponents: ['Accordion'],
     themeAware: true,
   },
   {

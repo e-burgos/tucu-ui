@@ -1,7 +1,7 @@
 'use client';
 
 import { useTheme } from '../../hooks/use-theme';
-import cn from 'classnames';
+import { cn } from '../../../libs/cn';
 import { SONOMA_ACCENT_BUNDLES, buildSonomaPresets } from '../../config';
 import { SettingsSectionHeading } from './settings-section-heading';
 

@@ -212,6 +212,27 @@ const TooltipSection: React.FC = () => {
         </CardTitle>
       </CardContainer>
 
+      <CardContainer className="overflow-hidden">
+        <CardTitle title="Sizes" className="mt-2 mb-2">
+          <div className="w-full p-4 sm:p-6">
+            <div className="flex flex-wrap items-center justify-center gap-4">
+              {(['xs', 'sm', 'md'] as const).map((size) => (
+                <Tooltip
+                  key={size}
+                  content={`Tooltip ${size}`}
+                  size={size}
+                  arrow
+                >
+                  <Button variant="ghost" size="small">
+                    {size}
+                  </Button>
+                </Tooltip>
+              ))}
+            </div>
+          </div>
+        </CardTitle>
+      </CardContainer>
+
       <PropPlayground
         componentName="Tooltip"
         defaultValues={{
@@ -298,7 +319,10 @@ const TooltipSection: React.FC = () => {
 // Built-in tooltip props on Typography
 <Typography tag="span" tooltip="Info" tooltipPlacement="right" tooltipArrow>
   Hover text
-</Typography>`}
+</Typography>
+<Tooltip content="Compact tooltip" size="xs">
+  <Button variant="ghost">xs</Button>
+</Tooltip>`}
             />
           </div>
         </CardTitle>

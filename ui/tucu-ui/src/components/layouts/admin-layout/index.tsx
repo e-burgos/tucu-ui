@@ -1,4 +1,4 @@
-import cn from 'classnames';
+import { cn } from '../../../libs/cn';
 import { Drawer } from '../../dialog';
 import { LogoPropTypes } from '../../logos';
 import ExpandableSidebar from '../menus/expandable-sidebar';

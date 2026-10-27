@@ -9,7 +9,7 @@ import { Form, FormField } from '../forms';
 // import icons
 import { EyeIcon } from '../icons/eye';
 import { EyeSlashIcon } from '../icons/eyeslash';
-import cn from 'classnames';
+import { cn } from '../../libs/cn';
 
 export interface SignInFormData {
   email: string;

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useRef } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { SettingsButton, SettingsDrawer } from '../settings';
 import { useTheme } from '../../hooks/use-theme';
 import type { ITheme, BackgroundVariant } from '../../hooks/use-theme';
@@ -14,6 +14,7 @@ import {
   LAYOUT_OPTIONS,
   MODE,
   THEME_STYLE_LAYOUTS,
+  THEME_VARIANT,
   LangType,
 } from '../../config';
 import { resolveTucuLang } from '../../../libs/i18n/messages';
@@ -73,6 +74,8 @@ interface ThemeWrapperBaseProps extends Omit<LayoutTypeProps, 'layout'> {
   menuItems: IMenuItem[];
   brandColor?: PresetColorType;
   mode?: MODE;
+  /** Mode applied only on the first visit, when no theme state is persisted; `mode` always wins */
+  defaultMode?: MODE;
   background?: BackgroundVariant;
   headerClassName?: string;
   contentClassName?: string;
@@ -137,6 +140,25 @@ interface MacOSTahoeThemeWrapperProps extends ThemeWrapperBaseProps {
   layout?: MacOSTahoeLayoutType;
 }
 
+function findThemeStyleForLayout(
+  layout: LAYOUT_OPTIONS
+): THEME_VARIANT | undefined {
+  return (Object.keys(THEME_STYLE_LAYOUTS) as THEME_VARIANT[]).find(
+    (style) => THEME_STYLE_LAYOUTS[style].validLayouts.includes(layout)
+  );
+}
+
+function hasPersistedThemeState(): boolean {
+  try {
+    return (
+      window.localStorage.getItem(useTheme.persist.getOptions().name ?? '') !==
+      null
+    );
+  } catch {
+    return false;
+  }
+}
+
 type ThemeWrapperProps =
   | DefaultThemeWrapperProps
   | MacOSThemeWrapperProps
@@ -160,6 +182,7 @@ export function ThemeWrapper({
   contentClassName,
   fullWidth,
   mode: appMode,
+  defaultMode,
   menuItems: appMenuItems,
   layout: appLayout,
   children,
@@ -168,6 +191,7 @@ export function ThemeWrapper({
 }: ThemeWrapperProps) {
   const { mode, layout, colorScheme } = useTheme();
 
+  const [hadPersistedThemeState] = useState(hasPersistedThemeState);
   const { pathname } = useTucuNavigation();
   const menuList = useMemo(
     () => appMenuItems.filter((item) => !item.hide),
@@ -212,14 +236,23 @@ export function ThemeWrapper({
       : undefined;
 
     // Apply themeStyle presets if provided
-    if (themeStyle) {
-      useTheme.getState().applyThemeStyle(themeStyle);
+    const layoutThemeStyle = resolvedLayout
+      ? findThemeStyleForLayout(resolvedLayout)
+      : undefined;
+    const effectiveThemeStyle = themeStyle ?? layoutThemeStyle;
+    if (
+      effectiveThemeStyle &&
+      effectiveThemeStyle !== useTheme.getState().colorScheme
+    ) {
+      useTheme.getState().applyThemeStyle(effectiveThemeStyle);
     }
+    const initialMode =
+      appMode ?? (defaultMode && !hadPersistedThemeState ? defaultMode : undefined);
 
     useTheme.setState({
       logo: hasCustomLogo ? logo : defaultLogo,
       showSettings: Boolean(showSettings),
-      ...(appMode && { mode: appMode }),
+      ...(initialMode && { mode: initialMode }),
       ...(resolvedLayout && { layout: resolvedLayout }),
       ...(brandPreset && { primaryPreset: brandPreset }),
       ...(background && { backgroundVariant: background }),

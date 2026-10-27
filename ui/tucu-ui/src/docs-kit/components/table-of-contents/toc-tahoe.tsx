@@ -8,7 +8,7 @@ import {
   useTheme,
   LAYOUT_OPTIONS,
 } from '../../../index';
-import cn from 'classnames';
+import { cn } from '../../../libs/cn';
 import type { TableOfContentsProps } from './types';
 import { useToc } from './use-toc';
 

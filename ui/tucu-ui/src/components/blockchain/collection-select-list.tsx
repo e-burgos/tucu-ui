@@ -8,7 +8,7 @@ import {
   useEffect,
   type KeyboardEvent,
 } from 'react';
-import cn from 'classnames';
+import { cn } from '../../libs/cn';
 import { Search, X } from 'lucide-react';
 import Avatar from '../common/avatar';
 import { Scrollbar } from '../common/scrollbar';

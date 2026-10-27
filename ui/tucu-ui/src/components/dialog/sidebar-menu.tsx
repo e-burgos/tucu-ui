@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import cn from 'classnames';
+import { cn } from '../../libs/cn';
 import Logo, { LogoPropTypes } from '../logos/logo';
 import { MenuItem, IMenuItem } from '../layouts/menus/menu-item';
 import Button from '../buttons';

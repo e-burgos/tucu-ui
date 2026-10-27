@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import cn from 'classnames';
+import { cn } from '../../../libs/cn';
 import { motion } from 'framer-motion';
 import ActiveLink from '../../links/active-link';
 import { ChevronDown } from '../../icons/chevron-down';

@@ -43,11 +43,12 @@
    ship them, exactly once. All are copied to dist alongside this file (see
    copyThemeCssPlugin in vite.config.ts). */
 @import './datatable.css';
-@import './carousel.css';
-@import './scrollbar.css';
-@import './range-slider.css';
-@import './prism-theme.css';
-@import './default-backgrounds.css';
+@import './swiper-vendor.css' layer(components);
+@import './carousel.css' layer(components);
+@import './scrollbar.css' layer(components);
+@import './range-slider.css' layer(components);
+@import './prism-theme.css' layer(components);
+@import './default-backgrounds.css' layer(components);
 
 @theme {
   /* Screens/Breakpoints — removed custom definitions to avoid conflicts

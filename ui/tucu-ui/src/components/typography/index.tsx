@@ -1,4 +1,4 @@
-import cn from 'classnames';
+import { cn } from '../../libs/cn';
 import { Tooltip, TooltipPlacement, TooltipColor } from '../common/tooltip';
 
 const classes = {

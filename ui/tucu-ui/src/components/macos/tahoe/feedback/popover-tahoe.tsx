@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef, useEffect, useCallback } from 'react';
-import cn from 'classnames';
+import { cn } from '../../../../libs/cn';
 
 export type MacOSTahoePopoverPlacement =
   | 'top'

@@ -8,7 +8,7 @@ import React, {
   isValidElement,
   cloneElement,
 } from 'react';
-import cn from 'classnames';
+import { cn } from '../../libs/cn';
 import Radio, { RadioProps } from './radio';
 import { FieldError } from './helpers/field-error-text';
 import { FieldHelperText } from './helpers/field-helper-text';

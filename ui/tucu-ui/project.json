@@ -27,6 +27,14 @@
         "cwd": "ui/tucu-ui",
         "command": "node scripts/check-entry-isolation.mjs"
       }
+    },
+    "check-built-imports": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["build"],
+      "options": {
+        "cwd": "ui/tucu-ui",
+        "command": "node scripts/check-built-imports.mjs"
+      }
     }
   }
 }

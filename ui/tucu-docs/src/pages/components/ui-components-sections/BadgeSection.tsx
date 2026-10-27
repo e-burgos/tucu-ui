@@ -209,6 +209,43 @@ const BadgeSection: React.FC = () => {
           </div>
         </CardTitle>
       </CardContainer>
+      <CardContainer className="overflow-hidden">
+        <CardTitle title="Tones: Soft, Ink and Line" className="mt-2 mb-2">
+          <div className="w-full p-4 sm:p-6">
+            <div className="space-y-3">
+              {(['soft', 'ink', 'line'] as const).map((variant) => (
+                <div
+                  key={variant}
+                  className="flex flex-wrap items-center gap-3"
+                >
+                  <Badge tone="primary" variant={variant}>
+                    primary
+                  </Badge>
+                  <Badge tone="success" variant={variant}>
+                    success
+                  </Badge>
+                  <Badge tone="info" variant={variant}>
+                    info
+                  </Badge>
+                  <Badge tone="warning" variant={variant}>
+                    warning
+                  </Badge>
+                  <Badge tone="danger" variant={variant}>
+                    danger
+                  </Badge>
+                  <Badge tone="neutral" variant={variant}>
+                    neutral
+                  </Badge>
+                  <Badge tone="primary" variant={variant} size="xs">
+                    xs
+                  </Badge>
+                </div>
+              ))}
+            </div>
+          </div>
+        </CardTitle>
+      </CardContainer>
+
       <PropPlayground
         componentName="Badge"
         defaultValues={{
@@ -276,7 +313,11 @@ const BadgeSection: React.FC = () => {
   withDot
 >
   Online
-</Badge>`}
+</Badge>
+// Theme-token tones with soft, ink or line appearance
+<Badge tone="success" variant="soft">Paid</Badge>
+<Badge tone="danger" variant="ink">Overdue</Badge>
+<Badge tone="info" variant="line" size="xs">New</Badge>`}
             />
           </div>
         </CardTitle>

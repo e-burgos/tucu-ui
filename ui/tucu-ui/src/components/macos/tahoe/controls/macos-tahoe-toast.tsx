@@ -1,6 +1,6 @@
 'use client';
 
-import cn from 'classnames';
+import { cn } from '../../../../libs/cn';
 import { IToast } from '../../../../hooks/use-toast-store';
 import { useToastQueue } from '../../../notifications/use-toast-queue';
 import { useTucuMessages } from '../../../../libs/i18n/use-tucu-messages';

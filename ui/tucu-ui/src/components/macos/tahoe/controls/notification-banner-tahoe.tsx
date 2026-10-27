@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useCallback } from 'react';
-import cn from 'classnames';
+import { cn } from '../../../../libs/cn';
 import { useTucuMessages } from '../../../../libs/i18n/use-tucu-messages';
 
 export type MacOSTahoeNotificationVariant =

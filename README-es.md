@@ -80,13 +80,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 }
 ```
 
-`app/globals.css` (Tailwind v4 — usá `theme`, no `styles`, y apuntá `@source` al paquete):
+`app/globals.css` (Tailwind v4 — usá `theme`, no `styles`, y apuntá `@source` a los `.mjs` del paquete):
 
 ```css
 @import 'tailwindcss';
 @import '@e-burgos/tucu-ui/theme';
-@source '../node_modules/@e-burgos/tucu-ui';
+@source '../node_modules/@e-burgos/tucu-ui/**/*.mjs';
 ```
+
+Escaneá solo `**/*.mjs`: ahí viven los nombres de clase. Apuntar `@source` al paquete entero también escanea el bundle CJS (que inlinea la tabla de clases de `tailwind-merge`), `index.css`, los `.d.ts` y la documentación, lo que suma ~100 KB de utilidades sin uso a tu CSS. La entrada `theme` ya incluye los estilos de Swiper, carousel, datatable y prism; ningún JS del paquete importa una hoja de estilos.
 
 - **Frontera server/client:** todos los módulos de tucu-ui llevan `'use client'`, así que podés importar componentes desde Server Components. Las funciones no cruzan esa frontera: el `cell` de una columna de `DataTable`, un `onClick` o cualquier render prop tienen que vivir en un componente `'use client'` de tu app, que el Server Component luego renderiza.
 - **Export estático:** `output: 'export'` funciona; el shell se prerenderiza.

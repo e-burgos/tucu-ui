@@ -64,7 +64,7 @@ describe('Modal focus management', () => {
     expect(document.activeElement).toBe(close);
     expect(first).toBeInTheDocument();
 
-    fireEvent.keyDown(document, { key: 'Escape' });
+    fireEvent.keyDown(close, { key: 'Escape' });
     await waitFor(() => expect(document.activeElement).toBe(trigger));
   });
 });

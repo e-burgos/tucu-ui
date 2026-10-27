@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useRef, useEffect, useState, useCallback } from 'react';
-import cn from 'classnames';
+import { cn } from '../../libs/cn';
 
 export interface ScrollbarProps {
   children: React.ReactNode;

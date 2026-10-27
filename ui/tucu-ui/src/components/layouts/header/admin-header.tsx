@@ -1,7 +1,7 @@
 'use client';
 
 import { useTucuNavigation } from '../../../themes/navigation/core';
-import cn from 'classnames';
+import { cn } from '../../../libs/cn';
 import { Logo, LogoPropTypes } from '../../logos/logo';
 import Hamburger from '../../buttons/hamburger';
 import { useBreakpoint, useIsMounted, useWindowScroll } from '../../../hooks';

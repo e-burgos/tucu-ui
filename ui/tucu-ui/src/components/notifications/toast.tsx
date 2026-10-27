@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import cn from 'classnames';
+import { cn } from '../../libs/cn';
 import { IToast } from '../../hooks/use-toast-store';
 import { Close } from '../icons/close';
 import { useToastQueue } from './use-toast-queue';
@@ -50,7 +50,7 @@ export const Toast: React.FC = () => {
           data-tucu="toast"
           data-variant={toast.variant ?? 'default'}
           className={cn(
-            'relative flex items-center justify-between rounded-md border p-4 pr-10 shadow-lg transform transition-all duration-300 ease-out motion-reduce:transition-none',
+            'relative flex items-center justify-between rounded-[var(--tucu-toast-radius)] border p-4 pr-10 shadow-[var(--tucu-toast-shadow)] transform transition-all duration-300 ease-out motion-reduce:transition-none',
             toast.dismissing
               ? 'translate-x-[120%] opacity-0 scale-95'
               : 'translate-x-0 opacity-100 scale-100',

@@ -1,0 +1,309 @@
+{
+  "$schema": "../../../../schemas/cycle-tasks.schema.json",
+  "spec": "spec-e-burgos-002-consumer-absorption",
+  "cycle": 1,
+  "module": "consumer-absorption",
+  "apps": [
+    "libs/tucu-ui",
+    "libs/tucu-docs",
+    "tools/mcp-server"
+  ],
+  "flow": "lite",
+  "user_stories_generated": true,
+  "prerequisites": {
+    "tasks_generated": true
+  },
+  "tasks": [
+    {
+      "id": "TASK-001",
+      "title": "Base transversal: cn con tailwind-merge en toda la librería e i18n de dialog/accessDenied",
+      "user_stories": [
+        "US-001",
+        "US-003"
+      ],
+      "estimation_hours": 3,
+      "story_points": 3,
+      "depends_on": [],
+      "status": "done",
+      "files": [
+        "ui/tucu-ui/package.json",
+        "ui/tucu-ui/src/libs/cn.ts",
+        "ui/tucu-ui/src/libs/index.ts",
+        "ui/tucu-ui/src/datatable/common/helpers/cn.ts",
+        "ui/tucu-ui/src/libs/i18n/messages.ts",
+        "ui/tucu-ui/src/themes/pages/access-denied.tsx",
+        "ui/tucu-ui/src/themes/auth/components/auth-provider.tsx"
+      ],
+      "usage": {
+        "tokens_in": 76500,
+        "tokens_out": 13500,
+        "provider_model": "claude/opus",
+        "effort": "medium",
+        "agent": "orchestrator",
+        "approx": true,
+        "source": "declared-estimate",
+        "recorded_at": "2026-10-27"
+      }
+    },
+    {
+      "id": "TASK-002",
+      "title": "Button, Badge, Spinner y Alert: wrapper, type, xs, variantes, tonos de estado y live region",
+      "user_stories": [
+        "US-001",
+        "US-002",
+        "US-004",
+        "US-005"
+      ],
+      "estimation_hours": 8,
+      "story_points": 8,
+      "depends_on": [
+        "TASK-001"
+      ],
+      "status": "done",
+      "files": [
+        "ui/tucu-ui/src/components/buttons/button/",
+        "ui/tucu-ui/src/components/common/badge.tsx",
+        "ui/tucu-ui/src/components/loaders/spinner.tsx",
+        "ui/tucu-ui/src/components/notifications/alert.tsx"
+      ],
+      "usage": {
+        "tokens_in": 92998,
+        "tokens_out": 16412,
+        "provider_model": "claude/sonnet",
+        "effort": "medium",
+        "agent": "implementor-front",
+        "approx": true,
+        "source": "agent-usage-notification",
+        "recorded_at": "2026-10-27"
+      }
+    },
+    {
+      "id": "TASK-003",
+      "title": "Modal y Tooltip: passthrough aria/data, header ReactNode, Escape y overlay, sin demora, size; tooltip siempre en el DOM",
+      "user_stories": [
+        "US-002",
+        "US-003",
+        "US-005"
+      ],
+      "estimation_hours": 6,
+      "story_points": 5,
+      "depends_on": [
+        "TASK-001"
+      ],
+      "status": "done",
+      "files": [
+        "ui/tucu-ui/src/components/dialog/modal.tsx",
+        "ui/tucu-ui/src/components/common/tooltip.tsx"
+      ],
+      "usage": {
+        "tokens_in": 94355,
+        "tokens_out": 16652,
+        "provider_model": "claude/sonnet",
+        "effort": "medium",
+        "agent": "implementor-front",
+        "approx": true,
+        "source": "agent-usage-notification",
+        "recorded_at": "2026-10-27"
+      }
+    },
+    {
+      "id": "TASK-004",
+      "title": "Input, Textarea, Select, Radio y Checkbox: aria-invalid, xs, clases unificadas, select nativo, alineación e id/htmlFor (Textarea conserva className en el wrapper, como Input)",
+      "user_stories": [
+        "US-001",
+        "US-002",
+        "US-004",
+        "US-005"
+      ],
+      "estimation_hours": 8,
+      "story_points": 8,
+      "depends_on": [
+        "TASK-001"
+      ],
+      "status": "done",
+      "files": [
+        "ui/tucu-ui/src/components/inputs/input.tsx",
+        "ui/tucu-ui/src/components/inputs/textarea.tsx",
+        "ui/tucu-ui/src/components/inputs/select.tsx",
+        "ui/tucu-ui/src/components/inputs/radio.tsx",
+        "ui/tucu-ui/src/components/inputs/checkbox.tsx"
+      ],
+      "usage": {
+        "tokens_in": 106326,
+        "tokens_out": 18764,
+        "provider_model": "claude/sonnet",
+        "effort": "medium",
+        "agent": "implementor-front",
+        "approx": true,
+        "source": "agent-usage-notification",
+        "recorded_at": "2026-10-27"
+      }
+    },
+    {
+      "id": "TASK-005",
+      "title": "Tema, CSS y datos: colorScheme default, bugs de tema, @layer, tokens de toast y useColumns",
+      "user_stories": [
+        "US-005",
+        "US-006"
+      ],
+      "estimation_hours": 8,
+      "story_points": 8,
+      "depends_on": [
+        "TASK-001"
+      ],
+      "status": "done",
+      "files": [
+        "ui/tucu-ui/src/themes/",
+        "ui/tucu-ui/src/assets/css/",
+        "ui/tucu-ui/src/components/notifications/toast.tsx",
+        "ui/tucu-ui/src/datatable/"
+      ],
+      "usage": {
+        "tokens_in": 124769,
+        "tokens_out": 22019,
+        "provider_model": "claude/sonnet",
+        "effort": "medium",
+        "agent": "implementor-front",
+        "approx": true,
+        "source": "agent-usage-notification",
+        "recorded_at": "2026-10-27"
+      }
+    },
+    {
+      "id": "TASK-006",
+      "title": "Entry sin CSS de terceros y @source acotado",
+      "user_stories": [
+        "US-006"
+      ],
+      "estimation_hours": 5,
+      "story_points": 5,
+      "depends_on": [
+        "TASK-005"
+      ],
+      "status": "done",
+      "files": [
+        "ui/tucu-ui/src/index.ts",
+        "ui/tucu-ui/vite.config.mts"
+      ],
+      "usage": {
+        "tokens_in": 106260,
+        "tokens_out": 18752,
+        "provider_model": "claude/sonnet",
+        "effort": "medium",
+        "agent": "implementor-front",
+        "approx": true,
+        "source": "agent-usage-notification",
+        "recorded_at": "2026-10-27"
+      }
+    },
+    {
+      "id": "TASK-007",
+      "title": "Integración: generate-props, registry MCP, docs, CHANGELOG y verificación local",
+      "user_stories": [
+        "US-001",
+        "US-002",
+        "US-003",
+        "US-004",
+        "US-005",
+        "US-006"
+      ],
+      "estimation_hours": 5,
+      "story_points": 5,
+      "depends_on": [
+        "TASK-002",
+        "TASK-003",
+        "TASK-004",
+        "TASK-005",
+        "TASK-006"
+      ],
+      "status": "done",
+      "files": [
+        "ui/tucu-ui/src/components/props/",
+        "tools/mcp-server/src/data/component-registry.ts",
+        "ui/tucu-docs/",
+        "ui/tucu-ui/scripts/external-packages.mjs",
+        "ui/tucu-ui/scripts/check-built-imports.mjs",
+        "tools/mcp-server/src/resources/"
+      ],
+      "usage": {
+        "tokens_in": 114867,
+        "tokens_out": 20271,
+        "provider_model": "claude/sonnet",
+        "effort": "medium",
+        "agent": "implementor-front",
+        "approx": true,
+        "source": "agent-usage-notification",
+        "recorded_at": "2026-10-27"
+      }
+    },
+    {
+      "id": "TASK-008",
+      "title": "Fricciones del Studio, segunda tanda: Select (grupos, xs, densidad de listbox, sin onChange al re-elegir, truncado), Tooltip size, Collapse controlado con variantes, extendClassMergeTokens, SwitchMode, defaultMode y layout→familia de tema",
+      "user_stories": [
+        "US-001",
+        "US-002",
+        "US-004",
+        "US-005",
+        "US-006"
+      ],
+      "estimation_hours": 6,
+      "story_points": 5,
+      "depends_on": [
+        "TASK-004",
+        "TASK-005"
+      ],
+      "status": "done",
+      "files": [
+        "ui/tucu-ui/src/components/inputs/select.tsx",
+        "ui/tucu-ui/src/components/common/tooltip.tsx",
+        "ui/tucu-ui/src/components/common/collapse.tsx",
+        "ui/tucu-ui/src/libs/cn.ts",
+        "ui/tucu-ui/src/themes/components/settings/switch-mode.tsx",
+        "ui/tucu-ui/src/themes/components/theme-provider/theme-wrapper.tsx",
+        "ui/tucu-ui/src/components/inputs/switch.tsx"
+      ],
+      "usage": {
+        "tokens_in": 102561,
+        "tokens_out": 18099,
+        "provider_model": "claude/sonnet",
+        "effort": "medium",
+        "agent": "implementor-front",
+        "approx": true,
+        "source": "agent-usage-notification",
+        "recorded_at": "2026-10-27"
+      }
+    },
+    {
+      "id": "TASK-009",
+      "title": "Fricciones del Studio, tercera tanda: tokens --tucu-* de Tooltip, Skeleton y BasicTable; Card con density y body flex-1; BasicTable density, cellDividers, rowHeight y rest props",
+      "user_stories": [
+        "US-001",
+        "US-002",
+        "US-005"
+      ],
+      "estimation_hours": 5,
+      "story_points": 5,
+      "depends_on": [
+        "TASK-008"
+      ],
+      "status": "done",
+      "files": [
+        "ui/tucu-ui/src/components/common/tooltip.tsx",
+        "ui/tucu-ui/src/components/common/skeleton.tsx",
+        "ui/tucu-ui/src/components/cards/card.tsx",
+        "ui/tucu-ui/src/components/table/basic-table.tsx",
+        "ui/tucu-ui/src/assets/css/base.css"
+      ],
+      "usage": {
+        "tokens_in": 106542,
+        "tokens_out": 18802,
+        "provider_model": "claude/sonnet",
+        "effort": "medium",
+        "agent": "implementor-front",
+        "approx": true,
+        "source": "agent-usage-notification",
+        "recorded_at": "2026-10-27"
+      }
+    }
+  ]
+}

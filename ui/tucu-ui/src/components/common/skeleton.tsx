@@ -1,5 +1,5 @@
 import React from 'react';
-import cn from 'classnames';
+import { cn } from '../../libs/cn';
 
 type ShapeNames = 'rectangle' | 'circle' | 'text' | 'rounded';
 type AnimationNames = 'pulse' | 'wave' | 'shimmer' | 'none';
@@ -69,10 +69,11 @@ export function Skeleton({
   height,
   count = 1,
   className,
+  style: styleProp,
   ...props
 }: SkeletonProps) {
   const skeletonClasses = cn(
-    'bg-gray-200 dark:bg-gray-800 w-full relative overflow-hidden',
+    'bg-[color:var(--tucu-skeleton-bg)] w-full relative overflow-hidden',
     shapes[shape],
     !height && sizes[size],
     animations[animation],
@@ -80,6 +81,7 @@ export function Skeleton({
   );
 
   const style: React.CSSProperties = {
+    ...styleProp,
     ...(width && { width }),
     ...(height && { height }),
   };
@@ -90,7 +92,7 @@ export function Skeleton({
       className="absolute inset-0 -translate-x-full"
       style={{
         background:
-          'linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.2) 50%, transparent 100%)',
+          'linear-gradient(90deg, transparent 0%, var(--tucu-skeleton-shine) 50%, transparent 100%)',
         animation: 'shimmer 2s ease-in-out infinite',
       }}
     />
@@ -102,7 +104,7 @@ export function Skeleton({
       className="absolute inset-0"
       style={{
         background:
-          'linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.1) 25%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.1) 75%, transparent 100%)',
+          'linear-gradient(90deg, transparent 0%, color-mix(in srgb, var(--tucu-skeleton-shine) 50%, transparent) 25%, var(--tucu-skeleton-shine) 50%, color-mix(in srgb, var(--tucu-skeleton-shine) 50%, transparent) 75%, transparent 100%)',
         backgroundSize: '200% 100%',
         animation: 'wave 2s ease-in-out infinite',
       }}
@@ -114,7 +116,13 @@ export function Skeleton({
     return (
       <div className="space-y-2">
         {Array.from({ length: count }).map((_, index) => (
-          <div key={index} className={skeletonClasses} style={style} {...props}>
+          <div
+            key={index}
+            data-tucu="skeleton"
+            className={skeletonClasses}
+            style={style}
+            {...props}
+          >
             {renderShimmer}
             {renderWave}
           </div>
@@ -124,7 +132,12 @@ export function Skeleton({
   }
 
   return (
-    <div className={skeletonClasses} style={style} {...props}>
+    <div
+      data-tucu="skeleton"
+      className={skeletonClasses}
+      style={style}
+      {...props}
+    >
       {renderShimmer}
       {renderWave}
     </div>

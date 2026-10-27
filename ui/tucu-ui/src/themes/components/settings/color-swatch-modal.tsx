@@ -8,7 +8,7 @@ import { Sun, Moon } from '../../../components/icons';
 import { Close } from '../../../components/icons/close';
 import { Input } from '../../../components/inputs/input';
 import { Button } from '../../../components/buttons/button';
-import cn from 'classnames';
+import { cn } from '../../../libs/cn';
 import { COLOR_CONFIG } from './settings-types';
 import type { ColorType } from './settings-types';
 

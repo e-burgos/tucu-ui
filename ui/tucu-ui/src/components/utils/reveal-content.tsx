@@ -2,7 +2,7 @@
 
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { useRef, useState, useEffect } from 'react';
-import cn from 'classnames';
+import { cn } from '../../libs/cn';
 import Button from '../buttons';
 
 export interface RevealContentTypes {

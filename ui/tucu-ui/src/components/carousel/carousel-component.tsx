@@ -18,17 +18,11 @@ import {
 } from 'swiper/modules';
 import type { Swiper as SwiperType } from 'swiper';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import cn from 'classnames';
+import { cn } from '../../libs/cn';
 import Button from '../buttons';
 import { PaginationOptions, SwiperModule } from 'swiper/types';
 
 // Import Swiper styles
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-import 'swiper/css/scrollbar';
-import 'swiper/css/effect-fade';
-import 'swiper/css/effect-coverflow';
 // Carousel skin (bullet colors) lives in assets/css/carousel.css, reached via
 // both CSS entries (`./styles` and `./theme`) — not imported from JS, so it
 // can't be duplicated into consumers' bundles. The bare swiper/css imports

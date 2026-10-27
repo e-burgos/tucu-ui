@@ -357,6 +357,11 @@ html.macos-tahoe [data-tucu='typography'][data-typography-tag='body'] {
   font-weight: var(--macos-ts-body-weight);
   line-height: var(--macos-ts-body-leading);
   letter-spacing: var(--macos-ts-body-tracking);
+}
+
+html.macos-tahoe [data-tucu='text'],
+html.macos-tahoe [data-tucu='typography'][data-typography-tag='p'],
+html.macos-tahoe [data-tucu='typography'][data-typography-tag='body'] {
   color: var(--macos-label);
 }
 

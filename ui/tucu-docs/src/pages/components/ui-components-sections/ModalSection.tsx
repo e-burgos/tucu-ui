@@ -13,6 +13,10 @@ import { AutoPropsTable } from '@tucu-ui-internal/docs-kit/components/auto-props
 import { PropPlayground } from '@tucu-ui-internal/docs-kit/components/prop-playground';
 
 const ModalSection: React.FC = () => {
+  const [sizedModal, setSizedModal] = useState<
+    'sm' | 'lg' | 'xl' | 'full' | null
+  >(null);
+  const [headerModal, setHeaderModal] = useState(false);
   const [isOpen1, setIsOpen1] = useState(false);
   const [isOpen2, setIsOpen2] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -68,6 +72,62 @@ const ModalSection: React.FC = () => {
           </div>
         </CardTitle>
       </CardContainer>
+      <CardContainer className="overflow-hidden">
+        <CardTitle
+          title="Size, Custom Header and aria-label"
+          className="mt-2 mb-2"
+        >
+          <div className="w-full p-4 sm:p-6">
+            <div className="flex flex-wrap gap-3">
+              {(['sm', 'lg', 'xl', 'full'] as const).map((size) => (
+                <Button
+                  key={size}
+                  size="small"
+                  onClick={() => setSizedModal(size)}
+                >
+                  {size}
+                </Button>
+              ))}
+              <Button
+                size="small"
+                variant="outline"
+                onClick={() => setHeaderModal(true)}
+              >
+                Custom header
+              </Button>
+            </div>
+            <Modal
+              isOpen={sizedModal !== null}
+              setIsOpen={() => setSizedModal(null)}
+              size={sizedModal ?? 'md'}
+              aria-label="Sized modal"
+              text={{
+                title: 'Sized modal',
+                content: 'The size prop sets the dialog width and body height.',
+                button: 'Close',
+              }}
+              onClose={() => setSizedModal(null)}
+            />
+            <Modal
+              isOpen={headerModal}
+              setIsOpen={setHeaderModal}
+              aria-label="Modal with custom header"
+              closeLabel="Dismiss"
+              header={
+                <Typography tag="h4" className="px-6 pt-6">
+                  Custom header
+                </Typography>
+              }
+              text={{
+                content: 'The header prop replaces the title area.',
+                button: 'Done',
+              }}
+              onClose={() => setHeaderModal(false)}
+            />
+          </div>
+        </CardTitle>
+      </CardContainer>
+
       <PropPlayground
         componentName="Modal"
         defaultValues={{
@@ -127,7 +187,14 @@ function MyComponent() {
 </Modal>
 
 // Non-closeable
-<Modal isOpen={isOpen} setIsOpen={setIsOpen} closeable={false} />`}
+<Modal isOpen={isOpen} setIsOpen={setIsOpen} closeable={false} />
+// Size: sm | md | lg | xl | full
+<Modal isOpen={open} setIsOpen={setOpen} size="lg" aria-label="Edit profile"
+  text={{ title: 'Edit profile', content: '...', button: 'Save' }} />
+
+// header replaces the title area; closeLabel overrides the translated close label
+<Modal isOpen={open} setIsOpen={setOpen} header={<h4>Custom header</h4>}
+  closeLabel="Dismiss" aria-label="Custom header modal" text={{ content: '...' }} />`}
             />
           </div>
         </CardTitle>

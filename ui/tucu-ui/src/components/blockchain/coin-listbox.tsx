@@ -9,7 +9,7 @@ import {
   type ReactNode,
 } from 'react';
 import { createPortal } from 'react-dom';
-import cn from 'classnames';
+import { cn } from '../../libs/cn';
 import { ChevronDown } from '../icons/chevron-down';
 
 export type CoinTypes = {

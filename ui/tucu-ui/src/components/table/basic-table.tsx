@@ -1,7 +1,14 @@
 'use client';
 
-import { ReactNode, useState, useCallback, useRef } from 'react';
-import cn from 'classnames';
+import {
+  HTMLAttributes,
+  ReactNode,
+  useState,
+  useCallback,
+  useEffect,
+  useRef,
+} from 'react';
+import { cn } from '../../libs/cn';
 import { useTheme } from '../../themes';
 import { LAYOUT_OPTIONS } from '../../themes/config';
 
@@ -39,7 +46,10 @@ export interface TableColumn<T = Record<string, unknown>> {
  *
  * @template T - Shape of a single row of data.
  */
-export interface BasicTableProps<T = Record<string, unknown>> {
+export type BasicTableDensity = 'compact' | 'default';
+
+export interface BasicTableProps<T = Record<string, unknown>>
+  extends Omit<HTMLAttributes<HTMLDivElement>, 'className' | 'children'> {
   /** Column definitions, rendered left to right in array order. */
   columns: TableColumn<T>[];
   /** Rows to render. Each entry is looked up by each column's `key`. */
@@ -68,11 +78,21 @@ export interface BasicTableProps<T = Record<string, unknown>> {
   /** Shade alternating rows. */
   striped?: boolean;
   /**
-   * Number of rows visible before the body starts scrolling. Drives the
-   * container's max height at roughly 40px per row.
+   * Number of rows visible before the body starts scrolling. The max height is
+   * derived from the measured height of the first row (or `rowHeight`), with a
+   * 40px-per-row estimate until it is measured.
    */
   maxRows?: number;
-  /** Let columns be resized by dragging their header edge. */
+  /** Row height in pixels used to compute the max height. Measured from the first row when omitted. */
+  rowHeight?: number;
+  /** Cell padding and font size. `compact` uses `text-xs px-2 py-1`. */
+  density?: BasicTableDensity;
+  /** Draw the vertical dividers between cells. Independent from the outer `border`. */
+  cellDividers?: boolean;
+  /**
+   * Let columns be resized by dragging their header edge. On by default — set
+   * `false` for a plain auto-sized table.
+   */
   resizable?: boolean;
   /**
    * Render each row as a stacked card on small screens instead of forcing a
@@ -89,6 +109,17 @@ export interface BasicTableProps<T = Record<string, unknown>> {
   cardBreakpoint?: 'sm' | 'md' | 'lg';
   /** Extra class names applied to each row, which is the card on small screens. */
   cardClassName?: string;
+}
+
+const FALLBACK_ROW_HEIGHT = 40;
+
+function resolveMaxHeight(
+  maxRows: number,
+  rowHeight: number | undefined,
+  headerHeight: number
+): number {
+  if (!rowHeight) return maxRows * FALLBACK_ROW_HEIGHT;
+  return Math.ceil(maxRows * rowHeight + headerHeight);
 }
 
 /** Tailwind's default breakpoints, in px — the card layout ends just below these. */
@@ -209,10 +240,15 @@ export const BasicTable = <
   hoverable = true,
   striped = false,
   maxRows = 10,
+  rowHeight,
+  density = 'default',
+  cellDividers = true,
+  style: styleProp,
   resizable = true,
   mobileCards = true,
   cardBreakpoint = 'md',
   cardClassName,
+  ...rest
 }: BasicTableProps<T>) => {
   const { layout } = useTheme();
   const isTahoe =
@@ -275,6 +311,39 @@ export const BasicTable = <
     [columnWidths, columns]
   );
 
+  const headerRef = useRef<HTMLTableSectionElement | null>(null);
+  const bodyRef = useRef<HTMLTableSectionElement | null>(null);
+  const [measured, setMeasured] = useState<{
+    row: number | undefined;
+    header: number;
+  }>({ row: undefined, header: 0 });
+
+  useEffect(() => {
+    const body = bodyRef.current;
+    if (!body) return;
+    const measure = () => {
+      const firstRow = body.firstElementChild as HTMLElement | null;
+      const rowHeightPx = firstRow?.getBoundingClientRect().height;
+      const headerPx = headerRef.current?.getBoundingClientRect().height ?? 0;
+      setMeasured((prev) => {
+        const nextRow = rowHeightPx || undefined;
+        return prev.row === nextRow && prev.header === headerPx
+          ? prev
+          : { row: nextRow, header: headerPx };
+      });
+    };
+    measure();
+    if (typeof ResizeObserver === 'undefined') return;
+    const observer = new ResizeObserver(measure);
+    if (body.firstElementChild) observer.observe(body.firstElementChild);
+    if (headerRef.current) observer.observe(headerRef.current);
+    return () => observer.disconnect();
+  }, [data.length, density, showHeader, mobileCards, rounded]);
+
+  const cellPadding =
+    density === 'compact' ? 'px-2 py-1 text-xs' : 'px-3 py-2 text-sm';
+  const headerPadding = density === 'compact' ? 'px-2 py-1' : 'px-3 py-2';
+
   const getRowClassName = (row: T, index: number): string => {
     const baseClasses = cn('transition-colors', {
       'hover:bg-gray-50/40 dark:hover:bg-gray-800/30': hoverable,
@@ -309,8 +378,11 @@ export const BasicTable = <
       : String(value ?? '');
   };
 
-  // Calculate max height: approximately 40px per row (p-3 = 12px top + 12px bottom = 24px + content ~16px)
-  const maxHeight = maxRows * 40; // 40px per row
+  const maxHeight = resolveMaxHeight(
+    maxRows,
+    rowHeight ?? measured.row,
+    measured.header
+  );
 
   return (
     <>
@@ -384,6 +456,7 @@ export const BasicTable = <
         }}
       />
       <div
+        {...rest}
         data-tucu="table-scroll"
         data-cards={mobileCards ? cardBreakpoint : undefined}
         className={cn(
@@ -392,6 +465,7 @@ export const BasicTable = <
           className
         )}
         style={{
+          ...styleProp,
           scrollbarWidth: 'thin',
           scrollbarColor:
             'var(--basic-table-scrollbar-thumb, rgba(0, 0, 0, 0.2)) var(--basic-table-scrollbar-track, rgba(0, 0, 0, 0.05))',
@@ -408,7 +482,7 @@ export const BasicTable = <
             className={cn(
               'overflow-hidden relative z-0 isolate',
               isTahoe ? 'rounded-2xl' : 'rounded-lg',
-              border && 'border border-border'
+              border && 'border border-[color:var(--tucu-table-border)]'
             )}
           >
             <div
@@ -440,8 +514,9 @@ export const BasicTable = <
                 )}
                 {showHeader && (
                   <thead
+                    ref={headerRef}
                     data-tucu="table-header"
-                    className="sticky top-0 z-10 bg-gray-100 dark:bg-gray-800"
+                    className="sticky top-0 z-10 bg-[color:var(--tucu-table-header-bg)]"
                   >
                     <tr className={cn(headerClassName)}>
                       {columns.map((column, colIndex) => {
@@ -454,11 +529,14 @@ export const BasicTable = <
                             }}
                             data-tucu="table-header-cell"
                             className={cn(
-                              'px-3 py-2 text-left text-[11px] font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider relative',
-                              border && 'border-b border-border',
+                              headerPadding,
+                              'text-left text-[11px] font-semibold text-[color:var(--tucu-table-header-fg)] uppercase tracking-wider relative',
                               border &&
+                                'border-b border-[color:var(--tucu-table-border)]',
+                              border &&
+                                cellDividers &&
                                 !isLastCol &&
-                                'border-r border-r-gray-200 dark:border-r-gray-700',
+                                'border-r border-r-[color:var(--tucu-table-cell-border)]',
                               column.headerClassName
                             )}
                             style={
@@ -484,7 +562,7 @@ export const BasicTable = <
                     </tr>
                   </thead>
                 )}
-                <tbody>
+                <tbody ref={bodyRef}>
                   {data.map((row, rowIndex) => {
                     const isLastRow = rowIndex === data.length - 1;
                     return (
@@ -511,12 +589,14 @@ export const BasicTable = <
                               key={column.key}
                               data-tucu="table-cell"
                               className={cn(
-                                'px-3 py-2 text-sm text-gray-700 dark:text-gray-300 overflow-hidden text-ellipsis whitespace-nowrap',
+                                cellPadding,
+                                'text-[color:var(--tucu-table-cell-fg)] overflow-hidden text-ellipsis whitespace-nowrap',
                                 border &&
-                                  'border-b border-border dark:border-border/60',
+                                  'border-b border-[color:var(--tucu-table-cell-border)]',
                                 border &&
+                                  cellDividers &&
                                   !isLastCol &&
-                                  'border-r border-border dark:border-border/60',
+                                  'border-r border-[color:var(--tucu-table-cell-border)]',
                                 border && isLastRow && 'border-b-0',
                                 column.className
                               )}
@@ -553,7 +633,7 @@ export const BasicTable = <
               className={cn(
                 'w-full border-collapse',
                 !resizable && 'min-w-max',
-                border && 'border border-border',
+                border && 'border border-[color:var(--tucu-table-border)]',
                 tableClassName
               )}
               style={{ tableLayout: resizable ? 'fixed' : undefined }}
@@ -574,8 +654,9 @@ export const BasicTable = <
               )}
               {showHeader && (
                 <thead
+                  ref={headerRef}
                   data-tucu="table-header"
-                  className="sticky top-0 z-10 bg-gray-100 dark:bg-gray-800"
+                  className="sticky top-0 z-10 bg-[color:var(--tucu-table-header-bg)]"
                 >
                   <tr className={cn(headerClassName)}>
                     {columns.map((column, colIndex) => {
@@ -588,8 +669,13 @@ export const BasicTable = <
                           }}
                           data-tucu="table-header-cell"
                           className={cn(
-                            'px-3 py-2 text-left text-[11px] font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider relative',
-                            border && 'border-r border-b border-border',
+                            headerPadding,
+                            'text-left text-[11px] font-semibold text-[color:var(--tucu-table-header-fg)] uppercase tracking-wider relative',
+                            border &&
+                              'border-b border-[color:var(--tucu-table-border)]',
+                            border &&
+                              cellDividers &&
+                              'border-r border-r-[color:var(--tucu-table-border)]',
                             border && isLastCol && 'border-r-0',
                             column.headerClassName
                           )}
@@ -616,7 +702,7 @@ export const BasicTable = <
                   </tr>
                 </thead>
               )}
-              <tbody>
+              <tbody ref={bodyRef}>
                 {data.map((row, rowIndex) => {
                   const isLastRow = rowIndex === data.length - 1;
                   return (
@@ -643,9 +729,13 @@ export const BasicTable = <
                             key={column.key}
                             data-tucu="table-cell"
                             className={cn(
-                              'px-3 py-2 text-sm text-gray-700 dark:text-gray-300 overflow-hidden text-ellipsis whitespace-nowrap',
+                              cellPadding,
+                              'text-[color:var(--tucu-table-cell-fg)] overflow-hidden text-ellipsis whitespace-nowrap',
                               border &&
-                                'border-r border-b border-border dark:border-border/60',
+                                'border-b border-[color:var(--tucu-table-cell-border)]',
+                              border &&
+                                cellDividers &&
+                                'border-r border-r-[color:var(--tucu-table-cell-border)]',
                               border && isLastCol && 'border-r-0',
                               border && isLastRow && 'border-b-0',
                               column.className

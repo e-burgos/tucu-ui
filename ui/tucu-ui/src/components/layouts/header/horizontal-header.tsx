@@ -1,7 +1,7 @@
 'use client';
 
 import Logo, { LogoPropTypes } from '../../logos/logo';
-import cn from 'classnames';
+import { cn } from '../../../libs/cn';
 import { useBreakpoint, useIsMounted, useWindowScroll } from '../../../hooks';
 import { IMenuItem } from '../menus/menu-item';
 import HorizontalNavMenu from '../menus/horizontal-nav-menu';

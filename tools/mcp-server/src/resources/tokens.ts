@@ -77,6 +77,23 @@ Prefer layering your tokens as values that reference tucu-ui's semantic aliases
 light/dark mode and \`customPaletteColor\`, instead of hardcoding hex values that go
 stale the moment someone rebrands.
 
+## Component tokens (\`--tucu-*\`)
+
+Since v3.5.0 a few components read public CSS custom properties with light defaults on
+\`html:root\` and dark overrides on \`html.dark\`. Override them in your stylesheet (globally
+or on any ancestor) to theme those components without \`!important\`:
+
+| Component | Tokens |
+| --- | --- |
+| Toast | \`--tucu-toast-bg\`, \`--tucu-toast-fg\`, \`--tucu-toast-fg-muted\`, \`--tucu-toast-border\`, \`--tucu-toast-radius\`, \`--tucu-toast-shadow\` |
+| Tooltip (no \`color\` prop) | \`--tucu-tooltip-bg\`, \`--tucu-tooltip-fg\`, \`--tucu-tooltip-border\` |
+| Skeleton | \`--tucu-skeleton-bg\`, \`--tucu-skeleton-shine\` |
+| BasicTable | \`--tucu-table-header-bg\`, \`--tucu-table-header-fg\`, \`--tucu-table-cell-fg\`, \`--tucu-table-border\`, \`--tucu-table-cell-border\` |
+| \`[data-material="solid"]\` panels | \`--tucu-material-solid-bg\` |
+
+The library CSS lives in \`@layer components\`, so plain Tailwind utilities in your app win
+over it (the macOS theme overrides are the exception while a macOS theme is active).
+
 ## Usage Rules
 \`\`\`tsx
 // CORRECT — Uses semantic tokens, adapts to theme

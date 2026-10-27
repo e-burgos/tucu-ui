@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import cn from 'classnames';
+import { cn } from '../../libs/cn';
 import Button from '../buttons/button';
 import { PinCode } from '../inputs/pin-code';
 import AnchorLink from '../links/anchor-link';

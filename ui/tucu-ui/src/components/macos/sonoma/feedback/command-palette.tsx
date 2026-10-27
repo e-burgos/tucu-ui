@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState, useCallback } from 'react';
-import cn from 'classnames';
+import { cn } from '../../../../libs/cn';
 import { Search, X } from 'lucide-react';
 
 // ─── Types ─────────────────────────────────────────────────────
