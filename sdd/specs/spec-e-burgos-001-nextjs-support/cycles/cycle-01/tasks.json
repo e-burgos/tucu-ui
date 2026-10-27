@@ -5,7 +5,8 @@
   "module": "nextjs-support",
   "apps": [
     "libs/tucu-ui",
-    "tools/mcp-server"
+    "tools/mcp-server",
+    "apps/next-demo"
   ],
   "flow": "lite",
   "user_stories_generated": true,
@@ -220,12 +221,27 @@
         "TASK-004",
         "TASK-005"
       ],
-      "status": "in-progress",
+      "status": "done",
       "files": [
-        "ui/tucu-ui/README.md",
+        "ui/tucu-ui/package.json",
         "ui/tucu-ui/CHANGELOG.md",
-        "tools/mcp-server/CHANGELOG.md"
-      ]
+        "tools/mcp-server/package.json",
+        "tools/mcp-server/CHANGELOG.md",
+        "tools/mcp-server/src/resources/changelog.ts",
+        "README.md",
+        "README-es.md",
+        "ui/tucu-docs/src/pages/introduction/index.tsx"
+      ],
+      "usage": {
+        "tokens_in": 119320,
+        "tokens_out": 21057,
+        "provider_model": "claude/sonnet",
+        "effort": "medium",
+        "agent": "implementor-front",
+        "approx": true,
+        "source": "agent-usage-notification",
+        "recorded_at": "2026-10-27"
+      }
     }
   ]
 }

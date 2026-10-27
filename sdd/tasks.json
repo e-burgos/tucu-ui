@@ -10,11 +10,12 @@
           "module": "nextjs-support",
           "apps": [
             "libs/tucu-ui",
-            "tools/mcp-server"
+            "tools/mcp-server",
+            "apps/next-demo"
           ],
-          "status": "in-progress",
+          "status": "completed",
           "tasks_total": 6,
-          "tasks_done": 5
+          "tasks_done": 6
         }
       }
     }

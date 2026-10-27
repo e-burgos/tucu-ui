@@ -1,6 +1,6 @@
 # SPEC-e-burgos-001: Soporte Next.js 16 (App Router) con entry desacoplado
 
-> Estado: **in-progress** — `cycle-01` abierto (flow `lite`).
+> Estado: **completed** — `cycle-01` cerrado el 2026-10-27 (flow `lite`).
 
 ## Resumen Ejecutivo
 

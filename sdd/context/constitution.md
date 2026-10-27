@@ -59,6 +59,7 @@ Para el detalle técnico de cada subproyecto, ver su constitución específica:
 | `tools/mcp-server` | node MCP server | Expone la API de la lib a agentes de IA (npm + fly.io) | [tools/mcp-server](tools/mcp-server/constitution.md) |
 | `apps/demo` | react app | Host del sitio de docs sobre la lib publicada | [apps/demo](apps/demo/constitution.md) |
 | `apps/test-lib` | react app | Banco de pruebas de la lib sin publicar | [apps/test-lib](apps/test-lib/constitution.md) |
+| `apps/next-demo` | nextjs app | Prueba del entry `./next` sobre el paquete compilado (export estático + e2e) | [apps/next-demo](apps/next-demo/constitution.md) |
 
 > Las constituciones de subproyecto son la **fuente de verdad** del stack y las convenciones técnicas.
 > La sección 3 de este documento es un resumen de alto nivel — siempre leer el subproyecto para detalles.
@@ -81,11 +82,12 @@ Para el detalle técnico de cada subproyecto, ver su constitución específica:
 
 | Subproyecto | Stack base | Última actualización |
 | ----------- | ---------- | -------------------- |
-| lib principal | React >=18, Tailwind v4, Vite 7 lib mode (ESM + CJS), vitest + jsdom | cycle-0 |
+| lib principal | React >=18, Tailwind v4, Vite 7 lib mode (ESM + CJS) + entry `./next` solo ESM, vitest + jsdom | spec-e-burgos-001 cycle-01 |
 | `libs/tucu-docs` | React, páginas sobre la lib principal | cycle-0 |
-| `tools/mcp-server` | Node, TypeScript, MCP SDK, express, zod, vitest | cycle-0 |
+| `tools/mcp-server` | Node, TypeScript, MCP SDK, express, zod, vitest | spec-e-burgos-001 cycle-01 |
 | `apps/demo` | React, Vite, Tailwind v4 | cycle-0 |
 | `apps/test-lib` | React, Vite, Tailwind v4 | cycle-0 |
+| `apps/next-demo` | Next.js 16 App Router, Tailwind v4, Playwright | spec-e-burgos-001 cycle-01 |
 
 ---
 

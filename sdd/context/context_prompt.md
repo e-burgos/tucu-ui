@@ -54,6 +54,7 @@ El proyecto usa **Nx** como monorepo manager con **pnpm** como package manager. 
 | `tools/mcp-server` | [context_prompt](tools/mcp-server/context_prompt.md) | [constitution](tools/mcp-server/constitution.md) |
 | `apps/demo` | [context_prompt](apps/demo/context_prompt.md) | [constitution](apps/demo/constitution.md) |
 | `apps/test-lib` | [context_prompt](apps/test-lib/context_prompt.md) | [constitution](apps/test-lib/constitution.md) |
+| `apps/next-demo` | [context_prompt](apps/next-demo/context_prompt.md) | [constitution](apps/next-demo/constitution.md) |
 
 ---
 

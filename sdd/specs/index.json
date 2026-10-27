@@ -11,10 +11,10 @@
       "file": "sdd/specs/spec-e-burgos-001-nextjs-support/spec-e-burgos-001-nextjs-support.spec.md",
       "module": "nextjs-support",
       "app": "libs/tucu-ui",
-      "status": "in-progress",
+      "status": "completed",
       "title": "Soporte Next.js 16 (App Router) con entry desacoplado",
       "created_at": "2026-10-27",
-      "completed_at": null,
+      "completed_at": "2026-10-27",
       "depends_on": []
     }
   ]
