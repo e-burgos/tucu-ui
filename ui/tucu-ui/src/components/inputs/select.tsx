@@ -34,7 +34,12 @@ export type SelectOption = {
   disabled?: boolean;
 };
 
-export interface SelectTypes {
+type SelectDomAttributes = {
+  [key: `aria-${string}`]: string | number | boolean | undefined;
+  [key: `data-${string}`]: string | number | boolean | undefined;
+};
+
+export interface SelectTypes extends SelectDomAttributes {
   options: SelectOption[];
   selectedOption?: SelectOption;
   onChange?:
@@ -62,6 +67,10 @@ export interface SelectTypes {
   searchPlaceholder?: string;
   /** Show a check icon next to the selected option */
   showCheck?: boolean;
+  /** Render a real `<select>` with `<option>` elements instead of the custom listbox. Extra `<option>` children are rendered after `options`. */
+  native?: boolean;
+  /** Id of the underlying form element (generated when omitted) */
+  id?: string;
 }
 
 const selectVariantClasses = {
@@ -95,12 +104,26 @@ export function Select({
   searchable = false,
   searchPlaceholder,
   showCheck = false,
+  native = false,
+  id,
+  'aria-describedby': externalDescribedBy,
+  'aria-labelledby': externalLabelledBy,
+  ...domAttributes
 }: SelectTypes) {
   const t = useTucuMessages().select;
   const uid = useId();
+  const controlId = id ?? `${uid}-control`;
   const labelId = `${uid}-label`;
   const listboxId = `${uid}-listbox`;
   const messageId = `${uid}-message`;
+  const describedBy =
+    [externalDescribedBy, errorMessage || helperText ? messageId : undefined]
+      .filter(Boolean)
+      .join(' ') || undefined;
+  const labelledBy =
+    [externalLabelledBy, label ? labelId : undefined]
+      .filter(Boolean)
+      .join(' ') || undefined;
   const optionId = (index: number) => `${uid}-option-${index}`;
   // Resolve the option corresponding to a string `value` (e.g. from react-hook-form)
   const resolveOption = useCallback(
@@ -223,6 +246,20 @@ export function Select({
     },
     [onChange, onSelect, closeDropdown]
   );
+
+  const handleNativeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const nextValue = event.target.value;
+    const matchingOption =
+      options.find((option) => option.value === nextValue) ?? {
+        name: event.target.selectedOptions[0]?.text ?? nextValue,
+        value: nextValue,
+      };
+    setInternalSelectedOption(matchingOption);
+    if (onChange && typeof onChange === 'function') {
+      onChange(matchingOption);
+    }
+    onSelect?.(nextValue);
+  };
 
   // Click outside handler
   useEffect(() => {
@@ -508,6 +545,99 @@ export function Select({
       document.body
     );
 
+  const messageBlock = (
+    <>
+      {errorMessage && (
+        <FieldError id={messageId} error={errorMessage} size="md" />
+      )}
+      {!errorMessage && helperText && (
+        <FieldHelperText id={messageId} size="md">
+          {helperText}
+        </FieldHelperText>
+      )}
+    </>
+  );
+
+  const labelContent = (
+    <>
+      {label}
+      {required && (
+        <sup className="inline-block text-[13px] text-red-600 dark:text-red-400 ltr:ml-1 rtl:mr-1">
+          *
+        </sup>
+      )}
+    </>
+  );
+
+  const labelClasses = cn(
+    'block font-medium tracking-widest text-gray-800 dark:text-gray-100',
+    useUppercaseLabel ? 'mb-2 uppercase sm:mb-3' : 'mb-1.5 ml-1.5'
+  );
+
+  if (native) {
+    return (
+      <div
+        data-tucu="select"
+        data-variant={variant}
+        data-color={color}
+        data-size={size}
+        data-native="true"
+        className={cn('relative text-sm sm:text-sm', className)}
+      >
+        {label && (
+          <label htmlFor={controlId} className={labelClasses}>
+            {labelContent}
+          </label>
+        )}
+        <div className="relative">
+          <select
+            {...domAttributes}
+            data-tucu="select-native"
+            id={controlId}
+            name={name}
+            required={required}
+            disabled={disabled}
+            value={selectedOption?.value ?? ''}
+            onChange={handleNativeChange}
+            aria-invalid={errorMessage ? true : undefined}
+            aria-describedby={describedBy}
+            className={cn(
+              'tucu-text-case-inherit tucu-letter-space-inherit block w-full appearance-none font-medium outline-hidden duration-200 focus:border-brand focus-visible:outline-2 focus-visible:outline-brand aria-invalid:border-red-500 dark:aria-invalid:border-red-400 ltr:pr-10 rtl:pl-10',
+              textControlSizeClasses.select[size],
+              selectVariantClasses[variant],
+              color && textControlColorClasses[variant][color],
+              disabled && 'cursor-not-allowed bg-muted/10!',
+              buttonClassName
+            )}
+          >
+            {!selectedOption && (
+              <option value="" disabled>
+                {placeholder || t.placeholder}
+              </option>
+            )}
+            {options.map((option) => (
+              <option
+                key={option.value}
+                value={option.value}
+                disabled={option.disabled}
+              >
+                {option.name}
+              </option>
+            ))}
+            {children}
+          </select>
+          <ChevronDown
+            className={cn(
+              'pointer-events-none absolute top-1/2 -translate-y-1/2 ltr:right-3 rtl:left-3',
+              disabled && 'text-gray-500'
+            )}
+          />
+        </div>
+        {messageBlock}
+      </div>
+    );
+  }
+
   return (
     <div
       data-tucu="select"
@@ -535,16 +665,18 @@ export function Select({
         </span>
       )}
       <button
+        {...domAttributes}
         data-tucu="select-trigger"
+        id={controlId}
         ref={buttonRef}
         type="button"
         role="combobox"
         aria-haspopup="listbox"
         aria-expanded={isOpen}
         aria-controls={listboxId}
-        aria-labelledby={label ? labelId : undefined}
+        aria-labelledby={labelledBy}
         aria-invalid={errorMessage ? true : undefined}
-        aria-describedby={errorMessage || helperText ? messageId : undefined}
+        aria-describedby={describedBy}
         aria-required={required || undefined}
         aria-disabled={disabled}
         disabled={disabled}

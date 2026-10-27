@@ -43,3 +43,36 @@ describe('Tooltip contrast', () => {
     expect(tooltip.className).not.toMatch(/bg-\w+-500/);
   });
 });
+
+describe('Tooltip always in the DOM', () => {
+  it('renders the tooltip hidden while closed and linked from the trigger', () => {
+    render(
+      <Tooltip content="Always here">
+        <button>Trigger</button>
+      </Tooltip>
+    );
+    const tooltip = screen.getByRole('tooltip', { hidden: true });
+    expect(tooltip).toHaveTextContent('Always here');
+    expect(tooltip).toBeInTheDocument();
+    expect(tooltip).not.toBeVisible();
+    expect(tooltip).toHaveAttribute('aria-hidden', 'true');
+    expect(screen.getByText('Trigger')).toHaveAttribute(
+      'aria-describedby',
+      tooltip.id
+    );
+  });
+
+  it('becomes visible on hover and is not portaled to body', () => {
+    const { container } = render(
+      <Tooltip content="Shown" leaveDelay={0}>
+        <button>Trigger</button>
+      </Tooltip>
+    );
+    fireEvent.mouseEnter(screen.getByText('Trigger'));
+    const tooltip = screen.getByRole('tooltip');
+    expect(tooltip).toBeVisible();
+    expect(container).toContainElement(tooltip);
+    fireEvent.mouseLeave(screen.getByText('Trigger'));
+    expect(screen.getByRole('tooltip', { hidden: true })).not.toBeVisible();
+  });
+});

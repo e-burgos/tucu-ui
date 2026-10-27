@@ -63,6 +63,8 @@ export type Locale =
   | 'pt-BR'
   | (string & Record<never, never>);
 
+const compactInputSizeClasses = 'h-7 px-2 py-1 text-xs';
+
 export type InputProps = Omit<
   React.DetailedHTMLProps<
     React.InputHTMLAttributes<HTMLInputElement>,
@@ -76,6 +78,7 @@ export type InputProps = Omit<
   className?: string;
   inputClassName?: string;
   labelClassName?: string;
+  labelTextClassName?: string;
   useUppercaseLabel?: boolean;
   helperText?: string;
   /** Change input color */
@@ -86,7 +89,8 @@ export type InputProps = Omit<
   dateFormat?: DateFormat;
   /** Date picker locale. Defaults to the theme `lang` (es → es-AR). */
   locale?: Locale;
-  size?: TextControlSize;
+  /** Control size. `xs` is a compact control (h-7, text-xs). Defaults to `md`. */
+  size?: TextControlSize | 'xs';
   /**
    * Formats the value while typing: `phone` (AR by default, see
    * `phoneCountry`), `cuit`, `currency`, `number`, or a custom
@@ -184,6 +188,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       className,
       inputClassName,
       labelClassName,
+      labelTextClassName,
       helperText,
       color,
       suffix,
@@ -717,10 +722,11 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             <label
               htmlFor={finalId}
               className={cn(
-                'block font-medium tracking-widest text-gray-800 dark:text-gray-100',
+                'block font-medium text-gray-800 dark:text-gray-100',
                 useUppercaseLabel
-                  ? 'mb-[8px] uppercase sm:mb-[12px]'
-                  : 'mb-[6px] ml-[6px]'
+                  ? 'mb-[8px] uppercase tracking-widest sm:mb-[12px]'
+                  : 'mb-[6px] ml-[6px]',
+                labelTextClassName
               )}
             >
               {label}
@@ -738,7 +744,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
               ref={setRefs}
               id={finalId}
               aria-describedby={describedBy}
-              aria-invalid={shownError ? 'true' : 'false'}
+              aria-invalid={shownError ? 'true' : undefined}
               aria-required={props.required ? 'true' : undefined}
               readOnly={type === 'date'}
               value={
@@ -766,7 +772,9 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
                 // and :user-invalid (native constraints, only after the user
                 // interacted), never a pristine required field.
                 'block w-full placeholder-gray-400 transition-shadow duration-200 rounded-xl text-gray-900 dark:text-gray-100 focus:outline-hidden focus:border-brand focus:ring-2 focus:ring-brand/30 dark:focus:border-brand aria-invalid:border-red-500 aria-invalid:focus:ring-red-500/30 dark:aria-invalid:border-red-400 user-invalid:border-red-500 dark:user-invalid:border-red-400 disabled:border-border disabled:bg-muted/10 disabled:text-gray-500 dark:disabled:text-gray-400 disabled:cursor-not-allowed',
-                textControlSizeClasses.input[size],
+                size === 'xs'
+                  ? compactInputSizeClasses
+                  : textControlSizeClasses.input[size],
                 Boolean(icon) && 'pl-[40px]',
                 type === 'date' ? 'pr-[48px] cursor-pointer' : '',
                 type === 'password' ? 'pr-[40px]' : '',

@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState, useRef, useCallback, useEffect, useId } from 'react';
-import { createPortal } from 'react-dom';
 import { cn } from '../../libs/cn';
 import { useTheme } from '../../themes/hooks/use-theme';
 
@@ -74,8 +73,6 @@ function computePosition(
   tooltipRect: DOMRect,
   placement: TooltipPlacement
 ): Position {
-  const scrollX = window.scrollX;
-  const scrollY = window.scrollY;
   const vw = window.innerWidth;
   const vh = window.innerHeight;
 
@@ -93,15 +90,14 @@ function computePosition(
   placements.push(...remaining);
 
   for (const p of placements) {
-    const pos = calcForPlacement(anchorRect, tooltipRect, p, scrollX, scrollY);
-    if (fitsInViewport(pos, tooltipRect, vw, vh, scrollX, scrollY)) {
+    const pos = calcForPlacement(anchorRect, tooltipRect, p);
+    if (fitsInViewport(pos, tooltipRect, vw, vh)) {
       return { ...pos, actualPlacement: p };
     }
   }
 
-  // Fallback: use preferred placement, clamped
   return {
-    ...calcForPlacement(anchorRect, tooltipRect, placement, scrollX, scrollY),
+    ...calcForPlacement(anchorRect, tooltipRect, placement),
     actualPlacement: placement,
   };
 }
@@ -109,12 +105,10 @@ function computePosition(
 function calcForPlacement(
   a: DOMRect,
   t: DOMRect,
-  p: TooltipPlacement,
-  scrollX: number,
-  scrollY: number
+  p: TooltipPlacement
 ): Omit<Position, 'actualPlacement'> {
-  const centerX = a.left + a.width / 2 + scrollX;
-  const centerY = a.top + a.height / 2 + scrollY;
+  const centerX = a.left + a.width / 2;
+  const centerY = a.top + a.height / 2;
 
   let top = 0;
   let left = 0;
@@ -124,14 +118,14 @@ function calcForPlacement(
 
   switch (p) {
     case 'top':
-      top = a.top + scrollY - t.height - OFFSET;
+      top = a.top - t.height - OFFSET;
       left = centerX - t.width / 2;
       arrowTop = t.height - 1;
       arrowLeft = t.width / 2 - ARROW_SIZE;
       arrowRotation = 'rotate(180deg)';
       break;
     case 'bottom':
-      top = a.bottom + scrollY + OFFSET;
+      top = a.bottom + OFFSET;
       left = centerX - t.width / 2;
       arrowTop = -ARROW_SIZE * 2 + 1;
       arrowLeft = t.width / 2 - ARROW_SIZE;
@@ -139,14 +133,14 @@ function calcForPlacement(
       break;
     case 'left':
       top = centerY - t.height / 2;
-      left = a.left + scrollX - t.width - OFFSET;
+      left = a.left - t.width - OFFSET;
       arrowTop = t.height / 2 - ARROW_SIZE;
       arrowLeft = t.width - 1;
       arrowRotation = 'rotate(90deg)';
       break;
     case 'right':
       top = centerY - t.height / 2;
-      left = a.right + scrollX + OFFSET;
+      left = a.right + OFFSET;
       arrowTop = t.height / 2 - ARROW_SIZE;
       arrowLeft = -ARROW_SIZE * 2 + 1;
       arrowRotation = 'rotate(-90deg)';
@@ -160,14 +154,12 @@ function fitsInViewport(
   pos: Omit<Position, 'actualPlacement'>,
   t: DOMRect,
   vw: number,
-  vh: number,
-  scrollX: number,
-  scrollY: number
+  vh: number
 ): boolean {
-  const minX = scrollX;
-  const minY = scrollY;
-  const maxX = scrollX + vw;
-  const maxY = scrollY + vh;
+  const minX = 0;
+  const minY = 0;
+  const maxX = vw;
+  const maxY = vh;
   return (
     pos.left >= minX &&
     pos.left + t.width <= maxX &&
@@ -177,7 +169,7 @@ function fitsInViewport(
 }
 
 /**
- * Tooltip component that uses a React Portal to render above all other DOM elements.
+ * Tooltip component that is always present in the DOM and hidden while closed.
  * Supports configurable placement, arrow, color theme, and enter/leave delays.
  *
  * @example
@@ -246,7 +238,6 @@ export function Tooltip({
     }
   }, [leaveDelay, clearTimers]);
 
-  // Reposition on scroll/resize while visible
   useEffect(() => {
     if (!visible) return;
     updatePosition();
@@ -258,14 +249,12 @@ export function Tooltip({
     };
   }, [visible, updatePosition]);
 
-  // Measure tooltip after it mounts
   useEffect(() => {
     if (visible && tooltipRef.current) {
       updatePosition();
     }
   }, [visible, updatePosition]);
 
-  // Cleanup timers on unmount
   useEffect(() => {
     return clearTimers;
   }, [clearTimers]);
@@ -278,7 +267,6 @@ export function Tooltip({
   const triggerElement = React.cloneElement(child, {
     ref: (node: HTMLElement | null) => {
       anchorRef.current = node;
-      // Forward ref if the child had one
       const childRef = (
         child as React.ReactElement & { ref?: React.Ref<HTMLElement> }
       ).ref;
@@ -304,93 +292,83 @@ export function Tooltip({
       handleHide();
       child.props.onBlur?.(e);
     },
-    'aria-describedby': visible ? tooltipId : undefined,
+    'aria-describedby': tooltipId,
   } as Partial<React.HTMLAttributes<HTMLElement>>);
 
-  const tooltipNode = visible
-    ? createPortal(
-        <div
-          ref={tooltipRef}
-          id={tooltipId}
-          role="tooltip"
+  const tooltipNode = (
+    <div
+      ref={tooltipRef}
+      id={tooltipId}
+      role="tooltip"
+      hidden={!visible}
+      aria-hidden={!visible}
+      className={cn(
+        'fixed z-99999 max-w-xs px-3 py-1.5 text-sm rounded-lg shadow-lg pointer-events-none',
+        'animate-in fade-in duration-150',
+        colorStyles[resolvedColor],
+        className
+      )}
+      style={
+        position
+          ? { top: position.top, left: position.left }
+          : { top: -9999, left: -9999 }
+      }
+    >
+      {content}
+      {arrow && position && (
+        <svg
           className={cn(
-            'fixed z-99999 max-w-xs px-3 py-1.5 text-sm rounded-lg shadow-lg pointer-events-none',
-            'animate-in fade-in duration-150',
-            colorStyles[resolvedColor],
-            className
+            'absolute pointer-events-none',
+            arrowColorStyles[resolvedColor]
           )}
-          style={
-            position
-              ? {
-                  position: 'absolute',
-                  top: position.top,
-                  left: position.left,
-                }
-              : {
-                  position: 'absolute',
-                  top: -9999,
-                  left: -9999,
-                }
-          }
+          style={{
+            top: position.arrowTop,
+            left: position.arrowLeft,
+            transform: position.arrowRotation,
+          }}
+          width={ARROW_SIZE * 2}
+          height={ARROW_SIZE * 2}
+          viewBox={`0 0 ${ARROW_SIZE * 2} ${ARROW_SIZE * 2}`}
         >
-          {content}
-          {arrow && position && (
-            <svg
-              className={cn(
-                'absolute pointer-events-none',
-                arrowColorStyles[resolvedColor]
-              )}
-              style={{
-                top: position.arrowTop,
-                left: position.arrowLeft,
-                transform: position.arrowRotation,
-              }}
-              width={ARROW_SIZE * 2}
-              height={ARROW_SIZE * 2}
-              viewBox={`0 0 ${ARROW_SIZE * 2} ${ARROW_SIZE * 2}`}
-            >
-              <polygon
-                points={`0,0 ${ARROW_SIZE * 2},0 ${ARROW_SIZE},${ARROW_SIZE}`}
-                fill="currentColor"
-              />
-            </svg>
-          )}
-          {/* Border arrow for light variant */}
-          {arrow && position && resolvedColor === 'light' && (
-            <svg
-              className="absolute pointer-events-none text-gray-200 dark:text-gray-700"
-              style={{
-                top:
-                  position.arrowTop +
-                  (actualPlacement === 'top'
-                    ? 1
-                    : actualPlacement === 'bottom'
-                    ? -1
-                    : 0),
-                left:
-                  position.arrowLeft +
-                  (actualPlacement === 'left'
-                    ? 1
-                    : actualPlacement === 'right'
-                    ? -1
-                    : 0),
-                transform: position.arrowRotation,
-                zIndex: -1,
-              }}
-              width={ARROW_SIZE * 2}
-              height={ARROW_SIZE * 2}
-              viewBox={`0 0 ${ARROW_SIZE * 2} ${ARROW_SIZE * 2}`}
-            >
-              <polygon
-                points={`0,0 ${ARROW_SIZE * 2},0 ${ARROW_SIZE},${ARROW_SIZE}`}
-                fill="currentColor"
-              />
-            </svg>
-          )}
-        </div>,
-        document.body
-      )
-    : null;
+          <polygon
+            points={`0,0 ${ARROW_SIZE * 2},0 ${ARROW_SIZE},${ARROW_SIZE}`}
+            fill="currentColor"
+          />
+        </svg>
+      )}
+      {arrow && position && resolvedColor === 'light' && (
+        <svg
+          className="absolute pointer-events-none text-gray-200 dark:text-gray-700"
+          style={{
+            top:
+              position.arrowTop +
+              (actualPlacement === 'top'
+                ? 1
+                : actualPlacement === 'bottom'
+                ? -1
+                : 0),
+            left:
+              position.arrowLeft +
+              (actualPlacement === 'left'
+                ? 1
+                : actualPlacement === 'right'
+                ? -1
+                : 0),
+            transform: position.arrowRotation,
+            zIndex: -1,
+          }}
+          width={ARROW_SIZE * 2}
+          height={ARROW_SIZE * 2}
+          viewBox={`0 0 ${ARROW_SIZE * 2} ${ARROW_SIZE * 2}`}
+        >
+          <polygon
+            points={`0,0 ${ARROW_SIZE * 2},0 ${ARROW_SIZE},${ARROW_SIZE}`}
+            fill="currentColor"
+          />
+        </svg>
+      )}
+    </div>
+  );
 
   return (
     <>

@@ -76,15 +76,17 @@
 /* The `dark` variant is defined once for the whole tree in theme.css
    (@custom-variant dark) — this file is always reached through it. */
 
-/* Apply modern font to all table elements */
-[data-testid='table'],
-[data-testid='table-wrapper'],
-[data-testid='table-container'],
-[data-testid='table-row'],
-[data-testid='table-cell'],
-[data-testid='table-header'],
-[data-testid='table-rowheader'] {
-  font-family: var(--font-family-table);
+@layer components {
+  /* Apply modern font to all table elements */
+  [data-testid='table'],
+  [data-testid='table-wrapper'],
+  [data-testid='table-container'],
+  [data-testid='table-row'],
+  [data-testid='table-cell'],
+  [data-testid='table-header'],
+  [data-testid='table-rowheader'] {
+    font-family: var(--font-family-table);
+  }
 }
 
 /* Custom animation keyframes */

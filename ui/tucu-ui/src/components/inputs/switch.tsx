@@ -70,6 +70,7 @@ export interface SwitchProps {
   errorMessage?: string;
   helperText?: string;
   disabled?: boolean;
+  'aria-label'?: string;
 }
 
 export const Switch: React.FC<SwitchProps> = ({
@@ -84,6 +85,7 @@ export const Switch: React.FC<SwitchProps> = ({
   errorMessage,
   helperText,
   disabled,
+  'aria-label': ariaLabel,
 }) => {
   const t = useTucuMessages().switch;
   const resolvedOffLabel = offLabel === undefined ? t.off : offLabel;
@@ -131,6 +133,7 @@ export const Switch: React.FC<SwitchProps> = ({
           data-tucu="switch-control"
           type="checkbox"
           role="switch"
+          aria-label={ariaLabel}
           aria-checked={checked}
           checked={checked}
           onChange={(e) => onChange(e.target.checked)}

@@ -23,6 +23,38 @@ import { RowSelectionColumn } from '../common/helpers/RowSelectionColumn';
  * @template TValue - The type of the value in the table.
  */
 
+const isColumnVisible = (
+  column: ColumnDef<unknown, unknown>,
+  columnVisibility: VisibilityState
+): boolean => columnVisibility[column?.id ?? ''] !== false;
+
+export function distributeLeftoverColumnWidth<TData = RowData, TValue = unknown>({
+  columns,
+  containerWidth,
+  offset = 0,
+  columnVisibility,
+}: {
+  columns: Array<ColumnDef<TData, TValue>>;
+  containerWidth: number;
+  offset?: number;
+  columnVisibility: VisibilityState;
+}): number {
+  const visibleColumns = (columns ?? []).filter(
+    (column) =>
+      column?.enableVisible !== false &&
+      isColumnVisible(column as ColumnDef<unknown, unknown>, columnVisibility)
+  );
+  const explicitSizeTotal = visibleColumns.reduce(
+    (total, column) => total + (column?.size ?? 0),
+    offset
+  );
+  const fluidColumnCount = visibleColumns.filter(
+    (column) => column?.size === undefined
+  ).length;
+  if (fluidColumnCount === 0) return 0;
+  return Math.max((containerWidth - explicitSizeTotal) / fluidColumnCount, 0);
+}
+
 export function getColumns<TData = RowData, TValue = unknown>({
   columns,
   containerWidth,
@@ -42,19 +74,12 @@ export function getColumns<TData = RowData, TValue = unknown>({
 }): Array<ColumnDef<TData, TValue>> {
   let OutputColumns: Array<ColumnDef<TData, TValue>> = columns;
 
-  const OutputVisibleColumns: Array<ColumnDef<TData, TValue>> = columns?.filter(
-    (column) => columnVisibility[column?.id ?? '']
-  );
-
-  const initialOffsetColumnSize = OutputVisibleColumns?.reduce(
-    (acc, current) => {
-      if (current?.size) {
-        return acc + current.size;
-      }
-      return acc;
-    },
-    offset
-  );
+  const fluidColumnWidth = distributeLeftoverColumnWidth({
+    columns,
+    containerWidth,
+    offset,
+    columnVisibility,
+  });
 
   if (isSubComponent) {
     // add to first columns the ExpandedColumn
@@ -77,19 +102,12 @@ export function getColumns<TData = RowData, TValue = unknown>({
       RowActionsColumn as ColumnDef<TData, TValue>,
     ];
   }
-  const columnsLength = OutputVisibleColumns?.filter((column) => {
-    if (column?.enableVisible === false) return false;
-    return column?.size === undefined;
-  }).length;
-
-  const maxWidth = containerWidth - initialOffsetColumnSize;
-
   return OutputColumns?.map((column) => {
     const enableDraggable = column?.enableDraggable !== false;
     return {
       ...column,
       enableDraggable,
-      size: column?.size ?? maxWidth / columnsLength,
+      size: column?.size ?? Math.max(fluidColumnWidth, column?.minSize ?? 0),
     };
   });
 }

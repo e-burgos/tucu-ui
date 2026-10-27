@@ -68,6 +68,11 @@ export interface TucuMessages {
   dialog: {
     close: string;
   };
+  themeMode: {
+    label: string;
+    switchToDark: string;
+    switchToLight: string;
+  };
   accessDenied: {
     title: string;
     description: string;
@@ -137,6 +142,11 @@ export const TUCU_MESSAGES: Record<TucuLang, TucuMessages> = {
     dialog: {
       close: 'Close',
     },
+    themeMode: {
+      label: 'Mode',
+      switchToDark: 'Switch to dark mode',
+      switchToLight: 'Switch to light mode',
+    },
     accessDenied: {
       title: 'Access denied',
       description: 'You are not authorized to access this page. Go back to the home page.',
@@ -204,6 +214,11 @@ export const TUCU_MESSAGES: Record<TucuLang, TucuMessages> = {
     dialog: {
       close: 'Cerrar',
     },
+    themeMode: {
+      label: 'Modo',
+      switchToDark: 'Cambiar a modo oscuro',
+      switchToLight: 'Cambiar a modo claro',
+    },
     accessDenied: {
       title: 'Acceso denegado',
       description: 'No tenés permiso para ver esta página. Volvé a la página de inicio.',
@@ -270,6 +285,11 @@ export const TUCU_MESSAGES: Record<TucuLang, TucuMessages> = {
     },
     dialog: {
       close: 'Fermer',
+    },
+    themeMode: {
+      label: 'Mode',
+      switchToDark: 'Passer en mode sombre',
+      switchToLight: 'Passer en mode clair',
     },
     accessDenied: {
       title: 'Accès refusé',

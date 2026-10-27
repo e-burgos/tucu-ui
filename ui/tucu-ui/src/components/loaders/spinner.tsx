@@ -11,7 +11,7 @@ const colors = {
 };
 
 interface SpinnerProps {
-  size?: 'sm' | 'md' | 'lg';
+  size?: 'xs' | 'sm' | 'md' | 'lg';
   color?: keyof typeof colors;
 }
 
@@ -24,6 +24,7 @@ export const Spinner: React.FC<SpinnerProps> = ({
       <div
         className={cn(
           'border-4 border-t-4 border-border rounded-full animate-spin',
+          size === 'xs' && 'w-3 h-3 border-2 border-t-2',
           size === 'sm' && 'w-4 h-4',
           size === 'md' && 'w-6 h-6',
           size === 'lg' && 'w-8 h-8',

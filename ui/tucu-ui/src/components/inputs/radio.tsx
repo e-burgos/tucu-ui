@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef, useId } from 'react';
 
 import { cn } from '../../libs/cn';
 import { FieldError } from './helpers/field-error-text';
@@ -153,10 +153,13 @@ export const Radio = forwardRef<HTMLInputElement, RadioProps>(
       inputClassName,
       errorClassName,
       helperClassName,
+      id,
       ...radioProps
     },
     ref
   ) => {
+    const generatedId = useId();
+    const finalId = id || generatedId;
     const colorClasses = color
       ? inputClasses.variant[variant].color[color]
       : inputClasses.variant[variant].defaultColor;
@@ -164,16 +167,18 @@ export const Radio = forwardRef<HTMLInputElement, RadioProps>(
     return (
       <div className={cn('flex flex-col', className, activeClassName)}>
         <label
+          htmlFor={finalId}
           className={cn(
-            'flex flex-row items-center',
+            'flex flex-row items-start',
             disabled && 'cursor-not-allowed',
             containerClassName
           )}
         >
-          <div className="relative inline-flex items-center justify-center">
+          <div className="relative mt-0.5 inline-flex items-center justify-center">
             <input
               type="radio"
               ref={ref}
+              id={finalId}
               data-tucu="radio"
               data-variant={variant}
               data-size={size}

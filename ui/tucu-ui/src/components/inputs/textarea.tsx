@@ -21,6 +21,8 @@ export const textareaVariantClasses = {
   transparent: '',
 };
 
+const compactTextareaSizeClasses = 'min-h-14 px-2 py-1 text-xs';
+
 export type TextareaProps = React.DetailedHTMLProps<
   React.TextareaHTMLAttributes<HTMLTextAreaElement>,
   HTMLTextAreaElement
@@ -33,7 +35,11 @@ export type TextareaProps = React.DetailedHTMLProps<
   useUppercaseLabel?: boolean;
   helperText?: string;
   color?: ControlColor;
-  size?: TextControlSize;
+  /** Control size. `xs` is a compact control. Defaults to `md`. */
+  size?: TextControlSize | 'xs';
+  /** Extra classes for the outer container (merged with `className`) */
+  wrapperClassName?: string;
+  labelTextClassName?: string;
 };
 
 export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
@@ -45,6 +51,8 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
       variant = 'ghost',
       className,
       inputClassName,
+      wrapperClassName,
+      labelTextClassName,
       useUppercaseLabel,
       helperText,
       color,
@@ -58,15 +66,16 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
     const textareaId = id || generatedId;
     const messageId = `${textareaId}-message`;
     return (
-    <div className={cn('text-sm sm:text-sm', className)}>
+    <div className={cn('text-sm sm:text-sm', className, wrapperClassName)}>
       <label>
         {label && (
           <span
             className={cn(
-              'block font-medium tracking-widest text-gray-800 dark:text-gray-100',
+              'block font-medium text-gray-800 dark:text-gray-100',
               useUppercaseLabel
-                ? 'mb-[8px] uppercase sm:mb-[12px]'
-                : 'mb-[6px] ml-[6px]'
+                ? 'mb-[8px] uppercase tracking-widest sm:mb-[12px]'
+                : 'mb-[6px] ml-[6px]',
+              labelTextClassName
             )}
           >
             {label}
@@ -90,7 +99,9 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
           {...props}
           className={cn(
             'block w-full placeholder-gray-500 transition-shadow duration-200 focus:outline-hidden focus:border-brand focus-visible:outline-2 focus-visible:outline-brand aria-invalid:border-red-500 dark:aria-invalid:border-red-400 user-invalid:border-red-500 dark:user-invalid:border-red-400 disabled:border-border disabled:bg-muted/10 disabled:text-gray-500 dark:disabled:text-gray-400 disabled:cursor-not-allowed dark:text-gray-100 rounded-xl',
-            textControlSizeClasses.textarea[size],
+            size === 'xs'
+              ? compactTextareaSizeClasses
+              : textControlSizeClasses.textarea[size],
             textareaVariantClasses[variant],
             color && textControlColorClasses[variant][color],
             props.disabled ? 'bg-muted/10! cursor-not-allowed' : '',
