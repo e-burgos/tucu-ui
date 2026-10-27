@@ -29,6 +29,34 @@ or
 pnpm install @e-burgos/tucu-ui
 `;
 
+  const nextInstallation = `pnpm add @e-burgos/tucu-ui next react react-dom`;
+
+  const nextLayoutExample = `// app/layout.tsx
+import { LucideIcons } from '@e-burgos/tucu-ui';
+import { NextThemeProvider } from '@e-burgos/tucu-ui/next';
+import './globals.css';
+
+const menuItems = [
+  { name: 'Dashboard', path: '/', icon: <LucideIcons.LayoutDashboard /> },
+];
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en" suppressHydrationWarning>
+      <body>
+        <NextThemeProvider logo={{ name: 'My App' }} layout="admin" menuItems={menuItems}>
+          {children}
+        </NextThemeProvider>
+      </body>
+    </html>
+  );
+}`;
+
+  const nextGlobalsCss = `/* app/globals.css */
+@import 'tailwindcss';
+@import '@e-burgos/tucu-ui/theme';
+@source '../node_modules/@e-burgos/tucu-ui';`;
+
   const keyFeatures = [
     {
       icon: (
@@ -868,6 +896,31 @@ export default defineConfig({
                     language="tsx"
                     code={BasicUsageWithCustomRouterExampleCode}
                   />
+                </div>
+
+                {/* Next.js */}
+                <div className="space-y-3">
+                  <Typography tag="h5">Next.js (App Router)</Typography>
+                  <Alert variant="info" dismissible={false}>
+                    <Typography tag="p">
+                      Requires next &gt;=16. NextThemeProvider comes from
+                      @e-burgos/tucu-ui/next and replaces ThemeProvider; the
+                      react-router namespace and routing hooks are for Vite
+                      apps only.
+                    </Typography>
+                  </Alert>
+                  <CodeBlock language="bash" code={nextInstallation} />
+                  <CodeBlock language="tsx" code={nextLayoutExample} />
+                  <CodeBlock language="css" code={nextGlobalsCss} />
+                  <Alert variant="warning" dismissible={false}>
+                    <Typography tag="p">
+                      <strong>Server/client boundary.</strong> Components can
+                      be imported from Server Components, but functions (a
+                      DataTable cell, onClick, render props) cannot cross the
+                      boundary: define them inside a 'use client' component of
+                      your app. Static export (output: 'export') works.
+                    </Typography>
+                  </Alert>
                 </div>
 
                 {/* Live Demo */}

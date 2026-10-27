@@ -5,6 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.4.0] - 2026-10-27
+
+### Added
+
+- Next.js 16 App Router support via `@e-burgos/tucu-ui/next` (`NextThemeProvider`, ESM-only, optional peer `next >=16`); static export works.
+- Navigation layer (`useTucuNavigation`) decoupled from react-router; links, active state and layouts resolve through the provider (react-router in Vite apps, `next/navigation` and `next/link` in Next).
+- `'use client'` directive per ESM module, so components can be imported from Server Components.
+- `apps/next-demo`: Next 16 static-export app consuming the built package, with an e2e check.
+
+### Fixed
+
+- SSR-safe hooks: no `window`/`document` access during server render.
+- `DataTable` no longer reads `document` during render.
+
+No breaking changes for 3.x Vite apps: the react-router entry, `ThemeProvider` and all existing exports behave as in 3.3.0.
+
 ## [3.3.0] - 2026-10-16
 
 ### Added
