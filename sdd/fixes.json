@@ -1,0 +1,8 @@
+{
+  "$schema": "./schemas/fixes.schema.json",
+  "_description": "Global fixes index. Each fix maps to its owning spec via spec_id. Fixes not tied to a spec have spec_id: null and live in sdd/fixes.md. Spec-scoped fixes live in sdd/specs/{spec-id}/fixes.md. Maintained by: sdd-orchestrator.",
+  "_version": "3.0.0",
+  "_convention": "Fix ID format: FIX-[gh-user]-[spec-NNN]-[seq] for spec-scoped fixes. FIX-[gh-user]-[seq] for repo-level fixes.",
+  "_keywords": ["[FIX]", "[BUGFIX]", "[HOTFIX]", "[IMPROVEMENT]"],
+  "fixes": []
+}

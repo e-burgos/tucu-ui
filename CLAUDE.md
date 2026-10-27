@@ -1,1 +1,1 @@
-AGENTS.md
+sdd/dual-harness/CLAUDE.md

@@ -1,0 +1,113 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "sdd/schemas/specs-index.schema.json",
+  "title": "SDD Specs Registry (sdd/specs/index.json)",
+  "description": "Central spec registry. Append-only for new specs; status/completed_at are the only mutable fields of an existing entry. Lifecycle: draft (created by harness add spec, no cycle yet) → in-progress (sdd-orchestrator opens cycle-01) → completed (sdd-reviewer on close) | cancelled.",
+  "type": "object",
+  "required": [
+    "specs"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "_comment": {
+      "type": "string"
+    },
+    "_convention": {
+      "type": "string"
+    },
+    "specs": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/SpecEntry"
+      }
+    }
+  },
+  "definitions": {
+    "SpecEntry": {
+      "type": "object",
+      "required": [
+        "id",
+        "author",
+        "slug",
+        "folder",
+        "file",
+        "module",
+        "app",
+        "status",
+        "title",
+        "created_at",
+        "completed_at",
+        "depends_on"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^spec-[a-z0-9-]+-\\d{3}-[a-z0-9-]+$"
+        },
+        "author": {
+          "type": "string",
+          "minLength": 1
+        },
+        "slug": {
+          "type": "string",
+          "pattern": "^[a-z0-9-]+$"
+        },
+        "folder": {
+          "type": "string",
+          "pattern": "^sdd/specs/spec-[a-z0-9-]+$"
+        },
+        "file": {
+          "type": "string",
+          "pattern": "^sdd/specs/spec-[a-z0-9-]+/spec-[a-z0-9-]+\\.spec\\.md$"
+        },
+        "module": {
+          "type": "string",
+          "minLength": 1
+        },
+        "app": {
+          "type": "string",
+          "pattern": "^(apps|libs|tools)/[a-z][a-z0-9-]*$"
+        },
+        "status": {
+          "enum": [
+            "draft",
+            "in-progress",
+            "completed",
+            "cancelled"
+          ],
+          "description": "draft: spec written or being written, no cycle opened yet (initial value since v0.11.0; the orchestrator switches it to in-progress when it creates cycle-01). Indexes written before v0.11.0 have in-progress for such specs — the validator suggests the migration, it never rewrites data."
+        },
+        "title": {
+          "type": "string",
+          "maxLength": 120
+        },
+        "created_at": {
+          "type": "string",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+        },
+        "completed_at": {
+          "oneOf": [
+            {
+              "type": "string",
+              "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "depends_on": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^spec-[a-z0-9-]+-\\d{3}-[a-z0-9-]+$"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,11 @@
+packages:
+  - 'apps/*'
+  - 'libs/*'
+  - 'tools/*'
+
+# pnpm 10+ blocks lifecycle scripts by default. Only these are allowed to run.
+# Add a package here only after checking why it needs a postinstall.
+onlyBuiltDependencies:
+  - '@swc/core'
+  - esbuild
+  - nx

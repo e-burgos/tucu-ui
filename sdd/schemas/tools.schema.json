@@ -1,0 +1,50 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "sdd/schemas/tools.schema.json",
+  "title": "SDD Tools (sdd/tools.json)",
+  "description": "Interruptores de las herramientas auxiliares que el kit deja operativas por defecto. Es un archivo de DATOS del proyecto: `harness update sdd` jamás lo pisa. Gobierna rtk (compresión de la salida de comandos que leen los agentes) y el mod de Claude Code (claude_mod); el sdd-steward lo apaga o prende a pedido del dev.",
+  "type": "object",
+  "required": ["rtk"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "_description": { "type": "string" },
+    "rtk": {
+      "type": "object",
+      "required": ["enabled"],
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "false → el puente sdd/scripts/rtk-hook.mjs deja pasar todos los comandos sin tocar (los hooks quedan instalados pero inertes)."
+        },
+        "auto_install": {
+          "type": "boolean",
+          "description": "false → setup-rtk.mjs nunca descarga el binario (repos sin salida a GitHub); el dev lo instala a mano y el puente lo encuentra en el PATH."
+        },
+        "version": {
+          "type": "string",
+          "pattern": "^\\d+\\.\\d+\\.\\d+$",
+          "description": "Fija una versión de rtk distinta de la que pinnea el kit (sdd/scripts/rtk-common.mjs)."
+        }
+      }
+    },
+    "claude_mod": {
+      "type": "object",
+      "required": ["enabled"],
+      "additionalProperties": false,
+      "description": "Mod de Claude Code que vive en sdd/skills/sdd-mod/ (Claude lo carga solo desde .claude/skills/). Opcional y solo para Claude Code: el resto de los agentes siguen las mismas reglas desde AGENTS.md y sdd:validate.",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "false (default) → el mod queda cargado pero inerte: sin franja, sin gate. Se relee en cada turno, no hace falta reiniciar."
+        },
+        "gate": {
+          "type": "string",
+          "enum": ["block", "warn"],
+          "description": "block (default) → sin ciclo in-progress ni fix abierto, Edit/Write/NotebookEdit sobre código se rechazan. warn → se permiten con un aviso."
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,223 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "sdd/schemas/cycle-tasks.schema.json",
+  "title": "SDD Per-Cycle Tasks (sdd/specs/{spec-id}/cycles/cycle-XX/tasks.json)",
+  "description": "Canonical task registry of one cycle. Created by sdd-planner, task statuses updated by sdd-implementor-*, closed by sdd-reviewer. The root sdd/tasks.json is only an index over these files.",
+  "type": "object",
+  "required": [
+    "spec",
+    "cycle",
+    "module",
+    "apps",
+    "flow",
+    "user_stories_generated",
+    "prerequisites",
+    "tasks"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "spec": {
+      "type": "string",
+      "pattern": "^spec-[a-z0-9-]+-\\d{3}-[a-z0-9-]+$"
+    },
+    "cycle": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "module": {
+      "type": "string",
+      "minLength": 1
+    },
+    "apps": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "pattern": "^(apps|libs|tools)/[a-z][a-z0-9-]*$"
+      }
+    },
+    "flow": {
+      "enum": [
+        "full",
+        "reduced",
+        "lite"
+      ],
+      "description": "full = complete SDD cycle (functional/planner/architect). reduced = structural refactor without user stories. lite = single-actor cycle driven by plan.md. Tasks may have empty user_stories only in reduced and lite."
+    },
+    "user_stories_generated": {
+      "type": "boolean"
+    },
+    "prerequisites": {
+      "type": "object",
+      "required": [
+        "tasks_generated"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "tasks_generated": {
+          "type": "boolean"
+        }
+      }
+    },
+    "tasks": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/TaskEntry"
+      }
+    }
+  },
+  "definitions": {
+    "usageSource": {
+      "type": "string",
+      "enum": [
+        "session-report",
+        "stats-command",
+        "api-usage",
+        "agent-usage-notification",
+        "declared-estimate"
+      ],
+      "description": "Where the number came from. session-report: the harness session usage report (Claude Code main loop). stats-command: /stats (Gemini CLI). api-usage: usage returned by the model API. agent-usage-notification: the exact per-subagent count the harness reports to the parent when a subagent finishes (Claude Code Agent tool: <usage><subagent_tokens>N</subagent_tokens>…</usage>) — exact, approx: false. declared-estimate: the agent declared an order-of-magnitude estimate because the harness exposes no counter (Copilot, Antigravity, Gemini CLI subagents) — MUST pair with approx: true."
+    },
+    "TaskEntry": {
+      "type": "object",
+      "required": [
+        "id",
+        "title",
+        "user_stories",
+        "estimation_hours",
+        "story_points",
+        "depends_on",
+        "status",
+        "files"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^TASK(-[A-Z]+)?(-\\d+)+$",
+          "description": "Convention for new cycles: TASK-[NNN] (e.g. TASK-001). Scope is this file, so no cycle/spec prefix is needed. Legacy formats are tolerated by the pattern."
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "user_stories": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "HU/US ids from functional.md. Empty array only for flow: reduced."
+        },
+        "estimation_hours": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "story_points": {
+          "enum": [
+            1,
+            2,
+            3,
+            5,
+            8,
+            13
+          ]
+        },
+        "depends_on": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^TASK(-[A-Z]+)?(-\\d+)+$"
+          }
+        },
+        "status": {
+          "enum": [
+            "pending",
+            "in-progress",
+            "done",
+            "skipped"
+          ]
+        },
+        "files": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "usage": {
+          "type": "object",
+          "required": [
+            "tokens_in",
+            "tokens_out"
+          ],
+          "additionalProperties": false,
+          "description": "Telemetry for this task, recorded by the agent that executed it WHEN IT CLOSES the task (never reconstructed later). Since v0.11.0 provider_model, tokens_in, tokens_out, approx and source are mandatory in the protocol — the orchestrator does not mark a task done without them and the validator errors on cycles completed from 2026-09-02 that lack them (older records keep validating with the legacy model_tier). With no counter available (Copilot, Antigravity) record a declared estimate with approx: true — never omit. Feeds the viewer's Costs dashboard.",
+          "properties": {
+            "provider_model": {
+              "type": "string",
+              "pattern": "^(haiku|sonnet|opus|fable|(claude|gemini|copilot)/[a-z0-9][a-z0-9.-]*)$",
+              "description": "Provider-namespaced model actually used (claude/sonnet, gemini/flash, copilot/gpt-5-mini). Mandatory since v0.11.0 (the validator errors on units closed from that date without it); model_tier is the pre-0.11 name and is still read as an alias."
+            },
+            "model_tier": {
+              "type": "string",
+              "pattern": "^(haiku|sonnet|opus|fable|(claude|gemini|copilot)/[a-z0-9][a-z0-9.-]*)$",
+              "description": "Legacy alias of provider_model (kits before v0.11.0). Prefer provider_model. Bare legacy values (haiku|sonnet|opus|fable) are read as claude/*."
+            },
+            "effort": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9-]*$",
+              "description": "Effort / thinking level declared BEFORE executing (Claude: low|medium|high|xhigh|max; Gemini: minimal|low|medium|high; none when the harness exposes no control)."
+            },
+            "agent": {
+              "type": "string",
+              "enum": [
+                "functional",
+                "planner",
+                "architect",
+                "implementor-back",
+                "implementor-front",
+                "reviewer",
+                "orchestrator",
+                "steward",
+                "hermes",
+                "custom"
+              ],
+              "description": "SDD role that executed this task."
+            },
+            "tokens_in": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "tokens_out": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "tokens_total": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Exact total when the source reports a single number (agent-usage-notification). tokens_in/tokens_out then carry the documented default split (85/15) so the cost formula still works; the viewer shows tokens_total."
+            },
+            "duration_minutes": {
+              "type": "number",
+              "minimum": 0
+            },
+            "approx": {
+              "type": "boolean",
+              "description": "true when the numbers are a declared estimate rather than a counter reading. Mandatory (explicit) since v0.11.0; absent is read as false (measured) for older records."
+            },
+            "source": {
+              "$ref": "#/definitions/usageSource"
+            },
+            "recorded_at": {
+              "type": "string",
+              "pattern": "^\\d{4}-\\d{2}-\\d{2}(T[0-9:.]+Z?)?$",
+              "description": "When the unit closed (date or ISO datetime)."
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SDD Docs</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="sidebar-backdrop" class="sidebar-backdrop" hidden></div>
+    <aside id="nav" class="sidebar">
+      <div class="sidebar-header">
+        <div class="brand">
+          <span class="brand-mark">S</span>
+          <div class="brand-text">
+            <p class="brand-title">SDD Docs</p>
+            <p class="brand-subtitle" id="brand-project"></p>
+          </div>
+        </div>
+        <button
+          id="sidebar-close"
+          class="icon-button sidebar-close"
+          type="button"
+          aria-label="Cerrar menú"
+          aria-controls="nav"
+        >
+          <svg
+            viewBox="0 0 16 16"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            aria-hidden="true"
+          >
+            <line x1="2" y1="2" x2="14" y2="14" />
+            <line x1="14" y1="2" x2="2" y2="14" />
+          </svg>
+        </button>
+      </div>
+      <nav
+        id="nav-sections"
+        class="nav-sections"
+        aria-label="Navegación principal"
+      ></nav>
+      <div class="sidebar-footer">
+        <div id="live-indicator" class="live-indicator"></div>
+        <button
+          class="lang-toggle"
+          type="button"
+          aria-label="Cambiar idioma"
+        ></button>
+      </div>
+    </aside>
+    <div class="app-shell">
+      <header id="topbar" class="topbar">
+        <button
+          id="menu-button"
+          class="icon-button"
+          type="button"
+          aria-label="Abrir menú"
+          aria-controls="nav"
+          aria-expanded="false"
+        >
+          <svg
+            viewBox="0 0 16 16"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            aria-hidden="true"
+          >
+            <line x1="1.5" y1="4" x2="14.5" y2="4" />
+            <line x1="1.5" y1="8" x2="14.5" y2="8" />
+            <line x1="1.5" y1="12" x2="14.5" y2="12" />
+          </svg>
+        </button>
+        <span class="topbar-title">SDD Docs</span>
+        <button
+          class="lang-toggle"
+          type="button"
+          aria-label="Cambiar idioma"
+        ></button>
+      </header>
+      <main class="main">
+        <div id="view" class="view" aria-live="polite">
+          <p class="initial-state">Cargando SDD Docs…</p>
+        </div>
+      </main>
+    </div>
+    <noscript>
+      <p class="noscript-message">
+        Esta aplicación necesita JavaScript habilitado para funcionar.
+      </p>
+    </noscript>
+    <script type="module" src="app.js" defer></script>
+  </body>
+</html>

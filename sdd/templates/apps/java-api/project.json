@@ -1,0 +1,52 @@
+{
+  "name": "example-api",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "tags": ["scope:api", "type:app", "lang:java"],
+  "targets": {
+    "build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "mvn package -DskipTests",
+        "cwd": "apps/example-api"
+      },
+      "inputs": ["{projectRoot}/src/**/*", "{projectRoot}/pom.xml"],
+      "outputs": ["{projectRoot}/target"]
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "mvn test",
+        "cwd": "apps/example-api"
+      },
+      "inputs": ["{projectRoot}/src/**/*", "{projectRoot}/pom.xml"],
+      "outputs": [
+        "{projectRoot}/target/surefire-reports",
+        "{projectRoot}/target/jacoco.exec"
+      ]
+    },
+    "serve": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "mvn spring-boot:run -Dspring-boot.run.arguments=\"--spring.profiles.active=local\"",
+        "cwd": "apps/example-api"
+      }
+    },
+    "lint": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "mvn checkstyle:check",
+        "cwd": "apps/example-api"
+      },
+      "inputs": ["{projectRoot}/src/**/*.java", "{projectRoot}/pom.xml"]
+    },
+    "coverage": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "mvn verify",
+        "cwd": "apps/example-api"
+      },
+      "outputs": ["{projectRoot}/target/site/jacoco"]
+    }
+  }
+}

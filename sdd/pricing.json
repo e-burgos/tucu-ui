@@ -1,0 +1,20 @@
+{
+  "$schema": "./schemas/pricing.schema.json",
+  "_description": "Tarifas para el dashboard de costos del visor SDD (sdd/docs → Costos). Editable por el equipo: ajustar la tarifa hora tradicional y los precios por modelo a los valores vigentes. Claves con namespace de proveedor (claude/*, gemini/*, copilot/*); los precios son USD por millón de tokens. Claude y Gemini: API first-party. Copilot: tarifas públicas por modelo del billing por uso (AI Credits, 1 crédito = USD 0,01) — verificar contra docs.github.com/copilot/reference/copilot-billing/models-and-pricing. Gemini Pro sube a 4/18 con contexto >200K.",
+  "currency": "USD",
+  "traditional_hourly_rate": 50,
+  "model_prices_per_mtok": {
+    "claude/haiku": { "input": 1, "output": 5 },
+    "claude/sonnet": { "input": 3, "output": 15 },
+    "claude/opus": { "input": 5, "output": 25 },
+    "claude/fable": { "input": 10, "output": 50 },
+    "gemini/flash-lite": { "input": 0.25, "output": 1.5 },
+    "gemini/flash": { "input": 0.5, "output": 3 },
+    "gemini/pro": { "input": 2, "output": 12 },
+    "copilot/gpt-5-mini": { "input": 0.25, "output": 2 },
+    "copilot/claude-sonnet": { "input": 3, "output": 15 },
+    "copilot/claude-opus": { "input": 5, "output": 25 },
+    "copilot/gemini-flash": { "input": 1.5, "output": 9 }
+  },
+  "prices_updated_at": "2026-08-18"
+}

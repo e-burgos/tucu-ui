@@ -1,0 +1,158 @@
+project:
+  version: '@project.version@'
+
+server:
+  servlet:
+    context-path: '/example-api'
+  shutdown: graceful
+  error:
+    include-message: always
+
+spring:
+  application:
+    name: example-api
+  config:
+    import: optional:configserver:${CONFIG_SERVER_ADDR:http://localhost:8081}/config
+  cloud:
+    config:
+      enabled: ${CONFIG_SERVER_ENABLED:false}
+      fail-fast: true
+      retry:
+        max-attempts: 20
+        max-interval: 15000
+        initial-interval: 10000
+    bus:
+      enabled: ${REFRESH_ENABLED:false}
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+  lifecycle:
+    timeout-per-shutdown-phase: ${GRACEFUL_SHUTDOWN_TIMEOUT:60s}
+  jpa:
+    open-in-view: false
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+      probes:
+        enabled: true
+  health:
+    redis:
+      enabled: false
+
+parameter:
+  idempotency:
+    redis:
+      host: ${REDIS_SERVER:localhost}
+      port: ${REDIS_PORT:6379}
+      use-ssl: ${REDIS_SSL:false}
+      password: ${REDIS_PASSWORD:}
+    ttl-seconds: ${REDIS_TTL_SECONDS:60}
+    microservice-name: example-api
+
+external-apis:
+  apis:
+    products:
+      base-url: ${PRODUCTS_EXTERNAL_API_URL:http://localhost:9090/external-api}
+      connection-timeout: ${PRODUCTS_CONNECTION_TIMEOUT:5000}
+      read-timeout: ${PRODUCTS_READ_TIMEOUT:30000}
+      max-retries: ${PRODUCTS_MAX_RETRIES:3}
+      retry-delay: ${PRODUCTS_RETRY_DELAY:1000}
+
+token:
+  signer:
+    key: ${TOKEN_SIGNER_KEY:ChangeMeLocalDevKey0123456789012345678901}
+
+webclient:
+  connection-pool:
+    max-connections: ${WEBCLIENT_MAX_CONNECTIONS:50}
+    max-idle-time: ${WEBCLIENT_MAX_IDLE_TIME:20}
+    max-life-time: ${WEBCLIENT_MAX_LIFE_TIME:60}
+
+springdoc:
+  writer-with-order-by-keys: true
+  api-docs:
+    resolve-schema-properties: true
+    path: /v3/api-docs
+    enabled: true
+  swagger-ui:
+    operations-sorter: 'method'
+    tags-sorter: 'alpha'
+    disable-swagger-default-url: true
+    showExtensions: true
+    path: /swagger-ui.html
+    enabled: true
+
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+  cloud:
+    config:
+      enabled: false
+  # liquibase:
+  #   enabled: false
+  datasource:
+    url: jdbc:hsqldb:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driver-class-name: org.hsqldb.jdbc.JDBCDriver
+    username: sa
+    password:
+  jpa:
+    database-platform: org.hibernate.dialect.HSQLDialect
+    hibernate:
+      ddl-auto: create
+    defer-datasource-initialization: true
+  sql:
+    init:
+      platform: hsqldb
+      continue-on-error: false
+      mode: always
+
+server:
+  port: 8195
+
+---
+spring:
+  config:
+    activate:
+      on-profile: qa, docker
+  # liquibase:
+  #   change-log: classpath:db/master.xml
+  #   contexts: qa
+  #   enabled: true
+  sql:
+    init:
+      platform: mysql
+      mode: never
+  datasource:
+    url: jdbc:mysql://${PROJECT_SQL_SERVER}:${PROJECT_SQL_PORT}/${PROJECT_SQL_DATABASE}?zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true&socketTimeout=${PROJECT_SQL_SOCKET_TIMEOUT:600000}&serverTimezone=${PROJECT_TIME_ZONE:#{'GMT'}}
+    username: ${PROJECT_SQL_USER}
+    password: ${PROJECT_SQL_PASSWORD}
+    hikari:
+      maximum-pool-size: ${MAX_POOL_DB}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    reader:
+      enabled: true
+      name: reader
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://${PROJECT_SQL_READER_SERVER}:${PROJECT_SQL_READER_PORT}/${PROJECT_SQL_DATABASE}?zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true&socketTimeout=${PROJECT_SQL_SOCKET_TIMEOUT:600000}&serverTimezone=${PROJECT_TIME_ZONE:#{'GMT'}}
+      username: ${PROJECT_SQL_READER_USER}
+      password: ${PROJECT_SQL_READER_PASSWORD}
+      server: ${PROJECT_SQL_READER_SERVER:}
+      platform: mysql
+      initialization-mode: never
+      hikari:
+        maximum-pool-size: ${MAX_POOL_DB}
+  jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
+    hibernate:
+      ddl-auto: none
+    show-sql: false
+config:
+  timezone: ${PROJECT_TIME_ZONE:#{'GMT'}}

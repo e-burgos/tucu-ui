@@ -3,7 +3,31 @@
     "nx-mcp": {
       "type": "stdio",
       "command": "npx",
-      "args": ["nx", "mcp"]
+      "args": [
+        "nx",
+        "mcp"
+      ]
     }
+  },
+  "context": {
+    "fileName": [
+      "GEMINI.md",
+      "AGENTS.md"
+    ]
+  },
+  "hooks": {
+    "BeforeTool": [
+      {
+        "matcher": "run_shell_command",
+        "hooks": [
+          {
+            "type": "command",
+            "name": "SDD rtk rewrite",
+            "command": "node sdd/scripts/rtk-hook.mjs gemini",
+            "timeout": 10000
+          }
+        ]
+      }
+    ]
   }
 }

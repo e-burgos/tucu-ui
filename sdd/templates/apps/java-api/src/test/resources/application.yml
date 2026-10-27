@@ -1,0 +1,20 @@
+# Test classpath application.yml shadows the main one, so every property the
+# context needs must be defined here. YAML keys get no relaxed binding for
+# @Value placeholders: define token.signer.key itself, not TOKEN_SIGNER_KEY.
+token:
+  signer:
+    key: TestOnlyDummyKey01234567890123456789012345
+
+spring:
+  datasource:
+    url: jdbc:hsqldb:mem:testdb;DB_CLOSE_DELAY=-1
+    driver-class-name: org.hsqldb.jdbc.JDBCDriver
+    username: sa
+    password:
+  jpa:
+    database-platform: org.hibernate.dialect.HSQLDialect
+    hibernate:
+      ddl-auto: create-drop
+  cloud:
+    config:
+      enabled: false

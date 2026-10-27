@@ -1,0 +1,12 @@
+{
+  "$schema": "./schemas/tools.schema.json",
+  "_description": "Herramientas auxiliares del kit. rtk comprime la salida de los comandos de shell que leen los agentes (Claude Code y Gemini CLI) y viene activo por defecto; para apagarlo: `pnpm sdd:rtk -- --disable` (o pedírselo al sdd-steward). Este archivo es del proyecto: `harness update sdd` no lo toca. claude_mod es el mod de Claude Code del kit (franja con el ciclo en curso, /sdd y SPEC GATE sobre las ediciones de código): viene apagado; se prende con `pnpm sdd:mod -- --enable`.",
+  "rtk": {
+    "enabled": true,
+    "auto_install": true
+  },
+  "claude_mod": {
+    "enabled": false,
+    "gate": "block"
+  }
+}

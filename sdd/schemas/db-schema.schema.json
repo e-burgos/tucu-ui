@@ -1,0 +1,175 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "sdd/schemas/db-schema.schema.json",
+  "title": "SDD Database Schema Registry (sdd/schema.json)",
+  "description": "Database tables grouped by app-key. Written by sdd-architect (status: defined), sdd-implementor-back (status: migrated) and sdd-reviewer. Entries are append/deprecate-only.",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "_comment": {
+      "type": "string"
+    },
+    "_schema": {
+      "type": "object",
+      "description": "Legacy inline human-readable schema notes. Machine schema is this file."
+    }
+  },
+  "patternProperties": {
+    "^((apps|libs)/)?[a-z][a-z0-9-]*$": {
+      "type": "object",
+      "required": ["tables"],
+      "additionalProperties": false,
+      "properties": {
+        "tables": {
+          "type": "object",
+          "additionalProperties": false,
+          "patternProperties": {
+            "^[a-z][a-z0-9_]*$": {
+              "$ref": "#/definitions/TableEntry"
+            }
+          }
+        }
+      }
+    }
+  },
+  "additionalProperties": false,
+  "definitions": {
+    "ChangelogEntry": {
+      "type": "object",
+      "required": ["date", "change"],
+      "additionalProperties": false,
+      "properties": {
+        "cycle": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "date": {
+          "type": "string",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+        },
+        "change": {
+          "type": "string"
+        },
+        "migration": {
+          "type": "string"
+        },
+        "fix": {
+          "type": "string",
+          "pattern": "^FIX-[a-z0-9-]+-\\d{3}$"
+        }
+      }
+    },
+    "ColumnEntry": {
+      "type": "object",
+      "required": ["type", "constraints"],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "type": "string",
+          "minLength": 1
+        },
+        "constraints": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    },
+    "IndexEntry": {
+      "type": "object",
+      "required": ["name", "type", "columns"],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "pattern": "^(pk|uk|idx|fk)_[a-z0-9_]+$"
+        },
+        "type": {
+          "enum": ["PRIMARY", "UNIQUE", "INDEX"]
+        },
+        "columns": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "TableEntry": {
+      "type": "object",
+      "required": [
+        "module",
+        "spec",
+        "status",
+        "created_in_cycle",
+        "updated_in_cycle",
+        "migration_file",
+        "columns",
+        "indexes",
+        "changelog"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "module": {
+          "type": "string",
+          "minLength": 1
+        },
+        "spec": {
+          "type": "string",
+          "pattern": "^sdd/specs/spec-[a-z0-9-]+$"
+        },
+        "status": {
+          "enum": ["defined", "migrated", "updated", "deprecated"]
+        },
+        "created_in_cycle": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "updated_in_cycle": {
+          "oneOf": [
+            {
+              "type": "integer",
+              "minimum": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "migration_file": {
+          "type": "string",
+          "pattern": "\\.(sql|xml)$",
+          "description": "Flyway .sql or Liquibase changelog .xml path."
+        },
+        "columns": {
+          "type": "object",
+          "additionalProperties": false,
+          "patternProperties": {
+            "^[a-z][a-z0-9_]*$": {
+              "$ref": "#/definitions/ColumnEntry"
+            }
+          }
+        },
+        "indexes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/IndexEntry"
+          }
+        },
+        "changelog": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ChangelogEntry"
+          }
+        }
+      }
+    }
+  }
+}

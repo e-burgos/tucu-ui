@@ -1,0 +1,6 @@
+# The kit scripts regenerate several registries byte-for-byte (rebuild-tasks-index, rebuild-catalog)
+# and `sdd:validate` compares them against what is on disk. Keep everything under sdd/ LF on every
+# OS so that comparison is about content, never about line endings (a Windows clone with
+# core.autocrlf=true would otherwise check out CRLF and fail the freshness checks on every run).
+* text=auto eol=lf
+*.woff2 binary

@@ -1,0 +1,37 @@
+{
+  "$schema": "./schemas/api.schema.json",
+  "_comment": "API contract registry. Grouped by app/lib. Updated by sdd-architect (status: defined) and sdd-implementor-back (status: implemented | updated). Source of truth for all endpoints.",
+  "_schema": {
+    "_structure": "{ [app-key]: { endpoints: EndpointEntry[] } }",
+    "_app_keys": "Use the app directory name as key. E.g. 'example-api', 'apps/example-app', 'libs/shared-lib'",
+    "_update_protocol": {
+      "create": "Set created_in_cycle: N, updated_in_cycle: null, changelog: []. Status: defined (architect) → implemented (implementor-back).",
+      "update": "Set updated_in_cycle: N, append to changelog: { cycle: N, date: YYYY-MM-DD, change: 'what changed' }. Status → updated.",
+      "deprecate": "Set status: deprecated, append to changelog with change: 'deprecated — reason'"
+    },
+    "EndpointEntry": {
+      "id": "EP-[NNN] — correlativo global por app",
+      "method": "GET | POST | PUT | PATCH | DELETE",
+      "path": "URL path del endpoint",
+      "module": "módulo SDD al que pertenece",
+      "spec": "path a la spec que lo originó",
+      "status": "defined | implemented | updated | deprecated",
+      "created_in_cycle": "número de ciclo donde se definió por primera vez",
+      "updated_in_cycle": "número del último ciclo que lo modificó (null si nunca se actualizó)",
+      "description": "qué hace el endpoint",
+      "path_params": ["param1"],
+      "required_headers": ["Header-Name"],
+      "request_body": {},
+      "responses": {
+        "200": "descripción"
+      },
+      "changelog": [
+        {
+          "cycle": 2,
+          "date": "YYYY-MM-DD",
+          "change": "descripción del cambio"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,1 @@
+../../sdd/prompts/hermes-resume.prompt.md
