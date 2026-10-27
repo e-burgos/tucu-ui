@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.5.0] - 2026-10-27
+
+### Added
+
+- token-driven Tooltip/Skeleton/BasicTable, Card density and flex body, BasicTable density/cellDividers/rowHeight (spec-e-burgos-002 cycle-01)
+- Select groups/xs/no re-select onChange, Tooltip size, controlled Collapse variants, extendClassMergeTokens (spec-e-burgos-002 cycle-01)
+- JS entry without stylesheet imports, swiper CSS in theme, MCP registry for c00 props (spec-e-burgos-002 cycle-01 TASK-006/007)
+- primitives ergonomics, a11y and i18n (spec-e-burgos-002 cycle-01 TASK-002..005)
+- cn with tailwind-merge across the library and i18n for dialog/access denied (spec-e-burgos-002 cycle-01 TASK-001)
+
+### Fixed
+
+- externalize every package.json dependency in the lib build; docs for c00 primitives (spec-e-burgos-002 cycle-01 TASK-007)
 ## [3.4.0] - 2026-10-27
 
 ### Added
