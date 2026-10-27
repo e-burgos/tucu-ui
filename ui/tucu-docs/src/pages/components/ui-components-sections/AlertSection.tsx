@@ -103,6 +103,30 @@ const AlertSection: React.FC = () => {
           </div>
         </CardTitle>
       </CardContainer>
+      <CardContainer className="overflow-hidden">
+        <CardTitle title="Live Region and Appearance" className="mt-2 mb-2">
+          <div className="w-full p-4 sm:p-6">
+            <div className="space-y-4">
+              <Alert variant="info" live="polite">
+                <Typography tag="p">
+                  Polite alert: rendered with role="status" for non-urgent
+                  messages.
+                </Typography>
+              </Alert>
+              {(['soft', 'ink', 'line'] as const).map((appearance) => (
+                <Alert
+                  key={appearance}
+                  variant="success"
+                  appearance={appearance}
+                >
+                  <Typography tag="p">Appearance: {appearance}</Typography>
+                </Alert>
+              ))}
+            </div>
+          </div>
+        </CardTitle>
+      </CardContainer>
+
       <PropPlayground
         componentName="Alert"
         defaultValues={{ variant: 'info', dismissible: true }}
@@ -145,7 +169,14 @@ const AlertSection: React.FC = () => {
   onDismiss={() => handleDismiss()}
 >
   <Typography tag="p">Custom dismiss handler</Typography>
-</Alert>`}
+</Alert>
+// Non-urgent message (role="status") instead of the default role="alert"
+<Alert variant="info" live="polite">Draft saved</Alert>
+
+// Theme-token tones
+<Alert variant="success" appearance="soft">Soft</Alert>
+<Alert variant="warning" appearance="ink">Ink</Alert>
+<Alert variant="error" appearance="line">Line</Alert>`}
             />
           </div>
         </CardTitle>

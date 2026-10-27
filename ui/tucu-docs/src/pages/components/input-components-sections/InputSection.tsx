@@ -181,6 +181,17 @@ const InputSection: React.FC = () => {
         </CardTitle>
       </CardContainer>
 
+      <CardContainer className="overflow-hidden">
+        <CardTitle title="Extra Small" className="mt-2 mb-2">
+          <div className="w-full p-4 sm:p-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <Input label="Extra small" size="xs" placeholder="size=xs" />
+              <Input label="Default" placeholder="default size" />
+            </div>
+          </div>
+        </CardTitle>
+      </CardContainer>
+
       <PropPlayground
         componentName="Input"
         defaultValues={{
@@ -320,7 +331,8 @@ const InputSection: React.FC = () => {
   label="Date"
   type="date"
   dateFormat="DD-MM-YYYY"
-/>`}
+/>
+<Input label="Name" size="xs" placeholder="Compact input" />`}
             />
           </div>
         </CardTitle>

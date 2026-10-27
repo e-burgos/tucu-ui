@@ -8,11 +8,21 @@ const distRoot = resolve(
   process.argv[2] ?? '../../dist/ui/tucu-ui'
 );
 
-const CSS_IMPORT =
+const IMPORT_SPECIFIER =
   /(?:\bfrom\s*|\bimport\s*\(?\s*|\brequire\s*\(\s*)(['"])([^'"]+)\1/g;
 
 const isCssSpecifier = (specifier) =>
   /\.css(?:[?#].*)?$/.test(specifier) || /^[^./][^'"]*\/css(?:\/|$)/.test(specifier);
+
+const isInlinedDependency = (specifier) =>
+  specifier.startsWith('.') && specifier.includes('node_modules/');
+
+const describeOffence = (specifier) =>
+  isCssSpecifier(specifier)
+    ? 'stylesheet import'
+    : isInlinedDependency(specifier)
+    ? 'inlined dependency (add it to package.json dependencies)'
+    : null;
 
 function* scriptFiles(dir) {
   for (const entry of readdirSync(dir, { withFileTypes: true })) {
@@ -33,9 +43,10 @@ let checked = 0;
 for (const file of scriptFiles(distRoot)) {
   checked += 1;
   const code = readFileSync(file, 'utf8');
-  for (const match of code.matchAll(CSS_IMPORT)) {
-    if (isCssSpecifier(match[2])) {
-      offenders.push(`${relative(distRoot, file)} -> ${match[2]}`);
+  for (const match of code.matchAll(IMPORT_SPECIFIER)) {
+    const offence = describeOffence(match[2]);
+    if (offence) {
+      offenders.push(`${relative(distRoot, file)} -> ${match[2]} (${offence})`);
     }
   }
 }
@@ -45,4 +56,6 @@ if (offenders.length > 0) {
   process.exit(1);
 }
 
-console.log(`no css imports ok: ${checked} built JS files import no stylesheet`);
+console.log(
+  `built imports ok: ${checked} built JS files import no stylesheet and inline no dependency`
+);

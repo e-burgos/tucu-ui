@@ -28,6 +28,13 @@ const SelectSection: React.FC = () => {
     { name: 'Venezuela', value: 've' },
   ];
 
+  const groupedOptions = [
+    { name: 'Buenos Aires', value: 'bue', group: 'Argentina' },
+    { name: 'Córdoba', value: 'cor', group: 'Argentina' },
+    { name: 'Montevideo', value: 'mvd', group: 'Uruguay' },
+    { name: 'Punta del Este', value: 'pde', group: 'Uruguay' },
+  ];
+
   const planOptions = [
     {
       name: 'Free',
@@ -269,6 +276,33 @@ const SelectSection: React.FC = () => {
         </CardTitle>
       </CardContainer>
 
+      <CardContainer className="overflow-hidden">
+        <CardTitle title="Native, Groups and Extra Small" className="mt-2 mb-2">
+          <div className="w-full p-4 sm:p-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <Select
+                label="Native select"
+                native
+                id="docs-native-select"
+                options={countryOptions}
+              />
+              <Select
+                label="Grouped options"
+                placeholder="Select a city"
+                options={groupedOptions}
+              />
+              <Select
+                label="Extra small"
+                size="xs"
+                options={countryOptions}
+                listboxClassName="max-h-48"
+              />
+              <Select label="Native grouped" native options={groupedOptions} />
+            </div>
+          </div>
+        </CardTitle>
+      </CardContainer>
+
       <PropPlayground
         componentName="Select"
         defaultValues={{
@@ -388,7 +422,17 @@ const plans = [
 // Sizes
 <Select size="sm" options={options} />
 <Select size="md" options={options} />
-<Select size="lg" options={options} />`}
+<Select size="lg" options={options} />
+// Real <select>/<option> with the same options and onChange(option)
+<Select native label="Country" options={options} onChange={setSelected} />
+
+// Options sharing a group render under a non-selectable header (<optgroup> when native)
+<Select options={[
+  { name: 'Buenos Aires', value: 'bue', group: 'Argentina' },
+  { name: 'Montevideo', value: 'mvd', group: 'Uruguay' },
+]} />
+
+<Select size="xs" listboxClassName="max-h-48" options={options} />`}
             />
           </div>
         </CardTitle>

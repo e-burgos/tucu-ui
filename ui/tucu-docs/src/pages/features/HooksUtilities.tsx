@@ -32,6 +32,13 @@ const sections: SectionConfig[] = [
     ),
   },
   {
+    id: 'class-merge',
+    label: 'cn and Class Merging',
+    component: lazy(
+      () => import('./hooks-utilities-sections/ClassMergeSection')
+    ),
+  },
+  {
     id: 'best-practices',
     label: 'Best Practices',
     component: lazy(

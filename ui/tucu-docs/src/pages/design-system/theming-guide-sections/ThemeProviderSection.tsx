@@ -6,6 +6,8 @@ import {
   Typography,
   LucideIcons,
   BasicTable,
+  CodeBlock,
+  SwitchMode,
 } from '@e-burgos/tucu-ui';
 
 const ThemeProviderSection: React.FC = () => {
@@ -40,6 +42,13 @@ const ThemeProviderSection: React.FC = () => {
       type: "'light' | 'dark'",
       default: "'dark'",
       description: 'Color mode',
+    },
+    {
+      prop: 'defaultMode',
+      type: "'light' | 'dark'",
+      default: '-',
+      description:
+        'Initial color mode, applied only when there is no persisted theme state; a persisted mode wins',
     },
     {
       prop: 'showSettings',
@@ -115,6 +124,30 @@ const ThemeProviderSection: React.FC = () => {
           </div>
         }
       />
+
+      <CardContainer className="overflow-hidden">
+        <CardTitle title="defaultMode and SwitchMode" className="mt-2 mb-2">
+          <div className="w-full space-y-4 p-4 sm:p-6">
+            <Typography tag="p" className="text-gray-600 dark:text-gray-400">
+              defaultMode sets the first color mode and is ignored once a mode
+              is persisted. SwitchMode accepts label, aria-label and iconOnly.
+            </Typography>
+            <div className="flex flex-wrap items-center gap-6">
+              <SwitchMode />
+              <SwitchMode iconOnly aria-label="Toggle color mode" />
+            </div>
+            <CodeBlock
+              language="tsx"
+              code={`<ThemeProvider layout="clean" defaultMode="light" menuItems={menuItems}>
+  <App />
+</ThemeProvider>
+
+<SwitchMode />
+<SwitchMode iconOnly aria-label="Toggle color mode" />`}
+            />
+          </div>
+        </CardTitle>
+      </CardContainer>
 
       <section className="space-y-8">
         <div className="text-center">
