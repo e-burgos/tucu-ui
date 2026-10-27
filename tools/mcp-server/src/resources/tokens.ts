@@ -143,8 +143,11 @@ or on any ancestor) to theme those components without \`!important\`:
 | Toast | \`--tucu-toast-bg\`, \`--tucu-toast-fg\`, \`--tucu-toast-fg-muted\`, \`--tucu-toast-border\`, \`--tucu-toast-radius\`, \`--tucu-toast-shadow\` |
 | Tooltip (no \`color\` prop) | \`--tucu-tooltip-bg\`, \`--tucu-tooltip-fg\`, \`--tucu-tooltip-border\` |
 | Skeleton | \`--tucu-skeleton-bg\`, \`--tucu-skeleton-shine\` |
-| BasicTable | \`--tucu-table-header-bg\`, \`--tucu-table-header-fg\`, \`--tucu-table-cell-fg\`, \`--tucu-table-border\`, \`--tucu-table-cell-border\` |
+| BasicTable | \`--tucu-table-row-hover\`, \`--tucu-table-header-bg\`, \`--tucu-table-header-fg\`, \`--tucu-table-cell-fg\`, \`--tucu-table-border\`, \`--tucu-table-cell-border\` |
+| Select | \`--tucu-select-radius\` |
 | \`[data-material="solid"]\` panels | \`--tucu-material-solid-bg\` |
+
+Precedence: every \`--tucu-*\` component token is read as \`var(--tucu-x, var(--tucu-x-default))\` and the library declares \`--tucu-x-default\` per mode, so overriding \`--tucu-x\` on \`:root\` wins in both light and dark.
 
 The library CSS lives in \`@layer components\`, so plain Tailwind utilities in your app win
 over it (the macOS theme overrides are the exception while a macOS theme is active).
