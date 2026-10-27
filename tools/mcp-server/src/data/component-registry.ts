@@ -275,7 +275,8 @@ export const componentRegistry: ComponentRegistryEntry[] = [
   {
     name: 'Card',
     category: 'cards',
-    description: 'Container card with optional header, footer, and actions.',
+    description:
+      'Container card with optional header, footer, and actions. Flex column whose body (`data-tucu="card-body"`) is `flex-1`, so the footer sticks to the bottom. `density` (compact | default | comfortable) sets the padding; `bodyClassName` styles the body; `className` overrides bg/rounded; `aria-*`/`data-*` reach the root.',
     importPath: '@e-burgos/tucu-ui',
     example: `import { Card } from '@e-burgos/tucu-ui';
 
@@ -314,7 +315,7 @@ export const componentRegistry: ComponentRegistryEntry[] = [
     name: 'BasicTable',
     category: 'tables',
     description:
-      'Lightweight generic table (no @tanstack/react-table). Columns are declared as { key, label, render? }. Supports striped/hoverable rows, borders, rounded corners, a sticky header, column resizing and a maxRows scroll cap. Responsive by default: below the cardBreakpoint (md) each row collapses into a stacked card of label/value pairs — pass mobileCards={false} to keep a table at every width. For sorting, filtering, pagination and row selection use DataTable instead.',
+      'Lightweight generic table (no @tanstack/react-table). Columns are declared as { key, label, render? }. Supports striped/hoverable rows, borders, rounded corners, a sticky header, column resizing and a maxRows scroll cap. Responsive by default: below the cardBreakpoint (md) each row collapses into a stacked card of label/value pairs — pass mobileCards={false} to keep a table at every width. `resizable` and `mobileCards` default to true. `density="compact"` (text-xs px-2 py-1), `cellDividers={false}` removes inner dividers but keeps the outer border, `rowHeight` makes `maxRows` exact (otherwise the first row is measured). Colors come from `--tucu-table-*` tokens; `data-testid`/`aria-*` reach the root. For sorting, filtering, pagination and row selection use DataTable instead.',
     importPath: '@e-burgos/tucu-ui',
     example: `import { BasicTable } from '@e-burgos/tucu-ui';
 
@@ -719,7 +720,7 @@ useToastStore.getState().addToast({ message: 'Hola', variant: 'info' });`,
     name: 'Skeleton',
     category: 'loaders',
     description:
-      'Placeholder loading skeleton for content that is being fetched.',
+      'Placeholder loading skeleton for content that is being fetched. Colors come from `--tucu-skeleton-bg` / `--tucu-skeleton-shine`; `data-tucu="skeleton"`.',
     importPath: '@e-burgos/tucu-ui',
     example: `import { Skeleton } from '@e-burgos/tucu-ui';
 

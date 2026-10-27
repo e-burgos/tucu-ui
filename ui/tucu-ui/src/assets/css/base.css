@@ -271,6 +271,37 @@
     --tucu-toast-shadow: 0 10px 30px rgba(0, 0, 0, 0.55),
       0 2px 6px rgba(0, 0, 0, 0.35);
   }
+
+  /* ===================================================================
+     TOOLTIP, SKELETON AND TABLE SURFACES (all themes)
+     Override to restyle without !important utilities.
+     =================================================================== */
+  html:root {
+    --tucu-tooltip-bg: #111827;
+    --tucu-tooltip-fg: #ffffff;
+    --tucu-tooltip-border: transparent;
+    --tucu-skeleton-bg: #e5e7eb;
+    --tucu-skeleton-shine: rgba(255, 255, 255, 0.2);
+    --tucu-table-header-bg: #f3f4f6;
+    --tucu-table-header-fg: #4b5563;
+    --tucu-table-cell-fg: #374151;
+    --tucu-table-border: var(--color-border);
+    --tucu-table-cell-border: var(--color-border);
+  }
+  html.dark {
+    --tucu-tooltip-bg: #1f2937;
+    --tucu-tooltip-fg: #f3f4f6;
+    --tucu-tooltip-border: var(--color-border);
+    --tucu-skeleton-bg: #1f2937;
+    --tucu-table-header-bg: #1f2937;
+    --tucu-table-header-fg: #d1d5db;
+    --tucu-table-cell-fg: #d1d5db;
+    --tucu-table-cell-border: color-mix(
+      in srgb,
+      var(--color-border) 60%,
+      transparent
+    );
+  }
 }
 
 @layer components {

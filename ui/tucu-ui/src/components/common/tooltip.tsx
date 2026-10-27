@@ -51,6 +51,11 @@ const colorStyles: Record<TooltipColor, string> = {
   danger: 'bg-red-600 text-white',
 };
 
+const tokenBubbleStyle =
+  'bg-[color:var(--tucu-tooltip-bg)] text-[color:var(--tucu-tooltip-fg)] ring-1 ring-[color:var(--tucu-tooltip-border)]';
+const tokenArrowStyle = 'text-[color:var(--tucu-tooltip-bg)]';
+const tokenArrowBorderStyle = 'text-[color:var(--tucu-tooltip-border)]';
+
 const arrowColorStyles: Record<TooltipColor, string> = {
   dark: 'text-gray-900 dark:text-gray-100',
   light: 'text-white dark:text-gray-800',
@@ -204,6 +209,7 @@ export function Tooltip({
   children,
 }: TooltipProps) {
   const { mode } = useTheme();
+  const usesTokens = color === undefined;
   const resolvedColor: TooltipColor =
     color ?? (mode === 'dark' ? 'light' : 'dark');
   const [visible, setVisible] = useState(false);
@@ -313,13 +319,16 @@ export function Tooltip({
       ref={tooltipRef}
       id={tooltipId}
       role="tooltip"
+      data-tucu="tooltip"
+      data-color={usesTokens ? 'auto' : resolvedColor}
+      data-size={size}
       hidden={!visible}
       aria-hidden={!visible}
       className={cn(
         'fixed z-99999 max-w-xs rounded-lg shadow-lg pointer-events-none',
         'animate-in fade-in duration-150',
         sizeStyles[size],
-        colorStyles[resolvedColor],
+        usesTokens ? tokenBubbleStyle : colorStyles[resolvedColor],
         className,
         contentClassName
       )}
@@ -334,7 +343,7 @@ export function Tooltip({
         <svg
           className={cn(
             'absolute pointer-events-none',
-            arrowColorStyles[resolvedColor]
+            usesTokens ? tokenArrowStyle : arrowColorStyles[resolvedColor]
           )}
           style={{
             top: position.arrowTop,
@@ -351,9 +360,14 @@ export function Tooltip({
           />
         </svg>
       )}
-      {arrow && position && resolvedColor === 'light' && (
+      {arrow && position && (usesTokens || resolvedColor === 'light') && (
         <svg
-          className="absolute pointer-events-none text-gray-200 dark:text-gray-700"
+          className={cn(
+            'absolute pointer-events-none',
+            usesTokens
+              ? tokenArrowBorderStyle
+              : 'text-gray-200 dark:text-gray-700'
+          )}
           style={{
             top:
               position.arrowTop +
