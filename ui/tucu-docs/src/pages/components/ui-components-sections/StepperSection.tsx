@@ -134,9 +134,9 @@ const StepperSection: React.FC = () => {
           <Stepper
             {...props}
             steps={[
-              { label: 'Step 1' },
-              { label: 'Step 2' },
-              { label: 'Step 3' },
+              { id: 'step-1', label: 'Step 1' },
+              { id: 'step-2', label: 'Step 2' },
+              { id: 'step-3', label: 'Step 3' },
             ]}
           />
         )}

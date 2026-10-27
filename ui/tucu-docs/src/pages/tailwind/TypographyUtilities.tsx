@@ -642,11 +642,9 @@ export function TypographyUtilities() {
                         </p>
                       </div>
                       <div className="p-4 bg-white dark:bg-gray-800 border border-border rounded">
-                        <p className="p-4 bg-white dark:bg-gray-800 border border-border rounded">
-                          <p className="text-right text-sm">
-                            <strong className="text-brand">text-right:</strong>{' '}
-                            Right aligned text for special layouts
-                          </p>
+                        <p className="text-right text-sm">
+                          <strong className="text-brand">text-right:</strong>{' '}
+                          Right aligned text for special layouts
                         </p>
                       </div>
                     </div>
@@ -728,13 +726,9 @@ export function TypographyUtilities() {
                         </p>
                       </div>
                       <div className="p-4 bg-white dark:bg-gray-800 border border-border rounded">
-                        <p className="p-4 bg-white dark:bg-gray-800 border border-border rounded">
-                          <p className="line-through text-lg">
-                            <strong className="text-brand">
-                              line-through:
-                            </strong>{' '}
-                            Strikethrough text
-                          </p>
+                        <p className="line-through text-lg">
+                          <strong className="text-brand">line-through:</strong>{' '}
+                          Strikethrough text
                         </p>
                       </div>
                     </div>

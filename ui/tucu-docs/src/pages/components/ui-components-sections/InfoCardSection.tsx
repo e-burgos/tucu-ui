@@ -237,10 +237,22 @@ const InfoCardSection: React.FC = () => {
           <InfoCard
             {...props}
             columns={[
-              { label: 'Status', value: 'Active' },
-              { label: 'Type', value: 'Premium' },
-              { label: 'Created', value: '2024-01-01' },
-              { label: 'Updated', value: '2024-06-15' },
+              {
+                key: 'account',
+                label: 'Account',
+                items: [
+                  { label: 'Status', value: 'Active' },
+                  { label: 'Type', value: 'Premium' },
+                ],
+              },
+              {
+                key: 'dates',
+                label: 'Dates',
+                items: [
+                  { label: 'Created', value: '2024-01-01' },
+                  { label: 'Updated', value: '2024-06-15' },
+                ],
+              },
             ]}
           />
         )}

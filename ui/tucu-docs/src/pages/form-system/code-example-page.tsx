@@ -34,12 +34,7 @@ export function CodeExamplePage() {
           </div>
         }
       />
-      <Form<FormValues>
-        onSubmit={() => {
-          console.log('submit');
-        }}
-      >
-        {/* Form Example Section */}
+      {/* Form Example Section */}
         <section className="space-y-8">
           <CardContainer className="overflow-hidden">
             <CardTitle title="Form Example Component" className="mt-2 mb-2">
@@ -144,6 +139,11 @@ export function CodeExamplePage() {
           </CardContainer>
         </section>
 
+      <Form<FormValues>
+        onSubmit={() => {
+          console.log('submit');
+        }}
+      >
         {/* Error Container Example Section */}
         <section className="space-y-8">
           <CardContainer className="overflow-hidden">
