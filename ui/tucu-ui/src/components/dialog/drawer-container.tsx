@@ -185,7 +185,12 @@ export function DrawerContainer({
         aria-label="Sidebar"
         tabIndex={-1}
       >
-        {children}
+        <div
+          data-tucu="drawer-content"
+          className="pointer-events-auto h-full w-fit max-w-full"
+        >
+          {children}
+        </div>
       </div>
     </>
   );
