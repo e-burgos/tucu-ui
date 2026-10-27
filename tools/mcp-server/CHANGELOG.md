@@ -4,6 +4,15 @@ All notable changes to `@e-burgos/tucu-ui-mcp` will be documented in this file.
 
 <!-- Last updated: 2026-06-02 -->
 
+## [0.13.0] - 2026-10-27
+
+### Added
+
+- Modal closeTooltip/headerActions, BasicTable density tokens, Select neutral border/bg tokens (spec-e-burgos-002 cycle-03 TASK-008)
+
+### Changed
+
+- 3.7.0 components in MCP registry, tokens, changelog and tucu-docs (spec-e-burgos-002 cycle-03 TASK-005)
 ## [0.12.0] - 2026-10-27
 
 ### Changed

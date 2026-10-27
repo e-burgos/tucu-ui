@@ -5,6 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.7.0] - 2026-10-27
+
+### Added
+
+- Modal closeTooltip/headerActions, BasicTable density tokens, Select neutral border/bg tokens (spec-e-burgos-002 cycle-03 TASK-008)
+- Button square, Input endAdornment/shortcut, Badge micro, Tooltip lazy, --color-page out of @theme collision (spec-e-burgos-002 cycle-03 TASK-007)
+- SplitModal, SplitModalWizard, ConfirmDialog, GlassPanel, StateBadge, InlineNotice, MoneyText, SafeImage, StatCard, SegmentedControl, FilterPill/FilterBar, AnimatedTabs, state views, Lightbox and Select 60-63 (spec-e-burgos-002 cycle-03)
+
+### Changed
+
+- 3.7.0 components in MCP registry, tokens, changelog and tucu-docs (spec-e-burgos-002 cycle-03 TASK-005)
+
+### Fixed
+
+- declare ThemeModeScript in the ./next type entry and guard it with a test
+- ship assets/css/tokens in dist and fail check-built-imports on unresolved CSS @import
 ## [3.6.0] - 2026-10-27
 
 ### Added
