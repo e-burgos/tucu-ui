@@ -132,6 +132,17 @@ Si no usás los temas macOS, `@import '@e-burgos/tucu-ui/styles-core';` entrega 
 
 ---
 
+## Componentes agregados en 3.7.0
+
+- `SplitModal`, `SplitModalWizard` (`validateStep` asíncrono), `ConfirmDialog`
+- `GlassPanel`, `StateBadge`, `InlineNotice`, `MoneyText`, `StatCard`, `SafeImage` (y props de fallback en `Image`)
+- `SegmentedControl`, `FilterPill`, `FilterBar`, `AnimatedTabs`
+- `EmptyState`, `ErrorState`, `SystemStatePage`, `Lightbox`
+- `Badge` `struck` y tonos green/orange/red/teal/purple; `Modal` `role`/`aria-labelledby`; `Select` `menuWidth`, `maxMenuHeight`, `renderValue`, `triggerLabel` y más
+- Nuevos grupos de tokens: `--tucu-split-modal-*`, `--tucu-glass-*`, `--tucu-state-*`, `--tucu-segmented-*`, `--tucu-state-view-*`, `--tucu-lightbox-*`
+
+---
+
 ## Inicio Rápido
 
 ```tsx

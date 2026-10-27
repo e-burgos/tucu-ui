@@ -118,6 +118,12 @@ const preset = resolveThemePreset({
 \`defineThemePreset\` validates hex accents and throws on invalid ones. \`listThemePresets\`, \`getThemePreset\`, \`resetThemePresets\`,
 \`themePresetToCssVars(preset, mode)\` and \`themePresetToAttributes(preset)\` are exported for custom integrations.
 
+## Page background and reserved theme names
+
+\`--color-page\` is the canonical page background (\`bg-page\`). \`--color-body\` remains a plain CSS variable with a \`bg-body\` utility, but it is no longer declared in \`@theme\`.
+
+Reserved theme names: do not define \`--color-page\`, \`--color-foreground\`, \`--color-dark\`, \`--color-light\`, \`--color-light-dark\`, \`--color-success\`, \`--color-warning\`, \`--color-error\`, \`--color-info\`, \`--color-brand\` or \`--color-border\` unless you intend to override the library value. Avoid \`--text-body\`: it collides with the legacy \`text-body\` typography utility.
+
 ## Build your own token layer
 
 tucu-ui does not ship a consumer-facing design-token layer beyond the \`--color-*\`
@@ -143,9 +149,13 @@ or on any ancestor) to theme those components without \`!important\`:
 | Toast | \`--tucu-toast-bg\`, \`--tucu-toast-fg\`, \`--tucu-toast-fg-muted\`, \`--tucu-toast-border\`, \`--tucu-toast-radius\`, \`--tucu-toast-shadow\` |
 | Tooltip (no \`color\` prop) | \`--tucu-tooltip-bg\`, \`--tucu-tooltip-fg\`, \`--tucu-tooltip-border\` |
 | Skeleton | \`--tucu-skeleton-bg\`, \`--tucu-skeleton-shine\` |
-| BasicTable | \`--tucu-table-row-hover\`, \`--tucu-table-header-bg\`, \`--tucu-table-header-fg\`, \`--tucu-table-cell-fg\`, \`--tucu-table-border\`, \`--tucu-table-cell-border\` |
-| Select | \`--tucu-select-radius\` |
+| BasicTable | \`--tucu-table-row-hover\`, \`--tucu-table-header-bg\`, \`--tucu-table-header-fg\`, \`--tucu-table-cell-fg\`, \`--tucu-table-border\`, \`--tucu-table-cell-border\`, \`--tucu-table-cell-px\`, \`--tucu-table-cell-py\`, \`--tucu-table-font-size\`, \`--tucu-table-header-font-size\` (per-density \`-default\`) |
+| Select | \`--tucu-select-radius\`, \`--tucu-select-border\`, \`--tucu-select-bg\` (neutral appearance) |
 | \`[data-material="solid"]\` panels | \`--tucu-material-solid-bg\` |
+| SplitModal / SplitModalWizard (v3.7.0) | \`--tucu-split-modal-sidebar-bg\`, \`--tucu-split-modal-sidebar-border\`, \`--tucu-split-modal-item-hover-bg\`, \`--tucu-split-modal-item-active-bg\`, \`--tucu-split-modal-item-active-fg\` |
+| Surfaces: GlassPanel, StateBadge, StatCard (v3.7.0) | \`--tucu-glass-{thin,regular,thick,sub}-bg\`, \`--tucu-glass-blur-{thin,regular,thick,sub}\`, \`--tucu-glass-border\`, \`--tucu-radius-{control,card,panel}\`, \`--tucu-shadow-{card,panel,float}\`, \`--tucu-state-{green,orange,red,teal,purple,neutral}-{soft,ink,line}\` |
+| Controls: SegmentedControl (v3.7.0) | \`--tucu-segmented-bg\`, \`--tucu-segmented-fg\`, \`--tucu-segmented-fg-active\`, \`--tucu-segmented-thumb-bg\`, \`--tucu-segmented-radius\` |
+| Feedback: EmptyState, ErrorState, SystemStatePage, Lightbox (v3.7.0) | \`--tucu-state-view-bg\`, \`--tucu-state-view-border\`, \`--tucu-state-view-fg\`, \`--tucu-state-view-fg-muted\`, \`--tucu-state-view-error-fg\`, \`--tucu-state-view-icon-bg\`, \`--tucu-lightbox-overlay-bg\`, \`--tucu-lightbox-control-bg\`, \`--tucu-lightbox-control-fg\` |
 
 Precedence: every \`--tucu-*\` component token is read as \`var(--tucu-x, var(--tucu-x-default))\` and the library declares \`--tucu-x-default\` per mode, so overriding \`--tucu-x\` on \`:root\` wins in both light and dark.
 

@@ -9,7 +9,12 @@ type ToneNames =
   | 'info'
   | 'warning'
   | 'danger'
-  | 'neutral';
+  | 'neutral'
+  | 'green'
+  | 'orange'
+  | 'red'
+  | 'teal'
+  | 'purple';
 type ColorNames =
   | 'primary'
   | 'success'
@@ -19,7 +24,7 @@ type ColorNames =
   | 'gray'
   | 'white'
   | 'light-dark';
-type SizeNames = 'xs' | 'tiny' | 'small' | 'medium' | 'large';
+type SizeNames = 'micro' | 'xs' | 'tiny' | 'small' | 'medium' | 'large';
 type StatusNames = 'active' | 'inactive' | 'pending' | 'default';
 
 const shapes: Record<ShapeNames, string> = {
@@ -29,6 +34,7 @@ const shapes: Record<ShapeNames, string> = {
 };
 
 const sizes: Record<SizeNames, string[]> = {
+  micro: ['text-[10px] leading-tight px-1.5 py-0 h-auto', 'w-1 h-1'],
   xs: ['text-[10px] leading-none px-1 py-0.5 h-3.5', 'w-1.5 h-1.5'],
   tiny: ['text-xs px-1.5 py-0.5 h-4', 'w-2 h-2'],
   small: ['text-xs px-2 py-1 h-5', 'w-2.5 h-2.5'],
@@ -60,6 +66,11 @@ const toneClassNames: Record<ToneVariantNames, Record<ToneNames, string>> = {
     warning: 'bg-warning/15 text-warning border border-transparent',
     danger: 'bg-error/15 text-error border border-transparent',
     neutral: 'bg-muted/15 text-muted border border-transparent',
+    green: '',
+    orange: '',
+    red: '',
+    teal: '',
+    purple: '',
   },
   ink: {
     primary: 'bg-brand text-white border border-transparent',
@@ -68,6 +79,11 @@ const toneClassNames: Record<ToneVariantNames, Record<ToneNames, string>> = {
     warning: 'bg-warning text-white border border-transparent',
     danger: 'bg-error text-white border border-transparent',
     neutral: 'bg-muted text-white border border-transparent',
+    green: '',
+    orange: '',
+    red: '',
+    teal: '',
+    purple: '',
   },
   line: {
     primary: 'bg-transparent text-brand border border-brand',
@@ -76,6 +92,11 @@ const toneClassNames: Record<ToneVariantNames, Record<ToneNames, string>> = {
     warning: 'bg-transparent text-warning border border-warning',
     danger: 'bg-transparent text-error border border-error',
     neutral: 'bg-transparent text-muted border border-muted',
+    green: '',
+    orange: '',
+    red: '',
+    teal: '',
+    purple: '',
   },
 };
 
@@ -111,12 +132,15 @@ export interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
   className?: string;
   status?: StatusNames;
   color?: ColorNames;
-  /** Status tone using theme tokens; combine with variant soft, ink or line */
+  /** Status tone using theme tokens; combine with variant soft, ink or line. green, orange, red, teal and purple read the `--tucu-state-<tone>-soft|ink|line` tokens */
   tone?: ToneNames;
+  /** Badge size. `micro` is smaller than `tiny` (10px text, auto height). */
   size?: SizeNames;
   variant?: VariantNames;
   shape?: ShapeNames;
   withDot?: boolean;
+  /** Strikes the label through, for cancelled or expired states */
+  struck?: boolean;
 }
 
 export const Badge = ({
@@ -129,6 +153,7 @@ export const Badge = ({
   variant = 'solid',
   shape = 'pill',
   withDot = false,
+  struck = false,
   ...props
 }: BadgeProps) => {
   const badgeColor = status ? statusColors[status] : color || 'gray';
@@ -166,11 +191,14 @@ export const Badge = ({
     <span
       data-tucu="badge"
       data-variant={variant}
+      data-tone={resolvedTone}
+      data-struck={struck ? 'true' : undefined}
       className={cn(
         'inline-flex items-center justify-center font-medium transition-all duration-200',
         shapes[shape],
         withDot && !children ? dotSize : sizeClassNames[0],
         badgeColorClasses,
+        struck && 'line-through',
         className
       )}
       {...props}

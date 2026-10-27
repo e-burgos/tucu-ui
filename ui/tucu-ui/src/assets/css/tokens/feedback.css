@@ -1,0 +1,29 @@
+/* Feedback tokens: state views (EmptyState / ErrorState / SystemStatePage) and Lightbox.
+   Override any `--tucu-<comp>-<prop>`; the `-default` variants are the per-mode fallbacks. */
+@layer base {
+  html:root,
+  .dark [data-tucu-theme]:not(.dark) {
+    --tucu-state-view-bg-default: #ffffff;
+    --tucu-state-view-border-default: rgb(0 0 0 / 0.08);
+    --tucu-state-view-fg-default: #111827;
+    --tucu-state-view-fg-muted-default: #6b7280;
+    --tucu-state-view-icon-bg-default: rgb(0 0 0 / 0.04);
+    --tucu-state-view-error-fg-default: #dc2626;
+    --tucu-lightbox-overlay-bg-default: rgb(0 0 0 / 0.88);
+    --tucu-lightbox-control-bg-default: rgb(255 255 255 / 0.14);
+    --tucu-lightbox-control-fg-default: #ffffff;
+  }
+
+  html.dark,
+  [data-tucu-theme].dark {
+    --tucu-state-view-bg-default: #1f2937;
+    --tucu-state-view-border-default: rgb(255 255 255 / 0.1);
+    --tucu-state-view-fg-default: #f9fafb;
+    --tucu-state-view-fg-muted-default: #9ca3af;
+    --tucu-state-view-icon-bg-default: rgb(255 255 255 / 0.06);
+    --tucu-state-view-error-fg-default: #f87171;
+    --tucu-lightbox-overlay-bg-default: rgb(0 0 0 / 0.92);
+    --tucu-lightbox-control-bg-default: rgb(255 255 255 / 0.16);
+    --tucu-lightbox-control-fg-default: #ffffff;
+  }
+}

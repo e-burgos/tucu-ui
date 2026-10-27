@@ -16,11 +16,12 @@ export const componentRegistry: ComponentRegistryEntry[] = [
     name: 'Button',
     category: 'buttons',
     description:
-      'Primary action button with multiple variants and sizes. Renders the `<button>` directly (no wrapper) unless `tooltip` is set; then `wrapperClassName` styles the wrapper. `type` defaults to `"button"`. `className` is merged with tailwind-merge, so `h-*`, `bg-*` or `text-*` overrides win. Font size scales with `size` (xs/tiny/mini 12px, small 13px, medium 14px, large 16px). `ghost` has a 2px border, `outline` a 1px border.',
+      'Primary action button with multiple variants and sizes. Renders the `<button>` directly (no wrapper) unless `tooltip` is set; then `wrapperClassName` styles the wrapper. `type` defaults to `"button"`. `className` is merged with tailwind-merge, so `h-*`, `bg-*` or `text-*` overrides win. Font size scales with `size` (xs/tiny/mini 12px, small 13px, medium 14px, large 16px). `ghost` has a 2px border, `outline` a 1px border. `shape` rounded | pill | circle | square (`square` is an icon-only square with the same sizes as `circle`).',
     importPath: '@e-burgos/tucu-ui',
     variants: {
       variant: ['solid', 'ghost', 'outline', 'transparent'],
       size: ['large', 'medium', 'small', 'mini', 'tiny', 'xs'],
+      shape: ['rounded', 'pill', 'circle', 'square'],
     },
     example: `import { Button } from '@e-burgos/tucu-ui';
 
@@ -56,7 +57,7 @@ export const componentRegistry: ComponentRegistryEntry[] = [
     name: 'Input',
     category: 'inputs',
     description:
-      'Text input field with label, validation, masks and variants. `icon` renders in a 40px slot on the left and adds `pl-[40px]` automatically. **Masks** (`mask`): `phone` (Argentina by default: `+54 9 11 2345-6789`, `11 2345-6789`; other countries via `phoneCountry` / `registerPhoneCountry`, generic `INTL`), `cuit` (`20-12345678-6`), `currency` (`$ 1.234,56`, locale from `maskOptions.locale` or the theme lang) and `number`, or a custom `MaskDefinition` from `createMask`. With `unmask`, `onChange` receives the raw value (E.164 phone, CUIT digits, plain number string) while the input keeps showing the formatted text. **Built-in validation** (`autoValidate`, default true): `type="email" | "tel" | "url"`, `mask="phone" | "cuit"`, `validationType` and `required` validate on blur (and on change after the first blur) and show a localized message (es/en/fr from `ThemeProvider lang`) when no `error` prop is given; `onValidationChange` reports the result. `error` sets `aria-invalid` and links the message via `aria-describedby`. `type="date"` is a custom picker: the input is `readOnly`, displays `dateFormat` (default `DD/MM/YYYY`), `onChange` receives ISO `YYYY-MM-DD`, `min`/`max` (ISO) disable out-of-range days, and `locale` defaults to the theme lang (es → es-AR).',
+      'Text input field with label, validation, masks and variants. `icon` renders in a 40px slot on the left and adds `pl-[40px]` automatically. **Masks** (`mask`): `phone` (Argentina by default: `+54 9 11 2345-6789`, `11 2345-6789`; other countries via `phoneCountry` / `registerPhoneCountry`, generic `INTL`), `cuit` (`20-12345678-6`), `currency` (`$ 1.234,56`, locale from `maskOptions.locale` or the theme lang) and `number`, or a custom `MaskDefinition` from `createMask`. With `unmask`, `onChange` receives the raw value (E.164 phone, CUIT digits, plain number string) while the input keeps showing the formatted text. **Built-in validation** (`autoValidate`, default true): `type="email" | "tel" | "url"`, `mask="phone" | "cuit"`, `validationType` and `required` validate on blur (and on change after the first blur) and show a localized message (es/en/fr from `ThemeProvider lang`) when no `error` prop is given; `onValidationChange` reports the result. `error` sets `aria-invalid` and links the message via `aria-describedby`. `type="date"` is a custom picker: the input is `readOnly`, displays `dateFormat` (default `DD/MM/YYYY`), `onChange` receives ISO `YYYY-MM-DD`, `min`/`max` (ISO) disable out-of-range days, and `locale` defaults to the theme lang (es → es-AR). `suffix` is a LEADING adornment rendered at the start of the field (legacy name); `endAdornment` (ReactNode) renders at the end. `shortcut` (string, e.g. "⌘K") renders a `<kbd>` hint at the end and sets `aria-keyshortcuts`; `shortcutHideOnValue` (default true) hides the hint once the field has a value.',
     importPath: '@e-burgos/tucu-ui',
     variants: {
       variant: ['solid', 'ghost', 'transparent'],
@@ -111,7 +112,7 @@ export const componentRegistry: ComponentRegistryEntry[] = [
     name: 'Select',
     category: 'inputs',
     description:
-      'Dropdown select with options list (custom listbox in a portal). `native` renders a real `<select>`/`<option>` with the same `options` and `onChange(option)`. `id` links an external `<label htmlFor>`; external `aria-labelledby`/`aria-describedby` are merged with the helper/error ids. Options with the same `group` render under a non-selectable header (`<optgroup>` in native mode). `onChange` does not fire when the selected option is picked again. `size="xs"` is compact (trigger and listbox); `listboxClassName` styles the listbox. `hideLabel` and `hideHelperText` hide the label / helper text visually; `appearance` (default | neutral) switches the trigger look (token `--tucu-select-radius`). Escape closes only the open listbox; inside a Modal a second Escape closes the Modal.',
+      'Dropdown select with options list (custom listbox in a portal). `native` renders a real `<select>`/`<option>` with the same `options` and `onChange(option)`. `id` links an external `<label htmlFor>`; external `aria-labelledby`/`aria-describedby` are merged with the helper/error ids. Options with the same `group` render under a non-selectable header (`<optgroup>` in native mode). `onChange` does not fire when the selected option is picked again. `size="xs"` is compact (trigger and listbox); `listboxClassName` styles the listbox. `hideLabel` and `hideHelperText` hide the label / helper text visually; `appearance` (default | neutral) switches the trigger look (tokens `--tucu-select-radius`, `--tucu-select-border`, `--tucu-select-bg`). Escape closes only the open listbox; inside a Modal a second Escape closes the Modal. `label` accepts a ReactNode. `menuWidth` (trigger | content) sizes the listbox to the trigger or to its content, `maxMenuHeight` caps it (number, CSS length or "auto" to fit the viewport), `wrapDescription` wraps option descriptions and `descriptionClassName` styles them. `renderValue(option)` customizes the trigger content, an option `triggerLabel` shortens what the trigger shows for that option, and `triggerClassName` styles the trigger.',
     importPath: '@e-burgos/tucu-ui',
     variants: {
       variant: ['solid', 'ghost', 'transparent'],
@@ -125,8 +126,21 @@ export const componentRegistry: ComponentRegistryEntry[] = [
   onSelect={(value) => console.log(value)}
   variant="ghost"
   label="Choose"
+/>
+
+<Select
+  label={<strong>Plan</strong>}
+  options={[
+    { name: 'Professional monthly plan', value: 'pro', description: 'Billed every month', triggerLabel: 'Pro' },
+    { name: 'Enterprise yearly plan', value: 'ent', description: 'Billed every year', triggerLabel: 'Enterprise' },
+  ]}
+  selectedOption={plan}
+  onChange={setPlan}
+  menuWidth="content"
+  maxMenuHeight="auto"
+  wrapDescription
 />`,
-    relatedComponents: ['InputSearcher', 'Form'],
+    relatedComponents: ['InputSearcher', 'Form', 'FilterBar'],
     themeAware: true,
   },
   {
@@ -226,6 +240,77 @@ export const componentRegistry: ComponentRegistryEntry[] = [
     relatedComponents: ['Input', 'Form'],
     themeAware: true,
   },
+  {
+    name: 'SegmentedControl',
+    category: 'inputs',
+    description:
+      'Single-choice segmented switch with a sliding thumb (radiogroup semantics, arrow-key navigation). `options` ({ value, label, icon, disabled }), `value`, `onChange(value)`, `size` xs | sm | md, `fullWidth`, `scrollable`, `label` / `aria-label`, `disabled`. Tokens `--tucu-segmented-*`.',
+    importPath: '@e-burgos/tucu-ui',
+    variants: {
+      size: ['xs', 'sm', 'md'],
+    },
+    example: `import { SegmentedControl } from '@e-burgos/tucu-ui';
+
+const [view, setView] = useState('list');
+
+<SegmentedControl
+  aria-label="View"
+  value={view}
+  onChange={setView}
+  options={[
+    { value: 'list', label: 'List' },
+    { value: 'grid', label: 'Grid' },
+  ]}
+/>`,
+    relatedComponents: ['TabGroup', 'AnimatedTabs', 'FilterPill'],
+    themeAware: true,
+  },
+  {
+    name: 'FilterPill',
+    category: 'inputs',
+    description:
+      'Toggle pill for quick filters. `active` marks it as pressed (`aria-pressed`), `count` shows a counter, `tone` green | orange | red | teal | purple | neutral colors the active state. Extends button attributes.',
+    importPath: '@e-burgos/tucu-ui',
+    variants: {
+      tone: ['green', 'orange', 'red', 'teal', 'purple', 'neutral'],
+    },
+    example: `import { FilterPill } from '@e-burgos/tucu-ui';
+
+<FilterPill active={status === 'pending'} count={4} tone="orange" onClick={() => setStatus('pending')}>
+  Pending
+</FilterPill>`,
+    relatedComponents: ['FilterBar', 'SegmentedControl', 'StateBadge'],
+    themeAware: true,
+  },
+  {
+    name: 'FilterBar',
+    category: 'inputs',
+    description:
+      'Toolbar for list filtering. `search` ({ value, onChange, placeholder }), `filters` (select filters with `id`, `label`, `value`, `onChange`, `options`, `ignoreInActiveCount`), `pills` (FilterPill nodes), `toggle` ({ checked, onChange, label }), `actions`, `onClear` (shows a clear button when filters are active), `activeCount` (overrides the computed count), `collapsible` (collapses secondary filters on small screens) and `children` for extra controls.',
+    importPath: '@e-burgos/tucu-ui',
+    example: `import { FilterBar, FilterPill } from '@e-burgos/tucu-ui';
+
+<FilterBar
+  search={{ value: query, onChange: setQuery, placeholder: 'Search orders' }}
+  filters={[
+    {
+      id: 'status',
+      label: 'Status',
+      value: status,
+      onChange: setStatus,
+      options: [
+        { name: 'All', value: 'all' },
+        { name: 'Paid', value: 'paid' },
+      ],
+    },
+  ]}
+  pills={<FilterPill active={onlyOpen} onClick={() => setOnlyOpen(!onlyOpen)}>Open</FilterPill>}
+  onClear={() => resetFilters()}
+  collapsible
+/>`,
+    relatedComponents: ['FilterPill', 'Select', 'InputSearcher'],
+    themeAware: true,
+  },
 
   // ─── FORMS ───────────────────────────────────────────────
   {
@@ -309,13 +394,34 @@ export const componentRegistry: ComponentRegistryEntry[] = [
     relatedComponents: ['Card', 'InfoCard'],
     themeAware: true,
   },
+  {
+    name: 'StatCard',
+    category: 'cards',
+    description:
+      'KPI card. `title`, `value`, `subtitle`, `icon`, `tone` brand | neutral | success | warning | danger | info, `trend` ({ value, direction up | down | flat, label, positiveIsGood }), `progress` ({ value, max, label }), `loading` skeleton, and `onClick` or `href` to make it interactive.',
+    importPath: '@e-burgos/tucu-ui',
+    variants: {
+      tone: ['brand', 'neutral', 'success', 'warning', 'danger', 'info'],
+    },
+    example: `import { StatCard, MoneyText } from '@e-burgos/tucu-ui';
+
+<StatCard
+  title="Revenue"
+  value={<MoneyText value={48200} currency="USD" variant="total" />}
+  tone="success"
+  trend={{ value: '12%', direction: 'up', label: 'vs last month' }}
+  progress={{ value: 72, max: 100, label: 'Goal' }}
+/>`,
+    relatedComponents: ['StatsCard', 'InfoCard', 'MoneyText'],
+    themeAware: true,
+  },
 
   // ─── TABLES ──────────────────────────────────────────────
   {
     name: 'BasicTable',
     category: 'tables',
     description:
-      'Lightweight generic table (no @tanstack/react-table). Columns are declared as { key, label, render? }. Supports striped/hoverable rows, borders, rounded corners, a sticky header, column resizing and a maxRows scroll cap. Responsive by default: below the cardBreakpoint (md) each row collapses into a stacked card of label/value pairs — pass mobileCards={false} to keep a table at every width. `resizable` and `mobileCards` default to true. `density` (compact | snug | default; compact is text-xs px-2 py-1), hover color from `--tucu-table-row-hover`, `cellDividers={false}` removes inner dividers but keeps the outer border, `rowHeight` makes `maxRows` exact (otherwise the first row is measured). Colors come from `--tucu-table-*` tokens; `data-testid`/`aria-*` reach the root. For sorting, filtering, pagination and row selection use DataTable instead.',
+      'Lightweight generic table (no @tanstack/react-table). Columns are declared as { key, label, render? }. Supports striped/hoverable rows, borders, rounded corners, a sticky header, column resizing and a maxRows scroll cap. Responsive by default: below the cardBreakpoint (md) each row collapses into a stacked card of label/value pairs — pass mobileCards={false} to keep a table at every width. `resizable` and `mobileCards` default to true. `density` (compact | snug | default) whose spacing and sizes come from `--tucu-table-cell-px`, `--tucu-table-cell-py`, `--tucu-table-font-size` and `--tucu-table-header-font-size`, hover color from `--tucu-table-row-hover`, `cellDividers={false}` removes inner dividers but keeps the outer border, `rowHeight` makes `maxRows` exact (otherwise the first row is measured). Colors come from `--tucu-table-*` tokens; `data-testid`/`aria-*` reach the root. For sorting, filtering, pagination and row selection use DataTable instead.',
     importPath: '@e-burgos/tucu-ui',
     example: `import { BasicTable } from '@e-burgos/tucu-ui';
 
@@ -533,7 +639,7 @@ const preset = resolveThemePreset({
     name: 'Modal',
     category: 'dialogs',
     description:
-      'Overlay modal dialog. `isOpen` + `setIsOpen` are required; `text.title` accepts a ReactNode and `header` replaces the whole title area. `size` (sm | md | lg | xl | full, default md) sets width and body height. `aria-label`, `aria-describedby` and `data-*` reach the `role="dialog"` element. Escape closes only the top-most modal (handled on the dialog) and a click on the overlay closes it; `closeable={false}` disables both. The close button label comes from the theme lang (override with `closeLabel`). Closing is immediate (no delay). `overlayClassName` and `headerClassName` style the overlay and header; `closeButtonProps` (button attributes and `data-*`) customizes the close button and its `aria-label` wins over `closeLabel`; `maxWidth` and `maxHeight` (number | string) cap the dialog; `initialFocusRef` picks the initially focused element (default: the dialog). The title is a full-width `<div data-tucu="modal-title">` so block content is allowed; ids come from `useId`.',
+      'Overlay modal dialog. `isOpen` + `setIsOpen` are required; `text.title` accepts a ReactNode and `header` replaces the whole title area. `size` (sm | md | lg | xl | full, default md) sets width and body height. `aria-label`, `aria-describedby` and `data-*` reach the `role="dialog"` element. Escape closes only the top-most modal (handled on the dialog) and a click on the overlay closes it; `closeable={false}` disables both. The close button label comes from the theme lang (override with `closeLabel`). Closing is immediate (no delay). `overlayClassName` and `headerClassName` style the overlay and header; `closeButtonProps` (button attributes and `data-*`) customizes the close button and its `aria-label` wins over `closeLabel`; `maxWidth` and `maxHeight` (number | string) cap the dialog; `initialFocusRef` picks the initially focused element (default: the dialog). The title is a full-width `<div data-tucu="modal-title">` so block content is allowed; ids come from `useId`. `role` (dialog | alertdialog) sets the dialog role and `aria-labelledby` overrides the generated title id. `closeTooltip` (ReactNode) wraps the close button in the tucu Tooltip (lazy) and `headerActions` (ReactNode) renders an action group in the header right before the close button; SplitModal also accepts `closeTooltip`.',
     importPath: '@e-burgos/tucu-ui',
     variants: {
       size: ['sm', 'md', 'lg', 'xl', 'full'],
@@ -551,7 +657,7 @@ const [isOpen, setIsOpen] = useState(false);
 >
   <p>Are you sure?</p>
 </Modal>`,
-    relatedComponents: ['Drawer', 'ConfirmDialog'],
+    relatedComponents: ['Drawer', 'ConfirmDialog', 'SplitModal'],
     themeAware: true,
   },
   {
@@ -616,18 +722,114 @@ const [isOpen, setIsOpen] = useState(false);
   {
     name: 'ConfirmDialog',
     category: 'dialogs',
-    description: 'Pre-built confirmation dialog with confirm/cancel actions.',
+    description:
+      'Confirmation dialog built on Modal with `role="alertdialog"`: `title` labels it and `description` describes it. `tone` (danger | warning | info | success) sets the icon and the confirm button colour; `loading` shows a spinner on confirm, disables both buttons and blocks Escape and overlay closing. Initial focus is the cancel button for `danger` and the confirm button otherwise (`initialFocus` overrides). `onCancel` runs on cancel, Escape and overlay click. Labels default to localized `confirmDialog.confirm` / `confirmDialog.cancel`. Props are `isOpen`, `onConfirm`, `onCancel`, `title`, `description` (not `message`).',
     importPath: '@e-burgos/tucu-ui',
+    variants: {
+      tone: ['danger', 'warning', 'info', 'success'],
+      initialFocus: ['confirm', 'cancel'],
+    },
     example: `import { ConfirmDialog } from '@e-burgos/tucu-ui';
 
+const [open, setOpen] = useState(false);
+const [deleting, setDeleting] = useState(false);
+
 <ConfirmDialog
-  isOpen={true}
-  title="Delete item?"
-  message="This action cannot be undone."
-  onConfirm={() => {}}
-  onCancel={() => {}}
+  isOpen={open}
+  tone="danger"
+  title="Delete invoice?"
+  description="This action cannot be undone."
+  confirmLabel="Delete"
+  loading={deleting}
+  onConfirm={async () => {
+    setDeleting(true);
+    await removeInvoice();
+    setDeleting(false);
+    setOpen(false);
+  }}
+  onCancel={() => setOpen(false)}
 />`,
-    relatedComponents: ['Modal', 'Drawer'],
+    relatedComponents: ['Modal', 'SplitModal'],
+    themeAware: true,
+  },
+  {
+    name: 'SplitModal',
+    category: 'dialogs',
+    description:
+      'Two-pane dialog (sidebar navigation + scrollable body) built on Modal; below the `md` breakpoint the sidebar becomes a tab bar. `sections` groups `SplitModalNavItem`s (`id`, `label`, `icon`, `badge`, `status` neutral | success | warning | danger | info rendered as a dot with a screen-reader description, `disabled`, `description`). Active item is controlled with `activeItemId` + `onActiveItemChange(id)` or uncontrolled with `defaultActiveItemId`; arrow keys move between items. `sidebarHeader`, `sidebarFooter`, `sidebar`, `sidebarPosition` (start | end), `sidebarWidth`, `footer`, `chips`, `headerActions`, `maxWidth` / `maxHeight` / `size`. `onClose` and `setIsOpen(false)` both run on close. Tokens: `--tucu-split-modal-*`.',
+    importPath: '@e-burgos/tucu-ui',
+    variants: {
+      sidebarPosition: ['start', 'end'],
+      size: ['sm', 'md', 'lg', 'xl', 'full'],
+    },
+    example: `import { SplitModal, Badge, Button } from '@e-burgos/tucu-ui';
+
+const [open, setOpen] = useState(true);
+const [activeId, setActiveId] = useState('overview');
+
+<SplitModal
+  isOpen={open}
+  onClose={() => setOpen(false)}
+  title="Contract 2024-117"
+  chips={<Badge tone="success" variant="soft">Signed</Badge>}
+  activeItemId={activeId}
+  onActiveItemChange={setActiveId}
+  sections={[
+    {
+      id: 'main',
+      label: 'Document',
+      items: [
+        { id: 'overview', label: 'Overview', status: 'success' },
+        { id: 'clauses', label: 'Clauses', badge: <Badge tone="warning" size="xs">3</Badge>, status: 'warning' },
+        { id: 'payments', label: 'Payments', status: 'danger', description: '1 overdue' },
+      ],
+    },
+    { id: 'extra', label: 'Other', items: [{ id: 'history', label: 'History' }] },
+  ]}
+  sidebarFooter={
+    <div className="flex gap-2">
+      <Button size="small" variant="ghost">Download</Button>
+      <Button size="small">Share</Button>
+    </div>
+  }
+>
+  <p>Content for {activeId}</p>
+</SplitModal>`,
+    relatedComponents: ['SplitModalWizard', 'Modal', 'ConfirmDialog'],
+    themeAware: true,
+  },
+  {
+    name: 'SplitModalWizard',
+    category: 'dialogs',
+    description:
+      'Step-by-step wizard on top of SplitModal: steps are listed in the sidebar and the active one renders in the body with previous / next buttons. `steps` (`id`, `title`, `description`, `icon`, `heading`, `hint`, `content`, `disabled`), controlled `activeStepId` + `onStepChange(id)`. `validateStep(id)` may return a boolean or a Promise and runs before moving forward (going back never validates); a failed validation keeps the step. `primaryAction` replaces the next button on the last step (`primaryAlwaysVisible` shows it on every step), `onCancel` shows the cancel button, `showProgress` adds "Step i of N" and a progress bar, `subtitle` and `sidebarAside` fill the sidebar. Accepts the SplitModal layout props (`maxWidth`, `size`, `sidebarWidth`, ...).',
+    importPath: '@e-burgos/tucu-ui',
+    example: `import { SplitModalWizard, Button } from '@e-burgos/tucu-ui';
+
+const [open, setOpen] = useState(true);
+const [step, setStep] = useState('account');
+
+<SplitModalWizard
+  isOpen={open}
+  onClose={() => setOpen(false)}
+  title="Create workspace"
+  subtitle="Three quick steps"
+  activeStepId={step}
+  onStepChange={setStep}
+  showProgress
+  validateStep={async (id) => {
+    if (id === 'account') return (await checkEmailAvailable(email)) === true;
+    return true;
+  }}
+  onCancel={() => setOpen(false)}
+  primaryAction={<Button onClick={() => submit()}>Create</Button>}
+  steps={[
+    { id: 'account', title: 'Account', content: <AccountForm /> },
+    { id: 'team', title: 'Team', description: 'Invite people', content: <TeamForm /> },
+    { id: 'review', title: 'Review', content: <ReviewSummary /> },
+  ]}
+/>`,
+    relatedComponents: ['SplitModal', 'Modal'],
     themeAware: true,
   },
 
@@ -652,6 +854,22 @@ const [isOpen, setIsOpen] = useState(false);
     warnings: [
       "NEVER use variant='destructive' — causes runtime crash. Use 'error' instead.",
     ],
+  },
+  {
+    name: 'InlineNotice',
+    category: 'notifications',
+    description:
+      'Compact inline status message for forms and panels. `tone` error | success | info | warning (error announces assertively, the rest politely). `messages` takes a string, an array (rendered as a bullet list) or a node, and renders nothing when empty.',
+    importPath: '@e-burgos/tucu-ui',
+    variants: {
+      tone: ['error', 'success', 'info', 'warning'],
+    },
+    example: `import { InlineNotice } from '@e-burgos/tucu-ui';
+
+<InlineNotice tone="error" messages={['Email is required', 'Password is too short']} />
+<InlineNotice tone="success" messages="Changes saved" />`,
+    relatedComponents: ['Alert', 'StateBadge'],
+    themeAware: true,
   },
   {
     name: 'Toast',
@@ -774,6 +992,62 @@ useToastStore.getState().addToast({ message: 'Hola', variant: 'info' });`,
     relatedComponents: ['Spinner', 'Skeleton'],
     themeAware: true,
   },
+  {
+    name: 'EmptyState',
+    category: 'feedback',
+    description:
+      'Empty-list placeholder (`role="status"`). `title`, `description`, `icon`, `action`, `secondaryAction`, `size` sm | md | lg, `variant` plain | card. Tokens `--tucu-state-view-*`.',
+    importPath: '@e-burgos/tucu-ui',
+    variants: {
+      size: ['sm', 'md', 'lg'],
+      variant: ['plain', 'card'],
+    },
+    example: `import { EmptyState, Button } from '@e-burgos/tucu-ui';
+
+<EmptyState
+  title="No invoices yet"
+  description="Create your first invoice to see it here."
+  action={<Button onClick={create}>New invoice</Button>}
+/>`,
+    relatedComponents: ['ErrorState', 'SystemStatePage'],
+    themeAware: true,
+  },
+  {
+    name: 'ErrorState',
+    category: 'feedback',
+    description:
+      'Error placeholder (`role="alert"`). `title` (localized default), `description`, `onRetry` shows a retry button (`retryLabel`), `error` is rendered inside a details disclosure (`detailsLabel`), plus the EmptyState props `icon`, `action`, `size`, `variant`.',
+    importPath: '@e-burgos/tucu-ui',
+    example: `import { ErrorState } from '@e-burgos/tucu-ui';
+
+<ErrorState
+  description="We could not load your invoices."
+  error={error}
+  onRetry={() => refetch()}
+/>`,
+    relatedComponents: ['EmptyState', 'SystemStatePage'],
+    themeAware: true,
+  },
+  {
+    name: 'SystemStatePage',
+    category: 'feedback',
+    description:
+      'Full-page state for 404, 500 or maintenance screens. `code` (large figure), `title`, `description`, `icon`, `action`, `secondaryAction`, `tone` neutral | error.',
+    importPath: '@e-burgos/tucu-ui',
+    variants: {
+      tone: ['neutral', 'error'],
+    },
+    example: `import { SystemStatePage, Button } from '@e-burgos/tucu-ui';
+
+<SystemStatePage
+  code="404"
+  title="Page not found"
+  description="The page you are looking for does not exist."
+  action={<Button onClick={goHome}>Back to home</Button>}
+/>`,
+    relatedComponents: ['EmptyState', 'ErrorState'],
+    themeAware: true,
+  },
 
   // ─── TABS ────────────────────────────────────────────────
   {
@@ -825,6 +1099,31 @@ const [tab, setTab] = useTabParam({ values: TABS, param: 'tab' }); // ?tab=branc
   <TabPanel><BranchesSettings /></TabPanel>
 </ParamTab>`,
     relatedComponents: ['TabGroup'],
+    themeAware: true,
+  },
+  {
+    name: 'AnimatedTabs',
+    category: 'tabs',
+    description:
+      'Tab bar with an animated indicator. `tabs` ({ id, label, icon, badge, disabled }), `activeTab`, `onChange(id)`, `size` sm | md, `mobile` select | scroll (how it collapses on small screens) and `queryParamKey` to sync the active tab with a URL search param.',
+    importPath: '@e-burgos/tucu-ui',
+    variants: {
+      size: ['sm', 'md'],
+      mobile: ['select', 'scroll'],
+    },
+    example: `import { AnimatedTabs } from '@e-burgos/tucu-ui';
+
+const [tab, setTab] = useState('overview');
+
+<AnimatedTabs
+  activeTab={tab}
+  onChange={setTab}
+  tabs={[
+    { id: 'overview', label: 'Overview' },
+    { id: 'activity', label: 'Activity', badge: 3 },
+  ]}
+/>`,
+    relatedComponents: ['TabGroup', 'ParamTab', 'SegmentedControl'],
     themeAware: true,
   },
 
@@ -900,21 +1199,120 @@ const [tab, setTab] = useTabParam({ values: TABS, param: 'tab' }); // ?tab=branc
     name: 'Badge',
     category: 'common',
     description:
-      'Small status badge/tag. With `tone` (primary | success | info | warning | danger | neutral) the colors come from theme tokens; `variant` soft (tinted), ink (solid) or line (1px border) sets the appearance.',
+      'Small status badge/tag. With `tone` (primary | success | info | warning | danger | neutral) the colors come from theme tokens; `variant` soft (tinted), ink (solid) or line (1px border) sets the appearance. Tones `green | orange | red | teal | purple` read the `--tucu-state-<tone>-soft|ink|line` tokens. `struck` strikes the label through (cancelled or expired). For order/payment states prefer `StateBadge`. `size="micro"` is the smallest badge.',
     importPath: '@e-burgos/tucu-ui',
     variants: {
       variant: ['solid', 'ghost', 'outline', 'soft', 'ink', 'line'],
-      tone: ['primary', 'success', 'info', 'warning', 'danger', 'neutral'],
-      size: ['xs', 'tiny', 'small', 'medium', 'large'],
+      tone: [
+        'primary',
+        'success',
+        'info',
+        'warning',
+        'danger',
+        'neutral',
+        'green',
+        'orange',
+        'red',
+        'teal',
+        'purple',
+      ],
+      size: ['micro', 'xs', 'tiny', 'small', 'medium', 'large'],
     },
     example: `import { Badge } from '@e-burgos/tucu-ui';
 
 <Badge variant="solid">Active</Badge>`,
-    relatedComponents: ['Avatar', 'Button'],
+    relatedComponents: ['Avatar', 'Button', 'StateBadge'],
     themeAware: true,
     warnings: [
       "NEVER use variant='secondary' or 'flat' — causes runtime crash.",
     ],
+  },
+  {
+    name: 'Image',
+    category: 'common',
+    description:
+      'Image with lazy loading, blur placeholder and fallback. When `src` is missing or fails to load it renders, in order, `fallbackSrc`, `fallback` (any node) or a centered `fallbackIcon`; `fallbackClassName` styles the fallback box. `fill`, `aspectRatio`, `objectFit`, `containerClassName` control layout. `alt` is required.',
+    importPath: '@e-burgos/tucu-ui',
+    example: `import { Image } from '@e-burgos/tucu-ui';
+
+<Image
+  src={product.photoUrl}
+  alt={product.name}
+  aspectRatio="4/3"
+  fallbackSrc="/placeholder.png"
+/>`,
+    relatedComponents: ['SafeImage', 'Lightbox', 'Avatar'],
+    themeAware: true,
+  },
+  {
+    name: 'SafeImage',
+    category: 'common',
+    description:
+      'Image that never shows a broken-image glyph: same props as `Image`, with an empty `fallbackIcon` by default so a failed load renders a neutral box. Pass `fallbackIcon`, `fallback` or `fallbackSrc` to customize.',
+    importPath: '@e-burgos/tucu-ui',
+    example: `import { SafeImage } from '@e-burgos/tucu-ui';
+
+<SafeImage
+  src={user.avatarUrl}
+  alt={user.name}
+  aspectRatio="1/1"
+  fallbackIcon={<UserIcon />}
+/>`,
+    relatedComponents: ['Image', 'Avatar', 'Lightbox'],
+    themeAware: true,
+  },
+  {
+    name: 'GlassPanel',
+    category: 'common',
+    description:
+      'Translucent surface. `material` thin | regular | thick | sub (sub is blur-free) reads `--tucu-glass-<material>-bg` and `--tucu-glass-blur-<material>`; `radius` control | card | panel reads `--tucu-radius-*`; `elevation` none | card | panel | float reads `--tucu-shadow-*`; `condense` plays a short mount animation; `as` changes the root element. Extends HTML attributes.',
+    importPath: '@e-burgos/tucu-ui',
+    variants: {
+      material: ['thin', 'regular', 'thick', 'sub'],
+      radius: ['control', 'card', 'panel'],
+      elevation: ['none', 'card', 'panel', 'float'],
+    },
+    example: `import { GlassPanel } from '@e-burgos/tucu-ui';
+
+<GlassPanel material="regular" radius="card" elevation="card" className="p-4">
+  Balance overview
+</GlassPanel>`,
+    relatedComponents: ['Card', 'StatCard'],
+    themeAware: true,
+  },
+  {
+    name: 'StateBadge',
+    category: 'common',
+    description:
+      'Badge preset for business states. `tone` green (paid) | orange (pending) | red (alert) | teal (ready) | purple (online) | neutral (delivered, expired) is required; `dot` adds a 6px dot, `struck` strikes the label through (cancelled), `size` sm | md. Colors come from `--tucu-state-<tone>-soft|ink|line`.',
+    importPath: '@e-burgos/tucu-ui',
+    variants: {
+      tone: ['green', 'orange', 'red', 'teal', 'purple', 'neutral'],
+      size: ['sm', 'md'],
+    },
+    example: `import { StateBadge } from '@e-burgos/tucu-ui';
+
+<StateBadge tone="green" dot>Paid</StateBadge>
+<StateBadge tone="neutral" struck>Cancelled</StateBadge>`,
+    relatedComponents: ['Badge', 'InlineNotice'],
+    themeAware: true,
+  },
+  {
+    name: 'MoneyText',
+    category: 'common',
+    description:
+      'Formats a monetary amount with Intl.NumberFormat. `value` (number or numeric string; non-finite renders an em dash), `currency` (ISO 4217), `locale` (defaults to the theme lang), `variant` total | subtotal | row sets the scale, `tone` default | positive | negative | auto (follows the sign), `showSign`, `minimumFractionDigits` / `maximumFractionDigits`, `as`.',
+    importPath: '@e-burgos/tucu-ui',
+    variants: {
+      variant: ['total', 'subtotal', 'row'],
+      tone: ['default', 'positive', 'negative', 'auto'],
+    },
+    example: `import { MoneyText } from '@e-burgos/tucu-ui';
+
+<MoneyText value={1234.5} currency="ARS" variant="total" />
+<MoneyText value={-80} currency="USD" tone="auto" showSign />`,
+    relatedComponents: ['StatCard', 'StateBadge'],
+    themeAware: true,
   },
   {
     name: 'Divider',
@@ -931,7 +1329,7 @@ const [tab, setTab] = useTabParam({ values: TABS, param: 'tab' }); // ?tab=branc
     name: 'Tooltip',
     category: 'common',
     description:
-      'Tooltip that appears on hover/focus. The content is always in the DOM (no portal) and hidden while closed, so the trigger\'s `aria-describedby` always resolves. `size` (xs | sm | md, default md) sets font size and padding; `contentClassName` styles the bubble; `maxWidth` (number | string) caps its width.',
+      "Tooltip that appears on hover/focus. The content is always in the DOM (no portal) and hidden while closed, so the trigger's `aria-describedby` always resolves. `size` (xs | sm | md, default md) sets font size and padding; `contentClassName` styles the bubble; `maxWidth` (number | string) caps its width. `lazy` (default false) mounts the content only while the tooltip is open, so `aria-describedby` resolves only then.",
     importPath: '@e-burgos/tucu-ui',
     variants: {
       size: ['xs', 'sm', 'md'],
@@ -1097,6 +1495,30 @@ const [open, setOpen] = useState(false);
 
 <Carousel items={[<img src="/1.png" />, <img src="/2.png" />]} autoPlay />`,
     relatedComponents: ['Card'],
+    themeAware: true,
+  },
+  {
+    name: 'Lightbox',
+    category: 'carousel',
+    description:
+      'Fullscreen image viewer. Controlled: `items` ({ src, alt, caption, thumbnail, render }), `index` (null = closed), `onIndexChange`, `onClose`. Options: `loop`, `fit` contain | cover, `showThumbnails`, `showCounter`, `zoom`, `swipeThreshold`, localized labels override (`label`, `closeLabel`, `previousLabel`, `nextLabel`). Keyboard arrows and Escape, swipe on touch. Tokens `--tucu-lightbox-*`.',
+    importPath: '@e-burgos/tucu-ui',
+    variants: {
+      fit: ['contain', 'cover'],
+    },
+    example: `import { Lightbox } from '@e-burgos/tucu-ui';
+
+const [index, setIndex] = useState<number | null>(null);
+
+<Lightbox
+  items={photos.map((p) => ({ src: p.url, alt: p.title, caption: p.title }))}
+  index={index}
+  onIndexChange={setIndex}
+  onClose={() => setIndex(null)}
+  showThumbnails
+  loop
+/>`,
+    relatedComponents: ['Image', 'Carousel', 'Modal'],
     themeAware: true,
   },
 

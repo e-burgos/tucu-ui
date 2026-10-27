@@ -303,6 +303,50 @@ const SelectSection: React.FC = () => {
         </CardTitle>
       </CardContainer>
 
+      <CardContainer className="overflow-hidden">
+        <CardTitle
+          title="Menu sizing and trigger rendering"
+          className="mt-2 mb-2"
+        >
+          <div className="w-full p-4 sm:p-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <Select
+                label={
+                  <strong>
+                    Plan (menuWidth content, wrapped descriptions)
+                  </strong>
+                }
+                options={[
+                  {
+                    name: 'Professional monthly plan',
+                    value: 'pro',
+                    description:
+                      'Billed every month with priority support and unlimited projects',
+                    triggerLabel: 'Pro',
+                  },
+                  {
+                    name: 'Enterprise yearly plan',
+                    value: 'ent',
+                    description: 'Billed every year with a dedicated manager',
+                    triggerLabel: 'Enterprise',
+                  },
+                ]}
+                menuWidth="content"
+                wrapDescription
+                descriptionClassName="text-xs"
+              />
+              <Select
+                label="renderValue and maxMenuHeight auto"
+                options={countryOptions}
+                maxMenuHeight="auto"
+                triggerClassName="font-semibold"
+                renderValue={(option) => <span>Country: {option.name}</span>}
+              />
+            </div>
+          </div>
+        </CardTitle>
+      </CardContainer>
+
       <PropPlayground
         componentName="Select"
         defaultValues={{

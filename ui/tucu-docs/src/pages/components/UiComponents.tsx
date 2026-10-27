@@ -194,6 +194,18 @@ const sections: SectionConfig[] = [
       () => import('./ui-components-sections/SidebarMenuSection')
     ),
   },
+  {
+    id: 'split-modal',
+    label: 'SplitModal',
+    category: 'Dialog',
+    component: lazy(() => import('./ui-components-sections/SplitModalSection')),
+  },
+  {
+    id: 'confirm-dialog',
+    label: 'ConfirmDialog',
+    category: 'Dialog',
+    component: lazy(() => import('./ui-components-sections/ConfirmDialogSection')),
+  },
   // Links
   {
     id: 'active-link',
@@ -284,6 +296,30 @@ const sections: SectionConfig[] = [
     label: 'Toast',
     category: 'Notifications',
     component: lazy(() => import('./ui-components-sections/ToastSection')),
+  },
+  {
+    id: 'state-views',
+    label: 'StateViews',
+    category: 'Feedback',
+    component: lazy(() => import('./ui-components-sections/StateViewsSection')),
+  },
+  {
+    id: 'surfaces',
+    label: 'Surfaces',
+    category: 'Common',
+    component: lazy(() => import('./ui-components-sections/SurfacesSection')),
+  },
+  {
+    id: 'controls',
+    label: 'Controls',
+    category: 'Tabs',
+    component: lazy(() => import('./ui-components-sections/ControlsSection')),
+  },
+  {
+    id: 'lightbox',
+    label: 'Lightbox',
+    category: 'Utils',
+    component: lazy(() => import('./ui-components-sections/LightboxSection')),
   },
   // Table
   {

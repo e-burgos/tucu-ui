@@ -26,7 +26,7 @@
         "libs/tucu-docs",
         "tools/mcp-server"
       ],
-      "cycles_completed": 2,
+      "cycles_completed": 3,
       "description": "Primitivas, temas con scope, componentes y layouts genéricos y guía de diseño absorbidos de los consumidores (5 ciclos)"
     }
   ],

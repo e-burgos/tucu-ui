@@ -109,9 +109,11 @@ const copyThemeCssPlugin = () => {
       ]) {
         copyFileSync(path.join(cssDir, file), path.join(destDir, file));
       }
-      cpSync(path.join(cssDir, 'macos'), path.join(destDir, 'macos'), {
-        recursive: true,
-      });
+      for (const dir of ['macos', 'tokens']) {
+        cpSync(path.join(cssDir, dir), path.join(destDir, dir), {
+          recursive: true,
+        });
+      }
       console.log(
         'theme.css (+ its relative imports) copied to distribution directory'
       );

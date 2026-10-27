@@ -4,3 +4,6 @@ export * from './modal';
 export * from './sidebar-menu';
 export * from './sidebar';
 export * from './tab-modal';
+export * from './split-modal';
+export * from './split-modal-wizard';
+export * from './confirm-dialog';

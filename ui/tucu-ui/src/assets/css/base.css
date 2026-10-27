@@ -20,6 +20,8 @@
      ================================================================= */
   html:root,
   .dark [data-tucu-theme]:not(.dark) {
+    --color-page: var(--color-semantic-bg);
+    --color-body: var(--color-page);
     @apply antialiased;
     @apply bg-light;
     -webkit-tap-highlight-color: transparent;
@@ -108,7 +110,8 @@
     --color-info: var(--color-semantic-dark-bg-info);
 
     /* Dark/Light Theme Colors */
-    --color-body: var(--color-semantic-dark-bg);
+    --color-page: var(--color-semantic-dark-bg);
+    --color-body: var(--color-page);
     --color-light-dark: var(--color-semantic-dark-bg-secondary-wash);
     --color-foreground: var(--font-primary-dark-color);
     --hero-grid-color: var(--color-gray-800);
@@ -231,7 +234,8 @@
     --color-error: var(--color-semantic-bg-negative);
     --color-info: var(--color-semantic-bg-primary);
     --color-foreground: var(--font-primary-color);
-    --color-body: var(--color-semantic-bg);
+    --color-page: var(--color-semantic-bg);
+    --color-body: var(--color-page);
     --color-dark: var(--color-semantic-dark-bg);
     --color-light: var(--color-semantic-bg);
     --color-light-dark: var(--color-semantic-bg-secondary-wash);

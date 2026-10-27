@@ -84,6 +84,14 @@ const InputSection: React.FC = () => {
                 <Input label="Disabled" placeholder="Disabled input" disabled />
               </CardContainer>
               <CardContainer className="p-4">
+                <Input
+                  label="Search with shortcut and end adornment"
+                  placeholder="Search..."
+                  shortcut="⌘K"
+                  endAdornment={<span aria-hidden="true">🔍</span>}
+                />
+              </CardContainer>
+              <CardContainer className="p-4">
                 <Typography tag="h5" className="mb-3">
                   Date Input
                 </Typography>

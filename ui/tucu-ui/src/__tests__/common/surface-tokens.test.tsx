@@ -158,12 +158,14 @@ describe('BasicTable tokens, density and dividers', () => {
       <BasicTable columns={columns} data={data} density="snug" />
     );
     const cell = container.querySelector('[data-tucu="table-cell"]');
-    expect(cell?.className).toContain('text-[13px]');
-    expect(cell?.className).toContain('px-2.5');
-    expect(cell?.className).toContain('py-1.5');
+    expect(cell?.className).toContain('--tucu-table-font-size');
+    expect(container.querySelector('[data-tucu="table"]')).toHaveAttribute(
+      'data-density',
+      'snug'
+    );
     expect(
       container.querySelector('[data-tucu="table-header-cell"]')?.className
-    ).toContain('px-2.5');
+    ).toContain('--tucu-table-cell-px');
   });
 
   it('reads the row hover token with a library default', () => {
@@ -178,16 +180,18 @@ describe('BasicTable tokens, density and dividers', () => {
       <BasicTable columns={columns} data={data} density="compact" />
     );
     const cell = container.querySelector('[data-tucu="table-cell"]');
-    expect(cell?.className).toContain('text-xs');
-    expect(cell?.className).toContain('px-2');
-    expect(cell?.className).toContain('py-1');
+    expect(cell?.className).toContain('--tucu-table-cell-py');
+    expect(container.querySelector('[data-tucu="table"]')).toHaveAttribute(
+      'data-density',
+      'compact'
+    );
   });
 
-  it('default density keeps text-sm px-3 py-2', () => {
+  it('default density resolves through the table tokens', () => {
     const { container } = render(<BasicTable columns={columns} data={data} />);
     const cell = container.querySelector('[data-tucu="table-cell"]');
-    expect(cell?.className).toContain('text-sm');
-    expect(cell?.className).toContain('px-3');
+    expect(cell?.className).toContain('--tucu-table-font-size');
+    expect(cell?.className).toContain('--tucu-table-cell-px');
   });
 
   it('cellDividers=false removes vertical dividers but keeps the outer border', () => {

@@ -101,6 +101,9 @@ const BadgeSection: React.FC = () => {
         <CardTitle title="Sizes" className="mt-2 mb-2">
           <div className="w-full p-4 sm:p-6">
             <div className="flex flex-wrap items-center gap-3">
+              <Badge size="micro" color="primary">
+                Micro
+              </Badge>
               <Badge size="tiny" color="primary">
                 Tiny
               </Badge>

@@ -7,8 +7,14 @@ type ObjectFit = 'cover' | 'contain' | 'fill' | 'none' | 'scale-down';
 type Loading = 'lazy' | 'eager';
 type Priority = 'high' | 'low' | 'auto';
 
+const DEFAULT_FALLBACK_SRC =
+  'https://via.placeholder.com/400x300?text=Image+Not+Found';
+
+const PLACEHOLDER_STRIPES =
+  'repeating-linear-gradient(45deg, color-mix(in srgb, currentColor 10%, transparent) 0 8px, transparent 8px 16px)';
+
 export interface ImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
-  src: string;
+  src?: string;
   alt: string;
   width?: number | string;
   height?: number | string;
@@ -21,6 +27,12 @@ export interface ImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
   onLoad?: () => void;
   onError?: () => void;
   fallbackSrc?: string;
+  /** Node rendered in place of the image when `src` is missing or fails to load. Opts out of the default `fallbackSrc` image. */
+  fallback?: React.ReactNode;
+  /** Icon centred in the striped placeholder shown when there is no `fallback` node. Opts out of the default `fallbackSrc` image. */
+  fallbackIcon?: React.ReactNode;
+  /** Class names for the striped placeholder; defaults to the image `className`. Opts out of the default `fallbackSrc` image. */
+  fallbackClassName?: string;
   className?: string;
   containerClassName?: string;
   aspectRatio?: string;
@@ -39,7 +51,10 @@ export const Image: React.FC<ImageProps> = ({
   blurDataURL,
   onLoad,
   onError,
-  fallbackSrc = 'https://via.placeholder.com/400x300?text=Image+Not+Found',
+  fallbackSrc,
+  fallback,
+  fallbackIcon,
+  fallbackClassName,
   className,
   containerClassName,
   aspectRatio,
@@ -49,6 +64,12 @@ export const Image: React.FC<ImageProps> = ({
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
   const [currentSrc, setCurrentSrc] = useState(src);
+  const hasCustomFallback =
+    fallback !== undefined ||
+    fallbackIcon !== undefined ||
+    fallbackClassName !== undefined;
+  const resolvedFallbackSrc =
+    fallbackSrc ?? (hasCustomFallback ? undefined : DEFAULT_FALLBACK_SRC);
   const imgRef = useRef<HTMLImageElement>(null);
 
   useEffect(() => {
@@ -71,7 +92,7 @@ export const Image: React.FC<ImageProps> = ({
   };
 
   const handleError = () => {
-    if (currentSrc === fallbackSrc) {
+    if (!resolvedFallbackSrc || currentSrc === resolvedFallbackSrc) {
       // Avoid infinite loop if fallback also fails
       setHasError(true);
       setIsLoading(false);
@@ -80,7 +101,7 @@ export const Image: React.FC<ImageProps> = ({
     }
     setHasError(true);
     setIsLoading(false);
-    setCurrentSrc(fallbackSrc);
+    setCurrentSrc(resolvedFallbackSrc);
     onError?.();
   };
 
@@ -130,8 +151,34 @@ export const Image: React.FC<ImageProps> = ({
     opacity: isLoading && placeholder === 'blur' ? 1 : 0,
   };
 
+  const showCustomFallback =
+    hasCustomFallback && (!currentSrc || (hasError && !resolvedFallbackSrc));
+
+  if (showCustomFallback) {
+    if (fallback !== undefined && fallback !== null) return <>{fallback}</>;
+    return (
+      <div
+        aria-hidden="true"
+        data-tucu="image-fallback"
+        className={cn(
+          'inline-flex shrink-0 items-center justify-center text-muted',
+          fallbackClassName ?? [containerClassName, className]
+        )}
+        style={{
+          width: fill ? '100%' : normalizeDimension(width),
+          height: aspectRatio ? undefined : fill ? '100%' : normalizeDimension(height),
+          aspectRatio,
+          backgroundImage: PLACEHOLDER_STRIPES,
+        }}
+      >
+        {fallbackIcon}
+      </div>
+    );
+  }
+
   return (
     <div
+      data-tucu="image"
       className={cn(
         'relative inline-block overflow-hidden',
         { 'bg-gray-200 dark:bg-gray-800': isLoading || hasError },
@@ -158,7 +205,7 @@ export const Image: React.FC<ImageProps> = ({
 
       <img
         ref={imgRef}
-        src={currentSrc}
+        src={currentSrc || undefined}
         alt={alt}
         loading={loading}
         fetchPriority={priority}
@@ -211,5 +258,12 @@ export const Image: React.FC<ImageProps> = ({
     </div>
   );
 };
+
+export type SafeImageProps = ImageProps;
+
+export const SafeImage: React.FC<SafeImageProps> = ({
+  fallbackIcon = null,
+  ...props
+}) => <Image fallbackIcon={fallbackIcon} {...props} />;
 
 export default Image;

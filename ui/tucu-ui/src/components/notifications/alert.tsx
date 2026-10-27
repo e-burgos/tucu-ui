@@ -92,8 +92,8 @@ export function Alert({
 
   return (
     <div
-      {...rootProps}
       data-tucu="alert"
+      {...rootProps}
       data-variant={variant}
       role={live === 'polite' ? 'status' : 'alert'}
       aria-live={live}

@@ -1,0 +1,267 @@
+{
+  "$schema": "../../../../schemas/cycle-tasks.schema.json",
+  "spec": "spec-e-burgos-002-consumer-absorption",
+  "cycle": 3,
+  "module": "consumer-absorption",
+  "apps": [
+    "libs/tucu-ui",
+    "libs/tucu-docs",
+    "tools/mcp-server"
+  ],
+  "flow": "lite",
+  "user_stories_generated": true,
+  "prerequisites": {
+    "tasks_generated": true
+  },
+  "tasks": [
+    {
+      "id": "TASK-001",
+      "title": "SplitModal, SplitModalWizard y ConfirmDialog sobre Modal",
+      "user_stories": [
+        "US-001",
+        "US-002"
+      ],
+      "estimation_hours": 8,
+      "story_points": 8,
+      "depends_on": [],
+      "status": "done",
+      "files": [
+        "ui/tucu-ui/src/components/dialog/split-modal.tsx",
+        "ui/tucu-ui/src/components/dialog/split-modal-nav.tsx",
+        "ui/tucu-ui/src/components/dialog/split-modal-types.ts",
+        "ui/tucu-ui/src/components/dialog/split-modal-wizard.tsx",
+        "ui/tucu-ui/src/components/dialog/confirm-dialog.tsx",
+        "ui/tucu-ui/src/components/dialog/modal.tsx",
+        "ui/tucu-ui/src/assets/css/tokens/split-modal.css"
+      ],
+      "usage": {
+        "tokens_in": 174000,
+        "tokens_out": 28000,
+        "provider_model": "claude/sonnet",
+        "effort": "high",
+        "agent": "implementor-front",
+        "approx": true,
+        "source": "declared-estimate",
+        "recorded_at": "2026-10-27"
+      }
+    },
+    {
+      "id": "TASK-002",
+      "title": "GlassPanel, StateBadge, InlineNotice, MoneyText, SafeImage y StatCard",
+      "user_stories": [
+        "US-003"
+      ],
+      "estimation_hours": 8,
+      "story_points": 8,
+      "depends_on": [],
+      "status": "done",
+      "files": [
+        "ui/tucu-ui/src/components/common/glass-panel.tsx",
+        "ui/tucu-ui/src/components/common/state-badge.tsx",
+        "ui/tucu-ui/src/components/common/money-text.tsx",
+        "ui/tucu-ui/src/components/common/badge.tsx",
+        "ui/tucu-ui/src/components/notifications/inline-notice.tsx",
+        "ui/tucu-ui/src/components/notifications/alert.tsx",
+        "ui/tucu-ui/src/components/utils/image.tsx",
+        "ui/tucu-ui/src/components/cards/stat-card.tsx",
+        "ui/tucu-ui/src/assets/css/tokens/surfaces.css"
+      ],
+      "usage": {
+        "tokens_in": 155000,
+        "tokens_out": 28000,
+        "provider_model": "claude/sonnet",
+        "effort": "medium",
+        "agent": "implementor-front",
+        "approx": true,
+        "source": "declared-estimate",
+        "recorded_at": "2026-10-27"
+      }
+    },
+    {
+      "id": "TASK-003",
+      "title": "SegmentedControl, FilterPill, FilterBar, AnimatedTabs y fricciones 60-63 de Select",
+      "user_stories": [
+        "US-004",
+        "US-006"
+      ],
+      "estimation_hours": 8,
+      "story_points": 8,
+      "depends_on": [],
+      "status": "done",
+      "files": [
+        "ui/tucu-ui/src/components/inputs/segmented-control.tsx",
+        "ui/tucu-ui/src/components/inputs/select.tsx",
+        "ui/tucu-ui/src/components/filters/filter-pill.tsx",
+        "ui/tucu-ui/src/components/filters/filter-bar.tsx",
+        "ui/tucu-ui/src/components/tabs/animated-tabs.tsx",
+        "ui/tucu-ui/src/assets/css/tokens/controls.css"
+      ],
+      "usage": {
+        "tokens_in": 155000,
+        "tokens_out": 25000,
+        "provider_model": "claude/sonnet",
+        "effort": "medium",
+        "agent": "implementor-front",
+        "approx": true,
+        "source": "declared-estimate",
+        "recorded_at": "2026-10-27"
+      }
+    },
+    {
+      "id": "TASK-004",
+      "title": "EmptyState, ErrorState, SystemStatePage y Lightbox",
+      "user_stories": [
+        "US-002",
+        "US-005"
+      ],
+      "estimation_hours": 5,
+      "story_points": 5,
+      "depends_on": [],
+      "status": "done",
+      "files": [
+        "ui/tucu-ui/src/components/feedback/",
+        "ui/tucu-ui/src/components/lightbox/",
+        "ui/tucu-ui/src/assets/css/tokens/feedback.css"
+      ],
+      "usage": {
+        "tokens_in": 147000,
+        "tokens_out": 20000,
+        "provider_model": "claude/sonnet",
+        "effort": "medium",
+        "agent": "implementor-front",
+        "approx": true,
+        "source": "declared-estimate",
+        "recorded_at": "2026-10-27"
+      }
+    },
+    {
+      "id": "TASK-005",
+      "title": "Integración: generate-props, registry del MCP, changelog y tucu-docs",
+      "user_stories": [
+        "US-001",
+        "US-002",
+        "US-003",
+        "US-004",
+        "US-005",
+        "US-006"
+      ],
+      "estimation_hours": 5,
+      "story_points": 5,
+      "depends_on": [
+        "TASK-001",
+        "TASK-002",
+        "TASK-003",
+        "TASK-004"
+      ],
+      "status": "done",
+      "files": [
+        "ui/tucu-ui/src/docs-kit/generated/props-metadata.ts",
+        "tools/mcp-server/src/data/component-registry.ts",
+        "tools/mcp-server/src/resources/tokens.ts",
+        "tools/mcp-server/src/resources/changelog.ts",
+        "ui/tucu-docs/src/pages/components/ui-components-sections/",
+        "ui/tucu-docs/src/pages/components/UiComponents.tsx",
+        "README.md",
+        "README-es.md"
+      ],
+      "usage": {
+        "tokens_in": 210000,
+        "tokens_out": 40000,
+        "provider_model": "claude/sonnet",
+        "effort": "medium",
+        "agent": "implementor-front",
+        "approx": true,
+        "source": "declared-estimate",
+        "recorded_at": "2026-10-27"
+      }
+    },
+    {
+      "id": "TASK-007",
+      "title": "Fricciones 64 a 68 del Studio: Button square, Input suffix/shortcut, Badge micro, Tooltip lazy y --color-page fuera de colisión con --text-body",
+      "user_stories": [
+        "US-006"
+      ],
+      "estimation_hours": 5,
+      "story_points": 5,
+      "depends_on": [],
+      "status": "done",
+      "files": [
+        "ui/tucu-ui/src/components/buttons/button/index.tsx",
+        "ui/tucu-ui/src/components/inputs/input.tsx",
+        "ui/tucu-ui/src/components/common/badge.tsx",
+        "ui/tucu-ui/src/components/common/tooltip.tsx",
+        "ui/tucu-ui/src/assets/css/theme-core.css",
+        "ui/tucu-ui/src/assets/css/base.css"
+      ],
+      "usage": {
+        "tokens_in": 121000,
+        "tokens_out": 9000,
+        "provider_model": "claude/sonnet",
+        "effort": "medium",
+        "agent": "implementor-front",
+        "approx": true,
+        "source": "declared-estimate",
+        "recorded_at": "2026-10-27"
+      }
+    },
+    {
+      "id": "TASK-008",
+      "title": "Fricciones 69 a 75 del Studio: tipos de ThemeModeScript en ./next, Modal closeTooltip/headerActions, tokens de espaciado y tipografía de BasicTable por densidad, --tucu-select-border",
+      "user_stories": [
+        "US-006"
+      ],
+      "estimation_hours": 3,
+      "story_points": 3,
+      "depends_on": [],
+      "status": "done",
+      "files": [
+        "ui/tucu-ui/types/next-entry.d.ts",
+        "ui/tucu-ui/src/components/dialog/modal.tsx",
+        "ui/tucu-ui/src/components/table/basic-table.tsx",
+        "ui/tucu-ui/src/components/inputs/select.tsx",
+        "ui/tucu-ui/src/assets/css/tokens/table.css",
+        "ui/tucu-ui/src/__tests__/next/next-entry-types.test.ts"
+      ],
+      "usage": {
+        "tokens_in": 160000,
+        "tokens_out": 27000,
+        "provider_model": "claude/sonnet",
+        "effort": "medium",
+        "agent": "implementor-front",
+        "approx": true,
+        "source": "declared-estimate",
+        "recorded_at": "2026-10-27"
+      }
+    },
+    {
+      "id": "TASK-006",
+      "title": "Verificación: tests, lint, checks de build, test-local y navegador",
+      "user_stories": [
+        "US-001",
+        "US-005"
+      ],
+      "estimation_hours": 3,
+      "story_points": 3,
+      "depends_on": [
+        "TASK-005",
+        "TASK-007",
+        "TASK-008"
+      ],
+      "status": "done",
+      "files": [
+        "ui/tucu-ui/vite.config.mts",
+        "ui/tucu-ui/scripts/check-built-imports.mjs"
+      ],
+      "usage": {
+        "tokens_in": 90000,
+        "tokens_out": 9000,
+        "provider_model": "claude/opus",
+        "effort": "medium",
+        "agent": "orchestrator",
+        "approx": true,
+        "source": "declared-estimate",
+        "recorded_at": "2026-10-27"
+      }
+    }
+  ]
+}

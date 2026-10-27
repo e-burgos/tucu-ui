@@ -10,7 +10,7 @@ import ButtonLoader from './button-loader';
 import { LoaderSizeTypes, LoaderVariantTypes } from '../../loaders/loader';
 import { Tooltip, TooltipPlacement, TooltipColor } from '../../common/tooltip';
 
-type ShapeNames = 'rounded' | 'pill' | 'circle';
+type ShapeNames = 'rounded' | 'pill' | 'circle' | 'square';
 type VariantNames = 'solid' | 'ghost' | 'outline' | 'transparent';
 type ColorNames =
   | 'primary'
@@ -26,6 +26,7 @@ const shapes: Record<ShapeNames, string[]> = {
   rounded: ['rounded-md sm:rounded-lg'],
   pill: ['rounded-full'],
   circle: ['rounded-full'],
+  square: ['rounded-md sm:rounded-lg'],
 };
 const variants: Record<VariantNames, string[]> = {
   ghost: ['bg-transparent'],
@@ -55,6 +56,7 @@ export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   isLoading?: boolean;
   disabled?: boolean;
+  /** Button shape. `square` keeps the `circle` width=height per size with the regular radius. */
   shape?: ShapeNames;
   variant?: VariantNames;
   color?: ColorNames;
@@ -193,7 +195,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
               : 'text-gray-900 dark:text-white'
             : variants[variant],
           shapes[shape],
-          shape === 'circle' ? sizeClassNames[1] : sizeClassNames[0],
+          shape === 'circle' || shape === 'square' ? sizeClassNames[1] : sizeClassNames[0],
           className
         )}
         disabled={disabled}

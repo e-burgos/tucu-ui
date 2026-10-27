@@ -84,8 +84,15 @@ export type InputProps = Omit<
   helperText?: string;
   /** Change input color */
   color?: ControlColor;
+  /** Leading adornment rendered inside the field at the start (legacy name; use `endAdornment` for the end). */
   suffix?: React.ReactNode;
   suffixClassName?: string;
+  /** Adornment rendered inside the field box at the end, before the password/date toggle. Does not affect the value. */
+  endAdornment?: React.ReactNode;
+  /** Keyboard shortcut hint rendered as a `<kbd>` at the end; also sets `aria-keyshortcuts` on the input. */
+  shortcut?: string;
+  /** Hide the shortcut hint while the input has a value. Defaults to `true`. */
+  shortcutHideOnValue?: boolean;
   icon?: React.ReactNode;
   dateFormat?: DateFormat;
   /** Date picker locale. Defaults to the theme `lang` (es → es-AR). */
@@ -179,6 +186,22 @@ const getTodayText = (locale: string): string => {
   return 'Today';
 };
 
+function computeTrailingPadding({
+  hasEndToggle,
+  hasEndAdornment,
+  shortcutLength,
+}: {
+  hasEndToggle: boolean;
+  hasEndAdornment: boolean;
+  shortcutLength: number;
+}): number | undefined {
+  if (!hasEndAdornment && shortcutLength === 0) return undefined;
+  const toggle = hasEndToggle ? 28 : 0;
+  const adornment = hasEndAdornment ? 28 : 0;
+  const shortcut = shortcutLength > 0 ? shortcutLength * 7 + 20 : 0;
+  return 12 + toggle + adornment + shortcut;
+}
+
 export const Input = forwardRef<HTMLInputElement, InputProps>(
   (
     {
@@ -194,6 +217,9 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       color,
       suffix,
       suffixClassName,
+      endAdornment,
+      shortcut,
+      shortcutHideOnValue = true,
       useUppercaseLabel = false,
       icon,
       size = 'md',
@@ -711,6 +737,15 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           : maskDef.format(String(value))
         : value;
 
+    const hasValue = displayValue !== undefined && displayValue !== null && String(displayValue) !== '';
+    const shortcutVisible = Boolean(shortcut) && !(shortcutHideOnValue && hasValue);
+    const hasEndToggle = type === 'password' || type === 'date';
+    const trailingPadding = computeTrailingPadding({
+      hasEndToggle,
+      hasEndAdornment: Boolean(endAdornment),
+      shortcutLength: shortcutVisible ? shortcut?.length ?? 0 : 0,
+    });
+
     return (
       <div
         data-tucu="input"
@@ -757,6 +792,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
                   : displayValue
               }
               inputMode={maskDef?.inputMode}
+              aria-keyshortcuts={shortcut}
               autoComplete={
                 type === 'email' ? 'email' : type === 'tel' ? 'tel' : undefined
               }
@@ -769,6 +805,12 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
                     ...props,
                     onChange: undefined,
                   })}
+              style={{
+                ...props.style,
+                ...(trailingPadding !== undefined && {
+                  paddingInlineEnd: trailingPadding,
+                }),
+              }}
               className={cn(
                 // Error state follows aria-invalid (error prop / built-in validation)
                 // and :user-invalid (native constraints, only after the user
@@ -797,6 +839,26 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
                 aria-hidden="true"
               >
                 {suffix || icon}
+              </span>
+            )}
+
+            {(endAdornment || shortcutVisible) && (
+              <span
+                data-tucu="input-end"
+                className={cn(
+                  'absolute top-1/2 -translate-y-1/2 flex items-center gap-1.5 text-gray-400 dark:text-gray-500',
+                  hasEndToggle ? 'end-[40px]' : 'end-[12px]'
+                )}
+              >
+                {endAdornment}
+                {shortcutVisible && (
+                  <kbd
+                    data-tucu="input-shortcut"
+                    className="pointer-events-none rounded border border-border px-1.5 py-0.5 font-sans text-[10px] leading-none text-gray-500 dark:text-gray-400"
+                  >
+                    {shortcut}
+                  </kbd>
+                )}
               </span>
             )}
 

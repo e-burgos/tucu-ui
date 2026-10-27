@@ -51,8 +51,8 @@ describe('Select appearance and size', () => {
     expect(trigger.className).toContain(
       'var(--tucu-select-radius,var(--tucu-select-radius-default))'
     );
-    expect(trigger.className).toContain('border-border');
-    expect(trigger.className).toContain('bg-body');
+    expect(trigger.className).toContain('var(--tucu-select-border,var(--tucu-select-border-default))');
+    expect(trigger.className).toContain('var(--tucu-select-bg,var(--tucu-select-bg-default))');
     expect(trigger.className).not.toMatch(/dark:/);
     expect(trigger.className).not.toContain('rounded-xl');
   });
