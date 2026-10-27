@@ -4,6 +4,13 @@ All notable changes to `@e-burgos/tucu-ui-mcp` will be documented in this file.
 
 <!-- Last updated: 2026-06-02 -->
 
+## [0.11.0] - 2026-10-27
+
+### Added
+
+- token-driven Tooltip/Skeleton/BasicTable, Card density and flex body, BasicTable density/cellDividers/rowHeight (spec-e-burgos-002 cycle-01)
+- Select groups/xs/no re-select onChange, Tooltip size, controlled Collapse variants, extendClassMergeTokens (spec-e-burgos-002 cycle-01)
+- JS entry without stylesheet imports, swiper CSS in theme, MCP registry for c00 props (spec-e-burgos-002 cycle-01 TASK-006/007)
 ## [0.10.0] - 2026-10-27
 
 ### Added
