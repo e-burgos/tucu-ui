@@ -55,6 +55,7 @@ export function SplitModal({
   maxHeight = DEFAULT_MAX_HEIGHT,
   size,
   closeLabel,
+  closeTooltip,
   closeButtonProps,
   overlayClassName,
   className,
@@ -140,6 +141,7 @@ export function SplitModal({
       aria-label={ariaLabel}
       aria-labelledby={hasTitle ? titleId : undefined}
       closeLabel={closeLabel}
+      closeTooltip={closeTooltip}
       closeButtonProps={closeButtonProps}
       overlayClassName={overlayClassName}
       initialFocusRef={initialFocusRef}

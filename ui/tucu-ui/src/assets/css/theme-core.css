@@ -48,6 +48,7 @@
 @import './datatable.css';
 @import './tokens/feedback.css';
 @import './tokens/controls.css';
+@import './tokens/table.css';
 @import './swiper-vendor.css' layer(components);
 @import './carousel.css' layer(components);
 @import './scrollbar.css' layer(components);

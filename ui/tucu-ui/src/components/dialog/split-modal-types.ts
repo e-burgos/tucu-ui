@@ -85,6 +85,8 @@ export interface SplitModalProps {
   size?: ModalSize;
   /** Accessible name of the close button. Defaults to the localized `dialog.close`. */
   closeLabel?: string;
+  /** Tooltip content shown on the close button through the tucu `Tooltip`. */
+  closeTooltip?: React.ReactNode;
   /** Attributes spread onto the close button. */
   closeButtonProps?: ModalCloseButtonProps;
   /** Extra classes merged onto the backdrop overlay. */

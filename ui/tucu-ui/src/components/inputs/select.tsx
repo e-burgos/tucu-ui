@@ -160,7 +160,7 @@ const selectVariantClasses = {
 };
 
 const selectNeutralClasses =
-  'transition-colors rounded-[var(--tucu-select-radius,var(--tucu-select-radius-default))] border border-border bg-body text-foreground hover:bg-light-dark';
+  'transition-colors rounded-[var(--tucu-select-radius,var(--tucu-select-radius-default))] border border-[color:var(--tucu-select-border,var(--tucu-select-border-default))] bg-[var(--tucu-select-bg,var(--tucu-select-bg-default))] text-foreground hover:bg-light-dark';
 
 export function Select({
   options,

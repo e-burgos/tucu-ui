@@ -12,6 +12,7 @@ import { Button } from '../buttons';
 import { CardContainer } from '../cards/card-container';
 import { cn } from '../../libs/cn';
 import { Close } from '../icons/close';
+import { Tooltip } from '../common/tooltip';
 import { useTucuMessages } from '../../libs/i18n/use-tucu-messages';
 import { usePortalContainer } from '../../themes/components/theme-scope/portal-container';
 
@@ -79,6 +80,10 @@ export interface ModalProps {
   /** Element focused when the modal opens. Defaults to the dialog element itself. */
   initialFocusRef?: React.RefObject<HTMLElement | null>;
   hideCloseButton?: boolean;
+  /** Tooltip content shown on the close button through the tucu `Tooltip` (lazy, so it stays out of `textContent` until opened). */
+  closeTooltip?: React.ReactNode;
+  /** Actions rendered in the header row immediately before the close button. */
+  headerActions?: React.ReactNode;
   /** Width and content height preset. `md` reproduces the original dimensions. */
   size?: ModalSize;
   /** Replaces the default title inside the header; the close button is kept. */
@@ -124,6 +129,8 @@ export const Modal: React.FC<ModalProps> = ({
   initialFocusRef,
   contentClassName,
   hideCloseButton = false,
+  closeTooltip,
+  headerActions,
   size = 'md',
   header,
   closeLabel,
@@ -262,6 +269,36 @@ export const Modal: React.FC<ModalProps> = ({
     return null;
   }
 
+  const closeButton = (
+    <Button
+      variant="transparent"
+      size="mini"
+      shape="circle"
+      {...closeButtonProps}
+      className={cn('shrink-0', closeButtonProps?.className)}
+      onClick={closeableClose}
+      aria-label={
+        closeButtonProps?.['aria-label'] ?? closeLabel ?? messages.dialog.close
+      }
+    >
+      <Close
+        className="h-[18px] w-[18px] cursor-pointer text-gray-500 dark:text-gray-200"
+        aria-hidden="true"
+        width={18}
+        height={18}
+      />
+    </Button>
+  );
+
+  const wrapCloseTooltip = (button: React.ReactElement) =>
+    closeTooltip ? (
+      <Tooltip content={closeTooltip} lazy>
+        {button}
+      </Tooltip>
+    ) : (
+      button
+    );
+
   const hasHeading = Boolean(text?.title || header);
 
   const panelStyle: React.CSSProperties | undefined =
@@ -316,7 +353,7 @@ export const Modal: React.FC<ModalProps> = ({
           <div
             data-tucu="modal-header"
             className={cn(
-              'flex w-full h-fit justify-between items-start pb-3 dark:text-white text-current',
+              'flex w-full h-fit justify-between items-start gap-2 pb-3 dark:text-white text-current',
               !hasHeading
                 ? 'text-transparent dark:text-transparent'
                 : ' border-b border-border',
@@ -331,28 +368,15 @@ export const Modal: React.FC<ModalProps> = ({
             >
               {header ?? text?.title ?? ''}
             </div>
-            {!hideCloseButton && (
-              <Button
-                variant="transparent"
-                size="mini"
-                shape="circle"
-                {...closeButtonProps}
-                className={cn('shrink-0', closeButtonProps?.className)}
-                onClick={closeableClose}
-                aria-label={
-                  closeButtonProps?.['aria-label'] ??
-                  closeLabel ??
-                  messages.dialog.close
-                }
+            {headerActions && (
+              <div
+                data-tucu="modal-header-actions"
+                className="flex shrink-0 items-center gap-2"
               >
-                <Close
-                  className="h-[18px] w-[18px] cursor-pointer text-gray-500 dark:text-gray-200"
-                  aria-hidden="true"
-                  width={18}
-                  height={18}
-                />
-              </Button>
+                {headerActions}
+              </div>
             )}
+            {!hideCloseButton && wrapCloseTooltip(closeButton)}
           </div>
 
           {text?.content && (

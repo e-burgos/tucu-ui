@@ -86,8 +86,8 @@ export interface BasicTableProps<T = Record<string, unknown>>
   /** Row height in pixels used to compute the max height. Measured from the first row when omitted. */
   rowHeight?: number;
   /**
-   * Cell padding and font size. `compact` uses `text-xs px-2 py-1`, `snug`
-   * sits between it and `default` with `text-[13px] px-2.5 py-1.5`.
+   * Cell padding and font size, resolved through `--tucu-table-cell-px`, `--tucu-table-cell-py`,
+   * `--tucu-table-font-size` and `--tucu-table-header-font-size` (each with a per-density `-default`).
    */
   density?: BasicTableDensity;
   /** Draw the vertical dividers between cells. Independent from the outer `border`. */
@@ -116,17 +116,11 @@ export interface BasicTableProps<T = Record<string, unknown>>
 
 const FALLBACK_ROW_HEIGHT = 40;
 
-const DENSITY_CELL_CLASSES: Record<BasicTableDensity, string> = {
-  compact: 'px-2 py-1 text-xs',
-  snug: 'px-2.5 py-1.5 text-[13px]',
-  default: 'px-3 py-2 text-sm',
-};
+const CELL_TOKEN_CLASSES =
+  'px-[var(--tucu-table-cell-px,var(--tucu-table-cell-px-default))] py-[var(--tucu-table-cell-py,var(--tucu-table-cell-py-default))] text-[length:var(--tucu-table-font-size,var(--tucu-table-font-size-default))] leading-[var(--tucu-table-line-height,var(--tucu-table-line-height-default))]';
 
-const DENSITY_HEADER_CLASSES: Record<BasicTableDensity, string> = {
-  compact: 'px-2 py-1',
-  snug: 'px-2.5 py-1.5',
-  default: 'px-3 py-2',
-};
+const HEADER_TOKEN_CLASSES =
+  'px-[var(--tucu-table-cell-px,var(--tucu-table-cell-px-default))] py-[var(--tucu-table-cell-py,var(--tucu-table-cell-py-default))] text-[length:var(--tucu-table-header-font-size,var(--tucu-table-header-font-size-default))]';
 
 function resolveMaxHeight(
   maxRows: number,
@@ -355,8 +349,8 @@ export const BasicTable = <
     return () => observer.disconnect();
   }, [data.length, density, showHeader, mobileCards, rounded]);
 
-  const cellPadding = DENSITY_CELL_CLASSES[density];
-  const headerPadding = DENSITY_HEADER_CLASSES[density];
+  const cellPadding = CELL_TOKEN_CLASSES;
+  const headerPadding = HEADER_TOKEN_CLASSES;
 
   const getRowClassName = (row: T, index: number): string => {
     const baseClasses = cn('transition-colors', {
@@ -489,6 +483,7 @@ export const BasicTable = <
         {rounded ? (
           <div
             data-tucu="table"
+            data-density={density}
             data-rounded={rounded ? 'true' : 'false'}
             data-border={border ? 'true' : 'false'}
             data-striped={striped ? 'true' : 'false'}
@@ -545,7 +540,7 @@ export const BasicTable = <
                             data-tucu="table-header-cell"
                             className={cn(
                               headerPadding,
-                              'text-left text-[11px] font-semibold text-[color:var(--tucu-table-header-fg,var(--tucu-table-header-fg-default))] uppercase tracking-wider relative',
+                              'text-left font-semibold text-[color:var(--tucu-table-header-fg,var(--tucu-table-header-fg-default))] uppercase tracking-wider relative',
                               border &&
                                 'border-b border-[color:var(--tucu-table-border,var(--tucu-table-border-default))]',
                               border &&
@@ -635,6 +630,7 @@ export const BasicTable = <
         ) : (
           <div
             data-tucu="table"
+            data-density={density}
             data-rounded={rounded ? 'true' : 'false'}
             data-border={border ? 'true' : 'false'}
             data-striped={striped ? 'true' : 'false'}
@@ -685,7 +681,7 @@ export const BasicTable = <
                           data-tucu="table-header-cell"
                           className={cn(
                             headerPadding,
-                            'text-left text-[11px] font-semibold text-[color:var(--tucu-table-header-fg,var(--tucu-table-header-fg-default))] uppercase tracking-wider relative',
+                            'text-left font-semibold text-[color:var(--tucu-table-header-fg,var(--tucu-table-header-fg-default))] uppercase tracking-wider relative',
                             border &&
                               'border-b border-[color:var(--tucu-table-border,var(--tucu-table-border-default))]',
                             border &&

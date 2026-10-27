@@ -1,0 +1,35 @@
+/* Table density tokens: override --tucu-table-cell-px, --tucu-table-cell-py,
+   --tucu-table-font-size and --tucu-table-header-font-size; `-default` values are set per density. */
+@layer base {
+  [data-tucu='table'] {
+    --tucu-table-cell-px-default: 0.75rem;
+    --tucu-table-cell-py-default: 0.5rem;
+    --tucu-table-font-size-default: 0.875rem;
+    --tucu-table-line-height-default: 1.25rem;
+    --tucu-table-header-font-size-default: 11px;
+  }
+
+  [data-tucu='table'][data-density='snug'] {
+    --tucu-table-cell-px-default: 0.625rem;
+    --tucu-table-cell-py-default: 0.375rem;
+    --tucu-table-font-size-default: 13px;
+    --tucu-table-line-height-default: 1.5;
+  }
+
+  [data-tucu='table'][data-density='compact'] {
+    --tucu-table-cell-px-default: 0.5rem;
+    --tucu-table-cell-py-default: 0.25rem;
+    --tucu-table-font-size-default: 0.75rem;
+    --tucu-table-line-height-default: 1rem;
+  }
+}
+
+@layer base {
+  html:root,
+  html.dark,
+  .dark [data-tucu-theme]:not(.dark),
+  [data-tucu-theme].dark {
+    --tucu-select-border-default: var(--color-border);
+    --tucu-select-bg-default: var(--color-body);
+  }
+}

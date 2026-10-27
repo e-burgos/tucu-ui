@@ -149,8 +149,8 @@ or on any ancestor) to theme those components without \`!important\`:
 | Toast | \`--tucu-toast-bg\`, \`--tucu-toast-fg\`, \`--tucu-toast-fg-muted\`, \`--tucu-toast-border\`, \`--tucu-toast-radius\`, \`--tucu-toast-shadow\` |
 | Tooltip (no \`color\` prop) | \`--tucu-tooltip-bg\`, \`--tucu-tooltip-fg\`, \`--tucu-tooltip-border\` |
 | Skeleton | \`--tucu-skeleton-bg\`, \`--tucu-skeleton-shine\` |
-| BasicTable | \`--tucu-table-row-hover\`, \`--tucu-table-header-bg\`, \`--tucu-table-header-fg\`, \`--tucu-table-cell-fg\`, \`--tucu-table-border\`, \`--tucu-table-cell-border\` |
-| Select | \`--tucu-select-radius\` |
+| BasicTable | \`--tucu-table-row-hover\`, \`--tucu-table-header-bg\`, \`--tucu-table-header-fg\`, \`--tucu-table-cell-fg\`, \`--tucu-table-border\`, \`--tucu-table-cell-border\`, \`--tucu-table-cell-px\`, \`--tucu-table-cell-py\`, \`--tucu-table-font-size\`, \`--tucu-table-header-font-size\` (per-density \`-default\`) |
+| Select | \`--tucu-select-radius\`, \`--tucu-select-border\`, \`--tucu-select-bg\` (neutral appearance) |
 | \`[data-material="solid"]\` panels | \`--tucu-material-solid-bg\` |
 | SplitModal / SplitModalWizard (v3.7.0) | \`--tucu-split-modal-sidebar-bg\`, \`--tucu-split-modal-sidebar-border\`, \`--tucu-split-modal-item-hover-bg\`, \`--tucu-split-modal-item-active-bg\`, \`--tucu-split-modal-item-active-fg\` |
 | Surfaces: GlassPanel, StateBadge, StatCard (v3.7.0) | \`--tucu-glass-{thin,regular,thick,sub}-bg\`, \`--tucu-glass-blur-{thin,regular,thick,sub}\`, \`--tucu-glass-border\`, \`--tucu-radius-{control,card,panel}\`, \`--tucu-shadow-{card,panel,float}\`, \`--tucu-state-{green,orange,red,teal,purple,neutral}-{soft,ink,line}\` |

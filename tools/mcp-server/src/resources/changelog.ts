@@ -11,6 +11,7 @@ export function getChangelogContent(): string {
 - Add: Select \`menuWidth\`, \`descriptionClassName\`, \`wrapDescription\`, \`maxMenuHeight\` (incl. \`'auto'\`), \`renderValue\`, \`triggerClassName\`, option \`triggerLabel\`, \`label\` as ReactNode
 - Add: Button \`shape="square"\`; Badge \`size="micro"\`; Input \`endAdornment\`, \`shortcut\` (\`<kbd>\` + \`aria-keyshortcuts\`) and \`shortcutHideOnValue\` (the existing \`suffix\` is a leading slot); Tooltip \`lazy\`
 - Change: \`--color-page\` (\`bg-page\`) is the canonical page background; \`--color-body\` stays a plain CSS variable with a \`bg-body\` utility but is no longer in \`@theme\`
+- Add: Modal \`closeTooltip\` (tucu Tooltip on the close button, also on SplitModal) and \`headerActions\` (before the close button); BasicTable density now flows through \`--tucu-table-cell-px\`, \`--tucu-table-cell-py\`, \`--tucu-table-font-size\`, \`--tucu-table-header-font-size\`; Select neutral \`--tucu-select-border\` and \`--tucu-select-bg\`
 - Add: token groups \`--tucu-split-modal-*\`, \`--tucu-glass-*\`, \`--tucu-state-*\`, \`--tucu-segmented-*\`, \`--tucu-state-view-*\`, \`--tucu-lightbox-*\` (see \`tucu://tokens\`)
 
 ## v3.6.0
