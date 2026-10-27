@@ -1,0 +1,120 @@
+{
+  "$schema": "../../../../schemas/cycle-tasks.schema.json",
+  "spec": "spec-e-burgos-002-consumer-absorption",
+  "cycle": 3,
+  "module": "consumer-absorption",
+  "apps": [
+    "libs/tucu-ui",
+    "libs/tucu-docs",
+    "tools/mcp-server"
+  ],
+  "flow": "lite",
+  "user_stories_generated": true,
+  "prerequisites": {
+    "tasks_generated": true
+  },
+  "tasks": [
+    {
+      "id": "TASK-001",
+      "title": "SplitModal, SplitModalWizard y ConfirmDialog sobre Modal",
+      "user_stories": [
+        "US-001",
+        "US-002"
+      ],
+      "estimation_hours": 8,
+      "story_points": 8,
+      "depends_on": [],
+      "status": "pending",
+      "files": [
+        "ui/tucu-ui/src/components/dialog/"
+      ]
+    },
+    {
+      "id": "TASK-002",
+      "title": "GlassPanel, StateBadge, InlineNotice, MoneyText, SafeImage y StatCard",
+      "user_stories": [
+        "US-003"
+      ],
+      "estimation_hours": 8,
+      "story_points": 8,
+      "depends_on": [],
+      "status": "pending",
+      "files": [
+        "ui/tucu-ui/src/components/common/",
+        "ui/tucu-ui/src/components/cards/"
+      ]
+    },
+    {
+      "id": "TASK-003",
+      "title": "SegmentedControl, FilterPill, FilterBar, AnimatedTabs y fricciones 60-63 de Select",
+      "user_stories": [
+        "US-004",
+        "US-006"
+      ],
+      "estimation_hours": 8,
+      "story_points": 8,
+      "depends_on": [],
+      "status": "pending",
+      "files": [
+        "ui/tucu-ui/src/components/inputs/",
+        "ui/tucu-ui/src/components/tabs/"
+      ]
+    },
+    {
+      "id": "TASK-004",
+      "title": "EmptyState, ErrorState, SystemStatePage y Lightbox",
+      "user_stories": [
+        "US-002",
+        "US-005"
+      ],
+      "estimation_hours": 5,
+      "story_points": 5,
+      "depends_on": [],
+      "status": "pending",
+      "files": [
+        "ui/tucu-ui/src/components/feedback/",
+        "ui/tucu-ui/src/components/lightbox/"
+      ]
+    },
+    {
+      "id": "TASK-005",
+      "title": "Integración: generate-props, registry del MCP, changelog y tucu-docs",
+      "user_stories": [
+        "US-001",
+        "US-002",
+        "US-003",
+        "US-004",
+        "US-005",
+        "US-006"
+      ],
+      "estimation_hours": 5,
+      "story_points": 5,
+      "depends_on": [
+        "TASK-001",
+        "TASK-002",
+        "TASK-003",
+        "TASK-004"
+      ],
+      "status": "pending",
+      "files": [
+        "tools/mcp-server/src/data/component-registry.ts",
+        "ui/tucu-docs/src/"
+      ]
+    },
+    {
+      "id": "TASK-006",
+      "title": "Verificación: tests, lint, checks de build, test-local y navegador",
+      "user_stories": [
+        "US-001",
+        "US-005"
+      ],
+      "estimation_hours": 3,
+      "story_points": 3,
+      "depends_on": [
+        "TASK-005"
+      ],
+      "status": "pending",
+      "files": []
+    }
+  ]
+}

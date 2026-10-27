@@ -1,0 +1,42 @@
+{
+  "$schema": "../../../../schemas/cycle.schema.json",
+  "cycle": 3,
+  "module": "consumer-absorption",
+  "spec": "spec-e-burgos-002-consumer-absorption",
+  "apps": [
+    "libs/tucu-ui",
+    "libs/tucu-docs",
+    "tools/mcp-server"
+  ],
+  "phase": "c02-components",
+  "flow": "lite",
+  "objectives": [
+    "SplitModal y SplitModalWizard con sidebar de secciones (prioridad del Studio)",
+    "ConfirmDialog y vistas de estado vacío/error/sistema",
+    "GlassPanel, StateBadge, InlineNotice, MoneyText, SafeImage y StatCard",
+    "SegmentedControl, FilterPill/FilterBar, AnimatedTabs y Lightbox",
+    "Fricciones 60-63 de Select"
+  ],
+  "status": "in-progress",
+  "started_at": "2026-10-27",
+  "completed_at": null,
+  "documents": {
+    "plan": "sdd/specs/spec-e-burgos-002-consumer-absorption/cycles/cycle-03/plan.md",
+    "tasks": "sdd/specs/spec-e-burgos-002-consumer-absorption/cycles/cycle-03/tasks.json"
+  },
+  "artifacts": [],
+  "metrics": {
+    "tasks_total": 6,
+    "tasks_completed": 0,
+    "tasks_skipped": 0,
+    "story_points": 37,
+    "files_created": [],
+    "files_modified": [],
+    "files_deleted": []
+  },
+  "tables_created": [],
+  "endpoints_implemented": [],
+  "components_created": [],
+  "issues_found": [],
+  "reviewer_report": null
+}
