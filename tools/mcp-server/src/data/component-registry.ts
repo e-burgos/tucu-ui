@@ -111,10 +111,11 @@ export const componentRegistry: ComponentRegistryEntry[] = [
     name: 'Select',
     category: 'inputs',
     description:
-      'Dropdown select with options list (custom listbox in a portal). `native` renders a real `<select>`/`<option>` with the same `options` and `onChange(option)`. `id` links an external `<label htmlFor>`; external `aria-labelledby`/`aria-describedby` are merged with the helper/error ids.',
+      'Dropdown select with options list (custom listbox in a portal). `native` renders a real `<select>`/`<option>` with the same `options` and `onChange(option)`. `id` links an external `<label htmlFor>`; external `aria-labelledby`/`aria-describedby` are merged with the helper/error ids. Options with the same `group` render under a non-selectable header (`<optgroup>` in native mode). `onChange` does not fire when the selected option is picked again. `size="xs"` is compact (trigger and listbox); `listboxClassName` styles the listbox.',
     importPath: '@e-burgos/tucu-ui',
     variants: {
       variant: ['solid', 'ghost', 'transparent'],
+      size: ['xs', 'sm', 'md', 'lg'],
     },
     example: `import { Select } from '@e-burgos/tucu-ui';
 
@@ -895,14 +896,37 @@ const [tab, setTab] = useTabParam({ values: TABS, param: 'tab' }); // ?tab=branc
   {
     name: 'Tooltip',
     category: 'common',
-    description: 'Tooltip popup that appears on hover.',
+    description:
+      'Tooltip that appears on hover/focus. The content is always in the DOM (no portal) and hidden while closed, so the trigger\'s `aria-describedby` always resolves. `size` (xs | sm | md, default md) sets font size and padding; `contentClassName` styles the bubble.',
     importPath: '@e-burgos/tucu-ui',
+    variants: {
+      size: ['xs', 'sm', 'md'],
+    },
     example: `import { Tooltip } from '@e-burgos/tucu-ui';
 
-<Tooltip content="More info">
+<Tooltip content="More info" size="xs">
   <span>Hover me</span>
 </Tooltip>`,
     relatedComponents: ['Popover'],
+    themeAware: true,
+  },
+  {
+    name: 'Collapse',
+    category: 'common',
+    description:
+      'Disclosure section. Uncontrolled with `initialOpen`, or controlled with `open` + `onOpenChange`. `label` accepts a ReactNode. The header is a button with `aria-expanded`/`aria-controls`; the panel is a `role="region"`. `variant`: card (default, 54px uppercase card header), compact (h-8 header, normal case, for dense accordions) or unstyled (layout only, for navigation trees). `headerClassName`/`panelClassName` style each part.',
+    importPath: '@e-burgos/tucu-ui',
+    variants: {
+      variant: ['card', 'compact', 'unstyled'],
+    },
+    example: `import { Collapse } from '@e-burgos/tucu-ui';
+
+const [open, setOpen] = useState(false);
+
+<Collapse label="Advanced" variant="compact" open={open} onOpenChange={setOpen}>
+  <p>Details</p>
+</Collapse>`,
+    relatedComponents: ['Accordion'],
     themeAware: true,
   },
   {

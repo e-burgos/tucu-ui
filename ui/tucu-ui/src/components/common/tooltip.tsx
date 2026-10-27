@@ -5,6 +5,7 @@ import { cn } from '../../libs/cn';
 import { useTheme } from '../../themes/hooks/use-theme';
 
 export type TooltipPlacement = 'top' | 'bottom' | 'left' | 'right';
+export type TooltipSize = 'xs' | 'sm' | 'md';
 export type TooltipColor =
   | 'dark'
   | 'light'
@@ -29,8 +30,12 @@ export interface TooltipProps {
   leaveDelay?: number;
   /** Whether the tooltip is disabled */
   disabled?: boolean;
+  /** Font size and padding of the tooltip */
+  size?: TooltipSize;
   /** Additional class name for the tooltip container */
   className?: string;
+  /** Additional class name for the tooltip content box (merged after size and color classes) */
+  contentClassName?: string;
   /** The element that triggers the tooltip */
   children: React.ReactElement;
 }
@@ -54,6 +59,12 @@ const arrowColorStyles: Record<TooltipColor, string> = {
   info: 'text-blue-600',
   warning: 'text-yellow-700',
   danger: 'text-red-600',
+};
+
+const sizeStyles: Record<TooltipSize, string> = {
+  xs: 'px-2 py-1 text-xs',
+  sm: 'px-2.5 py-1 text-xs',
+  md: 'px-3 py-1.5 text-sm',
 };
 
 const ARROW_SIZE = 6;
@@ -187,7 +198,9 @@ export function Tooltip({
   enterDelay = 0,
   leaveDelay = 100,
   disabled = false,
+  size = 'md',
   className,
+  contentClassName,
   children,
 }: TooltipProps) {
   const { mode } = useTheme();
@@ -303,10 +316,12 @@ export function Tooltip({
       hidden={!visible}
       aria-hidden={!visible}
       className={cn(
-        'fixed z-99999 max-w-xs px-3 py-1.5 text-sm rounded-lg shadow-lg pointer-events-none',
+        'fixed z-99999 max-w-xs rounded-lg shadow-lg pointer-events-none',
         'animate-in fade-in duration-150',
+        sizeStyles[size],
         colorStyles[resolvedColor],
-        className
+        className,
+        contentClassName
       )}
       style={
         position

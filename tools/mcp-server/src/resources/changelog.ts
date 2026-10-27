@@ -3,7 +3,19 @@
 export function getChangelogContent(): string {
   return `# Changelog — @e-burgos/tucu-ui
 
-## v3.4.0 (Current)
+## v3.5.0 (Current)
+- Add: \`cn()\` (classnames + tailwind-merge) used by every component, so \`className\` overrides of \`h-*\`, \`bg-*\`, \`text-*\` win; \`extendClassMergeTokens\` registers custom theme tokens
+- Add: \`size="xs"\` on Button, Input, Textarea, Select, Badge and Spinner; Button font size scales with \`size\`; Button \`variant="outline"\` (1px)
+- Add: Button renders the \`<button>\` directly without tooltip (\`wrapperClassName\` when there is one) and defaults to \`type="button"\`
+- Add: Modal \`size\`, \`header\` (ReactNode), \`closeLabel\`, \`aria-label\`/\`aria-describedby\`/\`data-*\` on \`role="dialog"\`; Escape handled on the dialog, overlay click closes, no close delay
+- Add: Select \`native\`, \`id\`, option \`group\`, merged \`aria-labelledby\`/\`aria-describedby\`, \`listboxClassName\`; no \`onChange\` on re-select; long values truncate
+- Add: Alert \`live="polite"\` (\`role="status"\`) and \`appearance\`; Badge \`tone\` with token tones (soft / ink / line); Tooltip \`size\` and always in the DOM; Collapse controlled (\`open\`/\`onOpenChange\`) with \`compact\`/\`unstyled\` variants
+- Add: \`ThemeProvider defaultMode\` (only without persisted state); \`layout\` without \`themeStyle\` selects its theme family, so \`layout="clean"\` no longer keeps a persisted Tahoe wallpaper; SwitchMode \`label\`/\`aria-label\`/\`iconOnly\`
+- Fix: Input/Checkbox no longer render \`aria-invalid="false"\`; Radio \`id\`/\`htmlFor\`; Radio/Checkbox align with multi-line labels; Alert no longer renders an "undefined" class; translated close / access denied labels
+- Fix: library CSS sits in \`@layer components\` so consumer utilities win; macOS themes no longer force the color of every \`<p>\`; DataTable spreads only the leftover width among columns without \`size\`
+- Change: no JS module imports a stylesheet (Swiper CSS ships inside \`theme\`/\`styles\`), so vitest no longer needs \`server.deps.inline\`; point \`@source\` at \`node_modules/@e-burgos/tucu-ui/**/*.mjs\`
+
+## v3.4.0
 - Add: Next.js 16 App Router support via \`@e-burgos/tucu-ui/next\` (\`NextThemeProvider\`, ESM-only, optional peer \`next >=16\`); static export works
 - Add: navigation layer (\`useTucuNavigation\`) decoupled from react-router; \`'use client'\` directive per ESM module
 - Fix: SSR-safe hooks; DataTable no longer reads \`document\` during render

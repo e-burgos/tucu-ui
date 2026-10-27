@@ -76,3 +76,27 @@ describe('Tooltip always in the DOM', () => {
     expect(screen.getByRole('tooltip', { hidden: true })).not.toBeVisible();
   });
 });
+
+describe('Tooltip size', () => {
+  it('applies size and contentClassName', () => {
+    render(
+      <Tooltip content="Tip" size="xs" contentClassName="extra-box">
+        <button>Anchor</button>
+      </Tooltip>
+    );
+    const tip = screen.getByRole('tooltip', { hidden: true });
+    expect(tip.className).toContain('text-xs');
+    expect(tip.className).toContain('extra-box');
+  });
+
+  it('keeps the default md look', () => {
+    render(
+      <Tooltip content="Tip">
+        <button>Anchor</button>
+      </Tooltip>
+    );
+    const tip = screen.getByRole('tooltip', { hidden: true });
+    expect(tip.className).toContain('text-sm');
+    expect(tip.className).toContain('px-3');
+  });
+});

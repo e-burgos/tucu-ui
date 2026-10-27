@@ -16,7 +16,7 @@ export function getBestPracticesContent(): string {
 - Input/Select: variant="ghost" | "solid" | "transparent"
 - Alert: variant="info" | "warning" | "error" | "success"; live="polite" for non-urgent status messages
 - Input/Textarea: size="xs" for dense UIs
-- Merge classes with the exported \`cn()\` (classnames + tailwind-merge); every component merges \`className\` the same way
+- Merge classes with the exported \`cn()\` (classnames + tailwind-merge); every component merges \`className\` the same way. Register custom theme tokens once with \`extendClassMergeTokens({ fontSize: ['meta'] })\` so a custom \`text-meta\` is not merged away as a color
 
 ### Routing
 - Use \`ReactRouter\` from \`@e-burgos/tucu-ui\` for all router hooks

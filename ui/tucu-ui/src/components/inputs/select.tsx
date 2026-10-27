@@ -7,6 +7,7 @@ import {
   useCallback,
   useMemo,
   useId,
+  Fragment,
   type KeyboardEvent as ReactKeyboardEvent,
 } from 'react';
 import { createPortal } from 'react-dom';
@@ -32,7 +33,10 @@ export type SelectOption = {
   icon?: React.ReactNode;
   description?: string;
   disabled?: boolean;
+  group?: string;
 };
+
+export type SelectSize = 'xs' | TextControlSize;
 
 type SelectDomAttributes = {
   [key: `aria-${string}`]: string | number | boolean | undefined;
@@ -60,7 +64,9 @@ export interface SelectTypes extends SelectDomAttributes {
   helperText?: string;
   placeholder?: string;
   buttonClassName?: string;
-  size?: TextControlSize;
+  size?: SelectSize;
+  /** Extra classes for the dropdown listbox container */
+  listboxClassName?: string;
   /** Enable search/filter input inside the dropdown */
   searchable?: boolean;
   /** Placeholder for the search input */
@@ -71,6 +77,50 @@ export interface SelectTypes extends SelectDomAttributes {
   native?: boolean;
   /** Id of the underlying form element (generated when omitted) */
   id?: string;
+}
+
+const selectSizeClasses: Record<SelectSize, string> = {
+  xs: 'h-7 px-2 text-xs',
+  sm: textControlSizeClasses.select.sm,
+  md: textControlSizeClasses.select.md,
+  lg: textControlSizeClasses.select.lg,
+};
+
+const listboxItemSizeClasses: Record<SelectSize, string> = {
+  xs: 'px-2 py-1 text-xs',
+  sm: 'px-3 py-1.5 text-sm',
+  md: 'px-3 py-2 text-sm',
+  lg: 'px-3 py-2.5 text-base',
+};
+
+const listboxPaddingClasses: Record<SelectSize, string> = {
+  xs: 'p-1',
+  sm: 'p-1',
+  md: 'p-1 min-[500px]:p-2',
+  lg: 'p-1 min-[500px]:p-2',
+};
+
+const listboxGroupHeaderClasses: Record<SelectSize, string> = {
+  xs: 'px-2 pt-1.5 pb-0.5 text-[10px]',
+  sm: 'px-3 pt-2 pb-1 text-xs',
+  md: 'px-3 pt-2 pb-1 text-xs',
+  lg: 'px-3 pt-2.5 pb-1 text-sm',
+};
+
+type OptionEntry = { option: SelectOption; index: number };
+type OptionSegment = { group?: string; entries: OptionEntry[] };
+
+function segmentOptionsByGroup(items: SelectOption[]): OptionSegment[] {
+  const segments: OptionSegment[] = [];
+  items.forEach((option, index) => {
+    const last = segments[segments.length - 1];
+    if (last && last.group === option.group) {
+      last.entries.push({ option, index });
+    } else {
+      segments.push({ group: option.group, entries: [{ option, index }] });
+    }
+  });
+  return segments;
 }
 
 const selectVariantClasses = {
@@ -103,6 +153,7 @@ export function Select({
   size = 'md',
   searchable = false,
   searchPlaceholder,
+  listboxClassName,
   showCheck = false,
   native = false,
   id,
@@ -169,6 +220,9 @@ export function Select({
   // Use either the prop selectedOption or the internal state
   const selectedOption = propSelectedOption || internalSelectedOption;
 
+  const selectedOptionRef = useRef(selectedOption);
+  selectedOptionRef.current = selectedOption;
+
   // Calculate which index is currently selected
   const selectedIndex = useMemo(
     () =>
@@ -230,9 +284,10 @@ export function Select({
   // Handle selecting an option
   const handleSelect = useCallback(
     (option: SelectOption) => {
+      const isReselection = option.value === selectedOptionRef.current?.value;
       setInternalSelectedOption(option);
 
-      if (onChange && typeof onChange === 'function') {
+      if (!isReselection && onChange && typeof onChange === 'function') {
         onChange(option);
       }
 
@@ -254,8 +309,9 @@ export function Select({
         name: event.target.selectedOptions[0]?.text ?? nextValue,
         value: nextValue,
       };
+    const isReselection = nextValue === selectedOption?.value;
     setInternalSelectedOption(matchingOption);
-    if (onChange && typeof onChange === 'function') {
+    if (!isReselection && onChange && typeof onChange === 'function') {
       onChange(matchingOption);
     }
     onSelect?.(nextValue);
@@ -386,6 +442,11 @@ export function Select({
     }
   };
 
+  const groupedSegments = useMemo(
+    () => segmentOptionsByGroup(filteredOptions),
+    [filteredOptions]
+  );
+
   // Hidden input for form compatibility
   const hiddenInput = name ? (
     <input type="hidden" name={name} value={selectedOption?.value ?? ''} />
@@ -407,9 +468,10 @@ export function Select({
         }
         style={dropdownStyle}
         className={cn(
-          'max-h-55 overflow-hidden rounded-xl border border-border bg-white shadow-large outline-hidden dark:bg-gray-800',
+          'max-h-55 overflow-hidden rounded-xl border border-border bg-light-dark text-foreground shadow-large outline-hidden',
           'transition ease-in duration-100',
-          isClosing ? 'opacity-0' : 'opacity-100'
+          isClosing ? 'opacity-0' : 'opacity-100',
+          listboxClassName
         )}
       >
         {/* Search input */}
@@ -475,65 +537,108 @@ export function Select({
           </div>
         )}
         {/* Options list */}
-        <div className="max-h-44 overflow-auto grid gap-0.5 p-1 min-[500px]:p-2">
+        <div className={cn(
+            'max-h-44 overflow-auto grid gap-0.5',
+            listboxPaddingClasses[size]
+          )}
+        >
           {filteredOptions.length === 0 ? (
             <div className="px-3 py-3 text-center text-sm text-gray-500 dark:text-gray-400">
               {t.noResults}
             </div>
           ) : (
-            filteredOptions.map((option, index) => {
-              const isSelected = selectedOption?.value === option.value;
-              const isHighlighted = index === highlightedIndex;
-              const isDisabled = option.disabled;
+            groupedSegments.map((segment, segmentIndex) => {
+              const headerId = `${uid}-group-${segmentIndex}`;
+              const renderedOptions = segment.entries.map(
+                ({ option, index }) => {
+                  const isSelected = selectedOption?.value === option.value;
+                  const isHighlighted = index === highlightedIndex;
+                  const isDisabled = option.disabled;
+                  return (
+                    <div
+                      data-tucu="select-option"
+                      data-selected={isSelected ? 'true' : undefined}
+                      data-highlighted={isHighlighted ? 'true' : undefined}
+                      key={`${option.value}-${index}`}
+                      id={optionId(index)}
+                      ref={(el) => {
+                        optionsRef.current[index] = el;
+                      }}
+                      role="option"
+                      aria-selected={isSelected}
+                      aria-disabled={isDisabled}
+                      onClick={() => !isDisabled && handleSelect(option)}
+                      onMouseEnter={() =>
+                        !isDisabled && setHighlightedIndex(index)
+                      }
+                      className={cn(
+                        'flex items-center rounded-md transition',
+                        listboxItemSizeClasses[size],
+                        isDisabled
+                          ? 'cursor-not-allowed opacity-50 text-muted'
+                          : 'cursor-pointer text-foreground',
+                        !isDisabled &&
+                          isSelected &&
+                          'bg-foreground/10 font-medium',
+                        !isDisabled &&
+                          !isSelected &&
+                          isHighlighted &&
+                          'bg-foreground/15',
+                        !isDisabled &&
+                          !isSelected &&
+                          !isHighlighted &&
+                          'hover:bg-foreground/15'
+                      )}
+                    >
+                      {option.icon && (
+                        <span className="mr-2 shrink-0">{option.icon}</span>
+                      )}
+                      <div className="flex-1 min-w-0">
+                        <span className="block truncate">{option.name}</span>
+                        {option.description && (
+                          <span className="block text-[11px] text-muted truncate">
+                            {option.description}
+                          </span>
+                        )}
+                      </div>
+                      {showCheck && isSelected && (
+                        <Check
+                          className={cn(
+                            'h-4 w-4 shrink-0 ml-2',
+                            accentTextClass
+                          )}
+                        />
+                      )}
+                    </div>
+                  );
+                }
+              );
+              if (segment.group === undefined) {
+                return (
+                  <Fragment key={`segment-${segmentIndex}`}>
+                    {renderedOptions}
+                  </Fragment>
+                );
+              }
               return (
                 <div
-                  data-tucu="select-option"
-                  data-selected={isSelected ? 'true' : undefined}
-                  data-highlighted={isHighlighted ? 'true' : undefined}
-                  key={`${option.value}-${index}`}
-                  id={optionId(index)}
-                  ref={(el) => {
-                    optionsRef.current[index] = el;
-                  }}
-                  role="option"
-                  aria-selected={isSelected}
-                  aria-disabled={isDisabled}
-                  onClick={() => !isDisabled && handleSelect(option)}
-                  onMouseEnter={() => !isDisabled && setHighlightedIndex(index)}
-                  className={cn(
-                    'flex items-center rounded-md px-3 py-2 text-sm transition',
-                    isDisabled
-                      ? 'cursor-not-allowed opacity-50 text-gray-400 dark:text-gray-600'
-                      : 'cursor-pointer text-gray-900 dark:text-gray-100',
-                    !isDisabled &&
-                      isSelected &&
-                      'bg-gray-200/70 font-medium dark:bg-gray-600/60',
-                    !isDisabled &&
-                      !isSelected &&
-                      isHighlighted &&
-                      'bg-gray-300 dark:bg-gray-600',
-                    !isDisabled &&
-                      !isSelected &&
-                      !isHighlighted &&
-                      'hover:bg-gray-300 dark:hover:bg-gray-600'
-                  )}
+                  key={`segment-${segmentIndex}`}
+                  data-tucu="select-group"
+                  role="group"
+                  aria-labelledby={headerId}
+                  className="grid gap-0.5"
                 >
-                  {option.icon && (
-                    <span className="mr-2 shrink-0">{option.icon}</span>
-                  )}
-                  <div className="flex-1 min-w-0">
-                    <span className="block truncate">{option.name}</span>
-                    {option.description && (
-                      <span className="block text-[11px] text-gray-500 dark:text-gray-400 truncate">
-                        {option.description}
-                      </span>
+                  <div
+                    id={headerId}
+                    data-tucu="select-group-label"
+                    className={cn(
+                      'font-semibold uppercase tracking-wide text-muted select-none',
+                      listboxGroupHeaderClasses[size]
                     )}
+                  >
+                    {segment.group}
                   </div>
-                  {showCheck && isSelected && (
-                    <Check
-                      className={cn('h-4 w-4 shrink-0 ml-2', accentTextClass)}
-                    />
-                  )}
+                  {renderedOptions}
                 </div>
               );
             })
@@ -574,6 +679,8 @@ export function Select({
     useUppercaseLabel ? 'mb-2 uppercase sm:mb-3' : 'mb-1.5 ml-1.5'
   );
 
+  const nativeSegments = segmentOptionsByGroup(options);
+
   if (native) {
     return (
       <div
@@ -603,7 +710,7 @@ export function Select({
             aria-describedby={describedBy}
             className={cn(
               'tucu-text-case-inherit tucu-letter-space-inherit block w-full appearance-none font-medium outline-hidden duration-200 focus:border-brand focus-visible:outline-2 focus-visible:outline-brand aria-invalid:border-red-500 dark:aria-invalid:border-red-400 ltr:pr-10 rtl:pl-10',
-              textControlSizeClasses.select[size],
+              selectSizeClasses[size],
               selectVariantClasses[variant],
               color && textControlColorClasses[variant][color],
               disabled && 'cursor-not-allowed bg-muted/10!',
@@ -615,15 +722,26 @@ export function Select({
                 {placeholder || t.placeholder}
               </option>
             )}
-            {options.map((option) => (
-              <option
-                key={option.value}
-                value={option.value}
-                disabled={option.disabled}
-              >
-                {option.name}
-              </option>
-            ))}
+            {nativeSegments.map((segment, segmentIndex) => {
+              const nativeOptions = segment.entries.map(({ option }) => (
+                <option
+                  key={option.value}
+                  value={option.value}
+                  disabled={option.disabled}
+                >
+                  {option.name}
+                </option>
+              ));
+              return segment.group === undefined ? (
+                <Fragment key={`segment-${segmentIndex}`}>
+                  {nativeOptions}
+                </Fragment>
+              ) : (
+                <optgroup key={`segment-${segmentIndex}`} label={segment.group}>
+                  {nativeOptions}
+                </optgroup>
+              );
+            })}
             {children}
           </select>
           <ChevronDown
@@ -683,23 +801,30 @@ export function Select({
         onClick={toggleDropdown}
         onKeyDown={handleButtonKeyDown}
         className={cn(
-          'tucu-text-case-inherit tucu-letter-space-inherit flex w-full items-center justify-between font-medium outline-hidden duration-200',
-          textControlSizeClasses.select[size],
+          'tucu-text-case-inherit tucu-letter-space-inherit flex w-full items-center justify-between gap-2 font-medium outline-hidden duration-200',
+          selectSizeClasses[size],
           selectVariantClasses[variant],
           color && textControlColorClasses[variant][color],
           disabled && 'cursor-not-allowed bg-muted/10!',
           buttonClassName
         )}
       >
-        <div className={cn('flex items-center', disabled && 'text-gray-500')}>
-          {selectedOption?.icon && (
-            <span className="mr-1">{selectedOption.icon}</span>
+        <div
+          className={cn(
+            'flex min-w-0 items-center',
+            disabled && 'text-gray-500'
           )}
-          {selectedOption?.name || placeholder || t.placeholder}
+        >
+          {selectedOption?.icon && (
+            <span className="mr-1 shrink-0">{selectedOption.icon}</span>
+          )}
+          <span className="min-w-0 truncate">
+            {selectedOption?.name || placeholder || t.placeholder}
+          </span>
         </div>
         <ChevronDown
           className={cn(
-            'transition-transform duration-200',
+            'shrink-0 transition-transform duration-200',
             disabled && 'text-gray-500',
             isOpen && 'rotate-180'
           )}
