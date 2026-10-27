@@ -1,0 +1,28 @@
+/* SplitModal tokens. Override any `--tucu-split-modal-<prop>`; the `-default` variants are the per-mode fallbacks. */
+@layer base {
+  html:root,
+  .dark [data-tucu-theme]:not(.dark) {
+    --tucu-split-modal-sidebar-bg-default: rgb(0 0 0 / 0.025);
+    --tucu-split-modal-sidebar-border-default: rgb(0 0 0 / 0.08);
+    --tucu-split-modal-item-hover-bg-default: rgb(0 0 0 / 0.05);
+    --tucu-split-modal-item-active-bg-default: color-mix(
+      in oklab,
+      var(--color-brand) 12%,
+      transparent
+    );
+    --tucu-split-modal-item-active-fg-default: var(--color-brand);
+  }
+
+  html.dark,
+  [data-tucu-theme].dark {
+    --tucu-split-modal-sidebar-bg-default: rgb(255 255 255 / 0.03);
+    --tucu-split-modal-sidebar-border-default: rgb(255 255 255 / 0.1);
+    --tucu-split-modal-item-hover-bg-default: rgb(255 255 255 / 0.07);
+    --tucu-split-modal-item-active-bg-default: color-mix(
+      in oklab,
+      var(--color-brand) 22%,
+      transparent
+    );
+    --tucu-split-modal-item-active-fg-default: #ffffff;
+  }
+}

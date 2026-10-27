@@ -1,0 +1,21 @@
+/* Control tokens: SegmentedControl and FilterPill.
+   Override any `--tucu-<comp>-<prop>`; the `-default` variants are the per-mode fallbacks. */
+@layer base {
+  html:root,
+  .dark [data-tucu-theme]:not(.dark) {
+    --tucu-segmented-bg-default: rgb(17 24 39 / 0.06);
+    --tucu-segmented-thumb-bg-default: #ffffff;
+    --tucu-segmented-fg-default: #6b7280;
+    --tucu-segmented-fg-active-default: #111827;
+    --tucu-segmented-radius-default: 0.625rem;
+  }
+
+  html.dark,
+  [data-tucu-theme].dark {
+    --tucu-segmented-bg-default: rgb(255 255 255 / 0.08);
+    --tucu-segmented-thumb-bg-default: rgb(255 255 255 / 0.16);
+    --tucu-segmented-fg-default: #9ca3af;
+    --tucu-segmented-fg-active-default: #f9fafb;
+    --tucu-segmented-radius-default: 0.625rem;
+  }
+}

@@ -89,6 +89,10 @@ export interface ModalProps {
   'aria-label'?: string;
   /** Overrides the id reference used to describe the dialog. */
   'aria-describedby'?: string;
+  /** Id of the element that labels the dialog. Defaults to the modal title; ignored when `aria-label` is set. */
+  'aria-labelledby'?: string;
+  /** ARIA role of the dialog element. Use `alertdialog` for confirmations that interrupt the user. */
+  role?: 'dialog' | 'alertdialog';
   /** `data-*` attributes are forwarded to the element with `role="dialog"`. */
   [dataAttribute: `data-${string}`]: string | undefined;
   text?: {
@@ -125,6 +129,8 @@ export const Modal: React.FC<ModalProps> = ({
   closeLabel,
   'aria-label': ariaLabel,
   'aria-describedby': ariaDescribedBy,
+  'aria-labelledby': ariaLabelledBy,
+  role = 'dialog',
   setIsOpen,
   onSubmit,
   onBack,
@@ -287,10 +293,12 @@ export const Modal: React.FC<ModalProps> = ({
         ref={dialogRef}
         tabIndex={-1}
         className={cn(dialogClasses, 'outline-none')}
-        role="dialog"
+        role={role}
         aria-modal="true"
         aria-label={ariaLabel}
-        aria-labelledby={hasHeading && !ariaLabel ? titleId : undefined}
+        aria-labelledby={
+          ariaLabel ? undefined : ariaLabelledBy ?? (hasHeading ? titleId : undefined)
+        }
         aria-describedby={
           ariaDescribedBy ?? (text?.content ? descriptionId : undefined)
         }

@@ -1,0 +1,227 @@
+@layer base {
+  html:root,
+  .dark [data-tucu-theme]:not(.dark) {
+    --tucu-glass-thin-bg-default: rgba(255, 255, 255, 0.55);
+    --tucu-glass-regular-bg-default: rgba(255, 255, 255, 0.72);
+    --tucu-glass-thick-bg-default: rgba(255, 255, 255, 0.88);
+    --tucu-glass-sub-bg-default: rgba(17, 24, 39, 0.04);
+    --tucu-glass-border-default: rgba(17, 24, 39, 0.1);
+    --tucu-glass-blur-thin-default: 8px;
+    --tucu-glass-blur-regular-default: 16px;
+    --tucu-glass-blur-thick-default: 28px;
+    --tucu-glass-blur-sub-default: 0px;
+    --tucu-radius-control-default: 0.625rem;
+    --tucu-radius-card-default: 1rem;
+    --tucu-radius-panel-default: 1.25rem;
+    --tucu-shadow-card-default: 0 1px 2px rgba(17, 24, 39, 0.05),
+      0 6px 20px rgba(17, 24, 39, 0.06);
+    --tucu-shadow-panel-default: 0 2px 6px rgba(17, 24, 39, 0.06),
+      0 16px 40px rgba(17, 24, 39, 0.1);
+    --tucu-shadow-float-default: 0 4px 12px rgba(17, 24, 39, 0.08),
+      0 28px 64px rgba(17, 24, 39, 0.16);
+
+    --tucu-state-green-soft-default: rgba(22, 163, 74, 0.14);
+    --tucu-state-green-ink-default: #15803d;
+    --tucu-state-green-line-default: rgba(22, 163, 74, 0.35);
+    --tucu-state-orange-soft-default: rgba(234, 88, 12, 0.14);
+    --tucu-state-orange-ink-default: #c2410c;
+    --tucu-state-orange-line-default: rgba(234, 88, 12, 0.35);
+    --tucu-state-red-soft-default: rgba(220, 38, 38, 0.12);
+    --tucu-state-red-ink-default: #b91c1c;
+    --tucu-state-red-line-default: rgba(220, 38, 38, 0.35);
+    --tucu-state-teal-soft-default: rgba(13, 148, 136, 0.14);
+    --tucu-state-teal-ink-default: #0f766e;
+    --tucu-state-teal-line-default: rgba(13, 148, 136, 0.35);
+    --tucu-state-purple-soft-default: rgba(147, 51, 234, 0.12);
+    --tucu-state-purple-ink-default: #7e22ce;
+    --tucu-state-purple-line-default: rgba(147, 51, 234, 0.35);
+    --tucu-state-neutral-soft-default: rgba(107, 114, 128, 0.14);
+    --tucu-state-neutral-ink-default: #4b5563;
+    --tucu-state-neutral-line-default: rgba(107, 114, 128, 0.3);
+  }
+
+  html.dark,
+  [data-tucu-theme].dark {
+    --tucu-glass-thin-bg-default: rgba(30, 33, 40, 0.5);
+    --tucu-glass-regular-bg-default: rgba(30, 33, 40, 0.68);
+    --tucu-glass-thick-bg-default: rgba(24, 27, 33, 0.88);
+    --tucu-glass-sub-bg-default: rgba(255, 255, 255, 0.05);
+    --tucu-glass-border-default: rgba(255, 255, 255, 0.12);
+    --tucu-shadow-card-default: 0 1px 2px rgba(0, 0, 0, 0.3),
+      0 6px 20px rgba(0, 0, 0, 0.28);
+    --tucu-shadow-panel-default: 0 2px 6px rgba(0, 0, 0, 0.34),
+      0 16px 40px rgba(0, 0, 0, 0.4);
+    --tucu-shadow-float-default: 0 4px 12px rgba(0, 0, 0, 0.4),
+      0 28px 64px rgba(0, 0, 0, 0.55);
+
+    --tucu-state-green-soft-default: rgba(74, 222, 128, 0.16);
+    --tucu-state-green-ink-default: #86efac;
+    --tucu-state-green-line-default: rgba(74, 222, 128, 0.35);
+    --tucu-state-orange-soft-default: rgba(251, 146, 60, 0.16);
+    --tucu-state-orange-ink-default: #fdba74;
+    --tucu-state-orange-line-default: rgba(251, 146, 60, 0.35);
+    --tucu-state-red-soft-default: rgba(248, 113, 113, 0.16);
+    --tucu-state-red-ink-default: #fca5a5;
+    --tucu-state-red-line-default: rgba(248, 113, 113, 0.35);
+    --tucu-state-teal-soft-default: rgba(45, 212, 191, 0.16);
+    --tucu-state-teal-ink-default: #5eead4;
+    --tucu-state-teal-line-default: rgba(45, 212, 191, 0.35);
+    --tucu-state-purple-soft-default: rgba(192, 132, 252, 0.16);
+    --tucu-state-purple-ink-default: #d8b4fe;
+    --tucu-state-purple-line-default: rgba(192, 132, 252, 0.35);
+    --tucu-state-neutral-soft-default: rgba(156, 163, 175, 0.16);
+    --tucu-state-neutral-ink-default: #d1d5db;
+    --tucu-state-neutral-line-default: rgba(156, 163, 175, 0.3);
+  }
+}
+
+@layer components {
+  [data-tucu='glass-panel'] {
+    border: 1px solid var(--tucu-glass-border, var(--tucu-glass-border-default));
+    background: var(--tucu-glass-bg);
+    backdrop-filter: blur(var(--tucu-glass-blur));
+    -webkit-backdrop-filter: blur(var(--tucu-glass-blur));
+  }
+  [data-tucu='glass-panel'][data-material='thin'] {
+    --tucu-glass-bg: var(--tucu-glass-thin-bg, var(--tucu-glass-thin-bg-default));
+    --tucu-glass-blur: var(
+      --tucu-glass-blur-thin,
+      var(--tucu-glass-blur-thin-default)
+    );
+  }
+  [data-tucu='glass-panel'][data-material='regular'] {
+    --tucu-glass-bg: var(
+      --tucu-glass-regular-bg,
+      var(--tucu-glass-regular-bg-default)
+    );
+    --tucu-glass-blur: var(
+      --tucu-glass-blur-regular,
+      var(--tucu-glass-blur-regular-default)
+    );
+  }
+  [data-tucu='glass-panel'][data-material='thick'] {
+    --tucu-glass-bg: var(--tucu-glass-thick-bg, var(--tucu-glass-thick-bg-default));
+    --tucu-glass-blur: var(
+      --tucu-glass-blur-thick,
+      var(--tucu-glass-blur-thick-default)
+    );
+  }
+  [data-tucu='glass-panel'][data-material='sub'] {
+    --tucu-glass-bg: var(--tucu-glass-sub-bg, var(--tucu-glass-sub-bg-default));
+    --tucu-glass-blur: var(
+      --tucu-glass-blur-sub,
+      var(--tucu-glass-blur-sub-default)
+    );
+  }
+  [data-tucu='glass-panel'][data-radius='control'] {
+    border-radius: var(
+      --tucu-radius-control,
+      var(--tucu-radius, var(--tucu-radius-control-default))
+    );
+  }
+  [data-tucu='glass-panel'][data-radius='card'] {
+    border-radius: var(
+      --tucu-radius-card,
+      var(--tucu-radius, var(--tucu-radius-card-default))
+    );
+  }
+  [data-tucu='glass-panel'][data-radius='panel'] {
+    border-radius: var(
+      --tucu-radius-panel,
+      var(--tucu-radius, var(--tucu-radius-panel-default))
+    );
+  }
+  [data-tucu='glass-panel'][data-elevation='card'] {
+    box-shadow: var(--tucu-shadow-card, var(--tucu-shadow-card-default));
+  }
+  [data-tucu='glass-panel'][data-elevation='panel'] {
+    box-shadow: var(--tucu-shadow-panel, var(--tucu-shadow-panel-default));
+  }
+  [data-tucu='glass-panel'][data-elevation='float'] {
+    box-shadow: var(--tucu-shadow-float, var(--tucu-shadow-float-default));
+  }
+  [data-tucu='glass-panel'][data-condense='true'] {
+    animation: tucu-glass-condense 320ms ease-out both;
+  }
+  @keyframes tucu-glass-condense {
+    from {
+      opacity: 0;
+      transform: scale(0.97);
+      filter: blur(8px);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+      filter: blur(0);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    [data-tucu='glass-panel'][data-condense='true'] {
+      animation: none;
+    }
+  }
+
+  :is([data-tucu='badge'], [data-tucu='state-badge'])[data-tone='green'],
+  :is([data-tucu='badge'], [data-tucu='state-badge'])[data-tone='orange'],
+  :is([data-tucu='badge'], [data-tucu='state-badge'])[data-tone='red'],
+  :is([data-tucu='badge'], [data-tucu='state-badge'])[data-tone='teal'],
+  :is([data-tucu='badge'], [data-tucu='state-badge'])[data-tone='purple'] {
+    border-width: 1px;
+    border-style: solid;
+  }
+  :is([data-tucu='badge'], [data-tucu='state-badge'])[data-tone='green'] {
+    --tucu-badge-soft: var(--tucu-state-green-soft, var(--tucu-state-green-soft-default));
+    --tucu-badge-ink: var(--tucu-state-green-ink, var(--tucu-state-green-ink-default));
+    --tucu-badge-line: var(--tucu-state-green-line, var(--tucu-state-green-line-default));
+  }
+  :is([data-tucu='badge'], [data-tucu='state-badge'])[data-tone='orange'] {
+    --tucu-badge-soft: var(--tucu-state-orange-soft, var(--tucu-state-orange-soft-default));
+    --tucu-badge-ink: var(--tucu-state-orange-ink, var(--tucu-state-orange-ink-default));
+    --tucu-badge-line: var(--tucu-state-orange-line, var(--tucu-state-orange-line-default));
+  }
+  :is([data-tucu='badge'], [data-tucu='state-badge'])[data-tone='red'] {
+    --tucu-badge-soft: var(--tucu-state-red-soft, var(--tucu-state-red-soft-default));
+    --tucu-badge-ink: var(--tucu-state-red-ink, var(--tucu-state-red-ink-default));
+    --tucu-badge-line: var(--tucu-state-red-line, var(--tucu-state-red-line-default));
+  }
+  :is([data-tucu='badge'], [data-tucu='state-badge'])[data-tone='teal'] {
+    --tucu-badge-soft: var(--tucu-state-teal-soft, var(--tucu-state-teal-soft-default));
+    --tucu-badge-ink: var(--tucu-state-teal-ink, var(--tucu-state-teal-ink-default));
+    --tucu-badge-line: var(--tucu-state-teal-line, var(--tucu-state-teal-line-default));
+  }
+  :is([data-tucu='badge'], [data-tucu='state-badge'])[data-tone='purple'] {
+    --tucu-badge-soft: var(--tucu-state-purple-soft, var(--tucu-state-purple-soft-default));
+    --tucu-badge-ink: var(--tucu-state-purple-ink, var(--tucu-state-purple-ink-default));
+    --tucu-badge-line: var(--tucu-state-purple-line, var(--tucu-state-purple-line-default));
+  }
+  :is([data-tucu='badge'], [data-tucu='state-badge'])[data-tone='green'][data-variant='soft'],
+  :is([data-tucu='badge'], [data-tucu='state-badge'])[data-tone='orange'][data-variant='soft'],
+  :is([data-tucu='badge'], [data-tucu='state-badge'])[data-tone='red'][data-variant='soft'],
+  :is([data-tucu='badge'], [data-tucu='state-badge'])[data-tone='teal'][data-variant='soft'],
+  :is([data-tucu='badge'], [data-tucu='state-badge'])[data-tone='purple'][data-variant='soft'] {
+    background: var(--tucu-badge-soft);
+    color: var(--tucu-badge-ink);
+    border-color: var(--tucu-badge-line);
+  }
+  :is([data-tucu='badge'], [data-tucu='state-badge'])[data-tone='green'][data-variant='line'],
+  :is([data-tucu='badge'], [data-tucu='state-badge'])[data-tone='orange'][data-variant='line'],
+  :is([data-tucu='badge'], [data-tucu='state-badge'])[data-tone='red'][data-variant='line'],
+  :is([data-tucu='badge'], [data-tucu='state-badge'])[data-tone='teal'][data-variant='line'],
+  :is([data-tucu='badge'], [data-tucu='state-badge'])[data-tone='purple'][data-variant='line'] {
+    background: transparent;
+    color: var(--tucu-badge-ink);
+    border-color: var(--tucu-badge-line);
+  }
+  :is([data-tucu='badge'], [data-tucu='state-badge'])[data-tone='green'][data-variant='ink'],
+  :is([data-tucu='badge'], [data-tucu='state-badge'])[data-tone='orange'][data-variant='ink'],
+  :is([data-tucu='badge'], [data-tucu='state-badge'])[data-tone='red'][data-variant='ink'],
+  :is([data-tucu='badge'], [data-tucu='state-badge'])[data-tone='teal'][data-variant='ink'],
+  :is([data-tucu='badge'], [data-tucu='state-badge'])[data-tone='purple'][data-variant='ink'] {
+    background: var(--tucu-badge-ink);
+    color: #fff;
+    border-color: transparent;
+  }
+  :is([data-tucu='badge'], [data-tucu='state-badge'])[data-struck='true'] {
+    text-decoration: line-through;
+  }
+}

@@ -7,3 +7,4 @@ export * from './feature-card';
 export * from './info-card';
 export * from './panel-action-card';
 export * from './panel-card';
+export * from './stat-card';

@@ -65,19 +65,70 @@ export interface TucuMessages {
     on: string;
     off: string;
   };
+  filters: {
+    search: string;
+    clear: string;
+    show: string;
+    hide: string;
+    /** `{count}` is replaced. */
+    activeCount: string;
+  };
+  segmented: {
+    scrollBack: string;
+    scrollForward: string;
+  };
   dialog: {
     close: string;
+  };
+  splitModal: {
+    navigation: string;
+    statusNeutral: string;
+    statusSuccess: string;
+    statusWarning: string;
+    statusDanger: string;
+    statusInfo: string;
+    /** `{index}` and `{total}` are replaced. */
+    stepOf: string;
+    stepComplete: string;
+    stepError: string;
+    steps: string;
+    previous: string;
+    next: string;
+    cancel: string;
+  };
+  confirmDialog: {
+    confirm: string;
+    cancel: string;
   };
   themeMode: {
     label: string;
     switchToDark: string;
     switchToLight: string;
   };
+  statCard: {
+    trendUp: string;
+    trendDown: string;
+    trendFlat: string;
+  };
   accessDenied: {
     title: string;
     description: string;
     action: string;
     login: string;
+  };
+  states: {
+    errorTitle: string;
+    errorDescription: string;
+    retry: string;
+    details: string;
+  };
+  lightbox: {
+    label: string;
+    close: string;
+    previous: string;
+    next: string;
+    /** `{index}` and `{total}` are replaced. */
+    counter: string;
   };
 }
 
@@ -139,19 +190,67 @@ export const TUCU_MESSAGES: Record<TucuLang, TucuMessages> = {
       on: 'ON',
       off: 'OFF',
     },
+    filters: {
+      search: 'Search...',
+      clear: 'Clear filters',
+      show: 'Filters',
+      hide: 'Hide filters',
+      activeCount: '{count} active',
+    },
+    segmented: {
+      scrollBack: 'Scroll back',
+      scrollForward: 'Scroll forward',
+    },
     dialog: {
       close: 'Close',
+    },
+    splitModal: {
+      navigation: 'Navigation',
+      statusNeutral: 'No status',
+      statusSuccess: 'Success',
+      statusWarning: 'Warning',
+      statusDanger: 'Error',
+      statusInfo: 'Info',
+      stepOf: 'Step {index} of {total}',
+      stepComplete: 'completed',
+      stepError: 'needs attention',
+      steps: 'Steps',
+      previous: 'Previous',
+      next: 'Next',
+      cancel: 'Cancel',
+    },
+    confirmDialog: {
+      confirm: 'Confirm',
+      cancel: 'Cancel',
     },
     themeMode: {
       label: 'Mode',
       switchToDark: 'Switch to dark mode',
       switchToLight: 'Switch to light mode',
     },
+    statCard: {
+      trendUp: 'Increase',
+      trendDown: 'Decrease',
+      trendFlat: 'No change',
+    },
     accessDenied: {
       title: 'Access denied',
       description: 'You are not authorized to access this page. Go back to the home page.',
       action: 'Go to home',
       login: 'Log in',
+    },
+    states: {
+      errorTitle: 'Something went wrong',
+      errorDescription: 'We could not complete the request. Please try again.',
+      retry: 'Try again',
+      details: 'Details',
+    },
+    lightbox: {
+      label: 'Image viewer',
+      close: 'Close',
+      previous: 'Previous',
+      next: 'Next',
+      counter: '{index} / {total}',
     },
   },
   es: {
@@ -211,19 +310,67 @@ export const TUCU_MESSAGES: Record<TucuLang, TucuMessages> = {
       on: 'SÍ',
       off: 'NO',
     },
+    filters: {
+      search: 'Buscar...',
+      clear: 'Limpiar filtros',
+      show: 'Filtros',
+      hide: 'Ocultar filtros',
+      activeCount: '{count} activos',
+    },
+    segmented: {
+      scrollBack: 'Desplazar atrás',
+      scrollForward: 'Desplazar adelante',
+    },
     dialog: {
       close: 'Cerrar',
+    },
+    splitModal: {
+      navigation: 'Navegación',
+      statusNeutral: 'Sin estado',
+      statusSuccess: 'Correcto',
+      statusWarning: 'Advertencia',
+      statusDanger: 'Error',
+      statusInfo: 'Información',
+      stepOf: 'Paso {index} de {total}',
+      stepComplete: 'completado',
+      stepError: 'requiere atención',
+      steps: 'Pasos',
+      previous: 'Anterior',
+      next: 'Siguiente',
+      cancel: 'Cancelar',
+    },
+    confirmDialog: {
+      confirm: 'Confirmar',
+      cancel: 'Cancelar',
     },
     themeMode: {
       label: 'Modo',
       switchToDark: 'Cambiar a modo oscuro',
       switchToLight: 'Cambiar a modo claro',
     },
+    statCard: {
+      trendUp: 'Aumento',
+      trendDown: 'Disminución',
+      trendFlat: 'Sin cambios',
+    },
     accessDenied: {
       title: 'Acceso denegado',
       description: 'No tenés permiso para ver esta página. Volvé a la página de inicio.',
       action: 'Ir al inicio',
       login: 'Iniciar sesión',
+    },
+    states: {
+      errorTitle: 'Algo salió mal',
+      errorDescription: 'No pudimos completar la solicitud. Probá de nuevo.',
+      retry: 'Reintentar',
+      details: 'Detalles',
+    },
+    lightbox: {
+      label: 'Visor de imágenes',
+      close: 'Cerrar',
+      previous: 'Anterior',
+      next: 'Siguiente',
+      counter: '{index} / {total}',
     },
   },
   fr: {
@@ -283,19 +430,67 @@ export const TUCU_MESSAGES: Record<TucuLang, TucuMessages> = {
       on: 'OUI',
       off: 'NON',
     },
+    filters: {
+      search: 'Rechercher...',
+      clear: 'Effacer les filtres',
+      show: 'Filtres',
+      hide: 'Masquer les filtres',
+      activeCount: '{count} actifs',
+    },
+    segmented: {
+      scrollBack: 'Défiler en arrière',
+      scrollForward: 'Défiler en avant',
+    },
     dialog: {
       close: 'Fermer',
+    },
+    splitModal: {
+      navigation: 'Navigation',
+      statusNeutral: 'Sans statut',
+      statusSuccess: 'Succès',
+      statusWarning: 'Avertissement',
+      statusDanger: 'Erreur',
+      statusInfo: 'Information',
+      stepOf: 'Étape {index} sur {total}',
+      stepComplete: 'terminée',
+      stepError: 'à corriger',
+      steps: 'Étapes',
+      previous: 'Précédent',
+      next: 'Suivant',
+      cancel: 'Annuler',
+    },
+    confirmDialog: {
+      confirm: 'Confirmer',
+      cancel: 'Annuler',
     },
     themeMode: {
       label: 'Mode',
       switchToDark: 'Passer en mode sombre',
       switchToLight: 'Passer en mode clair',
     },
+    statCard: {
+      trendUp: 'Hausse',
+      trendDown: 'Baisse',
+      trendFlat: 'Stable',
+    },
     accessDenied: {
       title: 'Accès refusé',
       description: "Vous n'êtes pas autorisé à accéder à cette page. Revenez à la page d'accueil.",
       action: "Aller à l'accueil",
       login: 'Se connecter',
+    },
+    states: {
+      errorTitle: "Une erreur s'est produite",
+      errorDescription: "Nous n'avons pas pu terminer la demande. Veuillez réessayer.",
+      retry: 'Réessayer',
+      details: 'Détails',
+    },
+    lightbox: {
+      label: "Visionneuse d'images",
+      close: 'Fermer',
+      previous: 'Précédent',
+      next: 'Suivant',
+      counter: '{index} / {total}',
     },
   },
 };

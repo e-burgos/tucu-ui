@@ -12,3 +12,4 @@ export * from './switch';
 export * from './textarea';
 export * from './toggle-bar';
 export * from './file-input';
+export * from './segmented-control';

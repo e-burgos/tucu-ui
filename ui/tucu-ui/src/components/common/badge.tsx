@@ -9,7 +9,12 @@ type ToneNames =
   | 'info'
   | 'warning'
   | 'danger'
-  | 'neutral';
+  | 'neutral'
+  | 'green'
+  | 'orange'
+  | 'red'
+  | 'teal'
+  | 'purple';
 type ColorNames =
   | 'primary'
   | 'success'
@@ -60,6 +65,11 @@ const toneClassNames: Record<ToneVariantNames, Record<ToneNames, string>> = {
     warning: 'bg-warning/15 text-warning border border-transparent',
     danger: 'bg-error/15 text-error border border-transparent',
     neutral: 'bg-muted/15 text-muted border border-transparent',
+    green: '',
+    orange: '',
+    red: '',
+    teal: '',
+    purple: '',
   },
   ink: {
     primary: 'bg-brand text-white border border-transparent',
@@ -68,6 +78,11 @@ const toneClassNames: Record<ToneVariantNames, Record<ToneNames, string>> = {
     warning: 'bg-warning text-white border border-transparent',
     danger: 'bg-error text-white border border-transparent',
     neutral: 'bg-muted text-white border border-transparent',
+    green: '',
+    orange: '',
+    red: '',
+    teal: '',
+    purple: '',
   },
   line: {
     primary: 'bg-transparent text-brand border border-brand',
@@ -76,6 +91,11 @@ const toneClassNames: Record<ToneVariantNames, Record<ToneNames, string>> = {
     warning: 'bg-transparent text-warning border border-warning',
     danger: 'bg-transparent text-error border border-error',
     neutral: 'bg-transparent text-muted border border-muted',
+    green: '',
+    orange: '',
+    red: '',
+    teal: '',
+    purple: '',
   },
 };
 
@@ -111,12 +131,14 @@ export interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
   className?: string;
   status?: StatusNames;
   color?: ColorNames;
-  /** Status tone using theme tokens; combine with variant soft, ink or line */
+  /** Status tone using theme tokens; combine with variant soft, ink or line. green, orange, red, teal and purple read the `--tucu-state-<tone>-soft|ink|line` tokens */
   tone?: ToneNames;
   size?: SizeNames;
   variant?: VariantNames;
   shape?: ShapeNames;
   withDot?: boolean;
+  /** Strikes the label through, for cancelled or expired states */
+  struck?: boolean;
 }
 
 export const Badge = ({
@@ -129,6 +151,7 @@ export const Badge = ({
   variant = 'solid',
   shape = 'pill',
   withDot = false,
+  struck = false,
   ...props
 }: BadgeProps) => {
   const badgeColor = status ? statusColors[status] : color || 'gray';
@@ -166,11 +189,14 @@ export const Badge = ({
     <span
       data-tucu="badge"
       data-variant={variant}
+      data-tone={resolvedTone}
+      data-struck={struck ? 'true' : undefined}
       className={cn(
         'inline-flex items-center justify-center font-medium transition-all duration-200',
         shapes[shape],
         withDot && !children ? dotSize : sizeClassNames[0],
         badgeColorClasses,
+        struck && 'line-through',
         className
       )}
       {...props}

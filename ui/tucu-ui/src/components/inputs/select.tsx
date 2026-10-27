@@ -35,10 +35,13 @@ export type SelectOption = {
   description?: string;
   disabled?: boolean;
   group?: string;
+  /** What the trigger shows while this option is selected. Defaults to `name`. */
+  triggerLabel?: React.ReactNode;
 };
 
 export type SelectSize = 'xs' | TextControlSize;
 export type SelectAppearance = 'default' | 'neutral';
+export type SelectMenuWidth = 'trigger' | 'content';
 
 type SelectDomAttributes = {
   [key: `aria-${string}`]: string | number | boolean | undefined;
@@ -56,7 +59,7 @@ export interface SelectTypes extends SelectDomAttributes {
   variant?: 'ghost' | 'solid' | 'transparent';
   className?: string;
   disabled?: boolean;
-  label?: string;
+  label?: React.ReactNode;
   /** Keep the label associated with the control but render it visually hidden (`sr-only`). */
   hideLabel?: boolean;
   useUppercaseLabel?: boolean;
@@ -78,8 +81,20 @@ export interface SelectTypes extends SelectDomAttributes {
    */
   appearance?: SelectAppearance;
   size?: SelectSize;
+  /** Alias of `buttonClassName`; both are merged onto the trigger. */
+  triggerClassName?: string;
   /** Extra classes for the dropdown listbox container */
   listboxClassName?: string;
+  /** `trigger` matches the trigger width; `content` sizes the menu to its content with the trigger width as minimum. */
+  menuWidth?: SelectMenuWidth;
+  /** Extra classes for each option description. */
+  descriptionClassName?: string;
+  /** Let option descriptions wrap onto several lines instead of truncating. */
+  wrapDescription?: boolean;
+  /** Max height of the options list (px number or CSS length). `auto` fits the available viewport space. Defaults to 11rem. */
+  maxMenuHeight?: number | string;
+  /** Custom trigger content for the selected option; takes precedence over `triggerLabel` and `name`. */
+  renderValue?: (option: SelectOption) => React.ReactNode;
   /** Enable search/filter input inside the dropdown */
   searchable?: boolean;
   /** Placeholder for the search input */
@@ -168,6 +183,12 @@ export function Select({
   hideHelperText = false,
   placeholder,
   buttonClassName,
+  triggerClassName,
+  menuWidth = 'trigger',
+  descriptionClassName,
+  wrapDescription = false,
+  maxMenuHeight,
+  renderValue,
   appearance = 'default',
   size = 'md',
   searchable = false,
@@ -223,6 +244,7 @@ export function Select({
 
   // Dropdown position state (for portal)
   const [dropdownStyle, setDropdownStyle] = useState<React.CSSProperties>({});
+  const [autoMenuHeight, setAutoMenuHeight] = useState<number | undefined>();
   const accentTextClass = color
     ? controlAccentTextClasses[color]
     : 'text-brand';
@@ -266,10 +288,16 @@ export function Select({
         ? { bottom: window.innerHeight - rect.top + 4 }
         : { top: rect.bottom + 4 }),
       left: rect.left,
-      width: rect.width,
+      ...(menuWidth === 'content'
+        ? { minWidth: rect.width }
+        : { width: rect.width }),
       zIndex: 9999,
     });
-  }, []);
+    if (maxMenuHeight === 'auto') {
+      const room = (shouldDropUp ? spaceAbove : spaceBelow) - 16;
+      setAutoMenuHeight(Math.max(120, room - (searchable ? 48 : 0)));
+    }
+  }, [menuWidth, maxMenuHeight, searchable]);
 
   // Open the dropdown
   const openDropdown = useCallback(() => {
@@ -485,6 +513,11 @@ export function Select({
     <input type="hidden" name={name} value={selectedOption?.value ?? ''} />
   ) : null;
 
+  const optionsListStyle: React.CSSProperties | undefined =
+    maxMenuHeight === undefined
+      ? undefined
+      : { maxHeight: maxMenuHeight === 'auto' ? autoMenuHeight : maxMenuHeight };
+
   // Dropdown portal content
   const dropdown =
     isOpen &&
@@ -503,6 +536,7 @@ export function Select({
         style={dropdownStyle}
         onKeyDown={handleListboxKeyDown}
         className={cn(
+          menuWidth === 'content' && 'w-max max-w-[calc(100vw-1rem)]',
           'max-h-55 overflow-hidden rounded-xl border border-border bg-light-dark text-foreground shadow-large outline-hidden',
           'transition ease-in duration-100',
           isClosing ? 'opacity-0' : 'opacity-100',
@@ -572,8 +606,11 @@ export function Select({
           </div>
         )}
         {/* Options list */}
-        <div className={cn(
-            'max-h-44 overflow-auto grid gap-0.5',
+        <div
+          style={optionsListStyle}
+          className={cn(
+            'overflow-auto grid gap-0.5',
+            maxMenuHeight === undefined && 'max-h-44',
             listboxPaddingClasses[size]
           )}
         >
@@ -631,7 +668,16 @@ export function Select({
                       <div className="flex-1 min-w-0">
                         <span className="block truncate">{option.name}</span>
                         {option.description && (
-                          <span className="block text-[11px] text-muted truncate">
+                          <span
+                            data-tucu="select-option-description"
+                            className={cn(
+                              'block text-[11px] text-muted',
+                              wrapDescription
+                                ? 'whitespace-normal break-words'
+                                : 'truncate',
+                              descriptionClassName
+                            )}
+                          >
                             {option.description}
                           </span>
                         )}
@@ -758,7 +804,8 @@ export function Select({
               triggerAppearanceClasses,
               color && textControlColorClasses[variant][color],
               disabled && 'cursor-not-allowed bg-muted/10!',
-              buttonClassName
+              buttonClassName,
+              triggerClassName
             )}
           >
             {!selectedOption && (
@@ -848,7 +895,8 @@ export function Select({
           triggerAppearanceClasses,
           color && textControlColorClasses[variant][color],
           disabled && 'cursor-not-allowed bg-muted/10!',
-          buttonClassName
+          buttonClassName,
+          triggerClassName
         )}
       >
         <div
@@ -861,7 +909,11 @@ export function Select({
             <span className="mr-1 shrink-0">{selectedOption.icon}</span>
           )}
           <span className="min-w-0 truncate">
-            {selectedOption?.name || placeholder || t.placeholder}
+            {selectedOption
+              ? renderValue?.(selectedOption) ??
+                selectedOption.triggerLabel ??
+                selectedOption.name
+              : placeholder || t.placeholder}
           </span>
         </div>
         <ChevronDown
