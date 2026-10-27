@@ -20,14 +20,15 @@
       "created_at": "2026-10-27",
       "resolved_at": "2026-10-27",
       "validated_at": null,
-      "title": "next-demo fuera del workspace pnpm: el install congelado fallaba sin dist/",
+      "title": "Checkout limpio roto: next-demo fuera del workspace y .nxignore restaurado",
       "estimation_hours": 0.5,
-      "description": "apps/next-demo dependía de file:../../dist/ui/tucu-ui dentro del workspace, así que pnpm install --frozen-lockfile en un checkout limpio fallaba con ENOENT antes del build. Los workflows publish-tucu-ui y publish-mcp arrancan con ese install y habrían fallado al pushear los tags. next-demo sale del workspace (como examples/) con lockfile propio y se instala con --ignore-workspace después del build de la lib.",
+      "description": "apps/next-demo dependía de file:../../dist/ui/tucu-ui dentro del workspace, así que pnpm install --frozen-lockfile en un checkout limpio fallaba con ENOENT antes del build. Los workflows publish-tucu-ui y publish-mcp arrancan con ese install y habrían fallado al pushear los tags. next-demo sale del workspace (como examples/) con lockfile propio y se instala con --ignore-workspace después del build de la lib. Además, la instalación del kit SDD había reemplazado .nxignore y perdido la línea examples/, así que Nx no podía armar el grafo en un checkout limpio (las configs de examples/micro-frontends importan paquetes no instalados); se restaura junto a sdd/templates.",
       "justification": "Bloquea la publicación de 3.4.0 y MCP 0.10.0; cambio de configuración acotado sin contratos ni entidades nuevas.",
       "related_modules": [
         "nextjs-support"
       ],
       "affected_files": [
+        ".nxignore",
         "pnpm-workspace.yaml",
         "pnpm-lock.yaml",
         "apps/next-demo/package.json",
@@ -36,7 +37,7 @@
         "sdd/context/apps/next-demo/updates/2026-10-27-fix-e-burgos-001-001.md",
         "sdd/specs/spec-e-burgos-001-nextjs-support/fixes/fix-e-burgos-001-001.md"
       ],
-      "test_reference": "Clon limpio de main: pnpm install --frozen-lockfile reproducía ENOENT; con el fix el lockfile raíz ya no referencia dist. pnpm nx run-many -t lint e2e -p next-demo en verde.",
+      "test_reference": "Clon limpio: pnpm install --frozen-lockfile, pnpm nx run tucu-ui:build y tucu-ui-mcp:build (los pasos de publish-*) en verde; pnpm nx run-many -t lint e2e -p next-demo en verde.",
       "status": "implemented",
       "cycle": null,
       "usage": {

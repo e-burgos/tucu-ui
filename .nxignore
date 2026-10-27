@@ -1,1 +1,3 @@
+# Ignore examples folder from Nx project detection and affected calculations
+examples/
 sdd/templates
