@@ -1,4 +1,6 @@
 // ─── Resource: Routing & Navigation ─────────────────────────────────────────
+import { getNextRoutingSection } from './next-guide.js';
+
 
 export function getRoutingContent(): string {
   return `# Routing & Navigation — @e-burgos/tucu-ui
@@ -124,5 +126,5 @@ const useAppMenu = (userRole: 'admin' | 'editor' | 'viewer') => {
   }, [userRole]);
 };
 \`\`\`
-`;
+` + getNextRoutingSection();
 }

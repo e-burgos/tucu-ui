@@ -167,10 +167,32 @@
       "depends_on": [
         "TASK-003"
       ],
-      "status": "in-progress",
+      "status": "done",
       "files": [
-        "tools/mcp-server/src/"
-      ]
+        "tools/mcp-server/src/utils/next-output.ts",
+        "tools/mcp-server/src/resources/next-guide.ts",
+        "tools/mcp-server/src/tools/generation-tools.ts",
+        "tools/mcp-server/src/tools/datatable-tools.ts",
+        "tools/mcp-server/src/resources/quickstart.ts",
+        "tools/mcp-server/src/resources/routing.ts",
+        "tools/mcp-server/src/resources/shell.ts",
+        "tools/mcp-server/src/prompts/theme-setup.ts",
+        "tools/mcp-server/src/prompts/index.ts",
+        "tools/mcp-server/README.md",
+        "tools/mcp-server/tests/framework-parity.test.ts",
+        "tools/mcp-server/tests/framework-next.test.ts",
+        "tools/mcp-server/tests/__snapshots__/"
+      ],
+      "usage": {
+        "tokens_in": 119231,
+        "tokens_out": 21041,
+        "provider_model": "claude/sonnet",
+        "effort": "medium",
+        "agent": "implementor-back",
+        "approx": true,
+        "source": "agent-usage-notification",
+        "recorded_at": "2026-10-27"
+      }
     },
     {
       "id": "TASK-006",

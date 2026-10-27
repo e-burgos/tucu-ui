@@ -7,6 +7,7 @@
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { z } from 'zod';
 import { toCamelCase, toPascalCase } from '../utils/code-generator.js';
+import { frameworkSchema, withUseClient } from '../utils/next-output.js';
 
 // ─── Input / output types ────────────────────────────────────────────────────
 
@@ -649,9 +650,17 @@ export function registerDataTableTools(server: McpServer): void {
         .describe('Unique, stable table id (persistence key). Default: derived from entityName'),
       columns: z.array(columnSchema).optional().describe('Column definitions. Default: id/name/createdAt sample'),
       features: featuresSchema.optional(),
+      framework: frameworkSchema,
     },
-    async (args) => {
+    async ({ framework, ...args }) => {
       const output = buildDataTable(args as DataTableToolInput);
+      if (framework === 'next') {
+        output.componentCode = withUseClient(output.componentCode);
+        output.notes = [
+          ...output.notes,
+          "Next.js: the file starts with 'use client' because columns hold cell renderers and callbacks. Import this table from a Server Component page and pass it serializable data only.",
+        ];
+      }
       return {
         content: [
           {

@@ -1,0 +1,1090 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`framework parity: vite output is unchanged > chart donut - no framework 1`] = `
+{
+  "componentCode": "import { Cell, Legend, Pie, PieChart, ResponsiveContainer, Tooltip } from 'recharts';
+
+const data = [
+  {
+    "k": "Jan",
+    "v": 100
+  },
+  {
+    "k": "Feb",
+    "v": 250
+  },
+  {
+    "k": "Mar",
+    "v": 400
+  },
+  {
+    "k": "Apr",
+    "v": 550
+  },
+  {
+    "k": "May",
+    "v": 700
+  },
+  {
+    "k": "Jun",
+    "v": 850
+  }
+];
+
+
+export function Chart() {
+  return (
+    <ResponsiveContainer width="100%" height={300}>
+  <PieChart>
+    <Pie data={data} dataKey="v" nameKey="name" cx="50%" cy="50%" outerRadius={100} innerRadius={60}>
+      {data.map((_, index) => (
+        <Cell key={index} fill={COLORS[index % COLORS.length]} />
+      ))}
+    </Pie>
+    <Tooltip />
+    <Legend />
+  </PieChart>
+</ResponsiveContainer>
+  );
+}",
+  "imports": [
+    "import { Cell, Legend, Pie, PieChart, ResponsiveContainer, Tooltip } from 'recharts';",
+  ],
+  "sampleData": "[
+  {
+    "k": "Jan",
+    "v": 100
+  },
+  {
+    "k": "Feb",
+    "v": 250
+  },
+  {
+    "k": "Mar",
+    "v": 400
+  },
+  {
+    "k": "Apr",
+    "v": 550
+  },
+  {
+    "k": "May",
+    "v": 700
+  },
+  {
+    "k": "Jun",
+    "v": 850
+  }
+]",
+}
+`;
+
+exports[`framework parity: vite output is unchanged > chart line - no framework 1`] = `
+{
+  "componentCode": "import { CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
+
+const data = [
+  {
+    "month": "Jan",
+    "a": 100,
+    "b": 100
+  },
+  {
+    "month": "Feb",
+    "a": 250,
+    "b": 250
+  },
+  {
+    "month": "Mar",
+    "a": 400,
+    "b": 400
+  },
+  {
+    "month": "Apr",
+    "a": 550,
+    "b": 550
+  },
+  {
+    "month": "May",
+    "a": 700,
+    "b": 700
+  },
+  {
+    "month": "Jun",
+    "a": 850,
+    "b": 850
+  }
+];
+
+const COLORS = ['hsl(var(--primary))', 'hsl(var(--secondary))'];
+
+export function Chart() {
+  return (
+    <ResponsiveContainer width="100%" height={300}>
+  <LineChart data={data}>
+    <CartesianGrid strokeDasharray="3 3" />
+    <XAxis dataKey="month" />
+    <YAxis />
+    <Tooltip />
+    <Legend />
+    <Line type="monotone" dataKey="a" stroke="hsl(var(--primary))" strokeWidth={2} />
+    <Line type="monotone" dataKey="b" stroke="hsl(var(--secondary))" strokeWidth={2} />
+  </LineChart>
+</ResponsiveContainer>
+  );
+}",
+  "imports": [
+    "import { CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';",
+  ],
+  "sampleData": "[
+  {
+    "month": "Jan",
+    "a": 100,
+    "b": 100
+  },
+  {
+    "month": "Feb",
+    "a": 250,
+    "b": 250
+  },
+  {
+    "month": "Mar",
+    "a": 400,
+    "b": 400
+  },
+  {
+    "month": "Apr",
+    "a": 550,
+    "b": 550
+  },
+  {
+    "month": "May",
+    "a": 700,
+    "b": 700
+  },
+  {
+    "month": "Jun",
+    "a": 850,
+    "b": 850
+  }
+]",
+}
+`;
+
+exports[`framework parity: vite output is unchanged > component input - no framework 1`] = `
+{
+  "code": "<Input />",
+  "imports": [
+    "import { Input } from '@e-burgos/tucu-ui';",
+  ],
+  "warnings": [
+    "\`type="date"\` makes the visible input \`readOnly\` — only picking from the calendar updates the value.",
+    "\`onChange\` for \`type="date"\` always receives ISO (\`YYYY-MM-DD\`) regardless of \`dateFormat\`.",
+    "Inside \`FormField\`, the Input skips its own validation (FormField adds the same rules to react-hook-form and renders the error).",
+    "\`unmask\` is meant for controlled inputs (\`value\` + \`onChange\`, or \`FormField\`); with uncontrolled \`register\` the DOM keeps the formatted text.",
+  ],
+}
+`;
+
+exports[`framework parity: vite output is unchanged > component plain - no framework 1`] = `
+{
+  "code": "<Button variant="solid">
+  {/* Content */}
+</Button>",
+  "imports": [
+    "import { Button } from '@e-burgos/tucu-ui';",
+  ],
+  "warnings": [
+    "NEVER use variant='primary', 'outline', or 'destructive' — causes runtime crash.",
+    "NEVER use size='lg', 'sm', 'md', 'xs' — causes runtime crash.",
+  ],
+}
+`;
+
+exports[`framework parity: vite output is unchanged > component wrapper theme - no framework 1`] = `
+{
+  "code": "<ThemeProvider colorPreset="default">
+  <div className="p-4">
+  <Card>
+  {/* Content */}
+</Card>
+</div>
+</ThemeProvider>",
+  "imports": [
+    "import { Card, ThemeProvider } from '@e-burgos/tucu-ui';",
+  ],
+  "warnings": [],
+}
+`;
+
+exports[`framework parity: vite output is unchanged > datatable default - no framework 1`] = `
+{
+  "componentCode": "import { DataTable, TanstackTable } from '@e-burgos/tucu-ui';
+
+// Styles are not auto-imported by the library. Add once in your app entry:
+// import '@e-burgos/tucu-ui/styles';
+
+export interface Item {
+  id: string;
+  name: string;
+  createdAt: string;
+}
+
+export interface ItemTableProps {
+  data: Item[];
+}
+
+const TABLE_ID = 'item-table';
+
+const itemColumns: TanstackTable.ColumnDef<Item, Item>[] = [
+  {
+    id: 'id',
+    accessorKey: 'id',
+    header: 'ID',
+    size: 80,
+  },
+  {
+    id: 'name',
+    accessorKey: 'name',
+    header: 'Name',
+  },
+  {
+    id: 'createdAt',
+    accessorKey: 'createdAt',
+    header: 'Created At',
+    cell: ({ row }) => new Date(row.original.createdAt).toLocaleDateString(),
+  },
+];
+
+export function ItemTable({
+  data,
+}: ItemTableProps) {
+  return (
+    <DataTable
+      tableId={TABLE_ID}
+      data={data}
+      columns={itemColumns}
+      showHeader
+      pagination={{ showPagination: true, rowsInfo: true }}
+    />
+  );
+}",
+  "imports": [
+    "import { DataTable, TanstackTable } from '@e-burgos/tucu-ui';",
+  ],
+  "notes": [
+    "tableId ('item-table') must be unique and stable: it keys the persisted state in localStorage ('item-table-datatable') and the cache-version registry.",
+    "Every column has an explicit id — required for stable column order, visibility, pinning and sizing state.",
+    "Import the CSS once per app: '@e-burgos/tucu-ui/styles' (compiled) or '@e-burgos/tucu-ui/theme' + @source directive with your own Tailwind v4 build.",
+    "Columns without an explicit size split the remaining container width evenly; the table body maxHeight defaults to 373px (override via sx.tableContainer).",
+    "Persisted state (pagination, sorting, column layout) seeds the table on mount and can shadow prop changes — use pagination.takeDefaultPagination or bump the cache version to reset.",
+  ],
+  "types": "export interface Item {
+  id: string;
+  name: string;
+  createdAt: string;
+}
+
+export interface ItemTableProps {
+  data: Item[];
+}",
+}
+`;
+
+exports[`framework parity: vite output is unchanged > datatable rich - no framework 1`] = `
+{
+  "componentCode": "import { useState } from 'react';
+import { DataTable, TanstackTable } from '@e-burgos/tucu-ui';
+import type { IRowActions } from '@e-burgos/tucu-ui';
+
+// Styles are not auto-imported by the library. Add once in your app entry:
+// import '@e-burgos/tucu-ui/styles';
+
+export interface Invoice {
+  id: string;
+  amount: number;
+}
+
+export interface InvoiceTableProps {
+  data: Invoice[];
+  totalCount: number;
+  onPaginationChange?: (pagination: TanstackTable.PaginationState) => void;
+  isLoading?: boolean;
+  isError?: boolean;
+}
+
+const TABLE_ID = 'invoice-table';
+
+const currencyFormatter = new Intl.NumberFormat('en-US', {
+  style: 'currency',
+  currency: 'USD',
+});
+
+const invoiceColumns: TanstackTable.ColumnDef<Invoice, Invoice>[] = [
+  {
+    id: 'id',
+    accessorKey: 'id',
+    header: 'Id',
+  },
+  {
+    id: 'amount',
+    accessorKey: 'amount',
+    header: 'Amount',
+    cell: ({ row }) => currencyFormatter.format(row.original.amount),
+  },
+];
+
+const invoiceRowActions: IRowActions<Invoice>[] = [
+  {
+    action: 'edit',
+    label: () => 'Edit',
+    onClick: (row) => {
+      console.log('edit', row.original);
+    },
+  },
+];
+
+export function InvoiceTable({
+  data,
+  totalCount,
+  onPaginationChange,
+  isLoading,
+  isError,
+}: InvoiceTableProps) {
+  const [pagination, setPagination] =
+    useState<TanstackTable.PaginationState>({ pageIndex: 0, pageSize: 10 });
+
+  const handlePaginationChange = (next: TanstackTable.PaginationState) => {
+    setPagination(next);
+    // DataTable already synced its persisted store; refetch your page here.
+    onPaginationChange?.(next);
+  };
+
+  return (
+    <DataTable
+      tableId={TABLE_ID}
+      data={data}
+      columns={invoiceColumns}
+      showHeader
+      pagination={{
+        showPagination: true,
+        rowsInfo: true,
+        serverPagination: {
+          totalCount,
+          pagination,
+          setPagination: handlePaginationChange,
+        },
+      }}
+      rowActions={invoiceRowActions}
+      isLoading={isLoading}
+      isError={isError}
+      stateMessage={{
+        noData: 'No invoice records found',
+        errorData: 'There was a problem loading invoice data',
+        hideContactSupport: true,
+      }}
+    />
+  );
+}",
+  "imports": [
+    "import { useState } from 'react';",
+    "import { DataTable, TanstackTable } from '@e-burgos/tucu-ui';",
+    "import type { IRowActions } from '@e-burgos/tucu-ui';",
+  ],
+  "notes": [
+    "tableId ('invoice-table') must be unique and stable: it keys the persisted state in localStorage ('invoice-table-datatable') and the cache-version registry.",
+    "Every column has an explicit id — required for stable column order, visibility, pinning and sizing state.",
+    "Import the CSS once per app: '@e-burgos/tucu-ui/styles' (compiled) or '@e-burgos/tucu-ui/theme' + @source directive with your own Tailwind v4 build.",
+    "Columns without an explicit size split the remaining container width evenly; the table body maxHeight defaults to 373px (override via sx.tableContainer).",
+    "Persisted state (pagination, sorting, column layout) seeds the table on mount and can shadow prop changes — use pagination.takeDefaultPagination or bump the cache version to reset.",
+    "Server pagination: on mount DataTable restores the persisted page/size and pushes it back through setPagination, so your parent refetches the restored page. Pass takeDefaultPagination: true to always start from your own defaults.",
+    "A single row action renders as an inline icon; pass forceShowMenuActions to force the "..." menu.",
+    "Default stateMessage copy includes a "Contact Support" link to the library author's site — the generated code hides it (hideContactSupport: true); override contactSupportLink to point at your own support page.",
+  ],
+  "types": "export interface Invoice {
+  id: string;
+  amount: number;
+}
+
+export interface InvoiceTableProps {
+  data: Invoice[];
+  totalCount: number;
+  onPaginationChange?: (pagination: TanstackTable.PaginationState) => void;
+  isLoading?: boolean;
+  isError?: boolean;
+}",
+}
+`;
+
+exports[`framework parity: vite output is unchanged > documentation - no framework 1`] = `
+{
+  "component": "Button",
+  "docsSectionCode": "import React from 'react';
+import {
+  CardContainer,
+  CardTitle,
+  Typography,
+  HeroCard,
+  LucideIcons,
+} from '../../../../index';
+import { AutoPropsTable } from '../../../components/auto-props-table';
+
+const DocumentationSection: React.FC = () => {
+  return (
+    <div className="flex flex-col gap-8">
+      <HeroCard
+        title="Button Documentation"
+        description="A comprehensive reference guide for the Button component. Learn how to configure variants and customize properties."
+        icon={
+          <div className="w-16 h-16 sm:w-20 sm:h-20 bg-linear-to-br from-indigo-500 via-purple-500 to-pink-500 rounded-full flex items-center justify-center shadow-lg">
+            <LucideIcons.BookOpen className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
+          </div>
+        }
+      />
+
+      <CardContainer>
+        <CardTitle title="Introduction">
+          <Typography className="text-sm text-foreground/70 mb-4">
+            The <code>Button</code> component is a premium, flexible element designed for modern UI layouts in the tucu-ui ecosystem.
+          </Typography>
+          <Typography className="text-sm text-foreground/70">
+            It supports fluid responsiveness, accessibility standards, and semantic color presets that align with dark and light theme context providers automatically.
+          </Typography>
+        </CardTitle>
+      </CardContainer>
+
+      <section className="space-y-6">
+        <div className="text-center">
+          <Typography tag="h2" className="mb-2">
+            Key Features
+          </Typography>
+          <Typography tag="p" className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
+            Explore the main capabilities of the Button component.
+          </Typography>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <CardContainer className="p-5" key={0}>
+            <div className="flex gap-4 items-start">
+              <div className="p-2.5 bg-indigo-500/10 rounded-lg text-indigo-500">
+                <LucideIcons.FolderHeart className="w-6 h-6" />
+              </div>
+              <div>
+                <Typography tag="h5" className="font-semibold mb-1">Feature 1</Typography>
+                <Typography className="text-xs text-foreground/60">
+                  Highly customizable styling and theme-aware presets.
+                </Typography>
+              </div>
+            </div>
+          </CardContainer>
+
+          <CardContainer className="p-5" key={1}>
+            <div className="flex gap-4 items-start">
+              <div className="p-2.5 bg-purple-500/10 rounded-lg text-purple-500">
+                <LucideIcons.MoveHorizontal className="w-6 h-6" />
+              </div>
+              <div>
+                <Typography tag="h5" className="font-semibold mb-1">Feature 2</Typography>
+                <Typography className="text-xs text-foreground/60">
+                  Accessible layout structure complying with WCAG guidelines.
+                </Typography>
+              </div>
+            </div>
+          </CardContainer>
+
+          <CardContainer className="p-5" key={2}>
+            <div className="flex gap-4 items-start">
+              <div className="p-2.5 bg-pink-500/10 rounded-lg text-pink-500">
+                <LucideIcons.Pin className="w-6 h-6" />
+              </div>
+              <div>
+                <Typography tag="h5" className="font-semibold mb-1">Feature 3</Typography>
+                <Typography className="text-xs text-foreground/60">
+                  Micro-animations for fluid state transitions.
+                </Typography>
+              </div>
+            </div>
+          </CardContainer>
+        </div>
+      </section>
+
+      {/* ─── Auto Generated Props ─────────────────────────────────── */}
+      <AutoPropsTable componentName="Button" showFilePath={true} />
+    </div>
+  );
+};
+
+export default DocumentationSection;",
+  "examplesSectionCode": "import React from 'react';
+import {
+  CardContainer,
+  CardTitle,
+  Typography,
+  CodeBlock,
+  HeroCard,
+  LucideIcons,
+  Button
+} from '../../../../index';
+
+const ExamplesSection: React.FC = () => {
+  return (
+    <div className="flex flex-col gap-8">
+      <HeroCard
+        title="Button Examples"
+        description="Explore basic and advanced examples to integrate the Button component into your application."
+        icon={
+          <div className="w-16 h-16 sm:w-20 sm:h-20 bg-linear-to-br from-indigo-500 via-purple-500 to-pink-500 rounded-full flex items-center justify-center shadow-lg">
+            <LucideIcons.TableProperties className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
+          </div>
+        }
+      />
+
+      <CardContainer className="p-6">
+        <CardTitle title="Standard Example" className="mb-4">
+          <Typography tag="p" className="text-sm text-gray-500 dark:text-gray-400 mb-6">
+            A standard showcase showing the default state and options of the Button component.
+          </Typography>
+
+          <div className="p-4 bg-gray-50 dark:bg-gray-800/40 rounded-lg flex justify-center">
+            {/* Component preview */}
+            <Button />
+          </div>
+        </CardTitle>
+      </CardContainer>
+
+      <CardContainer className="p-6">
+        <CardTitle title="Implementation Code" className="mb-4">
+          <CodeBlock
+            language="tsx"
+            code={\`import { Button } from '@e-burgos/tucu-ui';
+
+<Button variant="solid" size="medium" onClick={() => {}}>
+  Click me
+</Button>\`}
+          />
+        </CardTitle>
+      </CardContainer>
+    </div>
+  );
+};
+
+export default ExamplesSection;",
+  "hubPageCode": "import { lazy } from 'react';
+import { LucideIcons, HeroCard } from '../../../index';
+import { DynamicSectionsPage, type SectionConfig } from '../../components';
+
+const sections: SectionConfig[] = [
+  { id: 'documentation', label: 'General Documentation', component: lazy(() => import('./button-sections/DocumentationSection')) },
+  { id: 'examples', label: 'Usage Examples', component: lazy(() => import('./button-sections/ExamplesSection')) },
+  { id: 'playground', label: 'Playground', component: lazy(() => import('./button-sections/PlaygroundSection')) },
+];
+
+export function ButtonPage() {
+  return (
+    <DynamicSectionsPage
+      hideHeroInSubSections
+      sections={sections}
+      hero={
+        <HeroCard
+          title="Button Hub"
+          description="Primary action button with multiple variants and sizes."
+          githubButton
+          getStartedButton
+          docsButton="introduction"
+          icon={
+            <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 bg-linear-to-br from-indigo-500 via-purple-500 to-pink-500 rounded-full flex items-center justify-center shadow-lg border border-indigo-500/50">
+              <LucideIcons.BookOpen className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-white filter drop-shadow-lg" />
+            </div>
+          }
+        />
+      }
+    />
+  );
+}
+
+export default ButtonPage;",
+  "playgroundSectionCode": "/* eslint-disable @typescript-eslint/no-explicit-any */
+import React from 'react';
+import {
+  HeroCard,
+  LucideIcons,
+  Button
+} from '../../../../index';
+import { PropPlayground } from '../../../components/prop-playground';
+
+const PlaygroundSection: React.FC = () => {
+  return (
+    <div className="flex flex-col gap-8">
+      <HeroCard
+        title="Button Playground"
+        description="Interact with the props controls below to modify the Button component in real-time."
+        icon={
+          <div className="w-16 h-16 sm:w-20 sm:h-20 bg-linear-to-br from-indigo-500 via-purple-500 to-pink-500 rounded-full flex items-center justify-center shadow-lg">
+            <LucideIcons.Wand2 className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
+          </div>
+        }
+      />
+
+      <PropPlayground
+        componentName="Button"
+        defaultValues={{
+          variant: 'solid',
+          size: 'large',
+        }}
+        controlOverrides={[
+          {
+        name: 'variant',
+        type: 'select',
+        options: ['solid', 'ghost', 'transparent'],
+        description: 'variant variant option',
+      },
+          {
+        name: 'size',
+        type: 'select',
+        options: ['large', 'medium', 'small', 'mini', 'tiny'],
+        description: 'size variant option',
+      },
+        ]}
+        includeProps={[
+          'variant', 'size'
+        ]}
+      >
+        {(props: any) => {
+          return (
+            <div className="w-full flex justify-center p-6 bg-gray-50 dark:bg-gray-800/40 rounded-lg">
+              <Button
+                variant={props.variant}
+                size={props.size}
+              />
+            </div>
+          );
+        }}
+      </PropPlayground>
+    </div>
+  );
+};
+
+export default PlaygroundSection;",
+  "suggestedPaths": {
+    "docsSection": "ui/tucu-ui/src/demo/pages/button/button-sections/DocumentationSection.tsx",
+    "examplesSection": "ui/tucu-ui/src/demo/pages/button/button-sections/ExamplesSection.tsx",
+    "hubPage": "ui/tucu-ui/src/demo/pages/button/ButtonPage.tsx",
+    "playgroundSection": "ui/tucu-ui/src/demo/pages/button/button-sections/PlaygroundSection.tsx",
+  },
+}
+`;
+
+exports[`framework parity: vite output is unchanged > form fields - no framework 1`] = `
+{
+  "componentCode": "import { Button, Checkbox, Form, Input, Select, Textarea } from '@e-burgos/tucu-ui';
+import { z } from 'zod';
+
+const customFormSchema = z.object({
+  email: z.string().email("Invalid email"),
+  bio: z.string().optional(),
+  role: z.string().optional(),
+  ok: z.boolean().optional(),
+});
+
+type CustomFormData = z.infer<typeof customFormSchema>;
+
+export function CustomForm() {
+  const handleSubmit = (data: CustomFormData) => {
+    console.log(data);
+  };
+
+  return (
+    <Form onSubmit={handleSubmit} defaultValues={{ email: '', bio: '', role: '', ok: false }}>
+      {({ register, setValue, watch, formState: { errors } }) => (
+        <>
+          <Input
+            label="Email"
+            type="email"
+            variant="ghost"
+            placeholder="Enter email"
+            {...register('email')}
+            error={errors.email?.message}
+          />
+          <Textarea
+            label="Bio"
+            variant="ghost"
+            placeholder="Enter bio"
+            rows={3}
+            {...register('bio')}
+            error={errors.bio?.message}
+          />
+          <Select
+            label="Role"
+            variant="ghost"
+            options={[{ name: 'Admin', value: 'admin' }, { name: 'User', value: 'user' }]}
+            value={watch('role')}
+            onSelect={(val) => setValue('role', val)}
+          />
+          <Checkbox
+            label="OK"
+            checked={watch('ok')}
+            onChange={(val) => setValue('ok', val)}
+          />
+          <Button variant="solid" size="medium" type="submit">
+            Submit
+          </Button>
+        </>
+      )}
+    </Form>
+  );
+}",
+  "imports": [
+    "import { Button, Checkbox, Form, Input, Select, Textarea } from '@e-burgos/tucu-ui';",
+    "import { z } from 'zod';",
+  ],
+  "types": "interface CustomFormData {
+  email: string;
+  bio: string;
+  role: string;
+  ok: boolean;
+}",
+  "validationCode": "import { z } from 'zod';
+
+const customFormSchema = z.object({
+  email: z.string().email("Invalid email"),
+  bio: z.string().optional(),
+  role: z.string().optional(),
+  ok: z.boolean().optional(),
+});
+
+type CustomFormData = z.infer<typeof customFormSchema>;",
+}
+`;
+
+exports[`framework parity: vite output is unchanged > form pattern - no framework 1`] = `
+{
+  "componentCode": "import { Form, Input, Button } from '@e-burgos/tucu-ui';
+import { z } from 'zod';
+
+const loginSchema = z.object({
+  email: z.string().email("Invalid email"),
+  password: z.string().min(6, "Min 6 characters"),
+});
+
+type LoginFormData = z.infer<typeof loginSchema>;
+
+export function LoginForm() {
+  const handleSubmit = (data: LoginFormData) => {
+    console.log(data);
+  };
+
+  return (
+    <Form onSubmit={handleSubmit} defaultValues={{ email: '', password: '' }}>
+      {({ register, formState: { errors } }) => (
+        <>
+          <Input
+            label="Email"
+            type="email"
+            placeholder="you@example.com"
+            variant="ghost"
+            {...register('email')}
+            error={errors.email?.message}
+          />
+          <Input
+            label="Password"
+            type="password"
+            placeholder="••••••••"
+            variant="ghost"
+            {...register('password')}
+            error={errors.password?.message}
+          />
+          <Button variant="solid" size="medium" type="submit">
+            Sign In
+          </Button>
+        </>
+      )}
+    </Form>
+  );
+}",
+  "description": "Login form with email and password fields.",
+  "imports": [
+    "import { Form, Input, Textarea, Select, Switch, Button } from '@e-burgos/tucu-ui';",
+    "import { z } from 'zod';",
+  ],
+  "pattern": "login",
+  "types": "import { z } from 'zod';
+
+const loginSchema = z.object({
+  email: z.string().email("Invalid email"),
+  password: z.string().min(6, "Min 6 characters"),
+});
+
+type LoginFormData = z.infer<typeof loginSchema>;",
+  "validationCode": "import { z } from 'zod';
+
+const loginSchema = z.object({
+  email: z.string().email("Invalid email"),
+  password: z.string().min(6, "Min 6 characters"),
+});
+
+type LoginFormData = z.infer<typeof loginSchema>;",
+}
+`;
+
+exports[`framework parity: vite output is unchanged > page full - no framework 1`] = `
+{
+  "imports": [
+    "import { BasicTable, Button, Card, Form, Input, ListContainer, StatsCard, Subtitle, Title } from '@e-burgos/tucu-ui';",
+    "// Layout: Use AdminLayout as the parent layout",
+  ],
+  "layout": {
+    "component": "AdminLayout",
+    "example": "import { AdminLayout } from '@e-burgos/tucu-ui';
+
+<AdminLayout menuItems={[{ label: 'Home', path: '/' }]}>
+  <Outlet />
+</AdminLayout>",
+  },
+  "pageCode": "import { BasicTable, Button, Card, Form, Input, ListContainer, StatsCard, Subtitle, Title } from '@e-burgos/tucu-ui';
+
+export function UsersAdminPage() {
+  return (
+    <div className="flex flex-col gap-6 p-6">
+      {/* Hero Section */}
+      <Card>
+        <Title>T hero</Title>
+        <Subtitle>Welcome to the Users Admin page</Subtitle>
+      </Card>
+
+      {/* Cards Section */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <StatsCard title="Total" value="1,234" trend="+12%" />
+        <StatsCard title="Active" value="567" trend="+5%" />
+        <StatsCard title="Pending" value="89" trend="-2%" />
+      </div>
+
+      {/* Table Section */}
+      <Card title="T table">
+        <BasicTable
+          columns={[
+            { header: 'Name', accessorKey: 'name' },
+            { header: 'Status', accessorKey: 'status' },
+            { header: 'Date', accessorKey: 'date' },
+          ]}
+          data={[]}
+        />
+      </Card>
+
+      {/* Form Section */}
+      <Card title="T form">
+        <Form onSubmit={(data) => console.log(data)} defaultValues={{}}>
+          {({ register }) => (
+            <>
+              <Input label="Field" variant="ghost" {...register('field')} />
+              <Button variant="solid" size="medium" type="submit">Submit</Button>
+            </>
+          )}
+        </Form>
+      </Card>
+
+      {/* Chart Section */}
+      <Card title="T chart">
+        {/* Add Recharts component here */}
+        <div className="h-64">
+          {/* <ResponsiveContainer><LineChart data={data}>...</LineChart></ResponsiveContainer> */}
+        </div>
+      </Card>
+
+      {/* List Section */}
+      <Card title="T list">
+        <ListContainer
+          trigger="click"
+          items={[
+            { id: '1', label: 'Item 1', onClick: () => {} },
+            { id: '2', label: 'Item 2', onClick: () => {} },
+            { id: '3', label: 'Item 3', onClick: () => {} },
+          ]}
+        />
+      </Card>
+    </div>
+  );
+}",
+  "routeConfig": "// Add to your route configuration:
+{
+  path: '/users-admin',
+  element: <UsersAdminPage />,
+}",
+}
+`;
+
+exports[`framework parity: vite output is unchanged > page mfe - no framework 1`] = `
+{
+  "imports": [
+    "import { Card, Subtitle, Title } from '@e-burgos/tucu-ui';",
+    "// Layout: Use ThemeProvider as the parent layout",
+  ],
+  "layout": {
+    "component": "ThemeProvider",
+    "example": "import { ThemeProvider } from '@e-burgos/tucu-ui';
+
+<ThemeProvider defaultTheme="dark" colorPreset="blue">
+  <main className="flex flex-col min-h-screen">
+    <header>...</header>
+    <div className="flex-1">
+      <Outlet />
+    </div>
+  </main>
+</ThemeProvider>",
+  },
+  "pageCode": "import { Card, Subtitle, Title } from '@e-burgos/tucu-ui';
+
+export function HomePage() {
+  return (
+    <div className="flex flex-col gap-6 p-6">
+      {/* Hero Section */}
+      <Card>
+        <Title>HomePage</Title>
+        <Subtitle>Welcome to the Home page</Subtitle>
+      </Card>
+    </div>
+  );
+}",
+  "routeConfig": "// MFE route configuration:
+{
+  path: '/home',
+  element: <HomePage />,
+  // Expose via Module Federation
+}",
+}
+`;
+
+exports[`framework parity: vite output is unchanged > theme-setup prompt without framework 1`] = `
+"You are setting up the theme system for a @e-burgos/tucu-ui application.
+
+PRESET: Blue
+DARK MODE: system
+
+THEME SETUP PATTERN:
+\`\`\`tsx
+import { ThemeProvider, LAYOUT_OPTIONS } from '@e-burgos/tucu-ui';
+
+function App() {
+  return (
+    <ThemeProvider
+      showSettings          // Enables the settings drawer
+      logo={{ name: 'My', secondName: 'App' }}
+      layout={LAYOUT_OPTIONS.HORIZONTAL}
+      menuItems={menuItems}
+    />
+  );
+}
+\`\`\`
+
+AVAILABLE LAYOUTS:
+- LAYOUT_OPTIONS.ADMIN — sidebar + header
+- LAYOUT_OPTIONS.HORIZONTAL — top nav (default)
+- LAYOUT_OPTIONS.CLEAN — no nav
+- LAYOUT_OPTIONS.MACOS — macOS sidebar
+- LAYOUT_OPTIONS.MACOS_TAHOE — macOS Tahoe style
+
+PROGRAMMATIC THEME CONTROL:
+\`\`\`tsx
+import { useTheme, LAYOUT_OPTIONS } from '@e-burgos/tucu-ui';
+
+const { mode, setMode, setLayout, applyMacOSTheme, applyDefaultTheme, restoreDefaultColors } = useTheme();
+
+// Toggle dark mode
+setMode(mode === 'dark' ? 'light' : 'dark');
+
+// Change layout at runtime
+setLayout(LAYOUT_OPTIONS.ADMIN);
+
+// Apply macOS theme (colors + layout)
+applyMacOSTheme();
+
+// Restore defaults
+applyDefaultTheme();
+restoreDefaultColors();
+\`\`\`
+
+COLOR PRESETS (34 total):
+- Standard Light (11): Blue, Green, Orange, Red, Pink, Purple, Indigo, Teal, Yellow, Chartreuse, Gray
+- Standard Dark (11): Dark Blue, Dark Green, Dark Orange, Dark Red, Dark Pink, Dark Purple, Dark Indigo, Dark Teal, Dark Yellow, Dark Chartreuse, Dark Gray
+- macOS System (12): Applied automatically via applyMacOSTheme()
+
+THEME VARIANTS:
+- 'default' — Standard design system
+- 'macos' — Apple-inspired with vibrancy (Sonoma)
+- 'macos-tahoe' — Apple-inspired with rounded corners (Tahoe)
+
+RULES:
+- Always use semantic tokens (bg-primary, text-secondary, etc.)
+- Never hardcode colors
+- Use ThemeProvider at the root of your app
+- showSettings enables the floating settings button
+
+Generate the ThemeProvider configuration with the specified preset and dark mode settings."
+`;
+
+exports[`framework parity: vite output is unchanged > theme-setup prompt without framework 2`] = `
+"You are setting up the theme system for a @e-burgos/tucu-ui application.
+
+PRESET: default (Blue)
+DARK MODE: system
+
+THEME SETUP PATTERN:
+\`\`\`tsx
+import { ThemeProvider, LAYOUT_OPTIONS } from '@e-burgos/tucu-ui';
+
+function App() {
+  return (
+    <ThemeProvider
+      showSettings          // Enables the settings drawer
+      logo={{ name: 'My', secondName: 'App' }}
+      layout={LAYOUT_OPTIONS.HORIZONTAL}
+      menuItems={menuItems}
+    />
+  );
+}
+\`\`\`
+
+AVAILABLE LAYOUTS:
+- LAYOUT_OPTIONS.ADMIN — sidebar + header
+- LAYOUT_OPTIONS.HORIZONTAL — top nav (default)
+- LAYOUT_OPTIONS.CLEAN — no nav
+- LAYOUT_OPTIONS.MACOS — macOS sidebar
+- LAYOUT_OPTIONS.MACOS_TAHOE — macOS Tahoe style
+
+PROGRAMMATIC THEME CONTROL:
+\`\`\`tsx
+import { useTheme, LAYOUT_OPTIONS } from '@e-burgos/tucu-ui';
+
+const { mode, setMode, setLayout, applyMacOSTheme, applyDefaultTheme, restoreDefaultColors } = useTheme();
+
+// Toggle dark mode
+setMode(mode === 'dark' ? 'light' : 'dark');
+
+// Change layout at runtime
+setLayout(LAYOUT_OPTIONS.ADMIN);
+
+// Apply macOS theme (colors + layout)
+applyMacOSTheme();
+
+// Restore defaults
+applyDefaultTheme();
+restoreDefaultColors();
+\`\`\`
+
+COLOR PRESETS (34 total):
+- Standard Light (11): Blue, Green, Orange, Red, Pink, Purple, Indigo, Teal, Yellow, Chartreuse, Gray
+- Standard Dark (11): Dark Blue, Dark Green, Dark Orange, Dark Red, Dark Pink, Dark Purple, Dark Indigo, Dark Teal, Dark Yellow, Dark Chartreuse, Dark Gray
+- macOS System (12): Applied automatically via applyMacOSTheme()
+
+THEME VARIANTS:
+- 'default' — Standard design system
+- 'macos' — Apple-inspired with vibrancy (Sonoma)
+- 'macos-tahoe' — Apple-inspired with rounded corners (Tahoe)
+
+RULES:
+- Always use semantic tokens (bg-primary, text-secondary, etc.)
+- Never hardcode colors
+- Use ThemeProvider at the root of your app
+- showSettings enables the floating settings button
+
+Generate the ThemeProvider configuration with the specified preset and dark mode settings."
+`;
