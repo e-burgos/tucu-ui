@@ -160,21 +160,5 @@
       "file": "tools.schema.json"
     }
   ],
-  "memory": [
-    {
-      "file": "2026-10-27-spec-e-burgos-002-consumer-absorption-cycle-05.md"
-    },
-    {
-      "file": "2026-10-27-spec-e-burgos-002-consumer-absorption-cycle-03.md"
-    },
-    {
-      "file": "2026-10-27-spec-e-burgos-002-consumer-absorption-cycle-02.md"
-    },
-    {
-      "file": "2026-10-27-spec-e-burgos-002-consumer-absorption-cycle-01.md"
-    },
-    {
-      "file": "2026-10-27-spec-e-burgos-001-nextjs-support-cycle-01.md"
-    }
-  ]
+  "memory": []
 }
