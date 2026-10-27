@@ -1,0 +1,32 @@
+{
+  "$schema": "../../../../schemas/cycle.schema.json",
+  "cycle": 1,
+  "module": "nextjs-support",
+  "spec": "spec-e-burgos-001-nextjs-support",
+  "apps": [
+    "libs/tucu-ui",
+    "tools/mcp-server"
+  ],
+  "phase": "nextjs-support",
+  "flow": "lite",
+  "objectives": [
+    "Capa de navegación interna y migración de los módulos que usan react-router",
+    "Entry @e-burgos/tucu-ui/next con NextThemeProvider y \"use client\" por módulo",
+    "App de prueba Next 16 con export estático",
+    "MCP en modo Next y release 3.4.0 / MCP 0.10.0"
+  ],
+  "status": "in-progress",
+  "started_at": "2026-10-26",
+  "completed_at": null,
+  "documents": {
+    "plan": "sdd/specs/spec-e-burgos-001-nextjs-support/cycles/cycle-01/plan.md",
+    "tasks": "sdd/specs/spec-e-burgos-001-nextjs-support/cycles/cycle-01/tasks.json"
+  },
+  "artifacts": [],
+  "metrics": null,
+  "tables_created": [],
+  "endpoints_implemented": [],
+  "components_created": [],
+  "issues_found": [],
+  "reviewer_report": null
+}

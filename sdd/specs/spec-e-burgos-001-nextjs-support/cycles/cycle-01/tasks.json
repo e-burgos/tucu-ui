@@ -1,0 +1,121 @@
+{
+  "$schema": "../../../../schemas/cycle-tasks.schema.json",
+  "spec": "spec-e-burgos-001-nextjs-support",
+  "cycle": 1,
+  "module": "nextjs-support",
+  "apps": [
+    "libs/tucu-ui",
+    "tools/mcp-server"
+  ],
+  "flow": "lite",
+  "user_stories_generated": true,
+  "prerequisites": {
+    "tasks_generated": true
+  },
+  "tasks": [
+    {
+      "id": "TASK-001",
+      "title": "Capa de navegación TucuNavigation + useTucuNavigation y migración de los 27 módulos que importan react-router-dom",
+      "user_stories": [
+        "US-001",
+        "US-002"
+      ],
+      "estimation_hours": 8,
+      "story_points": 8,
+      "depends_on": [],
+      "status": "pending",
+      "files": [
+        "ui/tucu-ui/src/themes/navigation/"
+      ]
+    },
+    {
+      "id": "TASK-002",
+      "title": "\"use client\" por módulo en el build ESM y auditoría SSR/hidratación (window, document, localStorage, matchMedia, store de tema)",
+      "user_stories": [
+        "US-001",
+        "US-003"
+      ],
+      "estimation_hours": 6,
+      "story_points": 5,
+      "depends_on": [
+        "TASK-001"
+      ],
+      "status": "pending",
+      "files": [
+        "ui/tucu-ui/vite.config.mts"
+      ]
+    },
+    {
+      "id": "TASK-003",
+      "title": "Entry ./next solo ESM con NextThemeProvider (next/navigation + next/link), exports y peer opcional next >=16",
+      "user_stories": [
+        "US-002"
+      ],
+      "estimation_hours": 5,
+      "story_points": 5,
+      "depends_on": [
+        "TASK-001",
+        "TASK-002"
+      ],
+      "status": "pending",
+      "files": [
+        "ui/tucu-ui/src/next/",
+        "ui/tucu-ui/package.json"
+      ]
+    },
+    {
+      "id": "TASK-004",
+      "title": "App de prueba apps/next-demo: Next 16.4.3 App Router, output export, Tailwind v4 + theme, AdminLayout, form, DataTable y chart",
+      "user_stories": [
+        "US-002",
+        "US-003"
+      ],
+      "estimation_hours": 5,
+      "story_points": 5,
+      "depends_on": [
+        "TASK-003"
+      ],
+      "status": "pending",
+      "files": [
+        "apps/next-demo/"
+      ]
+    },
+    {
+      "id": "TASK-005",
+      "title": "MCP en modo Next: parámetro framework en tools generadoras, resources quickstart/routing/shell y prompt theme-setup",
+      "user_stories": [
+        "US-004"
+      ],
+      "estimation_hours": 4,
+      "story_points": 3,
+      "depends_on": [
+        "TASK-003"
+      ],
+      "status": "pending",
+      "files": [
+        "tools/mcp-server/src/"
+      ]
+    },
+    {
+      "id": "TASK-006",
+      "title": "Docs y release: README es/en, docs site, CHANGELOG, tucu-ui 3.4.0 y MCP 0.10.0; run-many lint test build y examples/standalone contra pnpm pack",
+      "user_stories": [
+        "US-001",
+        "US-002",
+        "US-004"
+      ],
+      "estimation_hours": 3,
+      "story_points": 2,
+      "depends_on": [
+        "TASK-004",
+        "TASK-005"
+      ],
+      "status": "pending",
+      "files": [
+        "ui/tucu-ui/README.md",
+        "ui/tucu-ui/CHANGELOG.md",
+        "tools/mcp-server/CHANGELOG.md"
+      ]
+    }
+  ]
+}
