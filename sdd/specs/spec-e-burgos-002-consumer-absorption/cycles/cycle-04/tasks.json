@@ -23,10 +23,21 @@
       "estimation_hours": 8,
       "story_points": 8,
       "depends_on": [],
-      "status": "pending",
+      "status": "done",
       "files": [
-        "ui/tucu-ui/src/components/layouts/marketing-layout/"
-      ]
+        "ui/tucu-ui/src/components/layouts/marketing-layout/",
+        "ui/tucu-ui/src/assets/css/tokens/marketing.css"
+      ],
+      "usage": {
+        "tokens_in": 122000,
+        "tokens_out": 14000,
+        "provider_model": "claude/sonnet",
+        "effort": "medium",
+        "agent": "implementor-front",
+        "approx": true,
+        "source": "declared-estimate",
+        "recorded_at": "2026-10-27"
+      }
     },
     {
       "id": "TASK-002",
@@ -37,10 +48,21 @@
       "estimation_hours": 3,
       "story_points": 3,
       "depends_on": [],
-      "status": "pending",
+      "status": "done",
       "files": [
-        "ui/tucu-ui/src/components/layouts/split-auth-layout/"
-      ]
+        "ui/tucu-ui/src/components/layouts/split-auth-layout/",
+        "ui/tucu-ui/src/assets/css/tokens/auth-layout.css"
+      ],
+      "usage": {
+        "tokens_in": 104000,
+        "tokens_out": 9000,
+        "provider_model": "claude/sonnet",
+        "effort": "medium",
+        "agent": "implementor-front",
+        "approx": true,
+        "source": "declared-estimate",
+        "recorded_at": "2026-10-27"
+      }
     },
     {
       "id": "TASK-003",
@@ -51,10 +73,23 @@
       "estimation_hours": 8,
       "story_points": 8,
       "depends_on": [],
-      "status": "pending",
+      "status": "done",
       "files": [
-        "ui/tucu-ui/src/datatable/"
-      ]
+        "ui/tucu-ui/src/datatable/components/DataTable/MobileCards/",
+        "ui/tucu-ui/src/datatable/common/types/index.ts",
+        "ui/tucu-ui/src/datatable/components/DataTable/DataTableComponent/index.tsx",
+        "ui/tucu-ui/src/assets/css/tokens/datatable-cards.css"
+      ],
+      "usage": {
+        "tokens_in": 197000,
+        "tokens_out": 28000,
+        "provider_model": "claude/sonnet",
+        "effort": "high",
+        "agent": "implementor-front",
+        "approx": true,
+        "source": "declared-estimate",
+        "recorded_at": "2026-10-27"
+      }
     },
     {
       "id": "TASK-004",
@@ -71,11 +106,60 @@
         "TASK-002",
         "TASK-003"
       ],
-      "status": "pending",
+      "status": "done",
       "files": [
+        "ui/tucu-ui/src/docs-kit/generated/props-metadata.ts",
         "tools/mcp-server/src/data/component-registry.ts",
-        "ui/tucu-docs/src/"
-      ]
+        "tools/mcp-server/src/resources/layouts.ts",
+        "tools/mcp-server/src/resources/tokens.ts",
+        "tools/mcp-server/src/resources/changelog.ts",
+        "tools/mcp-server/src/resources/datatable.ts",
+        "ui/tucu-docs/src/pages/design-system/layout-system-sections/",
+        "ui/tucu-docs/src/pages/datatable/datatable-sections/MobileCardsSection.tsx",
+        "README.md",
+        "README-es.md"
+      ],
+      "usage": {
+        "tokens_in": 243000,
+        "tokens_out": 32000,
+        "provider_model": "claude/sonnet",
+        "effort": "medium",
+        "agent": "implementor-front",
+        "approx": true,
+        "source": "declared-estimate",
+        "recorded_at": "2026-10-27"
+      }
+    },
+    {
+      "id": "TASK-006",
+      "title": "Fricciones 76 a 83 del Studio: SplitModal con selección por sección, sidebarActions, ítems info y maxHeight alineado; SegmentedControl con semántica tabs/nav; Badge micro; tooltipDefaults; line-height por densidad",
+      "user_stories": [
+        "US-003"
+      ],
+      "estimation_hours": 5,
+      "story_points": 5,
+      "depends_on": [],
+      "status": "done",
+      "files": [
+        "ui/tucu-ui/src/components/dialog/split-modal.tsx",
+        "ui/tucu-ui/src/components/dialog/split-modal-actions.tsx",
+        "ui/tucu-ui/src/components/dialog/split-modal-nav.tsx",
+        "ui/tucu-ui/src/components/dialog/modal.tsx",
+        "ui/tucu-ui/src/components/inputs/segmented-control.tsx",
+        "ui/tucu-ui/src/components/common/tooltip-defaults.tsx",
+        "ui/tucu-ui/src/themes/components/theme-provider/theme-wrapper.tsx",
+        "ui/tucu-ui/src/assets/css/tokens/controls.css"
+      ],
+      "usage": {
+        "tokens_in": 175000,
+        "tokens_out": 30000,
+        "provider_model": "claude/sonnet",
+        "effort": "high",
+        "agent": "implementor-front",
+        "approx": true,
+        "source": "declared-estimate",
+        "recorded_at": "2026-10-27"
+      }
     },
     {
       "id": "TASK-005",
@@ -88,10 +172,21 @@
       "estimation_hours": 3,
       "story_points": 3,
       "depends_on": [
-        "TASK-004"
+        "TASK-004",
+        "TASK-006"
       ],
-      "status": "pending",
-      "files": []
+      "status": "done",
+      "files": [],
+      "usage": {
+        "tokens_in": 80000,
+        "tokens_out": 8000,
+        "provider_model": "claude/opus",
+        "effort": "medium",
+        "agent": "orchestrator",
+        "approx": true,
+        "source": "declared-estimate",
+        "recorded_at": "2026-10-27"
+      }
     }
   ]
 }

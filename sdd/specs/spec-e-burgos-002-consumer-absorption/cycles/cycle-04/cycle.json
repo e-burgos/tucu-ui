@@ -15,26 +15,160 @@
     "SplitAuthLayout para las pantallas de autenticación",
     "DataTable con tarjetas en mobile y paginación"
   ],
-  "status": "in-progress",
+  "status": "completed",
   "started_at": "2026-10-27",
-  "completed_at": null,
+  "completed_at": "2026-10-27",
   "documents": {
     "plan": "sdd/specs/spec-e-burgos-002-consumer-absorption/cycles/cycle-04/plan.md",
     "tasks": "sdd/specs/spec-e-burgos-002-consumer-absorption/cycles/cycle-04/tasks.json"
   },
   "artifacts": [],
   "metrics": {
-    "tasks_total": 5,
-    "tasks_completed": 0,
+    "tasks_total": 6,
+    "tasks_completed": 6,
     "tasks_skipped": 0,
-    "story_points": 27,
-    "files_created": [],
-    "files_modified": [],
-    "files_deleted": []
+    "story_points": 32,
+    "files_created": [
+      "ui/tucu-ui/src/components/layouts/marketing-layout/",
+      "ui/tucu-ui/src/components/layouts/split-auth-layout/",
+      "ui/tucu-ui/src/datatable/components/DataTable/MobileCards/",
+      "ui/tucu-ui/src/components/dialog/split-modal-actions.tsx",
+      "ui/tucu-ui/src/components/common/tooltip-defaults.tsx",
+      "ui/tucu-ui/src/assets/css/tokens/marketing.css",
+      "ui/tucu-ui/src/assets/css/tokens/auth-layout.css",
+      "ui/tucu-ui/src/assets/css/tokens/datatable-cards.css"
+    ],
+    "files_modified": [
+      "ui/tucu-ui/src/datatable/common/types/index.ts",
+      "ui/tucu-ui/src/datatable/components/DataTable/DataTableComponent/index.tsx",
+      "ui/tucu-ui/src/docs-kit/generated/props-metadata.ts",
+      "tools/mcp-server/src/data/component-registry.ts",
+      "tools/mcp-server/src/resources/layouts.ts",
+      "tools/mcp-server/src/resources/tokens.ts",
+      "tools/mcp-server/src/resources/changelog.ts",
+      "tools/mcp-server/src/resources/datatable.ts",
+      "ui/tucu-docs/src/pages/design-system/layout-system-sections/",
+      "ui/tucu-docs/src/pages/datatable/datatable-sections/MobileCardsSection.tsx",
+      "README.md",
+      "README-es.md",
+      "ui/tucu-ui/src/components/dialog/split-modal.tsx",
+      "ui/tucu-ui/src/components/dialog/split-modal-nav.tsx",
+      "ui/tucu-ui/src/components/dialog/modal.tsx",
+      "ui/tucu-ui/src/components/inputs/segmented-control.tsx",
+      "ui/tucu-ui/src/themes/components/theme-provider/theme-wrapper.tsx",
+      "ui/tucu-ui/src/assets/css/tokens/controls.css"
+    ],
+    "files_deleted": [],
+    "usage": {
+      "tokens_in": 1146000,
+      "tokens_out": 142000,
+      "approx": true,
+      "source": "declared-estimate",
+      "by_tier": {
+        "claude/opus": {
+          "tokens_in": 200000,
+          "tokens_out": 22000,
+          "approx": true,
+          "source": "declared-estimate"
+        },
+        "claude/sonnet": {
+          "tokens_in": 946000,
+          "tokens_out": 120000,
+          "approx": true,
+          "source": "declared-estimate"
+        }
+      },
+      "by_agent": [
+        {
+          "agent": "orchestrator",
+          "label": "solo",
+          "provider_model": "claude/opus",
+          "tokens_in": 200000,
+          "tokens_out": 22000,
+          "approx": true,
+          "source": "declared-estimate"
+        },
+        {
+          "agent": "implementor-front",
+          "label": "TASK-001",
+          "provider_model": "claude/sonnet",
+          "tokens_in": 122000,
+          "tokens_out": 14000,
+          "approx": true,
+          "source": "declared-estimate"
+        },
+        {
+          "agent": "implementor-front",
+          "label": "TASK-002",
+          "provider_model": "claude/sonnet",
+          "tokens_in": 104000,
+          "tokens_out": 9000,
+          "approx": true,
+          "source": "declared-estimate"
+        },
+        {
+          "agent": "implementor-front",
+          "label": "TASK-003",
+          "provider_model": "claude/sonnet",
+          "tokens_in": 197000,
+          "tokens_out": 28000,
+          "approx": true,
+          "source": "declared-estimate"
+        },
+        {
+          "agent": "implementor-front",
+          "label": "TASK-004",
+          "provider_model": "claude/sonnet",
+          "tokens_in": 243000,
+          "tokens_out": 32000,
+          "approx": true,
+          "source": "declared-estimate"
+        },
+        {
+          "agent": "implementor-front",
+          "label": "TASK-006",
+          "provider_model": "claude/sonnet",
+          "tokens_in": 175000,
+          "tokens_out": 30000,
+          "approx": true,
+          "source": "declared-estimate"
+        },
+        {
+          "agent": "orchestrator",
+          "label": "explore:consumer-layouts",
+          "provider_model": "claude/sonnet",
+          "tokens_in": 105000,
+          "tokens_out": 7000,
+          "approx": true,
+          "source": "agent-usage-notification"
+        }
+      ]
+    }
   },
   "tables_created": [],
   "endpoints_implemented": [],
   "components_created": [],
-  "issues_found": [],
-  "reviewer_report": null
+  "issues_found": [
+    "Decisión: MarketingLayout y SplitAuthLayout son componentes y no valores de LAYOUT_OPTIONS (RootLayout exige menuItems y sumar un layout obliga a tocar seis lugares).",
+    "Cambio visible: el maxHeight default de SplitModal pasa de calc(85vh - 5rem) a la escala de Modal (60vh en md), a pedido del Studio (fricción 79). Documentado en el changelog.",
+    "Agregado al alcance: fricciones 76 a 83 del Studio (TASK-006). La 81 (Badge micro) y la 83 (line-height por densidad) ya estaban en 3.7.0; se agregaron tests.",
+    "DataTable mobileCards duplica el render de la página visible (tabla y tarjetas) para cambiar por CSS sin depender de JS; el cambio es por viewport, no por contenedor.",
+    "Pendiente para cycle-05: generate_page no conoce MarketingLayout ni SplitAuthLayout (enum de layout dashboard/sidebar/fullpage/stacked).",
+    "El SignInForm existente trae su propia tarjeta y un título de bajo contraste dentro de SplitAuthLayout; queda como mejora de los formularios de auth."
+  ],
+  "reviewer_report": {
+    "approved": true,
+    "date": "2026-10-27",
+    "ca_results": {
+      "CA-004": "passed - MarketingLayout y SplitAuthLayout funcionan en Vite (demo) y son aptos para Next (sin acceso al DOM en render; MarketingFooter y SplitAuthLayout son server-safe); DataTable muestra tarjetas en mobile con paginación compacta (verificado a 375px) y tabla en desktop",
+      "CA-006": "partial - sdd:validate en verde; release 3.8.0 / MCP 0.14.0 aprobado por el dueño (publicar por ciclo), pendiente de ejecutar"
+    },
+    "tests": {
+      "tucu-ui": "1084 tests en verde (1001 al abrir el ciclo)",
+      "tucu-ui-mcp": "196 tests en verde",
+      "checks": "typecheck, lint (0 errores), build, check-use-client, check-entry-isolation y check-built-imports en verde",
+      "browser": "demo con el tarball local: MarketingLayout en desktop (link activo, CTA, footer) y mobile (menú con foco adentro, Escape y foco de vuelta), DataTable mobileCards a 375px (tarjetas y paginación compacta) y tabla en desktop, SplitAuthLayout con SignInForm"
+    },
+    "notes": "Flow lite, un solo actor; el reviewer es el mismo orquestador."
+  }
 }

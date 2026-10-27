@@ -69,3 +69,15 @@
 - **Router agnóstico.** Los links usan el `Link` de `TucuNavigationContext` (lo proveen `ThemeProvider` y `NextThemeProvider`) cuando existe; si no, `<a>`. `renderLink` permite otro router.
 - **Tarjetas del DataTable por CSS**, como BasicTable, para no cambiar el markup entre servidor y cliente ni depender de `useIsMobile`. El costo es renderizar las filas dos veces, solo con `mobileCards` activo y solo para la página visible.
 - **Release:** minor `3.8.0` de la librería y minor `0.14.0` del MCP, con OK del dueño por ciclo (2026-10-27).
+
+## Agregado durante el ciclo
+- TASK-006 — Fricciones 76 a 83 del Studio al adoptar 3.7.0:
+  - SplitModal:
+    - Selección por sección (`selectionMode` `nav`/`option`/`none`).
+    - `sidebarActions`.
+    - Ítems `kind: 'info'`.
+    - `maxHeight` default alineado con Modal.
+  - SegmentedControl: `semantics` `radio`/`tabs`/`nav`, con `idBase`, props por opción y `emphasis`.
+  - Badge: `micro` con padding propio.
+  - `tooltipDefaults` en ThemeProvider.
+  - `--tucu-table-line-height` por densidad.
