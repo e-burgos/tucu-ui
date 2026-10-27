@@ -3,3 +3,4 @@ packages:
   - 'ui/*'
   - 'tools/*'
   - '!examples/**'
+  - '!apps/next-demo'
