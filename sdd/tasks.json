@@ -93,9 +93,9 @@
             "libs/tucu-docs",
             "tools/mcp-server"
           ],
-          "status": "in-progress",
+          "status": "completed",
           "tasks_total": 4,
-          "tasks_done": 0
+          "tasks_done": 4
         }
       }
     }

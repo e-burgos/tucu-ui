@@ -160,5 +160,9 @@
       "file": "tools.schema.json"
     }
   ],
-  "memory": []
+  "memory": [
+    {
+      "file": "2026-10-28-spec-e-burgos-003-library-polish-cycle-01.md"
+    }
+  ]
 }

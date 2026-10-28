@@ -15,18 +15,132 @@
     "Override del consumidor (token o className) que gana en light y dark",
     "Aspecto por defecto idéntico a 3.9.1"
   ],
-  "status": "in-progress",
+  "status": "completed",
   "started_at": "2026-10-28",
-  "completed_at": null,
+  "completed_at": "2026-10-28",
   "documents": {
     "plan": "sdd/specs/spec-e-burgos-003-library-polish/cycles/cycle-01/plan.md",
     "tasks": "sdd/specs/spec-e-burgos-003-library-polish/cycles/cycle-01/tasks.json"
   },
   "artifacts": [],
-  "metrics": null,
+  "metrics": {
+    "tasks_total": 4,
+    "tasks_completed": 4,
+    "tasks_skipped": 0,
+    "story_points": 15,
+    "files_created": [
+      "ui/tucu-ui/src/assets/css/tokens/tones.css",
+      "ui/tucu-ui/src/assets/css/tokens/tones-controls.css",
+      "ui/tucu-ui/src/__tests__/common/tone-tokens.test.tsx",
+      "ui/tucu-ui/src/__tests__/buttons/button-tone-tokens.test.tsx",
+      "ui/tucu-ui/src/__tests__/inputs/control-tone-tokens.test.tsx",
+      "ui/tucu-docs/src/pages/design-system/theming-guide-sections/ToneTokensSection.tsx"
+    ],
+    "files_modified": [
+      "ui/tucu-ui/src/assets/css/theme-core.css",
+      "ui/tucu-ui/src/components/notifications/alert.tsx",
+      "ui/tucu-ui/src/components/common/tooltip.tsx",
+      "ui/tucu-ui/src/components/common/badge.tsx",
+      "ui/tucu-ui/src/components/dialog/confirm-dialog.tsx",
+      "ui/tucu-ui/src/components/cards/color-card.tsx",
+      "ui/tucu-ui/src/components/buttons/button/index.tsx",
+      "ui/tucu-ui/src/components/inputs/helpers/control-colors.ts",
+      "ui/tucu-ui/src/components/inputs/input.tsx",
+      "ui/tucu-ui/src/components/inputs/textarea.tsx",
+      "ui/tucu-ui/src/components/inputs/select.tsx",
+      "ui/tucu-ui/src/components/inputs/pin-code.tsx",
+      "ui/tucu-ui/src/components/inputs/input-searcher.tsx",
+      "ui/tucu-ui/src/components/inputs/file-input.tsx",
+      "ui/tucu-ui/src/__tests__/buttons/button.test.tsx",
+      "ui/tucu-ui/src/__tests__/buttons/button-consumer-absorption.test.tsx",
+      "tools/mcp-server/src/resources/tokens.ts",
+      "tools/mcp-server/src/resources/styling-overrides.ts",
+      "tools/mcp-server/src/resources/changelog.ts",
+      "ui/tucu-docs/src/pages/design-system/ThemingGuide.tsx"
+    ],
+    "files_deleted": [],
+    "usage": {
+      "tokens_in": 593000,
+      "tokens_out": 76000,
+      "approx": true,
+      "source": "declared-estimate",
+      "by_tier": {
+        "claude/opus": {
+          "tokens_in": 240000,
+          "tokens_out": 30000,
+          "approx": true,
+          "source": "declared-estimate"
+        },
+        "claude/sonnet": {
+          "tokens_in": 353000,
+          "tokens_out": 46000,
+          "approx": true,
+          "source": "agent-usage-notification"
+        }
+      },
+      "by_agent": [
+        {
+          "agent": "orchestrator",
+          "label": "solo",
+          "provider_model": "claude/opus",
+          "tokens_in": 240000,
+          "tokens_out": 30000,
+          "approx": true,
+          "source": "declared-estimate"
+        },
+        {
+          "agent": "implementor-front",
+          "label": "TASK-001",
+          "provider_model": "claude/sonnet",
+          "tokens_in": 113000,
+          "tokens_out": 14000,
+          "approx": true,
+          "source": "agent-usage-notification"
+        },
+        {
+          "agent": "implementor-front",
+          "label": "TASK-002",
+          "provider_model": "claude/sonnet",
+          "tokens_in": 144000,
+          "tokens_out": 28000,
+          "approx": true,
+          "source": "agent-usage-notification"
+        },
+        {
+          "agent": "implementor-front",
+          "label": "TASK-003",
+          "provider_model": "claude/sonnet",
+          "tokens_in": 96000,
+          "tokens_out": 4000,
+          "approx": true,
+          "source": "agent-usage-notification"
+        }
+      ]
+    }
+  },
   "tables_created": [],
   "endpoints_implemented": [],
   "components_created": [],
-  "issues_found": [],
-  "reviewer_report": null
+  "issues_found": [
+    "Alert usa data-alert-tone (no data-tone) porque InlineNotice pasa data-tone por rootProps.",
+    "Button deshabilitado: el implementador había cambiado el texto blanco por gris; se revirtió para conservar el aspecto de 3.9.1 (token --tucu-button-disabled-solid-text: blanco en light, gray-500 en dark). Gray solid sin border-color propio, igual que antes.",
+    "Cambio visible documentado: con tema macOS activo, sus reglas de controles ganan también sobre Input/Textarea ghost primary/info (antes se escapaban por !important); Select appearance=neutral ignora color.",
+    "La verificación en la demo sufrió el caché de pnpm (tarball con el mismo nombre) y la clase macos del demo; ver journal del ciclo.",
+    "index-core.css sigue en ~383 KB: las reglas de tono compensan las variantes dark: eliminadas; la meta ≤300 KB es del cycle-03."
+  ],
+  "reviewer_report": {
+    "approved": true,
+    "date": "2026-10-28",
+    "ca_results": {
+      "CA-001": "passed - ningún mapa de tono de Alert, Tooltip, Badge, Button, ConfirmDialog, control-colors ni ColorCard contiene dark: (los únicos dark: restantes en Tooltip son claves de mapa vacías); tests por componente verifican atributos, ausencia de dark: y className del consumidor; la demo con el build local da los mismos colores computados que 3.9.1 en light y dark en 13 páginas (salvo ghost primary/info bajo el tema macOS, documentado) y en elementos sueltos el className, el token y ThemeScope ganan en ambos modos",
+      "CA-004": "partial - sdd:validate en verde; release 3.10.0 / MCP 0.16.0 aprobado por el dueño al abrir el ciclo, se ejecuta tras el cierre con la nota de adopción"
+    },
+    "tests": {
+      "tucu-ui": "1496 tests en verde (195 archivos)",
+      "tucu-ui-mcp": "240 tests en verde",
+      "checks": "typecheck, lint (0 errores), build, check-use-client, check-entry-isolation y check-built-imports en verde",
+      "browser": "demo con el build local: comparación de colores computados contra la base de 3.9.1 y prueba de cascada fuera del shell macOS"
+    },
+    "notes": "Flow lite, un solo actor; el reviewer es el mismo orquestador."
+  }
 }

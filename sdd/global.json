@@ -38,7 +38,7 @@
         "libs/tucu-docs",
         "tools/mcp-server"
       ],
-      "cycles_completed": 0,
+      "cycles_completed": 1,
       "description": "Tonos por tokens, auth sin tarjeta forzada, páginas de error sobre SystemStatePage, pinch-zoom del Lightbox y CSS ≤ 300 KB (3 ciclos)"
     }
   ],
