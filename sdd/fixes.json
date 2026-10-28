@@ -90,6 +90,41 @@
         "source": "declared-estimate",
         "recorded_at": "2026-10-27"
       }
+    },
+    {
+      "id": "FIX-e-burgos-003-001",
+      "author": "e-burgos",
+      "spec_id": "spec-e-burgos-003-library-polish",
+      "fix_document": "sdd/specs/spec-e-burgos-003-library-polish/fixes/fix-e-burgos-003-001.md",
+      "type": "IMPROVEMENT",
+      "severity": "low",
+      "created_at": "2026-10-28",
+      "resolved_at": "2026-10-28",
+      "validated_at": null,
+      "title": "Tone Tokens en tucu-docs: aclarar que los temas macOS ganan sobre los tokens",
+      "estimation_hours": 0.25,
+      "description": "El ejemplo vivo de override por token de la sección Tone Tokens no mostraba diferencia en la demo: las reglas de los temas macOS (Sonoma/Tahoe) están fuera de @layer y pisan los colores del Alert. Se agrega un aviso en la sección y se ajusta el texto del ejemplo para indicar que el override se ve con un tema por defecto.",
+      "justification": "Corrección de documentación sin contratos ni entidades nuevas; perfil solo.",
+      "related_modules": [
+        "library-polish"
+      ],
+      "affected_files": [
+        "ui/tucu-docs/src/pages/design-system/theming-guide-sections/ToneTokensSection.tsx",
+        "sdd/specs/spec-e-burgos-003-library-polish/fixes/fix-e-burgos-003-001.md"
+      ],
+      "test_reference": "Demo en el navegador: la sección Tone Tokens muestra el aviso y el texto nuevo sin errores de consola.",
+      "status": "implemented",
+      "cycle": null,
+      "usage": {
+        "provider_model": "claude/opus",
+        "effort": "medium",
+        "agent": "orchestrator",
+        "tokens_in": 40000,
+        "tokens_out": 4000,
+        "approx": true,
+        "source": "declared-estimate",
+        "recorded_at": "2026-10-28"
+      }
     }
   ]
 }
