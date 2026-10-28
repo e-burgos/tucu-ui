@@ -95,6 +95,12 @@ const ToneTokensSection: React.FC = () => (
             utility in className or a token override wins in light and dark,
             also inside a ThemeScope.
           </Typography>
+          <Alert variant="warning">
+            The macOS themes (Sonoma and Tahoe) style these components with
+            their own rules outside any layer, so while a macOS theme is
+            active its colors win over tone tokens and className utilities.
+            Tone tokens apply with the default themes.
+          </Alert>
         </div>
       </CardTitle>
     </CardContainer>
@@ -149,8 +155,9 @@ const ToneTokensSection: React.FC = () => (
       <CardTitle title="Live example" className="mt-2 mb-2">
         <div className="w-full space-y-4 p-4 sm:p-6">
           <Typography tag="p" className="text-gray-600 dark:text-gray-400">
-            The second alert sets --tucu-alert-info-bg on its wrapper. The
-            override takes effect from v3.10.0.
+            The second alert sets --tucu-alert-info-bg on its wrapper. With a
+            macOS theme active both alerts look the same; switch to a default
+            theme in the settings to see the override.
           </Typography>
           <Alert variant="info">Default info alert</Alert>
           <div

@@ -1,6 +1,6 @@
 # SPEC-e-burgos-003: Pulido de la librería: tonos por tokens, auth y páginas de error, Lightbox y peso del CSS
 
-> Estado: **in-progress**. La planificó el dueño el 2026-10-27, con los pendientes que dejó spec-e-burgos-002. Son tres ciclos; el cycle-01 se abrió el 2026-10-28.
+> Estado: **completed** (2026-10-28). La planificó el dueño el 2026-10-27, con los pendientes que dejó spec-e-burgos-002. Se cerró con el cycle-01 como única entrega (3.10.0 / MCP 0.16.0); RF-2 a RF-5 pasaron al backlog de abajo por decisión del dueño.
 
 ## Resumen Ejecutivo
 
@@ -97,7 +97,17 @@ Esta spec los cierra sin cambios incompatibles en 3.x.
 | Ciclo | Alcance | Release estimado |
 |---|---|---|
 | cycle-01 | RF-1: tonos por tokens (Alert, Tooltip, Badge, Button, ConfirmDialog, control-colors, ColorCard) | 3.10.0 / MCP 0.16.0 |
-| cycle-02 | RF-2 + RF-3: auth sin tarjeta forzada + i18n; páginas de error sobre `ErrorPageShell`/`SystemStatePage` + i18n | 3.11.0 / MCP 0.17.0 |
-| cycle-03 | RF-4 + RF-5: pinch-zoom del Lightbox; CSS ≤ 300 KB con check de tamaño | 3.12.0 / MCP 0.18.0 |
+| ~~cycle-02~~ | Pasó al backlog | — |
+| ~~cycle-03~~ | Pasó al backlog | — |
 
 El cycle-01 va primero porque el cycle-03 depende de él para el peso del CSS: pasar tonos a tokens elimina variantes `dark:` y duplicados de `color-mix`.
+
+## Backlog (decisión del dueño, 2026-10-28)
+
+La spec se cierra con el cycle-01. Cada ciclo destapaba pendientes nuevos y ninguno bloquea a los consumidores (display-ads, el Studio y opticagestion andan con 3.10.0). Regla: un ítem del backlog se retoma **solo cuando un consumidor queda bloqueado por él**, y entonces se abre una spec nueva acotada a ese ítem (las features con API nueva no entran por el FIX GATE).
+
+- **RF-2. Auth sin tarjeta forzada + i18n.** Feature: suma props públicas.
+- **RF-3. Páginas de error sobre `ErrorPageShell`/`SystemStatePage` + i18n.** Feature: componentes y API nuevos.
+- **RF-4. Pinch-zoom del Lightbox.** Podría entrar como `[IMPROVEMENT]` si no suma props.
+- **RF-5. CSS ≤ 300 KB.** Refactor con riesgo de cambios visuales; requiere ciclo.
+- **Cascada de macOS.** Las reglas de los temas Sonoma/Tahoe están fuera de `@layer` y les ganan a los tokens de tono y al `className` del consumidor. Lo documenta FIX-e-burgos-003-001 en tucu-docs; `tucu://styling-overrides` del MCP todavía no lo menciona.
