@@ -133,7 +133,7 @@
     "date": "2026-10-28",
     "ca_results": {
       "CA-001": "passed - ningún mapa de tono de Alert, Tooltip, Badge, Button, ConfirmDialog, control-colors ni ColorCard contiene dark: (los únicos dark: restantes en Tooltip son claves de mapa vacías); tests por componente verifican atributos, ausencia de dark: y className del consumidor; la demo con el build local da los mismos colores computados que 3.9.1 en light y dark en 13 páginas (salvo ghost primary/info bajo el tema macOS, documentado) y en elementos sueltos el className, el token y ThemeScope ganan en ambos modos",
-      "CA-004": "partial - sdd:validate en verde; release 3.10.0 / MCP 0.16.0 aprobado por el dueño al abrir el ciclo, se ejecuta tras el cierre con la nota de adopción"
+      "CA-004": "passed - sdd:validate en verde; publicados @e-burgos/tucu-ui 3.10.0 y @e-burgos/tucu-ui-mcp 0.16.0 por CI (OK del dueño al abrir el ciclo); demo y tucu-docs en ^3.10.0 verificados en el navegador contra npm; notas de adopción enviadas"
     },
     "tests": {
       "tucu-ui": "1496 tests en verde (195 archivos)",
