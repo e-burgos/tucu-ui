@@ -56,9 +56,11 @@ describe('Button consumer absorption', () => {
     expect(screen.getByRole('button')).toHaveClass('border-2');
   });
 
-  it('gray solid has a dark surface tone', () => {
+  it('gray solid takes its surface from the tone tokens', () => {
     render(<Button color="gray">Go</Button>);
-    expect(screen.getByRole('button')).toHaveClass('dark:bg-gray-700');
+    const button = screen.getByRole('button');
+    expect(button).toHaveAttribute('data-color', 'gray');
+    expect(button.className).not.toContain('dark:');
   });
 
   it('consumer className overrides size and background', () => {

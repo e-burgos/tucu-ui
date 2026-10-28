@@ -46,9 +46,8 @@ export interface TooltipProps {
 }
 
 const colorStyles: Record<TooltipColor, string> = {
-  dark: 'bg-gray-900 text-white dark:bg-gray-100 dark:text-gray-900',
-  light:
-    'bg-white text-gray-900 dark:bg-gray-800 dark:text-gray-100 border border-border',
+  dark: '',
+  light: 'border',
   primary: 'bg-brand text-white',
   success: 'bg-green-700 text-white',
   info: 'bg-blue-600 text-white',
@@ -64,8 +63,8 @@ const tokenArrowBorderStyle =
   'text-[color:var(--tucu-tooltip-border,var(--tucu-tooltip-border-default))]';
 
 const arrowColorStyles: Record<TooltipColor, string> = {
-  dark: 'text-gray-900 dark:text-gray-100',
-  light: 'text-white dark:text-gray-800',
+  dark: '',
+  light: '',
   primary: 'text-brand',
   success: 'text-green-700',
   info: 'text-blue-600',
@@ -361,6 +360,8 @@ export function Tooltip({
       {content}
       {arrow && position && (
         <svg
+          data-tucu="tooltip-arrow"
+          data-color={usesTokens ? undefined : resolvedColor}
           className={cn(
             'absolute pointer-events-none',
             usesTokens ? tokenArrowStyle : arrowColorStyles[resolvedColor]
@@ -382,11 +383,11 @@ export function Tooltip({
       )}
       {arrow && position && (usesTokens || resolvedColor === 'light') && (
         <svg
+          data-tucu="tooltip-arrow-border"
+          data-color={usesTokens ? undefined : resolvedColor}
           className={cn(
             'absolute pointer-events-none',
-            usesTokens
-              ? tokenArrowBorderStyle
-              : 'text-gray-200 dark:text-gray-700'
+            usesTokens ? tokenArrowBorderStyle : undefined
           )}
           style={{
             top:

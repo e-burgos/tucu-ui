@@ -25,7 +25,8 @@ import { FieldError } from './helpers/field-error-text';
 import { FieldHelperText } from './helpers/field-helper-text';
 import {
   type ControlColor,
-  textControlColorClasses,
+  textControlToneAttributes,
+  textControlToneClasses,
 } from './helpers/control-colors';
 import {
   type TextControlSize,
@@ -811,22 +812,25 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
                   paddingInlineEnd: trailingPadding,
                 }),
               }}
+              {...textControlToneAttributes(variant, color)}
               className={cn(
                 // Error state follows aria-invalid (error prop / built-in validation)
                 // and :user-invalid (native constraints, only after the user
                 // interacted), never a pristine required field.
-                'block w-full placeholder-gray-400 transition-shadow duration-200 rounded-xl text-gray-900 dark:text-gray-100 focus:outline-hidden focus:border-brand focus:ring-2 focus:ring-brand/30 dark:focus:border-brand aria-invalid:border-red-500 aria-invalid:focus:ring-red-500/30 dark:aria-invalid:border-red-400 user-invalid:border-red-500 dark:user-invalid:border-red-400 disabled:border-border disabled:bg-muted/10 disabled:text-gray-500 dark:disabled:text-gray-400 disabled:cursor-not-allowed',
+                'block w-full placeholder-gray-400 transition-shadow duration-200 rounded-xl text-gray-900 dark:text-gray-100 focus:outline-hidden focus:ring-2 aria-invalid:border-red-500 aria-invalid:focus:ring-red-500/30 dark:aria-invalid:border-red-400 user-invalid:border-red-500 dark:user-invalid:border-red-400 disabled:border-border disabled:bg-muted/10 disabled:text-gray-500 dark:disabled:text-gray-400 disabled:cursor-not-allowed',
+                !color &&
+                  'focus:border-brand focus:ring-brand/30 dark:focus:border-brand',
                 size === 'xs'
                   ? compactInputSizeClasses
                   : textControlSizeClasses.input[size],
                 Boolean(icon) && 'pl-[40px]',
                 type === 'date' ? 'pr-[48px] cursor-pointer' : '',
                 type === 'password' ? 'pr-[40px]' : '',
-                color && textControlColorClasses[variant][color],
+                color && textControlToneClasses[variant],
                 props.disabled ? 'bg-muted/10! cursor-not-allowed' : '',
                 inputClassName,
                 Boolean(suffix || icon) && 'pl-[40px]',
-                inputVariantClasses[variant]
+                !color && inputVariantClasses[variant]
               )}
             />
             {/* Left side: icon */}

@@ -40,7 +40,6 @@ describe('Button contrast', () => {
     ['info', 'bg-blue-600'],
     ['warning', 'bg-yellow-700'],
     ['danger', 'bg-red-600'],
-    ['gray', 'bg-gray-600'],
   ] as const)('solid %s uses an AA-contrast background', (color, expected) => {
     render(<Button color={color}>Guardar</Button>);
     const button = screen.getByRole('button', { name: 'Guardar' });
