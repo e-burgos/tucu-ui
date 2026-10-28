@@ -48,6 +48,8 @@
 @import './datatable.css';
 @import './tokens/feedback.css';
 @import './tokens/controls.css';
+@import './tokens/tones.css';
+@import './tokens/tones-controls.css';
 @import './tokens/auth-layout.css';
 @import './tokens/table.css';
 @import './tokens/datatable-cards.css';

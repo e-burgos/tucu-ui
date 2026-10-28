@@ -82,6 +82,22 @@
           "tasks_done": 6
         }
       }
+    },
+    "spec-e-burgos-003-library-polish": {
+      "cycles": {
+        "cycle-01": {
+          "file": "sdd/specs/spec-e-burgos-003-library-polish/cycles/cycle-01/tasks.json",
+          "module": "library-polish",
+          "apps": [
+            "libs/tucu-ui",
+            "libs/tucu-docs",
+            "tools/mcp-server"
+          ],
+          "status": "in-progress",
+          "tasks_total": 4,
+          "tasks_done": 0
+        }
+      }
     }
   }
 }

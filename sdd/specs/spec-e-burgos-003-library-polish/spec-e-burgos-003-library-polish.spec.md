@@ -1,6 +1,6 @@
 # SPEC-e-burgos-003: Pulido de la librería: tonos por tokens, auth y páginas de error, Lightbox y peso del CSS
 
-> Estado: **draft**. La planificó el dueño el 2026-10-27, con los pendientes que dejó spec-e-burgos-002. Son tres ciclos y ninguno está abierto todavía.
+> Estado: **in-progress**. La planificó el dueño el 2026-10-27, con los pendientes que dejó spec-e-burgos-002. Son tres ciclos; el cycle-01 se abrió el 2026-10-28.
 
 ## Resumen Ejecutivo
 

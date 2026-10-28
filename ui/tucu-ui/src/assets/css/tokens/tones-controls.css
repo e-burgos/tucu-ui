@@ -1,0 +1,14 @@
+/* Tone tokens: Button and form controls (control-colors).
+   Override any `--tucu-<comp>-<tone>-<part>`; the `-default` variants are the per-mode fallbacks. */
+@layer base {
+  html:root,
+  .dark [data-tucu-theme]:not(.dark) {
+  }
+
+  html.dark,
+  [data-tucu-theme].dark {
+  }
+}
+
+@layer components {
+}
