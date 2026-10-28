@@ -158,6 +158,13 @@ or on any ancestor) to theme those components without \`!important\`:
 | Feedback: EmptyState, ErrorState, SystemStatePage, Lightbox (v3.7.0) | \`--tucu-state-view-bg\`, \`--tucu-state-view-border\`, \`--tucu-state-view-fg\`, \`--tucu-state-view-fg-muted\`, \`--tucu-state-view-error-fg\`, \`--tucu-state-view-icon-bg\`, \`--tucu-lightbox-overlay-bg\`, \`--tucu-lightbox-control-bg\`, \`--tucu-lightbox-control-fg\` |
 | Layouts: MarketingNav, MarketingFooter, SplitAuthLayout (v3.8.0) | \`--tucu-marketing-{nav-bg,nav-bg-scrolled,nav-border,footer-bg,footer-border,link-fg,link-fg-active}\`, \`--tucu-auth-{brand-bg,brand-fg,brand-muted,divider}\` |
 | DataTable mobile cards (v3.8.0) | \`--tucu-datatable-card-{bg,border,radius,label-fg,selected-bg}\` |
+| Tones: Alert without \`appearance\` (v3.10.0) | \`--tucu-alert-{error,warning,success,info}-{bg,border,fg}\` |
+| Tones: Tooltip \`color\` dark / light (v3.10.0) | \`--tucu-tooltip-dark-{bg,fg}\`, \`--tucu-tooltip-light-{bg,fg,border,arrow-border}\` |
+| Tones: Badge legacy \`color="light-dark"\`, ConfirmDialog icon (v3.10.0) | \`--tucu-badge-light-dark-{fg,border}\`, \`--tucu-confirm-dialog-{danger,warning,success,info}-{bg,fg}\` |
+| Tones: ColorCard (v3.10.0) | \`--tucu-color-card-<color>-{from,to,fg,border}\` (blue, indigo, cyan, purple, emerald, orange, green, red, pink, amber, teal, violet, rose, sky) |
+| Tones: Input, Textarea, Select, PinCode, InputSearcher \`color\` (v3.10.0) | \`--tucu-input-<tone>-accent\`, \`--tucu-input-<tone>-ghost-{border,border-hover,bg,ring}\`, \`--tucu-input-<tone>-solid-{border,bg,bg-hover,ring}\`, \`--tucu-input-<tone>-transparent-{bg,bg-hover,ring}\`, \`--tucu-control-<tone>-{accent-text,chip-bg,chip-bg-hover}\`, \`--tucu-control-text\`, \`--tucu-control-hover-ring\` — tone: primary, secondary, danger, info, success, warning |
+| Tones: FileInput \`color\` (v3.10.0) | \`--tucu-file-input-<tone>-{wrapper-border,wrapper-bg,dropzone-border,dropzone-bg,dropzone-border-active,dropzone-bg-active}\` |
+| Tones: Button (v3.10.0) | \`--tucu-button-gray-{bg,text}\`, \`--tucu-button-transparent-{hover-bg,busy-bg}\`, \`--tucu-button-ring-offset\`, \`--tucu-button-disabled-{bg,text,solid-text}\` |
 
 Precedence: every \`--tucu-*\` component token is read as \`var(--tucu-x, var(--tucu-x-default))\` and the library declares \`--tucu-x-default\` per mode, so overriding \`--tucu-x\` on \`:root\` wins in both light and dark.
 

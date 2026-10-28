@@ -110,9 +110,9 @@ stylesheet loaded last.
 
 The same reasoning applies to \`!important\` utilities. \`MenuItem\`'s active state applies
 \`'!text-white !bg-brand'\` — Tailwind utilities with \`!important\`
-(\`ui/tucu-ui/src/components/layouts/menus/menu-item.tsx\`) — and some input color
-variants use them too (e.g. \`!border-brand/70\` in the \`ghost\` color table,
-\`ui/tucu-ui/src/components/inputs/helpers/control-colors.ts\`). No non-\`!important\`
+(\`ui/tucu-ui/src/components/layouts/menus/menu-item.tsx\`). Since v3.10.0 the input
+\`color\` variants no longer use \`!important\`: their colors come from tone tokens in
+\`@layer components\` (see \`tucu://tokens\`), so a plain utility wins. No non-\`!important\`
 selector, compound or not, can beat those. The only way to override an \`!important\`
 utility is another \`!important\` declaration, and it should live inside a compound
 selector scoped to exactly the state you're overriding, with the reason written next to
@@ -170,9 +170,10 @@ input[data-tucu='input-control']:focus {
 
 If you write the equivalent rule for \`Select\` against \`[data-tucu='select']\` instead of
 \`[data-tucu='select-trigger']\`, you are styling the wrapper that contains the label,
-not the button the user clicks — a common one-hour debugging trap. Note also that some
-\`color\` variants bake \`!important\` borders (\`control-colors.ts\`, e.g. ghost's
-\`!border-brand/70\`) — those need an \`!important\` override, see the specificity section.
+not the button the user clicks — a common one-hour debugging trap. Since v3.10.0 the
+\`color\` variants read \`--tucu-input-<tone>-*\` tokens from \`@layer components\`
+(no \`!important\`): override the token, or pass a utility in \`className\`, and it wins
+in light and dark.
 
 ### 3. Neutralizing \`Button\`'s global hover lift
 

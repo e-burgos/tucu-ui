@@ -3,7 +3,12 @@
 export function getChangelogContent(): string {
   return `# Changelog — @e-burgos/tucu-ui
 
-## v3.9.0 (Current)
+## v3.10.0 (Current)
+- Change: the tone maps of Alert (without \`appearance\`), Tooltip (\`color\` dark / light), Badge (legacy \`light-dark\`), ConfirmDialog, ColorCard, Button (gray, transparent, focus ring offset, disabled) and the \`color\` variants of Input, Textarea, Select, PinCode, InputSearcher and FileInput no longer bake \`dark:\` utilities or \`!important\`; they read tone tokens from \`@layer components\` (\`tokens/tones.css\`, \`tokens/tones-controls.css\`), so a utility passed in \`className\` or a \`--tucu-*\` override wins in light and dark (see \`tucu://tokens\`)
+- Change (visible): with a macOS theme active, the macOS control styling now also wins over Input / Textarea \`variant="ghost"\` \`color\` primary and info (only those two escaped it before, through \`!important\`); Select \`appearance="neutral"\` ignores \`color\` (it used to mix both depending on class order)
+- Add: data attributes \`data-alert-tone\`, \`data-color\` (Tooltip, Badge legacy, ColorCard, Button), \`data-tucu-control-tone\` / \`data-tucu-control-variant\` (text controls), \`data-tucu-control-file-tone\` (FileInput)
+
+## v3.9.0
 - Add: MCP resource \`tucu://design-guide\` and prompt \`design-review\` (\`code\`, \`focus\`, \`style\`, \`density\`); \`generate_page\` / \`generate_component\` accept \`style\` clean | glass | bold | editorial, \`motion\` none | subtle | expressive and \`density\` compact | comfortable | spacious; \`generate_page\` gains the \`marketing\` and \`auth\` layouts
 - Add: installable design skill \`tucu-ui-design\` shipped in \`@e-burgos/tucu-ui-mcp\` — \`npx -p @e-burgos/tucu-ui-mcp tucu-ui-skill install [--dir <path>] [--force]\` (\`tucu-ui-skill path\` prints the packaged folder)
 - Add: \`ThemeProvider\` / \`NextThemeProvider\` wrap the app in framer-motion \`MotionConfig reducedMotion="user"\`; prop \`motion={{ reducedMotion }}\` overrides it
