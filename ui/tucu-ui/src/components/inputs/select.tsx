@@ -20,8 +20,10 @@ import { FieldHelperText } from './helpers/field-helper-text';
 import { useTucuMessages } from '../../libs/i18n/use-tucu-messages';
 import {
   type ControlColor,
-  controlAccentTextClasses,
-  textControlColorClasses,
+  controlAccentTextDefaultClass,
+  textControlHoverRingClass,
+  textControlToneAttributes,
+  textControlToneClasses,
 } from './helpers/control-colors';
 import {
   type TextControlSize,
@@ -245,9 +247,7 @@ export function Select({
   // Dropdown position state (for portal)
   const [dropdownStyle, setDropdownStyle] = useState<React.CSSProperties>({});
   const [autoMenuHeight, setAutoMenuHeight] = useState<number | undefined>();
-  const accentTextClass = color
-    ? controlAccentTextClasses[color]
-    : 'text-brand';
+  const accentTextClass = color ? '' : controlAccentTextDefaultClass;
 
   // Keep internal state in sync when `value` changes externally
   useEffect(() => {
@@ -688,6 +688,7 @@ export function Select({
                             'h-4 w-4 shrink-0 ml-2',
                             accentTextClass
                           )}
+                          data-tucu-control-accent={color}
                         />
                       )}
                     </div>
@@ -765,8 +766,20 @@ export function Select({
         'block font-medium tracking-widest text-gray-800 dark:text-gray-100',
         useUppercaseLabel ? 'mb-2 uppercase sm:mb-3' : 'mb-1.5 ml-1.5'
       );
-  const triggerAppearanceClasses =
-    appearance === 'neutral' ? selectNeutralClasses : selectVariantClasses[variant];
+  const neutralAppearance = appearance === 'neutral';
+  const toned = Boolean(color) && !neutralAppearance;
+  const triggerAppearanceClasses = neutralAppearance
+    ? selectNeutralClasses
+    : toned
+    ? cn(
+        variant !== 'transparent' && 'rounded-xl',
+        textControlToneClasses[variant],
+        variant === 'ghost' && textControlHoverRingClass
+      )
+    : selectVariantClasses[variant];
+  const triggerToneAttributes = toned
+    ? textControlToneAttributes(variant, color, true)
+    : undefined;
 
   const nativeSegments = segmentOptionsByGroup(options);
 
@@ -798,11 +811,12 @@ export function Select({
             onChange={handleNativeChange}
             aria-invalid={errorMessage ? true : undefined}
             aria-describedby={describedBy}
+            {...triggerToneAttributes}
             className={cn(
-              'tucu-text-case-inherit tucu-letter-space-inherit block w-full appearance-none font-medium outline-hidden duration-200 focus:border-brand focus-visible:outline-2 focus-visible:outline-brand aria-invalid:border-red-500 dark:aria-invalid:border-red-400 ltr:pr-10 rtl:pl-10',
+              'tucu-text-case-inherit tucu-letter-space-inherit block w-full appearance-none font-medium outline-hidden duration-200 focus-visible:outline-2 focus-visible:outline-brand aria-invalid:border-red-500 dark:aria-invalid:border-red-400 ltr:pr-10 rtl:pl-10',
+              !toned && 'focus:border-brand',
               selectSizeClasses[size],
               triggerAppearanceClasses,
-              color && textControlColorClasses[variant][color],
               disabled && 'cursor-not-allowed bg-muted/10!',
               buttonClassName,
               triggerClassName
@@ -889,11 +903,11 @@ export function Select({
         disabled={disabled}
         onClick={toggleDropdown}
         onKeyDown={handleButtonKeyDown}
+        {...triggerToneAttributes}
         className={cn(
           'tucu-text-case-inherit tucu-letter-space-inherit flex w-full items-center justify-between gap-2 font-medium outline-hidden duration-200',
           selectSizeClasses[size],
           triggerAppearanceClasses,
-          color && textControlColorClasses[variant][color],
           disabled && 'cursor-not-allowed bg-muted/10!',
           buttonClassName,
           triggerClassName

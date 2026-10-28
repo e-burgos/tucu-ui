@@ -6,7 +6,8 @@ import { FieldError } from './helpers/field-error-text';
 import { FieldHelperText } from './helpers/field-helper-text';
 import {
   type ControlColor,
-  textControlColorClasses,
+  textControlToneAttributes,
+  textControlToneClasses,
 } from './helpers/control-colors';
 import {
   type TextControlSize,
@@ -97,13 +98,16 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
           aria-invalid={error ? true : undefined}
           aria-describedby={error || helperText ? messageId : undefined}
           {...props}
+          {...textControlToneAttributes(variant, color)}
           className={cn(
-            'block w-full placeholder-gray-500 transition-shadow duration-200 focus:outline-hidden focus:border-brand focus-visible:outline-2 focus-visible:outline-brand aria-invalid:border-red-500 dark:aria-invalid:border-red-400 user-invalid:border-red-500 dark:user-invalid:border-red-400 disabled:border-border disabled:bg-muted/10 disabled:text-gray-500 dark:disabled:text-gray-400 disabled:cursor-not-allowed dark:text-gray-100 rounded-xl',
+            'block w-full placeholder-gray-500 transition-shadow duration-200 focus:outline-hidden focus-visible:outline-2 focus-visible:outline-brand aria-invalid:border-red-500 dark:aria-invalid:border-red-400 user-invalid:border-red-500 dark:user-invalid:border-red-400 disabled:border-border disabled:bg-muted/10 disabled:text-gray-500 dark:disabled:text-gray-400 disabled:cursor-not-allowed dark:text-gray-100 rounded-xl',
+            !color && 'focus:border-brand',
             size === 'xs'
               ? compactTextareaSizeClasses
               : textControlSizeClasses.textarea[size],
-            textareaVariantClasses[variant],
-            color && textControlColorClasses[variant][color],
+            color
+              ? cn(textControlToneClasses[variant], 'text-gray-900')
+              : textareaVariantClasses[variant],
             props.disabled ? 'bg-muted/10! cursor-not-allowed' : '',
             inputClassName
           )}

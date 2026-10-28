@@ -16,8 +16,8 @@ import { cn } from '../../libs/cn';
 import { usePortalContainer } from '../../themes/components/theme-scope/portal-container';
 import {
   type ControlColor,
-  controlAccentChipClasses,
-  controlAccentTextClasses,
+  controlAccentChipDefaultClass,
+  controlAccentTextDefaultClass,
 } from './helpers/control-colors';
 import { type TextControlSize } from './helpers/control-sizes';
 
@@ -71,12 +71,8 @@ export function InputSearcher({
 
   // Dropdown position state (for portal)
   const [dropdownStyle, setDropdownStyle] = useState<React.CSSProperties>({});
-  const accentTextClass = color
-    ? controlAccentTextClasses[color]
-    : 'text-brand';
-  const accentChipClass = color
-    ? controlAccentChipClasses[color]
-    : 'bg-brand/10 text-brand hover:bg-brand/20';
+  const accentTextClass = color ? '' : controlAccentTextDefaultClass;
+  const accentChipClass = color ? '' : controlAccentChipDefaultClass;
 
   // Update value when initialValue changes (only if it actually changed)
   useEffect(() => {
@@ -378,7 +374,11 @@ export function InputSearcher({
         <span>
           {parts.map((part, idx) =>
             part.isMatch ? (
-              <span key={idx} className={cn('font-semibold', accentTextClass)}>
+              <span
+                key={idx}
+                className={cn('font-semibold', accentTextClass)}
+                data-tucu-control-accent={color}
+              >
                 {part.text}
               </span>
             ) : (
@@ -388,7 +388,7 @@ export function InputSearcher({
         </span>
       );
     },
-    [value, accentTextClass]
+    [value, accentTextClass, color]
   );
 
   // Check if option is selected
@@ -479,6 +479,7 @@ export function InputSearcher({
                 {isSelected && (
                   <Check
                     className={cn('h-4 w-4 shrink-0 ml-2', accentTextClass)}
+                    data-tucu-control-accent={color}
                   />
                 )}
               </div>
@@ -530,6 +531,7 @@ export function InputSearcher({
                 'inline-flex items-center gap-1 px-2 py-0.5 text-xs font-medium rounded-md',
                 accentChipClass
               )}
+              data-tucu-control-chip={color}
             >
               {option.icon && <span className="shrink-0">{option.icon}</span>}
               {option.name}

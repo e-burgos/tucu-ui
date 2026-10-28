@@ -14,7 +14,10 @@ const densityClassNames: Record<AlertDensity, string> = {
   compact: 'px-3 py-1.5',
 };
 
-const appearanceClassNames: Record<AlertAppearance, Record<AlertVariant, string>> = {
+const appearanceClassNames: Record<
+  AlertAppearance,
+  Record<AlertVariant, string>
+> = {
   soft: {
     info: 'bg-info/10 border-info/30 text-info',
     warning: 'bg-warning/10 border-warning/30 text-warning',
@@ -74,20 +77,16 @@ export function Alert({
     return null;
   }
 
+  const toneOf = (value: AlertVariant) =>
+    value === 'error' || value === 'warning' || value === 'success'
+      ? value
+      : 'info';
+
   const getVariantStyles = () => {
     if (appearance) {
       return appearanceClassNames[appearance][variant];
     }
-    switch (variant) {
-      case 'error':
-        return 'bg-red-50 border-red-200 text-red-700 dark:bg-red-900/20 dark:border-red-800 dark:text-red-200';
-      case 'warning':
-        return 'bg-yellow-50 border-yellow-200 text-yellow-700 dark:bg-yellow-900/20 dark:border-yellow-800 dark:text-yellow-200';
-      case 'success':
-        return 'bg-green-50 border-green-200 text-green-700 dark:bg-green-900/20 dark:border-green-800 dark:text-green-200';
-      default:
-        return 'bg-blue-50 border-blue-200 text-blue-700 dark:bg-blue-900/20 dark:border-blue-800 dark:text-blue-200';
-    }
+    return '';
   };
 
   return (
@@ -95,6 +94,7 @@ export function Alert({
       data-tucu="alert"
       {...rootProps}
       data-variant={variant}
+      data-alert-tone={appearance ? undefined : toneOf(variant)}
       role={live === 'polite' ? 'status' : 'alert'}
       aria-live={live}
       aria-atomic="true"

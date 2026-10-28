@@ -12,7 +12,7 @@ import {
   type ControlColor,
   buttonColorByControlColor,
   buttonHoverClassByControlColor,
-  fileInputColorClasses,
+  fileInputToneClasses,
 } from './helpers/control-colors';
 
 export const acceptedFileType = {
@@ -228,17 +228,23 @@ function FileInput(
     <div
       data-tucu="file-input"
       data-color={color}
+      data-tucu-control-file-tone={color}
+      data-tucu-control-part={color ? 'wrapper' : undefined}
       className={cn(
-        'rounded-lg border border-solid border-border bg-white p-4 dark:bg-light-dark sm:p-6',
-        color && fileInputColorClasses[color].wrapper,
+        color
+          ? fileInputToneClasses.wrapper
+          : 'rounded-lg border border-solid border-border bg-white p-4 dark:bg-light-dark sm:p-6',
         wrapperClassName
       )}
     >
       <div
         data-tucu="file-input-dropzone"
+        data-tucu-control-file-tone={color}
+        data-tucu-control-part={color ? 'dropzone' : undefined}
         className={cn(
-          'focus-within:ring-2 focus-within:ring-brand hover:bg-gray-100 dark:hover:bg-gray-900/50 border border-dashed dark:hover:border-brand hover:border-brand transition-all duration-300 relative border-border h-48 flex items-center justify-center rounded-lg',
-          color && fileInputColorClasses[color].dropzone,
+          color
+            ? fileInputToneClasses.dropzone
+            : 'focus-within:ring-2 focus-within:ring-brand hover:bg-gray-100 dark:hover:bg-gray-900/50 border border-dashed dark:hover:border-brand hover:border-brand transition-all duration-300 relative border-border h-48 flex items-center justify-center rounded-lg',
           containerClassName
         )}
         {...containerProps}

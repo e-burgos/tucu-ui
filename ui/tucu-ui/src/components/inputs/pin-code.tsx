@@ -8,7 +8,9 @@ import { useTucuMessages } from '../../libs/i18n/use-tucu-messages';
 import { formatMessage } from '../../libs/i18n/messages';
 import {
   ControlColor,
-  textControlColorClasses,
+  textControlHoverRingClass,
+  textControlToneAttributes,
+  textControlToneClasses,
 } from './helpers/control-colors';
 // import FieldError from '../field-error-text';
 
@@ -47,12 +49,6 @@ const inputClasses = {
       base: 'bg-transparent',
     },
   },
-};
-
-const ghostColorOverrides: Partial<Record<ControlColor, string>> = {
-  primary:
-    '!border-brand/70 hover:!border-brand/80 focus:!border-brand dark:!border-brand/75 dark:!bg-brand/20',
-  info: '!border-blue-500/70 hover:!border-blue-500/80 focus:!border-blue-500 dark:!border-blue-500/75 dark:!bg-blue-500/20',
 };
 
 export interface PinCodeProps
@@ -240,14 +236,18 @@ export function PinCode({
                 length,
               })}
               aria-invalid={error ? true : undefined}
+              {...textControlToneAttributes(variant, color, true)}
               className={cn(
                 inputClasses.base,
                 type === 'number' && inputClasses.numberType,
                 inputClasses.size[size],
                 inputClasses.rounded[rounded],
-                inputClasses.variant[variant].base,
-                color && textControlColorClasses[variant][color],
-                variant === 'ghost' && color && ghostColorOverrides[color],
+                color
+                  ? cn(
+                      textControlToneClasses[variant],
+                      variant === 'ghost' && textControlHoverRingClass
+                    )
+                  : inputClasses.variant[variant].base,
                 error && inputClasses.error,
                 mask && 'password-dot',
                 props.disabled &&

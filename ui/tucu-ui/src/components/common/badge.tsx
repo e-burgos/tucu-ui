@@ -50,10 +50,7 @@ const colors: Record<ColorNames, string[]> = {
   danger: ['text-red-500', 'bg-red-600', 'border-red-500'],
   gray: ['text-gray-500', 'bg-gray-600', 'border-gray-500'],
   white: ['text-gray-900', 'bg-white', 'border-white'],
-  'light-dark': [
-    'text-light-dark dark:text-gray-200',
-    'border-light-dark dark:border-border',
-  ],
+  'light-dark': ['', ''],
 };
 
 type ToneVariantNames = 'soft' | 'ink' | 'line';
@@ -185,6 +182,9 @@ export const Badge = ({
         break;
     }
 
+  const legacyLightDark =
+    !(resolvedTone && toneVariant) && badgeColor === 'light-dark';
+
   const dotSize = withDot && !children ? sizeClassNames[1] : '';
 
   return (
@@ -192,6 +192,7 @@ export const Badge = ({
       data-tucu="badge"
       data-variant={variant}
       data-tone={resolvedTone}
+      data-color={legacyLightDark ? 'light-dark' : undefined}
       data-struck={struck ? 'true' : undefined}
       className={cn(
         'inline-flex items-center justify-center font-medium transition-all duration-200',

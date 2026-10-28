@@ -4,6 +4,12 @@ All notable changes to `@e-burgos/tucu-ui-mcp` will be documented in this file.
 
 <!-- Last updated: 2026-06-02 -->
 
+## [0.16.0] - 2026-10-28
+
+### Changed
+
+- Document the tone tokens of tucu-ui 3.10.0: `tucu://tokens` Tones groups, `tucu://styling-overrides` without the `!important` advice for input `color` variants, changelog entry
+
 ## [0.15.0] - 2026-10-27
 
 ### Added

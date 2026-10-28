@@ -1,0 +1,139 @@
+{
+  "$schema": "../../../../schemas/cycle-tasks.schema.json",
+  "spec": "spec-e-burgos-003-library-polish",
+  "cycle": 1,
+  "module": "library-polish",
+  "apps": [
+    "libs/tucu-ui",
+    "libs/tucu-docs",
+    "tools/mcp-server"
+  ],
+  "flow": "lite",
+  "user_stories_generated": true,
+  "prerequisites": {
+    "tasks_generated": true
+  },
+  "tasks": [
+    {
+      "id": "TASK-001",
+      "title": "Alert, Tooltip, Badge legacy, ConfirmDialog y ColorCard sobre tokens de tono",
+      "user_stories": [
+        "US-001",
+        "US-002"
+      ],
+      "estimation_hours": 4,
+      "story_points": 5,
+      "depends_on": [],
+      "status": "done",
+      "files": [
+        "ui/tucu-ui/src/assets/css/tokens/tones.css",
+        "ui/tucu-ui/src/components/notifications/alert.tsx",
+        "ui/tucu-ui/src/components/common/tooltip.tsx",
+        "ui/tucu-ui/src/components/common/badge.tsx",
+        "ui/tucu-ui/src/components/dialog/confirm-dialog.tsx",
+        "ui/tucu-ui/src/components/cards/color-card.tsx",
+        "ui/tucu-ui/src/__tests__/common/tone-tokens.test.tsx"
+      ],
+      "usage": {
+        "tokens_in": 113000,
+        "tokens_out": 14000,
+        "provider_model": "claude/sonnet",
+        "effort": "medium",
+        "agent": "implementor-front",
+        "approx": true,
+        "source": "agent-usage-notification",
+        "recorded_at": "2026-10-28"
+      }
+    },
+    {
+      "id": "TASK-002",
+      "title": "control-colors y Button sobre tokens de tono",
+      "user_stories": [
+        "US-001",
+        "US-002"
+      ],
+      "estimation_hours": 5,
+      "story_points": 5,
+      "depends_on": [],
+      "status": "done",
+      "files": [
+        "ui/tucu-ui/src/assets/css/tokens/tones-controls.css",
+        "ui/tucu-ui/src/components/inputs/helpers/control-colors.ts",
+        "ui/tucu-ui/src/components/buttons/button/index.tsx",
+        "ui/tucu-ui/src/components/inputs/input.tsx",
+        "ui/tucu-ui/src/components/inputs/textarea.tsx",
+        "ui/tucu-ui/src/components/inputs/select.tsx",
+        "ui/tucu-ui/src/components/inputs/pin-code.tsx",
+        "ui/tucu-ui/src/components/inputs/input-searcher.tsx",
+        "ui/tucu-ui/src/components/inputs/file-input.tsx",
+        "ui/tucu-ui/src/__tests__/buttons/button-tone-tokens.test.tsx",
+        "ui/tucu-ui/src/__tests__/inputs/control-tone-tokens.test.tsx"
+      ],
+      "usage": {
+        "tokens_in": 144000,
+        "tokens_out": 28000,
+        "provider_model": "claude/sonnet",
+        "effort": "medium",
+        "agent": "implementor-front",
+        "approx": true,
+        "source": "agent-usage-notification",
+        "recorded_at": "2026-10-28"
+      }
+    },
+    {
+      "id": "TASK-003",
+      "title": "Docs y MCP: tokens de tono, styling-overrides y changelog",
+      "user_stories": [
+        "US-002"
+      ],
+      "estimation_hours": 2,
+      "story_points": 2,
+      "depends_on": [
+        "TASK-001",
+        "TASK-002"
+      ],
+      "status": "done",
+      "files": [
+        "tools/mcp-server/src/resources/tokens.ts",
+        "tools/mcp-server/src/resources/styling-overrides.ts",
+        "tools/mcp-server/src/resources/changelog.ts",
+        "ui/tucu-docs/src/pages/design-system/theming-guide-sections/ToneTokensSection.tsx",
+        "ui/tucu-docs/src/pages/design-system/ThemingGuide.tsx"
+      ],
+      "usage": {
+        "tokens_in": 96000,
+        "tokens_out": 4000,
+        "provider_model": "claude/sonnet",
+        "effort": "medium",
+        "agent": "implementor-front",
+        "approx": true,
+        "source": "agent-usage-notification",
+        "recorded_at": "2026-10-28"
+      }
+    },
+    {
+      "id": "TASK-004",
+      "title": "Verificación, cierre del ciclo y release 3.10.0 / MCP 0.16.0",
+      "user_stories": [
+        "US-003"
+      ],
+      "estimation_hours": 2,
+      "story_points": 3,
+      "depends_on": [
+        "TASK-003"
+      ],
+      "status": "done",
+      "files": [],
+      "usage": {
+        "tokens_in": 240000,
+        "tokens_out": 30000,
+        "provider_model": "claude/opus",
+        "effort": "medium",
+        "agent": "orchestrator",
+        "approx": true,
+        "source": "declared-estimate",
+        "recorded_at": "2026-10-28"
+      }
+    }
+  ]
+}

@@ -29,7 +29,19 @@
       "completed_at": "2026-10-27"
     }
   ],
-  "in_progress_modules": [],
+  "in_progress_modules": [
+    {
+      "module": "library-polish",
+      "spec": "spec-e-burgos-003-library-polish",
+      "apps": [
+        "libs/tucu-ui",
+        "libs/tucu-docs",
+        "tools/mcp-server"
+      ],
+      "cycles_completed": 1,
+      "description": "Tonos por tokens, auth sin tarjeta forzada, páginas de error sobre SystemStatePage, pinch-zoom del Lightbox y CSS ≤ 300 KB (3 ciclos)"
+    }
+  ],
   "pending_modules": [],
   "monorepo": {
     "tool": "Nx",

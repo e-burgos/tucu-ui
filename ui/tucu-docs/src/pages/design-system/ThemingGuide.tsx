@@ -32,6 +32,13 @@ const sections: SectionConfig[] = [
     ),
   },
   {
+    id: 'tone-tokens',
+    label: 'Tone Tokens',
+    component: lazy(
+      () => import('./theming-guide-sections/ToneTokensSection')
+    ),
+  },
+  {
     id: 'theme-configuration',
     label: 'Theme Configuration',
     component: lazy(

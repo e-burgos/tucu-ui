@@ -32,12 +32,12 @@ const variants: Record<VariantNames, string[]> = {
   ghost: ['bg-transparent'],
   outline: ['bg-transparent'],
   solid: ['text-white'],
-  transparent: ['bg-transparent hover:bg-gray-100 dark:hover:bg-gray-800'],
+  transparent: [],
 };
 const colors: Record<ColorNames, string[]> = {
   primary: ['text-brand', 'bg-brand', 'border-brand'],
   white: ['text-gray-900', 'bg-white', 'border-white'],
-  gray: ['text-gray-900', 'bg-gray-600 dark:bg-gray-700', 'border-border'],
+  gray: ['', '', 'border-border'],
   success: ['text-green-500', 'bg-green-700', 'border-green-500'],
   info: ['text-blue-500', 'bg-blue-600', 'border-blue-500'],
   warning: ['text-yellow-500', 'bg-yellow-700', 'border-yellow-500'],
@@ -149,11 +149,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         break;
 
       case 'transparent':
-        buttonColorClassNames = `${colorClassNames[0]} ${
-          disabled || isLoading
-            ? 'bg-gray-100 dark:bg-gray-800/25'
-            : 'hover:bg-gray-100 dark:hover:bg-gray-800 focus:bg-gray-100 dark:focus:bg-gray-800'
-        } `;
+        buttonColorClassNames = colorClassNames[0];
         buttonDripColor = 'rgba(0, 0, 0, 0.1)';
         break;
 
@@ -176,12 +172,13 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         aria-disabled={isLoading || undefined}
         className={cn(
           'group relative inline-flex shrink-0 items-center justify-center overflow-hidden text-center text-sm font-medium tracking-wider outline-hidden transition-all',
-          'focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-gray-900',
-          !disabled
-            ? buttonColorClassNames
-            : 'cursor-not-allowed dark:bg-gray-700 dark:text-gray-500 bg-gray-300 text-gray-600',
+          'focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2',
+          !disabled ? buttonColorClassNames : 'cursor-not-allowed',
           disabled || isLoading
-            ? 'bg-gray-100/25'
+            ? isLoading &&
+                !disabled &&
+                variant !== 'transparent' &&
+                'bg-gray-100/25'
             : variant !== 'transparent' &&
                 'hover:-translate-y-0.5 hover:shadow-large focus:-translate-y-0.5 focus:shadow-large focus:outline-hidden',
           isLoading &&
@@ -190,10 +187,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           color === 'white'
             ? 'text-gray-900'
             : color === 'gray'
-            ? variant === 'solid'
-              ? 'text-white'
-              : 'text-gray-900 dark:text-white'
-            : variants[variant],
+            ? variant === 'solid' && !disabled && 'text-white'
+            : !(variant === 'solid' && disabled) && variants[variant],
           shapes[shape],
           shape === 'circle' || shape === 'square' ? sizeClassNames[1] : sizeClassNames[0],
           className
@@ -202,6 +197,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         {...buttonProps}
         data-tucu="button"
         data-variant={variant}
+        data-color={color}
         data-shape={shape}
         data-size={size}
       >

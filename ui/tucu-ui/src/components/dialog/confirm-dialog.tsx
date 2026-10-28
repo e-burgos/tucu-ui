@@ -58,13 +58,6 @@ const TONE_BUTTON_COLOR: Record<ConfirmDialogTone, ButtonProps['color']> = {
   success: 'success',
 };
 
-const TONE_ICON_CLASSES: Record<ConfirmDialogTone, string> = {
-  danger: 'bg-red-500/10 text-red-600 dark:text-red-400',
-  warning: 'bg-amber-500/10 text-amber-600 dark:text-amber-400',
-  info: 'bg-brand/10 text-brand',
-  success: 'bg-green-500/10 text-green-600 dark:text-green-400',
-};
-
 function ToneIcon({ tone }: { tone: ConfirmDialogTone }) {
   const iconClassName = 'h-5 w-5';
   if (tone === 'success') return <Check className={iconClassName} />;
@@ -113,8 +106,7 @@ export function ConfirmDialog({
         data-tucu="confirm-dialog-icon"
         data-tone={tone}
         className={cn(
-          'flex h-10 w-10 shrink-0 items-center justify-center rounded-xl',
-          TONE_ICON_CLASSES[tone]
+          'flex h-10 w-10 shrink-0 items-center justify-center rounded-xl'
         )}
       >
         {icon ?? <ToneIcon tone={tone} />}

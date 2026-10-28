@@ -1,0 +1,596 @@
+/* Tone tokens: Button and form controls (control-colors).
+   Override any `--tucu-<comp>-<tone>-<part>`; the `-default` variants are the per-mode fallbacks. */
+@layer base {
+  html:root,
+  .dark [data-tucu-theme]:not(.dark) {
+    --tucu-input-primary-accent-default: var(--color-brand);
+    --tucu-input-primary-ghost-border-default: color-mix(in oklab, var(--color-brand) 70%, transparent);
+    --tucu-input-primary-ghost-border-hover-default: color-mix(in oklab, var(--color-brand) 80%, transparent);
+    --tucu-input-primary-ghost-bg-default: #ffffff;
+    --tucu-input-primary-ghost-ring-default: color-mix(in oklab, var(--color-brand) 35%, transparent);
+    --tucu-input-primary-solid-border-default: color-mix(in oklab, var(--color-brand) 45%, transparent);
+    --tucu-input-primary-solid-bg-default: color-mix(in oklab, var(--color-brand) 15%, transparent);
+    --tucu-input-primary-solid-bg-hover-default: color-mix(in oklab, var(--color-brand) 20%, transparent);
+    --tucu-input-primary-solid-ring-default: color-mix(in oklab, var(--color-brand) 30%, transparent);
+    --tucu-input-primary-transparent-bg-default: color-mix(in oklab, var(--color-brand) 10%, transparent);
+    --tucu-input-primary-transparent-bg-hover-default: color-mix(in oklab, var(--color-brand) 15%, transparent);
+    --tucu-input-primary-transparent-ring-default: color-mix(in oklab, var(--color-brand) 30%, transparent);
+    --tucu-input-secondary-accent-default: oklch(55.1% 0.027 264.364);
+    --tucu-input-secondary-ghost-border-default: color-mix(in oklab, oklch(55.1% 0.027 264.364) 40%, transparent);
+    --tucu-input-secondary-ghost-border-hover-default: color-mix(in oklab, oklch(55.1% 0.027 264.364) 60%, transparent);
+    --tucu-input-secondary-ghost-bg-default: #ffffff;
+    --tucu-input-secondary-ghost-ring-default: color-mix(in oklab, oklch(55.1% 0.027 264.364) 25%, transparent);
+    --tucu-input-secondary-solid-border-default: color-mix(in oklab, oklch(55.1% 0.027 264.364) 30%, transparent);
+    --tucu-input-secondary-solid-bg-default: color-mix(in oklab, oklch(55.1% 0.027 264.364) 10%, transparent);
+    --tucu-input-secondary-solid-bg-hover-default: color-mix(in oklab, oklch(55.1% 0.027 264.364) 15%, transparent);
+    --tucu-input-secondary-solid-ring-default: color-mix(in oklab, oklch(55.1% 0.027 264.364) 25%, transparent);
+    --tucu-input-secondary-transparent-bg-default: color-mix(in oklab, oklch(55.1% 0.027 264.364) 5%, transparent);
+    --tucu-input-secondary-transparent-bg-hover-default: color-mix(in oklab, oklch(55.1% 0.027 264.364) 10%, transparent);
+    --tucu-input-secondary-transparent-ring-default: color-mix(in oklab, oklch(55.1% 0.027 264.364) 25%, transparent);
+    --tucu-input-danger-accent-default: oklch(63.7% 0.237 25.331);
+    --tucu-input-danger-ghost-border-default: color-mix(in oklab, oklch(63.7% 0.237 25.331) 40%, transparent);
+    --tucu-input-danger-ghost-border-hover-default: color-mix(in oklab, oklch(63.7% 0.237 25.331) 60%, transparent);
+    --tucu-input-danger-ghost-bg-default: #ffffff;
+    --tucu-input-danger-ghost-ring-default: color-mix(in oklab, oklch(63.7% 0.237 25.331) 25%, transparent);
+    --tucu-input-danger-solid-border-default: color-mix(in oklab, oklch(63.7% 0.237 25.331) 30%, transparent);
+    --tucu-input-danger-solid-bg-default: color-mix(in oklab, oklch(63.7% 0.237 25.331) 10%, transparent);
+    --tucu-input-danger-solid-bg-hover-default: color-mix(in oklab, oklch(63.7% 0.237 25.331) 15%, transparent);
+    --tucu-input-danger-solid-ring-default: color-mix(in oklab, oklch(63.7% 0.237 25.331) 25%, transparent);
+    --tucu-input-danger-transparent-bg-default: color-mix(in oklab, oklch(63.7% 0.237 25.331) 5%, transparent);
+    --tucu-input-danger-transparent-bg-hover-default: color-mix(in oklab, oklch(63.7% 0.237 25.331) 10%, transparent);
+    --tucu-input-danger-transparent-ring-default: color-mix(in oklab, oklch(63.7% 0.237 25.331) 25%, transparent);
+    --tucu-input-info-accent-default: oklch(62.3% 0.214 259.815);
+    --tucu-input-info-ghost-border-default: color-mix(in oklab, oklch(62.3% 0.214 259.815) 70%, transparent);
+    --tucu-input-info-ghost-border-hover-default: color-mix(in oklab, oklch(62.3% 0.214 259.815) 80%, transparent);
+    --tucu-input-info-ghost-bg-default: #ffffff;
+    --tucu-input-info-ghost-ring-default: color-mix(in oklab, oklch(62.3% 0.214 259.815) 35%, transparent);
+    --tucu-input-info-solid-border-default: color-mix(in oklab, oklch(62.3% 0.214 259.815) 45%, transparent);
+    --tucu-input-info-solid-bg-default: color-mix(in oklab, oklch(62.3% 0.214 259.815) 15%, transparent);
+    --tucu-input-info-solid-bg-hover-default: color-mix(in oklab, oklch(62.3% 0.214 259.815) 20%, transparent);
+    --tucu-input-info-solid-ring-default: color-mix(in oklab, oklch(62.3% 0.214 259.815) 30%, transparent);
+    --tucu-input-info-transparent-bg-default: color-mix(in oklab, oklch(62.3% 0.214 259.815) 10%, transparent);
+    --tucu-input-info-transparent-bg-hover-default: color-mix(in oklab, oklch(62.3% 0.214 259.815) 15%, transparent);
+    --tucu-input-info-transparent-ring-default: color-mix(in oklab, oklch(62.3% 0.214 259.815) 30%, transparent);
+    --tucu-input-success-accent-default: oklch(72.3% 0.219 149.579);
+    --tucu-input-success-ghost-border-default: color-mix(in oklab, oklch(72.3% 0.219 149.579) 40%, transparent);
+    --tucu-input-success-ghost-border-hover-default: color-mix(in oklab, oklch(72.3% 0.219 149.579) 60%, transparent);
+    --tucu-input-success-ghost-bg-default: #ffffff;
+    --tucu-input-success-ghost-ring-default: color-mix(in oklab, oklch(72.3% 0.219 149.579) 25%, transparent);
+    --tucu-input-success-solid-border-default: color-mix(in oklab, oklch(72.3% 0.219 149.579) 30%, transparent);
+    --tucu-input-success-solid-bg-default: color-mix(in oklab, oklch(72.3% 0.219 149.579) 10%, transparent);
+    --tucu-input-success-solid-bg-hover-default: color-mix(in oklab, oklch(72.3% 0.219 149.579) 15%, transparent);
+    --tucu-input-success-solid-ring-default: color-mix(in oklab, oklch(72.3% 0.219 149.579) 25%, transparent);
+    --tucu-input-success-transparent-bg-default: color-mix(in oklab, oklch(72.3% 0.219 149.579) 5%, transparent);
+    --tucu-input-success-transparent-bg-hover-default: color-mix(in oklab, oklch(72.3% 0.219 149.579) 10%, transparent);
+    --tucu-input-success-transparent-ring-default: color-mix(in oklab, oklch(72.3% 0.219 149.579) 25%, transparent);
+    --tucu-input-warning-accent-default: oklch(70.5% 0.213 47.604);
+    --tucu-input-warning-ghost-border-default: color-mix(in oklab, oklch(70.5% 0.213 47.604) 40%, transparent);
+    --tucu-input-warning-ghost-border-hover-default: color-mix(in oklab, oklch(70.5% 0.213 47.604) 60%, transparent);
+    --tucu-input-warning-ghost-bg-default: #ffffff;
+    --tucu-input-warning-ghost-ring-default: color-mix(in oklab, oklch(70.5% 0.213 47.604) 25%, transparent);
+    --tucu-input-warning-solid-border-default: color-mix(in oklab, oklch(70.5% 0.213 47.604) 30%, transparent);
+    --tucu-input-warning-solid-bg-default: color-mix(in oklab, oklch(70.5% 0.213 47.604) 10%, transparent);
+    --tucu-input-warning-solid-bg-hover-default: color-mix(in oklab, oklch(70.5% 0.213 47.604) 15%, transparent);
+    --tucu-input-warning-solid-ring-default: color-mix(in oklab, oklch(70.5% 0.213 47.604) 25%, transparent);
+    --tucu-input-warning-transparent-bg-default: color-mix(in oklab, oklch(70.5% 0.213 47.604) 5%, transparent);
+    --tucu-input-warning-transparent-bg-hover-default: color-mix(in oklab, oklch(70.5% 0.213 47.604) 10%, transparent);
+    --tucu-input-warning-transparent-ring-default: color-mix(in oklab, oklch(70.5% 0.213 47.604) 25%, transparent);
+    --tucu-file-input-primary-wrapper-border-default: color-mix(in oklab, var(--color-brand) 25%, transparent);
+    --tucu-file-input-primary-wrapper-bg-default: color-mix(in oklab, var(--color-brand) 5%, transparent);
+    --tucu-file-input-primary-dropzone-border-default: color-mix(in oklab, var(--color-brand) 30%, transparent);
+    --tucu-file-input-primary-dropzone-bg-default: color-mix(in oklab, var(--color-brand) 5%, transparent);
+    --tucu-file-input-primary-dropzone-border-active-default: color-mix(in oklab, var(--color-brand) 55%, transparent);
+    --tucu-file-input-primary-dropzone-bg-active-default: color-mix(in oklab, var(--color-brand) 10%, transparent);
+    --tucu-file-input-secondary-wrapper-border-default: color-mix(in oklab, oklch(55.1% 0.027 264.364) 25%, transparent);
+    --tucu-file-input-secondary-wrapper-bg-default: color-mix(in oklab, oklch(55.1% 0.027 264.364) 5%, transparent);
+    --tucu-file-input-secondary-dropzone-border-default: color-mix(in oklab, oklch(55.1% 0.027 264.364) 30%, transparent);
+    --tucu-file-input-secondary-dropzone-bg-default: color-mix(in oklab, oklch(55.1% 0.027 264.364) 5%, transparent);
+    --tucu-file-input-secondary-dropzone-border-active-default: color-mix(in oklab, oklch(55.1% 0.027 264.364) 55%, transparent);
+    --tucu-file-input-secondary-dropzone-bg-active-default: color-mix(in oklab, oklch(55.1% 0.027 264.364) 10%, transparent);
+    --tucu-file-input-danger-wrapper-border-default: color-mix(in oklab, oklch(63.7% 0.237 25.331) 25%, transparent);
+    --tucu-file-input-danger-wrapper-bg-default: color-mix(in oklab, oklch(63.7% 0.237 25.331) 5%, transparent);
+    --tucu-file-input-danger-dropzone-border-default: color-mix(in oklab, oklch(63.7% 0.237 25.331) 30%, transparent);
+    --tucu-file-input-danger-dropzone-bg-default: color-mix(in oklab, oklch(63.7% 0.237 25.331) 5%, transparent);
+    --tucu-file-input-danger-dropzone-border-active-default: color-mix(in oklab, oklch(63.7% 0.237 25.331) 55%, transparent);
+    --tucu-file-input-danger-dropzone-bg-active-default: color-mix(in oklab, oklch(63.7% 0.237 25.331) 10%, transparent);
+    --tucu-file-input-info-wrapper-border-default: color-mix(in oklab, oklch(62.3% 0.214 259.815) 25%, transparent);
+    --tucu-file-input-info-wrapper-bg-default: color-mix(in oklab, oklch(62.3% 0.214 259.815) 5%, transparent);
+    --tucu-file-input-info-dropzone-border-default: color-mix(in oklab, oklch(62.3% 0.214 259.815) 30%, transparent);
+    --tucu-file-input-info-dropzone-bg-default: color-mix(in oklab, oklch(62.3% 0.214 259.815) 5%, transparent);
+    --tucu-file-input-info-dropzone-border-active-default: color-mix(in oklab, oklch(62.3% 0.214 259.815) 55%, transparent);
+    --tucu-file-input-info-dropzone-bg-active-default: color-mix(in oklab, oklch(62.3% 0.214 259.815) 10%, transparent);
+    --tucu-file-input-success-wrapper-border-default: color-mix(in oklab, oklch(72.3% 0.219 149.579) 25%, transparent);
+    --tucu-file-input-success-wrapper-bg-default: color-mix(in oklab, oklch(72.3% 0.219 149.579) 5%, transparent);
+    --tucu-file-input-success-dropzone-border-default: color-mix(in oklab, oklch(72.3% 0.219 149.579) 30%, transparent);
+    --tucu-file-input-success-dropzone-bg-default: color-mix(in oklab, oklch(72.3% 0.219 149.579) 5%, transparent);
+    --tucu-file-input-success-dropzone-border-active-default: color-mix(in oklab, oklch(72.3% 0.219 149.579) 55%, transparent);
+    --tucu-file-input-success-dropzone-bg-active-default: color-mix(in oklab, oklch(72.3% 0.219 149.579) 10%, transparent);
+    --tucu-file-input-warning-wrapper-border-default: color-mix(in oklab, oklch(70.5% 0.213 47.604) 25%, transparent);
+    --tucu-file-input-warning-wrapper-bg-default: color-mix(in oklab, oklch(70.5% 0.213 47.604) 5%, transparent);
+    --tucu-file-input-warning-dropzone-border-default: color-mix(in oklab, oklch(70.5% 0.213 47.604) 30%, transparent);
+    --tucu-file-input-warning-dropzone-bg-default: color-mix(in oklab, oklch(70.5% 0.213 47.604) 5%, transparent);
+    --tucu-file-input-warning-dropzone-border-active-default: color-mix(in oklab, oklch(70.5% 0.213 47.604) 55%, transparent);
+    --tucu-file-input-warning-dropzone-bg-active-default: color-mix(in oklab, oklch(70.5% 0.213 47.604) 10%, transparent);
+    --tucu-control-primary-accent-text-default: var(--color-brand);
+    --tucu-control-primary-chip-bg-default: color-mix(in oklab, var(--color-brand) 10%, transparent);
+    --tucu-control-primary-chip-bg-hover-default: color-mix(in oklab, var(--color-brand) 20%, transparent);
+    --tucu-control-secondary-accent-text-default: oklch(44.6% 0.03 256.802);
+    --tucu-control-secondary-chip-bg-default: color-mix(in oklab, oklch(55.1% 0.027 264.364) 10%, transparent);
+    --tucu-control-secondary-chip-bg-hover-default: color-mix(in oklab, oklch(55.1% 0.027 264.364) 20%, transparent);
+    --tucu-control-danger-accent-text-default: oklch(63.7% 0.237 25.331);
+    --tucu-control-danger-chip-bg-default: color-mix(in oklab, oklch(63.7% 0.237 25.331) 10%, transparent);
+    --tucu-control-danger-chip-bg-hover-default: color-mix(in oklab, oklch(63.7% 0.237 25.331) 20%, transparent);
+    --tucu-control-info-accent-text-default: oklch(62.3% 0.214 259.815);
+    --tucu-control-info-chip-bg-default: color-mix(in oklab, oklch(62.3% 0.214 259.815) 10%, transparent);
+    --tucu-control-info-chip-bg-hover-default: color-mix(in oklab, oklch(62.3% 0.214 259.815) 20%, transparent);
+    --tucu-control-success-accent-text-default: oklch(72.3% 0.219 149.579);
+    --tucu-control-success-chip-bg-default: color-mix(in oklab, oklch(72.3% 0.219 149.579) 10%, transparent);
+    --tucu-control-success-chip-bg-hover-default: color-mix(in oklab, oklch(72.3% 0.219 149.579) 20%, transparent);
+    --tucu-control-warning-accent-text-default: oklch(70.5% 0.213 47.604);
+    --tucu-control-warning-chip-bg-default: color-mix(in oklab, oklch(70.5% 0.213 47.604) 10%, transparent);
+    --tucu-control-warning-chip-bg-hover-default: color-mix(in oklab, oklch(70.5% 0.213 47.604) 20%, transparent);
+    --tucu-control-text-default: oklch(21% 0.034 264.665);
+    --tucu-control-hover-ring-default: oklch(87.2% 0.01 258.338);
+    --tucu-button-gray-bg-default: oklch(44.6% 0.03 256.802);
+    --tucu-button-gray-text-default: oklch(21% 0.034 264.665);
+    --tucu-button-transparent-hover-bg-default: oklch(96.7% 0.003 264.542);
+    --tucu-button-transparent-busy-bg-default: color-mix(in oklab, oklch(96.7% 0.003 264.542) 25%, transparent);
+    --tucu-button-ring-offset-default: #ffffff;
+    --tucu-button-disabled-bg-default: color-mix(in oklab, oklch(96.7% 0.003 264.542) 25%, transparent);
+    --tucu-button-disabled-text-default: oklch(44.6% 0.03 256.802);
+    --tucu-button-disabled-solid-text-default: #fff;
+  }
+
+  html.dark,
+  [data-tucu-theme].dark {
+    --tucu-input-primary-accent-default: var(--color-brand);
+    --tucu-input-primary-ghost-border-default: color-mix(in oklab, var(--color-brand) 75%, transparent);
+    --tucu-input-primary-ghost-border-hover-default: color-mix(in oklab, var(--color-brand) 85%, transparent);
+    --tucu-input-primary-ghost-bg-default: color-mix(in oklab, var(--color-brand) 20%, transparent);
+    --tucu-input-primary-ghost-ring-default: color-mix(in oklab, var(--color-brand) 40%, transparent);
+    --tucu-input-primary-solid-border-default: color-mix(in oklab, var(--color-brand) 50%, transparent);
+    --tucu-input-primary-solid-bg-default: color-mix(in oklab, var(--color-brand) 20%, transparent);
+    --tucu-input-primary-solid-bg-hover-default: color-mix(in oklab, var(--color-brand) 25%, transparent);
+    --tucu-input-primary-solid-ring-default: color-mix(in oklab, var(--color-brand) 35%, transparent);
+    --tucu-input-primary-transparent-bg-default: color-mix(in oklab, var(--color-brand) 15%, transparent);
+    --tucu-input-primary-transparent-bg-hover-default: color-mix(in oklab, var(--color-brand) 20%, transparent);
+    --tucu-input-primary-transparent-ring-default: color-mix(in oklab, var(--color-brand) 35%, transparent);
+    --tucu-input-secondary-accent-default: oklch(70.7% 0.022 261.325);
+    --tucu-input-secondary-ghost-border-default: color-mix(in oklab, oklch(55.1% 0.027 264.364) 45%, transparent);
+    --tucu-input-secondary-ghost-border-hover-default: color-mix(in oklab, oklch(55.1% 0.027 264.364) 60%, transparent);
+    --tucu-input-secondary-ghost-bg-default: color-mix(in oklab, oklch(55.1% 0.027 264.364) 10%, transparent);
+    --tucu-input-secondary-ghost-ring-default: color-mix(in oklab, oklch(55.1% 0.027 264.364) 30%, transparent);
+    --tucu-input-secondary-solid-border-default: color-mix(in oklab, oklch(55.1% 0.027 264.364) 35%, transparent);
+    --tucu-input-secondary-solid-bg-default: color-mix(in oklab, oklch(55.1% 0.027 264.364) 15%, transparent);
+    --tucu-input-secondary-solid-bg-hover-default: color-mix(in oklab, oklch(55.1% 0.027 264.364) 20%, transparent);
+    --tucu-input-secondary-solid-ring-default: color-mix(in oklab, oklch(55.1% 0.027 264.364) 30%, transparent);
+    --tucu-input-secondary-transparent-bg-default: color-mix(in oklab, oklch(55.1% 0.027 264.364) 10%, transparent);
+    --tucu-input-secondary-transparent-bg-hover-default: color-mix(in oklab, oklch(55.1% 0.027 264.364) 15%, transparent);
+    --tucu-input-secondary-transparent-ring-default: color-mix(in oklab, oklch(55.1% 0.027 264.364) 30%, transparent);
+    --tucu-input-danger-accent-default: oklch(63.7% 0.237 25.331);
+    --tucu-input-danger-ghost-border-default: color-mix(in oklab, oklch(63.7% 0.237 25.331) 45%, transparent);
+    --tucu-input-danger-ghost-border-hover-default: color-mix(in oklab, oklch(63.7% 0.237 25.331) 60%, transparent);
+    --tucu-input-danger-ghost-bg-default: color-mix(in oklab, oklch(63.7% 0.237 25.331) 10%, transparent);
+    --tucu-input-danger-ghost-ring-default: color-mix(in oklab, oklch(63.7% 0.237 25.331) 30%, transparent);
+    --tucu-input-danger-solid-border-default: color-mix(in oklab, oklch(63.7% 0.237 25.331) 35%, transparent);
+    --tucu-input-danger-solid-bg-default: color-mix(in oklab, oklch(63.7% 0.237 25.331) 15%, transparent);
+    --tucu-input-danger-solid-bg-hover-default: color-mix(in oklab, oklch(63.7% 0.237 25.331) 20%, transparent);
+    --tucu-input-danger-solid-ring-default: color-mix(in oklab, oklch(63.7% 0.237 25.331) 30%, transparent);
+    --tucu-input-danger-transparent-bg-default: color-mix(in oklab, oklch(63.7% 0.237 25.331) 10%, transparent);
+    --tucu-input-danger-transparent-bg-hover-default: color-mix(in oklab, oklch(63.7% 0.237 25.331) 15%, transparent);
+    --tucu-input-danger-transparent-ring-default: color-mix(in oklab, oklch(63.7% 0.237 25.331) 30%, transparent);
+    --tucu-input-info-accent-default: oklch(62.3% 0.214 259.815);
+    --tucu-input-info-ghost-border-default: color-mix(in oklab, oklch(62.3% 0.214 259.815) 75%, transparent);
+    --tucu-input-info-ghost-border-hover-default: color-mix(in oklab, oklch(62.3% 0.214 259.815) 85%, transparent);
+    --tucu-input-info-ghost-bg-default: color-mix(in oklab, oklch(62.3% 0.214 259.815) 20%, transparent);
+    --tucu-input-info-ghost-ring-default: color-mix(in oklab, oklch(62.3% 0.214 259.815) 40%, transparent);
+    --tucu-input-info-solid-border-default: color-mix(in oklab, oklch(62.3% 0.214 259.815) 50%, transparent);
+    --tucu-input-info-solid-bg-default: color-mix(in oklab, oklch(62.3% 0.214 259.815) 20%, transparent);
+    --tucu-input-info-solid-bg-hover-default: color-mix(in oklab, oklch(62.3% 0.214 259.815) 25%, transparent);
+    --tucu-input-info-solid-ring-default: color-mix(in oklab, oklch(62.3% 0.214 259.815) 35%, transparent);
+    --tucu-input-info-transparent-bg-default: color-mix(in oklab, oklch(62.3% 0.214 259.815) 15%, transparent);
+    --tucu-input-info-transparent-bg-hover-default: color-mix(in oklab, oklch(62.3% 0.214 259.815) 20%, transparent);
+    --tucu-input-info-transparent-ring-default: color-mix(in oklab, oklch(62.3% 0.214 259.815) 35%, transparent);
+    --tucu-input-success-accent-default: oklch(72.3% 0.219 149.579);
+    --tucu-input-success-ghost-border-default: color-mix(in oklab, oklch(72.3% 0.219 149.579) 45%, transparent);
+    --tucu-input-success-ghost-border-hover-default: color-mix(in oklab, oklch(72.3% 0.219 149.579) 60%, transparent);
+    --tucu-input-success-ghost-bg-default: color-mix(in oklab, oklch(72.3% 0.219 149.579) 10%, transparent);
+    --tucu-input-success-ghost-ring-default: color-mix(in oklab, oklch(72.3% 0.219 149.579) 30%, transparent);
+    --tucu-input-success-solid-border-default: color-mix(in oklab, oklch(72.3% 0.219 149.579) 35%, transparent);
+    --tucu-input-success-solid-bg-default: color-mix(in oklab, oklch(72.3% 0.219 149.579) 15%, transparent);
+    --tucu-input-success-solid-bg-hover-default: color-mix(in oklab, oklch(72.3% 0.219 149.579) 20%, transparent);
+    --tucu-input-success-solid-ring-default: color-mix(in oklab, oklch(72.3% 0.219 149.579) 30%, transparent);
+    --tucu-input-success-transparent-bg-default: color-mix(in oklab, oklch(72.3% 0.219 149.579) 10%, transparent);
+    --tucu-input-success-transparent-bg-hover-default: color-mix(in oklab, oklch(72.3% 0.219 149.579) 15%, transparent);
+    --tucu-input-success-transparent-ring-default: color-mix(in oklab, oklch(72.3% 0.219 149.579) 30%, transparent);
+    --tucu-input-warning-accent-default: oklch(70.5% 0.213 47.604);
+    --tucu-input-warning-ghost-border-default: color-mix(in oklab, oklch(70.5% 0.213 47.604) 45%, transparent);
+    --tucu-input-warning-ghost-border-hover-default: color-mix(in oklab, oklch(70.5% 0.213 47.604) 60%, transparent);
+    --tucu-input-warning-ghost-bg-default: color-mix(in oklab, oklch(70.5% 0.213 47.604) 10%, transparent);
+    --tucu-input-warning-ghost-ring-default: color-mix(in oklab, oklch(70.5% 0.213 47.604) 30%, transparent);
+    --tucu-input-warning-solid-border-default: color-mix(in oklab, oklch(70.5% 0.213 47.604) 35%, transparent);
+    --tucu-input-warning-solid-bg-default: color-mix(in oklab, oklch(70.5% 0.213 47.604) 15%, transparent);
+    --tucu-input-warning-solid-bg-hover-default: color-mix(in oklab, oklch(70.5% 0.213 47.604) 20%, transparent);
+    --tucu-input-warning-solid-ring-default: color-mix(in oklab, oklch(70.5% 0.213 47.604) 30%, transparent);
+    --tucu-input-warning-transparent-bg-default: color-mix(in oklab, oklch(70.5% 0.213 47.604) 10%, transparent);
+    --tucu-input-warning-transparent-bg-hover-default: color-mix(in oklab, oklch(70.5% 0.213 47.604) 15%, transparent);
+    --tucu-input-warning-transparent-ring-default: color-mix(in oklab, oklch(70.5% 0.213 47.604) 30%, transparent);
+    --tucu-file-input-primary-wrapper-border-default: color-mix(in oklab, var(--color-brand) 30%, transparent);
+    --tucu-file-input-primary-wrapper-bg-default: color-mix(in oklab, var(--color-brand) 10%, transparent);
+    --tucu-file-input-primary-dropzone-border-default: color-mix(in oklab, var(--color-brand) 35%, transparent);
+    --tucu-file-input-primary-dropzone-bg-default: color-mix(in oklab, var(--color-brand) 10%, transparent);
+    --tucu-file-input-primary-dropzone-border-active-default: color-mix(in oklab, var(--color-brand) 60%, transparent);
+    --tucu-file-input-primary-dropzone-bg-active-default: color-mix(in oklab, var(--color-brand) 15%, transparent);
+    --tucu-file-input-secondary-wrapper-border-default: color-mix(in oklab, oklch(55.1% 0.027 264.364) 30%, transparent);
+    --tucu-file-input-secondary-wrapper-bg-default: color-mix(in oklab, oklch(55.1% 0.027 264.364) 10%, transparent);
+    --tucu-file-input-secondary-dropzone-border-default: color-mix(in oklab, oklch(55.1% 0.027 264.364) 35%, transparent);
+    --tucu-file-input-secondary-dropzone-bg-default: color-mix(in oklab, oklch(55.1% 0.027 264.364) 10%, transparent);
+    --tucu-file-input-secondary-dropzone-border-active-default: color-mix(in oklab, oklch(55.1% 0.027 264.364) 60%, transparent);
+    --tucu-file-input-secondary-dropzone-bg-active-default: color-mix(in oklab, oklch(55.1% 0.027 264.364) 15%, transparent);
+    --tucu-file-input-danger-wrapper-border-default: color-mix(in oklab, oklch(63.7% 0.237 25.331) 30%, transparent);
+    --tucu-file-input-danger-wrapper-bg-default: color-mix(in oklab, oklch(63.7% 0.237 25.331) 10%, transparent);
+    --tucu-file-input-danger-dropzone-border-default: color-mix(in oklab, oklch(63.7% 0.237 25.331) 35%, transparent);
+    --tucu-file-input-danger-dropzone-bg-default: color-mix(in oklab, oklch(63.7% 0.237 25.331) 10%, transparent);
+    --tucu-file-input-danger-dropzone-border-active-default: color-mix(in oklab, oklch(63.7% 0.237 25.331) 60%, transparent);
+    --tucu-file-input-danger-dropzone-bg-active-default: color-mix(in oklab, oklch(63.7% 0.237 25.331) 15%, transparent);
+    --tucu-file-input-info-wrapper-border-default: color-mix(in oklab, oklch(62.3% 0.214 259.815) 30%, transparent);
+    --tucu-file-input-info-wrapper-bg-default: color-mix(in oklab, oklch(62.3% 0.214 259.815) 10%, transparent);
+    --tucu-file-input-info-dropzone-border-default: color-mix(in oklab, oklch(62.3% 0.214 259.815) 35%, transparent);
+    --tucu-file-input-info-dropzone-bg-default: color-mix(in oklab, oklch(62.3% 0.214 259.815) 10%, transparent);
+    --tucu-file-input-info-dropzone-border-active-default: color-mix(in oklab, oklch(62.3% 0.214 259.815) 60%, transparent);
+    --tucu-file-input-info-dropzone-bg-active-default: color-mix(in oklab, oklch(62.3% 0.214 259.815) 15%, transparent);
+    --tucu-file-input-success-wrapper-border-default: color-mix(in oklab, oklch(72.3% 0.219 149.579) 30%, transparent);
+    --tucu-file-input-success-wrapper-bg-default: color-mix(in oklab, oklch(72.3% 0.219 149.579) 10%, transparent);
+    --tucu-file-input-success-dropzone-border-default: color-mix(in oklab, oklch(72.3% 0.219 149.579) 35%, transparent);
+    --tucu-file-input-success-dropzone-bg-default: color-mix(in oklab, oklch(72.3% 0.219 149.579) 10%, transparent);
+    --tucu-file-input-success-dropzone-border-active-default: color-mix(in oklab, oklch(72.3% 0.219 149.579) 60%, transparent);
+    --tucu-file-input-success-dropzone-bg-active-default: color-mix(in oklab, oklch(72.3% 0.219 149.579) 15%, transparent);
+    --tucu-file-input-warning-wrapper-border-default: color-mix(in oklab, oklch(70.5% 0.213 47.604) 30%, transparent);
+    --tucu-file-input-warning-wrapper-bg-default: color-mix(in oklab, oklch(70.5% 0.213 47.604) 10%, transparent);
+    --tucu-file-input-warning-dropzone-border-default: color-mix(in oklab, oklch(70.5% 0.213 47.604) 35%, transparent);
+    --tucu-file-input-warning-dropzone-bg-default: color-mix(in oklab, oklch(70.5% 0.213 47.604) 10%, transparent);
+    --tucu-file-input-warning-dropzone-border-active-default: color-mix(in oklab, oklch(70.5% 0.213 47.604) 60%, transparent);
+    --tucu-file-input-warning-dropzone-bg-active-default: color-mix(in oklab, oklch(70.5% 0.213 47.604) 15%, transparent);
+    --tucu-control-primary-accent-text-default: var(--color-brand);
+    --tucu-control-primary-chip-bg-default: color-mix(in oklab, var(--color-brand) 10%, transparent);
+    --tucu-control-primary-chip-bg-hover-default: color-mix(in oklab, var(--color-brand) 20%, transparent);
+    --tucu-control-secondary-accent-text-default: oklch(87.2% 0.01 258.338);
+    --tucu-control-secondary-chip-bg-default: color-mix(in oklab, oklch(55.1% 0.027 264.364) 10%, transparent);
+    --tucu-control-secondary-chip-bg-hover-default: color-mix(in oklab, oklch(55.1% 0.027 264.364) 20%, transparent);
+    --tucu-control-danger-accent-text-default: oklch(63.7% 0.237 25.331);
+    --tucu-control-danger-chip-bg-default: color-mix(in oklab, oklch(63.7% 0.237 25.331) 10%, transparent);
+    --tucu-control-danger-chip-bg-hover-default: color-mix(in oklab, oklch(63.7% 0.237 25.331) 20%, transparent);
+    --tucu-control-info-accent-text-default: oklch(62.3% 0.214 259.815);
+    --tucu-control-info-chip-bg-default: color-mix(in oklab, oklch(62.3% 0.214 259.815) 10%, transparent);
+    --tucu-control-info-chip-bg-hover-default: color-mix(in oklab, oklch(62.3% 0.214 259.815) 20%, transparent);
+    --tucu-control-success-accent-text-default: oklch(72.3% 0.219 149.579);
+    --tucu-control-success-chip-bg-default: color-mix(in oklab, oklch(72.3% 0.219 149.579) 10%, transparent);
+    --tucu-control-success-chip-bg-hover-default: color-mix(in oklab, oklch(72.3% 0.219 149.579) 20%, transparent);
+    --tucu-control-warning-accent-text-default: oklch(70.5% 0.213 47.604);
+    --tucu-control-warning-chip-bg-default: color-mix(in oklab, oklch(70.5% 0.213 47.604) 10%, transparent);
+    --tucu-control-warning-chip-bg-hover-default: color-mix(in oklab, oklch(70.5% 0.213 47.604) 20%, transparent);
+    --tucu-control-text-default: oklch(96.7% 0.003 264.542);
+    --tucu-control-hover-ring-default: oklch(44.6% 0.03 256.802);
+    --tucu-button-gray-bg-default: oklch(37.3% 0.034 259.733);
+    --tucu-button-gray-text-default: #ffffff;
+    --tucu-button-transparent-hover-bg-default: oklch(27.8% 0.033 256.848);
+    --tucu-button-transparent-busy-bg-default: color-mix(in oklab, oklch(27.8% 0.033 256.848) 25%, transparent);
+    --tucu-button-ring-offset-default: oklch(21% 0.034 264.665);
+    --tucu-button-disabled-bg-default: oklch(37.3% 0.034 259.733);
+    --tucu-button-disabled-text-default: oklch(55.1% 0.027 264.364);
+    --tucu-button-disabled-solid-text-default: oklch(55.1% 0.027 264.364);
+  }
+}
+
+@layer components {
+  [data-tucu-control-tone='primary'] {
+    --tucu-ctl-accent: var(--tucu-input-primary-accent, var(--tucu-input-primary-accent-default));
+    --tucu-ctl-ghost-border: var(--tucu-input-primary-ghost-border, var(--tucu-input-primary-ghost-border-default));
+    --tucu-ctl-ghost-border-hover: var(--tucu-input-primary-ghost-border-hover, var(--tucu-input-primary-ghost-border-hover-default));
+    --tucu-ctl-ghost-bg: var(--tucu-input-primary-ghost-bg, var(--tucu-input-primary-ghost-bg-default));
+    --tucu-ctl-ghost-ring: var(--tucu-input-primary-ghost-ring, var(--tucu-input-primary-ghost-ring-default));
+    --tucu-ctl-solid-border: var(--tucu-input-primary-solid-border, var(--tucu-input-primary-solid-border-default));
+    --tucu-ctl-solid-bg: var(--tucu-input-primary-solid-bg, var(--tucu-input-primary-solid-bg-default));
+    --tucu-ctl-solid-bg-hover: var(--tucu-input-primary-solid-bg-hover, var(--tucu-input-primary-solid-bg-hover-default));
+    --tucu-ctl-solid-ring: var(--tucu-input-primary-solid-ring, var(--tucu-input-primary-solid-ring-default));
+    --tucu-ctl-transparent-bg: var(--tucu-input-primary-transparent-bg, var(--tucu-input-primary-transparent-bg-default));
+    --tucu-ctl-transparent-bg-hover: var(--tucu-input-primary-transparent-bg-hover, var(--tucu-input-primary-transparent-bg-hover-default));
+    --tucu-ctl-transparent-ring: var(--tucu-input-primary-transparent-ring, var(--tucu-input-primary-transparent-ring-default));
+    --tucu-ctl-text: var(--tucu-control-text, var(--tucu-control-text-default));
+    --tucu-ctl-hover-ring: var(--tucu-control-hover-ring, var(--tucu-control-hover-ring-default));
+  }
+
+  [data-tucu-control-tone='secondary'] {
+    --tucu-ctl-accent: var(--tucu-input-secondary-accent, var(--tucu-input-secondary-accent-default));
+    --tucu-ctl-ghost-border: var(--tucu-input-secondary-ghost-border, var(--tucu-input-secondary-ghost-border-default));
+    --tucu-ctl-ghost-border-hover: var(--tucu-input-secondary-ghost-border-hover, var(--tucu-input-secondary-ghost-border-hover-default));
+    --tucu-ctl-ghost-bg: var(--tucu-input-secondary-ghost-bg, var(--tucu-input-secondary-ghost-bg-default));
+    --tucu-ctl-ghost-ring: var(--tucu-input-secondary-ghost-ring, var(--tucu-input-secondary-ghost-ring-default));
+    --tucu-ctl-solid-border: var(--tucu-input-secondary-solid-border, var(--tucu-input-secondary-solid-border-default));
+    --tucu-ctl-solid-bg: var(--tucu-input-secondary-solid-bg, var(--tucu-input-secondary-solid-bg-default));
+    --tucu-ctl-solid-bg-hover: var(--tucu-input-secondary-solid-bg-hover, var(--tucu-input-secondary-solid-bg-hover-default));
+    --tucu-ctl-solid-ring: var(--tucu-input-secondary-solid-ring, var(--tucu-input-secondary-solid-ring-default));
+    --tucu-ctl-transparent-bg: var(--tucu-input-secondary-transparent-bg, var(--tucu-input-secondary-transparent-bg-default));
+    --tucu-ctl-transparent-bg-hover: var(--tucu-input-secondary-transparent-bg-hover, var(--tucu-input-secondary-transparent-bg-hover-default));
+    --tucu-ctl-transparent-ring: var(--tucu-input-secondary-transparent-ring, var(--tucu-input-secondary-transparent-ring-default));
+    --tucu-ctl-text: var(--tucu-control-text, var(--tucu-control-text-default));
+    --tucu-ctl-hover-ring: var(--tucu-control-hover-ring, var(--tucu-control-hover-ring-default));
+  }
+
+  [data-tucu-control-tone='danger'] {
+    --tucu-ctl-accent: var(--tucu-input-danger-accent, var(--tucu-input-danger-accent-default));
+    --tucu-ctl-ghost-border: var(--tucu-input-danger-ghost-border, var(--tucu-input-danger-ghost-border-default));
+    --tucu-ctl-ghost-border-hover: var(--tucu-input-danger-ghost-border-hover, var(--tucu-input-danger-ghost-border-hover-default));
+    --tucu-ctl-ghost-bg: var(--tucu-input-danger-ghost-bg, var(--tucu-input-danger-ghost-bg-default));
+    --tucu-ctl-ghost-ring: var(--tucu-input-danger-ghost-ring, var(--tucu-input-danger-ghost-ring-default));
+    --tucu-ctl-solid-border: var(--tucu-input-danger-solid-border, var(--tucu-input-danger-solid-border-default));
+    --tucu-ctl-solid-bg: var(--tucu-input-danger-solid-bg, var(--tucu-input-danger-solid-bg-default));
+    --tucu-ctl-solid-bg-hover: var(--tucu-input-danger-solid-bg-hover, var(--tucu-input-danger-solid-bg-hover-default));
+    --tucu-ctl-solid-ring: var(--tucu-input-danger-solid-ring, var(--tucu-input-danger-solid-ring-default));
+    --tucu-ctl-transparent-bg: var(--tucu-input-danger-transparent-bg, var(--tucu-input-danger-transparent-bg-default));
+    --tucu-ctl-transparent-bg-hover: var(--tucu-input-danger-transparent-bg-hover, var(--tucu-input-danger-transparent-bg-hover-default));
+    --tucu-ctl-transparent-ring: var(--tucu-input-danger-transparent-ring, var(--tucu-input-danger-transparent-ring-default));
+    --tucu-ctl-text: var(--tucu-control-text, var(--tucu-control-text-default));
+    --tucu-ctl-hover-ring: var(--tucu-control-hover-ring, var(--tucu-control-hover-ring-default));
+  }
+
+  [data-tucu-control-tone='info'] {
+    --tucu-ctl-accent: var(--tucu-input-info-accent, var(--tucu-input-info-accent-default));
+    --tucu-ctl-ghost-border: var(--tucu-input-info-ghost-border, var(--tucu-input-info-ghost-border-default));
+    --tucu-ctl-ghost-border-hover: var(--tucu-input-info-ghost-border-hover, var(--tucu-input-info-ghost-border-hover-default));
+    --tucu-ctl-ghost-bg: var(--tucu-input-info-ghost-bg, var(--tucu-input-info-ghost-bg-default));
+    --tucu-ctl-ghost-ring: var(--tucu-input-info-ghost-ring, var(--tucu-input-info-ghost-ring-default));
+    --tucu-ctl-solid-border: var(--tucu-input-info-solid-border, var(--tucu-input-info-solid-border-default));
+    --tucu-ctl-solid-bg: var(--tucu-input-info-solid-bg, var(--tucu-input-info-solid-bg-default));
+    --tucu-ctl-solid-bg-hover: var(--tucu-input-info-solid-bg-hover, var(--tucu-input-info-solid-bg-hover-default));
+    --tucu-ctl-solid-ring: var(--tucu-input-info-solid-ring, var(--tucu-input-info-solid-ring-default));
+    --tucu-ctl-transparent-bg: var(--tucu-input-info-transparent-bg, var(--tucu-input-info-transparent-bg-default));
+    --tucu-ctl-transparent-bg-hover: var(--tucu-input-info-transparent-bg-hover, var(--tucu-input-info-transparent-bg-hover-default));
+    --tucu-ctl-transparent-ring: var(--tucu-input-info-transparent-ring, var(--tucu-input-info-transparent-ring-default));
+    --tucu-ctl-text: var(--tucu-control-text, var(--tucu-control-text-default));
+    --tucu-ctl-hover-ring: var(--tucu-control-hover-ring, var(--tucu-control-hover-ring-default));
+  }
+
+  [data-tucu-control-tone='success'] {
+    --tucu-ctl-accent: var(--tucu-input-success-accent, var(--tucu-input-success-accent-default));
+    --tucu-ctl-ghost-border: var(--tucu-input-success-ghost-border, var(--tucu-input-success-ghost-border-default));
+    --tucu-ctl-ghost-border-hover: var(--tucu-input-success-ghost-border-hover, var(--tucu-input-success-ghost-border-hover-default));
+    --tucu-ctl-ghost-bg: var(--tucu-input-success-ghost-bg, var(--tucu-input-success-ghost-bg-default));
+    --tucu-ctl-ghost-ring: var(--tucu-input-success-ghost-ring, var(--tucu-input-success-ghost-ring-default));
+    --tucu-ctl-solid-border: var(--tucu-input-success-solid-border, var(--tucu-input-success-solid-border-default));
+    --tucu-ctl-solid-bg: var(--tucu-input-success-solid-bg, var(--tucu-input-success-solid-bg-default));
+    --tucu-ctl-solid-bg-hover: var(--tucu-input-success-solid-bg-hover, var(--tucu-input-success-solid-bg-hover-default));
+    --tucu-ctl-solid-ring: var(--tucu-input-success-solid-ring, var(--tucu-input-success-solid-ring-default));
+    --tucu-ctl-transparent-bg: var(--tucu-input-success-transparent-bg, var(--tucu-input-success-transparent-bg-default));
+    --tucu-ctl-transparent-bg-hover: var(--tucu-input-success-transparent-bg-hover, var(--tucu-input-success-transparent-bg-hover-default));
+    --tucu-ctl-transparent-ring: var(--tucu-input-success-transparent-ring, var(--tucu-input-success-transparent-ring-default));
+    --tucu-ctl-text: var(--tucu-control-text, var(--tucu-control-text-default));
+    --tucu-ctl-hover-ring: var(--tucu-control-hover-ring, var(--tucu-control-hover-ring-default));
+  }
+
+  [data-tucu-control-tone='warning'] {
+    --tucu-ctl-accent: var(--tucu-input-warning-accent, var(--tucu-input-warning-accent-default));
+    --tucu-ctl-ghost-border: var(--tucu-input-warning-ghost-border, var(--tucu-input-warning-ghost-border-default));
+    --tucu-ctl-ghost-border-hover: var(--tucu-input-warning-ghost-border-hover, var(--tucu-input-warning-ghost-border-hover-default));
+    --tucu-ctl-ghost-bg: var(--tucu-input-warning-ghost-bg, var(--tucu-input-warning-ghost-bg-default));
+    --tucu-ctl-ghost-ring: var(--tucu-input-warning-ghost-ring, var(--tucu-input-warning-ghost-ring-default));
+    --tucu-ctl-solid-border: var(--tucu-input-warning-solid-border, var(--tucu-input-warning-solid-border-default));
+    --tucu-ctl-solid-bg: var(--tucu-input-warning-solid-bg, var(--tucu-input-warning-solid-bg-default));
+    --tucu-ctl-solid-bg-hover: var(--tucu-input-warning-solid-bg-hover, var(--tucu-input-warning-solid-bg-hover-default));
+    --tucu-ctl-solid-ring: var(--tucu-input-warning-solid-ring, var(--tucu-input-warning-solid-ring-default));
+    --tucu-ctl-transparent-bg: var(--tucu-input-warning-transparent-bg, var(--tucu-input-warning-transparent-bg-default));
+    --tucu-ctl-transparent-bg-hover: var(--tucu-input-warning-transparent-bg-hover, var(--tucu-input-warning-transparent-bg-hover-default));
+    --tucu-ctl-transparent-ring: var(--tucu-input-warning-transparent-ring, var(--tucu-input-warning-transparent-ring-default));
+    --tucu-ctl-text: var(--tucu-control-text, var(--tucu-control-text-default));
+    --tucu-ctl-hover-ring: var(--tucu-control-hover-ring, var(--tucu-control-hover-ring-default));
+  }
+
+  [data-tucu-control-file-tone='primary'] {
+    --tucu-ctl-file-wrapper-border: var(--tucu-file-input-primary-wrapper-border, var(--tucu-file-input-primary-wrapper-border-default));
+    --tucu-ctl-file-wrapper-bg: var(--tucu-file-input-primary-wrapper-bg, var(--tucu-file-input-primary-wrapper-bg-default));
+    --tucu-ctl-file-dropzone-border: var(--tucu-file-input-primary-dropzone-border, var(--tucu-file-input-primary-dropzone-border-default));
+    --tucu-ctl-file-dropzone-bg: var(--tucu-file-input-primary-dropzone-bg, var(--tucu-file-input-primary-dropzone-bg-default));
+    --tucu-ctl-file-dropzone-border-active: var(--tucu-file-input-primary-dropzone-border-active, var(--tucu-file-input-primary-dropzone-border-active-default));
+    --tucu-ctl-file-dropzone-bg-active: var(--tucu-file-input-primary-dropzone-bg-active, var(--tucu-file-input-primary-dropzone-bg-active-default));
+  }
+
+  [data-tucu-control-file-tone='secondary'] {
+    --tucu-ctl-file-wrapper-border: var(--tucu-file-input-secondary-wrapper-border, var(--tucu-file-input-secondary-wrapper-border-default));
+    --tucu-ctl-file-wrapper-bg: var(--tucu-file-input-secondary-wrapper-bg, var(--tucu-file-input-secondary-wrapper-bg-default));
+    --tucu-ctl-file-dropzone-border: var(--tucu-file-input-secondary-dropzone-border, var(--tucu-file-input-secondary-dropzone-border-default));
+    --tucu-ctl-file-dropzone-bg: var(--tucu-file-input-secondary-dropzone-bg, var(--tucu-file-input-secondary-dropzone-bg-default));
+    --tucu-ctl-file-dropzone-border-active: var(--tucu-file-input-secondary-dropzone-border-active, var(--tucu-file-input-secondary-dropzone-border-active-default));
+    --tucu-ctl-file-dropzone-bg-active: var(--tucu-file-input-secondary-dropzone-bg-active, var(--tucu-file-input-secondary-dropzone-bg-active-default));
+  }
+
+  [data-tucu-control-file-tone='danger'] {
+    --tucu-ctl-file-wrapper-border: var(--tucu-file-input-danger-wrapper-border, var(--tucu-file-input-danger-wrapper-border-default));
+    --tucu-ctl-file-wrapper-bg: var(--tucu-file-input-danger-wrapper-bg, var(--tucu-file-input-danger-wrapper-bg-default));
+    --tucu-ctl-file-dropzone-border: var(--tucu-file-input-danger-dropzone-border, var(--tucu-file-input-danger-dropzone-border-default));
+    --tucu-ctl-file-dropzone-bg: var(--tucu-file-input-danger-dropzone-bg, var(--tucu-file-input-danger-dropzone-bg-default));
+    --tucu-ctl-file-dropzone-border-active: var(--tucu-file-input-danger-dropzone-border-active, var(--tucu-file-input-danger-dropzone-border-active-default));
+    --tucu-ctl-file-dropzone-bg-active: var(--tucu-file-input-danger-dropzone-bg-active, var(--tucu-file-input-danger-dropzone-bg-active-default));
+  }
+
+  [data-tucu-control-file-tone='info'] {
+    --tucu-ctl-file-wrapper-border: var(--tucu-file-input-info-wrapper-border, var(--tucu-file-input-info-wrapper-border-default));
+    --tucu-ctl-file-wrapper-bg: var(--tucu-file-input-info-wrapper-bg, var(--tucu-file-input-info-wrapper-bg-default));
+    --tucu-ctl-file-dropzone-border: var(--tucu-file-input-info-dropzone-border, var(--tucu-file-input-info-dropzone-border-default));
+    --tucu-ctl-file-dropzone-bg: var(--tucu-file-input-info-dropzone-bg, var(--tucu-file-input-info-dropzone-bg-default));
+    --tucu-ctl-file-dropzone-border-active: var(--tucu-file-input-info-dropzone-border-active, var(--tucu-file-input-info-dropzone-border-active-default));
+    --tucu-ctl-file-dropzone-bg-active: var(--tucu-file-input-info-dropzone-bg-active, var(--tucu-file-input-info-dropzone-bg-active-default));
+  }
+
+  [data-tucu-control-file-tone='success'] {
+    --tucu-ctl-file-wrapper-border: var(--tucu-file-input-success-wrapper-border, var(--tucu-file-input-success-wrapper-border-default));
+    --tucu-ctl-file-wrapper-bg: var(--tucu-file-input-success-wrapper-bg, var(--tucu-file-input-success-wrapper-bg-default));
+    --tucu-ctl-file-dropzone-border: var(--tucu-file-input-success-dropzone-border, var(--tucu-file-input-success-dropzone-border-default));
+    --tucu-ctl-file-dropzone-bg: var(--tucu-file-input-success-dropzone-bg, var(--tucu-file-input-success-dropzone-bg-default));
+    --tucu-ctl-file-dropzone-border-active: var(--tucu-file-input-success-dropzone-border-active, var(--tucu-file-input-success-dropzone-border-active-default));
+    --tucu-ctl-file-dropzone-bg-active: var(--tucu-file-input-success-dropzone-bg-active, var(--tucu-file-input-success-dropzone-bg-active-default));
+  }
+
+  [data-tucu-control-file-tone='warning'] {
+    --tucu-ctl-file-wrapper-border: var(--tucu-file-input-warning-wrapper-border, var(--tucu-file-input-warning-wrapper-border-default));
+    --tucu-ctl-file-wrapper-bg: var(--tucu-file-input-warning-wrapper-bg, var(--tucu-file-input-warning-wrapper-bg-default));
+    --tucu-ctl-file-dropzone-border: var(--tucu-file-input-warning-dropzone-border, var(--tucu-file-input-warning-dropzone-border-default));
+    --tucu-ctl-file-dropzone-bg: var(--tucu-file-input-warning-dropzone-bg, var(--tucu-file-input-warning-dropzone-bg-default));
+    --tucu-ctl-file-dropzone-border-active: var(--tucu-file-input-warning-dropzone-border-active, var(--tucu-file-input-warning-dropzone-border-active-default));
+    --tucu-ctl-file-dropzone-bg-active: var(--tucu-file-input-warning-dropzone-bg-active, var(--tucu-file-input-warning-dropzone-bg-active-default));
+  }
+
+  [data-tucu-control-accent='primary'],
+  [data-tucu-control-chip='primary'] {
+    --tucu-ctl-accent-text: var(--tucu-control-primary-accent-text, var(--tucu-control-primary-accent-text-default));
+    --tucu-ctl-chip-bg: var(--tucu-control-primary-chip-bg, var(--tucu-control-primary-chip-bg-default));
+    --tucu-ctl-chip-bg-hover: var(--tucu-control-primary-chip-bg-hover, var(--tucu-control-primary-chip-bg-hover-default));
+  }
+
+  [data-tucu-control-accent='secondary'],
+  [data-tucu-control-chip='secondary'] {
+    --tucu-ctl-accent-text: var(--tucu-control-secondary-accent-text, var(--tucu-control-secondary-accent-text-default));
+    --tucu-ctl-chip-bg: var(--tucu-control-secondary-chip-bg, var(--tucu-control-secondary-chip-bg-default));
+    --tucu-ctl-chip-bg-hover: var(--tucu-control-secondary-chip-bg-hover, var(--tucu-control-secondary-chip-bg-hover-default));
+  }
+
+  [data-tucu-control-accent='danger'],
+  [data-tucu-control-chip='danger'] {
+    --tucu-ctl-accent-text: var(--tucu-control-danger-accent-text, var(--tucu-control-danger-accent-text-default));
+    --tucu-ctl-chip-bg: var(--tucu-control-danger-chip-bg, var(--tucu-control-danger-chip-bg-default));
+    --tucu-ctl-chip-bg-hover: var(--tucu-control-danger-chip-bg-hover, var(--tucu-control-danger-chip-bg-hover-default));
+  }
+
+  [data-tucu-control-accent='info'],
+  [data-tucu-control-chip='info'] {
+    --tucu-ctl-accent-text: var(--tucu-control-info-accent-text, var(--tucu-control-info-accent-text-default));
+    --tucu-ctl-chip-bg: var(--tucu-control-info-chip-bg, var(--tucu-control-info-chip-bg-default));
+    --tucu-ctl-chip-bg-hover: var(--tucu-control-info-chip-bg-hover, var(--tucu-control-info-chip-bg-hover-default));
+  }
+
+  [data-tucu-control-accent='success'],
+  [data-tucu-control-chip='success'] {
+    --tucu-ctl-accent-text: var(--tucu-control-success-accent-text, var(--tucu-control-success-accent-text-default));
+    --tucu-ctl-chip-bg: var(--tucu-control-success-chip-bg, var(--tucu-control-success-chip-bg-default));
+    --tucu-ctl-chip-bg-hover: var(--tucu-control-success-chip-bg-hover, var(--tucu-control-success-chip-bg-hover-default));
+  }
+
+  [data-tucu-control-accent='warning'],
+  [data-tucu-control-chip='warning'] {
+    --tucu-ctl-accent-text: var(--tucu-control-warning-accent-text, var(--tucu-control-warning-accent-text-default));
+    --tucu-ctl-chip-bg: var(--tucu-control-warning-chip-bg, var(--tucu-control-warning-chip-bg-default));
+    --tucu-ctl-chip-bg-hover: var(--tucu-control-warning-chip-bg-hover, var(--tucu-control-warning-chip-bg-hover-default));
+  }
+
+  [data-tucu-control-tone] {
+    caret-color: var(--tucu-ctl-accent);
+  }
+
+  [data-tucu-control-tone][data-tucu-control-variant='ghost'] {
+    color: var(--tucu-ctl-text);
+    border-color: var(--tucu-ctl-ghost-border);
+    background-color: var(--tucu-ctl-ghost-bg);
+  }
+
+  [data-tucu-control-tone][data-tucu-control-variant='ghost']:hover {
+    border-color: var(--tucu-ctl-ghost-border-hover);
+  }
+
+  [data-tucu-control-tone][data-tucu-control-variant='ghost'][data-tucu-control-hover-ring]:hover {
+    --tw-ring-color: var(--tucu-ctl-hover-ring);
+  }
+
+  [data-tucu-control-tone][data-tucu-control-variant='ghost']:focus {
+    border-color: var(--tucu-ctl-accent);
+    --tw-ring-color: var(--tucu-ctl-ghost-ring);
+  }
+
+  [data-tucu-control-tone][data-tucu-control-variant='solid'] {
+    border-color: var(--tucu-ctl-solid-border);
+    background-color: var(--tucu-ctl-solid-bg);
+  }
+
+  [data-tucu-control-tone][data-tucu-control-variant='solid']:hover {
+    background-color: var(--tucu-ctl-solid-bg-hover);
+  }
+
+  [data-tucu-control-tone][data-tucu-control-variant='solid']:focus {
+    border-color: var(--tucu-ctl-accent);
+    --tw-ring-color: var(--tucu-ctl-solid-ring);
+  }
+
+  [data-tucu-control-tone][data-tucu-control-variant='transparent'] {
+    border-color: transparent;
+    background-color: var(--tucu-ctl-transparent-bg);
+  }
+
+  [data-tucu-control-tone][data-tucu-control-variant='transparent']:hover {
+    background-color: var(--tucu-ctl-transparent-bg-hover);
+  }
+
+  [data-tucu-control-tone][data-tucu-control-variant='transparent']:focus {
+    border-color: var(--tucu-ctl-accent);
+    --tw-ring-color: var(--tucu-ctl-transparent-ring);
+  }
+
+  [data-tucu-control-file-tone][data-tucu-control-part='wrapper'] {
+    border-color: var(--tucu-ctl-file-wrapper-border);
+    background-color: var(--tucu-ctl-file-wrapper-bg);
+  }
+
+  [data-tucu-control-file-tone][data-tucu-control-part='dropzone'] {
+    border-color: var(--tucu-ctl-file-dropzone-border);
+    background-color: var(--tucu-ctl-file-dropzone-bg);
+  }
+
+  [data-tucu-control-file-tone][data-tucu-control-part='dropzone']:hover,
+  [data-tucu-control-file-tone][data-tucu-control-part='dropzone']:focus-within {
+    border-color: var(--tucu-ctl-file-dropzone-border-active);
+    background-color: var(--tucu-ctl-file-dropzone-bg-active);
+  }
+
+  [data-tucu-control-accent] {
+    color: var(--tucu-ctl-accent-text);
+  }
+
+  [data-tucu-control-chip] {
+    color: var(--tucu-ctl-accent-text);
+    background-color: var(--tucu-ctl-chip-bg);
+  }
+
+  [data-tucu-control-chip]:hover {
+    background-color: var(--tucu-ctl-chip-bg-hover);
+  }
+
+  [data-tucu='button'][data-variant='transparent'] {
+    background-color: transparent;
+  }
+
+  [data-tucu='button'][data-variant='transparent']:is(:hover, :focus):not(:disabled):not([aria-busy='true']) {
+    background-color: var(--tucu-button-transparent-hover-bg, var(--tucu-button-transparent-hover-bg-default));
+  }
+
+  [data-tucu='button'][data-variant='transparent'][aria-busy='true']:not(:disabled) {
+    background-color: var(--tucu-button-transparent-busy-bg, var(--tucu-button-transparent-busy-bg-default));
+  }
+
+  [data-tucu='button'][data-color='gray'][data-variant='solid']:not(:disabled) {
+    background-color: var(--tucu-button-gray-bg, var(--tucu-button-gray-bg-default));
+  }
+
+  [data-tucu='button'][data-color='gray']:not([data-variant='solid']):not(:disabled) {
+    color: var(--tucu-button-gray-text, var(--tucu-button-gray-text-default));
+  }
+
+  [data-tucu='button']:focus-visible {
+    --tw-ring-offset-color: var(--tucu-button-ring-offset, var(--tucu-button-ring-offset-default));
+  }
+
+  [data-tucu='button']:disabled {
+    background-color: var(--tucu-button-disabled-bg, var(--tucu-button-disabled-bg-default));
+    color: var(--tucu-button-disabled-text, var(--tucu-button-disabled-text-default));
+  }
+
+  [data-tucu='button'][data-variant='solid']:disabled {
+    color: var(--tucu-button-disabled-solid-text, var(--tucu-button-disabled-solid-text-default));
+  }
+}
