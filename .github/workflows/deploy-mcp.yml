@@ -2,10 +2,21 @@ name: Deploy MCP Server
 on:
   push:
     branches: [main]
+    paths:
+      - 'tools/mcp-server/**'
+      - '!tools/mcp-server/**/*.md'
+      - '!tools/mcp-server/tests/**'
+      - '.github/workflows/deploy-mcp.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-mcp
+  cancel-in-progress: true
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
