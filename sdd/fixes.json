@@ -125,6 +125,45 @@
         "source": "declared-estimate",
         "recorded_at": "2026-10-28"
       }
+    },
+    {
+      "id": "FIX-e-burgos-001",
+      "author": "e-burgos",
+      "spec_id": null,
+      "fix_document": "sdd/fixes/fix-e-burgos-001.md",
+      "type": "IMPROVEMENT",
+      "severity": "low",
+      "created_at": "2026-11-11",
+      "resolved_at": "2026-11-11",
+      "validated_at": null,
+      "title": "Deploy del MCP sólo con cambios en tools/mcp-server, concurrency y timeout en los workflows",
+      "estimation_hours": 1,
+      "description": "La cuenta superó en octubre los 3000 min de Actions del plan. Deploy MCP Server corría en cada push a main sin filtro, y una corrida del 2026-10-16 quedó colgada 300 min (el tope por defecto de 6 h). Ahora se dispara sólo con cambios en tools/mcp-server (sin md ni tests), que es lo único que copia el Dockerfile de Fly, o en su workflow, y suma workflow_dispatch. Los dos deploys suman concurrency con cancel-in-progress y los cuatro jobs un timeout-minutes.",
+      "justification": "Cambia sólo workflows; sin contratos ni entidades; reversible revirtiendo el commit. La imagen de Fly se construye desde tools/mcp-server/{package.json,tsconfig.docker.json,src}, así que ningún cambio fuera de esa carpeta llega al servidor.",
+      "related_modules": [
+        "ci"
+      ],
+      "affected_files": [
+        ".github/workflows/deploy-mcp.yml",
+        ".github/workflows/deploy-demo.yml",
+        ".github/workflows/publish-mcp.yml",
+        ".github/workflows/publish-tucu-ui.yml",
+        "sdd/fixes.json",
+        "sdd/fixes/fix-e-burgos-001.md"
+      ],
+      "test_reference": "YAML de los 4 workflows parseado; historial desde 2026-10-01: 16 de 21 pushes a main siguen disparando el deploy del MCP (todos tocan tools/mcp-server); el PR no dispara ningún deploy.",
+      "status": "implemented",
+      "cycle": null,
+      "usage": {
+        "provider_model": "claude/opus",
+        "effort": "medium",
+        "agent": "orchestrator",
+        "tokens_in": 40000,
+        "tokens_out": 6000,
+        "approx": true,
+        "source": "declared-estimate",
+        "recorded_at": "2026-11-11"
+      }
     }
   ]
 }

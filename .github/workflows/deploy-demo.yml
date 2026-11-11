@@ -8,9 +8,14 @@ on:
       - '.github/workflows/deploy-demo.yml'
   workflow_dispatch:
 
+concurrency:
+  group: deploy-demo
+  cancel-in-progress: true
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     permissions:
       contents: read
     steps:
