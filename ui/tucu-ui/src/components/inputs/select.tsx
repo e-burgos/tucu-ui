@@ -299,35 +299,46 @@ export function Select({
     }
   }, [menuWidth, maxMenuHeight, searchable]);
 
+  const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const cancelPendingClose = useCallback(() => {
+    if (closeTimerRef.current !== null) {
+      clearTimeout(closeTimerRef.current);
+      closeTimerRef.current = null;
+    }
+  }, []);
+  useEffect(() => cancelPendingClose, [cancelPendingClose]);
+
   // Open the dropdown
   const openDropdown = useCallback(() => {
     if (disabled) return;
+    cancelPendingClose();
     updateDropdownPosition();
     setHighlightedIndex(selectedIndex >= 0 ? selectedIndex : 0);
     setIsClosing(false);
     setSearch('');
     setIsOpen(true);
-  }, [disabled, selectedIndex, updateDropdownPosition]);
+  }, [disabled, selectedIndex, updateDropdownPosition, cancelPendingClose]);
 
   // Close with leave animation
   const closeDropdown = useCallback(() => {
+    cancelPendingClose();
     setIsClosing(true);
-    const timer = setTimeout(() => {
+    closeTimerRef.current = setTimeout(() => {
+      closeTimerRef.current = null;
       setIsOpen(false);
       setIsClosing(false);
       setHighlightedIndex(-1);
     }, 100); // matches leave transition duration
-    return () => clearTimeout(timer);
-  }, []);
+  }, [cancelPendingClose]);
 
   // Toggle open/close
   const toggleDropdown = useCallback(() => {
-    if (isOpen) {
+    if (isOpen && !isClosing) {
       closeDropdown();
     } else {
       openDropdown();
     }
-  }, [isOpen, openDropdown, closeDropdown]);
+  }, [isOpen, isClosing, openDropdown, closeDropdown]);
 
   // Handle selecting an option
   const handleSelect = useCallback(

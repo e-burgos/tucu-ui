@@ -125,6 +125,42 @@
         "source": "declared-estimate",
         "recorded_at": "2026-10-28"
       }
+    },
+    {
+      "id": "FIX-e-burgos-003-002",
+      "author": "e-burgos",
+      "spec_id": "spec-e-burgos-003-library-polish",
+      "fix_document": "sdd/specs/spec-e-burgos-003-library-polish/fixes/fix-e-burgos-003-002.md",
+      "type": "BUGFIX",
+      "severity": "low",
+      "created_at": "2026-11-13",
+      "resolved_at": "2026-11-13",
+      "validated_at": "2026-11-13",
+      "title": "El cierre del Select no deja un timer suelto",
+      "estimation_hours": 0.5,
+      "description": "closeDropdown arma un setTimeout de 100 ms cuya limpieza nadie usa: dispara tras desmontar (error no manejado en jsdom) y cierra un dropdown reabierto antes de los 100 ms.",
+      "justification": "Corrección interna del Select sin cambios de API; perfil solo.",
+      "related_modules": [
+        "library-polish"
+      ],
+      "affected_files": [
+        "ui/tucu-ui/src/components/inputs/select.tsx",
+        "ui/tucu-ui/src/__tests__/inputs/select-close-timer.test.tsx",
+        "sdd/specs/spec-e-burgos-003-library-polish/fixes/fix-e-burgos-003-002.md"
+      ],
+      "test_reference": "select-close-timer.test.tsx (3 casos) + suites de Select y TabSelect; suite completa de tucu-ui 1499 tests OK",
+      "status": "validated",
+      "cycle": null,
+      "usage": {
+        "provider_model": "claude/opus",
+        "effort": "medium",
+        "agent": "implementor-front",
+        "tokens_in": 70000,
+        "tokens_out": 5000,
+        "approx": true,
+        "source": "declared-estimate",
+        "recorded_at": "2026-11-13"
+      }
     }
   ]
 }
