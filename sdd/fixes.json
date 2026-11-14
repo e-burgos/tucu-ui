@@ -19,7 +19,7 @@
       "severity": "high",
       "created_at": "2026-10-27",
       "resolved_at": "2026-10-27",
-      "validated_at": null,
+      "validated_at": "2026-11-14",
       "title": "Checkout limpio roto: next-demo fuera del workspace y .nxignore restaurado",
       "estimation_hours": 0.5,
       "description": "apps/next-demo dependía de file:../../dist/ui/tucu-ui dentro del workspace, así que pnpm install --frozen-lockfile en un checkout limpio fallaba con ENOENT antes del build. Los workflows publish-tucu-ui y publish-mcp arrancan con ese install y habrían fallado al pushear los tags. next-demo sale del workspace (como examples/) con lockfile propio y se instala con --ignore-workspace después del build de la lib. Además, la instalación del kit SDD había reemplazado .nxignore y perdido la línea examples/, así que Nx no podía armar el grafo en un checkout limpio (las configs de examples/micro-frontends importan paquetes no instalados); se restaura junto a sdd/templates.",
@@ -38,7 +38,7 @@
         "sdd/specs/spec-e-burgos-001-nextjs-support/fixes/fix-e-burgos-001-001.md"
       ],
       "test_reference": "Clon limpio: pnpm install --frozen-lockfile, pnpm nx run tucu-ui:build y tucu-ui-mcp:build (los pasos de publish-*) en verde; pnpm nx run-many -t lint e2e -p next-demo en verde.",
-      "status": "implemented",
+      "status": "validated",
       "cycle": null,
       "usage": {
         "provider_model": "claude/opus",
@@ -49,7 +49,8 @@
         "approx": true,
         "source": "declared-estimate",
         "recorded_at": "2026-10-27"
-      }
+      },
+      "process_note": "Validado 2026-11-14 contra main: next-demo fuera del workspace (!apps/next-demo, lockfile propio) y .nxignore con examples/ y sdd/templates."
     },
     {
       "id": "FIX-e-burgos-002-001",
@@ -60,7 +61,7 @@
       "severity": "high",
       "created_at": "2026-10-27",
       "resolved_at": "2026-10-27",
-      "validated_at": null,
+      "validated_at": "2026-11-14",
       "title": "DrawerContainer bloqueaba los clics de su contenido y la demo resolvía tucu-ui 3.1.0",
       "estimation_hours": 1,
       "description": "DrawerContainer dejaba que sus hijos heredaran pointer-events-none del wrapper del panel, así que el TOC default y el de Sonoma no respondían en mobile (preexistente en 3.4.0). Además apps/demo y ui/tucu-docs resolvían @e-burgos/tucu-ui 3.1.0, así que las páginas de docs de 3.5-3.9 importaban componentes inexistentes. Se envuelven los hijos en una capa pointer-events-auto y se sube la demo y los docs a ^3.9.1.",
@@ -78,7 +79,7 @@
         "sdd/context/libs/tucu-ui/updates/2026-10-27-fix-e-burgos-002-001.md"
       ],
       "test_reference": "drawer-container.test.tsx; demo con el tarball a 888px (TOC despliega, navega y cierra); recorrido de 215 rutas de docs sin errores de render.",
-      "status": "implemented",
+      "status": "validated",
       "cycle": null,
       "usage": {
         "provider_model": "claude/opus",
@@ -89,7 +90,8 @@
         "approx": true,
         "source": "declared-estimate",
         "recorded_at": "2026-10-27"
-      }
+      },
+      "process_note": "Validado 2026-11-14 contra main: drawer-container.test.tsx 2/2 OK; demo y tucu-docs piden ^3.10.0."
     },
     {
       "id": "FIX-e-burgos-003-001",
@@ -100,7 +102,7 @@
       "severity": "low",
       "created_at": "2026-10-28",
       "resolved_at": "2026-10-28",
-      "validated_at": null,
+      "validated_at": "2026-11-14",
       "title": "Tone Tokens en tucu-docs: aclarar que los temas macOS ganan sobre los tokens",
       "estimation_hours": 0.25,
       "description": "El ejemplo vivo de override por token de la sección Tone Tokens no mostraba diferencia en la demo: las reglas de los temas macOS (Sonoma/Tahoe) están fuera de @layer y pisan los colores del Alert. Se agrega un aviso en la sección y se ajusta el texto del ejemplo para indicar que el override se ve con un tema por defecto.",
@@ -113,7 +115,7 @@
         "sdd/specs/spec-e-burgos-003-library-polish/fixes/fix-e-burgos-003-001.md"
       ],
       "test_reference": "Demo en el navegador: la sección Tone Tokens muestra el aviso y el texto nuevo sin errores de consola.",
-      "status": "implemented",
+      "status": "validated",
       "cycle": null,
       "usage": {
         "provider_model": "claude/opus",
@@ -124,7 +126,8 @@
         "approx": true,
         "source": "declared-estimate",
         "recorded_at": "2026-10-28"
-      }
+      },
+      "process_note": "Validado 2026-11-14 contra main: ToneTokensSection.tsx mantiene el aviso de los temas macOS."
     },
     {
       "id": "FIX-e-burgos-003-002",
